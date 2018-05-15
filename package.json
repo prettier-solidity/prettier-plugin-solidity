@@ -1,8 +1,8 @@
 {
   "name": "prettier-plugin-solidity",
   "version": "0.0.1",
-  "description": "prettier-plugin-solidity",
-  "main": "index.js",
+  "description": "prettier plugin for solidity",
+  "main": "src",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/mattiaerre/prettier-plugin-solidity.git"
   },
-  "keywords": ["ethereum", "plugin", "prettier", "solidity"],
+  "keywords": [
+    "ethereum",
+    "plugin",
+    "prettier",
+    "solidity"
+  ],
   "author": {
     "email": "mattia.richetto@gmail.com",
     "name": "Mattia Richetto"
@@ -19,5 +24,12 @@
   "bugs": {
     "url": "https://github.com/mattiaerre/prettier-plugin-solidity/issues"
   },
-  "homepage": "https://github.com/mattiaerre/prettier-plugin-solidity#readme"
+  "homepage": "https://github.com/mattiaerre/prettier-plugin-solidity#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2"
+  }
 }
