@@ -1,0 +1,23 @@
+{
+  "name": "prettier-plugin-solidity",
+  "version": "0.0.1",
+  "description": "prettier-plugin-solidity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattiaerre/prettier-plugin-solidity.git"
+  },
+  "keywords": ["ethereum", "plugin", "prettier", "solidity"],
+  "author": {
+    "email": "mattia.richetto@gmail.com",
+    "name": "Mattia Richetto"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattiaerre/prettier-plugin-solidity/issues"
+  },
+  "homepage": "https://github.com/mattiaerre/prettier-plugin-solidity#readme"
+}

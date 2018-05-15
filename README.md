@@ -1,2 +1,3 @@
 # prettier-plugin-solidity
-prettier-plugin-solidity
+
+prettier plugin for solidity
