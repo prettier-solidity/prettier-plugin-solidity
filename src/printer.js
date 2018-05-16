@@ -1,4 +1,2 @@
 // https://prettier.io/docs/en/plugins.html#printers
-const print = (path, options) => options.originalText;
-
-module.exports = print;
+module.exports = (path, options) => options.originalText;

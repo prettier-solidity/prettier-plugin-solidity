@@ -31,5 +31,9 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2"
+  },
+  "dependencies": {
+    "prettier": "^1.12.1",
+    "solidity-parser-antlr": "^0.2.10"
   }
 }

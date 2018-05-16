@@ -1,6 +1,6 @@
 # prettier-plugin-solidity
 
-work in progress prettier plugin for solidity
+work in progress [prettier plugin](https://github.com/prettier/prettier/issues/4180) for [solidity](https://github.com/ethereum/solidity)
 
 ## Use
 
