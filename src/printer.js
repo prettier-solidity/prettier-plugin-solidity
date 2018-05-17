@@ -1,2 +1,4 @@
 // https://prettier.io/docs/en/plugins.html#printers
-module.exports = (path, options) => options.originalText;
+const genericPrint = (path, options) => options.originalText;
+
+module.exports = genericPrint;
