@@ -1,9 +1,6 @@
+// https://prettier.io/docs/en/plugins.html#parsers
 const parser = require('solidity-parser-antlr');
 
-// https://prettier.io/docs/en/plugins.html#parsers
-// eslint-disable-next-line arrow-body-style
-const parse = text => {
-  return parser.parse(text);
-};
+const parse = text => parser.parse(text, { loc: true });
 
 module.exports = parse;
