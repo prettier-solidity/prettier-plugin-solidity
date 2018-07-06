@@ -1,5 +1,5 @@
 // https://prettier.io/docs/en/plugins.html#printers
-const { concat, hardline, join } = require('prettier').doc.builders;
+const { concat, hardline, indent, join } = require('prettier').doc.builders;
 
 const space = ' ';
 
@@ -13,6 +13,13 @@ const genericPrint = (path, options, print) => {
       return concat([
         join(space, ['pragma', node.name, node.value]),
         ';',
+        hardline
+      ]);
+    case 'ContractDefinition':
+      return concat([
+        join(space, [node.kind, node.name, '{']),
+        indent(concat([hardline, join(hardline, path.map(print, 'subNodes'))])),
+        '}',
         hardline
       ]);
     default:
