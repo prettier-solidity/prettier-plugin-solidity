@@ -9,11 +9,11 @@ work in progress [prettier plugin](https://github.com/prettier/prettier/issues/4
 ## Test
 
 ```bash
-node_modules/prettier/bin-prettier.js --write **/*.sol --plugin=./src
+node_modules/.bin/prettier --write **/*.sol --plugin=./src
 ```
 
 ## Use
 
 ```bash
-node_modules/prettier/bin-prettier.js --write **/*.sol --plugin=./node_modules/prettier-plugin-solidity
+node_modules/.bin/prettier --write **/*.sol --plugin=./node_modules/prettier-plugin-solidity
 ```
