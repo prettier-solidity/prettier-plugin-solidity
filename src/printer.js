@@ -1,45 +1,29 @@
 // https://prettier.io/docs/en/plugins.html#printers
-const { concat, line } = require('prettier').doc.builders;
+const { concat, hardline, join } = require('prettier').doc.builders;
 
 const space = ' ';
 
-const genericPrint = (path, options) => {
+const genericPrint = (path, options, print) => {
   const node = path.getValue();
-  const lines = options.originalText.split('\n');
-  const parts = [];
 
   switch (node.type) {
     case 'SourceUnit':
-      node.children.forEach(child => {
-        switch (child.type) {
-          case 'PragmaDirective':
-            parts.push(
-              concat([
-                'pragma',
-                space,
-                child.name,
-                space,
-                child.value,
-                ';',
-                line,
-                line
-              ])
-            );
-            break;
-          default:
-            for (
-              let index = child.loc.start.line;
-              index <= child.loc.end.line;
-              index += 1
-            ) {
-              parts.push(concat([lines[index - 1], line]));
-            }
-            break;
-        }
-      });
-      return concat(parts);
+      return join(hardline, path.map(print, 'children'));
+    case 'PragmaDirective':
+      return concat([
+        'pragma',
+        space,
+        node.name,
+        space,
+        node.value,
+        ';',
+        hardline
+      ]);
     default:
-      throw Error('UNKNOWN NODE TYPE');
+      return concat([
+        options.originalText.slice(node.range[0], node.range[1] + 1),
+        hardline
+      ]);
   }
 };
 
