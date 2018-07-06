@@ -11,11 +11,7 @@ const genericPrint = (path, options, print) => {
       return join(hardline, path.map(print, 'children'));
     case 'PragmaDirective':
       return concat([
-        'pragma',
-        space,
-        node.name,
-        space,
-        node.value,
+        join(space, ['pragma', node.name, node.value]),
         ';',
         hardline
       ]);
