@@ -38,11 +38,12 @@ function run_spec(dirname, options) {
       });
 
       const mergedOptions = Object.assign(mergeDefaultOptions(options || {}), {
+        filepath,
         rangeStart,
         rangeEnd,
         cursorOffset
       });
-      const output = prettyprint(input, filepath, mergedOptions);
+      const output = prettyprint(input, mergedOptions);
       test(filename, () => {
         expect(
           raw(source + '~'.repeat(mergedOptions.printWidth) + '\n' + output)
@@ -58,7 +59,7 @@ function run_spec(dirname, options) {
 
           expect(() => {
             ppastMassaged = parse(
-              prettyprint(input, filepath, compareOptions),
+              prettyprint(input, compareOptions),
               compareOptions
             );
           }).not.toThrow();
@@ -79,16 +80,8 @@ function parse(string, opts) {
   return prettier.__debug.parse(string, opts, /* massage */ true).ast;
 }
 
-function prettyprint(src, filename, options) {
-  const result = prettier.formatWithCursor(
-    src,
-    Object.assign(
-      {
-        filepath: filename
-      },
-      options
-    )
-  );
+function prettyprint(src, options) {
+  const result = prettier.formatWithCursor(src, options);
   if (options.cursorOffset >= 0) {
     result.formatted =
       result.formatted.slice(0, result.cursorOffset) +
