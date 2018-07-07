@@ -1,5 +1,6 @@
 const parse = require('./parser');
 const print = require('./printer');
+const massageAstNode = require('./clean');
 
 // https://prettier.io/docs/en/plugins.html#languages
 const languages = [
@@ -21,7 +22,8 @@ const parsers = {
 // https://prettier.io/docs/en/plugins.html#printers
 const printers = {
   'solidity-ast': {
-    print
+    print,
+    massageAstNode
   }
 };
 
