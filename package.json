@@ -4,7 +4,10 @@
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "prettier": "prettier \"{.,{src,tests_config}/**}/*.{js{,on},md}\" \"tests/**/jsfmt.spec.js\"",
+    "lint": "npm run prettier -- --list-different",
+    "lint:fix": "npm run prettier -- --write",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -30,7 +33,9 @@
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.0",
-    "eslint-plugin-react": "^7.10.0"
+    "eslint-plugin-react": "^7.10.0",
+    "jest": "^23.3.0",
+    "jest-watch-typeahead": "^0.1.0"
   },
   "dependencies": {
     "prettier": "^1.13.7",
