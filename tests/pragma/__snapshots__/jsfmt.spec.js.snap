@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`long-pragma.sol 1`] = `
+pragma honestDiscoveryExpectDeportRepeatAgreeWalkCereal sufferFormMissileNunResidentOfferImprove;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pragma
+  honestDiscoveryExpectDeportRepeatAgreeWalkCereal
+  sufferFormMissileNunResidentOfferImprove;
+`;
+
 exports[`solidity.sol 1`] = `
 pragma solidity ^0.4.23;
 pragma   solidity   ^0.4.23;
