@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattiaerre/prettier-plugin-solidity.git"
+    "url": "git+https://github.com/prettier-solidity/prettier-plugin-solidity.git"
   },
   "keywords": [
     "ethereum",
@@ -23,11 +23,21 @@
     "email": "mattia.richetto@gmail.com",
     "name": "Mattia Richetto"
   },
+  "contributors": [
+    {
+      "email": "TODO",
+      "name": "Federico Bond"
+    },
+    {
+      "email": "TODO",
+      "name": "Jed Fox"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mattiaerre/prettier-plugin-solidity/issues"
+    "url": "https://github.com/prettier-solidity/prettier-plugin-solidity/issues"
   },
-  "homepage": "https://github.com/mattiaerre/prettier-plugin-solidity#readme",
+  "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "devDependencies": {
     "eslint": "^5.0.1",
     "eslint-config-airbnb": "^17.0.0",
