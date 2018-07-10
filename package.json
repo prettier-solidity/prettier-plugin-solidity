@@ -7,7 +7,7 @@
     "prettier": "prettier \"{.,{src,tests_config}/**}/*.{js{,on},md}\" \"tests/**/jsfmt.spec.js\"",
     "eslint": "eslint src/**",
     "lint": "npm run eslint && npm run prettier -- --list-different",
-    "lint:fix": "npm run eslint && npm run prettier -- --write",
+    "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "test": "jest"
   },
   "repository": {
