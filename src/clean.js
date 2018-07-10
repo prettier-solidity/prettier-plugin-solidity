@@ -1,0 +1,8 @@
+// eslint-disable-next-line no-unused-vars
+const clean = (ast, newObj, parent) => {
+  ['loc', 'range'].forEach(name => {
+    delete newObj[name]; // eslint-disable-line no-param-reassign
+  });
+};
+
+module.exports = clean;

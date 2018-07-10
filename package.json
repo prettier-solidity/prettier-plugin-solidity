@@ -1,10 +1,13 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "prettier": "prettier \"{.,{src,tests_config}/**}/*.{js{,on},md}\" \"tests/**/jsfmt.spec.js\"",
+    "lint": "npm run prettier -- --list-different",
+    "lint:fix": "npm run prettier -- --write",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -26,14 +29,16 @@
   },
   "homepage": "https://github.com/mattiaerre/prettier-plugin-solidity#readme",
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.8.2"
+    "eslint": "^5.0.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-react": "^7.10.0",
+    "jest": "^23.3.0",
+    "jest-watch-typeahead": "^0.1.0"
   },
   "dependencies": {
-    "prettier": "^1.12.1",
-    "solidity-parser-antlr": "^0.2.10"
+    "prettier": "^1.13.7",
+    "solidity-parser-antlr": "^0.2.15"
   }
 }
