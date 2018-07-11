@@ -4,10 +4,11 @@
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
-    "prettier": "prettier \"{.,{src,tests_config}/**}/*.{js{,on},md}\" \"tests/**/jsfmt.spec.js\"",
+    "coverage": "codecov",
     "eslint": "eslint src/**",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
+    "prettier": "prettier \"{.,{src,tests_config}/**}/*.{js{,on},md}\" \"tests/**/jsfmt.spec.js\"",
     "test": "jest"
   },
   "repository": {
@@ -40,6 +41,7 @@
   },
   "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "devDependencies": {
+    "codecov": "^3.0.4",
     "eslint": "^5.0.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
