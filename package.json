@@ -4,14 +4,16 @@
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
+    "coverage": "codecov",
+    "eslint": "eslint src/**",
+    "lint": "npm run eslint && npm run prettier -- --list-different",
+    "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prettier": "prettier \"{.,{src,tests_config}/**}/*.{js{,on},md}\" \"tests/**/jsfmt.spec.js\"",
-    "lint": "npm run prettier -- --list-different",
-    "lint:fix": "npm run prettier -- --write",
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattiaerre/prettier-plugin-solidity.git"
+    "url": "git+https://github.com/prettier-solidity/prettier-plugin-solidity.git"
   },
   "keywords": [
     "ethereum",
@@ -23,12 +25,23 @@
     "email": "mattia.richetto@gmail.com",
     "name": "Mattia Richetto"
   },
+  "contributors": [
+    {
+      "email": "federico.bond@gmail.com",
+      "name": "Federico Bond"
+    },
+    {
+      "email": "git@twopointzero.us",
+      "name": "Jed Fox"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mattiaerre/prettier-plugin-solidity/issues"
+    "url": "https://github.com/prettier-solidity/prettier-plugin-solidity/issues"
   },
-  "homepage": "https://github.com/mattiaerre/prettier-plugin-solidity#readme",
+  "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "devDependencies": {
+    "codecov": "^3.0.4",
     "eslint": "^5.0.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",

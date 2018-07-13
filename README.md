@@ -4,7 +4,7 @@ work in progress [prettier plugin](https://github.com/prettier/prettier/issues/4
 
 ## Resources
 
-- https://github.com/mattiaerre/prettier-plugin-solidity/issues/2
+- https://github.com/prettier-solidity/prettier-plugin-solidity/issues/2
 
 ## Test
 

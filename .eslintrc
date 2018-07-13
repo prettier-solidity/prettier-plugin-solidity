@@ -1,5 +1,8 @@
 {
   "extends": "airbnb",
+  "globals": {
+    "run_spec": false
+  },
   "rules": {
     "arrow-parens": "off",
     "comma-dangle": "off",
