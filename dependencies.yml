@@ -1,0 +1,8 @@
+collectors:
+
+- type: js-npm
+  path: /
+  actors:
+  # pull requests for all major, minor, and patch updates
+  - type: js-npm
+    versions: "Y.Y.Y"
