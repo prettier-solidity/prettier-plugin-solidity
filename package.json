@@ -52,6 +52,6 @@
   },
   "dependencies": {
     "prettier": "^1.13.7",
-    "solidity-parser-antlr": "^0.2.15"
+    "solidity-parser-antlr": "^0.3.0"
   }
 }
