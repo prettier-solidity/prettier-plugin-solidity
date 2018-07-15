@@ -48,7 +48,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.0",
     "eslint-plugin-react": "^7.10.0",
     "jest": "^23.3.0",
-    "jest-watch-typeahead": "^0.1.0"
+    "jest-watch-typeahead": "^0.2.0"
   },
   "dependencies": {
     "prettier": "^1.13.7",
