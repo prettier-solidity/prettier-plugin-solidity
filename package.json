@@ -51,7 +51,7 @@
     "jest-watch-typeahead": "^0.2.0"
   },
   "dependencies": {
-    "prettier": "^1.13.7",
+    "prettier": "^1.14.0",
     "solidity-parser-antlr": "^0.3.1"
   }
 }
