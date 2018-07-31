@@ -3,9 +3,7 @@
 exports[`long-pragma.sol 1`] = `
 pragma honestDiscoveryExpectDeportRepeatAgreeWalkCereal sufferFormMissileNunResidentOfferImprove;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-pragma
-  honestDiscoveryExpectDeportRepeatAgreeWalkCereal
-  sufferFormMissileNunResidentOfferImprove;
+pragma honestDiscoveryExpectDeportRepeatAgreeWalkCereal sufferFormMissileNunResidentOfferImprove;
 `;
 
 exports[`solidity.sol 1`] = `
