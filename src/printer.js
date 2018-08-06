@@ -1,11 +1,11 @@
 const {
   concat,
-  join,
-  indent,
-  softline,
+  group,
   hardline,
+  indent,
+  join,
   line,
-  group
+  softline
 } = require('prettier').doc.builders;
 
 function genericPrint(path, options, print) {
