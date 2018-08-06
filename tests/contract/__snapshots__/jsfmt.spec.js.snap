@@ -17,7 +17,7 @@ contract Inbox {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.4.23;
 contract Inbox {
-  string message;
+  string public message;
   constructor(string initialMessage) public {
     message = initialMessage;
   }
