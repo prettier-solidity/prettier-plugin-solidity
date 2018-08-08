@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`inbox.sol 1`] = `
+// This comment spans one line
+
+/*
+This
+comment
+spans
+multiple
+lines.
+*/
+
 pragma   solidity   ^0.4.23;
 contract Inbox {
   string public message;

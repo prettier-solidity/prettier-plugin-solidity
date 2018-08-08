@@ -1,3 +1,13 @@
+// This comment spans one line
+
+/*
+This
+comment
+spans
+multiple
+lines.
+*/
+
 pragma   solidity   ^0.4.23;
 contract Inbox {
   string public message;
