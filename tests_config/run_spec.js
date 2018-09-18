@@ -5,7 +5,6 @@ const fs = require('fs');
 const path = require('path');
 
 const AST_COMPARE = process.env['AST_COMPARE'];
-const TEST_STANDALONE = process.env['TEST_STANDALONE'];
 
 const prettier = require('prettier');
 
