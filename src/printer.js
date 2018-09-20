@@ -255,6 +255,9 @@ function genericPrint(path, options, print) {
       if (node.isIndexed) {
         doc = join(' ', [doc, 'indexed']);
       }
+      if (node.visibility === 'default') {
+        return join(' ', [doc, node.name]);
+      }
       return join(' ', [doc, node.visibility, node.name]);
     case 'ArrayTypeName':
       return concat([
