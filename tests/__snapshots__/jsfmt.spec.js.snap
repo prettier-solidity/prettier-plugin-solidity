@@ -29,11 +29,11 @@ pragma solidity ^0.4.23;
 contract Inbox {
   string public message;
 
-   constructor(string initialMessage) public {
+  constructor(string initialMessage) public {
     message = initialMessage;
   }
 
-   function setMessage(string newMessage) public {
+  function setMessage(string newMessage) public {
     message = newMessage;
   }
 }
@@ -61,11 +61,11 @@ contract SimpleStorage {
   string public name = "SimpleStorage";
   uint storedData;
 
-   function set(uint x) public {
+  function set(uint x) public {
     storedData = x;
   }
 
-   function get() public view returns(uint) {
+  function get() public view returns(uint) {
     return storedData;
   }
 }

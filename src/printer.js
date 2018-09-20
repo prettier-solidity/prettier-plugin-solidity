@@ -92,7 +92,7 @@ function genericPrint(path, options, print) {
         ]);
       }
       if (node.body) {
-        return join(' ', [line, doc, path.call(print, 'body')]);
+        return concat([line, join(' ', [doc, path.call(print, 'body')])]);
       }
       return concat([doc, ';']);
     case 'ParameterList':
