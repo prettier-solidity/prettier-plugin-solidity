@@ -258,7 +258,10 @@ function genericPrint(path, options, print) {
       if (node.visibility === 'default') {
         return join(' ', [doc, node.name]);
       }
-      return join(' ', [doc, node.visibility, node.name].filter(element => element)); // info: removes undefined
+      return join(
+        ' ',
+        [doc, node.visibility, node.name].filter(element => element)
+      );
     case 'ArrayTypeName':
       return concat([
         path.call(print, 'baseTypeName'),
