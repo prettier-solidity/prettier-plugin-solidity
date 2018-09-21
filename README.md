@@ -17,3 +17,9 @@ node_modules/.bin/prettier --write **/*.sol --plugin=./src
 ```bash
 node_modules/.bin/prettier --write **/*.sol --plugin=./node_modules/prettier-plugin-solidity
 ```
+
+## Install
+
+```bash
+npm install mattiaerre/prettier-plugin-solidity
+```

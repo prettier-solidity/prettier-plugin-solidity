@@ -49,7 +49,8 @@ function genericPrint(path, options, print) {
         indent(line),
         indent(join(hardline, path.map(print, 'subNodes'))),
         line,
-        '}'
+        '}',
+        line
       ]);
     case 'InheritanceSpecifier':
       return path.call(print, 'baseName');
@@ -91,7 +92,7 @@ function genericPrint(path, options, print) {
         ]);
       }
       if (node.body) {
-        return join(' ', [doc, path.call(print, 'body')]);
+        return concat([line, join(' ', [doc, path.call(print, 'body')])]);
       }
       return concat([doc, ';']);
     case 'ParameterList':
@@ -253,6 +254,9 @@ function genericPrint(path, options, print) {
       doc = path.call(print, 'typeName');
       if (node.isIndexed) {
         doc = join(' ', [doc, 'indexed']);
+      }
+      if (node.visibility === 'default') {
+        return join(' ', [doc, node.name]);
       }
       return join(' ', [doc, node.visibility, node.name]);
     case 'ArrayTypeName':
