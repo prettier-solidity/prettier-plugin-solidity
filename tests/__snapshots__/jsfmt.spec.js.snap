@@ -26,6 +26,7 @@ contract Inbox {
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.4.23;
+
 contract Inbox {
   string public message;
 
@@ -118,6 +119,7 @@ contract Ownable {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.4.24;
+
 contract Ownable {
   address private _owner;
   event OwnershipRenounced(address indexed previousOwner);
@@ -177,6 +179,7 @@ contract SimpleStorage {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.4.0;
+
 contract SimpleStorage {
   string public name = "SimpleStorage";
   uint storedData;

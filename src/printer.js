@@ -44,6 +44,7 @@ function genericPrint(path, options, print) {
         ]);
       }
       return concat([
+        line,
         doc,
         ' {',
         indent(line),
@@ -281,7 +282,7 @@ function genericPrint(path, options, print) {
       doc = concat([
         'if (',
         path.call(print, 'condition'),
-        ')',
+        ') ',
         path.call(print, 'trueBody')
       ]);
       if (node.falseBody) {
