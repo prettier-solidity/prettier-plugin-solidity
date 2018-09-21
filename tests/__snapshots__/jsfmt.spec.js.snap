@@ -1,5 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`BasicIterator.sol 1`] = `
+/*
+	This is a very simple demonstration of a while loops. Same as JS/c.
+*/
+
+contract BasicIterator {
+
+    address creator;                  // reserve one "address"-type spot
+    uint8[10] integers;               // reserve a chunk of storage for 10 8-bit unsigned integers in an array
+
+    function BasicIterator() 
+    {
+        creator = msg.sender;         // set the creator address
+        uint8 x = 0;                  // initialize an 8-bit, unsigned integer to zero
+        while(x < integers.length)    // the variable integers was initialized to length 10
+        {
+        	integers[x] = x;      // set integers to [0,1,2,3,4,5,6,7,8,9] over ten iterations
+        	x++;
+        }
+    }
+    
+    function getSum() constant returns (uint)  // "constant" just means this function returns something to the caller
+    {                                          // which is immediately followed by what type gets returned, in this case a full uint256
+    	uint8 sum = 0;
+    	uint8 x = 0;
+    	while(x < integers.length)
+        {
+        	sum = sum + integers[x];
+        	x++;
+        }
+    	return sum;
+    }
+    
+    /**********
+     Standard kill() function to recover funds 
+     **********/
+    
+    function kill()
+    { 
+        if (msg.sender == creator)
+        {
+            suicide(creator);  // kills this contract and sends remaining funds back to creator
+        }
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract BasicIterator {
+  address creator;
+  uint8[10] integers;
+
+  constructor() {
+    creator = msg.sender;
+    uint8 x = 0;
+    while (x < integers.length) {
+      integers[x] = x;
+      x++;
+    }
+  }
+
+  function getSum() constant returns(uint) {
+    uint8 sum = 0;
+    uint8 x = 0;
+    while (x < integers.length) {
+      sum = sum + integers[x];
+      x++;
+    }
+    return sum;
+  }
+
+  function kill() {
+    if (msg.sender == creator){
+      suicide(creator);
+    }
+  }
+}
+
+`;
+
 exports[`Inbox.sol 1`] = `
 // This comment spans one line
 
@@ -35,6 +113,126 @@ contract Inbox {
 
   function setMessage(string newMessage) public {
     message = newMessage;
+  }
+}
+
+`;
+
+exports[`Ownable.sol 1`] = `
+pragma solidity ^0.4.24;
+
+/**
+ * @title Ownable
+ * @dev The Ownable contract has an owner address, and provides basic authorization control
+ * functions, this simplifies the implementation of "user permissions".
+ */
+contract Ownable {
+  address private _owner;
+
+  event OwnershipRenounced(address indexed previousOwner);
+  event OwnershipTransferred(
+    address indexed previousOwner,
+    address indexed newOwner
+  );
+
+  /**
+   * @dev The Ownable constructor sets the original \`owner\` of the contract to the sender
+   * account.
+   */
+  constructor() public {
+    _owner = msg.sender;
+  }
+
+  /**
+   * @return the address of the owner.
+   */
+  function owner() public view returns(address) {
+    return _owner;
+  }
+
+  /**
+   * @dev Throws if called by any account other than the owner.
+   */
+  modifier onlyOwner() {
+    require(isOwner());
+    _;
+  }
+
+  /**
+   * @return true if \`msg.sender\` is the owner of the contract.
+   */
+  function isOwner() public view returns(bool) {
+    return msg.sender == _owner;
+  }
+
+  /**
+   * @dev Allows the current owner to relinquish control of the contract.
+   * @notice Renouncing to ownership will leave the contract without an owner.
+   * It will not be possible to call the functions with the \`onlyOwner\`
+   * modifier anymore.
+   */
+  function renounceOwnership() public onlyOwner {
+    emit OwnershipRenounced(_owner);
+    _owner = address(0);
+  }
+
+  /**
+   * @dev Allows the current owner to transfer control of the contract to a newOwner.
+   * @param newOwner The address to transfer ownership to.
+   */
+  function transferOwnership(address newOwner) public onlyOwner {
+    _transferOwnership(newOwner);
+  }
+
+  /**
+   * @dev Transfers control of the contract to a newOwner.
+   * @param newOwner The address to transfer ownership to.
+   */
+  function _transferOwnership(address newOwner) internal {
+    require(newOwner != address(0));
+    emit OwnershipTransferred(_owner, newOwner);
+    _owner = newOwner;
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pragma solidity ^0.4.24;
+contract Ownable {
+  address private _owner;
+  event OwnershipRenounced(address indexed previousOwner);
+  event OwnershipTransferred(
+    address indexed previousOwner,
+    address indexed newOwner
+  );
+
+  constructor() public {
+    _owner = msg.sender;
+  }
+
+  function owner() public view returns(address) {
+    return _owner;
+  }
+  modifier onlyOwner() {
+    require(isOwner());
+    _;
+  }
+
+  function isOwner() public view returns(bool) {
+    return msg.sender == _owner;
+  }
+
+  function renounceOwnership() public onlyOwner {
+    emit OwnershipRenounced(_owner);
+    _owner = address(0);
+  }
+
+  function transferOwnership(address newOwner) public onlyOwner {
+    _transferOwnership(newOwner);
+  }
+
+  function _transferOwnership(address newOwner) internal {
+    require(newOwner != address(0));
+    emit OwnershipTransferred(_owner, newOwner);
+    _owner = newOwner;
   }
 }
 
