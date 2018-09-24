@@ -7,7 +7,7 @@ contract BasicIterator {
     address creator;                  // reserve one "address"-type spot
     uint8[10] integers;               // reserve a chunk of storage for 10 8-bit unsigned integers in an array
 
-    constructor() 
+    function BasicIterator() 
     {
         creator = msg.sender;         // set the creator address
         uint8 x = 0;                  // initialize an 8-bit, unsigned integer to zero

@@ -68,7 +68,11 @@ function genericPrint(path, options, print) {
       return concat(['using ', node.libraryName, ' for *;']);
     case 'FunctionDefinition':
       if (node.isConstructor) {
-        doc = 'constructor';
+        if (node.name) {
+          doc = `function ${node.name}`;
+        } else {
+          doc = 'constructor';
+        }
       } else if (node.name === '') {
         doc = 'function';
       } else {
