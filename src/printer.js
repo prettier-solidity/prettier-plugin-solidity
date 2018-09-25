@@ -44,6 +44,7 @@ function genericPrint(path, options, print) {
         ]);
       }
       return concat([
+        line,
         doc,
         ' {',
         indent(line),
@@ -67,7 +68,11 @@ function genericPrint(path, options, print) {
       return concat(['using ', node.libraryName, ' for *;']);
     case 'FunctionDefinition':
       if (node.isConstructor) {
-        doc = 'constructor';
+        if (node.name) {
+          doc = `function ${node.name}`;
+        } else {
+          doc = 'constructor';
+        }
       } else if (node.name === '') {
         doc = 'function';
       } else {
@@ -281,7 +286,7 @@ function genericPrint(path, options, print) {
       doc = concat([
         'if (',
         path.call(print, 'condition'),
-        ')',
+        ') ',
         path.call(print, 'trueBody')
       ]);
       if (node.falseBody) {
