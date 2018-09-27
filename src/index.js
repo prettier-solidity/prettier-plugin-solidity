@@ -66,7 +66,7 @@ function printComment(commentPath, options) {
       const isInsideFlowComment =
         options.originalText.substr(options.locEnd(comment) - 3, 3) === '*-/';
 
-      return '/*' + comment.value + (isInsideFlowComment ? '*-/' : '*/');
+      return '/*' + comment.raw + (isInsideFlowComment ? '*-/' : '*/');
     }
     case 'CommentLine':
     case 'Line':
