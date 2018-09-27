@@ -1,5 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak, max-len, no-nested-ternary, no-param-reassign, no-underscore-dangle, no-use-before-define, operator-linebreak, prefer-template */
-
 const parse = require('./parser');
 const print = require('./printer');
 const massageAstNode = require('./clean');
@@ -17,8 +15,8 @@ const languages = [
 const parsers = {
   'solidity-parse': {
     astFormat: 'solidity-ast',
-    locStart: node => node.range[0],
     locEnd: node => node.range[1],
+    locStart: node => node.range[0],
     parse
   }
 };
@@ -31,15 +29,14 @@ function canAttachComment(node) {
 
 function printComment(commentPath) {
   const comment = commentPath.getValue();
-
   switch (comment.type) {
     case 'BlockComment': {
-      return '/*' + comment.raw + '*/';
+      return `/*${comment.raw}*/`;
     }
     case 'LineComment':
-      return '//' + comment.raw.trimRight();
+      return `//${comment.raw.trimRight()}`;
     default:
-      throw new Error('Not a comment: ' + JSON.stringify(comment));
+      throw new Error(`Not a comment: ${JSON.stringify(comment)}`);
   }
 }
 
@@ -47,9 +44,9 @@ function printComment(commentPath) {
 const printers = {
   'solidity-ast': {
     canAttachComment,
+    massageAstNode,
     print,
-    printComment,
-    massageAstNode
+    printComment
   }
 };
 

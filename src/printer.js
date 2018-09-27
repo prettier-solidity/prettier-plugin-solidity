@@ -427,7 +427,7 @@ function genericPrint(path, options, print) {
       // @TODO
       return '';
     default:
-      throw new Error(`unknown type: ${JSON.stringify(node.type)}`);
+      throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
   }
 }
 
