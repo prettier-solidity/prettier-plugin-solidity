@@ -151,16 +151,15 @@ contract SimpleAuction {
   /// Create a simple auction with \`_biddingTime\`
   /// seconds bidding time on behalf of the
   /// beneficiary address \`_beneficiary\`.
-
   constructor(uint _biddingTime, address _beneficiary) public {
     beneficiary = _beneficiary;
     auctionEnd = now + _biddingTime;
   }
+
   /// Bid on the auction with the value sent
   /// together with this transaction.
   /// The value will only be refunded if the
   /// auction is not won.
-
   function bid() public payable {
     // No arguments are necessary, all
     // information is already part of
@@ -186,8 +185,8 @@ contract SimpleAuction {
     highestBid = msg.value;
     emit HighestBidIncreased(msg.sender, msg.value);
   }
-  /// Withdraw a bid that was overbid.
 
+  /// Withdraw a bid that was overbid.
   function withdraw() public returns(bool) {
     uint amount = pendingReturns[msg.sender];
     if (amount > 0) {
@@ -203,9 +202,9 @@ contract SimpleAuction {
     }
     return true;
   }
+
   /// End the auction and send the highest bid
   /// to the beneficiary.
-
   function auctionEnd() public {
     // It is a good guideline to structure functions that interact
     // with other contracts (i.e. they call functions or send Ether)
@@ -229,6 +228,7 @@ contract SimpleAuction {
     // 3. Interaction
     beneficiary.transfer(highestBid);
   }
+
 }
 
 `;
