@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
@@ -33,6 +33,10 @@
     {
       "email": "git@twopointzero.us",
       "name": "Jed Fox"
+    },
+    {
+      "email": "victorio.franco@gmail.com",
+      "name": "Franco Victorio"
     }
   ],
   "license": "MIT",
@@ -51,6 +55,7 @@
     "jest-watch-typeahead": "^0.2.0"
   },
   "dependencies": {
+    "extract-comments": "^1.0.0",
     "prettier": "^1.14.2",
     "solidity-parser-antlr": "^0.3.1"
   }
