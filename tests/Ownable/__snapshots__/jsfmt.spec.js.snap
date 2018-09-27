@@ -1,56 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Inbox.sol 1`] = `
-// This comment spans one line
-
-/*
-This
-comment
-spans
-multiple
-lines.
-*/
-
-pragma   solidity   ^0.4.23;
-contract Inbox {
-  string public message;
-
-  constructor(string initialMessage) public {
-    message = initialMessage;
-  }
-
-  function setMessage(string newMessage) public {
-    message = newMessage;
-  }
-}
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// This comment spans one line
-
-/*
-This
-comment
-spans
-multiple
-lines.
-*/
-
-pragma solidity ^0.4.23;
-
-contract Inbox {
-  string public message;
-
-  constructor(string initialMessage) public {
-    message = initialMessage;
-  }
-
-  function setMessage(string newMessage) public {
-    message = newMessage;
-  }
-}
-
-`;
-
 exports[`Ownable.sol 1`] = `
 pragma solidity ^0.4.24;
 
@@ -199,39 +148,6 @@ contract Ownable {
     require(newOwner != address(0));
     emit OwnershipTransferred(_owner, newOwner);
     _owner = newOwner;
-  }
-}
-
-`;
-
-exports[`SimpleStorage.sol 1`] = `
-pragma solidity ^0.4.0;
-
-contract SimpleStorage {
-  string public name = "SimpleStorage";
-  uint storedData;
-
-  function set(uint x) public {
-    storedData = x;
-  }
-
-  function get() public view returns (uint) {
-    return storedData;
-  }
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-pragma solidity ^0.4.0;
-
-contract SimpleStorage {
-  string public name = "SimpleStorage";
-  uint storedData;
-
-  function set(uint x) public {
-    storedData = x;
-  }
-
-  function get() public view returns(uint) {
-    return storedData;
   }
 }
 

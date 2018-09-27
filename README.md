@@ -21,5 +21,5 @@ node_modules/.bin/prettier --write **/*.sol --plugin=./node_modules/prettier-plu
 ## Install
 
 ```bash
-npm install mattiaerre/prettier-plugin-solidity
+npm install prettier-solidity/prettier-plugin-solidity
 ```
