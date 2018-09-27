@@ -5,7 +5,6 @@ const { hasNewline } = require('prettier').util;
 const parse = require('./parser');
 const print = require('./printer');
 const massageAstNode = require('./clean');
-const loc = require('./loc');
 
 // https://prettier.io/docs/en/plugins.html#languages
 const languages = [
@@ -20,8 +19,8 @@ const languages = [
 const parsers = {
   'solidity-parse': {
     astFormat: 'solidity-ast',
-    locEnd: loc.locEnd,
-    locStart: loc.locStart,
+    locStart: node => node.range[0],
+    locEnd: node => node.range[1],
     parse
   }
 };
