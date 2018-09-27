@@ -15,7 +15,7 @@ function genericPrint(path, options, print) {
     case 'SourceUnit':
       return join(hardline, path.map(print, 'children'));
     case 'PragmaDirective':
-      return concat(['pragma ', node.name, ' ', node.value, ';']);
+      return concat(['pragma ', node.name, ' ', node.value, ';', line]);
     case 'ImportDirective':
       // @TODO: handle proper escaping
       doc = concat(['"', node.path, '"']);
@@ -44,7 +44,6 @@ function genericPrint(path, options, print) {
         ]);
       }
       return concat([
-        line,
         doc,
         ' {',
         indent(line),
@@ -97,7 +96,7 @@ function genericPrint(path, options, print) {
         ]);
       }
       if (node.body) {
-        return concat([line, join(' ', [doc, path.call(print, 'body')])]);
+        return concat([join(' ', [doc, path.call(print, 'body')]), line]);
       }
       return concat([doc, ';']);
     case 'ParameterList':
