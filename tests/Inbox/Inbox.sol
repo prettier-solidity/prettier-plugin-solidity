@@ -19,5 +19,9 @@ contract Inbox {
   function setMessage(string newMessage) public {
     message = newMessage;
   }
+
+  function nothingHere() public {
+    // to be defined
+  }
 }
 
