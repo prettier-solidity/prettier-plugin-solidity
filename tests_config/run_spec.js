@@ -12,7 +12,6 @@ function run_spec(dirname, options) {
   fs.readdirSync(dirname).forEach(filename => {
     const filepath = dirname + '/' + filename;
     if (
-      path.extname(filename) !== '.json' &&
       path.extname(filename) !== '.snap' &&
       fs.lstatSync(filepath).isFile() &&
       filename[0] !== '.' &&
