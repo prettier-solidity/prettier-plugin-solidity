@@ -153,7 +153,7 @@ function genericPrint(path, options, print) {
       return concat([
         '{',
         indent(line),
-        indent(join(line, path.map(print, 'statements'))),
+        indent(printPreservingEmptyLines(path, 'statements', options, print)),
         line,
         '}'
       ]);

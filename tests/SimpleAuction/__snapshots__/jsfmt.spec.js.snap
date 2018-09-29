@@ -175,9 +175,11 @@ contract SimpleAuction {
     // Revert the call if the bidding
     // period is over.
     require(now <= auctionEnd, "Auction already ended.");
+
     // If the bid is not higher, send the
     // money back.
     require(msg.value > highestBid, "There already is a higher bid.");
+
     if (highestBid != 0) {
       // Sending back the money by simply using
       // highestBidder.send(highestBid) is a security risk
@@ -199,6 +201,7 @@ contract SimpleAuction {
       // can call this function again as part of the receiving call
       // before \`send\` returns.
       pendingReturns[msg.sender] = 0;
+
       if (!msg.sender.send(amount)) {
         // No need to call throw here, just reset the amount owing
         pendingReturns[msg.sender] = amount;
@@ -227,9 +230,11 @@ contract SimpleAuction {
     // 1. Conditions
     require(now >= auctionEnd, "Auction not yet ended.");
     require(!ended, "auctionEnd has already been called.");
+
     // 2. Effects
     ended = true;
     emit AuctionEnded(highestBidder, highestBid);
+
     // 3. Interaction
     beneficiary.transfer(highestBid);
   }
