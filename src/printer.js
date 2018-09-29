@@ -13,9 +13,14 @@ const { isNextLineEmptyAfterIndex } = prettier.util;
 
 function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
+  let i = 0
   path.each(childPath => {
+    if (i !== 0) {
+      parts.push(hardline)
+    }
+    i++
+
     parts.push(print(childPath));
-    parts.push(hardline);
     if (
       isNextLineEmptyAfterIndex(
         options.originalText,
@@ -70,7 +75,8 @@ function genericPrint(path, options, print) {
         indent(line),
         indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
         line,
-        '}'
+        '}',
+        line
       ]);
     case 'InheritanceSpecifier':
       return path.call(print, 'baseName');
