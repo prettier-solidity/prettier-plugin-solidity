@@ -83,7 +83,5 @@ contract BasicIterator {
       suicide(creator); // kills this contract and sends remaining funds back to creator
     }
   }
-
 }
-
 `;
