@@ -1,3 +1,5 @@
+const prettier = require('prettier');
+
 const {
   concat,
   group,
@@ -6,14 +8,33 @@ const {
   join,
   line,
   softline
-} = require('prettier').doc.builders;
+} = prettier.doc.builders;
+const { isNextLineEmptyAfterIndex } = prettier.util;
+
+function printPreservingEmptyLines(path, key, options, print) {
+  const parts = [];
+  path.each(childPath => {
+    parts.push(print(childPath));
+    parts.push(hardline);
+    if (
+      isNextLineEmptyAfterIndex(
+        options.originalText,
+        options.locEnd(childPath.getValue()) + 1
+      )
+    ) {
+      parts.push(hardline);
+    }
+  }, key);
+
+  return concat(parts);
+}
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
   let doc;
   switch (node.type) {
     case 'SourceUnit':
-      return join(hardline, path.map(print, 'children'));
+      return printPreservingEmptyLines(path, 'children', options, print);
     case 'PragmaDirective':
       return concat(['pragma ', node.name, ' ', node.value, ';']);
     case 'ImportDirective':
@@ -44,14 +65,12 @@ function genericPrint(path, options, print) {
         ]);
       }
       return concat([
-        line,
         doc,
         ' {',
         indent(line),
-        indent(join(hardline, path.map(print, 'subNodes'))),
+        indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
         line,
-        '}',
-        line
+        '}'
       ]);
     case 'InheritanceSpecifier':
       return path.call(print, 'baseName');
@@ -97,7 +116,7 @@ function genericPrint(path, options, print) {
         ]);
       }
       if (node.body) {
-        return concat([line, join(' ', [doc, path.call(print, 'body')])]);
+        return concat([join(' ', [doc, path.call(print, 'body')])]);
       }
       return concat([doc, ';']);
     case 'ParameterList':
