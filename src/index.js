@@ -1,6 +1,7 @@
+const massageAstNode = require('./clean');
+const loc = require('./loc');
 const parse = require('./parser');
 const print = require('./printer');
-const massageAstNode = require('./clean');
 
 // https://prettier.io/docs/en/plugins.html#languages
 const languages = [
@@ -12,13 +13,9 @@ const languages = [
 ];
 
 // https://prettier.io/docs/en/plugins.html#parsers
+const parser = Object.assign({}, { astFormat: 'solidity-ast', parse }, loc);
 const parsers = {
-  'solidity-parse': {
-    astFormat: 'solidity-ast',
-    locEnd: node => node.range[1],
-    locStart: node => node.range[0],
-    parse
-  }
+  'solidity-parse': parser
 };
 
 function canAttachComment(node) {

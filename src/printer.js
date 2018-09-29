@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary, operator-linebreak */
+
 const {
   concat,
   group,
@@ -196,12 +198,12 @@ function genericPrint(path, options, print) {
       return concat([
         'for (',
         node.initExpression ? path.call(print, 'initExpression') : '',
+        ' ',
         node.conditionExpression ? path.call(print, 'conditionExpression') : '',
         '; ',
         path.call(print, 'loopExpression'),
         ') ',
-        path.call(print, 'body'),
-        '}'
+        path.call(print, 'body')
       ]);
     case 'EmitStatement':
       return concat(['emit ', path.call(print, 'eventCall'), ';']);
