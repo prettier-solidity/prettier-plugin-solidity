@@ -13,12 +13,12 @@ const { isNextLineEmptyAfterIndex } = prettier.util;
 
 function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
-  let i = 0
+  let i = 0;
   path.each(childPath => {
     if (i !== 0) {
-      parts.push(hardline)
+      parts.push(hardline);
     }
-    i++
+    i += 1;
 
     parts.push(print(childPath));
     if (
