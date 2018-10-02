@@ -1,15 +1,19 @@
 const prettier = require('prettier');
 
 const {
-  concat,
-  group,
-  hardline,
-  indent,
-  join,
-  line,
-  softline
-} = prettier.doc.builders;
-const { isNextLineEmptyAfterIndex } = prettier.util;
+  doc: {
+    builders: {
+      concat,
+      group,
+      hardline,
+      indent,
+      join,
+      line,
+      softline
+    }
+  },
+  util: { isNextLineEmptyAfterIndex }
+} = prettier;
 
 function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
