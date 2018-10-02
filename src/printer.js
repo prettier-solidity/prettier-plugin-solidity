@@ -144,9 +144,10 @@ function genericPrint(path, options, print) {
       ]);
 
     case 'ExpressionStatement':
+      const addSemicolon = path.getParentNode().type !== 'ForStatement'
       return concat([
         node.expression ? path.call(print, 'expression') : '',
-        ';'
+        addSemicolon ? ';' : ''
       ]);
     case 'FunctionCall':
       if (node.names && node.names.length > 0) {
