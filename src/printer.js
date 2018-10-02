@@ -17,12 +17,10 @@ const {
 
 function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
-  let i = 0;
   path.each(childPath => {
-    if (i !== 0) {
+    if (parts.length !== 0) {
       parts.push(hardline);
     }
-    i += 1;
 
     parts.push(print(childPath));
     if (
