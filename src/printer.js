@@ -2,15 +2,7 @@ const prettier = require('prettier');
 
 const {
   doc: {
-    builders: {
-      concat,
-      group,
-      hardline,
-      indent,
-      join,
-      line,
-      softline
-    }
+    builders: { concat, group, hardline, indent, join, line, softline }
   },
   util: { isNextLineEmptyAfterIndex }
 } = prettier;
