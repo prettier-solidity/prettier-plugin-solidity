@@ -144,7 +144,8 @@ function genericPrint(path, options, print) {
       ]);
 
     case 'ExpressionStatement':
-      const addSemicolon = path.getParentNode().type !== 'ForStatement'
+      // eslint-disable-next-line no-case-declarations
+      const addSemicolon = path.getParentNode().type !== 'ForStatement';
       return concat([
         node.expression ? path.call(print, 'expression') : '',
         addSemicolon ? ';' : ''
