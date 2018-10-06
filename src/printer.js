@@ -262,11 +262,16 @@ function genericPrint(path, options, print) {
       }
       const constantKeyword = node.isDeclaredConst ? 'constant' : '';
       if (node.visibility === 'default') {
-        return join(' ', [doc, constantKeyword, node.name].filter(element => element));
+        return join(
+          ' ',
+          [doc, constantKeyword, node.name].filter(element => element)
+        );
       }
       return join(
         ' ',
-        [doc, node.visibility, constantKeyword, node.name].filter(element => element)
+        [doc, node.visibility, constantKeyword, node.name].filter(
+          element => element
+        )
       );
     case 'ArrayTypeName':
       return concat([
