@@ -69,18 +69,19 @@ contract IndexOf {
     }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 contract IndexOf {
   address creator;
 
   function IndexOf() {
     creator = msg.sender;
   }
+
   int whatwastheval = -10; // -2 = not yet tested, as separate from -1, tested but error
 
   function indexOf(string _a, string _b) returns(int) { // _a = string to search, _b = string we want to find
     bytes a = bytes(_a);
     bytes b = bytes(_b);
+
     if (a.length < 1 || b.length < 1 || (b.length > a.length)) {
       whatwastheval = -1;
       return -1;
@@ -109,10 +110,10 @@ contract IndexOf {
   function whatWasTheVal() constant returns(int) {
     return whatwastheval;
   }
+
   /**********
      Standard kill() function to recover funds 
      **********/
-
 
   function kill() {
     if (msg.sender == creator) {
