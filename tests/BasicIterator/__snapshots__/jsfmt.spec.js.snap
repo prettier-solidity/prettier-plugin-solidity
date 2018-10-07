@@ -50,7 +50,6 @@ contract BasicIterator {
 	This is a very simple demonstration of a while loops. Same as JS/c.
 */
 
-
 contract BasicIterator {
   address creator; // reserve one "address"-type spot
   uint8[10] integers; // reserve a chunk of storage for 10 8-bit unsigned integers in an array
@@ -74,10 +73,10 @@ contract BasicIterator {
     }
     return sum;
   }
+
   /**********
      Standard kill() function to recover funds 
      **********/
-
 
   function kill() {
     if (msg.sender == creator) {
