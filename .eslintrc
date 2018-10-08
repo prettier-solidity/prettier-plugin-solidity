@@ -9,7 +9,6 @@
   "rules": {
     "arrow-parens": "off",
     "comma-dangle": "off",
-    "no-case-declarations": "off",
     "object-curly-newline": "off"
   }
 }
