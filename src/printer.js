@@ -252,7 +252,7 @@ function genericPrint(path, options, print) {
         hardline,
         '}'
       ]);
-    case 'VariableDeclaration':
+    case 'VariableDeclaration': {
       if (!node.typeName) {
         return node.name;
       }
@@ -273,6 +273,7 @@ function genericPrint(path, options, print) {
           element => element
         )
       );
+    }
     case 'ArrayTypeName':
       return concat([
         path.call(print, 'baseTypeName'),
