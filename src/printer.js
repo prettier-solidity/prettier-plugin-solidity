@@ -273,7 +273,7 @@ function genericPrint(path, options, print) {
         hardline,
         '}'
       ]);
-    case 'VariableDeclaration':
+    case 'VariableDeclaration': {
       if (!node.typeName) {
         return node.name;
       }
@@ -281,13 +281,20 @@ function genericPrint(path, options, print) {
       if (node.isIndexed) {
         doc = join(' ', [doc, 'indexed']);
       }
+      const constantKeyword = node.isDeclaredConst ? 'constant' : '';
       if (node.visibility === 'default') {
-        return join(' ', [doc, node.name]);
+        return join(
+          ' ',
+          [doc, constantKeyword, node.name].filter(element => element)
+        );
       }
       return join(
         ' ',
-        [doc, node.visibility, node.name].filter(element => element)
+        [doc, node.visibility, constantKeyword, node.name].filter(
+          element => element
+        )
       );
+    }
     case 'ArrayTypeName':
       return concat([
         path.call(print, 'baseTypeName'),
