@@ -1,11 +1,11 @@
-const prettier = require('prettier');
+/* eslint-disable no-nested-ternary, operator-linebreak */
 
 const {
   doc: {
     builders: { concat, group, hardline, indent, join, line, softline }
   },
   util: { isNextLineEmptyAfterIndex }
-} = prettier;
+} = require('prettier');
 
 function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
@@ -160,11 +160,13 @@ function genericPrint(path, options, print) {
         ');'
       ]);
 
-    case 'ExpressionStatement':
+    case 'ExpressionStatement': {
+      const addSemicolon = path.getParentNode().type !== 'ForStatement';
       return concat([
         node.expression ? path.call(print, 'expression') : '',
-        ';'
+        addSemicolon ? ';' : ''
       ]);
+    }
     case 'FunctionCall':
       if (node.names && node.names.length > 0) {
         doc = concat([
@@ -215,12 +217,12 @@ function genericPrint(path, options, print) {
       return concat([
         'for (',
         node.initExpression ? path.call(print, 'initExpression') : '',
+        ' ',
         node.conditionExpression ? path.call(print, 'conditionExpression') : '',
         '; ',
         path.call(print, 'loopExpression'),
         ') ',
-        path.call(print, 'body'),
-        '}'
+        path.call(print, 'body')
       ]);
     case 'EmitStatement':
       return concat(['emit ', path.call(print, 'eventCall'), ';']);
