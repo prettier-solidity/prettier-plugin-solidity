@@ -2,24 +2,22 @@
 
 work in progress [prettier plugin](https://github.com/prettier/prettier/issues/4180) for [solidity](https://github.com/ethereum/solidity)
 
-## Resources
+## Installation and usage
 
-- https://github.com/prettier-solidity/prettier-plugin-solidity/issues/2
+Install both `prettier` and `prettier-plugin-solidity`:
 
-## Test
-
-```bash
-node_modules/.bin/prettier --write **/*.sol --plugin=./src
+```
+npm install --save-dev prettier prettier-plugin-solidity
 ```
 
-## Use
+You can add a script for running prettier on all your contracts:
 
-```bash
-node_modules/.bin/prettier --write **/*.sol --plugin=./node_modules/prettier-plugin-solidity
+```
+"prettier": "prettier --write **/*.sol"
 ```
 
-## Install
+Or you can use it as part of your linting to check that all your code is prettified:
 
-```bash
-npm install prettier-solidity/prettier-plugin-solidity
+```
+"lint": "prettier --list-different **/*.sol"
 ```
