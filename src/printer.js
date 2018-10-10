@@ -288,6 +288,18 @@ function genericPrint(path, options, print) {
           [doc, constantKeyword, node.name].filter(element => element)
         );
       }
+      if (node.storageLocation) {
+        return join(
+          ' ',
+          [
+            doc,
+            node.visibility,
+            constantKeyword,
+            node.storageLocation,
+            node.name
+          ].filter(element => element)
+        );
+      }
       return join(
         ' ',
         [doc, node.visibility, constantKeyword, node.name].filter(
