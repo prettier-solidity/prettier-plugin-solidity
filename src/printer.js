@@ -1,19 +1,39 @@
+/* eslint-disable no-nested-ternary, operator-linebreak */
+
 const {
-  concat,
-  group,
-  hardline,
-  indent,
-  join,
-  line,
-  softline
-} = require('prettier').doc.builders;
+  doc: {
+    builders: { concat, group, hardline, indent, join, line, softline }
+  },
+  util: { isNextLineEmptyAfterIndex }
+} = require('prettier');
+
+function printPreservingEmptyLines(path, key, options, print) {
+  const parts = [];
+  path.each(childPath => {
+    if (parts.length !== 0) {
+      parts.push(hardline);
+    }
+
+    parts.push(print(childPath));
+    if (
+      isNextLineEmptyAfterIndex(
+        options.originalText,
+        options.locEnd(childPath.getValue()) + 1
+      )
+    ) {
+      parts.push(hardline);
+    }
+  }, key);
+
+  return concat(parts);
+}
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
   let doc;
   switch (node.type) {
     case 'SourceUnit':
-      return join(hardline, path.map(print, 'children'));
+      return printPreservingEmptyLines(path, 'children', options, print);
     case 'PragmaDirective':
       return concat(['pragma ', node.name, ' ', node.value, ';']);
     case 'ImportDirective':
@@ -44,11 +64,10 @@ function genericPrint(path, options, print) {
         ]);
       }
       return concat([
-        line,
         doc,
         ' {',
         indent(line),
-        indent(join(hardline, path.map(print, 'subNodes'))),
+        indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
         line,
         '}',
         line
@@ -97,7 +116,7 @@ function genericPrint(path, options, print) {
         ]);
       }
       if (node.body) {
-        return concat([line, join(' ', [doc, path.call(print, 'body')])]);
+        return concat([join(' ', [doc, path.call(print, 'body')])]);
       }
       return concat([doc, ';']);
     case 'ParameterList':
@@ -128,7 +147,7 @@ function genericPrint(path, options, print) {
       return concat([
         '{',
         indent(line),
-        indent(join(line, path.map(print, 'statements'))),
+        indent(printPreservingEmptyLines(path, 'statements', options, print)),
         line,
         '}'
       ]);
@@ -141,11 +160,13 @@ function genericPrint(path, options, print) {
         ');'
       ]);
 
-    case 'ExpressionStatement':
+    case 'ExpressionStatement': {
+      const addSemicolon = path.getParentNode().type !== 'ForStatement';
       return concat([
         node.expression ? path.call(print, 'expression') : '',
-        ';'
+        addSemicolon ? ';' : ''
       ]);
+    }
     case 'FunctionCall':
       if (node.names && node.names.length > 0) {
         doc = concat([
@@ -196,12 +217,12 @@ function genericPrint(path, options, print) {
       return concat([
         'for (',
         node.initExpression ? path.call(print, 'initExpression') : '',
+        ' ',
         node.conditionExpression ? path.call(print, 'conditionExpression') : '',
         '; ',
         path.call(print, 'loopExpression'),
         ') ',
-        path.call(print, 'body'),
-        '}'
+        path.call(print, 'body')
       ]);
     case 'EmitStatement':
       return concat(['emit ', path.call(print, 'eventCall'), ';']);
@@ -252,7 +273,7 @@ function genericPrint(path, options, print) {
         hardline,
         '}'
       ]);
-    case 'VariableDeclaration':
+    case 'VariableDeclaration': {
       if (!node.typeName) {
         return node.name;
       }
@@ -260,13 +281,20 @@ function genericPrint(path, options, print) {
       if (node.isIndexed) {
         doc = join(' ', [doc, 'indexed']);
       }
+      const constantKeyword = node.isDeclaredConst ? 'constant' : '';
       if (node.visibility === 'default') {
-        return join(' ', [doc, node.name]);
+        return join(
+          ' ',
+          [doc, constantKeyword, node.name].filter(element => element)
+        );
       }
       return join(
         ' ',
-        [doc, node.visibility, node.name].filter(element => element)
+        [doc, node.visibility, constantKeyword, node.name].filter(
+          element => element
+        )
       );
+    }
     case 'ArrayTypeName':
       return concat([
         path.call(print, 'baseTypeName'),
