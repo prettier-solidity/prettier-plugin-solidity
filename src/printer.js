@@ -290,9 +290,13 @@ function genericPrint(path, options, print) {
       }
       return join(
         ' ',
-        [doc, node.visibility, constantKeyword, node.name].filter(
-          element => element
-        )
+        [
+          doc,
+          node.visibility,
+          constantKeyword,
+          node.storageLocation,
+          node.name
+        ].filter(element => element)
       );
     }
     case 'ArrayTypeName':
