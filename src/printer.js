@@ -404,7 +404,11 @@ function genericPrint(path, options, print) {
       }
       return concat([doc, ';']);
     case 'ModifierDefinition':
-      if (node.parameters && node.parameters.length > 0) {
+      if (
+        node.parameters &&
+        node.parameters.parameters &&
+        node.parameters.parameters.length > 0
+      ) {
         doc = path.call(print, 'parameters');
       } else {
         doc = '';
