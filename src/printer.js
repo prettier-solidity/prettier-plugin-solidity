@@ -217,7 +217,7 @@ function genericPrint(path, options, print) {
       return concat([
         'for (',
         node.initExpression ? path.call(print, 'initExpression') : '',
-        ' ',
+        '; ',
         node.conditionExpression ? path.call(print, 'conditionExpression') : '',
         '; ',
         path.call(print, 'loopExpression'),
@@ -226,7 +226,7 @@ function genericPrint(path, options, print) {
       ]);
     case 'EmitStatement':
       return concat(['emit ', path.call(print, 'eventCall'), ';']);
-    case 'VariableDeclarationStatement':
+    case 'VariableDeclarationStatement': {
       doc = join(
         ', ',
         path.map(statementPath => {
@@ -244,7 +244,9 @@ function genericPrint(path, options, print) {
       if (node.initialValue) {
         doc = concat([doc, ' = ', path.call(print, 'initialValue')]);
       }
-      return concat([doc, ';']);
+      const addSemicolon = path.getParentNode().type !== 'ForStatement';
+      return concat([doc, addSemicolon ? ';' : '']);
+    }
     case 'StateVariableDeclaration':
       doc = concat(
         path.map(statementPath => {
@@ -431,13 +433,17 @@ function genericPrint(path, options, print) {
     case 'AssemblyBlock':
       return concat([
         '{',
+        indent(hardline),
+        indent(join(line, path.map(print, 'operations'))),
         hardline,
-        join(line, path.map(print, 'operations')),
         '}'
       ]);
     case 'LabelDefinition':
       return concat([node.name, ':', line]);
     case 'AssemblyCall':
+      if (node.arguments.length === 0) {
+        return node.functionName;
+      }
       // @TODO: add call args
       return concat([
         node.functionName,
@@ -459,9 +465,19 @@ function genericPrint(path, options, print) {
         doc = concat(['case ', path.call(print, 'value')]);
       }
       return join(' ', [doc, '{}']);
-    case 'AssemblyFunctionDefinition':
-      // @TODO
-      return '';
+    case 'AssemblyLocalDefinition':
+      return join(' ', [
+        'let',
+        join(', ', path.map(print, 'names')),
+        ':=',
+        path.call(print, 'expression')
+      ]);
+    case 'AssemblyAssignment':
+      return join(' ', [
+        join(', ', path.map(print, 'names')),
+        ':=',
+        path.call(print, 'expression')
+      ]);
     default:
       throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
   }
