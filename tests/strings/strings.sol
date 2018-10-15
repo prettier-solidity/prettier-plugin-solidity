@@ -695,8 +695,9 @@ library strings {
             return "";
 
         uint length = self._len * (parts.length - 1);
-        for(uint i = 0; i < parts.length; i++)
+        for(uint i = 0; i < parts.length; i++) {
             length += parts[i]._len;
+        }
 
         string memory ret = new string(length);
         uint retptr;
