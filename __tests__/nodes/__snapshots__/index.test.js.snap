@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes list to match snapshot 1`] = `
+Array [
+  "ContractDefinition",
+  "ImportDirective",
+  "PragmaDirective",
+  "SourceUnit",
+]
+`;

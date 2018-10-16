@@ -1,77 +1,16 @@
-/* eslint-disable no-nested-ternary, operator-linebreak */
-
+/* eslint-disable operator-linebreak */
 const {
   doc: {
     builders: { concat, group, hardline, indent, join, line, softline }
-  },
-  util: { isNextLineEmptyAfterIndex }
+  }
 } = require('prettier');
-
-function printPreservingEmptyLines(path, key, options, print) {
-  const parts = [];
-  path.each(childPath => {
-    if (parts.length !== 0) {
-      parts.push(hardline);
-    }
-
-    parts.push(print(childPath));
-    if (
-      isNextLineEmptyAfterIndex(
-        options.originalText,
-        options.locEnd(childPath.getValue()) + 1
-      )
-    ) {
-      parts.push(hardline);
-    }
-  }, key);
-
-  return concat(parts);
-}
+const nodes = require('./nodes');
+const printPreservingEmptyLines = require('./nodes/print-preserving-empty-lines');
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
   let doc;
   switch (node.type) {
-    case 'SourceUnit':
-      return printPreservingEmptyLines(path, 'children', options, print);
-    case 'PragmaDirective':
-      return concat(['pragma ', node.name, ' ', node.value, ';']);
-    case 'ImportDirective':
-      // @TODO: handle proper escaping
-      doc = concat(['"', node.path, '"']);
-
-      if (node.unitAlias) {
-        doc = concat([doc, ' as ', node.unitAlias]);
-      } else if (node.symbolAliases) {
-        doc = concat([
-          '{',
-          join(
-            ', ',
-            node.symbolAliases.map(([a, b]) => (b ? [a, b].join(' as ') : a))
-          ),
-          '} from ',
-          doc
-        ]);
-      }
-      return concat(['import ', doc, ';']);
-    case 'ContractDefinition':
-      doc = concat([node.kind, ' ', node.name]);
-      if (node.baseContracts.length > 0) {
-        doc = concat([
-          doc,
-          ' is ',
-          join(', ', path.map(print, 'baseContracts'))
-        ]);
-      }
-      return concat([
-        doc,
-        ' {',
-        indent(line),
-        indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
-        line,
-        '}',
-        line
-      ]);
     case 'InheritanceSpecifier':
       return path.call(print, 'baseName');
     case 'UsingForDeclaration':
@@ -479,8 +418,13 @@ function genericPrint(path, options, print) {
         ':=',
         path.call(print, 'expression')
       ]);
-    default:
-      throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
+    default: {
+      try {
+        return nodes[node.type].print({ options, node, path, print });
+      } catch (error) {
+        throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
+      }
+    }
   }
 }
 
