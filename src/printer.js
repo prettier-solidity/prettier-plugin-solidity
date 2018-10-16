@@ -133,9 +133,10 @@ function genericPrint(path, options, print) {
       );
     case 'Parameter':
       doc = path.call(print, 'typeName');
-      if (node.name) {
-        doc = join(' ', [doc, node.name]);
-      }
+      doc = join(
+        ' ',
+        [doc, node.storageLocation, node.name].filter(element => element)
+      );
       return doc;
     case 'ModifierInvocation':
       doc = node.name;
