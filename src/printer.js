@@ -419,9 +419,10 @@ function genericPrint(path, options, print) {
         path.call(print, 'expression')
       ]);
     default: {
-      try {
-        return nodes[node.type].print({ options, node, path, print });
-      } catch (error) {
+      const nodeType = nodes[node.type];
+      if (nodeType) {
+        nodeType.print({ options, node, path, print });
+      } else {
         throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
       }
     }
