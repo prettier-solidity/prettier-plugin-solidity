@@ -5,7 +5,7 @@ const {
   util: { isNextLineEmptyAfterIndex }
 } = require('prettier');
 
-const printPreservingEmptyLines = (path, key, options, print) => {
+function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
   path.each(childPath => {
     if (parts.length !== 0) {
@@ -24,6 +24,6 @@ const printPreservingEmptyLines = (path, key, options, print) => {
   }, key);
 
   return concat(parts);
-};
+}
 
 module.exports = printPreservingEmptyLines;

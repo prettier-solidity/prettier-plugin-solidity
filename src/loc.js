@@ -1,6 +1,6 @@
 // see: https://github.com/prettier/prettier/blob/master/src/language-js/loc.js
 
-const getRange = (index, node) => {
+function getRange(index, node) {
   if (node.range) {
     return node.range[index];
   }
@@ -8,7 +8,7 @@ const getRange = (index, node) => {
     return node.expression.range[index];
   }
   return null;
-};
+}
 
 module.exports = {
   locEnd: node => getRange(1, node),
