@@ -421,10 +421,9 @@ function genericPrint(path, options, print) {
     default: {
       const nodeType = nodes[node.type];
       if (nodeType) {
-        nodeType.print({ options, node, path, print });
-      } else {
-        throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
+        return nodeType.print({ options, node, path, print });
       }
+      throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
     }
   }
 }
