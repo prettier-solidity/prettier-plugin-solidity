@@ -19,6 +19,10 @@ contract Contract {
     require(msg.sender != x);
     _;
   }
+
+  function ifBlockInOneLine(uint a) returns (uint b) {
+    if (a < 0) b = 0x67; else if (a == 0) b = 0x12; else b = 0x78;
+  }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.4.24;
@@ -38,6 +42,12 @@ contract Contract {
   modifier modifierWithParams(address x) {
     require(msg.sender != x);
     _;
+  }
+
+  function ifBlockInOneLine(uint a) returns(uint b) {
+    if (a < 0) b = 0x67;
+    else if (a == 0) b = 0x12;
+    else b = 0x78;
   }
 }
 
