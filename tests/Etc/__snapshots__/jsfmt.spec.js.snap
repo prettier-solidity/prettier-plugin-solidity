@@ -25,6 +25,12 @@ contract Contract {
     require(msg.sender != x);
     _;
   }
+
+  function forWithoutBlock() {
+    uint i;
+    uint sum;
+    for ( i = 0; i < 10; i++ ) sum   +=  i;
+  }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.4.24;
@@ -50,6 +56,12 @@ contract Contract {
   modifier modifierWithParams(address x) {
     require(msg.sender != x);
     _;
+  }
+
+  function forWithoutBlock() {
+    uint i;
+    uint sum;
+    for (i = 0; i < 10; i++) sum += i;
   }
 }
 
