@@ -325,7 +325,13 @@ function genericPrint(path, options, print) {
         path.call(print, 'trueBody')
       ]);
       if (node.falseBody) {
-        doc = concat([doc, ' else ', path.call(print, 'falseBody')]);
+        const elseOnSameLine = node.trueBody.type === 'Block';
+        doc = concat([
+          doc,
+          elseOnSameLine ? ' ' : hardline,
+          'else ',
+          path.call(print, 'falseBody')
+        ]);
       }
       return doc;
     case 'EnumDefinition':
