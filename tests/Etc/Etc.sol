@@ -7,6 +7,12 @@ pragma solidity ^0.4.24;
 */
 
 contract Contract {
+  struct StructWithFunctionTypes {
+    function (uint, uint) returns(bool)a;
+    function(bytes32, bytes32)   internal view[]  b;
+    function  (bytes32, bytes32)internal[]   c;
+  }
+
   modifier modifierWithoutParams() {
     require(msg.sender != address(0));
     _;
