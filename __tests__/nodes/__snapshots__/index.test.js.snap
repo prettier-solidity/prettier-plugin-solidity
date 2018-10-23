@@ -3,8 +3,11 @@
 exports[`nodes list to match snapshot 1`] = `
 Array [
   "ContractDefinition",
+  "FunctionDefinition",
   "ImportDirective",
+  "InheritanceSpecifier",
   "PragmaDirective",
   "SourceUnit",
+  "UsingForDeclaration",
 ]
 `;

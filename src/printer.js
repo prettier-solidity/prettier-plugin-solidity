@@ -11,53 +11,6 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
   let doc;
   switch (node.type) {
-    case 'InheritanceSpecifier':
-      return path.call(print, 'baseName');
-    case 'UsingForDeclaration':
-      if (node.typeName) {
-        return concat([
-          'using ',
-          node.libraryName,
-          ' for ',
-          path.call(print, 'typeName'),
-          ';'
-        ]);
-      }
-      return concat(['using ', node.libraryName, ' for *;']);
-    case 'FunctionDefinition':
-      if (node.isConstructor) {
-        if (node.name) {
-          doc = `function ${node.name}`;
-        } else {
-          doc = 'constructor';
-        }
-      } else if (node.name === '') {
-        doc = 'function';
-      } else {
-        doc = concat(['function ', node.name]);
-      }
-
-      doc = concat([doc, '(', path.call(print, 'parameters'), ')']);
-      if (node.visibility && node.visibility !== 'default') {
-        doc = join(' ', [doc, node.visibility]);
-      }
-      // @TODO: check stateMutability null vs default
-      if (node.stateMutability && node.stateMutability !== 'default') {
-        doc = join(' ', [doc, node.stateMutability]);
-      }
-      if (node.modifiers.length > 0) {
-        doc = join(' ', [doc, join(' ', path.map(print, 'modifiers'))]);
-      }
-      if (node.returnParameters) {
-        doc = join(' ', [
-          doc,
-          concat(['returns(', path.call(print, 'returnParameters'), ')'])
-        ]);
-      }
-      if (node.body) {
-        return concat([join(' ', [doc, path.call(print, 'body')])]);
-      }
-      return concat([doc, ';']);
     case 'ParameterList':
       return group(
         concat([
