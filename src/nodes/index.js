@@ -1,10 +1,5 @@
 const dirToObject = require('dir-to-object');
 
-const config = {
-  canAdd: data => data.print,
-  dirPath: __dirname
-};
-
-const nodes = dirToObject(config);
+const nodes = dirToObject(__dirname, { canAdd: data => data.print });
 
 module.exports = nodes;

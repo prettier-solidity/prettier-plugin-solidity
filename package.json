@@ -55,7 +55,7 @@
     "jest-watch-typeahead": "^0.2.0"
   },
   "dependencies": {
-    "dir-to-object": "^1.0.0",
+    "dir-to-object": "^2.0.0",
     "extract-comments": "^1.0.0",
     "prettier": "^1.14.2",
     "solidity-parser-antlr": "^0.3.1"
