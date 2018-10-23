@@ -449,6 +449,7 @@ function genericPrint(path, options, print) {
       if (nodeType) {
         return nodeType.print({ options, node, path, print });
       }
+      throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
     }
   }
 }
