@@ -1,3 +1,5 @@
+const { handleComments } = require('prettier-comments'); // eslint-disable-line import/no-extraneous-dependencies
+
 const massageAstNode = require('./clean');
 const loc = require('./loc');
 const parse = require('./parser');
@@ -41,6 +43,12 @@ function printComment(commentPath) {
 const printers = {
   'solidity-ast': {
     canAttachComment,
+    handleComments: {
+      ownLine: handleComments.handleOwnLineComment,
+      endOfLine: handleComments.handleEndOfLineComment,
+      remaining: handleComments.handleRemainingComment
+    },
+    isBlockComment: handleComments.isBlockComment,
     massageAstNode,
     print,
     printComment

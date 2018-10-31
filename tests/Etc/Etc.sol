@@ -32,4 +32,11 @@ contract Contract {
     uint sum;
     for ( i = 0; i < 10; i++ ) sum   +=  i;
   }
+
+  function fun(uint256 a) returns (uint) {
+    if (something) foo();
+    // comment
+    else if (somethingElse) bar();
+    else whatever();
+  }
 }
