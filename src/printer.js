@@ -162,10 +162,9 @@ function genericPrint(path, options, print) {
       ]);
 
     case 'ExpressionStatement': {
-      const addSemicolon = path.getParentNode().type !== 'ForStatement';
       return concat([
         node.expression ? path.call(print, 'expression') : '',
-        addSemicolon ? ';' : ''
+        node.omitSemicolon ? '' : ';'
       ]);
     }
     case 'FunctionCall':
@@ -245,8 +244,7 @@ function genericPrint(path, options, print) {
       if (node.initialValue) {
         doc = concat([doc, ' = ', path.call(print, 'initialValue')]);
       }
-      const addSemicolon = path.getParentNode().type !== 'ForStatement';
-      return concat([doc, addSemicolon ? ';' : '']);
+      return concat([doc, node.omitSemicolon ? '' : ';']);
     }
     case 'StateVariableDeclaration':
       doc = concat(
