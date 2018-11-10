@@ -1,4 +1,4 @@
-const { handleComments } = require('prettier-comments'); // eslint-disable-line import/no-extraneous-dependencies
+const { handleComments } = require('./prettier-comments');
 
 const massageAstNode = require('./clean');
 const loc = require('./loc');
