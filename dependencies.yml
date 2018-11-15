@@ -1,4 +1,5 @@
-collectors:
+version: 2
+dependencies:
   - type: js-npm
     path: /
     actors:
