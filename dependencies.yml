@@ -1,7 +1,4 @@
-collectors:
-  - type: js-npm
+version: 2
+dependencies:
+  - type: js
     path: /
-    actors:
-      # pull requests for all major, minor, and patch updates
-      - type: js-npm
-        versions: 'Y.Y.Y'
