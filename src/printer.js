@@ -291,7 +291,12 @@ function genericPrint(path, options, print) {
       if (node.visibility === 'default') {
         return join(
           ' ',
-          [doc, node.typeName.stateMutability, constantKeyword, node.name].filter(element => element)
+          [
+            doc,
+            node.typeName.stateMutability,
+            constantKeyword,
+            node.name
+          ].filter(element => element)
         );
       }
       return join(
