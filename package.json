@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-alpha.12",
+  "version": "1.0.0-alpha.13",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
@@ -46,7 +46,7 @@
   "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "devDependencies": {
     "codecov": "^3.0.4",
-    "eslint": "^5.9.0",
+    "eslint": "^5.11.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
@@ -55,11 +55,11 @@
     "jest-watch-typeahead": "^0.2.0"
   },
   "dependencies": {
-    "emoji-regex": "^7.0.1",
+    "emoji-regex": "^7.0.3",
     "escape-string-regexp": "^1.0.5",
     "extract-comments": "^1.1.0",
-    "prettier": "^1.15.2",
-    "solidity-parser-antlr": "^0.3.1",
-    "string-width": "3.0.0"
+    "prettier": "^1.15.3",
+    "solidity-parser-antlr": "^0.3.3",
+    "string-width": "^3.0.0"
   }
 }
