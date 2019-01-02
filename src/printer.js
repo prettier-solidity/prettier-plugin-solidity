@@ -1,19 +1,39 @@
+/* eslint-disable no-nested-ternary, operator-linebreak */
+
 const {
-  concat,
-  group,
-  hardline,
-  indent,
-  join,
-  line,
-  softline
-} = require('prettier').doc.builders;
+  doc: {
+    builders: { concat, group, hardline, indent, join, line, softline }
+  },
+  util: { isNextLineEmptyAfterIndex }
+} = require('prettier');
+
+function printPreservingEmptyLines(path, key, options, print) {
+  const parts = [];
+  path.each(childPath => {
+    if (parts.length !== 0) {
+      parts.push(hardline);
+    }
+
+    parts.push(print(childPath));
+    if (
+      isNextLineEmptyAfterIndex(
+        options.originalText,
+        options.locEnd(childPath.getValue()) + 1
+      )
+    ) {
+      parts.push(hardline);
+    }
+  }, key);
+
+  return concat(parts);
+}
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
   let doc;
   switch (node.type) {
     case 'SourceUnit':
-      return join(hardline, path.map(print, 'children'));
+      return printPreservingEmptyLines(path, 'children', options, print);
     case 'PragmaDirective':
       return concat(['pragma ', node.name, ' ', node.value, ';']);
     case 'ImportDirective':
@@ -44,11 +64,10 @@ function genericPrint(path, options, print) {
         ]);
       }
       return concat([
-        line,
         doc,
         ' {',
         indent(line),
-        indent(join(hardline, path.map(print, 'subNodes'))),
+        indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
         line,
         '}',
         line
@@ -97,7 +116,7 @@ function genericPrint(path, options, print) {
         ]);
       }
       if (node.body) {
-        return concat([line, join(' ', [doc, path.call(print, 'body')])]);
+        return concat([join(' ', [doc, path.call(print, 'body')])]);
       }
       return concat([doc, ';']);
     case 'ParameterList':
@@ -114,9 +133,10 @@ function genericPrint(path, options, print) {
       );
     case 'Parameter':
       doc = path.call(print, 'typeName');
-      if (node.name) {
-        doc = join(' ', [doc, node.name]);
-      }
+      doc = join(
+        ' ',
+        [doc, node.storageLocation, node.name].filter(element => element)
+      );
       return doc;
     case 'ModifierInvocation':
       doc = node.name;
@@ -128,7 +148,7 @@ function genericPrint(path, options, print) {
       return concat([
         '{',
         indent(line),
-        indent(join(line, path.map(print, 'statements'))),
+        indent(printPreservingEmptyLines(path, 'statements', options, print)),
         line,
         '}'
       ]);
@@ -141,11 +161,12 @@ function genericPrint(path, options, print) {
         ');'
       ]);
 
-    case 'ExpressionStatement':
+    case 'ExpressionStatement': {
       return concat([
         node.expression ? path.call(print, 'expression') : '',
-        ';'
+        node.omitSemicolon ? '' : ';'
       ]);
+    }
     case 'FunctionCall':
       if (node.names && node.names.length > 0) {
         doc = concat([
@@ -196,16 +217,16 @@ function genericPrint(path, options, print) {
       return concat([
         'for (',
         node.initExpression ? path.call(print, 'initExpression') : '',
+        '; ',
         node.conditionExpression ? path.call(print, 'conditionExpression') : '',
         '; ',
         path.call(print, 'loopExpression'),
         ') ',
-        path.call(print, 'body'),
-        '}'
+        path.call(print, 'body')
       ]);
     case 'EmitStatement':
       return concat(['emit ', path.call(print, 'eventCall'), ';']);
-    case 'VariableDeclarationStatement':
+    case 'VariableDeclarationStatement': {
       doc = join(
         ', ',
         path.map(statementPath => {
@@ -223,7 +244,8 @@ function genericPrint(path, options, print) {
       if (node.initialValue) {
         doc = concat([doc, ' = ', path.call(print, 'initialValue')]);
       }
-      return concat([doc, ';']);
+      return concat([doc, node.omitSemicolon ? '' : ';']);
+    }
     case 'StateVariableDeclaration':
       doc = concat(
         path.map(statementPath => {
@@ -252,7 +274,7 @@ function genericPrint(path, options, print) {
         hardline,
         '}'
       ]);
-    case 'VariableDeclaration':
+    case 'VariableDeclaration': {
       if (!node.typeName) {
         return node.name;
       }
@@ -260,13 +282,24 @@ function genericPrint(path, options, print) {
       if (node.isIndexed) {
         doc = join(' ', [doc, 'indexed']);
       }
+      const constantKeyword = node.isDeclaredConst ? 'constant' : '';
       if (node.visibility === 'default') {
-        return join(' ', [doc, node.name]);
+        return join(
+          ' ',
+          [doc, constantKeyword, node.name].filter(element => element)
+        );
       }
       return join(
         ' ',
-        [doc, node.visibility, node.name].filter(element => element)
+        [
+          doc,
+          node.visibility,
+          constantKeyword,
+          node.storageLocation,
+          node.name
+        ].filter(element => element)
       );
+    }
     case 'ArrayTypeName':
       return concat([
         path.call(print, 'baseTypeName'),
@@ -290,7 +323,13 @@ function genericPrint(path, options, print) {
         path.call(print, 'trueBody')
       ]);
       if (node.falseBody) {
-        doc = concat([doc, ' else ', path.call(print, 'falseBody')]);
+        const elseOnSameLine = node.trueBody.type === 'Block';
+        doc = concat([
+          doc,
+          elseOnSameLine ? ' ' : hardline,
+          'else ',
+          path.call(print, 'falseBody')
+        ]);
       }
       return doc;
     case 'EnumDefinition':
@@ -376,7 +415,11 @@ function genericPrint(path, options, print) {
       }
       return concat([doc, ';']);
     case 'ModifierDefinition':
-      if (node.parameters && node.parameters.length > 0) {
+      if (
+        node.parameters &&
+        node.parameters.parameters &&
+        node.parameters.parameters.length > 0
+      ) {
         doc = path.call(print, 'parameters');
       } else {
         doc = '';
@@ -395,13 +438,17 @@ function genericPrint(path, options, print) {
     case 'AssemblyBlock':
       return concat([
         '{',
+        indent(hardline),
+        indent(join(line, path.map(print, 'operations'))),
         hardline,
-        join(line, path.map(print, 'operations')),
         '}'
       ]);
     case 'LabelDefinition':
       return concat([node.name, ':', line]);
     case 'AssemblyCall':
+      if (node.arguments.length === 0) {
+        return node.functionName;
+      }
       // @TODO: add call args
       return concat([
         node.functionName,
@@ -423,9 +470,45 @@ function genericPrint(path, options, print) {
         doc = concat(['case ', path.call(print, 'value')]);
       }
       return join(' ', [doc, '{}']);
-    case 'AssemblyFunctionDefinition':
-      // @TODO
-      return '';
+    case 'AssemblyLocalDefinition':
+      return join(' ', [
+        'let',
+        join(', ', path.map(print, 'names')),
+        ':=',
+        path.call(print, 'expression')
+      ]);
+    case 'AssemblyAssignment':
+      return join(' ', [
+        join(', ', path.map(print, 'names')),
+        ':=',
+        path.call(print, 'expression')
+      ]);
+    case 'FunctionTypeName': {
+      const returns = returnTypes => {
+        if (returnTypes.length > 0) {
+          return concat([
+            'returns(',
+            join(', ', path.map(print, 'returnTypes')),
+            ')'
+          ]);
+        }
+        return null;
+      };
+
+      return join(
+        ' ',
+        [
+          concat([
+            'function(',
+            join(', ', path.map(print, 'parameterTypes')),
+            ')'
+          ]),
+          returns(node.returnTypes),
+          node.visibility === 'default' ? null : node.visibility,
+          node.stateMutability
+        ].filter(element => element)
+      );
+    }
     default:
       throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
   }

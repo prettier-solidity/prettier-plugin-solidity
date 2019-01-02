@@ -1,14 +1,14 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.13",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
     "coverage": "codecov",
-    "eslint": "eslint src/**",
+    "eslint": "eslint --ignore-pattern 'src/prettier-comments/**' 'src/**'",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
-    "prettier": "prettier \"{.,{src,tests_config}/**}/*.{js{,on},md}\" \"tests/**/jsfmt.spec.js\"",
+    "prettier": "prettier '{.,{src,tests_config}/**}/*.{js{,on},md}' 'tests/**/jsfmt.spec.js' '!src/prettier-comments/**/*'",
     "test": "jest"
   },
   "repository": {
@@ -46,17 +46,20 @@
   "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "devDependencies": {
     "codecov": "^3.0.4",
-    "eslint": "^5.3.0",
+    "eslint": "^5.11.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.0",
     "jest": "^23.5.0",
     "jest-watch-typeahead": "^0.2.0"
   },
   "dependencies": {
-    "extract-comments": "^1.0.0",
-    "prettier": "^1.14.2",
-    "solidity-parser-antlr": "^0.3.1"
+    "emoji-regex": "^7.0.3",
+    "escape-string-regexp": "^1.0.5",
+    "extract-comments": "^1.1.0",
+    "prettier": "^1.15.3",
+    "solidity-parser-antlr": "^0.3.3",
+    "string-width": "^3.0.0"
   }
 }
