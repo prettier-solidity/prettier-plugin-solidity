@@ -23,5 +23,11 @@ contract Inbox {
   function nothingHere() public {
     // to be defined
   }
+
+  function nothingHereMultipleComments() public {
+    // to be defined
+    // to be defined 2
+    /* to be defined 3 */
+  }
 }
 
