@@ -509,6 +509,8 @@ function genericPrint(path, options, print) {
         ].filter(element => element)
       );
     }
+    case 'ThrowStatement':
+      return 'throw;';
     default:
       throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
   }
