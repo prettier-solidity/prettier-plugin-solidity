@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Assembly.sol 1`] = `
+contract Assembly {
+  function ifAssembly() {
+    assembly {
+      if
+        returndatasize    {
+          success := 0
+      }
+    }
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract Assembly {
+  function ifAssembly() {
+    assembly {
+      if returndatasize {
+        success := 0
+      }
+    }
+  }
+}
+
+`;
