@@ -469,7 +469,7 @@ function genericPrint(path, options, print) {
       } else {
         doc = concat(['case ', path.call(print, 'value')]);
       }
-      return join(' ', [doc, '{}']);
+      return join(' ', [doc, path.call(print, 'block')]);
     case 'AssemblyLocalDefinition':
       return join(' ', [
         'let',
