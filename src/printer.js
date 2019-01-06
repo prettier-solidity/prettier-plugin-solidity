@@ -149,14 +149,35 @@ function genericPrint(path, options, print) {
         doc = concat([doc, '(', join(', ', path.map(print, 'arguments')), ')']);
       }
       return doc;
-    case 'Block':
-      return concat([
+    case 'Block': {
+      const parts = [
         '{',
         indent(line),
-        indent(printPreservingEmptyLines(path, 'statements', options, print)),
-        line,
-        '}'
-      ]);
+        indent(printPreservingEmptyLines(path, 'statements', options, print))
+      ];
+
+      if (node.comments) {
+        let first = true;
+        path.each(commentPath => {
+          if (first) {
+            first = false;
+          } else {
+            parts.push(indent(line));
+          }
+          const comment = commentPath.getValue();
+          if (comment.trailing || comment.leading) {
+            return;
+          }
+          comment.printed = true;
+          parts.push(options.printer.printComment(commentPath));
+        }, 'comments');
+      }
+
+      parts.push(line);
+      parts.push('}');
+
+      return concat(parts);
+    }
     case 'EventDefinition':
       return concat([
         'event ',
