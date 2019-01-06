@@ -22,6 +22,12 @@ contract Assembly {
             }
         }
   }
+
+  function forAssembly() {
+    assembly {
+for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
+        }
+  }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract Assembly {
@@ -41,6 +47,18 @@ contract Assembly {
       }
       case 1 {
         mstore(0, 0x1111111111111111111111111111111111111111111111111111111111111111)
+      }
+    }
+  }
+
+  function forAssembly() {
+    assembly {
+      for {
+        let i := 0
+      } lt(i, x) {
+        i := add(i, 1)
+      } {
+        y := mul(2, y)
       }
     }
   }
