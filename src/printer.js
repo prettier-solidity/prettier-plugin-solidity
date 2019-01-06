@@ -515,6 +515,13 @@ function genericPrint(path, options, print) {
         ':=',
         path.call(print, 'expression')
       ]);
+    case 'AssemblyIf':
+      return concat([
+        'if ',
+        path.call(print, 'condition'),
+        ' ',
+        path.call(print, 'body')
+      ]);
     case 'FunctionTypeName': {
       const returns = returnTypes => {
         if (returnTypes.length > 0) {
