@@ -72,8 +72,17 @@ function genericPrint(path, options, print) {
         '}',
         line
       ]);
-    case 'InheritanceSpecifier':
-      return path.call(print, 'baseName');
+    case 'InheritanceSpecifier': {
+      let parts = [path.call(print, 'baseName')];
+
+      if (node.arguments && node.arguments.length) {
+        parts.push('(');
+        parts = parts.concat(path.map(print, 'arguments'));
+        parts.push(')');
+      }
+
+      return concat(parts);
+    }
     case 'UsingForDeclaration':
       if (node.typeName) {
         return concat([
@@ -253,6 +262,9 @@ function genericPrint(path, options, print) {
     case 'EmitStatement':
       return concat(['emit ', path.call(print, 'eventCall'), ';']);
     case 'VariableDeclarationStatement': {
+      const startsWithVar =
+        node.variables.filter(x => x && x.typeName).length === 0;
+
       doc = join(
         ', ',
         path.map(statementPath => {
@@ -263,14 +275,18 @@ function genericPrint(path, options, print) {
         }, 'variables')
       );
 
-      if (node.variables.length > 1) {
+      if (node.variables.length > 1 || startsWithVar) {
         doc = concat(['(', doc, ')']);
       }
 
       if (node.initialValue) {
         doc = concat([doc, ' = ', path.call(print, 'initialValue')]);
       }
-      return concat([doc, node.omitSemicolon ? '' : ';']);
+      return concat([
+        startsWithVar ? 'var ' : '',
+        doc,
+        node.omitSemicolon ? '' : ';'
+      ]);
     }
     case 'StateVariableDeclaration':
       doc = concat(
@@ -446,24 +462,26 @@ function genericPrint(path, options, print) {
         doc = join(' ', [doc, path.call(print, 'expression')]);
       }
       return concat([doc, ';']);
-    case 'ModifierDefinition':
-      if (
-        node.parameters &&
-        node.parameters.parameters &&
-        node.parameters.parameters.length > 0
-      ) {
-        doc = path.call(print, 'parameters');
+    case 'ModifierDefinition': {
+      let parts = ['modifier ', node.name];
+
+      if (node.parameters && node.parameters.parameters) {
+        // if node.paremeters is an object, print parameter list
+        parts.push('(');
+        parts = parts.concat(path.call(print, 'parameters'));
+        parts.push(') ');
+      } else if (node.parameters && node.parameters.length === 0) {
+        // if node.paremeters is an empty array, don't print parentheses
+        parts.push(' ');
       } else {
-        doc = '';
+        // otherwise, throw a not implemented error
+        throw new Error('[ModifierDefinition] Scenario not implemented');
       }
-      return concat([
-        'modifier ',
-        node.name,
-        '(',
-        doc,
-        ') ',
-        path.call(print, 'body')
-      ]);
+
+      parts.push(path.call(print, 'body'));
+
+      return concat(parts);
+    }
     case 'InlineAssemblyStatement':
       // @TODO: add support for assembly language specifier
       return concat(['assembly ', path.call(print, 'body')]);
@@ -548,6 +566,8 @@ function genericPrint(path, options, print) {
         ].filter(element => element)
       );
     }
+    case 'ThrowStatement':
+      return 'throw;';
     default:
       throw new Error(`Unknown type: ${JSON.stringify(node.type)}`);
   }
