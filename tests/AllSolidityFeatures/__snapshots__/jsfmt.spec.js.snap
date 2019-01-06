@@ -451,7 +451,7 @@ contract test {
   function test() {
     choices = ActionChoices.GoStraight;
   }
-  function getChoice() returns(uint d) {
+  function getChoice() returns (uint d) {
     d = uint256(choices);
   }
   ActionChoices choices;
@@ -489,7 +489,7 @@ contract C {
 
 
 contract test {
-  function f(uint x, uint y) returns(uint z) {
+  function f(uint x, uint y) returns (uint z) {
     var c = x + 3;
     var b = 7 + (c * (8 - 7)) - x;
     return -(-b | 0);
@@ -498,17 +498,17 @@ contract test {
 
 
 contract test {
-  function f(uint x, uint y) returns(uint z) {
+  function f(uint x, uint y) returns (uint z) {
     return 10;
   }
 }
 
 
 contract c {
-  function() returns(uint) {
+  function() returns (uint) {
     return g(8);
   }
-  function g(uint pos) internal returns(uint) {
+  function g(uint pos) internal returns (uint) {
     setData(pos, 8);
     return getData(pos);
   }
@@ -523,7 +523,7 @@ contract c {
 
 
 contract Sharer {
-  function sendHalf(address addr) returns(uint balance) {
+  function sendHalf(address addr) returns (uint balance) {
     if (!addr.send(msg.value / 2)) throw; // also reverts the transfer to Sharer
     return address(this).balance;
   }
@@ -540,7 +540,7 @@ library IntegerSet {
     /// Number of stored items.
     uint size;
   }
-  function insert(data storage self, uint value) returns(bool alreadyPresent) {
+  function insert(data storage self, uint value) returns (bool alreadyPresent) {
     uint index = self.index[value];
     if (index > 0) return true;
     else {
@@ -552,23 +552,23 @@ library IntegerSet {
       return false;
     }
   }
-  function remove(data storage self, uint value) returns(bool success) {
+  function remove(data storage self, uint value) returns (bool success) {
     uint index = self.index[value];
     if (index == 0) return false;
     delete self.index[value];
     delete self.items[index];
     self.size--;
   }
-  function contains(data storage self, uint value) returns(bool) {
+  function contains(data storage self, uint value) returns (bool) {
     return self.index[value] > 0;
   }
-  function iterate_start(data storage self) returns(uint index) {
+  function iterate_start(data storage self) returns (uint index) {
     return iterate_advance(self, 0);
   }
-  function iterate_valid(data storage self, uint index) returns(bool) {
+  function iterate_valid(data storage self, uint index) returns (bool) {
     return index < self.items.length;
   }
-  function iterate_advance(data storage self, uint index) returns(
+  function iterate_advance(data storage self, uint index) returns (
     uint r_index
   ) {
     index++;
@@ -578,7 +578,7 @@ library IntegerSet {
     ) && self.index[self.items[index]] == index) index++;
     return index;
   }
-  function iterate_get(data storage self, uint index) returns(uint value) {
+  function iterate_get(data storage self, uint index) returns (uint value) {
     return self.items[index];
   }
 }
@@ -589,14 +589,14 @@ contract User {
   /// Just a struct holding our data.
   IntegerSet.data data;
   /// Insert something
-  function insert(uint v) returns(uint size) {
+  function insert(uint v) returns (uint size) {
     /// Sends \`data\` via reference, so IntegerSet can modify it.
     IntegerSet.insert(data, v);
     /// We can access members of the struct - but we should take care not to mess with them.
     return data.size;
   }
   /// Computes the sum of all stored data.
-  function sum() returns(uint s) {
+  function sum() returns (uint s) {
     for (var i = IntegerSet.iterate_start(data); IntegerSet.iterate_valid(
       data,
       i
@@ -630,7 +630,7 @@ contract DualIndex {
     admin = _admin;
   }
 
-  function lookup(uint key1, uint key2) returns(uint) {
+  function lookup(uint key1, uint key2) returns (uint) {
     return data[key1][key2];
   }
 }
@@ -691,7 +691,7 @@ library VarHasBrackets {
 
 
 library UsingExampleLibrary {
-  function sum(uint[] storage self) returns(uint s) {
+  function sum(uint[] storage self) returns (uint s) {
     for (uint i = 0; i < self.length; i++) s += self[i];
   }
 }
@@ -721,7 +721,7 @@ contract MyContract {
 
 
 library GetCode {
-  function at(address _addr) returns(bytes o_code) {
+  function at(address _addr) returns (bytes o_code) {
     assembly {
       // retrieve the size of the code, this needs assembly
       let size := extcodesize(_addr)
@@ -754,7 +754,7 @@ contract assemblyLocalBinding {
 contract assemblyReturn {
   uint a = 10;
 
-  function get() constant returns(uint) {
+  function get() constant returns (uint) {
     assembly {
       mstore(0x40, sload(0))
       byte(0)
@@ -773,7 +773,7 @@ contract usesConst {
 contract memoryArrays {
   uint seven = 7;
 
-  function returnNumber(uint number) returns(uint) {
+  function returnNumber(uint number) returns (uint) {
     return number;
   }
 
@@ -807,7 +807,7 @@ contract DeclarativeExpressions {
 
 
 contract VariableDeclarationTuple {
-  function getMyTuple() returns(bool, bool) {
+  function getMyTuple() returns (bool, bool) {
     return (true, false);
   }
 
@@ -835,18 +835,18 @@ contract Ballot {
     bool voted;
   }
 
-  function abstain() returns(bool) {
+  function abstain() returns (bool) {
     return false;
   }
 
-  function foobar() payable owner(myPrice) returns(
+  function foobar() payable owner(myPrice) returns (
     uint[],
     address myAdd,
     string[] names
   ) {
 
   }
-  function foobar() payable owner(myPrice) returns(
+  function foobar() payable owner(myPrice) returns (
     uint[],
     address myAdd,
     string[] names
@@ -861,7 +861,7 @@ contract Ballot {
 
 
 contract multilineReturn {
-  function a() returns(uint x) {
+  function a() returns (uint x) {
     return 5;
   }
 }
