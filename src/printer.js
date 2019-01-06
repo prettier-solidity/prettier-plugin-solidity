@@ -112,7 +112,7 @@ function genericPrint(path, options, print) {
       if (node.returnParameters) {
         doc = join(' ', [
           doc,
-          concat(['returns(', path.call(print, 'returnParameters'), ')'])
+          concat(['returns (', path.call(print, 'returnParameters'), ')'])
         ]);
       }
       if (node.body) {
@@ -135,7 +135,12 @@ function genericPrint(path, options, print) {
       doc = path.call(print, 'typeName');
       doc = join(
         ' ',
-        [doc, node.storageLocation, node.name].filter(element => element)
+        [
+          doc,
+          node.storageLocation,
+          node.typeName.stateMutability,
+          node.name
+        ].filter(element => element)
       );
       return doc;
     case 'ModifierInvocation':
@@ -144,14 +149,35 @@ function genericPrint(path, options, print) {
         doc = concat([doc, '(', join(', ', path.map(print, 'arguments')), ')']);
       }
       return doc;
-    case 'Block':
-      return concat([
+    case 'Block': {
+      const parts = [
         '{',
         indent(line),
-        indent(printPreservingEmptyLines(path, 'statements', options, print)),
-        line,
-        '}'
-      ]);
+        indent(printPreservingEmptyLines(path, 'statements', options, print))
+      ];
+
+      if (node.comments) {
+        let first = true;
+        path.each(commentPath => {
+          if (first) {
+            first = false;
+          } else {
+            parts.push(indent(line));
+          }
+          const comment = commentPath.getValue();
+          if (comment.trailing || comment.leading) {
+            return;
+          }
+          comment.printed = true;
+          parts.push(options.printer.printComment(commentPath));
+        }, 'comments');
+      }
+
+      parts.push(line);
+      parts.push('}');
+
+      return concat(parts);
+    }
     case 'EventDefinition':
       return concat([
         'event ',
@@ -286,13 +312,19 @@ function genericPrint(path, options, print) {
       if (node.visibility === 'default') {
         return join(
           ' ',
-          [doc, constantKeyword, node.name].filter(element => element)
+          [
+            doc,
+            node.typeName.stateMutability,
+            constantKeyword,
+            node.name
+          ].filter(element => element)
         );
       }
       return join(
         ' ',
         [
           doc,
+          node.typeName.stateMutability,
           node.visibility,
           constantKeyword,
           node.storageLocation,
@@ -494,7 +526,7 @@ function genericPrint(path, options, print) {
       const returns = returnTypes => {
         if (returnTypes.length > 0) {
           return concat([
-            'returns(',
+            'returns (',
             join(', ', path.map(print, 'returnTypes')),
             ')'
           ]);
