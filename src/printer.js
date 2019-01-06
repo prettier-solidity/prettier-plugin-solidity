@@ -135,7 +135,12 @@ function genericPrint(path, options, print) {
       doc = path.call(print, 'typeName');
       doc = join(
         ' ',
-        [doc, node.storageLocation, node.name].filter(element => element)
+        [
+          doc,
+          node.storageLocation,
+          node.typeName.stateMutability,
+          node.name
+        ].filter(element => element)
       );
       return doc;
     case 'ModifierInvocation':
@@ -286,13 +291,19 @@ function genericPrint(path, options, print) {
       if (node.visibility === 'default') {
         return join(
           ' ',
-          [doc, constantKeyword, node.name].filter(element => element)
+          [
+            doc,
+            node.typeName.stateMutability,
+            constantKeyword,
+            node.name
+          ].filter(element => element)
         );
       }
       return join(
         ' ',
         [
           doc,
+          node.typeName.stateMutability,
           node.visibility,
           constantKeyword,
           node.storageLocation,
