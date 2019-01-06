@@ -465,7 +465,7 @@ contract Base {
   uint public m_i;
 }
 
-contract Derived is Base {
+contract Derived is Base(0) {
   function Derived(uint i) Base(i) {
 
   }
@@ -613,7 +613,7 @@ contract DualIndex {
   mapping(uint => mapping(uint => uint)) data;
   address public admin;
 
-  modifier restricted() {
+  modifier restricted {
     if (msg.sender == admin) _;
   }
 
@@ -664,7 +664,7 @@ contract TestInternal {
 contract FromSolparse is A, B, TestPrivate, TestInternal {
   function() {
     uint a = 6 ** 9;
-    x = 100;
+    var (x) = 100;
     uint y = 2 days;
   }
 }
@@ -812,13 +812,13 @@ contract VariableDeclarationTuple {
   }
 
   function ham() {
-    (x, y) = (10, 20);
-    (a, b) = getMyTuple();
-    (, , c) = (10, 20);
-    (d, , ) = (10, 20, 30);
-    (, , e, , , f, , ) = (10, 20, 30, 40, 50);
+    var (x, y) = (10, 20);
+    var (a, b) = getMyTuple();
+    var (, , c) = (10, 20);
+    var (d, , ) = (10, 20, 30);
+    var (, , e, , , f, , ) = (10, 20, 30, 40, 50);
 
-    (num1, num2, num3, , , num5) = (10, 20, 30, 40, 50);
+    var (num1, num2, num3, , , num5) = (10, 20, 30, 40, 50);
   }
 }
 
