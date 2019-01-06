@@ -112,7 +112,7 @@ function genericPrint(path, options, print) {
       if (node.returnParameters) {
         doc = join(' ', [
           doc,
-          concat(['returns(', path.call(print, 'returnParameters'), ')'])
+          concat(['returns (', path.call(print, 'returnParameters'), ')'])
         ]);
       }
       if (node.body) {
@@ -519,7 +519,7 @@ function genericPrint(path, options, print) {
       const returns = returnTypes => {
         if (returnTypes.length > 0) {
           return concat([
-            'returns(',
+            'returns (',
             join(', ', path.map(print, 'returnTypes')),
             ')'
           ]);
