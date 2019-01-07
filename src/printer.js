@@ -489,7 +489,7 @@ function genericPrint(path, options, print) {
       return concat([
         '{',
         indent(hardline),
-        indent(join(line, path.map(print, 'operations'))),
+        indent(printPreservingEmptyLines(path, 'operations', options, print)),
         hardline,
         '}'
       ]);
@@ -545,6 +545,15 @@ function genericPrint(path, options, print) {
         ' ',
         path.call(print, 'body')
       ]);
+    case 'AssemblyFor': {
+      return join(' ', [
+        'for',
+        path.call(print, 'pre'),
+        path.call(print, 'condition'),
+        path.call(print, 'post'),
+        path.call(print, 'body')
+      ]);
+    }
     case 'FunctionTypeName': {
       const returns = returnTypes => {
         if (returnTypes.length > 0) {

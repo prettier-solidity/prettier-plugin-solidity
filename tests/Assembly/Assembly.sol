@@ -19,4 +19,10 @@ contract Assembly {
             }
         }
   }
+
+  function forAssembly() {
+    assembly {
+for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
+        }
+  }
 }
