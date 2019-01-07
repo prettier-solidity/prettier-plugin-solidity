@@ -499,11 +499,20 @@ function genericPrint(path, options, print) {
       if (node.arguments.length === 0) {
         return node.functionName;
       }
-      // @TODO: add call args
       return concat([
         node.functionName,
         '(',
-        join(', ', path.map(print, 'arguments')),
+        group(
+          concat([
+            indent(
+              concat([
+                softline,
+                join(concat([',', line]), path.map(print, 'arguments'))
+              ])
+            ),
+            softline
+          ])
+        ),
         ')'
       ]);
     case 'HexNumber':
