@@ -512,14 +512,19 @@ function genericPrint(path, options, print) {
       return node.value;
     case 'AssemblySwitch':
       doc = join(hardline, path.map(print, 'cases'));
-      return concat(['switch ', path.call(print, 'expression'), hardline, doc]);
+      return concat([
+        'switch ',
+        path.call(print, 'expression'),
+        indent(hardline),
+        indent(doc)
+      ]);
     case 'AssemblyCase':
       if (node.default) {
         doc = concat(['default']);
       } else {
         doc = concat(['case ', path.call(print, 'value')]);
       }
-      return join(' ', [doc, '{}']);
+      return join(' ', [doc, path.call(print, 'block')]);
     case 'AssemblyLocalDefinition':
       return join(' ', [
         'let',
