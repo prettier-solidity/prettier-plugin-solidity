@@ -28,6 +28,16 @@ contract Assembly {
 for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
         }
   }
+
+  function callWithComments() {
+    assembly {
+      f(
+        1, // one
+        2, // two
+        3 // three
+      )
+    }
+  }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract Assembly {
@@ -43,10 +53,16 @@ contract Assembly {
     assembly {
       switch value
         case 0 {
-          mstore(0, 0x0000000000000000000000000000000000000000000000000000000000000000)
+          mstore(
+            0,
+            0x0000000000000000000000000000000000000000000000000000000000000000
+          )
         }
         case 1 {
-          mstore(0, 0x1111111111111111111111111111111111111111111111111111111111111111)
+          mstore(
+            0,
+            0x1111111111111111111111111111111111111111111111111111111111111111
+          )
         }
     }
   }
@@ -60,6 +76,16 @@ contract Assembly {
       } {
         y := mul(2, y)
       }
+    }
+  }
+
+  function callWithComments() {
+    assembly {
+      f(
+        1, // one
+        2, // two
+        3 // three
+      )
     }
   }
 }
