@@ -494,7 +494,12 @@ function genericPrint(path, options, print) {
       return node.value;
     case 'AssemblySwitch':
       doc = join(hardline, path.map(print, 'cases'));
-      return concat(['switch ', path.call(print, 'expression'), hardline, doc]);
+      return concat([
+        'switch ',
+        path.call(print, 'expression'),
+        indent(hardline),
+        indent(doc)
+      ]);
     case 'AssemblyCase':
       if (node.default) {
         doc = concat(['default']);
