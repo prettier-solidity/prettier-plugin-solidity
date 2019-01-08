@@ -566,9 +566,9 @@ library IntegerSet {
   function iterate_valid(data storage self, uint index) returns (bool) {
     return index < self.items.length;
   }
-  function iterate_advance(data storage self, uint index) returns (
-    uint r_index
-  ) {
+  function iterate_advance(data storage self, uint index)
+    returns (uint r_index)
+  {
     index++;
     while (iterate_valid(
       self,
@@ -827,16 +827,15 @@ contract Ballot {
     return false;
   }
 
-  function foobar() payable owner(myPrice) returns (
-    uint[],
-    address myAdd,
-    string[] names
-  ) {}
-  function foobar() payable owner(myPrice) returns (
-    uint[],
-    address myAdd,
-    string[] names
-  );
+  function foobar()
+    payable
+    owner(myPrice)
+    returns (uint[], address myAdd, string[] names)
+  {}
+  function foobar()
+    payable
+    owner(myPrice)
+    returns (uint[], address myAdd, string[] names);
 
   Voter you = Voter(1, true);
 
