@@ -430,7 +430,6 @@ interface i {
   function f();
 }
 
-
 contract c {
   function c() {
     val1 = 1 wei; // 1
@@ -444,7 +443,6 @@ contract c {
   uint256 val4;
 }
 
-
 contract test {
   enum ActionChoices {GoLeft, GoRight, GoStraight, SitStill}
 
@@ -457,18 +455,15 @@ contract test {
   ActionChoices choices;
 }
 
-
 contract Base {
   function Base(uint i) {
     m_i = i;
   }
   uint public m_i;
 }
-
 contract Derived is Base(0) {
   function Derived(uint i) Base(i) {}
 }
-
 
 contract C {
   uint248 x; // 31 bytes: slot 0, offset 0
@@ -485,7 +480,6 @@ contract C {
   uint8 gamma; // 1 byte, slot 7 (start new slot after array)
 }
 
-
 contract test {
   function f(uint x, uint y) returns (uint z) {
     var c = x + 3;
@@ -494,13 +488,11 @@ contract test {
   }
 }
 
-
 contract test {
   function f(uint x, uint y) returns (uint z) {
     return 10;
   }
 }
-
 
 contract c {
   function() returns (uint) {
@@ -519,14 +511,12 @@ contract c {
   mapping(uint => uint) data;
 }
 
-
 contract Sharer {
   function sendHalf(address addr) returns (uint balance) {
     if (!addr.send(msg.value / 2)) throw; // also reverts the transfer to Sharer
     return address(this).balance;
   }
 }
-
 
 /// @dev Models a modifiable and iterable set of uint values.
 library IntegerSet {
@@ -581,7 +571,6 @@ library IntegerSet {
   }
 }
 
-
 /// How to use it:
 contract User {
   /// Just a struct holding our data.
@@ -604,7 +593,6 @@ contract User {
     );
   }
 }
-
 
 // This broke it at one point (namely the modifiers).
 contract DualIndex {
@@ -633,25 +621,19 @@ contract DualIndex {
   }
 }
 
-
 contract A {}
-
 
 contract B {}
 
-
 contract C is A, B {}
-
 
 contract TestPrivate {
   uint private value;
 }
 
-
 contract TestInternal {
   uint internal value;
 }
-
 
 contract FromSolparse is A, B, TestPrivate, TestInternal {
   function() {
@@ -660,7 +642,6 @@ contract FromSolparse is A, B, TestPrivate, TestInternal {
     uint y = 2 days;
   }
 }
-
 
 contract CommentedOutFunction {
   // FYI: This empty function, as well as the commented
@@ -673,12 +654,10 @@ contract CommentedOutFunction {
 
 }
 
-
 library VarHasBrackets {
   string constant specialRight = "}";
   //string storage specialLeft = "{";
 }
-
 
 library UsingExampleLibrary {
   function sum(uint[] storage self) returns (uint s) {
@@ -686,11 +665,9 @@ library UsingExampleLibrary {
   }
 }
 
-
 contract UsingExampleContract {
   using UsingExampleLibrary for uint[];
 }
-
 
 contract NewStuff {
   uint[] b;
@@ -701,12 +678,10 @@ contract NewStuff {
   }
 }
 
-
 // modifier with expression
 contract MyContract {
   function fun() mymodifier(foo.bar()) {}
 }
-
 
 library GetCode {
   function at(address _addr) returns (bytes o_code) {
@@ -726,7 +701,6 @@ library GetCode {
   }
 }
 
-
 contract assemblyLocalBinding {
   function test() {
     assembly {
@@ -737,7 +711,6 @@ contract assemblyLocalBinding {
     }
   }
 }
-
 
 contract assemblyReturn {
   uint a = 10;
@@ -752,11 +725,9 @@ contract assemblyReturn {
   }
 }
 
-
 contract usesConst {
   uint const = 0;
 }
-
 
 contract memoryArrays {
   uint seven = 7;
@@ -770,7 +741,6 @@ contract memoryArrays {
     uint[] memory b = new uint[](returnNumber(seven));
   }
 }
-
 
 contract DeclarativeExpressions {
   uint a;
@@ -793,7 +763,6 @@ contract DeclarativeExpressions {
   }
 }
 
-
 contract VariableDeclarationTuple {
   function getMyTuple() returns (bool, bool) {
     return (true, false);
@@ -810,12 +779,10 @@ contract VariableDeclarationTuple {
   }
 }
 
-
 contract TypeIndexSpacing {
   uint[7] x;
   uint[] y;
 }
-
 
 contract Ballot {
   struct Voter {
@@ -844,7 +811,6 @@ contract Ballot {
 
   Voter airbnb = Voter({weight: 2, voted: true});
 }
-
 
 contract multilineReturn {
   function a() returns (uint x) {

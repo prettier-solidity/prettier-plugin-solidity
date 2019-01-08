@@ -68,7 +68,6 @@ contract SampleCrowdsaleToken is MintableToken {
 
 }
 
-
 /**
  * @title SampleCrowdsale
  * @dev This is an example of a fully fledged crowdsale.
