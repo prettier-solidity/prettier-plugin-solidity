@@ -54,24 +54,29 @@ function genericPrint(path, options, print) {
         ]);
       }
       return concat(['import ', doc, ';']);
-    case 'ContractDefinition':
-      doc = concat([node.kind, ' ', node.name]);
+    case 'ContractDefinition': {
+      let parts = [node.kind, ' ', node.name];
+
       if (node.baseContracts.length > 0) {
-        doc = concat([
-          doc,
+        parts = parts.concat([
           ' is ',
           join(', ', path.map(print, 'baseContracts'))
         ]);
       }
-      return concat([
-        doc,
-        ' {',
-        indent(line),
-        indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
-        line,
-        '}',
-        line
-      ]);
+
+      parts.push(' {');
+      if (node.subNodes.length > 0) {
+        parts = parts.concat([
+          indent(line),
+          indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
+          line
+        ]);
+      }
+      parts.push('}');
+      parts.push(line);
+
+      return concat(parts);
+    }
     case 'InheritanceSpecifier': {
       let parts = [path.call(print, 'baseName')];
 
@@ -159,6 +164,11 @@ function genericPrint(path, options, print) {
       }
       return doc;
     case 'Block': {
+      // if block is empty, just return the pair of braces
+      if (node.statements.length === 0 && !node.comments) {
+        return '{}';
+      }
+
       const parts = [
         '{',
         indent(line),
