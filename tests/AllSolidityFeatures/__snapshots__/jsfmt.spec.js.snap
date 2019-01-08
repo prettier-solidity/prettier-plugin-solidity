@@ -466,9 +466,7 @@ contract Base {
 }
 
 contract Derived is Base(0) {
-  function Derived(uint i) Base(i) {
-
-  }
+  function Derived(uint i) Base(i) {}
 }
 
 
@@ -636,19 +634,13 @@ contract DualIndex {
 }
 
 
-contract A {
-
-}
+contract A {}
 
 
-contract B {
-
-}
+contract B {}
 
 
-contract C is A, B {
-
-}
+contract C is A, B {}
 
 
 contract TestPrivate {
@@ -673,9 +665,7 @@ contract FromSolparse is A, B, TestPrivate, TestInternal {
 contract CommentedOutFunction {
   // FYI: This empty function, as well as the commented
   // out function below (bad code) is important to this test.
-  function() {
-
-  }
+  function() {}
 
   // function something()
   //  uint x = 10;
@@ -714,9 +704,7 @@ contract NewStuff {
 
 // modifier with expression
 contract MyContract {
-  function fun() mymodifier(foo.bar()) {
-
-  }
+  function fun() mymodifier(foo.bar()) {}
 }
 
 
@@ -843,9 +831,7 @@ contract Ballot {
     uint[],
     address myAdd,
     string[] names
-  ) {
-
-  }
+  ) {}
   function foobar() payable owner(myPrice) returns (
     uint[],
     address myAdd,
