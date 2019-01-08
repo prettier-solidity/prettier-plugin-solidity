@@ -1,0 +1,37 @@
+contract FunctionDefinitions {
+  function noParamsNoModifiers() {
+    a = 1;
+  }
+
+  function oneParam(uint x) {
+    a = 1;
+  }
+
+  function oneModifier() modifier1 {
+    a = 1;
+  }
+
+  function manyParams(uint x1, uint x2, uint x3, uint x4, uint x5, uint x6, uint x7, uint x8, uint x9, uint x10) {
+    a = 1;
+  }
+
+  function manyModifiers() modifier1 modifier2 modifier3 modifier4 modifier5 modifier6 modifier7 modifier8 modifier9 modifier10 {
+    a = 1;
+  }
+
+  function someParamsSomeModifiers(uint x1, uint x2, uint x3) modifier1 modifier2 modifier3 {
+    a = 1;
+  }
+
+  function someParamsManyModifiers(uint x1, uint x2, uint x3) modifier1 modifier2 modifier3 modifier4 modifier5 modifier6 modifier7 modifier8 modifier9 modifier10 {
+    a = 1;
+  }
+
+  function manyParamsSomeModifiers(uint x1, uint x2, uint x3, uint x4, uint x5, uint x6, uint x7, uint x8, uint x9, uint x10) modifier1 modifier2 modifier3 {
+    a = 1;
+  }
+
+  function manyParamsManyModifiers(uint x1, uint x2, uint x3, uint x4, uint x5, uint x6, uint x7, uint x8, uint x9, uint x10) modifier1 modifier2 modifier3 modifier4 modifier5 modifier6 modifier7 modifier8 modifier9 modifier10 {
+    a = 1;
+  }
+}
