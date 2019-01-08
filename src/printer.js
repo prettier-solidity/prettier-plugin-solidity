@@ -33,7 +33,10 @@ function genericPrint(path, options, print) {
   let doc;
   switch (node.type) {
     case 'SourceUnit':
-      return printPreservingEmptyLines(path, 'children', options, print);
+      return concat([
+        printPreservingEmptyLines(path, 'children', options, print),
+        line
+      ]);
     case 'PragmaDirective':
       return concat(['pragma ', node.name, ' ', node.value, ';']);
     case 'ImportDirective':
@@ -73,7 +76,6 @@ function genericPrint(path, options, print) {
         ]);
       }
       parts.push('}');
-      parts.push(line);
 
       return concat(parts);
     }
