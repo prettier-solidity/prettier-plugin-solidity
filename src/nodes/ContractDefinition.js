@@ -7,20 +7,26 @@ const printPreservingEmptyLines = require('./print-preserving-empty-lines');
 
 const ContractDefinition = {
   print: ({ node, options, path, print }) => {
-    let doc; // info: no need to use the "global doc" ?!?
-    doc = concat([node.kind, ' ', node.name]);
+    let parts = [node.kind, ' ', node.name];
+
     if (node.baseContracts.length > 0) {
-      doc = concat([doc, ' is ', join(', ', path.map(print, 'baseContracts'))]);
+      parts = parts.concat([
+        ' is ',
+        join(', ', path.map(print, 'baseContracts'))
+      ]);
     }
-    return concat([
-      doc,
-      ' {',
-      indent(line),
-      indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
-      line,
-      '}',
-      line
-    ]);
+
+    parts.push(' {');
+    if (node.subNodes.length > 0) {
+      parts = parts.concat([
+        indent(line),
+        indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
+        line
+      ]);
+    }
+    parts.push('}');
+
+    return concat(parts);
   }
 };
 

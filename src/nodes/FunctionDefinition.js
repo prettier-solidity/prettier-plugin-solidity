@@ -1,45 +1,67 @@
 const {
   doc: {
-    builders: { concat, join }
+    builders: { concat, group, indent, join, line }
   }
 } = require('prettier');
 
 const FunctionDefinition = {
   print: ({ node, path, print }) => {
-    let doc; // info: no need to use the "global doc" ?!?
+    let parts = [];
+
     if (node.isConstructor) {
       if (node.name) {
-        doc = `function ${node.name}`;
+        parts.push(`function ${node.name}`);
       } else {
-        doc = 'constructor';
+        parts.push('constructor');
       }
     } else if (node.name === '') {
-      doc = 'function';
+      parts.push('function');
     } else {
-      doc = concat(['function ', node.name]);
+      parts = parts.concat(['function ', node.name]);
     }
 
-    doc = concat([doc, '(', path.call(print, 'parameters'), ')']);
+    parts = parts.concat(['(', path.call(print, 'parameters'), ')']);
+
+    let modifiers = [];
     if (node.visibility && node.visibility !== 'default') {
-      doc = join(' ', [doc, node.visibility]);
+      modifiers.push(node.visibility);
     }
     // @TODO: check stateMutability null vs default
     if (node.stateMutability && node.stateMutability !== 'default') {
-      doc = join(' ', [doc, node.stateMutability]);
+      modifiers.push(node.stateMutability);
     }
     if (node.modifiers.length > 0) {
-      doc = join(' ', [doc, join(' ', path.map(print, 'modifiers'))]);
+      modifiers = modifiers.concat(path.map(print, 'modifiers'));
     }
     if (node.returnParameters) {
-      doc = join(' ', [
-        doc,
-        concat(['returns(', path.call(print, 'returnParameters'), ')'])
-      ]);
+      modifiers.push(
+        concat(['returns (', path.call(print, 'returnParameters'), ')'])
+      );
     }
+
+    if (modifiers.length > 0) {
+      parts.push(
+        group(
+          concat(
+            [
+              indent(line),
+              join(indent(line), modifiers),
+              node.body ? line : null
+            ].filter(x => x)
+          )
+        )
+      );
+    } else if (node.body) {
+      parts.push(' ');
+    }
+
     if (node.body) {
-      return concat([join(' ', [doc, path.call(print, 'body')])]);
+      parts.push(path.call(print, 'body'));
+    } else {
+      parts.push(';');
     }
-    return concat([doc, ';']);
+
+    return concat(parts);
   }
 };
 
