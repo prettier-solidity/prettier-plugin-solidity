@@ -11,7 +11,138 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
   let doc;
   switch (node.type) {
+    case 'SourceUnit':
+      return concat([
+        printPreservingEmptyLines(path, 'children', options, print),
+        line
+      ]);
+    case 'PragmaDirective':
+      return concat(['pragma ', node.name, ' ', node.value, ';']);
+    case 'ImportDirective':
+      // @TODO: handle proper escaping
+      doc = concat(['"', node.path, '"']);
+
+      if (node.unitAlias) {
+        doc = concat([doc, ' as ', node.unitAlias]);
+      } else if (node.symbolAliases) {
+        doc = concat([
+          '{',
+          join(
+            ', ',
+            node.symbolAliases.map(([a, b]) => (b ? [a, b].join(' as ') : a))
+          ),
+          '} from ',
+          doc
+        ]);
+      }
+      return concat(['import ', doc, ';']);
+    case 'ContractDefinition': {
+      let parts = [node.kind, ' ', node.name];
+
+      if (node.baseContracts.length > 0) {
+        parts = parts.concat([
+          ' is ',
+          join(', ', path.map(print, 'baseContracts'))
+        ]);
+      }
+
+      parts.push(' {');
+      if (node.subNodes.length > 0) {
+        parts = parts.concat([
+          indent(line),
+          indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
+          line
+        ]);
+      }
+      parts.push('}');
+
+      return concat(parts);
+    }
+    case 'InheritanceSpecifier': {
+      let parts = [path.call(print, 'baseName')];
+
+      if (node.arguments && node.arguments.length) {
+        parts.push('(');
+        parts = parts.concat(path.map(print, 'arguments'));
+        parts.push(')');
+      }
+
+      return concat(parts);
+    }
+    case 'UsingForDeclaration':
+      if (node.typeName) {
+        return concat([
+          'using ',
+          node.libraryName,
+          ' for ',
+          path.call(print, 'typeName'),
+          ';'
+        ]);
+      }
+      return concat(['using ', node.libraryName, ' for *;']);
+    case 'FunctionDefinition': {
+      let parts = [];
+
+      if (node.isConstructor) {
+        if (node.name) {
+          parts.push(`function ${node.name}`);
+        } else {
+          parts.push('constructor');
+        }
+      } else if (node.name === '') {
+        parts.push('function');
+      } else {
+        parts = parts.concat(['function ', node.name]);
+      }
+
+      parts = parts.concat(['(', path.call(print, 'parameters'), ')']);
+
+      let modifiers = [];
+      if (node.visibility && node.visibility !== 'default') {
+        modifiers.push(node.visibility);
+      }
+      // @TODO: check stateMutability null vs default
+      if (node.stateMutability && node.stateMutability !== 'default') {
+        modifiers.push(node.stateMutability);
+      }
+      if (node.modifiers.length > 0) {
+        modifiers = modifiers.concat(path.map(print, 'modifiers'));
+      }
+      if (node.returnParameters) {
+        modifiers.push(
+          concat(['returns (', path.call(print, 'returnParameters'), ')'])
+        );
+      }
+
+      if (modifiers.length > 0) {
+        parts.push(
+          group(
+            concat(
+              [
+                indent(line),
+                join(indent(line), modifiers),
+                node.body ? line : null
+              ].filter(x => x)
+            )
+          )
+        );
+      } else if (node.body) {
+        parts.push(' ');
+      }
+
+      if (node.body) {
+        parts.push(path.call(print, 'body'));
+      } else {
+        parts.push(';');
+      }
+
+      return concat(parts);
+    }
     case 'ParameterList':
+      // don't insert softlines when there are no parameters
+      if (node.parameters.length === 0) {
+        return '';
+      }
       return group(
         concat([
           indent(
@@ -27,7 +158,12 @@ function genericPrint(path, options, print) {
       doc = path.call(print, 'typeName');
       doc = join(
         ' ',
-        [doc, node.storageLocation, node.name].filter(element => element)
+        [
+          doc,
+          node.storageLocation,
+          node.typeName.stateMutability,
+          node.name
+        ].filter(element => element)
       );
       return doc;
     case 'ModifierInvocation':
@@ -36,14 +172,40 @@ function genericPrint(path, options, print) {
         doc = concat([doc, '(', join(', ', path.map(print, 'arguments')), ')']);
       }
       return doc;
-    case 'Block':
-      return concat([
+    case 'Block': {
+      // if block is empty, just return the pair of braces
+      if (node.statements.length === 0 && !node.comments) {
+        return '{}';
+      }
+
+      const parts = [
         '{',
         indent(line),
-        indent(printPreservingEmptyLines(path, 'statements', options, print)),
-        line,
-        '}'
-      ]);
+        indent(printPreservingEmptyLines(path, 'statements', options, print))
+      ];
+
+      if (node.comments) {
+        let first = true;
+        path.each(commentPath => {
+          if (first) {
+            first = false;
+          } else {
+            parts.push(indent(line));
+          }
+          const comment = commentPath.getValue();
+          if (comment.trailing || comment.leading) {
+            return;
+          }
+          comment.printed = true;
+          parts.push(options.printer.printComment(commentPath));
+        }, 'comments');
+      }
+
+      parts.push(line);
+      parts.push('}');
+
+      return concat(parts);
+    }
     case 'EventDefinition':
       return concat([
         'event ',
@@ -54,10 +216,9 @@ function genericPrint(path, options, print) {
       ]);
 
     case 'ExpressionStatement': {
-      const addSemicolon = path.getParentNode().type !== 'ForStatement';
       return concat([
         node.expression ? path.call(print, 'expression') : '',
-        addSemicolon ? ';' : ''
+        node.omitSemicolon ? '' : ';'
       ]);
     }
     case 'FunctionCall':
@@ -120,6 +281,9 @@ function genericPrint(path, options, print) {
     case 'EmitStatement':
       return concat(['emit ', path.call(print, 'eventCall'), ';']);
     case 'VariableDeclarationStatement': {
+      const startsWithVar =
+        node.variables.filter(x => x && x.typeName).length === 0;
+
       doc = join(
         ', ',
         path.map(statementPath => {
@@ -130,15 +294,18 @@ function genericPrint(path, options, print) {
         }, 'variables')
       );
 
-      if (node.variables.length > 1) {
+      if (node.variables.length > 1 || startsWithVar) {
         doc = concat(['(', doc, ')']);
       }
 
       if (node.initialValue) {
         doc = concat([doc, ' = ', path.call(print, 'initialValue')]);
       }
-      const addSemicolon = path.getParentNode().type !== 'ForStatement';
-      return concat([doc, addSemicolon ? ';' : '']);
+      return concat([
+        startsWithVar ? 'var ' : '',
+        doc,
+        node.omitSemicolon ? '' : ';'
+      ]);
     }
     case 'StateVariableDeclaration':
       doc = concat(
@@ -180,13 +347,19 @@ function genericPrint(path, options, print) {
       if (node.visibility === 'default') {
         return join(
           ' ',
-          [doc, constantKeyword, node.name].filter(element => element)
+          [
+            doc,
+            node.typeName.stateMutability,
+            constantKeyword,
+            node.name
+          ].filter(element => element)
         );
       }
       return join(
         ' ',
         [
           doc,
+          node.typeName.stateMutability,
           node.visibility,
           constantKeyword,
           node.storageLocation,
@@ -217,7 +390,13 @@ function genericPrint(path, options, print) {
         path.call(print, 'trueBody')
       ]);
       if (node.falseBody) {
-        doc = concat([doc, ' else ', path.call(print, 'falseBody')]);
+        const elseOnSameLine = node.trueBody.type === 'Block';
+        doc = concat([
+          doc,
+          elseOnSameLine ? ' ' : hardline,
+          'else ',
+          path.call(print, 'falseBody')
+        ]);
       }
       return doc;
     case 'EnumDefinition':
@@ -302,24 +481,26 @@ function genericPrint(path, options, print) {
         doc = join(' ', [doc, path.call(print, 'expression')]);
       }
       return concat([doc, ';']);
-    case 'ModifierDefinition':
-      if (
-        node.parameters &&
-        node.parameters.parameters &&
-        node.parameters.parameters.length > 0
-      ) {
-        doc = path.call(print, 'parameters');
+    case 'ModifierDefinition': {
+      let parts = ['modifier ', node.name];
+
+      if (node.parameters && node.parameters.parameters) {
+        // if node.paremeters is an object, print parameter list
+        parts.push('(');
+        parts = parts.concat(path.call(print, 'parameters'));
+        parts.push(') ');
+      } else if (node.parameters && node.parameters.length === 0) {
+        // if node.paremeters is an empty array, don't print parentheses
+        parts.push(' ');
       } else {
-        doc = '';
+        // otherwise, throw a not implemented error
+        throw new Error('[ModifierDefinition] Scenario not implemented');
       }
-      return concat([
-        'modifier ',
-        node.name,
-        '(',
-        doc,
-        ') ',
-        path.call(print, 'body')
-      ]);
+
+      parts.push(path.call(print, 'body'));
+
+      return concat(parts);
+    }
     case 'InlineAssemblyStatement':
       // @TODO: add support for assembly language specifier
       return concat(['assembly ', path.call(print, 'body')]);
@@ -327,7 +508,7 @@ function genericPrint(path, options, print) {
       return concat([
         '{',
         indent(hardline),
-        indent(join(line, path.map(print, 'operations'))),
+        indent(printPreservingEmptyLines(path, 'operations', options, print)),
         hardline,
         '}'
       ]);
@@ -337,11 +518,20 @@ function genericPrint(path, options, print) {
       if (node.arguments.length === 0) {
         return node.functionName;
       }
-      // @TODO: add call args
       return concat([
         node.functionName,
         '(',
-        join(', ', path.map(print, 'arguments')),
+        group(
+          concat([
+            indent(
+              concat([
+                softline,
+                join(concat([',', line]), path.map(print, 'arguments'))
+              ])
+            ),
+            softline
+          ])
+        ),
         ')'
       ]);
     case 'HexNumber':
@@ -350,14 +540,19 @@ function genericPrint(path, options, print) {
       return node.value;
     case 'AssemblySwitch':
       doc = join(hardline, path.map(print, 'cases'));
-      return concat(['switch ', path.call(print, 'expression'), hardline, doc]);
+      return concat([
+        'switch ',
+        path.call(print, 'expression'),
+        indent(hardline),
+        indent(doc)
+      ]);
     case 'AssemblyCase':
       if (node.default) {
         doc = concat(['default']);
       } else {
         doc = concat(['case ', path.call(print, 'value')]);
       }
-      return join(' ', [doc, '{}']);
+      return join(' ', [doc, path.call(print, 'block')]);
     case 'AssemblyLocalDefinition':
       return join(' ', [
         'let',
@@ -371,11 +566,27 @@ function genericPrint(path, options, print) {
         ':=',
         path.call(print, 'expression')
       ]);
+    case 'AssemblyIf':
+      return concat([
+        'if ',
+        path.call(print, 'condition'),
+        ' ',
+        path.call(print, 'body')
+      ]);
+    case 'AssemblyFor': {
+      return join(' ', [
+        'for',
+        path.call(print, 'pre'),
+        path.call(print, 'condition'),
+        path.call(print, 'post'),
+        path.call(print, 'body')
+      ]);
+    }
     case 'FunctionTypeName': {
       const returns = returnTypes => {
         if (returnTypes.length > 0) {
           return concat([
-            'returns(',
+            'returns (',
             join(', ', path.map(print, 'returnTypes')),
             ')'
           ]);
@@ -397,6 +608,8 @@ function genericPrint(path, options, print) {
         ].filter(element => element)
       );
     }
+    case 'ThrowStatement':
+      return 'throw;';
     default: {
       const nodeType = nodes[node.type];
       if (nodeType) {

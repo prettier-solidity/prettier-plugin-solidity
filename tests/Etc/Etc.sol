@@ -22,4 +22,21 @@ contract Contract {
     require(msg.sender != x);
     _;
   }
+
+  function ifBlockInOneLine(uint a) returns (uint b) {
+    if (a < 0) b = 0x67; else if (a == 0) b = 0x12; else b = 0x78;
+  }
+
+  function forWithoutBlock() {
+    uint i;
+    uint sum;
+    for ( i = 0; i < 10; i++ ) sum   +=  i;
+  }
+
+  function fun(uint256 a) returns (uint) {
+    if (something) foo();
+    // comment
+    else if (somethingElse) bar();
+    else whatever();
+  }
 }

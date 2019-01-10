@@ -1,11 +1,10 @@
 after_script:
   - npm run coverage
-language:
-  node_js
+language: node_js
 node_js:
-  - "6"
-  - "8"
-  - "10"
+  - '6'
+  - '8'
+  - '10'
 script:
   - npm run lint
   - npm test

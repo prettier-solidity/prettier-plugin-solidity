@@ -68,7 +68,6 @@ contract SampleCrowdsaleToken is MintableToken {
 
 }
 
-
 /**
  * @title SampleCrowdsale
  * @dev This is an example of a fully fledged crowdsale.
@@ -88,13 +87,19 @@ contract SampleCrowdsale is CappedCrowdsale, RefundableCrowdsale {
     uint256 _goal,
     uint256 _cap,
     address _wallet
-  ) public CappedCrowdsale(_cap) FinalizableCrowdsale RefundableCrowdsale(_goal) Crowdsale(_startTime, _endTime, _rate, _wallet) {
+  )
+    public
+    CappedCrowdsale(_cap)
+    FinalizableCrowdsale
+    RefundableCrowdsale(_goal)
+    Crowdsale(_startTime, _endTime, _rate, _wallet)
+  {
     //As goal needs to be met for a successful crowdsale
     //the value needs to less or equal than a cap which is limit for accepted funds
     require(_goal <= _cap);
   }
 
-  function createTokenContract() internal returns(MintableToken) {
+  function createTokenContract() internal returns (MintableToken) {
     return new SampleCrowdsaleToken();
   }
 

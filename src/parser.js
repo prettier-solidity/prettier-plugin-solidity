@@ -5,6 +5,18 @@ const parser = require('solidity-parser-antlr');
 function parse(text) {
   const parsed = parser.parse(text, { loc: true, range: true });
   parsed.comments = extract(text);
+
+  parser.visit(parsed, {
+    ForStatement(ctx) {
+      if (ctx.initExpression) {
+        ctx.initExpression.omitSemicolon = true;
+      }
+      if (ctx.loopExpression) {
+        ctx.loopExpression.omitSemicolon = true;
+      }
+    }
+  });
+
   return parsed;
 }
 
