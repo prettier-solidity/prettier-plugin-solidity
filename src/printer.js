@@ -31,6 +31,9 @@ function printPreservingEmptyLines(path, key, options, print) {
 function genericPrint(path, options, print) {
   const node = path.getValue();
   let doc;
+  if (node === null)
+    return ''
+    
   switch (node.type) {
     case 'SourceUnit':
       return concat([
