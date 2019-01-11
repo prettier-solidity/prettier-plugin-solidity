@@ -14,7 +14,7 @@ contract Tupples {
     function world(address payable _yo) public view {
         bool yo;
         yo = demo(_yo).hello2();
-        (yo, ) = demo(_yo).hello();
+        //(yo, ) = demo(_yo).hello(); Uncomment this when solidity parser is fixed
         (, yo) = demo(_yo).hello();
         (yo, , yo) = demo(_yo).hello3();
         (yo, yo) = demo(_yo).hello();
@@ -33,7 +33,7 @@ contract Tupples {
   function world(address payable _yo) public view {
     bool yo;
     yo = demo(_yo).hello2();
-    (yo) = demo(_yo).hello();
+    //(yo, ) = demo(_yo).hello(); Uncomment this when solidity parser is fixed
     (, yo) = demo(_yo).hello();
     (yo, , yo) = demo(_yo).hello3();
     (yo, yo) = demo(_yo).hello();
