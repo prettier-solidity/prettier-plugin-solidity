@@ -311,12 +311,7 @@ function genericPrint(path, options, print) {
 
       doc = join(
         ', ',
-        path.map(statementPath => {
-          if (!statementPath.getValue()) {
-            return '';
-          }
-          return print(statementPath);
-        }, 'variables')
+        path.map(statementPath => print(statementPath), 'variables')
       );
 
       if (node.variables.length > 1 || startsWithVar) {
