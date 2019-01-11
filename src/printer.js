@@ -309,7 +309,7 @@ function genericPrint(path, options, print) {
         ', ',
         path.map(statementPath => {
           if (!statementPath.getValue()) {
-            return ', ';
+            return '';
           }
           return print(statementPath);
         }, 'variables')
