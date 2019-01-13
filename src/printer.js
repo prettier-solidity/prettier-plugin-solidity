@@ -389,7 +389,10 @@ function genericPrint(path, options, print) {
     }
     case 'ArrayTypeName': {
       let stateMutability = '';
-      if (node.baseTypeName.name === 'address' && node.baseTypeName.stateMutability) {
+      if (
+        node.baseTypeName.name === 'address' &&
+        node.baseTypeName.stateMutability
+      ) {
         stateMutability = concat([' ', node.baseTypeName.stateMutability]);
       }
       return concat([
