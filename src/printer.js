@@ -31,6 +31,10 @@ function printPreservingEmptyLines(path, key, options, print) {
 function genericPrint(path, options, print) {
   const node = path.getValue();
   let doc;
+  if (node === null) {
+    return '';
+  }
+
   switch (node.type) {
     case 'SourceUnit':
       return concat([
@@ -307,12 +311,7 @@ function genericPrint(path, options, print) {
 
       doc = join(
         ', ',
-        path.map(statementPath => {
-          if (!statementPath.getValue()) {
-            return ', ';
-          }
-          return print(statementPath);
-        }, 'variables')
+        path.map(statementPath => print(statementPath), 'variables')
       );
 
       if (node.variables.length > 1 || startsWithVar) {
