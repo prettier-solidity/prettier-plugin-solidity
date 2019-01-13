@@ -387,13 +387,19 @@ function genericPrint(path, options, print) {
         ].filter(element => element)
       );
     }
-    case 'ArrayTypeName':
+    case 'ArrayTypeName': {
+      let stateMutability = '';
+      if (node.baseTypeName.name === 'address' && node.baseTypeName.stateMutability) {
+        stateMutability = concat([' ', node.baseTypeName.stateMutability]);
+      }
       return concat([
         path.call(print, 'baseTypeName'),
+        stateMutability,
         '[',
         node.length ? path.call(print, 'length') : '',
         ']'
       ]);
+    }
     case 'Conditional':
       return join(' ', [
         path.call(print, 'condition'),
