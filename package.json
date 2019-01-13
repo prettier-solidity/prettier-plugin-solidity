@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-alpha.16",
+  "version": "1.0.0-alpha.17",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
@@ -35,12 +35,12 @@
       "name": "Jed Fox"
     },
     {
-      "email": "victorio.franco@gmail.com",
-      "name": "Franco Victorio"
-    },
-    {
       "email": "hi@mudit.blog",
       "name": "Mudit Gupta"
+    },
+    {
+      "email": "victorio.franco@gmail.com",
+      "name": "Franco Victorio"
     }
   ],
   "license": "MIT",
