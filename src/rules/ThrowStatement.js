@@ -1,3 +1,3 @@
-const ThrowStatement = (node, path, options, print) => 'throw;';
+const ThrowStatement = () => 'throw;';
 
 module.exports = ThrowStatement;

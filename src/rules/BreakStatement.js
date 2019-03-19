@@ -1,3 +1,3 @@
-const BreakStatement = (node, path, options, print) => 'break;';
+const BreakStatement = () => 'break;';
 
 module.exports = BreakStatement;

@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const PragmaDirective = (node, path, options, print) =>
+const PragmaDirective = node =>
   concat(['pragma ', node.name, ' ', node.value, ';']);
 
 module.exports = PragmaDirective;

@@ -1,3 +1,3 @@
-const UserDefinedTypeName = (node, path, options, print) => node.namePath;
+const UserDefinedTypeName = node => node.namePath;
 
 module.exports = UserDefinedTypeName;

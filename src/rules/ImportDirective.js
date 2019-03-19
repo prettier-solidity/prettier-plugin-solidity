@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const ImportDirective = (node, path, options, print) => {
+const ImportDirective = node => {
   // @TODO: handle proper escaping
   let doc = concat(['"', node.path, '"']);
 

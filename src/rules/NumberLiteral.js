@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const NumberLiteral = (node, path, options, print) => {
+const NumberLiteral = node => {
   if (node.subdenomination) {
     return join(' ', [node.number, node.subdenomination]);
   }

@@ -1,3 +1,3 @@
-const HexLiteral = (node, path, options, print) => node.value;
+const HexLiteral = node => node.value;
 
 module.exports = HexLiteral;

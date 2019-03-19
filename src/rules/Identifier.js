@@ -1,3 +1,3 @@
-const Identifier = (node, path, options, print) => node.name;
+const Identifier = node => node.name;
 
 module.exports = Identifier;

@@ -1,3 +1,3 @@
-const ContinueStatement = (node, path, options, print) => 'continue;';
+const ContinueStatement = () => 'continue;';
 
 module.exports = ContinueStatement;

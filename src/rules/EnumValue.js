@@ -1,3 +1,3 @@
-const EnumValue = (node, path, options, print) => node.name;
+const EnumValue = node => node.name;
 
 module.exports = EnumValue;

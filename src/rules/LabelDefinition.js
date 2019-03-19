@@ -1,10 +1,9 @@
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, line }
   }
 } = require('prettier');
 
-const LabelDefinition = (node, path, options, print) =>
-  concat([node.name, ':', line]);
+const LabelDefinition = node => concat([node.name, ':', line]);
 
 module.exports = LabelDefinition;
