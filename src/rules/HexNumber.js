@@ -1,5 +1,3 @@
-const HexNumber = (node, path, options, print) => {
-  return node.value;
-};
+const HexNumber = (node, path, options, print) => node.value;
 
 module.exports = HexNumber;

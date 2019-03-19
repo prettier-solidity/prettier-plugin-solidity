@@ -4,13 +4,12 @@ const {
   }
 } = require('prettier');
 
-const AssemblyLocalDefinition = (node, path, options, print) => {
-  return join(' ', [
+const AssemblyLocalDefinition = (node, path, options, print) =>
+  join(' ', [
     'let',
     join(', ', path.map(print, 'names')),
     ':=',
     path.call(print, 'expression')
   ]);
-};
 
 module.exports = AssemblyLocalDefinition;

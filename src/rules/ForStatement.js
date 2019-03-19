@@ -4,8 +4,8 @@ const {
   }
 } = require('prettier');
 
-const ForStatement = (node, path, options, print) => {
-  return concat([
+const ForStatement = (node, path, options, print) =>
+  concat([
     'for (',
     node.initExpression ? path.call(print, 'initExpression') : '',
     '; ',
@@ -15,6 +15,5 @@ const ForStatement = (node, path, options, print) => {
     ') ',
     path.call(print, 'body')
   ]);
-};
 
 module.exports = ForStatement;

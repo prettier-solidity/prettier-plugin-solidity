@@ -4,13 +4,7 @@ const {
   }
 } = require('prettier');
 
-const AssemblyIf = (node, path, options, print) => {
-  return concat([
-    'if ',
-    path.call(print, 'condition'),
-    ' ',
-    path.call(print, 'body')
-  ]);
-};
+const AssemblyIf = (node, path, options, print) =>
+  concat(['if ', path.call(print, 'condition'), ' ', path.call(print, 'body')]);
 
 module.exports = AssemblyIf;

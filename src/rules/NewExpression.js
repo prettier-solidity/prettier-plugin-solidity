@@ -4,8 +4,7 @@ const {
   }
 } = require('prettier');
 
-const NewExpression = (node, path, options, print) => {
-  return concat(['new ', path.call(print, 'typeName')]);
-};
+const NewExpression = (node, path, options, print) =>
+  concat(['new ', path.call(print, 'typeName')]);
 
 module.exports = NewExpression;

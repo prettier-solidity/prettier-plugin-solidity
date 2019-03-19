@@ -4,14 +4,13 @@ const {
   }
 } = require('prettier');
 
-const EnumDefinition = (node, path, options, print) => {
-  return concat([
+const EnumDefinition = (node, path, options, print) =>
+  concat([
     'enum ',
     node.name,
     ' {',
     join(', ', path.map(print, 'members')),
     '}'
   ]);
-};
 
 module.exports = EnumDefinition;

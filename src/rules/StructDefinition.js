@@ -4,8 +4,8 @@ const {
   }
 } = require('prettier');
 
-const StructDefinition = (node, path, options, print) => {
-  return concat([
+const StructDefinition = (node, path, options, print) =>
+  concat([
     'struct ',
     node.name,
     ' {',
@@ -19,6 +19,5 @@ const StructDefinition = (node, path, options, print) => {
     hardline,
     '}'
   ]);
-};
 
 module.exports = StructDefinition;

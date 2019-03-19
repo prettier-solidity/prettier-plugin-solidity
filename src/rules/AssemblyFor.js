@@ -4,14 +4,13 @@ const {
   }
 } = require('prettier');
 
-const AssemblyFor = (node, path, options, print) => {
-  return join(' ', [
+const AssemblyFor = (node, path, options, print) =>
+  join(' ', [
     'for',
     path.call(print, 'pre'),
     path.call(print, 'condition'),
     path.call(print, 'post'),
     path.call(print, 'body')
   ]);
-};
 
 module.exports = AssemblyFor;

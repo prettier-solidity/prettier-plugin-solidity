@@ -4,8 +4,7 @@ const {
   }
 } = require('prettier');
 
-const EmitStatement = (node, path, options, print) => {
-  return concat(['emit ', path.call(print, 'eventCall'), ';']);
-};
+const EmitStatement = (node, path, options, print) =>
+  concat(['emit ', path.call(print, 'eventCall'), ';']);
 
 module.exports = EmitStatement;

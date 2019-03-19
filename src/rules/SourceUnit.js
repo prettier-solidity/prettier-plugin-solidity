@@ -6,11 +6,7 @@ const {
 
 const printPreservingEmptyLines = require('./builders/printPreservingEmptyLines');
 
-const SourceUnit = (node, path, options, print) => {
-  return concat([
-    printPreservingEmptyLines(path, 'children', options, print),
-    line
-  ]);
-};
+const SourceUnit = (node, path, options, print) =>
+  concat([printPreservingEmptyLines(path, 'children', options, print), line]);
 
 module.exports = SourceUnit;

@@ -1,5 +1,4 @@
-const BooleanLiteral = (node, path, options, print) => {
-  return node.value ? 'true' : 'false';
-};
+const BooleanLiteral = (node, path, options, print) =>
+  node.value ? 'true' : 'false';
 
 module.exports = BooleanLiteral;

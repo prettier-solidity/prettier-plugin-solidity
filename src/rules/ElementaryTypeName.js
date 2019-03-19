@@ -1,5 +1,3 @@
-const ElementaryTypeName = (node, path, options, print) => {
-  return node.name;
-};
+const ElementaryTypeName = (node, path, options, print) => node.name;
 
 module.exports = ElementaryTypeName;

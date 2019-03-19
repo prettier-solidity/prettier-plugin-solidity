@@ -1,5 +1,3 @@
-const BreakStatement = (node, path, options, print) => {
-  return 'break;';
-};
+const BreakStatement = (node, path, options, print) => 'break;';
 
 module.exports = BreakStatement;

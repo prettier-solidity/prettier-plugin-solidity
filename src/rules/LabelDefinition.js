@@ -4,8 +4,7 @@ const {
   }
 } = require('prettier');
 
-const LabelDefinition = (node, path, options, print) => {
-  return concat([node.name, ':', line]);
-};
+const LabelDefinition = (node, path, options, print) =>
+  concat([node.name, ':', line]);
 
 module.exports = LabelDefinition;

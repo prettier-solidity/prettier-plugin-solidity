@@ -4,8 +4,7 @@ const {
   }
 } = require('prettier');
 
-const MemberAccess = (node, path, options, print) => {
-  return concat([path.call(print, 'expression'), '.', node.memberName]);
-};
+const MemberAccess = (node, path, options, print) =>
+  concat([path.call(print, 'expression'), '.', node.memberName]);
 
 module.exports = MemberAccess;

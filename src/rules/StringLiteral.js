@@ -4,9 +4,7 @@ const {
   }
 } = require('prettier');
 
-const StringLiteral = (node, path, options, print) => {
-  // @TODO: handle scaping, single/double quotes, etc.
-  return concat(['"', node.value, '"']);
-};
-
+// @TODO: handle scaping, single/double quotes, etc.
+const StringLiteral = (node, path, options, print) =>
+  concat(['"', node.value, '"']);
 module.exports = StringLiteral;

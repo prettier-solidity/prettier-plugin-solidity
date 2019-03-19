@@ -1,5 +1,3 @@
-const DecimalNumber = (node, path, options, print) => {
-  return node.value;
-};
+const DecimalNumber = (node, path, options, print) => node.value;
 
 module.exports = DecimalNumber;

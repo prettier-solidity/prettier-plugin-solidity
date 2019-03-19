@@ -1,5 +1,4 @@
-const ElementaryTypeNameExpression = (node, path, options, print) => {
-  return path.call(print, 'typeName');
-};
+const ElementaryTypeNameExpression = (node, path, options, print) =>
+  path.call(print, 'typeName');
 
 module.exports = ElementaryTypeNameExpression;
