@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary, operator-linebreak */
-
 const rules = require('./rules');
 
 function genericPrint(path, options, print) {

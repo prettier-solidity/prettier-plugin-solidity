@@ -5,7 +5,7 @@ const {
 } = require('prettier');
 
 const AssemblySwitch = (node, path, options, print) => {
-  let doc = join(hardline, path.map(print, 'cases'));
+  const doc = join(hardline, path.map(print, 'cases'));
   return concat([
     'switch ',
     path.call(print, 'expression'),

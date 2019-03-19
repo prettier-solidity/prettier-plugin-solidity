@@ -16,9 +16,9 @@ const FunctionCall = (node, path, options, print) => {
               softline,
               join(
                 concat([',', line]),
-                path.map(print, 'arguments').map(
-                  (arg, index) => concat([node.names[index], ': ', arg]) // eslint-disable-line
-                )
+                path
+                  .map(print, 'arguments')
+                  .map((arg, index) => concat([node.names[index], ': ', arg]))
               )
             ])
           ),
