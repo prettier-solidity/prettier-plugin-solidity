@@ -55,8 +55,15 @@ const printers = {
   }
 };
 
+// https://prettier.io/docs/en/plugins.html#defaultoptions
+const defaultOptions = {
+  // @TODO fix indentation in block comments
+  tabWidth: 4
+};
+
 module.exports = {
   languages,
   parsers,
-  printers
+  printers,
+  defaultOptions
 };
