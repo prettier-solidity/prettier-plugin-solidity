@@ -1,0 +1,16 @@
+/* eslint-disable implicit-arrow-linebreak */
+const {
+  doc: {
+    builders: { concat }
+  }
+} = require('prettier');
+
+const ExpressionStatement = {
+  print: ({ node, path, print }) =>
+    concat([
+      node.expression ? path.call(print, 'expression') : '',
+      node.omitSemicolon ? '' : ';'
+    ])
+};
+
+module.exports = ExpressionStatement;
