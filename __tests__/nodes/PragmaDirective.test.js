@@ -1,6 +1,6 @@
 const PragmaDirective = require('../../src/nodes/PragmaDirective');
 
-test('nodes list to match snapshot', () => {
+test("Don't remove an invalid PragmaDirective", () => {
   expect(
     PragmaDirective.print({
       node: {
