@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nodes list to match snapshot 1`] = `
+Object {
+  "parts": Array [
+    "pragma ",
+    "solidity",
+    " ",
+    "not a valid range but shouldn't be replaced with an null value.",
+    ";",
+  ],
+  "type": "concat",
+}
+`;
