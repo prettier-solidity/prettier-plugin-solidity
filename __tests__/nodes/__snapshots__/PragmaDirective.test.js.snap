@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nodes list to match snapshot 1`] = `
+exports[`Don't remove an invalid PragmaDirective 1`] = `
 Object {
   "parts": Array [
     "pragma ",
