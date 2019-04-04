@@ -15,7 +15,7 @@ const PragmaDirective = {
       .replace(/> =/g, '>=')
       .trim();
     if (value.split(' ').length > 1) {
-      value = semver.validRange(value) || node.value;
+      value = semver.validRange(value);
     }
     return concat(['pragma ', node.name, ' ', value, ';']);
   }
