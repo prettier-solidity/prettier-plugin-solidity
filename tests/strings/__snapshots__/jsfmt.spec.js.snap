@@ -922,8 +922,7 @@ library strings {
     function compare(slice memory self, slice memory other)
         internal
         pure
-        returns (int)
-    {
+        returns (int) {
         uint shortest = self._len;
         if (other._len < self._len) shortest = other._len;
 
@@ -960,8 +959,7 @@ library strings {
     function equals(slice memory self, slice memory other)
         internal
         pure
-        returns (bool)
-    {
+        returns (bool) {
         return compare(self, other) == 0;
     }
 
@@ -975,8 +973,7 @@ library strings {
     function nextRune(slice memory self, slice memory rune)
         internal
         pure
-        returns (slice memory)
-    {
+        returns (slice memory) {
         rune._ptr = self._ptr;
 
         if (self._len == 0) {
@@ -1023,8 +1020,7 @@ library strings {
     function nextRune(slice memory self)
         internal
         pure
-        returns (slice memory ret)
-    {
+        returns (slice memory ret) {
         nextRune(self, ret);
     }
 
@@ -1099,8 +1095,7 @@ library strings {
     function startsWith(slice memory self, slice memory needle)
         internal
         pure
-        returns (bool)
-    {
+        returns (bool) {
         if (self._len < needle._len) {
             return false;
         }
@@ -1132,8 +1127,7 @@ library strings {
     function beyond(slice memory self, slice memory needle)
         internal
         pure
-        returns (slice memory)
-    {
+        returns (slice memory) {
         if (self._len < needle._len) {
             return self;
         }
@@ -1168,8 +1162,7 @@ library strings {
     function endsWith(slice memory self, slice memory needle)
         internal
         pure
-        returns (bool)
-    {
+        returns (bool) {
         if (self._len < needle._len) {
             return false;
         }
@@ -1203,8 +1196,7 @@ library strings {
     function until(slice memory self, slice memory needle)
         internal
         pure
-        returns (slice memory)
-    {
+        returns (slice memory) {
         if (self._len < needle._len) {
             return self;
         }
@@ -1234,8 +1226,7 @@ library strings {
     function findPtr(uint selflen, uint selfptr, uint needlelen, uint needleptr)
         private
         pure
-        returns (uint)
-    {
+        returns (uint) {
         uint ptr = selfptr;
         uint idx;
 
@@ -1346,8 +1337,7 @@ library strings {
     function find(slice memory self, slice memory needle)
         internal
         pure
-        returns (slice memory)
-    {
+        returns (slice memory) {
         uint ptr = findPtr(self._len, self._ptr, needle._len, needle._ptr);
         self._len -= ptr - self._ptr;
         self._ptr = ptr;
@@ -1365,8 +1355,7 @@ library strings {
     function rfind(slice memory self, slice memory needle)
         internal
         pure
-        returns (slice memory)
-    {
+        returns (slice memory) {
         uint ptr = rfindPtr(self._len, self._ptr, needle._len, needle._ptr);
         self._len = ptr - self._ptr;
         return self;
@@ -1385,8 +1374,7 @@ library strings {
     function split(slice memory self, slice memory needle, slice memory token)
         internal
         pure
-        returns (slice memory)
-    {
+        returns (slice memory) {
         uint ptr = findPtr(self._len, self._ptr, needle._len, needle._ptr);
         token._ptr = self._ptr;
         token._len = ptr - self._ptr;
@@ -1412,8 +1400,7 @@ library strings {
     function split(slice memory self, slice memory needle)
         internal
         pure
-        returns (slice memory token)
-    {
+        returns (slice memory token) {
         split(self, needle, token);
     }
 
@@ -1430,8 +1417,7 @@ library strings {
     function rsplit(slice memory self, slice memory needle, slice memory token)
         internal
         pure
-        returns (slice memory)
-    {
+        returns (slice memory) {
         uint ptr = rfindPtr(self._len, self._ptr, needle._len, needle._ptr);
         token._ptr = ptr;
         token._len = self._len - (ptr - self._ptr);
@@ -1456,8 +1442,7 @@ library strings {
     function rsplit(slice memory self, slice memory needle)
         internal
         pure
-        returns (slice memory token)
-    {
+        returns (slice memory token) {
         rsplit(self, needle, token);
     }
 
@@ -1470,8 +1455,7 @@ library strings {
     function count(slice memory self, slice memory needle)
         internal
         pure
-        returns (uint cnt)
-    {
+        returns (uint cnt) {
         uint ptr = findPtr(
             self._len,
             self._ptr,
@@ -1498,8 +1482,7 @@ library strings {
     function contains(slice memory self, slice memory needle)
         internal
         pure
-        returns (bool)
-    {
+        returns (bool) {
         return rfindPtr(
             self._len,
             self._ptr,
@@ -1518,8 +1501,7 @@ library strings {
     function concat(slice memory self, slice memory other)
         internal
         pure
-        returns (string memory)
-    {
+        returns (string memory) {
         string memory ret = new string(self._len + other._len);
         uint retptr;
         assembly {
@@ -1541,8 +1523,7 @@ library strings {
     function join(slice memory self, slice[] memory parts)
         internal
         pure
-        returns (string memory)
-    {
+        returns (string memory) {
         if (parts.length == 0) return "";
 
         uint length = self._len * (parts.length - 1);
