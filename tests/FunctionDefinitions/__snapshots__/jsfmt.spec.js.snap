@@ -359,7 +359,8 @@ contract FunctionDefinitions {
         modifier7
         modifier8
         modifier9
-        modifier10 {
+        modifier10
+    {
         a = 1;
     }
 
@@ -375,19 +376,22 @@ contract FunctionDefinitions {
             uint y8,
             uint y9,
             uint y10
-        ) {
+        )
+    {
         a = 1;
     }
 
     function someParamsSomeModifiers(uint x1, uint x2, uint x3)
         modifier1
         modifier2
-        modifier3 {
+        modifier3
+    {
         a = 1;
     }
 
     function someParamsSomeReturns(uint x1, uint x2, uint x3)
-        returns (uint y1, uint y2, uint y3) {
+        returns (uint y1, uint y2, uint y3)
+    {
         a = 1;
     }
 
@@ -395,7 +399,8 @@ contract FunctionDefinitions {
         modifier1
         modifier2
         modifier3
-        returns (uint y1, uint y2, uint y3) {
+        returns (uint y1, uint y2, uint y3)
+    {
         a = 1;
     }
 
@@ -403,7 +408,8 @@ contract FunctionDefinitions {
         modifier1
         modifier2
         modifier3
-        returns (uint y1, uint y2, uint y3) {
+        returns (uint y1, uint y2, uint y3)
+    {
         a = 1;
     }
 
@@ -417,7 +423,8 @@ contract FunctionDefinitions {
         modifier7
         modifier8
         modifier9
-        modifier10 {
+        modifier10
+    {
         a = 1;
     }
 
@@ -433,7 +440,8 @@ contract FunctionDefinitions {
             uint y8,
             uint y9,
             uint y10
-        ) {
+        )
+    {
         a = 1;
     }
 
@@ -489,7 +497,8 @@ contract FunctionDefinitions {
         modifier7
         modifier8
         modifier9
-        modifier10 {
+        modifier10
+    {
         a = 1;
     }
 
@@ -516,7 +525,8 @@ contract FunctionDefinitions {
             uint y8,
             uint y9,
             uint y10
-        ) {
+        )
+    {
         a = 1;
     }
 
@@ -553,7 +563,8 @@ contract FunctionDefinitions {
             uint y8,
             uint y9,
             uint y10
-        ) {
+        )
+    {
         a = 1;
     }
 }

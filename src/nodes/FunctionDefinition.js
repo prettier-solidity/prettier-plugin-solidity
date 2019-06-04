@@ -1,7 +1,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 const {
   doc: {
-    builders: { concat, group, indent, join, line }
+    builders: { concat, dedent, group, indent, join, line }
   }
 } = require('prettier');
 
@@ -15,21 +15,21 @@ const visibility = node => {
   if (node.visibility && node.visibility !== 'default') {
     return concat([line, node.visibility]);
   }
-  return null;
+  return '';
 };
 
 const stateMutability = node => {
   if (node.stateMutability && node.stateMutability !== 'default') {
     return concat([line, node.stateMutability]);
   }
-  return null;
+  return '';
 };
 
 const modifiers = (node, path, print) => {
   if (node.modifiers.length > 0) {
     return concat([line, join(line, path.map(print, 'modifiers'))]);
   }
-  return null;
+  return '';
 };
 
 const returnParameters = (node, path, print) => {
@@ -41,43 +41,39 @@ const returnParameters = (node, path, print) => {
       ')'
     ]);
   }
-  return null;
+  return '';
 };
 
-const abstractFunctionSemicolon = node => {
-  if (!node.body) return ';';
-  return null;
+const signatureEnd = node => {
+  if (node.body) return dedent(line);
+  return ';';
 };
 
 const body = (node, path, print) => {
-  if (node.body) return concat([' ', path.call(print, 'body')]);
-  return null;
+  if (node.body) return path.call(print, 'body');
+  return '';
 };
 
 const FunctionDefinition = {
   print: ({ node, path, print }) =>
-    concat(
-      [
-        functionName(node),
-        '(',
-        path.call(print, 'parameters'),
-        ')',
-        indent(
-          group(
-            concat(
-              [
-                visibility(node),
-                stateMutability(node),
-                modifiers(node, path, print),
-                returnParameters(node, path, print),
-                abstractFunctionSemicolon(node)
-              ].filter(element => element)
-            )
-          )
-        ),
-        body(node, path, print)
-      ].filter(element => element)
-    )
+    concat([
+      functionName(node),
+      '(',
+      path.call(print, 'parameters'),
+      ')',
+      indent(
+        group(
+          concat([
+            visibility(node),
+            stateMutability(node),
+            modifiers(node, path, print),
+            returnParameters(node, path, print),
+            signatureEnd(node)
+          ])
+        )
+      ),
+      body(node, path, print)
+    ])
 };
 
 module.exports = FunctionDefinition;
