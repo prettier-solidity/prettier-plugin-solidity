@@ -1,19 +1,23 @@
 /* eslint-disable implicit-arrow-linebreak */
 const {
   doc: {
-    builders: { join }
+    builders: { concat, group, indent, line }
   }
 } = require('prettier');
 
 const Conditional = {
   print: ({ path, print }) =>
-    join(' ', [
-      path.call(print, 'condition'),
-      '?',
-      path.call(print, 'trueExpression'),
-      ':',
-      path.call(print, 'falseExpression')
-    ])
+    group(
+      concat([
+        path.call(print, 'condition'),
+        indent(line),
+        '? ',
+        path.call(print, 'trueExpression'),
+        indent(line),
+        ': ',
+        path.call(print, 'falseExpression')
+      ])
+    )
 };
 
 module.exports = Conditional;
