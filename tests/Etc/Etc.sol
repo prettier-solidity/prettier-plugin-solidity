@@ -11,6 +11,8 @@ contract Contract {
     function (uint, uint) returns(bool)a;
     function(bytes32, bytes32)   internal view[]  b;
     function  (bytes32, bytes32)internal[]   c;
+    function(bytes32, bytes32, bytes32, bytes32, bytes32, bytes32)   internal view[]  d;
+    function(bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32)   internal view[]  e;
   }
 
   modifier modifierWithoutParams() {
