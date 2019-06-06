@@ -76,7 +76,7 @@ thisFunctionCallIsReallyLong(
 );
 ```
 
-- [ ] Assignment Statements
+- [x] Assignment Statements
 
 ```Solidity
 thisIsALongNestedMapping[being][set][to_some_value] = someFunction(
@@ -87,7 +87,7 @@ thisIsALongNestedMapping[being][set][to_some_value] = someFunction(
 );
 ```
 
-- [ ] Event Definitions and Event Emitters
+- [x] Event Definitions and Event Emitters
 
 ```Solidity
 event LongAndLotsOfArgs(
@@ -111,76 +111,11 @@ LongAndLotsOfArgs(
 
 - [x] UTF-8 or ASCII encoding is preferred.
 
-## Imports
-
-- [ ] Import statements should always be placed at the top of the file.
-
-```Solidity
-pragma solidity >=0.4.0 <0.7.0;
-
-import "./Owned.sol";
-
-contract A {
-    // ...
-}
-
-contract B is Owned {
-    // ...
-}
-```
-
-## Order of Functions
-
-Ordering helps readers identify which functions they can call and to find the constructor and fallback definitions easier.
-
-Functions should be grouped according to their visibility and ordered:
-
-- constructor
-- fallback function (if exists)
-- external
-- public
-- internal
-- private
-
-Within a grouping, place the `view` and `pure` functions last.
-
-```Solidity
-pragma solidity >=0.4.0 <0.7.0;
-
-contract A {
-    constructor() public {
-        // ...
-    }
-
-    function() external {
-        // ...
-    }
-
-    // External functions
-    // ...
-
-    // External functions that are view
-    // ...
-
-    // External functions that are pure
-    // ...
-
-    // Public functions
-    // ...
-
-    // Internal functions
-    // ...
-
-    // Private functions
-    // ...
-}
-```
-
 ## Whitespace in Expressions
 
 Avoid extraneous whitespace in the following situations:
 
-- [ ] Immediately inside parenthesis, brackets or braces, with the exception of single line function declarations.
+- [x] Immediately inside parenthesis, brackets or braces, with the exception of single line function declarations.
 
 ```Solidity
 spam(ham[1], Coin({name: "ham"}));
@@ -248,7 +183,7 @@ if (x < 10)
     x += 1;
 ```
 
-- [ ] For `if` blocks which have an `else` or `else if` clause, the `else` should be placed on the same line as the `if`'s closing brace. This is an exception compared to the rules of other block-like structures.
+- [x] For `if` blocks which have an `else` or `else if` clause, the `else` should be placed on the same line as the `if`'s closing brace. This is an exception compared to the rules of other block-like structures.
 
 ```Solidity
 if (x < 3) {
@@ -281,14 +216,6 @@ function increment(uint x) public pure returns (uint) {
 
 function increment(uint x) public pure onlyowner returns (uint) {
     return x + 1;
-}
-```
-
-- [ ] You should explicitly label the visibility of all functions, including constructors.
-
-```Solidity
-function explicitlyPublic(uint val) public {
-    doSomething();
 }
 ```
 
@@ -368,7 +295,7 @@ function thisFunctionNameIsReallyLong(
 }
 ```
 
-For constructor functions on inherited contracts whose bases require arguments, it is recommended to drop the base constructors onto new lines in the same manner as modifiers if the function declaration is long or hard to read.
+- [ ] For constructor functions on inherited contracts whose bases require arguments, it is recommended to drop the base constructors onto new lines in the same manner as modifiers if the function declaration is long or hard to read.
 
 ```Solidity
 pragma solidity >=0.4.0 <0.7.0;
@@ -422,7 +349,7 @@ mapping(uint => mapping(uint => s)) data;
 
 ## Variable Declarations
 
-- [ ] Declarations of array variables should not have a space between the type and the brackets.
+- [x] Declarations of array variables should not have a space between the type and the brackets.
 
 ```Solidity
 uint[] x;
@@ -430,7 +357,7 @@ uint[] x;
 
 ## Other Recommendations
 
-- [x] Strings should be quoted with double-quotes instead of single-quotes.
+- [ ] Strings should be quoted with double-quotes instead of single-quotes.
 
 ```Solidity
 str = "foo";
