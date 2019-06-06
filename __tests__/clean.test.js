@@ -1,6 +1,6 @@
 const clean = require('../src/clean');
 
-test('nodes list to match snapshot', () => {
+test('clean removes the unused properties, ', () => {
   let toCleanse = {
     somethingElse: 'somethingElse',
     code: 'Lorem Ipsum',
