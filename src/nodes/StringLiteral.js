@@ -1,12 +1,8 @@
-const {
-  doc: {
-    builders: { concat }
-  }
-} = require('prettier');
+const { printString } = require('../prettier-comments/common/util');
 
 // @TODO: handle scaping, single/double quotes, etc.
 const StringLiteral = {
-  print: ({ node }) => concat(['"', node.value, '"'])
+  print: ({ node, options }) => printString(node.value, options)
 };
 
 module.exports = StringLiteral;
