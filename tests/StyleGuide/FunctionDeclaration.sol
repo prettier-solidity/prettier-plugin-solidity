@@ -81,7 +81,6 @@ contract FunctionDeclaration {
     {
         doSomething();
 
-        /* TODO: long return list should split */
         return (veryVeryLongReturnArg1,
                 veryVeryLongReturnArg1,
                 veryVeryLongReturnArg1);
