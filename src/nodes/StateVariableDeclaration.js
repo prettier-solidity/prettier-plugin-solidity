@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const StateVariableDeclaration = {
   print: ({ node, path, print }) => {

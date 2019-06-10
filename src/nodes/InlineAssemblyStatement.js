@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 // @TODO: add support for assembly language specifier
 const InlineAssemblyStatement = {

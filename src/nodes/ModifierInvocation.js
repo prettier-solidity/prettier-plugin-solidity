@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, group, indent, join, line, softline }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const modifierArguments = (node, path, print) => {
   if (node.arguments) {

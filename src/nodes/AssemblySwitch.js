@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, hardline, indent, join }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const AssemblySwitch = {
   print: ({ path, print }) => {
