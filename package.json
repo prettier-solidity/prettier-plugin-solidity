@@ -63,7 +63,6 @@
     "jest-watch-typeahead": "^0.2.0"
   },
   "dependencies": {
-    "dir-to-object": "^2.0.0",
     "emoji-regex": "^7.0.3",
     "escape-string-regexp": "^1.0.5",
     "extract-comments": "^1.1.0",
