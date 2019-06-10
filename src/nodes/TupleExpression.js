@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, join }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const TupleExpression = {
   print: ({ node, path, print }) => {

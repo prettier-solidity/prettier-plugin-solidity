@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 // @TODO: handle scaping, single/double quotes, etc.
 const StringLiteral = {

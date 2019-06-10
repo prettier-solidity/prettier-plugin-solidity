@@ -3,7 +3,7 @@ const {
   doc: {
     builders: { concat, hardline, indent, join, line }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const StructDefinition = {
   print: ({ node, path, print }) =>

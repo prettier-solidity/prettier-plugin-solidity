@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, join }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const ReturnStatement = {
   print: ({ node, path, print }) => {

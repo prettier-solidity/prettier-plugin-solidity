@@ -3,7 +3,7 @@ const {
   doc: {
     builders: { concat, dedent, group, indent, join, line }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const functionName = node => {
   if (node.isConstructor && !node.name) return 'constructor';

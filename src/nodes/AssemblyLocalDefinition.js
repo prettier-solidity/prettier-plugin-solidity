@@ -3,7 +3,7 @@ const {
   doc: {
     builders: { join }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const AssemblyLocalDefinition = {
   print: ({ path, print }) =>

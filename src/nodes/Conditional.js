@@ -3,7 +3,7 @@ const {
   doc: {
     builders: { join }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const Conditional = {
   print: ({ path, print }) =>

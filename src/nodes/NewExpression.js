@@ -3,7 +3,7 @@ const {
   doc: {
     builders: { concat }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const NewExpression = {
   print: ({ path, print }) => concat(['new ', path.call(print, 'typeName')])

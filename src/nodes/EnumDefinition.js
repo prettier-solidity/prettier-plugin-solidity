@@ -3,7 +3,7 @@ const {
   doc: {
     builders: { concat, join }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const EnumDefinition = {
   print: ({ node, path, print }) =>

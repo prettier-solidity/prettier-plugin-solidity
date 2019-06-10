@@ -3,7 +3,7 @@ const {
   doc: {
     builders: { join }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const BinaryOperation = {
   print: ({ node, path, print }) =>

@@ -3,7 +3,7 @@ const {
     builders: { concat, hardline }
   },
   util: { isNextLineEmptyAfterIndex }
-} = require('prettier');
+} = require('prettier/standalone');
 
 function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];

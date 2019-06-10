@@ -3,7 +3,7 @@ const {
   doc: {
     builders: { concat }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const IndexAccess = {
   print: ({ path, print }) =>

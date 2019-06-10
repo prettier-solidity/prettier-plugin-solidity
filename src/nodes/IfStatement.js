@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, hardline }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const IfStatement = {
   print: ({ node, path, print }) => {

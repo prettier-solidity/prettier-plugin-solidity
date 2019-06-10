@@ -3,7 +3,7 @@ const {
   doc: {
     builders: { concat }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const ExpressionStatement = {
   print: ({ node, path, print }) =>

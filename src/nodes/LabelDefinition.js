@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, line }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const LabelDefinition = {
   print: ({ node }) => concat([node.name, ':', line])
