@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContractDefinitions.sol 1`] = `
+contract ContractDefinition is Contract1, Contract2, Contract3, Contract4, Contract5 {
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract ContractDefinition is
+    Contract1,
+    Contract2,
+    Contract3,
+    Contract4,
+    Contract5
+{}
+
+`;
