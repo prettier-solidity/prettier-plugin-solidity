@@ -1,28 +1,37 @@
 const {
   doc: {
-    builders: { concat, hardline }
+    builders: { concat, group, hardline, ifBreak, indent, softline }
   }
 } = require('prettier');
 
-const IfStatement = {
-  print: ({ node, path, print }) => {
-    let doc = concat([
-      'if (',
-      path.call(print, 'condition'),
-      ') ',
-      path.call(print, 'trueBody')
+const printIf = (node, path, print) =>
+  concat([
+    group(
+      concat([
+        'if (',
+        indent(concat([softline, path.call(print, 'condition')])),
+        softline,
+        ') '
+      ])
+    ),
+    path.call(print, 'trueBody')
+  ]);
+
+const printElse = (node, path, print) => {
+  if (node.falseBody) {
+    elseOnSameLine = node.trueBody.type === 'Block';
+    return concat([
+      elseOnSameLine ? ' ' : hardline,
+      'else ',
+      path.call(print, 'falseBody')
     ]);
-    if (node.falseBody) {
-      const elseOnSameLine = node.trueBody.type === 'Block';
-      doc = concat([
-        doc,
-        elseOnSameLine ? ' ' : hardline,
-        'else ',
-        path.call(print, 'falseBody')
-      ]);
-    }
-    return doc;
   }
+  return '';
+};
+
+const IfStatement = {
+  print: ({ node, path, print }) =>
+    concat([printIf(node, path, print), printElse(node, path, print)])
 };
 
 module.exports = IfStatement;
