@@ -1,23 +1,29 @@
+/* eslint-disable implicit-arrow-linebreak */
 const {
   doc: {
-    builders: { concat, join }
+    builders: { concat, group, indent, join, line, softline }
   }
 } = require('prettier');
 
 const TupleExpression = {
-  print: ({ node, path, print }) => {
-    let doc;
-    // @TODO: remove hack once solidity-parser-antlr is fixed
-    if (node.components) {
-      doc = join(', ', path.map(print, 'components'));
-    } else {
-      doc = join(', ', path.map(print, 'elements'));
-    }
-    if (node.isArray) {
-      return concat(['[', doc, ']']);
-    }
-    return concat(['(', doc, ')']);
-  }
+  // @TODO: remove hack once solidity-parser-antlr is fixed
+  print: ({ node, path, print }) =>
+    group(
+      concat([
+        node.isArray ? '[' : '(',
+        indent(
+          concat([
+            softline,
+            join(
+              concat([',', line]),
+              path.map(print, node.components ? 'components' : 'elements')
+            )
+          ])
+        ),
+        softline,
+        node.isArray ? ']' : ')'
+      ])
+    )
 };
 
 module.exports = TupleExpression;
