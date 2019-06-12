@@ -4,7 +4,7 @@
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
-    "coverage": "codecov",
+    "coverage": "AST_COMPARE=true codecov",
     "eslint": "eslint --ignore-pattern 'src/prettier-comments/**' 'src/**'",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
