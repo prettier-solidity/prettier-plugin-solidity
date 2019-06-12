@@ -1,10 +1,10 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-alpha.23",
+  "version": "1.0.0-alpha.24",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
-    "coverage": "AST_COMPARE=true codecov",
+    "coverage": "codecov",
     "eslint": "eslint --ignore-pattern 'src/prettier-comments/**' 'src/**'",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
