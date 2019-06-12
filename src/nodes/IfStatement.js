@@ -1,6 +1,7 @@
+/* eslint-disable implicit-arrow-linebreak */
 const {
   doc: {
-    builders: { concat, group, hardline, ifBreak, indent, softline }
+    builders: { concat, group, hardline, indent, softline }
   }
 } = require('prettier');
 
@@ -19,7 +20,7 @@ const printIf = (node, path, print) =>
 
 const printElse = (node, path, print) => {
   if (node.falseBody) {
-    elseOnSameLine = node.trueBody.type === 'Block';
+    const elseOnSameLine = node.trueBody.type === 'Block';
     return concat([
       elseOnSameLine ? ' ' : hardline,
       'else ',
