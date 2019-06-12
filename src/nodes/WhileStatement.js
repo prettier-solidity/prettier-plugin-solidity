@@ -1,16 +1,21 @@
 /* eslint-disable implicit-arrow-linebreak */
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, group, indent, softline }
   }
 } = require('prettier');
 
 const WhileStatement = {
   print: ({ path, print }) =>
     concat([
-      'while (',
-      path.call(print, 'condition'),
-      ') ',
+      group(
+        concat([
+          'while (',
+          indent(concat([softline, path.call(print, 'condition')])),
+          softline,
+          ') '
+        ])
+      ),
       path.call(print, 'body')
     ])
 };
