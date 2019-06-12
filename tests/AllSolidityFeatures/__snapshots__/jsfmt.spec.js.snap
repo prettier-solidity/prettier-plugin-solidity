@@ -562,10 +562,9 @@ library IntegerSet {
         returns (uint r_index)
     {
         index++;
-        while (iterate_valid(
-            self,
-            index
-        ) && self.index[self.items[index]] == index) index++;
+        while (
+            iterate_valid(self, index) && self.index[self.items[index]] == index
+        ) index++;
         return index;
     }
     function iterate_get(data storage self, uint index) returns (uint value) {
