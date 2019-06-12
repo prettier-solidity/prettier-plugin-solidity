@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FunctionCalls.sol 1`] = `
+contract FunctionCalls {
+    function foo() {
+        address veryLongValidatorAddress = veryVeryVeryLongSignature.popLast20Bytes();
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract FunctionCalls {
+    function foo() {
+        address veryLongValidatorAddress = veryVeryVeryLongSignature.popLast20Bytes();
+    }
+}
+
+`;
