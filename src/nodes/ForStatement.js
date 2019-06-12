@@ -1,8 +1,22 @@
 const {
   doc: {
-    builders: { concat, group, indent, line, softline }
+    builders: { concat, group, ifBreak, indent, line, softline }
   }
 } = require('prettier');
+
+const printBody = (node, path, print) => {
+  if (node.body.type === 'Block') {
+    return concat([' ', path.call(print, 'body')]);
+  }
+
+  return group(
+    concat([
+      ifBreak(concat([' {']), ''),
+      indent(concat([line, path.call(print, 'body')])),
+      ifBreak(concat([line, '}']), '')
+    ])
+  );
+};
 
 const ForStatement = {
   print: ({ node, path, print }) =>
@@ -25,10 +39,10 @@ const ForStatement = {
             ])
           ),
           softline,
-          ') '
+          ')'
         ])
       ),
-      path.call(print, 'body')
+      printBody(node, path, print)
     ])
 };
 

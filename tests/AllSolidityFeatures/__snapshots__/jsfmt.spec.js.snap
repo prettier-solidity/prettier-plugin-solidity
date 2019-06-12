@@ -532,8 +532,9 @@ library IntegerSet {
         returns (bool alreadyPresent)
     {
         uint index = self.index[value];
-        if (index > 0) return true;
-        else {
+        if (index > 0) {
+            return true;
+        } else {
             if (self.items.length == 0) self.items.length = 1;
             index = self.items.length++;
             self.items[index] = value;
