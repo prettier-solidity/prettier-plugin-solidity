@@ -585,13 +585,11 @@ contract User {
     }
     /// Computes the sum of all stored data.
     function sum() returns (uint s) {
-        for (var i = IntegerSet.iterate_start(data); IntegerSet.iterate_valid(
-            data,
-            i
-        ); i = IntegerSet.iterate_advance(data, i)) s += IntegerSet.iterate_get(
-            data,
-            i
-        );
+        for (
+            var i = IntegerSet.iterate_start(data);
+            IntegerSet.iterate_valid(data, i);
+            i = IntegerSet.iterate_advance(data, i)
+        ) s += IntegerSet.iterate_get(data, i);
     }
 }
 
