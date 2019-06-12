@@ -1,4 +1,3 @@
-/* eslint-disable operator-linebreak */
 const {
   doc: {
     builders: { concat, join }
