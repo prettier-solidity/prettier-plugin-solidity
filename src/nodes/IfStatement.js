@@ -14,13 +14,18 @@ const printTrueBody = (node, path, print) => {
   }
 
   const ifWithinIf = node.trueBody.type === 'IfStatement';
+
   const openHug = ' {';
   const closeHug = concat([line, '}', node.falseBody ? ' ' : '']);
+
+  const openNotHug = '';
+  const closeNotHug = node.falseBody ? hardline : '';
+
   return group(
     concat([
-      ifBreak(openHug, ifWithinIf ? openHug : ''),
+      ifBreak(openHug, ifWithinIf ? openHug : openNotHug),
       indent(concat([line, path.call(print, 'trueBody')])),
-      ifBreak(closeHug, ifWithinIf ? closeHug : node.falseBody ? hardline : '')
+      ifBreak(closeHug, ifWithinIf ? closeHug : closeNotHug)
     ])
   );
 };
