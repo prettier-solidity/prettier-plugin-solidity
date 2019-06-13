@@ -562,10 +562,9 @@ library IntegerSet {
         returns (uint r_index)
     {
         index++;
-        while (iterate_valid(
-            self,
-            index
-        ) && self.index[self.items[index]] == index) index++;
+        while (
+            iterate_valid(self, index) && self.index[self.items[index]] == index
+        ) index++;
         return index;
     }
     function iterate_get(data storage self, uint index) returns (uint value) {
@@ -586,13 +585,11 @@ contract User {
     }
     /// Computes the sum of all stored data.
     function sum() returns (uint s) {
-        for (var i = IntegerSet.iterate_start(data); IntegerSet.iterate_valid(
-            data,
-            i
-        ); i = IntegerSet.iterate_advance(data, i)) s += IntegerSet.iterate_get(
-            data,
-            i
-        );
+        for (
+            var i = IntegerSet.iterate_start(data);
+            IntegerSet.iterate_valid(data, i);
+            i = IntegerSet.iterate_advance(data, i)
+        ) s += IntegerSet.iterate_get(data, i);
     }
 }
 

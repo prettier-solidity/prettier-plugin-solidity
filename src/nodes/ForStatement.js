@@ -1,19 +1,33 @@
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, group, indent, line, softline }
   }
 } = require('prettier');
 
 const ForStatement = {
   print: ({ node, path, print }) =>
     concat([
-      'for (',
-      node.initExpression ? path.call(print, 'initExpression') : '',
-      '; ',
-      node.conditionExpression ? path.call(print, 'conditionExpression') : '',
-      '; ',
-      path.call(print, 'loopExpression'),
-      ') ',
+      group(
+        concat([
+          'for (',
+          indent(
+            concat([
+              softline,
+              node.initExpression ? path.call(print, 'initExpression') : '',
+              ';',
+              line,
+              node.conditionExpression
+                ? path.call(print, 'conditionExpression')
+                : '',
+              ';',
+              line,
+              path.call(print, 'loopExpression')
+            ])
+          ),
+          softline,
+          ') '
+        ])
+      ),
       path.call(print, 'body')
     ])
 };
