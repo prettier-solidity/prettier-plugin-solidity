@@ -92,5 +92,21 @@ contract IfStatements {
         if (veryComplicatedComputation(variable1, variable2) == (400 + 500) * 1000) { return true; }
         else if (veryComplicatedComputation(variable3, variable4) == (400 + 500) * 1000) { return (true,false); }
         else return false;
+
+        if (simpleIf) if (simpleIfWithinIf) return true; else return false;
+
+        if (simpleIf) if (simpleIfWithinIf) {return true;} else {return false;}
+
+        if (simpleIf) {if (simpleIfWithinIf) {return true;} else {return false;}}
+
+        if (simpleIf) {if (simpleIfWithinIf) return true;} else return false;
+
+        if (simpleIf) {if (simpleIfWithinIf) {return true;}} else {return false;}
+
+        if (simpleIf) if (simpleIfWithinIf) return true; else return false; else return false;
+
+        if (simpleIf) if (simpleIfWithinIf) {return true;} else {return false;} else {return false;}
+
+        if (simpleIf) {if (simpleIfWithinIf) {return true;} else {return false;}} else return false;
     }
 }

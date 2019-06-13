@@ -4,19 +4,40 @@ const {
   }
 } = require('prettier');
 
-const printBody = (body, followingElse, node, path, print) => {
-  if (node[body].type === 'Block' || node[body].type === 'IfStatement') {
-    return concat([' ', path.call(print, body), followingElse ? ' ' : '']);
+const printTrueBody = (node, path, print) => {
+  if (node.trueBody.type === 'Block') {
+    return concat([
+      ' ',
+      path.call(print, 'trueBody'),
+      node.falseBody ? ' ' : ''
+    ]);
+  }
+
+  const ifWithinIf = node.trueBody.type === 'IfStatement';
+  const openHug = ' {';
+  const closeHug = concat([line, '}', node.falseBody ? ' ' : '']);
+  return group(
+    concat([
+      ifBreak(openHug, ifWithinIf ? openHug : ''),
+      indent(concat([line, path.call(print, 'trueBody')])),
+      ifBreak(closeHug, ifWithinIf ? closeHug : node.falseBody ? hardline : '')
+    ])
+  );
+};
+
+const printFalseBody = (node, path, print) => {
+  if (
+    node.falseBody.type === 'Block' ||
+    node.falseBody.type === 'IfStatement'
+  ) {
+    return concat([' ', path.call(print, 'falseBody')]);
   }
 
   return group(
     concat([
-      ifBreak(concat([' {']), ''),
-      indent(concat([line, path.call(print, body)])),
-      ifBreak(
-        concat([line, '}', followingElse ? ' ' : '']),
-        followingElse ? hardline : ''
-      )
+      ifBreak(' {', ''),
+      indent(concat([line, path.call(print, 'falseBody')])),
+      ifBreak(concat([line, '}']), '')
     ])
   );
 };
@@ -31,12 +52,12 @@ const printIf = (node, path, print) =>
         ')'
       ])
     ),
-    printBody('trueBody', node.falseBody, node, path, print)
+    printTrueBody(node, path, print)
   ]);
 
 const printElse = (node, path, print) => {
   if (node.falseBody) {
-    return concat(['else', printBody('falseBody', false, node, path, print)]);
+    return concat(['else', printFalseBody(node, path, print)]);
   }
   return '';
 };
