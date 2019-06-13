@@ -2,16 +2,8 @@
   "env": {
     "jest": true
   },
-  "extends": [
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["airbnb", "prettier"],
   "globals": {
     "run_spec": false
-  },
-  "rules": {
-    "arrow-parens": "off",
-    "comma-dangle": "off",
-    "object-curly-newline": "off"
   }
 }
