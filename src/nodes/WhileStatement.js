@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, ifBreak, indent, line, softline }
+    builders: { concat, group, indent, line, softline }
   }
 } = require('prettier');
 
@@ -9,13 +9,7 @@ const printBody = (node, path, print) => {
     return concat([' ', path.call(print, 'body')]);
   }
 
-  return group(
-    concat([
-      ifBreak(concat([' {']), ''),
-      indent(concat([line, path.call(print, 'body')])),
-      ifBreak(concat([line, '}']), '')
-    ])
-  );
+  return group(indent(concat([line, path.call(print, 'body')])));
 };
 
 const WhileStatement = {

@@ -118,7 +118,7 @@ contract IfStatements {
     function hi() public {
         if (simpleIf) return true;
 
-        if (simpleIf) {
+        if (simpleIf)
             return (
                 true,
                 true,
@@ -132,13 +132,11 @@ contract IfStatements {
                 true,
                 true
             );
-        }
 
-        if (simpleIf) {
-            return true;
-        } else return false;
+        if (simpleIf) return true;
+        else return false;
 
-        if (simpleIf) {
+        if (simpleIf)
             return (
                 true,
                 true,
@@ -152,11 +150,10 @@ contract IfStatements {
                 true,
                 true
             );
-        } else return false;
+        else return false;
 
-        if (simpleIf) {
-            return true;
-        } else {
+        if (simpleIf) return true;
+        else
             return (
                 false,
                 false,
@@ -170,9 +167,8 @@ contract IfStatements {
                 false,
                 false
             );
-        }
 
-        if (simpleIf) {
+        if (simpleIf)
             return (
                 true,
                 true,
@@ -186,7 +182,7 @@ contract IfStatements {
                 true,
                 true
             );
-        } else {
+        else
             return (
                 false,
                 false,
@@ -200,15 +196,12 @@ contract IfStatements {
                 false,
                 false
             );
-        }
 
-        if (simpleIf) {
-            return true;
-        } else if (simpleElseIf) {
-            return (true, false);
-        } else return false;
+        if (simpleIf) return true;
+        else if (simpleElseIf) return (true, false);
+        else return false;
 
-        if (simpleIf) {
+        if (simpleIf)
             return (
                 true,
                 true,
@@ -222,15 +215,12 @@ contract IfStatements {
                 true,
                 true
             );
-        } else if (simpleElseIf) {
-            return (true, false);
-        } else return false;
+        else if (simpleElseIf) return (true, false);
+        else return false;
 
-        if (simpleIf) {
-            return true;
-        } else if (simpleElseIf) {
-            return (true, false);
-        } else {
+        if (simpleIf) return true;
+        else if (simpleElseIf) return (true, false);
+        else
             return (
                 false,
                 false,
@@ -244,9 +234,8 @@ contract IfStatements {
                 false,
                 false
             );
-        }
 
-        if (simpleIf) {
+        if (simpleIf)
             return (
                 true,
                 true,
@@ -260,9 +249,8 @@ contract IfStatements {
                 true,
                 true
             );
-        } else if (simpleElseIf) {
-            return (true, false);
-        } else {
+        else if (simpleElseIf) return (true, false);
+        else
             return (
                 false,
                 false,
@@ -276,11 +264,9 @@ contract IfStatements {
                 false,
                 false
             );
-        }
 
-        if (simpleIf) {
-            return true;
-        } else if (simpleElseIf) {
+        if (simpleIf) return true;
+        else if (simpleElseIf)
             return (
                 true,
                 false,
@@ -293,9 +279,9 @@ contract IfStatements {
                 true,
                 false
             );
-        } else return false;
+        else return false;
 
-        if (simpleIf) {
+        if (simpleIf)
             return (
                 true,
                 true,
@@ -309,7 +295,7 @@ contract IfStatements {
                 true,
                 true
             );
-        } else if (simpleElseIf) {
+        else if (simpleElseIf)
             return (
                 true,
                 false,
@@ -322,11 +308,10 @@ contract IfStatements {
                 true,
                 false
             );
-        } else return false;
+        else return false;
 
-        if (simpleIf) {
-            return true;
-        } else if (simpleElseIf) {
+        if (simpleIf) return true;
+        else if (simpleElseIf)
             return (
                 true,
                 false,
@@ -339,7 +324,7 @@ contract IfStatements {
                 true,
                 false
             );
-        } else {
+        else
             return (
                 false,
                 false,
@@ -353,9 +338,8 @@ contract IfStatements {
                 false,
                 false
             );
-        }
 
-        if (simpleIf) {
+        if (simpleIf)
             return (
                 true,
                 true,
@@ -369,7 +353,7 @@ contract IfStatements {
                 true,
                 true
             );
-        } else if (simpleElseIf) {
+        else if (simpleElseIf)
             return (
                 true,
                 false,
@@ -382,7 +366,7 @@ contract IfStatements {
                 true,
                 false
             );
-        } else {
+        else
             return (
                 false,
                 false,
@@ -396,7 +380,6 @@ contract IfStatements {
                 false,
                 false
             );
-        }
 
         if (simpleIf) {
             return true;
@@ -406,9 +389,8 @@ contract IfStatements {
             return true;
         } else return false;
 
-        if (simpleIf) {
-            return true;
-        } else {
+        if (simpleIf) return true;
+        else {
             return false;
         }
 
@@ -420,23 +402,19 @@ contract IfStatements {
 
         if (simpleIf) {
             return true;
-        } else if (simpleElseIf) {
-            return (true, false);
-        } else return false;
+        } else if (simpleElseIf) return (true, false);
+        else return false;
 
-        if (simpleIf) {
-            return true;
-        } else if (simpleElseIf) {
-            return (true, false);
-        } else {
+        if (simpleIf) return true;
+        else if (simpleElseIf) return (true, false);
+        else {
             return false;
         }
 
         if (simpleIf) {
             return true;
-        } else if (simpleElseIf) {
-            return (true, false);
-        } else {
+        } else if (simpleElseIf) return (true, false);
+        else {
             return false;
         }
 
@@ -446,9 +424,8 @@ contract IfStatements {
             return (true, false);
         } else return false;
 
-        if (simpleIf) {
-            return true;
-        } else if (simpleElseIf) {
+        if (simpleIf) return true;
+        else if (simpleElseIf) {
             return (true, false);
         } else {
             return false;
@@ -496,19 +473,16 @@ contract IfStatements {
             return (true, false);
         } else return false;
 
-        if (simpleIf) {
-            if (simpleIfWithinIf) {
-                return true;
-            } else return false;
-        }
+        if (simpleIf)
+            if (simpleIfWithinIf) return true;
+            else return false;
 
-        if (simpleIf) {
+        if (simpleIf)
             if (simpleIfWithinIf) {
                 return true;
             } else {
                 return false;
             }
-        }
 
         if (simpleIf) {
             if (simpleIfWithinIf) {
@@ -530,19 +504,18 @@ contract IfStatements {
             return false;
         }
 
-        if (simpleIf) {
-            if (simpleIfWithinIf) {
-                return true;
-            } else return false;
-        } else return false;
+        if (simpleIf)
+            if (simpleIfWithinIf) return true;
+            else return false;
+        else return false;
 
-        if (simpleIf) {
+        if (simpleIf)
             if (simpleIfWithinIf) {
                 return true;
             } else {
                 return false;
             }
-        } else {
+        else {
             return false;
         }
 

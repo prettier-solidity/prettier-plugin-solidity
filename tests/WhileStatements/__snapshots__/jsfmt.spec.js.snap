@@ -31,9 +31,8 @@ contract WhileStatements {
 
         while (a < 100) a++;
 
-        while (a < 200) {
+        while (a < 200)
             a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(LONG_VARIABLE);
-        }
 
         while (a < 300) {
             a++;
