@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const modifierArguments = (node, path, print, options) => {
+const modifierArguments = (node, path, print) => {
   if (node.arguments && node.arguments.length > 0) {
     return group(
       concat([
@@ -20,6 +20,7 @@ const modifierArguments = (node, path, print, options) => {
       ])
     );
   }
+
   // TODO: remove Capital letter Hack once solidity-parser-antlr fixes this
   if (
     path.getParentNode().isConstructor && // if we are in a Constructor.
@@ -31,8 +32,8 @@ const modifierArguments = (node, path, print, options) => {
 };
 
 const ModifierInvocation = {
-  print: ({ node, path, print, options }) =>
-    concat([node.name, modifierArguments(node, path, print, options)])
+  print: ({ node, path, print }) =>
+    concat([node.name, modifierArguments(node, path, print)])
 };
 
 module.exports = ModifierInvocation;
