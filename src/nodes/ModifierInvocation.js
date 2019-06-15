@@ -5,29 +5,26 @@ const {
 } = require('prettier');
 
 const modifierArguments = (node, path, print) => {
-  if (node.arguments && node.arguments.length > 0) {
-    return group(
-      concat([
-        '(',
-        indent(
-          concat([
-            softline,
-            join(concat([',', line]), path.map(print, 'arguments'))
-          ])
-        ),
-        softline,
-        ')'
-      ])
-    );
-  }
+  if (node.arguments) {
+    if (node.arguments.length > 0) {
+      return group(
+        concat([
+          '(',
+          indent(
+            concat([
+              softline,
+              join(concat([',', line]), path.map(print, 'arguments'))
+            ])
+          ),
+          softline,
+          ')'
+        ])
+      );
+    }
 
-  // TODO: remove Capital letter Hack once solidity-parser-antlr fixes this
-  if (
-    path.getParentNode().isConstructor && // if we are in a Constructor.
-    node.name[0] !== node.name[0].toLowerCase() // Modifier starts with a Capital letter.
-  ) {
     return '()';
   }
+
   return '';
 };
 
