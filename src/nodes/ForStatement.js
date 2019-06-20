@@ -4,6 +4,14 @@ const {
   }
 } = require('prettier');
 
+const printBody = (node, path, print) => {
+  if (node.body.type === 'Block') {
+    return concat([' ', path.call(print, 'body')]);
+  }
+
+  return group(indent(concat([line, path.call(print, 'body')])));
+};
+
 const ForStatement = {
   print: ({ node, path, print }) =>
     concat([
@@ -25,10 +33,10 @@ const ForStatement = {
             ])
           ),
           softline,
-          ') '
+          ')'
         ])
       ),
-      path.call(print, 'body')
+      printBody(node, path, print)
     ])
 };
 

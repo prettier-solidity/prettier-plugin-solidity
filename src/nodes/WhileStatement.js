@@ -1,21 +1,29 @@
 const {
   doc: {
-    builders: { concat, group, indent, softline }
+    builders: { concat, group, indent, line, softline }
   }
 } = require('prettier');
 
+const printBody = (node, path, print) => {
+  if (node.body.type === 'Block') {
+    return concat([' ', path.call(print, 'body')]);
+  }
+
+  return group(indent(concat([line, path.call(print, 'body')])));
+};
+
 const WhileStatement = {
-  print: ({ path, print }) =>
+  print: ({ node, path, print }) =>
     concat([
       group(
         concat([
           'while (',
           indent(concat([softline, path.call(print, 'condition')])),
           softline,
-          ') '
+          ')'
         ])
       ),
-      path.call(print, 'body')
+      printBody(node, path, print)
     ])
 };
 
