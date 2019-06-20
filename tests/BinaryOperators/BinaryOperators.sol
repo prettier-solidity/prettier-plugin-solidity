@@ -30,6 +30,7 @@ contract ArithmeticOperators {
   function someFunction() {
     a ** b;
     a ** c * d ** e;
+    a ** c * d ** e * a ** c * d ** e * a ** c * d ** e * a ** c * d ** e * a ** c * d ** e;
     veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB;
     veryVeryVeryVeryVeryLongVariableCalledA * veryVeryVeryVeryVeryLongVariableCalledB ** c;
     c ** veryVeryVeryVeryVeryLongVariableCalledA * veryVeryVeryVeryVeryLongVariableCalledB;
