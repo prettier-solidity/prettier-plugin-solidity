@@ -1,17 +1,36 @@
 const {
   doc: {
-    builders: { concat, join }
+    builders: { concat, group, indent, join, line, softline }
   }
 } = require('prettier');
 
-const ModifierInvocation = {
-  print: ({ node, path, print }) => {
-    let doc = node.name;
-    if (node.arguments && node.arguments.length > 0) {
-      doc = concat([doc, '(', join(', ', path.map(print, 'arguments')), ')']);
+const modifierArguments = (node, path, print) => {
+  if (node.arguments) {
+    if (node.arguments.length > 0) {
+      return group(
+        concat([
+          '(',
+          indent(
+            concat([
+              softline,
+              join(concat([',', line]), path.map(print, 'arguments'))
+            ])
+          ),
+          softline,
+          ')'
+        ])
+      );
     }
-    return doc;
+
+    return '()';
   }
+
+  return '';
+};
+
+const ModifierInvocation = {
+  print: ({ node, path, print }) =>
+    concat([node.name, modifierArguments(node, path, print)])
 };
 
 module.exports = ModifierInvocation;
