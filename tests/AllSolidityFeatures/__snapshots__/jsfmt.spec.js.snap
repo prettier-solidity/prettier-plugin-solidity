@@ -638,7 +638,7 @@ contract TestInternal {
 
 contract FromSolparse is A, B, TestPrivate, TestInternal {
     function() {
-        uint256 a = 6 ** 9;
+        uint256 a = 6**9;
         var (x) = 100;
         uint256 y = 2 days;
     }

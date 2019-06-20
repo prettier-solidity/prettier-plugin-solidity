@@ -28,7 +28,7 @@ const indentIfNecessaryBuilder = path => doc => {
 };
 
 module.exports = {
-  match: op => ['+', '-', '*', '/', '**', '%'].includes(op),
+  match: op => ['+', '-', '*', '/', '%'].includes(op),
   print: (node, path, print) => {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);

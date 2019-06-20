@@ -88,7 +88,7 @@ contract IndexOf {
             whatwastheval = -1;
             return -1;
         } else if (
-            a.length > (2 ** 128 - 1)
+            a.length > (2**128 - 1)
         ) // since we have to be able to return -1 (if the char isn't found or input error), this function must return an "int" type with a max length of (2^128 - 1)
         {
             whatwastheval = -1;

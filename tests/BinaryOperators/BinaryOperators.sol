@@ -1,5 +1,5 @@
 contract ArithmeticOperators {
-  // ['+', '-', '*', '/', '%', '**']
+  // ['+', '-', '*', '/', '%']
   function someFunction() {
     a + b;
     a - b;
@@ -21,6 +21,25 @@ contract ArithmeticOperators {
     for (a = veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB; a <= veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB; a += veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB) {}
     a(veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB);
     return veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB;
+  }
+}
+
+
+contract ArithmeticOperators {
+  // ['**']
+  function someFunction() {
+    a ** b;
+    a ** c * d ** e;
+    veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB;
+    veryVeryVeryVeryVeryLongVariableCalledA * veryVeryVeryVeryVeryLongVariableCalledB ** c;
+    c ** veryVeryVeryVeryVeryLongVariableCalledA * veryVeryVeryVeryVeryLongVariableCalledB;
+    a = veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB;
+    a = veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB * c;
+    if (veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB == a()) {}
+    if (a() == veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB) {}
+    for (a = veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB; a <= veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB; a += veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB) {}
+    a(veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB);
+    return veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB;
   }
 }
 
