@@ -79,7 +79,9 @@ contract IndexOf {
     int256 whatwastheval = -10; // -2 = not yet tested, as separate from -1, tested but error
 
     function indexOf(string _a, string _b)
-        returns (int256) // _a = string to search, _b = string we want to find
+        returns (
+            int256 // _a = string to search, _b = string we want to find
+        )
     {
         bytes memory a = bytes(_a);
         bytes memory b = bytes(_b);
