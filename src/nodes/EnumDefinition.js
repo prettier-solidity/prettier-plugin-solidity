@@ -1,18 +1,26 @@
 const {
   doc: {
-    builders: { concat, join }
+    builders: { concat, group, indent, join, line, softline }
   }
 } = require('prettier');
 
 const EnumDefinition = {
-  print: ({ node, path, print }) =>
-    concat([
-      'enum ',
-      node.name,
-      ' {',
-      join(', ', path.map(print, 'members')),
-      '}'
-    ])
+  print: ({ node, path, print, options }) =>
+    group(
+      concat([
+        'enum ',
+        node.name,
+        ' {',
+        indent(
+          concat([
+            options.bracketSpacing ? line : softline,
+            join(concat([',', line]), path.map(print, 'members'))
+          ])
+        ),
+        options.bracketSpacing ? line : softline,
+        '}'
+      ])
+    )
 };
 
 module.exports = EnumDefinition;
