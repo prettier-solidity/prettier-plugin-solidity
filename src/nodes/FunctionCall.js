@@ -4,13 +4,13 @@ const {
   }
 } = require('prettier');
 
-const printObject = (node, path, print) =>
+const printObject = (node, path, print, options) =>
   group(
     concat([
       '{',
       indent(
         concat([
-          softline,
+          options.bracketSpacing ? line : softline,
           join(
             concat([',', line]),
             path
@@ -19,7 +19,7 @@ const printObject = (node, path, print) =>
           )
         ])
       ),
-      softline,
+      options.bracketSpacing ? line : softline,
       '}'
     ])
   );
@@ -37,9 +37,9 @@ const printParameters = (node, path, print) =>
     ])
   );
 
-const printArguments = (node, path, print) => {
+const printArguments = (node, path, print, options) => {
   if (node.names && node.names.length > 0) {
-    return printObject(node, path, print);
+    return printObject(node, path, print, options);
   }
   if (node.arguments && node.arguments.length > 0) {
     return printParameters(node, path, print);
@@ -48,11 +48,11 @@ const printArguments = (node, path, print) => {
 };
 
 const FunctionCall = {
-  print: ({ node, path, print }) =>
+  print: ({ node, path, print, options }) =>
     concat([
       path.call(print, 'expression'),
       '(',
-      printArguments(node, path, print),
+      printArguments(node, path, print, options),
       ')'
     ])
 };
