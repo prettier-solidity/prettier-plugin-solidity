@@ -25,7 +25,24 @@ contract Comments3 is Interface1, Interface2, Interface3, Interface4, Interface5
   }
 }
 
-// TODO: fix comment on contract when the group breaks.
 contract Comments4 is Interface1, Interface2, Interface3, Interface4, Interface5, Interface6 {
   // solhint-disable-previous-line no-empty-blocks
+}
+
+contract Comments5 /*nice name*/ {
+  // solhint-disable-previous-line no-empty-blocks
+}
+
+contract Comments6 {
+  function someFunction(
+    uint a, // the first value
+    uint b, // the second value
+    uint c // the lats value
+  ) {
+    someFunction(
+      a, // the first value
+      b, // the second value
+      c // the lats value
+    );
+  }
 }
