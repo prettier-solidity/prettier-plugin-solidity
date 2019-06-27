@@ -1,8 +1,11 @@
 "use strict";
 
 const stringWidth = require("string-width");
-const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
+
+const getLast = function(arr) {
+  return arr.length > 0 ? arr[arr.length - 1] : null;
+};
 
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
@@ -38,13 +41,14 @@ function getPenultimate(arr) {
   return null;
 }
 
-function getLast(arr) {
-  if (arr.length > 0) {
-    return arr[arr.length - 1];
-  }
-  return null;
-}
+/**
+ * @typedef {{backwards?: boolean}} SkipOptions
+ */
 
+/**
+ * @param {string | RegExp} chars
+ * @returns {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 function skip(chars) {
   return (text, index, opts) => {
     const backwards = opts && opts.backwards;
@@ -81,11 +85,28 @@ function skip(chars) {
   };
 }
 
+/**
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 const skipWhitespace = skip(/\s/);
+/**
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 const skipSpaces = skip(" \t");
+/**
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 const skipToLineEnd = skip(",; \t");
+/**
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 const skipEverythingButNewLine = skip(/[^\r\n]/);
 
+/**
+ * @param {string} text
+ * @param {number | false} index
+ * @returns {number | false}
+ */
 function skipInlineComment(text, index) {
   if (index === false) {
     return false;
@@ -101,6 +122,11 @@ function skipInlineComment(text, index) {
   return index;
 }
 
+/**
+ * @param {string} text
+ * @param {number | false} index
+ * @returns {number | false}
+ */
 function skipTrailingComment(text, index) {
   if (index === false) {
     return false;
@@ -115,6 +141,12 @@ function skipTrailingComment(text, index) {
 // This one doesn't use the above helper function because it wants to
 // test \r\n in order and `skip` doesn't support ordering and we only
 // want to skip one newline. It's simple to implement.
+/**
+ * @param {string} text
+ * @param {number | false} index
+ * @param {SkipOptions=} opts
+ * @returns {number | false}
+ */
 function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
   if (index === false) {
@@ -151,6 +183,12 @@ function skipNewline(text, index, opts) {
   return index;
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @param {SkipOptions=} opts
+ * @returns {boolean}
+ */
 function hasNewline(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
@@ -158,6 +196,12 @@ function hasNewline(text, index, opts) {
   return idx !== idx2;
 }
 
+/**
+ * @param {string} text
+ * @param {number} start
+ * @param {number} end
+ * @returns {boolean}
+ */
 function hasNewlineInRange(text, start, end) {
   for (let i = start; i < end; ++i) {
     if (text.charAt(i) === "\n") {
@@ -168,7 +212,14 @@ function hasNewlineInRange(text, start, end) {
 }
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locStart
+ */
 function isPreviousLineEmpty(text, node, locStart) {
+  /** @type {number | false} */
   let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
@@ -177,8 +228,15 @@ function isPreviousLineEmpty(text, node, locStart) {
   return idx !== idx2;
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @returns {boolean}
+ */
 function isNextLineEmptyAfterIndex(text, index) {
+  /** @type {number | false} */
   let oldIdx = null;
+  /** @type {number | false} */
   let idx = index;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
@@ -189,38 +247,84 @@ function isNextLineEmptyAfterIndex(text, index) {
   }
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
-  return hasNewline(text, idx);
+  return idx !== false && hasNewline(text, idx);
 }
 
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
+ * @returns {boolean}
+ */
 function isNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
-function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+/**
+ * @param {string} text
+ * @param {number} idx
+ * @returns {number | false}
+ */
+function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
+  /** @type {number | false} */
   let oldIdx = null;
-  let idx = locEnd(node);
-  while (idx !== oldIdx) {
-    oldIdx = idx;
-    idx = skipSpaces(text, idx);
-    idx = skipInlineComment(text, idx);
-    idx = skipTrailingComment(text, idx);
-    idx = skipNewline(text, idx);
+  /** @type {number | false} */
+  let nextIdx = idx;
+  while (nextIdx !== oldIdx) {
+    oldIdx = nextIdx;
+    nextIdx = skipSpaces(text, nextIdx);
+    nextIdx = skipInlineComment(text, nextIdx);
+    nextIdx = skipTrailingComment(text, nextIdx);
+    nextIdx = skipNewline(text, nextIdx);
   }
-  return idx;
+  return nextIdx;
 }
 
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
+ * @returns {number | false}
+ */
+function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+  return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    locEnd(node)
+  );
+}
+
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
+ * @returns {string}
+ */
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
+    // @ts-ignore => TBD: can return false, should we define a fallback?
     getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @param {SkipOptions=} opts
+ * @returns {boolean}
+ */
 function hasSpaces(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
 }
 
+/**
+ * @param {{range?: [number, number], start?: number}} node
+ * @param {number} index
+ */
 function setLocStart(node, index) {
   if (node.range) {
     node.range[0] = index;
@@ -229,6 +333,10 @@ function setLocStart(node, index) {
   }
 }
 
+/**
+ * @param {{range?: [number, number], end?: number}} node
+ * @param {number} index
+ */
 function setLocEnd(node, index) {
   if (node.range) {
     node.range[1] = index;
@@ -240,7 +348,8 @@ function setLocEnd(node, index) {
 const PRECEDENCE = {};
 [
   ["|>"],
-  ["||", "??"],
+  ["??"],
+  ["||"],
   ["&&"],
   ["|"],
   ["^"],
@@ -342,6 +451,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
     case "ObjectExpression":
       return true;
     case "MemberExpression":
+    case "OptionalMemberExpression":
       return startsWithNoLookaheadToken(
         node.object,
         forbidFunctionClassAndDoExpr
@@ -353,6 +463,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
       }
       return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
     case "CallExpression":
+    case "OptionalCallExpression":
       if (node.callee.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
@@ -398,6 +509,12 @@ function getLeftMost(node) {
   return node;
 }
 
+/**
+ * @param {string} value
+ * @param {number} tabWidth
+ * @param {number=} startIndex
+ * @returns {number}
+ */
 function getAlignmentSize(value, tabWidth, startIndex) {
   startIndex = startIndex || 0;
 
@@ -417,6 +534,11 @@ function getAlignmentSize(value, tabWidth, startIndex) {
   return size;
 }
 
+/**
+ * @param {string} value
+ * @param {number} tabWidth
+ * @returns {number}
+ */
 function getIndentSize(value, tabWidth) {
   const lastNewlineIndex = value.lastIndexOf("\n");
   if (lastNewlineIndex === -1) {
@@ -430,21 +552,34 @@ function getIndentSize(value, tabWidth) {
   );
 }
 
-function printString(rawContent, options) {
+/**
+ * @typedef {'"' | "'"} Quote
+ */
+
+/**
+ *
+ * @param {string} raw
+ * @param {Quote} preferredQuote
+ * @returns {Quote}
+ */
+function getPreferredQuote(raw, preferredQuote) {
+  // `rawContent` is the string exactly like it appeared in the input source
+  // code, without its enclosing quotes.
+  const rawContent = raw.slice(1, -1);
+
+  /** @type {{ quote: '"', regex: RegExp }} */
   const double = { quote: '"', regex: /"/g };
+  /** @type {{ quote: "'", regex: RegExp }} */
   const single = { quote: "'", regex: /'/g };
 
-  const preferred = options.singleQuote ? single : double;
+  const preferred = preferredQuote === "'" ? single : double;
   const alternate = preferred === single ? double : single;
 
-  let shouldUseAlternateQuote = false;
-  let canChangeDirectiveQuotes = false;
+  let result = preferred.quote;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
   // minimize the number of escaped quotes.
-  // Also check for the alternate quote, to determine if we're allowed to swap
-  // the quotes on a DirectiveLiteral.
   if (
     rawContent.includes(preferred.quote) ||
     rawContent.includes(alternate.quote)
@@ -452,17 +587,43 @@ function printString(rawContent, options) {
     const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-  } else {
-    canChangeDirectiveQuotes = true;
-  }
-
-  const enclosingQuote =
-    options.parser === "json"
-      ? double.quote
-      : shouldUseAlternateQuote
+    result =
+      numPreferredQuotes > numAlternateQuotes
         ? alternate.quote
         : preferred.quote;
+  }
+
+  return result;
+}
+
+function printString(raw, options, isDirectiveLiteral) {
+  // `rawContent` is the string exactly like it appeared in the input source
+  // code, without its enclosing quotes.
+  const rawContent = raw;
+
+  // Check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  const canChangeDirectiveQuotes =
+    !rawContent.includes('"') && !rawContent.includes("'");
+
+  /** @type {Quote} */
+  const enclosingQuote =
+    options.parser === "json"
+      ? '"'
+      : options.__isInHtmlAttribute
+      ? "'"
+      : getPreferredQuote(raw, options.singleQuote ? "'" : '"');
+
+  // Directives are exact code unit sequences, which means that you can't
+  // change the escape sequences they use.
+  // See https://github.com/prettier/prettier/issues/1555
+  // and https://tc39.github.io/ecma262/#directive-prologue
+  if (isDirectiveLiteral) {
+    if (canChangeDirectiveQuotes) {
+      return enclosingQuote + rawContent + enclosingQuote;
+    }
+    return raw;
+  }
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
@@ -474,11 +635,18 @@ function printString(rawContent, options) {
     !(
       options.parser === "css" ||
       options.parser === "less" ||
-      options.parser === "scss"
+      options.parser === "scss" ||
+      options.embeddedInHtml
     )
   );
 }
 
+/**
+ * @param {string} rawContent
+ * @param {Quote} enclosingQuote
+ * @param {boolean=} unescapeUnnecessaryEscapes
+ * @returns {string}
+ */
 function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
@@ -534,6 +702,11 @@ function printNumber(rawNumber) {
   );
 }
 
+/**
+ * @param {string} str
+ * @param {string} target
+ * @returns {number}
+ */
 function getMaxContinuousCount(str, target) {
   const results = str.match(
     new RegExp(`(${escapeStringRegexp(target)})+`, "g")
@@ -549,6 +722,39 @@ function getMaxContinuousCount(str, target) {
   );
 }
 
+function getMinNotPresentContinuousCount(str, target) {
+  const matches = str.match(
+    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
+  );
+
+  if (matches === null) {
+    return 0;
+  }
+
+  const countPresent = new Map();
+  let max = 0;
+
+  for (const match of matches) {
+    const count = match.length / target.length;
+    countPresent.set(count, true);
+    if (count > max) {
+      max = count;
+    }
+  }
+
+  for (let i = 1; i < max; i++) {
+    if (!countPresent.get(i)) {
+      return i;
+    }
+  }
+
+  return max + 1;
+}
+
+/**
+ * @param {string} text
+ * @returns {number}
+ */
 function getStringWidth(text) {
   if (!text) {
     return 0;
@@ -559,10 +765,7 @@ function getStringWidth(text) {
     return text.length;
   }
 
-  // emojis are considered 2-char width for consistency
-  // see https://github.com/sindresorhus/string-width/issues/11
-  // for the reason why not implemented in `string-width`
-  return stringWidth(text.replace(emojiRegex, "  "));
+  return stringWidth(text);
 }
 
 function hasIgnoreComment(path) {
@@ -577,20 +780,6 @@ function hasNodeIgnoreComment(node) {
     node.comments.length > 0 &&
     node.comments.some(comment => comment.value.trim() === "prettier-ignore")
   );
-}
-
-function matchAncestorTypes(path, types, index) {
-  index = index || 0;
-  types = types.slice();
-  while (types.length) {
-    const parent = path.getParentNode(index);
-    const type = types.shift();
-    if (!parent || parent.type !== type) {
-      return false;
-    }
-    index++;
-  }
-  return true;
 }
 
 function addCommentHelper(node, comment) {
@@ -640,9 +829,22 @@ function isWithinParentArrayProperty(path, propertyName) {
   return parent[propertyName][key] === node;
 }
 
+function replaceEndOfLineWith(text, replacement) {
+  const parts = [];
+  for (const part of text.split("\n")) {
+    if (parts.length !== 0) {
+      parts.push(replacement);
+    }
+    parts.push(part);
+  }
+  return parts;
+}
+
 module.exports = {
+  replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
+  getMinNotPresentContinuousCount,
   getPrecedence,
   shouldFlatten,
   isBitwiseOperator,
@@ -650,6 +852,7 @@ module.exports = {
   getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   skip,
@@ -671,12 +874,12 @@ module.exports = {
   startsWithNoLookaheadToken,
   getAlignmentSize,
   getIndentSize,
+  getPreferredQuote,
   printString,
   printNumber,
   hasIgnoreComment,
   hasNodeIgnoreComment,
   makeString,
-  matchAncestorTypes,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,

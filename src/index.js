@@ -5,6 +5,7 @@ const loc = require('./loc');
 const options = require('./options');
 const parse = require('./parser');
 const print = require('./printer');
+const printComment = require('./print_comment');
 
 // https://prettier.io/docs/en/plugins.html#languages
 const languages = [
@@ -22,24 +23,8 @@ const parsers = {
   'solidity-parse': parser
 };
 
-function canAttachComment(node) {
-  return (
-    node.type && node.type !== 'BlockComment' && node.type !== 'LineComment'
-  );
-}
-
-function printComment(commentPath) {
-  const comment = commentPath.getValue();
-  switch (comment.type) {
-    case 'BlockComment': {
-      return `/*${comment.raw}*/`;
-    }
-    case 'LineComment':
-      return `//${comment.raw.trimRight()}`;
-    default:
-      throw new Error(`Not a comment: ${JSON.stringify(comment)}`);
-  }
-}
+const canAttachComment = node =>
+  node.type && node.type !== 'BlockComment' && node.type !== 'LineComment';
 
 // https://prettier.io/docs/en/plugins.html#printers
 const printers = {

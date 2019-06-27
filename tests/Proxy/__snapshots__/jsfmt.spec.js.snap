@@ -63,23 +63,23 @@ pragma solidity ^0.4.24;
  */
 contract Proxy {
     /**
-    * @dev Tells the address of the implementation where every call will be delegated.
-    * @return address of the implementation to which it will be delegated
-    */
+     * @dev Tells the address of the implementation where every call will be delegated.
+     * @return address of the implementation to which it will be delegated
+     */
     function _implementation() internal view returns (address);
 
     /**
-    * @dev Fallback function.
-    * Implemented entirely in \`_fallback\`.
-    */
+     * @dev Fallback function.
+     * Implemented entirely in \`_fallback\`.
+     */
     function _fallback() internal {
         _delegate(_implementation());
     }
 
     /**
-    * @dev Fallback function allowing to perform a delegatecall to the given implementation.
-    * This function will return whatever the implementation call returns
-    */
+     * @dev Fallback function allowing to perform a delegatecall to the given implementation.
+     * This function will return whatever the implementation call returns
+     */
     function _delegate(address implementation) internal {
         /*solium-disable-next-line security/no-inline-assembly*/
         assembly {
