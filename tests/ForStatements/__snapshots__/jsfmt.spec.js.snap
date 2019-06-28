@@ -22,12 +22,12 @@ contract ForStatements {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract ForStatements {
-    uint constant LONG_VARIABLE = 1;
+    uint256 constant LONG_VARIABLE = 1;
 
     function hi() public {
-        uint a;
+        uint256 a;
 
-        for (uint i; i < 100; i++) a++;
+        for (uint256 i; i < 100; i++) a++;
 
         for (i = 0; i < 100; i++)
             a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(LONG_VARIABLE);
@@ -41,7 +41,7 @@ contract ForStatements {
         }
 
         for (
-            uint veryLongVariableName;
+            uint256 veryLongVariableName;
             veryLongVariableName < 100;
             veryLongVariableName++
         ) a++;
