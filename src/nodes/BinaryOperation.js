@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const printers = require('../binary-operator-printers');
 
 const BinaryOperation = {
