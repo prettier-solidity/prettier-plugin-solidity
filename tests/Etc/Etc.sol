@@ -40,5 +40,6 @@ contract Contract {
     // comment
     else if (somethingElse) bar();
     else whatever();
+    return;
   }
 }

@@ -6,9 +6,6 @@ const BinaryOperation = {
       if (printers[i].match(node.operator))
         return printers[i].print(node, path, print);
     }
-    throw new Error(
-      `Unknown Binary Operator: ${JSON.stringify(node.operator)}`
-    );
   }
 };
 
