@@ -1500,12 +1500,8 @@ library strings {
         pure
         returns (bool)
     {
-        return rfindPtr(
-            self._len,
-            self._ptr,
-            needle._len,
-            needle._ptr
-        ) != self._ptr;
+        return rfindPtr(self._len, self._ptr, needle._len, needle._ptr) != self
+            ._ptr;
     }
 
     /*
