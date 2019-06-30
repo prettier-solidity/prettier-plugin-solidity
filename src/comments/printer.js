@@ -3,7 +3,7 @@ const {
     builders: { concat, hardline, join }
   }
 } = require('prettier');
-const { hasNewline } = require('./prettier-comments/common/util');
+const { hasNewline } = require('../prettier-comments/common/util');
 
 function isIndentableBlockComment(comment) {
   // If the comment has multiple lines and every line starts with a star
@@ -52,10 +52,7 @@ function printComment(commentPath, options) {
         return printed;
       }
 
-      const isInsideFlowComment =
-        options.originalText.substr(options.locEnd(comment) - 3, 3) === '*-/';
-
-      return `/*${comment.raw}${isInsideFlowComment ? '*-/' : '*/'}`;
+      return `/*${comment.raw}*/`;
     }
     case 'LineComment':
       return `//${comment.raw.trimRight()}`;

@@ -33,7 +33,11 @@ contract Comments5 /*nice name*/ {
   // solhint-disable-previous-line no-empty-blocks
 }
 
-contract Comments6 {
+contract Comments6 /*why the name `Comments6`*/ is Interface1/*why we used Interface1*/, Interface2/*why we used Interface2*/, Interface3, Interface4, Interface5, Interface6 {
+  // solhint-disable-previous-line no-empty-blocks
+}
+
+contract Comments7 {
   function someFunction(
     uint a, // the first value
     uint b, // the second value

@@ -1,11 +1,12 @@
-const { handleComments } = require('./prettier-comments');
+// const { handleComments } = require('./prettier-comments');
+// const printComment = require('./comments/printer');
+const { handleComments, printComment } = require('./comments');
 
 const massageAstNode = require('./clean');
 const loc = require('./loc');
 const options = require('./options');
 const parse = require('./parser');
 const print = require('./printer');
-const printComment = require('./print_comment');
 
 // https://prettier.io/docs/en/plugins.html#languages
 const languages = [
