@@ -2,7 +2,6 @@ const {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
-  hasLeadingComment,
   isBlockComment
 } = require('../prettier-comments/language-js/comments');
 
@@ -90,6 +89,5 @@ module.exports = {
   handleOwnLineComment: solidityHandleOwnLineComment,
   handleEndOfLineComment: solidityHandleEndOfLineComment,
   handleRemainingComment: solidityHandleRemainingComment,
-  hasLeadingComment,
   isBlockComment
 };
