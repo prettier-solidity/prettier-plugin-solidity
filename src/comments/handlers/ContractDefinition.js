@@ -26,6 +26,7 @@ function handleContractDefinitionComments(
     options.locEnd
   );
 
+  // In this scenario we are in between jus after a base contract declaration.
   if (precedingNode && precedingNode.type === 'InheritanceSpecifier') {
     if (
       (followingNode && followingNode.type === 'InheritanceSpecifier') ||
@@ -36,6 +37,8 @@ function handleContractDefinitionComments(
     }
   }
 
+  // In this scenario we have a comment just after the contract's name
+  // TODO: at the moment we prepended it but this should be kept after the name.
   if (
     (followingNode && followingNode.type === 'InheritanceSpecifier') ||
     nextCharacter === '{'
@@ -44,6 +47,8 @@ function handleContractDefinitionComments(
     return true;
   }
 
+  // When the contract is empty and contain comments.
+  // Most likely disabling a linter rule.
   if (enclosingNode.subNodes.length === 0) {
     addDanglingComment(enclosingNode, comment);
     return true;
