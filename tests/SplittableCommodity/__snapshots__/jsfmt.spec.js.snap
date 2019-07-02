@@ -83,9 +83,11 @@ contract SplittableCommodity is MintableCommodity {
         address supplierProxy = IContractRegistry(contractRegistry)
             .getLatestProxyAddr("Supplier");
         require(
-            msg.sender == IContractRegistry(contractRegistry)
-                .getLatestProxyAddr("FifoCrcMarket") || ISupplier(supplierProxy)
-                .isAllowed(this, "IMintableCommodity"),
+            msg.sender ==
+                IContractRegistry(contractRegistry).getLatestProxyAddr(
+                    "FifoCrcMarket"
+                ) ||
+                ISupplier(supplierProxy).isAllowed(this, "IMintableCommodity"),
             "Splitting can only be done when both the ISplittableCommodity interface is enabled and is called by a supplier or the FifoCrcMarket is used."
         );
 
@@ -106,8 +108,10 @@ contract SplittableCommodity is MintableCommodity {
         );
 
         if (
-            msg.sender == IContractRegistry(contractRegistry)
-                .getLatestProxyAddr("FifoCrcMarket")
+            msg.sender ==
+            IContractRegistry(contractRegistry).getLatestProxyAddr(
+                "FifoCrcMarket"
+            )
         ) {
             _transfer(ownerOf(_tokenId), _to, newCRCId);
         } else {
