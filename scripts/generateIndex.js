@@ -1,9 +1,10 @@
+const prettier = require('prettier');
 const dirToObject = require('dir-to-object');
 const fs = require('fs');
 
-function makeData() {
+function makeData(dir) {
   const nodes = Object.keys(
-    dirToObject(__dirname, { canAdd: data => data.print })
+    dirToObject(`${__dirname}/${dir}`, { canAdd: data => data.print })
   ).reduce((accumulator, current) => {
     accumulator[current] = `require('./${current}.js')`;
     return accumulator;
@@ -12,12 +13,20 @@ function makeData() {
   const data = `/* This file was automatically generated on ${new Date().toString()} */
 
   /* eslint-disable global-require */
-  
+
   module.exports = ${JSON.stringify(nodes)};`;
 
   return data.replace(/["]+/g, '');
 }
 
 (() => {
-  fs.writeFileSync(`${__dirname}/index.js`, makeData());
+  ['../src/nodes', '../src/binary-operator-printers'].forEach(dir => {
+    prettier.resolveConfig(`${__dirname}../.prettierrc`).then(options => {
+      options.parser = 'babel';
+      fs.writeFileSync(
+        `${__dirname}/${dir}/index.js`,
+        prettier.format(makeData(dir), options)
+      );
+    });
+  });
 })();

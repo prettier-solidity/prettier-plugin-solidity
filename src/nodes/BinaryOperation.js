@@ -3,9 +3,10 @@ const printers = require('../binary-operator-printers');
 
 const BinaryOperation = {
   print: ({ node, path, print }) => {
-    for (let i = 0, len = printers.length; i < len; i += 1) {
-      if (printers[i].match(node.operator))
-        return printers[i].print(node, path, print);
+    const printerKeys = Object.keys(printers);
+    for (let i = 0, len = printerKeys.length; i < len; i += 1) {
+      if (printers[printerKeys[i]].match(node.operator))
+        return printers[printerKeys[i]].print(node, path, print);
     }
   }
 };

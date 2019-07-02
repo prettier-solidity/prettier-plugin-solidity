@@ -6,7 +6,7 @@
   "scripts": {
     "coverage": "codecov",
     "eslint": "eslint --ignore-pattern 'src/prettier-comments/**' 'src/**'",
-    "generatenodesindex": "node src/nodes/writeNodesIndex.js && prettier 'src/nodes/index.js' --write",
+    "generate-indexes": "node scripts/generateIndex.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prettier": "prettier '{.,{src,tests_config}/**}/*.{js{,on},md}' 'tests/**/jsfmt.spec.js' '!src/prettier-comments/**/*'",
