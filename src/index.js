@@ -11,7 +11,8 @@ const languages = [
   {
     extensions: ['.sol'],
     name: 'Solidity',
-    parsers: ['solidity-parse']
+    parsers: ['solidity-parse'],
+    vscodeLanguageIds: ['solidity']
   }
 ];
 
