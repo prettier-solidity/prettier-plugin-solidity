@@ -23,11 +23,11 @@ contract WhileStatements {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract WhileStatements {
-    uint constant LONG_VARIABLE = 1;
+    uint256 constant LONG_VARIABLE = 1;
 
     function hi() public {
-        uint a;
-        uint veryLongVariableName;
+        uint256 a;
+        uint256 veryLongVariableName;
 
         while (a < 100) a++;
 

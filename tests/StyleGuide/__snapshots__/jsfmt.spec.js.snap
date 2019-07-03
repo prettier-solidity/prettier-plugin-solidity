@@ -115,7 +115,7 @@ pragma solidity >=0.4.0 <0.7.0;
 contract ControlStructures {
     struct Bank {
         address owner;
-        uint balance;
+        uint256 balance;
     }
 
     function() {
@@ -127,7 +127,7 @@ contract ControlStructures {
             break;
         }
 
-        for (uint a; a < 10; a++) {
+        for (uint256 a; a < 10; a++) {
             doSomethingElse();
         }
 
@@ -306,19 +306,19 @@ contract X is B, C, D {
 pragma solidity >=0.4.0 <0.7.0;
 
 contract FunctionDeclaration {
-    function increment(uint x) public pure returns (uint) {
+    function increment(uint256 x) public pure returns (uint256) {
         return x + 1;
     }
 
-    function increment(uint x) public pure returns (uint) {
+    function increment(uint256 x) public pure returns (uint256) {
         return x + 1;
     }
 
-    function increment(uint x) public pure returns (uint) {
+    function increment(uint256 x) public pure returns (uint256) {
         return x + 1;
     }
 
-    function increment(uint x) public pure returns (uint) {
+    function increment(uint256 x) public pure returns (uint256) {
         return x + 1;
     }
 
@@ -407,40 +407,42 @@ contract FunctionDeclaration {
 
 // Base contracts just to make this compile
 contract B {
-    constructor(uint) public {}
+    constructor(uint256) public {}
 }
 
 contract C {
-    constructor(uint, uint) public {}
+    constructor(uint256, uint256) public {}
 }
 
 contract D {
-    constructor(uint) public {}
+    constructor(uint256) public {}
 }
 
 /* TODO: constructors calls have priority over visibility */
 contract A is B, C, D {
-    uint x;
+    uint256 x;
 
-    constructor(uint param1, uint param2, uint param3, uint param4, uint param5)
-        public
-        B(param1)
-        C(param2, param3)
-        D(param4)
-    {
+    constructor(
+        uint256 param1,
+        uint256 param2,
+        uint256 param3,
+        uint256 param4,
+        uint256 param5
+    ) public B(param1) C(param2, param3) D(param4) {
         x = param5;
     }
 }
 
 contract X is B, C, D {
-    uint x;
+    uint256 x;
 
-    constructor(uint param1, uint param2, uint param3, uint param4, uint param5)
-        public
-        B(param1)
-        C(param2, param3)
-        D(param4)
-    {
+    constructor(
+        uint256 param1,
+        uint256 param2,
+        uint256 param3,
+        uint256 param4,
+        uint256 param5
+    ) public B(param1) C(param2, param3) D(param4) {
         x = param5;
     }
 }
@@ -461,10 +463,10 @@ contract Mappings {
 pragma solidity >=0.4.0 <0.7.0;
 
 contract Mappings {
-    mapping(uint => uint) map;
+    mapping(uint256 => uint256) map;
     mapping(address => bool) registeredAddresses;
-    mapping(uint => mapping(bool => Data[])) public data;
-    mapping(uint => mapping(uint => s)) data;
+    mapping(uint256 => mapping(bool => Data[])) public data;
+    mapping(uint256 => mapping(uint256 => s)) data;
 }
 
 `;
@@ -688,7 +690,7 @@ contract VariableDeclarations {
 pragma solidity >=0.4.0 <0.7.0;
 
 contract VariableDeclarations {
-    uint[] x;
+    uint256[] x;
 }
 
 `;
@@ -718,7 +720,7 @@ contract WhitespaceInExpressions {
         long_variable = 3;
     }
 
-    function spam(uint i, Coin coin) public;
+    function spam(uint256 i, Coin coin) public;
 }
 
 `;

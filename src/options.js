@@ -1,5 +1,6 @@
 const CATEGORY_GLOBAL = 'Global';
 const CATEGORY_COMMON = 'Common';
+const CATEGORY_SOLIDITY = 'Solidity';
 
 const options = {
   bracketSpacing: {
@@ -48,6 +49,27 @@ const options = {
     type: 'boolean',
     default: false,
     description: 'Indent with tabs instead of spaces.'
+  },
+  explicitTypes: {
+    category: CATEGORY_SOLIDITY,
+    type: 'choice',
+    default: 'always',
+    description: 'Change when type aliases are used.',
+    choices: [
+      {
+        value: 'always',
+        description:
+          'Prefer the explicit types `uint256`, `int256`, and `bytes1`.'
+      },
+      {
+        value: 'never',
+        description: 'Prefer the type aliases `uint`, `int`, and `byte`.'
+      },
+      {
+        value: 'preserve',
+        description: 'Respect the type used by the developer.'
+      }
+    ]
   }
 };
 
