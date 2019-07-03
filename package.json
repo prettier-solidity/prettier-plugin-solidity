@@ -52,6 +52,9 @@
     "url": "https://github.com/prettier-solidity/prettier-plugin-solidity/issues"
   },
   "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
+  "engines": {
+    "node": ">=6"
+  },
   "devDependencies": {
     "codecov": "^3.0.4",
     "eslint": "^5.16.0",
