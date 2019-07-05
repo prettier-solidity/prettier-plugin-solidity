@@ -6,7 +6,7 @@
   "scripts": {
     "coverage": "codecov",
     "eslint": "eslint --ignore-pattern 'src/prettier-comments/**' 'src/**'",
-    "generate-indexes": "SCRIPT=true node scripts/generateIndex.js",
+    "generateindexes": "SCRIPT=true node scripts/generateIndexes.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prettier": "prettier '{.,{src,tests_config}/**}/*.{js{,on},md}' 'tests/**/jsfmt.spec.js' '!src/prettier-comments/**/*'",
@@ -58,7 +58,6 @@
   },
   "devDependencies": {
     "codecov": "^3.0.4",
-    "dir-to-object": "^2.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.0.1",
     "eslint-config-prettier": "^6.0.0",
@@ -70,6 +69,7 @@
     "jest-watch-typeahead": "^0.3.1"
   },
   "dependencies": {
+    "dir-to-object": "^2.0.0",
     "emoji-regex": "^8.0.0",
     "escape-string-regexp": "^1.0.5",
     "extract-comments": "^1.1.0",

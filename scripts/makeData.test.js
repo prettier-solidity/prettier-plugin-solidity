@@ -1,5 +1,5 @@
-const timestamp = require('jest-mock-now')();
-const makeData = require('../../scripts/makeData');
+require('jest-mock-now')();
+const makeData = require('./makeData');
 
 test('makeData to match snapshot for nodes', () => {
   expect(makeData('../src/nodes')).toMatchSnapshot();

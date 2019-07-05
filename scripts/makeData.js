@@ -8,9 +8,8 @@ function makeData(dir) {
     return accumulator;
   }, {});
 
-  const data = `/* This file was automatically generated on ${(Date.now() /
-    1000) |
-    0} */
+  const data = `/* This file was automatically generated on ${Date.now() /
+    1000} */
 
   /* eslint-disable global-require */
 

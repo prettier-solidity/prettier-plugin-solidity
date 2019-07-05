@@ -1,16 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary operators list to match snapshot 1`] = `
-Array [
-  "arithmetic",
-  "assignment",
-  "bit",
-  "comparison",
-  "logical",
-  "shift",
-]
-`;
-
 exports[`nodes list to match snapshot 1`] = `
 Array [
   "ArrayTypeName",
