@@ -153,7 +153,7 @@ contract ArithmeticOperators {
         a / b;
         a % b;
         a ** b;
-        a % b + c - d * e / f ** g;
+        (a % b) + c - (d * e) / f ** g;
         veryVeryVeryVeryVeryLongVariableCalledA +
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA -
@@ -168,11 +168,7 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA +
             veryVeryVeryVeryVeryLongVariableCalledB -
-            c *
-            d /
-            e %
-            f **
-            g;
+            (((c * d) / e) % f ** g);
         a =
             veryVeryVeryVeryVeryLongVariableCalledA +
             veryVeryVeryVeryVeryLongVariableCalledB;
@@ -388,16 +384,14 @@ contract LogicalOperators {
     function someFunction() {
         a && b;
         a || b;
-        a || b && c || d && e;
+        a || (b && c) || (d && e);
         veryVeryVeryVeryVeryLongVariableCalledA &&
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA ||
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA ||
-            veryVeryVeryVeryVeryLongVariableCalledB &&
-            c ||
-            d &&
-            e;
+            (veryVeryVeryVeryVeryLongVariableCalledB && c) ||
+            (d && e);
         a =
             veryVeryVeryVeryVeryLongVariableCalledA &&
             veryVeryVeryVeryVeryLongVariableCalledB;
@@ -414,14 +408,15 @@ contract LogicalOperators {
             veryVeryVeryVeryVeryLongVariableCalledB
         ) {}
         if (
-            veryVeryVeryVeryVeryLongVariableCalledA &&
-            veryVeryVeryVeryVeryLongVariableCalledB ||
+            (
+                veryVeryVeryVeryVeryLongVariableCalledA &&
+                    veryVeryVeryVeryVeryLongVariableCalledB
+            ) ||
             c
         ) {}
         if (
             veryVeryVeryVeryVeryLongVariableCalledA ||
-            veryVeryVeryVeryVeryLongVariableCalledB &&
-            c
+            (veryVeryVeryVeryVeryLongVariableCalledB && c)
         ) {}
         while (
             veryVeryVeryVeryVeryLongVariableCalledA &&
@@ -436,14 +431,15 @@ contract LogicalOperators {
             veryVeryVeryVeryVeryLongVariableCalledB
         ) {}
         while (
-            veryVeryVeryVeryVeryLongVariableCalledA &&
-            veryVeryVeryVeryVeryLongVariableCalledB ||
+            (
+                veryVeryVeryVeryVeryLongVariableCalledA &&
+                    veryVeryVeryVeryVeryLongVariableCalledB
+            ) ||
             c
         ) {}
         while (
             veryVeryVeryVeryVeryLongVariableCalledA ||
-            veryVeryVeryVeryVeryLongVariableCalledB &&
-            c
+            (veryVeryVeryVeryVeryLongVariableCalledB && c)
         ) {}
         for (
             a = veryVeryVeryVeryVeryLongVariableCalledA;
@@ -460,6 +456,274 @@ contract LogicalOperators {
         return
             veryVeryVeryVeryVeryLongVariableCalledA ||
                 veryVeryVeryVeryVeryLongVariableCalledB;
+    }
+}
+
+`;
+
+exports[`Parentheses.sol 1`] = `
+pragma solidity 0.5.8;
+
+
+contract Parentheses {
+    function() {
+        a + b + c;
+        a + b - c;
+        a + b * c;
+        a + b / c;
+        a + b % c;
+        a + b ** c;
+        a + b << c;
+        a + b >> c;
+        a + b & c;
+        a + b | c;
+        a + b ^ c;
+        a - b + c;
+        a - b - c;
+        a - b * c;
+        a - b / c;
+        a - b % c;
+        a - b ** c;
+        a - b << c;
+        a - b >> c;
+        a - b & c;
+        a - b | c;
+        a - b ^ c;
+        a * b + c;
+        a * b - c;
+        a * b * c;
+        a * b / c;
+        a * b % c;
+        a * b ** c;
+        a * b << c;
+        a * b >> c;
+        a * b & c;
+        a * b | c;
+        a * b ^ c;
+        a / b + c;
+        a / b - c;
+        a / b * c;
+        a / b / c;
+        a / b % c;
+        a / b ** c;
+        a / b << c;
+        a / b >> c;
+        a / b & c;
+        a / b | c;
+        a / b ^ c;
+        a % b + c;
+        a % b - c;
+        a % b * c;
+        a % b / c;
+        a % b % c;
+        a % b ** c;
+        a % b << c;
+        a % b >> c;
+        a % b & c;
+        a % b | c;
+        a % b ^ c;
+        a ** b + c;
+        a ** b - c;
+        a ** b * c;
+        a ** b / c;
+        a ** b % c;
+        a ** b ** c;
+        a ** b << c;
+        a ** b >> c;
+        a ** b & c;
+        a ** b | c;
+        a ** b ^ c;
+        a << b + c;
+        a << b - c;
+        a << b * c;
+        a << b / c;
+        a << b % c;
+        a << b ** c;
+        a << b << c;
+        a << b >> c;
+        a << b & c;
+        a << b | c;
+        a << b ^ c;
+        a >> b + c;
+        a >> b - c;
+        a >> b * c;
+        a >> b / c;
+        a >> b % c;
+        a >> b ** c;
+        a >> b << c;
+        a >> b >> c;
+        a >> b & c;
+        a >> b | c;
+        a >> b ^ c;
+        a & b + c;
+        a & b - c;
+        a & b * c;
+        a & b / c;
+        a & b % c;
+        a & b ** c;
+        a & b << c;
+        a & b >> c;
+        a & b & c;
+        a & b | c;
+        a & b ^ c;
+        a | b + c;
+        a | b - c;
+        a | b * c;
+        a | b / c;
+        a | b % c;
+        a | b ** c;
+        a | b << c;
+        a | b >> c;
+        a | b & c;
+        a | b | c;
+        a | b ^ c;
+        a ^ b + c;
+        a ^ b - c;
+        a ^ b * c;
+        a ^ b / c;
+        a ^ b % c;
+        a ^ b ** c;
+        a ^ b << c;
+        a ^ b >> c;
+        a ^ b & c;
+        a ^ b | c;
+        a ^ b ^ c;
+        a || b || c;
+        a || b && c;
+        a && b || c;
+        a && b && c;
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pragma solidity 0.5.8;
+
+contract Parentheses {
+    function() {
+        a + b + c;
+        a + b - c;
+        a + b * c;
+        a + b / c;
+        a + (b % c);
+        a + b ** c;
+        (a + b) << c;
+        (a + b) >> c;
+        (a + b) & c;
+        (a + b) | c;
+        (a + b) ^ c;
+        a - b + c;
+        a - b - c;
+        a - b * c;
+        a - b / c;
+        a - (b % c);
+        a - b ** c;
+        (a - b) << c;
+        (a - b) >> c;
+        (a - b) & c;
+        (a - b) | c;
+        (a - b) ^ c;
+        a * b + c;
+        a * b - c;
+        a * b * c;
+        (a * b) / c;
+        (a * b) % c;
+        a * b ** c;
+        (a * b) << c;
+        (a * b) >> c;
+        (a * b) & c;
+        (a * b) | c;
+        (a * b) ^ c;
+        a / b + c;
+        a / b - c;
+        (a / b) * c;
+        a / b / c;
+        (a / b) % c;
+        a / b ** c;
+        (a / b) << c;
+        (a / b) >> c;
+        (a / b) & c;
+        (a / b) | c;
+        (a / b) ^ c;
+        (a % b) + c;
+        (a % b) - c;
+        (a % b) * c;
+        (a % b) / c;
+        (a % b) % c;
+        a % b ** c;
+        a % b << c;
+        a % b >> c;
+        a % b & c;
+        a % b | c;
+        a % b ^ c;
+        a ** b + c;
+        a ** b - c;
+        a ** b * c;
+        a ** b / c;
+        a ** b % c;
+        (a ** b) ** c;
+        (a ** b) << c;
+        (a ** b) >> c;
+        (a ** b) & c;
+        (a ** b) | c;
+        (a ** b) ^ c;
+        a << (b + c);
+        a << (b - c);
+        a << (b * c);
+        a << (b / c);
+        a << b % c;
+        a << (b ** c);
+        (a << b) << c;
+        (a << b) >> c;
+        (a << b) & c;
+        (a << b) | c;
+        (a << b) ^ c;
+        a >> (b + c);
+        a >> (b - c);
+        a >> (b * c);
+        a >> (b / c);
+        a >> b % c;
+        a >> (b ** c);
+        (a >> b) << c;
+        (a >> b) >> c;
+        (a >> b) & c;
+        (a >> b) | c;
+        (a >> b) ^ c;
+        a & (b + c);
+        a & (b - c);
+        a & (b * c);
+        a & (b / c);
+        a & b % c;
+        a & (b ** c);
+        a & (b << c);
+        a & (b >> c);
+        a & b & c;
+        (a & b) | c;
+        (a & b) ^ c;
+        a | (b + c);
+        a | (b - c);
+        a | (b * c);
+        a | (b / c);
+        a | b % c;
+        a | (b ** c);
+        a | (b << c);
+        a | (b >> c);
+        a | (b & c);
+        a | b | c;
+        a | (b ^ c);
+        a ^ (b + c);
+        a ^ (b - c);
+        a ^ (b * c);
+        a ^ (b / c);
+        a ^ b % c;
+        a ^ (b ** c);
+        a ^ (b << c);
+        a ^ (b >> c);
+        a ^ (b & c);
+        (a ^ b) | c;
+        a ^ b ^ c;
+        a || b || c;
+        a || (b && c);
+        (a && b) || c;
+        a && b && c;
     }
 }
 

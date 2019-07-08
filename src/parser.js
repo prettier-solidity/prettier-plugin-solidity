@@ -2,6 +2,16 @@ const extract = require('extract-comments');
 // https://prettier.io/docs/en/plugins.html#parsers
 const parser = require('solidity-parser-antlr');
 
+const tryHug = (node, operators) => {
+  if (node.type === 'BinaryOperation' && operators.includes(node.operator))
+    return {
+      type: 'TupleExpression',
+      components: [node],
+      isArray: false
+    };
+  return node;
+};
+
 function parse(text, parsers, options) {
   const parsed = parser.parse(text, { loc: true, range: true });
   parsed.comments = extract(text);
@@ -24,6 +34,88 @@ function parse(text, parsers, options) {
         if (ctx.name === 'uint256') ctx.name = 'uint';
         if (ctx.name === 'int256') ctx.name = 'int';
         if (ctx.name === 'bytes1') ctx.name = 'byte';
+      }
+    },
+    BinaryOperation(ctx) {
+      switch (ctx.operator) {
+        case '+':
+        case '-':
+          ctx.left = tryHug(ctx.left, ['%']);
+          ctx.right = tryHug(ctx.right, ['%']);
+          break;
+        case '*':
+          ctx.left = tryHug(ctx.left, ['/', '%']);
+          break;
+        case '/':
+          ctx.left = tryHug(ctx.left, ['*', '%']);
+          break;
+        case '%':
+          ctx.left = tryHug(ctx.left, ['*', '/', '%']);
+          break;
+        case '**':
+          ctx.left = tryHug(ctx.left, ['**']);
+          break;
+        case '<<':
+        case '>>':
+          ctx.left = tryHug(ctx.left, ['+', '-', '*', '/', '**', '<<', '>>']);
+          ctx.right = tryHug(ctx.right, ['+', '-', '*', '/', '**']);
+          break;
+        case '&':
+          ctx.left = tryHug(ctx.left, ['+', '-', '*', '/', '**', '<<', '>>']);
+          ctx.right = tryHug(ctx.right, ['+', '-', '*', '/', '**', '<<', '>>']);
+          break;
+        case '|':
+          ctx.left = tryHug(ctx.left, [
+            '+',
+            '-',
+            '*',
+            '/',
+            '**',
+            '<<',
+            '>>',
+            '&',
+            '^'
+          ]);
+          ctx.right = tryHug(ctx.right, [
+            '+',
+            '-',
+            '*',
+            '/',
+            '**',
+            '<<',
+            '>>',
+            '&',
+            '^'
+          ]);
+          break;
+        case '^':
+          ctx.left = tryHug(ctx.left, [
+            '+',
+            '-',
+            '*',
+            '/',
+            '**',
+            '<<',
+            '>>',
+            '&'
+          ]);
+          ctx.right = tryHug(ctx.right, [
+            '+',
+            '-',
+            '*',
+            '/',
+            '**',
+            '<<',
+            '>>',
+            '&'
+          ]);
+          break;
+        case '&&':
+          break;
+        case '||':
+          ctx.left = tryHug(ctx.left, ['&&']);
+          ctx.right = tryHug(ctx.right, ['&&']);
+          break;
       }
     }
   });
