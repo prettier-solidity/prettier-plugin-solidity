@@ -110,11 +110,12 @@ function parse(text, parsers, options) {
             '&'
           ]);
           break;
-        case '&&':
-          break;
         case '||':
           ctx.left = tryHug(ctx.left, ['&&']);
           ctx.right = tryHug(ctx.right, ['&&']);
+          break;
+        case '&&':
+        default:
           break;
       }
     }
