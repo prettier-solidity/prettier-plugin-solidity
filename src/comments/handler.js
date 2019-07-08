@@ -5,7 +5,7 @@ const {
   isBlockComment
 } = require('../prettier-comments/language-js/comments');
 
-const handleContractDefinitionComments = require('./handlers/ContractDefinition');
+const handlers = require('./handlers');
 
 function solidityHandleOwnLineComment(
   comment,
@@ -25,7 +25,8 @@ function solidityHandleOwnLineComment(
   ];
 
   if (
-    handleContractDefinitionComments(...handlerArguments) ||
+    handlers.handleContractDefinitionComments(...handlerArguments) ||
+    handlers.handleIfStatementComments(...handlerArguments) ||
     handleOwnLineComment(comment, text, options, ast, isLastComment)
   ) {
     return true;
@@ -51,7 +52,8 @@ function solidityHandleEndOfLineComment(
   ];
 
   if (
-    handleContractDefinitionComments(...handlerArguments) ||
+    handlers.handleContractDefinitionComments(...handlerArguments) ||
+    handlers.handleIfStatementComments(...handlerArguments) ||
     handleEndOfLineComment(comment, text, options, ast, isLastComment)
   ) {
     return true;
@@ -77,7 +79,8 @@ function solidityHandleRemainingComment(
   ];
 
   if (
-    handleContractDefinitionComments(...handlerArguments) ||
+    handlers.handleContractDefinitionComments(...handlerArguments) ||
+    handlers.handleIfStatementComments(...handlerArguments) ||
     handleRemainingComment(comment, text, options, ast, isLastComment)
   ) {
     return true;

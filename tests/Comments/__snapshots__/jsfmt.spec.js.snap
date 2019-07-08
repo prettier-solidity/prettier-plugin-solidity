@@ -54,6 +54,29 @@ contract Comments7 {
     );
   }
 }
+
+contract Comments8 {
+  function someFunction() {
+    // comment Before If
+    if (condition /*comment inside condition*/) /*inside trueBody*/ {
+      // comment trueBody
+    } else  /*inside else if trueBody*/ if (condition1 /* comment inside condition1 */ && condition2 /* comment inside condition2 */) {
+
+    }
+    // everything failed
+    else {
+
+    }
+
+    // comment Before If
+    if (condition /*comment inside condition*/)
+    // I'm before a trueBody
+    return;
+    else if (condition1 /* comment inside condition1 */ && condition2 /* comment inside condition2 */) return;
+    // everything failed
+    else return;
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.4.24;
 
@@ -140,6 +163,39 @@ contract Comments7 {
             b, // the second value
             c // the lats value
         );
+    }
+}
+
+contract Comments8 {
+    function someFunction() {
+        // comment Before If
+        if (
+            condition /*comment inside condition*/
+        ) {
+            /*inside trueBody*/
+            // comment trueBody
+        } else if (
+            condition1 && /* comment inside condition1 */
+            condition2 /* comment inside condition2 */
+        ) {
+            /*inside else if trueBody*/
+        } else {
+            // everything failed
+        }
+
+        // comment Before If
+        if (
+            condition /*comment inside condition*/
+        )
+            // I'm before a trueBody
+            return;
+        else if (
+            condition1 && /* comment inside condition1 */
+            condition2 /* comment inside condition2 */
+        )
+            return;
+            // everything failed
+        else return;
     }
 }
 

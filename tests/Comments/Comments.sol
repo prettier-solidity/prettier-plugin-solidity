@@ -51,3 +51,26 @@ contract Comments7 {
     );
   }
 }
+
+contract Comments8 {
+  function someFunction() {
+    // comment Before If
+    if (condition /*comment inside condition*/) /*inside trueBody*/ {
+      // comment trueBody
+    } else  /*inside else if trueBody*/ if (condition1 /* comment inside condition1 */ && condition2 /* comment inside condition2 */) {
+
+    }
+    // everything failed
+    else {
+
+    }
+
+    // comment Before If
+    if (condition /*comment inside condition*/)
+    // I'm before a trueBody
+    return;
+    else if (condition1 /* comment inside condition1 */ && condition2 /* comment inside condition2 */) return;
+    // everything failed
+    else return;
+  }
+}
