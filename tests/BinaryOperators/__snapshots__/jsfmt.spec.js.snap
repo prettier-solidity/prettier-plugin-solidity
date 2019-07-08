@@ -408,10 +408,8 @@ contract LogicalOperators {
             veryVeryVeryVeryVeryLongVariableCalledB
         ) {}
         if (
-            (
-                veryVeryVeryVeryVeryLongVariableCalledA &&
-                    veryVeryVeryVeryVeryLongVariableCalledB
-            ) ||
+            (veryVeryVeryVeryVeryLongVariableCalledA &&
+                veryVeryVeryVeryVeryLongVariableCalledB) ||
             c
         ) {}
         if (
@@ -431,10 +429,8 @@ contract LogicalOperators {
             veryVeryVeryVeryVeryLongVariableCalledB
         ) {}
         while (
-            (
-                veryVeryVeryVeryVeryLongVariableCalledA &&
-                    veryVeryVeryVeryVeryLongVariableCalledB
-            ) ||
+            (veryVeryVeryVeryVeryLongVariableCalledA &&
+                veryVeryVeryVeryVeryLongVariableCalledB) ||
             c
         ) {}
         while (
