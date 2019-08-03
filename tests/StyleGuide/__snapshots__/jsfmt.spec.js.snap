@@ -334,7 +334,9 @@ contract FunctionDeclaration {
         address d,
         address e,
         address f
-    ) public {
+    )
+        public
+    {
         doSomething();
     }
 
@@ -345,7 +347,9 @@ contract FunctionDeclaration {
         address d,
         address e,
         address f
-    ) public {
+    )
+        public
+    {
         doSomething();
     }
 
@@ -356,7 +360,9 @@ contract FunctionDeclaration {
         address d,
         address e,
         address f
-    ) public {
+    )
+        public
+    {
         doSomething();
     }
 
@@ -428,7 +434,12 @@ contract A is B, C, D {
         uint256 param3,
         uint256 param4,
         uint256 param5
-    ) public B(param1) C(param2, param3) D(param4) {
+    )
+        public
+        B(param1)
+        C(param2, param3)
+        D(param4)
+    {
         x = param5;
     }
 }
@@ -442,7 +453,12 @@ contract X is B, C, D {
         uint256 param3,
         uint256 param4,
         uint256 param5
-    ) public B(param1) C(param2, param3) D(param4) {
+    )
+        public
+        B(param1)
+        C(param2, param3)
+        D(param4)
+    {
         x = param5;
     }
 }

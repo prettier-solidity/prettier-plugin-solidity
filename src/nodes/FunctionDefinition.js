@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, dedent, group, indent, join, line }
+    builders: { concat, group, indent, join, line }
   }
 } = require('prettier');
 
@@ -44,7 +44,17 @@ const returnParameters = (node, path, print) => {
 };
 
 const signatureEnd = node => {
-  if (node.body) return dedent(line);
+  if (node.body) {
+    if (
+      (node.visibility && node.visibility !== 'default') ||
+      (node.stateMutability && node.stateMutability !== 'default') ||
+      node.modifiers.length > 0 ||
+      node.returnParameters
+    ) {
+      return line;
+    }
+    return group(line);
+  }
   return ';';
 };
 
@@ -56,20 +66,22 @@ const body = (node, path, print) => {
 const FunctionDefinition = {
   print: ({ node, path, print }) =>
     concat([
-      functionName(node),
-      '(',
-      path.call(print, 'parameters'),
-      ')',
-      indent(
-        group(
-          concat([
-            visibility(node),
-            stateMutability(node),
-            modifiers(node, path, print),
-            returnParameters(node, path, print),
-            signatureEnd(node)
-          ])
-        )
+      group(
+        concat([
+          functionName(node),
+          '(',
+          path.call(print, 'parameters'),
+          ')',
+          indent(
+            concat([
+              visibility(node),
+              stateMutability(node),
+              modifiers(node, path, print),
+              returnParameters(node, path, print)
+            ])
+          ),
+          signatureEnd(node)
+        ])
       ),
       body(node, path, print)
     ])
