@@ -38,13 +38,17 @@ module.exports = {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
+    const right = concat([node.operator, line, path.call(print, 'right')]);
+    // If it's a single binary operation, avoid having a small right
+    // operand like - 1 on its own line
+    const shouldGroup =
+      node.left.type !== 'BinaryOperation' &&
+      path.getParentNode().type !== 'BinaryOperation';
     return groupIfNecessary(
       concat([
         path.call(print, 'left'),
         ' ',
-        indentIfNecessary(
-          concat([node.operator, line, path.call(print, 'right')])
-        )
+        indentIfNecessary(shouldGroup ? group(right) : right)
       ])
     );
   }
