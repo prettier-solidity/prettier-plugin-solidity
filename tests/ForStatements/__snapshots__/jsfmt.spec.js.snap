@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ForStatements.sol 1`] = `
+contract ForStatements {
+    uint constant LONG_VARIABLE = 1;
+
+    function hi() public {
+        uint a;
+
+        for (uint i; i < 100; i++) a++;
+
+        for (i = 0; i < 100; i++) a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(LONG_VARIABLE);
+
+        for (i = 0; i < 100; i++) { a++; }
+
+        for (i = 0; i < 100; i++) { a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(LONG_VARIABLE); }
+
+        for (uint veryLongVariableName; veryLongVariableName < 100; veryLongVariableName++) a++;
+
+        for (veryLongVariableName = 0; veryLongVariableName < 100; veryLongVariableName++) { a++; }
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract ForStatements {
+    uint256 constant LONG_VARIABLE = 1;
+
+    function hi() public {
+        uint256 a;
+
+        for (uint256 i; i < 100; i++) a++;
+
+        for (i = 0; i < 100; i++)
+            a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(LONG_VARIABLE);
+
+        for (i = 0; i < 100; i++) {
+            a++;
+        }
+
+        for (i = 0; i < 100; i++) {
+            a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(LONG_VARIABLE);
+        }
+
+        for (
+            uint256 veryLongVariableName;
+            veryLongVariableName < 100;
+            veryLongVariableName++
+        ) a++;
+
+        for (
+            veryLongVariableName = 0;
+            veryLongVariableName < 100;
+            veryLongVariableName++
+        ) {
+            a++;
+        }
+    }
+}
+
+`;

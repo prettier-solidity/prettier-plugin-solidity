@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FunctionCalls.sol 1`] = `
+contract FunctionCalls {
+    function foo() {
+        address veryLongValidatorAddress = veryVeryVeryLongSignature.popLast20Bytes();
+    }
+
+    function foo() {
+      Voter you = Voter(1, true);
+
+      Voter me = Voter({
+          weight: 2,
+          voted: abstain()
+      });
+
+      Voter airbnb = Voter({
+        weight: 2,
+        voted: true,
+      });
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract FunctionCalls {
+    function foo() {
+        address veryLongValidatorAddress = veryVeryVeryLongSignature
+            .popLast20Bytes();
+    }
+
+    function foo() {
+        Voter you = Voter(1, true);
+
+        Voter me = Voter({weight: 2, voted: abstain()});
+
+        Voter airbnb = Voter({weight: 2, voted: true});
+    }
+}
+
+`;
+
+exports[`FunctionCalls.sol 2`] = `
+contract FunctionCalls {
+    function foo() {
+        address veryLongValidatorAddress = veryVeryVeryLongSignature.popLast20Bytes();
+    }
+
+    function foo() {
+      Voter you = Voter(1, true);
+
+      Voter me = Voter({
+          weight: 2,
+          voted: abstain()
+      });
+
+      Voter airbnb = Voter({
+        weight: 2,
+        voted: true,
+      });
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract FunctionCalls {
+    function foo() {
+        address veryLongValidatorAddress = veryVeryVeryLongSignature
+            .popLast20Bytes();
+    }
+
+    function foo() {
+        Voter you = Voter(1, true);
+
+        Voter me = Voter({ weight: 2, voted: abstain() });
+
+        Voter airbnb = Voter({ weight: 2, voted: true });
+    }
+}
+
+`;

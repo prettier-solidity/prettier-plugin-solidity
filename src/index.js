@@ -2,6 +2,7 @@ const { handleComments } = require('./prettier-comments');
 
 const massageAstNode = require('./clean');
 const loc = require('./loc');
+const options = require('./options');
 const parse = require('./parser');
 const print = require('./printer');
 
@@ -10,7 +11,8 @@ const languages = [
   {
     extensions: ['.sol'],
     name: 'Solidity',
-    parsers: ['solidity-parse']
+    parsers: ['solidity-parse'],
+    vscodeLanguageIds: ['solidity']
   }
 ];
 
@@ -57,7 +59,7 @@ const printers = {
 
 // https://prettier.io/docs/en/plugins.html#defaultoptions
 const defaultOptions = {
-  // @TODO fix indentation in block comments
+  bracketSpacing: false,
   tabWidth: 4
 };
 
@@ -65,5 +67,6 @@ module.exports = {
   languages,
   parsers,
   printers,
+  options,
   defaultOptions
 };

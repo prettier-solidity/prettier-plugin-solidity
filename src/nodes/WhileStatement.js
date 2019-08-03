@@ -1,17 +1,29 @@
-/* eslint-disable implicit-arrow-linebreak */
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, group, indent, line, softline }
   }
 } = require('prettier');
 
+const printBody = (node, path, print) => {
+  if (node.body.type === 'Block') {
+    return concat([' ', path.call(print, 'body')]);
+  }
+
+  return group(indent(concat([line, path.call(print, 'body')])));
+};
+
 const WhileStatement = {
-  print: ({ path, print }) =>
+  print: ({ node, path, print }) =>
     concat([
-      'while (',
-      path.call(print, 'condition'),
-      ') ',
-      path.call(print, 'body')
+      group(
+        concat([
+          'while (',
+          indent(concat([softline, path.call(print, 'condition')])),
+          softline,
+          ')'
+        ])
+      ),
+      printBody(node, path, print)
     ])
 };
 

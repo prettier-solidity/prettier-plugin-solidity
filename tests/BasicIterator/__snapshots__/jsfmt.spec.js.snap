@@ -57,7 +57,9 @@ contract BasicIterator {
     function BasicIterator() {
         creator = msg.sender; // set the creator address
         uint8 x = 0; // initialize an 8-bit, unsigned integer to zero
-        while (x < integers.length) { // the variable integers was initialized to length 10
+        while (
+            x < integers.length // the variable integers was initialized to length 10
+        ) {
             integers[x] = x; // set integers to [0,1,2,3,4,5,6,7,8,9] over ten iterations
             x++;
         }
@@ -65,7 +67,7 @@ contract BasicIterator {
 
     function getSum()
         constant
-        returns (uint) // "constant" just means this function returns something to the caller
+        returns (uint256) // "constant" just means this function returns something to the caller
     {
         // which is immediately followed by what type gets returned, in this case a full uint256
         uint8 sum = 0;

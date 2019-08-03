@@ -1,4 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
 const {
   doc: {
     builders: { concat, dedent, group, indent, join, line }

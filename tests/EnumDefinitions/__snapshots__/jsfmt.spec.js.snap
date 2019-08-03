@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EnumDefinitions.sol 1`] = `
+contract EnumDefinitions {
+    enum ActionChoices { GoLeft, GoRight, GoStraight, SitStill }
+    enum States { State1, State2, State3, State4, State5, State6, State7, State8, State9 }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract EnumDefinitions {
+    enum ActionChoices {GoLeft, GoRight, GoStraight, SitStill}
+    enum States {
+        State1,
+        State2,
+        State3,
+        State4,
+        State5,
+        State6,
+        State7,
+        State8,
+        State9
+    }
+}
+
+`;
+
+exports[`EnumDefinitions.sol 2`] = `
+contract EnumDefinitions {
+    enum ActionChoices { GoLeft, GoRight, GoStraight, SitStill }
+    enum States { State1, State2, State3, State4, State5, State6, State7, State8, State9 }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract EnumDefinitions {
+    enum ActionChoices { GoLeft, GoRight, GoStraight, SitStill }
+    enum States {
+        State1,
+        State2,
+        State3,
+        State4,
+        State5,
+        State6,
+        State7,
+        State8,
+        State9
+    }
+}
+
+`;

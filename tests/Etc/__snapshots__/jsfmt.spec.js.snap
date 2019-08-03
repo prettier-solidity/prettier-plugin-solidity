@@ -14,6 +14,8 @@ contract Contract {
     function (uint, uint) returns(bool)a;
     function(bytes32, bytes32)   internal view[]  b;
     function  (bytes32, bytes32)internal[]   c;
+    function(bytes32, bytes32, bytes32, bytes32, bytes32, bytes32)   internal view[]  d;
+    function(bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32)   internal view[]  e;
   }
 
   modifier modifierWithoutParams() {
@@ -41,6 +43,7 @@ contract Contract {
     // comment
     else if (somethingElse) bar();
     else whatever();
+    return;
   }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,9 +57,23 @@ pragma solidity ^0.4.24;
 
 contract Contract {
     struct StructWithFunctionTypes {
-        function(uint, uint) returns (bool) a;
+        function(uint256, uint256) returns (bool) a;
         function(bytes32, bytes32) internal view[] b;
         function(bytes32, bytes32) internal[] c;
+        function(bytes32, bytes32, bytes32, bytes32, bytes32, bytes32)
+            internal
+            view[] d;
+        function(
+            bytes32,
+            bytes32,
+            bytes32,
+            bytes32,
+            bytes32,
+            bytes32,
+            bytes32,
+            bytes32,
+            bytes32
+        ) internal view[] e;
     }
 
     modifier modifierWithoutParams() {
@@ -69,23 +86,25 @@ contract Contract {
         _;
     }
 
-    function ifBlockInOneLine(uint a) returns (uint b) {
+    function ifBlockInOneLine(uint256 a) returns (uint256 b) {
         if (a < 0) b = 0x67;
         else if (a == 0) b = 0x12;
         else b = 0x78;
     }
 
     function forWithoutBlock() {
-        uint i;
-        uint sum;
+        uint256 i;
+        uint256 sum;
         for (i = 0; i < 10; i++) sum += i;
     }
 
-    function fun(uint256 a) returns (uint) {
-        if (something) foo();
-        // comment
+    function fun(uint256 a) returns (uint256) {
+        if (something)
+            foo();
+            // comment
         else if (somethingElse) bar();
         else whatever();
+        return;
     }
 }
 

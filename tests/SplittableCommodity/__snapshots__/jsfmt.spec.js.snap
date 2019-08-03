@@ -76,19 +76,18 @@ contract SplittableCommodity is MintableCommodity {
         bytes operatorData
     );
 
-    function split(uint _tokenId, address _to, uint256 _amount)
+    function split(uint256 _tokenId, address _to, uint256 _amount)
         public
         whenNotPaused
     {
-        address supplierProxy = IContractRegistry(
-            contractRegistry
-        ).getLatestProxyAddr("Supplier");
+        address supplierProxy = IContractRegistry(contractRegistry)
+            .getLatestProxyAddr("Supplier");
         require(
-            msg.sender == IContractRegistry(
-                contractRegistry
-            ).getLatestProxyAddr("FifoCrcMarket") || ISupplier(
-                supplierProxy
-            ).isAllowed(this, "IMintableCommodity"),
+            msg.sender ==
+                IContractRegistry(contractRegistry).getLatestProxyAddr(
+                    "FifoCrcMarket"
+                ) ||
+                ISupplier(supplierProxy).isAllowed(this, "IMintableCommodity"),
             "Splitting can only be done when both the ISplittableCommodity interface is enabled and is called by a supplier or the FifoCrcMarket is used."
         );
 
@@ -102,15 +101,18 @@ contract SplittableCommodity is MintableCommodity {
             locked: false,
             misc: commodities[_tokenId].misc
         });
-        uint newCRCId = commodities.push(_commodity).sub(1);
+        uint256 newCRCId = commodities.push(_commodity).sub(1);
         require(
             newCRCId <= 18446744073709551616,
             "You can only split a commodity if it is within a valid index range"
         );
 
-        if (msg.sender == IContractRegistry(
-            contractRegistry
-        ).getLatestProxyAddr("FifoCrcMarket")) {
+        if (
+            msg.sender ==
+            IContractRegistry(contractRegistry).getLatestProxyAddr(
+                "FifoCrcMarket"
+            )
+        ) {
             _transfer(ownerOf(_tokenId), _to, newCRCId);
         } else {
             _transfer(msg.sender, _to, newCRCId);
