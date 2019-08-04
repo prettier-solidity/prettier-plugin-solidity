@@ -5,14 +5,16 @@ const {
 } = require('prettier/standalone');
 
 const indentIfNecessaryBuilder = path => doc => {
-  const parentNode = path.getParentNode();
-
-  if (parentNode.type === 'IfStatement') return doc;
-  if (parentNode.type === 'ForStatement') return doc;
-  if (parentNode.type === 'WhileStatement') return doc;
-  if (parentNode.type === 'BinaryOperation') return doc;
-
-  return indent(doc);
+  let node = path.getNode();
+  for (let i = 0; ; i += 1) {
+    const parentNode = path.getParentNode(i);
+    if (parentNode.type === 'IfStatement') return doc;
+    if (parentNode.type === 'ForStatement') return doc;
+    if (parentNode.type === 'WhileStatement') return doc;
+    if (parentNode.type !== 'BinaryOperation') return indent(doc);
+    if (node === parentNode.right) return doc;
+    node = parentNode;
+  }
 };
 
 module.exports = {
@@ -21,15 +23,13 @@ module.exports = {
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
     return group(
-      indentIfNecessary(
-        concat([
-          path.call(print, 'left'),
-          ' ',
-          node.operator,
-          line,
-          path.call(print, 'right')
-        ])
-      )
+      concat([
+        path.call(print, 'left'),
+        ' ',
+        indentIfNecessary(
+          concat([node.operator, line, path.call(print, 'right')])
+        )
+      ])
     );
   }
 };
