@@ -70,12 +70,6 @@ const options = {
         description: 'Respect the type used by the developer.'
       }
     ]
-  },
-  spacedExp: {
-    category: CATEGORY_SOLIDITY,
-    type: 'boolean',
-    default: false,
-    description: "Print spaces arround '**'."
   }
 };
 

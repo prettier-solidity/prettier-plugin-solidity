@@ -1,19 +1,18 @@
 const {
   doc: {
-    builders: { group, concat, indent, line, softline }
+    builders: { group, concat, indent, softline }
   }
 } = require('prettier');
 
 module.exports = {
   match: op => op === '**',
-  print: (node, path, print, options) => {
+  print: (node, path, print) => {
     return group(
       indent(
         concat([
           path.call(print, 'left'),
-          options.spacedExp ? ' ' : '',
           node.operator,
-          options.spacedExp ? line : softline,
+          softline,
           path.call(print, 'right')
         ])
       )
