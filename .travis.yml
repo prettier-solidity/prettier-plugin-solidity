@@ -2,9 +2,9 @@ after_script:
   - npm run coverage
 language: node_js
 node_js:
-  - '6'
   - '8'
   - '10'
+  - '12'
 before_install:
   - npm i -g npm@6.10.2
 script:
