@@ -184,7 +184,7 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA %
             veryVeryVeryVeryVeryLongVariableCalledB;
-        veryVeryVeryVeryVeryLongVariableCalledA**
+        veryVeryVeryVeryVeryLongVariableCalledA **
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA +
             veryVeryVeryVeryVeryLongVariableCalledB -
@@ -229,46 +229,46 @@ contract ArithmeticOperators {
         a**b;
         a**c * d**e;
         a**c * d**e * a**c * d**e * a**c * d**e * a**c * d**e * a**c * d**e;
-        veryVeryVeryVeryVeryLongVariableCalledA**
+        veryVeryVeryVeryVeryLongVariableCalledA **
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA *
             veryVeryVeryVeryVeryLongVariableCalledB**c;
         c**veryVeryVeryVeryVeryLongVariableCalledA *
             veryVeryVeryVeryVeryLongVariableCalledB;
         a =
-            veryVeryVeryVeryVeryLongVariableCalledA**
+            veryVeryVeryVeryVeryLongVariableCalledA **
                 veryVeryVeryVeryVeryLongVariableCalledB;
         a =
-            veryVeryVeryVeryVeryLongVariableCalledA**
+            veryVeryVeryVeryVeryLongVariableCalledA **
                 veryVeryVeryVeryVeryLongVariableCalledB *
             c;
         if (
-            veryVeryVeryVeryVeryLongVariableCalledA**
+            veryVeryVeryVeryVeryLongVariableCalledA **
                 veryVeryVeryVeryVeryLongVariableCalledB ==
             a()
         ) {}
         if (
             a() ==
-            veryVeryVeryVeryVeryLongVariableCalledA**
+            veryVeryVeryVeryVeryLongVariableCalledA **
                 veryVeryVeryVeryVeryLongVariableCalledB
         ) {}
         for (
             a =
-                veryVeryVeryVeryVeryLongVariableCalledA**
+                veryVeryVeryVeryVeryLongVariableCalledA **
                     veryVeryVeryVeryVeryLongVariableCalledB;
             a <=
-            veryVeryVeryVeryVeryLongVariableCalledA**
+            veryVeryVeryVeryVeryLongVariableCalledA **
                 veryVeryVeryVeryVeryLongVariableCalledB;
             a +=
-                veryVeryVeryVeryVeryLongVariableCalledA**
+                veryVeryVeryVeryVeryLongVariableCalledA **
                     veryVeryVeryVeryVeryLongVariableCalledB
         ) {}
         a(
-            veryVeryVeryVeryVeryLongVariableCalledA**
+            veryVeryVeryVeryVeryLongVariableCalledA **
                 veryVeryVeryVeryVeryLongVariableCalledB
         );
         return
-            veryVeryVeryVeryVeryLongVariableCalledA**
+            veryVeryVeryVeryVeryLongVariableCalledA **
                 veryVeryVeryVeryVeryLongVariableCalledB;
     }
 }

@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, concat, indent, softline }
+    builders: { group, concat, ifBreak, indent, softline }
   }
 } = require('prettier');
 
@@ -11,6 +11,7 @@ module.exports = {
       indent(
         concat([
           path.call(print, 'left'),
+          ifBreak(' ', ''),
           node.operator,
           softline,
           path.call(print, 'right')
