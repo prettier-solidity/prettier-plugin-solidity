@@ -3,11 +3,11 @@ const {
     builders: { concat, join }
   }
 } = require('prettier');
+const { printString } = require('../prettier-comments/common/util');
 
 const ImportDirective = {
-  print: ({ node }) => {
-    // @TODO: handle proper escaping
-    let doc = concat(['"', node.path, '"']);
+  print: ({ node, options }) => {
+    let doc = printString(node.path, options);
 
     if (node.unitAlias) {
       doc = concat([doc, ' as ', node.unitAlias]);

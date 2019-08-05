@@ -430,11 +430,7 @@ function getIndentSize(value, tabWidth) {
   );
 }
 
-function printString(raw, options, isDirectiveLiteral) {
-  // `rawContent` is the string exactly like it appeared in the input source
-  // code, without its enclosing quotes.
-  const rawContent = raw.slice(1, -1);
-
+function printString(rawContent, options) {
   const double = { quote: '"', regex: /"/g };
   const single = { quote: "'", regex: /'/g };
 
@@ -467,17 +463,6 @@ function printString(raw, options, isDirectiveLiteral) {
       : shouldUseAlternateQuote
         ? alternate.quote
         : preferred.quote;
-
-  // Directives are exact code unit sequences, which means that you can't
-  // change the escape sequences they use.
-  // See https://github.com/prettier/prettier/issues/1555
-  // and https://tc39.github.io/ecma262/#directive-prologue
-  if (isDirectiveLiteral) {
-    if (canChangeDirectiveQuotes) {
-      return enclosingQuote + rawContent + enclosingQuote;
-    }
-    return raw;
-  }
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
