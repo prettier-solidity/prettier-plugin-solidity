@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, group, indent, line }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const Conditional = {
   print: ({ path, print }) =>

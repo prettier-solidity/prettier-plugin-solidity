@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, join }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 const { printString } = require('../prettier-comments/common/util');
 
 const ImportDirective = {

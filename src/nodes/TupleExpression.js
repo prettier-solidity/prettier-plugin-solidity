@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, group, indent, join, line, softline }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const TupleExpression = {
   // @TODO: remove hack once solidity-parser-antlr is fixed

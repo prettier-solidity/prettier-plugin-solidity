@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const UsingForDeclaration = {
   print: ({ node, path, print }) => {

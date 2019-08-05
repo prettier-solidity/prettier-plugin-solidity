@@ -1,8 +1,12 @@
-const arithmetic = require('./arithmetic.js');
-const shift = require('./shift.js');
-const bit = require('./bit.js');
-const comparison = require('./comparison.js');
-const logical = require('./logical.js');
-const assignment = require('./assignment.js');
+/* This file was automatically generated on 1562128164 */
 
-module.exports = [arithmetic, shift, bit, comparison, logical, assignment];
+/* eslint-disable global-require */
+
+module.exports = {
+  arithmetic: require('./arithmetic.js'),
+  assignment: require('./assignment.js'),
+  bit: require('./bit.js'),
+  comparison: require('./comparison.js'),
+  logical: require('./logical.js'),
+  shift: require('./shift.js')
+};

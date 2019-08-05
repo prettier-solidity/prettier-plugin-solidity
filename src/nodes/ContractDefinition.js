@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, group, indent, join, line }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 const printPreservingEmptyLines = require('./print-preserving-empty-lines');
 
 const inheritance = (node, path, print) => {

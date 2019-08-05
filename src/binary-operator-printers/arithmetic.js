@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { group, line, concat, indent }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 const comparison = require('./comparison.js');
 
 const groupIfNecessaryBuilder = path => doc => {

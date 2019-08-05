@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, group, indent, line, softline }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const printBody = (node, path, print) => {
   if (node.body.type === 'Block') {

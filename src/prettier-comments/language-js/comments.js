@@ -7,7 +7,7 @@ const {
     addDanglingComment,
     getNextNonSpaceNonCommentCharacterIndex
   }
-} = require('prettier');
+} = require('prettier/standalone');
 const privateUtil = require("../common/util");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {

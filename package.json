@@ -6,6 +6,7 @@
   "scripts": {
     "coverage": "codecov",
     "eslint": "eslint --ignore-pattern 'src/prettier-comments/**' 'src/**'",
+    "generateindexes": "SCRIPT=true node scripts/generateIndexes.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prettier": "prettier '{.,{src,tests_config}/**}/*.{js{,on},md}' 'tests/**/jsfmt.spec.js' '!src/prettier-comments/**/*'",
@@ -64,6 +65,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
     "jest": "^24.8.0",
+    "jest-mock-now": "^1.2.1",
     "jest-watch-typeahead": "^0.3.1"
   },
   "dependencies": {

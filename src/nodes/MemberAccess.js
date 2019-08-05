@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { concat, group, indent, softline }
   }
-} = require('prettier');
+} = require('prettier/standalone');
 
 const isBeginnigOfChain = path => {
   const parentNodeType = path.getParentNode().type;
