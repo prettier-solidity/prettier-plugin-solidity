@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-alpha.29",
+  "version": "1.0.0-alpha.30",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
@@ -27,6 +27,10 @@
     "name": "Mattia Richetto"
   },
   "contributors": [
+    {
+      "email": "jack@nottheoilrig.com",
+      "name": "Jack Bates"
+    },
     {
       "email": "federico.bond@gmail.com",
       "name": "Federico Bond"
