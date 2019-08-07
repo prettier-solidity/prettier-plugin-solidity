@@ -8,6 +8,5 @@ node_js:
 before_install:
   - npm i -g npm@6.10.2
 script:
-  - npm ls
   - npm run lint
   - npm test
