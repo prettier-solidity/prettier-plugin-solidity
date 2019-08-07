@@ -243,7 +243,7 @@ contract ArithmeticOperators {
         );
         return
             veryVeryVeryVeryVeryLongVariableCalledA +
-                veryVeryVeryVeryVeryLongVariableCalledB;
+            veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongFunctionCalledA(
             veryVeryVeryVeryVeryLongVariableCalledB
         ) +
@@ -277,7 +277,7 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             ) +
-                c;
+            c;
     }
 }
 
@@ -393,7 +393,7 @@ contract ShiftOperators {
         );
         return
             veryVeryVeryVeryVeryLongVariableCalledA <<
-                veryVeryVeryVeryVeryLongVariableCalledB;
+            veryVeryVeryVeryVeryLongVariableCalledB;
     }
 }
 
@@ -428,7 +428,7 @@ contract BitOperators {
         );
         return
             veryVeryVeryVeryVeryLongVariableCalledA &
-                veryVeryVeryVeryVeryLongVariableCalledB;
+            veryVeryVeryVeryVeryLongVariableCalledB;
     }
 }
 
@@ -487,7 +487,7 @@ contract ComparisonOperators {
         );
         return
             veryVeryVeryVeryVeryLongVariableCalledA ==
-                veryVeryVeryVeryVeryLongVariableCalledB;
+            veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongFunctionCalledA(
             veryVeryVeryVeryVeryLongVariableCalledB
         ) ==
@@ -521,7 +521,7 @@ contract ComparisonOperators {
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             ) ==
-                c;
+            c;
     }
 }
 
@@ -647,7 +647,7 @@ contract LogicalOperators {
         );
         return
             veryVeryVeryVeryVeryLongVariableCalledA ||
-                veryVeryVeryVeryVeryLongVariableCalledB;
+            veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongFunctionCalledA(
             veryVeryVeryVeryVeryLongVariableCalledB
         ) ||
@@ -681,7 +681,7 @@ contract LogicalOperators {
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             ) ||
-                c;
+            c;
     }
 }
 
