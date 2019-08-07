@@ -14,4 +14,6 @@ contract Foo {
   string escapedSingleQuotes = 'don\'t do that, don\'t';
   string doubleQuotes = 'The "quick" brown fox';
   string escapeDoubleQuotes = "The \"quick\" brown fox";
+  string hex1 = hex'DeadBeef';
+  string hex2 = hex"DeadBeef";
 }
