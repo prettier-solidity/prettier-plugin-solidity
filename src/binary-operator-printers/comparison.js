@@ -4,8 +4,6 @@ const {
   }
 } = require('prettier/standalone');
 
-const groupIfNecessaryBuilder = () => doc => group(doc);
-
 const indentIfNecessaryBuilder = path => doc => {
   const parentNode = path.getParentNode();
 
@@ -20,10 +18,9 @@ const indentIfNecessaryBuilder = path => doc => {
 module.exports = {
   match: op => ['<', '>', '<=', '>=', '==', '!='].includes(op),
   print: (node, path, print) => {
-    const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
-    return groupIfNecessary(
+    return group(
       indentIfNecessary(
         concat([
           path.call(print, 'left'),

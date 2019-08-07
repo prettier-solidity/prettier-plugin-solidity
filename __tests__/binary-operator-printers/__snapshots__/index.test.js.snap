@@ -6,6 +6,7 @@ Array [
   "assignment",
   "bit",
   "comparison",
+  "exponentiation",
   "logical",
   "shift",
 ]
