@@ -13,6 +13,8 @@ const indentIfNecessaryBuilder = path => doc => {
   if (parentNode.type === 'IfStatement') return doc;
   if (parentNode.type === 'WhileStatement') return doc;
   if (parentNode.type === 'BinaryOperation') return doc;
+  if (parentNode.type === 'StateVariableDeclaration') return doc;
+  if (parentNode.type === 'VariableDeclarationStatement') return doc;
 
   return indent(doc);
 };

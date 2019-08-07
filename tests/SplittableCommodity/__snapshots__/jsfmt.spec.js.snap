@@ -80,8 +80,8 @@ contract SplittableCommodity is MintableCommodity {
         public
         whenNotPaused
     {
-        address supplierProxy = IContractRegistry(contractRegistry)
-            .getLatestProxyAddr("Supplier");
+        address supplierProxy =
+            IContractRegistry(contractRegistry).getLatestProxyAddr("Supplier");
         require(
             msg.sender ==
                 IContractRegistry(contractRegistry).getLatestProxyAddr(
@@ -93,14 +93,15 @@ contract SplittableCommodity is MintableCommodity {
 
         commodities[_tokenId].value = commodities[_tokenId].value.sub(_amount);
 
-        CommodityLib.Commodity memory _commodity = CommodityLib.Commodity({
-            category: uint64(1),
-            timeRegistered: uint64(now), // solium-disable-line
-            parentId: _tokenId,
-            value: _amount,
-            locked: false,
-            misc: commodities[_tokenId].misc
-        });
+        CommodityLib.Commodity memory _commodity =
+            CommodityLib.Commodity({
+                category: uint64(1),
+                timeRegistered: uint64(now), // solium-disable-line
+                parentId: _tokenId,
+                value: _amount,
+                locked: false,
+                misc: commodities[_tokenId].misc
+            });
         uint256 newCRCId = commodities.push(_commodity).sub(1);
         require(
             newCRCId <= 18446744073709551616,

@@ -23,8 +23,8 @@ contract FunctionCalls {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract FunctionCalls {
     function foo() {
-        address veryLongValidatorAddress = veryVeryVeryLongSignature
-            .popLast20Bytes();
+        address veryLongValidatorAddress =
+            veryVeryVeryLongSignature.popLast20Bytes();
     }
 
     function foo() {
@@ -61,8 +61,8 @@ contract FunctionCalls {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract FunctionCalls {
     function foo() {
-        address veryLongValidatorAddress = veryVeryVeryLongSignature
-            .popLast20Bytes();
+        address veryLongValidatorAddress =
+            veryVeryVeryLongSignature.popLast20Bytes();
     }
 
     function foo() {

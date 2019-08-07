@@ -24,6 +24,8 @@ const indentIfNecessaryBuilder = path => doc => {
   ) {
     return doc;
   }
+  if (parentNode.type === 'StateVariableDeclaration') return doc;
+  if (parentNode.type === 'VariableDeclarationStatement') return doc;
   return indent(doc);
 };
 

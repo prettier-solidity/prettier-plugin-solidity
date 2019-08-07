@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, group, indent, line }
   }
 } = require('prettier/standalone');
 
@@ -15,7 +15,11 @@ const StateVariableDeclaration = {
       }, 'variables')
     );
     if (node.initialValue) {
-      doc = concat([doc, ' = ', path.call(print, 'initialValue')]);
+      doc = concat([
+        doc,
+        ' =',
+        group(indent(concat([line, path.call(print, 'initialValue')])))
+      ]);
     }
     return concat([doc, ';']);
   }
