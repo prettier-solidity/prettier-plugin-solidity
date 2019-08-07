@@ -15,5 +15,8 @@ contract ForStatements {
         for (uint veryLongVariableName; veryLongVariableName < 100; veryLongVariableName++) a++;
 
         for (veryLongVariableName = 0; veryLongVariableName < 100; veryLongVariableName++) { a++; }
+
+        for (; ; ) { // #178
+        }
     }
 }
