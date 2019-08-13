@@ -58,16 +58,16 @@
   },
   "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "devDependencies": {
     "codecov": "^3.0.4",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.0.1",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react": "^7.14.3",
     "jest": "^24.8.0",
     "jest-mock-now": "^1.2.1",
     "jest-watch-typeahead": "^0.3.1"
@@ -75,11 +75,11 @@
   "dependencies": {
     "dir-to-object": "^2.0.0",
     "emoji-regex": "^8.0.0",
-    "escape-string-regexp": "^1.0.5",
+    "escape-string-regexp": "^2.0.0",
     "extract-comments": "^1.1.0",
     "prettier": "^1.15.3",
-    "semver": "^6.1.2",
+    "semver": "^6.3.0",
     "solidity-parser-antlr": "^0.4.8",
-    "string-width": "^3.1.0"
+    "string-width": "^4.1.0"
   }
 }

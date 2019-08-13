@@ -2,12 +2,9 @@ after_script:
   - npm run coverage
 language: node_js
 node_js:
-  - '6'
   - '8'
   - '10'
-before_install:
-  - npm i -g npm@6.10.2
+  - '12'
 script:
-  - npm ls
   - npm run lint
   - npm test
