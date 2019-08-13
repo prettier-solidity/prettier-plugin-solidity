@@ -25,6 +25,11 @@ function parse(text, parsers, options) {
         ctx.loopExpression.omitSemicolon = true;
       }
     },
+    HexLiteral(ctx) {
+      ctx.value = options.singleQuote
+        ? `hex'${ctx.value.slice(4, -1)}'`
+        : `hex"${ctx.value.slice(4, -1)}"`;
+    },
     ElementaryTypeName(ctx) {
       if (options.explicitTypes === 'always') {
         if (ctx.name === 'uint') ctx.name = 'uint256';
