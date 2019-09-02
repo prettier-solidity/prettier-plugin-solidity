@@ -45,8 +45,6 @@ Array [
   "ModifierInvocation",
   "NewExpression",
   "NumberLiteral",
-  "Parameter",
-  "ParameterList",
   "PragmaDirective",
   "ReturnStatement",
   "SourceUnit",

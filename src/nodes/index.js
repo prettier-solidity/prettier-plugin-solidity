@@ -46,8 +46,6 @@ module.exports = {
   ModifierInvocation: require('./ModifierInvocation.js'),
   NewExpression: require('./NewExpression.js'),
   NumberLiteral: require('./NumberLiteral.js'),
-  Parameter: require('./Parameter.js'),
-  ParameterList: require('./ParameterList.js'),
   PragmaDirective: require('./PragmaDirective.js'),
   ReturnStatement: require('./ReturnStatement.js'),
   SourceUnit: require('./SourceUnit.js'),

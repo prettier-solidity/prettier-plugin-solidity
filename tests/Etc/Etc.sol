@@ -15,6 +15,8 @@ contract Contract {
     function(bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32)   internal view[]  e;
   }
 
+  event SomeEvent();
+
   modifier modifierWithoutParams() {
     require(msg.sender != address(0));
     _;

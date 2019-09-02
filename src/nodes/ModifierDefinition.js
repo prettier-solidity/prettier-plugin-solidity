@@ -1,30 +1,42 @@
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, group, indent, join, line, softline }
   }
 } = require('prettier/standalone');
 
-const ModifierDefinition = {
-  print: ({ node, path, print }) => {
-    let parts = ['modifier ', node.name];
-
-    if (node.parameters && node.parameters.parameters) {
-      // if node.paremeters is an object, print parameter list
-      parts.push('(');
-      parts = parts.concat(path.call(print, 'parameters'));
-      parts.push(') ');
-    } else if (node.parameters && node.parameters.length === 0) {
-      // if node.paremeters is an empty array, don't print parentheses
-      parts.push(' ');
-    } else {
-      // otherwise, throw a not implemented error
-      throw new Error('[ModifierDefinition] Scenario not implemented');
+const modifierParameters = (node, path, print) => {
+  if (node.parameters) {
+    if (node.parameters.length > 0) {
+      return group(
+        concat([
+          '(',
+          indent(
+            concat([
+              softline,
+              join(concat([',', line]), path.map(print, 'parameters'))
+            ])
+          ),
+          softline,
+          ')'
+        ])
+      );
     }
 
-    parts.push(path.call(print, 'body'));
-
-    return concat(parts);
+    return '()';
   }
+
+  return '';
+};
+
+const ModifierDefinition = {
+  print: ({ node, path, print }) =>
+    concat([
+      'modifier ',
+      node.name,
+      modifierParameters(node, path, print),
+      ' ',
+      path.call(print, 'body')
+    ])
 };
 
 module.exports = ModifierDefinition;
