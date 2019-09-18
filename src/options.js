@@ -23,15 +23,13 @@ const options = {
       step: 1
     }
   },
-  // TODO: uncomment when https://github.com/prettier-solidity/prettier-plugin-solidity/pull/144
-  //       is merged.
-  // singleQuote: {
-  //   since: '0.0.0',
-  //   category: CATEGORY_COMMON,
-  //   type: 'boolean',
-  //   default: false,
-  //   description: 'Use single quotes instead of double quotes.'
-  // },
+  singleQuote: {
+    since: '0.0.0',
+    category: CATEGORY_COMMON,
+    type: 'boolean',
+    default: false,
+    description: 'Use single quotes instead of double quotes.'
+  },
   tabWidth: {
     type: 'int',
     category: CATEGORY_GLOBAL,
