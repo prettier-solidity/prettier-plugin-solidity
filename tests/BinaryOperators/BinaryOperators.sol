@@ -21,6 +21,12 @@ contract ArithmeticOperators {
     for (a = veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB; a <= veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB; a += veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB) {}
     a(veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB);
     return veryVeryVeryVeryVeryLongVariableCalledA + veryVeryVeryVeryVeryLongVariableCalledB;
+    veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) + c;
+    veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) + c * veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) - d;
+    a = veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) + c;
+    if (veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) + c) {}
+    a(veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) + c);
+    return veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) + c;
   }
 }
 
@@ -41,6 +47,12 @@ contract ArithmeticOperators {
     for (a = veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB; a <= veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB; a += veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB) {}
     a(veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB);
     return veryVeryVeryVeryVeryLongVariableCalledA ** veryVeryVeryVeryVeryLongVariableCalledB;
+    veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) ** c;
+    veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) ** c * veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) ** d;
+    a = veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) ** c;
+    if (veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) ** c) {}
+    a(veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) ** c);
+    return veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) ** c;
   }
 }
 
@@ -102,6 +114,12 @@ contract ComparisonOperators {
     for (a = veryVeryVeryVeryVeryLongVariableCalledA; veryVeryVeryVeryVeryLongVariableCalledB >= veryVeryVeryVeryVeryLongVariableCalledA; a += veryVeryVeryVeryVeryLongVariableCalledA || veryVeryVeryVeryVeryLongVariableCalledB ? 1:2) {}
     a(veryVeryVeryVeryVeryLongVariableCalledA == veryVeryVeryVeryVeryLongVariableCalledB);
     return veryVeryVeryVeryVeryLongVariableCalledA == veryVeryVeryVeryVeryLongVariableCalledB;
+    veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) == c;
+    veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) < c || veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) > d;
+    a = veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) == c;
+    if (veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) == c) {}
+    a(veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) == c);
+    return veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) == c;
   }
 }
 
@@ -158,5 +176,11 @@ contract LogicalOperators {
     for (a = veryVeryVeryVeryVeryLongVariableCalledA; a <= veryVeryVeryVeryVeryLongVariableCalledA; a += veryVeryVeryVeryVeryLongVariableCalledA || veryVeryVeryVeryVeryLongVariableCalledB ? 1:2) {}
     a(veryVeryVeryVeryVeryLongVariableCalledA || veryVeryVeryVeryVeryLongVariableCalledB);
     return veryVeryVeryVeryVeryLongVariableCalledA || veryVeryVeryVeryVeryLongVariableCalledB;
+    veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) || c;
+    veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) || c && veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) || d;
+    a = veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) || c;
+    if (veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) || c) {}
+    a(veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) || c);
+    return veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) || c;
   }
 }

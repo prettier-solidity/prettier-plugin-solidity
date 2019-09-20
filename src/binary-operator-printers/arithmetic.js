@@ -17,14 +17,18 @@ const groupIfNecessaryBuilder = path => doc => {
 };
 
 const indentIfNecessaryBuilder = path => doc => {
-  const parentNode = path.getParentNode();
-  if (
-    parentNode.type === 'BinaryOperation' &&
-    !comparison.match(parentNode.operator)
-  ) {
-    return doc;
+  let node = path.getNode();
+  for (let i = 0; ; i += 1) {
+    const parentNode = path.getParentNode(i);
+    if (
+      parentNode.type !== 'BinaryOperation' ||
+      comparison.match(parentNode.operator)
+    ) {
+      return indent(doc);
+    }
+    if (node === parentNode.right) return doc;
+    node = parentNode;
   }
-  return indent(doc);
 };
 
 module.exports = {
@@ -34,15 +38,13 @@ module.exports = {
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
     return groupIfNecessary(
-      indentIfNecessary(
-        concat([
-          path.call(print, 'left'),
-          ' ',
-          node.operator,
-          line,
-          path.call(print, 'right')
-        ])
-      )
+      concat([
+        path.call(print, 'left'),
+        ' ',
+        indentIfNecessary(
+          concat([node.operator, line, path.call(print, 'right')])
+        )
+      ])
     );
   }
 };
