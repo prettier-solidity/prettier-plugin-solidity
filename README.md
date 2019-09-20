@@ -73,6 +73,48 @@ autocmd BufWritePre *.sol Prettier
 
 Now Prettier will be run every time the file is saved.
 
+### VSCode
+
+VSCode is not familiar with the solidity language, so [`solidity support`](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity) needs to be installed.
+
+```Bash
+code --install-extension JuanBlanco.solidity
+```
+
+Having done that you should proceed to install [`prettier-vscode`](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+
+```Bash
+code --install-extension esbenp.prettier-vscode
+```
+
+To interact with 3rd party plugins, `prettier-vscode` will look in the project's npm modules, so you'll need to have `prettier` and `prettier-plugin-solidity` in your `package.json`
+
+```
+npm install --save-dev prettier prettier-plugin-solidity
+```
+
+As a final check, make sure that VSCode is configured to format files on save.
+
+You'll notice now that `prettier` is formatting every time the files are saved but the indentation is using 2 spaces instead of 4. This has been [reported](https://github.com/prettier/prettier-vscode/issues/961) and in the meantime you can use the following configuration in your `.prettierrc` file:
+
+```json
+{
+  "overrides": [
+    {
+      "files": "*.sol",
+      "options": {
+        "printWidth": 80,
+        "tabWidth": 4,
+        "useTabs": false,
+        "singleQuote": false,
+        "bracketSpacing": false,
+        "explicitTypes": "always"
+      }
+    }
+  ]
+}
+```
+
 ## Contributing
 
 1. [Fork it](https://github.com/prettier-solidity/prettier-plugin-solidity/fork)
