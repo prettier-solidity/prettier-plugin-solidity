@@ -1501,7 +1501,7 @@ library strings {
     {
         return
             rfindPtr(self._len, self._ptr, needle._len, needle._ptr) !=
-                self._ptr;
+            self._ptr;
     }
 
     /*
