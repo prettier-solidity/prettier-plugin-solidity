@@ -9,12 +9,16 @@ const Conditional = {
     group(
       concat([
         path.call(print, 'condition'),
-        indent(line),
-        '? ',
-        path.call(print, 'trueExpression'),
-        indent(line),
-        ': ',
-        path.call(print, 'falseExpression')
+        indent(
+          concat([
+            line,
+            '? ',
+            path.call(print, 'trueExpression'),
+            line,
+            ': ',
+            path.call(print, 'falseExpression')
+          ])
+        )
       ])
     )
 };
