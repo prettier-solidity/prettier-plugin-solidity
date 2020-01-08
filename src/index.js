@@ -17,7 +17,7 @@ const languages = [
 ];
 
 // https://prettier.io/docs/en/plugins.html#parsers
-const parser = { astFormat: 'solidity-ast', parse, ...loc};
+const parser = { astFormat: 'solidity-ast', parse, ...loc };
 const parsers = {
   'solidity-parse': parser
 };
