@@ -1,21 +1,32 @@
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, group, indent, join, line, softline }
   }
 } = require('prettier/standalone');
 
-const InheritanceSpecifier = {
-  print: ({ node, path, print }) => {
-    let parts = [path.call(print, 'baseName')];
-
-    if (node.arguments && node.arguments.length) {
-      parts.push('(');
-      parts = parts.concat(path.map(print, 'arguments'));
-      parts.push(')');
-    }
-
-    return concat(parts);
+const printArguments = (node, path, print) => {
+  if (node.arguments && node.arguments.length) {
+    return group(
+      concat([
+        '(',
+        indent(
+          concat([
+            softline,
+            join(concat([',', line]), path.map(print, 'arguments'))
+          ])
+        ),
+        softline,
+        ')'
+      ])
+    );
   }
+
+  return '';
+};
+
+const InheritanceSpecifier = {
+  print: ({ node, path, print }) =>
+    concat([path.call(print, 'baseName'), printArguments(node, path, print)])
 };
 
 module.exports = InheritanceSpecifier;
