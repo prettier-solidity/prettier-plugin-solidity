@@ -4,7 +4,6 @@ exports[`BlankLines.sol 1`] = `
 pragma solidity >=0.4.0 <0.7.0;
 
 
-/* TODO: requires a refactor of printPreservingEmptyLines.
 contract A {
 }
 contract B {
@@ -12,8 +11,6 @@ contract B {
 
 contract C {
 }
-
-pragma solidity >=0.4.0 <0.7.0;
 
 contract A {
     function spam() public pure {
@@ -23,31 +20,28 @@ contract A {
         // ...
     }
 }
-*/
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity >=0.4.0 <0.7.0;
 
-/* TODO: requires a refactor of printPreservingEmptyLines.
-contract A {
-}
-contract B {
-}
 
-contract C {
-}
+contract A {}
 
-pragma solidity >=0.4.0 <0.7.0;
+
+contract B {}
+
+
+contract C {}
+
 
 contract A {
     function spam() public pure {
         // ...
     }
+
     function ham() public pure {
         // ...
     }
 }
-*/
-
 
 `;
 
@@ -112,6 +106,7 @@ contract ControlStructures
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity >=0.4.0 <0.7.0;
 
+
 contract ControlStructures {
     struct Bank {
         address owner;
@@ -160,7 +155,6 @@ contract ControlStructures {
         else
             x -= 1;
         */
-
     }
 }
 
@@ -305,6 +299,7 @@ contract X is B, C, D {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity >=0.4.0 <0.7.0;
 
+
 contract FunctionDeclaration {
     function increment(uint256 x) public pure returns (uint256) {
         return x + 1;
@@ -405,18 +400,22 @@ contract FunctionDeclaration {
     }
 }
 
+
 // Base contracts just to make this compile
 contract B {
     constructor(uint256) public {}
 }
 
+
 contract C {
     constructor(uint256, uint256) public {}
 }
 
+
 contract D {
     constructor(uint256) public {}
 }
+
 
 /* TODO: constructors calls have priority over visibility */
 contract A is B, C, D {
@@ -432,6 +431,7 @@ contract A is B, C, D {
         x = param5;
     }
 }
+
 
 contract X is B, C, D {
     uint256 x;
@@ -461,6 +461,7 @@ contract Mappings {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity >=0.4.0 <0.7.0;
+
 
 contract Mappings {
     mapping(uint256 => uint256) map;
@@ -542,6 +543,7 @@ contract EventDefinitionsAndEventEmitters {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity >=0.4.0 <0.7.0;
 
+
 contract FunctionCalls {
     function() {
         thisFunctionCallIsReallyLong(
@@ -576,6 +578,7 @@ contract FunctionCalls {
     }
 }
 
+
 contract AssignmentStatements {
     function() {
         thisIsALongNestedMapping[being][set][to_some_value] = someFunction(
@@ -586,6 +589,7 @@ contract AssignmentStatements {
         );
     }
 }
+
 
 contract EventDefinitionsAndEventEmitters {
     event LongAndLotsOfArgs(
@@ -652,6 +656,7 @@ contract OtherRecommendations {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity >=0.4.0 <0.7.0;
 
+
 contract OtherRecommendations {
     function() {
         str = "bar";
@@ -689,6 +694,7 @@ contract VariableDeclarations {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity >=0.4.0 <0.7.0;
 
+
 contract VariableDeclarations {
     uint256[] x;
 }
@@ -711,6 +717,7 @@ contract WhitespaceInExpressions {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity >=0.4.0 <0.7.0;
+
 
 contract WhitespaceInExpressions {
     function() {

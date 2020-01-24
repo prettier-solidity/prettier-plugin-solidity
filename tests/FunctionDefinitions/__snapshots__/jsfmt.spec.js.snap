@@ -321,6 +321,7 @@ interface FunctionInterfaces {
         );
 }
 
+
 contract FunctionDefinitions {
     function noParamsNoModifiersNoReturns() {
         a = 1;

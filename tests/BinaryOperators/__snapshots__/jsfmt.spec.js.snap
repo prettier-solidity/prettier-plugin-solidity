@@ -281,6 +281,7 @@ contract ArithmeticOperators {
     }
 }
 
+
 contract ArithmeticOperators {
     // ['**']
     function someFunction() {
@@ -365,6 +366,7 @@ contract ArithmeticOperators {
     }
 }
 
+
 contract ShiftOperators {
     // ['<<', '>>']
     function someFunction() {
@@ -396,6 +398,7 @@ contract ShiftOperators {
             veryVeryVeryVeryVeryLongVariableCalledB;
     }
 }
+
 
 contract BitOperators {
     // ['&', '|', '^']
@@ -431,6 +434,7 @@ contract BitOperators {
             veryVeryVeryVeryVeryLongVariableCalledB;
     }
 }
+
 
 contract ComparisonOperators {
     // ['<', '>', '<=', '>=', '==', '!=']
@@ -525,6 +529,7 @@ contract ComparisonOperators {
     }
 }
 
+
 contract AssignmentOperators {
     // ['=', '|=', '^=', '&=', '<<=', '>>=', '+=', '-=', '*=', '/=', '%=']
     function someFunction() {
@@ -574,6 +579,7 @@ contract AssignmentOperators {
             veryVeryVeryVeryVeryLongFunctionCalledB(c);
     }
 }
+
 
 contract LogicalOperators {
     // ['&&', '||']
@@ -822,6 +828,7 @@ contract Parentheses {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity 0.5.8;
+
 
 contract Parentheses {
     function() {
