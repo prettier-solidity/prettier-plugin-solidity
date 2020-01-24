@@ -23,6 +23,9 @@ function printPreservingEmptyLines(path, key, options, print) {
     }
   }, key);
 
+  if (parts.length > 1 && parts[parts.length - 1] === hardline) {
+    parts.pop();
+  }
   return concat(parts);
 }
 

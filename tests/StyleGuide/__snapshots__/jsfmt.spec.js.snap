@@ -48,7 +48,6 @@ contract A {
 }
 */
 
-
 `;
 
 exports[`ControlStructures.sol 1`] = `
@@ -160,7 +159,6 @@ contract ControlStructures {
         else
             x -= 1;
         */
-
     }
 }
 

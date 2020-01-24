@@ -652,7 +652,6 @@ contract CommentedOutFunction {
     // function something()
     //  uint x = 10;
     // }
-
 }
 
 library VarHasBrackets {
