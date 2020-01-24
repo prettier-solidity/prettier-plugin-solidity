@@ -24,6 +24,7 @@ contract Foo {
 import 'someContract.sol';
 import 'someOtherContract.sol';
 
+
 contract Foo {
     string foo1 = 'foo';
     string foo2 = 'foo';
@@ -66,6 +67,7 @@ contract Foo {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import "someContract.sol";
 import "someOtherContract.sol";
+
 
 contract Foo {
     string foo1 = "foo";

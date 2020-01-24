@@ -12,7 +12,26 @@ function printPreservingEmptyLines(path, key, options, print) {
       parts.push(hardline);
     }
 
+    if (childPath.getName() > 0) {
+      const nodeType = childPath.getValue().type;
+
+      if (nodeType === 'ContractDefinition') {
+        if (parts[parts.length - 2] !== hardline) {
+          parts.push(hardline);
+        }
+        parts.push(hardline);
+      }
+
+      if (
+        nodeType === 'FunctionDefinition' &&
+        parts[parts.length - 2] !== hardline
+      ) {
+        parts.push(hardline);
+      }
+    }
+
     parts.push(print(childPath));
+
     if (
       isNextLineEmptyAfterIndex(
         options.originalText,
