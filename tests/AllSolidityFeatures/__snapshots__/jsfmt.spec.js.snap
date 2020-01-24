@@ -439,6 +439,7 @@ contract c {
         val3 = 1 finney; // 1 * 10 ** 15
         val4 = 1 ether; // 1 * 10 ** 18
     }
+
     uint256 val1;
     uint256 val2;
     uint256 val3;
@@ -456,6 +457,7 @@ contract test {
     function getChoice() returns (uint256 d) {
         d = uint256(choices);
     }
+
     ActionChoices choices;
 }
 
@@ -464,6 +466,7 @@ contract Base {
     function Base(uint256 i) {
         m_i = i;
     }
+
     uint256 public m_i;
 }
 
@@ -522,6 +525,7 @@ contract c {
     function getData(uint256 pos) internal {
         return data[pos];
     }
+
     mapping(uint256 => uint256) data;
 }
 
