@@ -21,7 +21,7 @@ module.exports = {
   ContractDefinition: require('./ContractDefinition.js'),
   DecimalNumber: require('./DecimalNumber.js'),
   ElementaryTypeName: require('./ElementaryTypeName.js'),
-  ElementaryTypeNameExpression: require('./ElementaryTypeNameExpression.js'),
+  TypeNameExpression: require('./TypeNameExpression.js'),
   EmitStatement: require('./EmitStatement.js'),
   EnumDefinition: require('./EnumDefinition.js'),
   EnumValue: require('./EnumValue.js'),

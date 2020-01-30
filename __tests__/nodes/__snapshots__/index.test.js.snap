@@ -20,7 +20,7 @@ Array [
   "ContractDefinition",
   "DecimalNumber",
   "ElementaryTypeName",
-  "ElementaryTypeNameExpression",
+  "TypeNameExpression",
   "EmitStatement",
   "EnumDefinition",
   "EnumValue",
