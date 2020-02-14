@@ -8,6 +8,7 @@ Array [
   "AssemblyCall",
   "AssemblyCase",
   "AssemblyFor",
+  "AssemblyFunctionDefinition",
   "AssemblyIf",
   "AssemblyLocalDefinition",
   "AssemblySwitch",

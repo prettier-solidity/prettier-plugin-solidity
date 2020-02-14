@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1562128164 */
+/* This file was automatically generated on 1581640762.434 */
 
 /* eslint-disable global-require */
 
@@ -9,6 +9,7 @@ module.exports = {
   AssemblyCall: require('./AssemblyCall.js'),
   AssemblyCase: require('./AssemblyCase.js'),
   AssemblyFor: require('./AssemblyFor.js'),
+  AssemblyFunctionDefinition: require('./AssemblyFunctionDefinition.js'),
   AssemblyIf: require('./AssemblyIf.js'),
   AssemblyLocalDefinition: require('./AssemblyLocalDefinition.js'),
   AssemblySwitch: require('./AssemblySwitch.js'),

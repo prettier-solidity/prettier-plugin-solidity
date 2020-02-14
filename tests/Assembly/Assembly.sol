@@ -35,4 +35,42 @@ for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
       )
     }
   }
+
+  function assemblyFunctionNoParameters() {
+		assembly {
+			function getAnswer  ()
+      -> answer {
+          answer:=    42
+			}
+  		}
+  }
+
+  function assemblyFunctionOneParameter() {
+		assembly {
+			function inc  (x)
+      -> result {
+          result := add(x,
+                        1)
+			}
+  		}
+  }
+
+  function assemblyFunctionThreeParameters() {
+		assembly {
+			function sum  (a, b, c)
+      -> result {
+          result := add(a,
+                        add(b, c))
+			}
+  		}
+  }
+
+  function assemblyFunctionLongParameters() {
+		assembly {
+			function sum  (thisIs, aFunctionWithVery, veryLongParameterNames, andItAlsoHasALotOfParameters, soItShouldBeSplitInMultipleLines)
+      -> result {
+        result := 0
+			}
+  		}
+  }
 }
