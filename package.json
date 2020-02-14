@@ -79,8 +79,7 @@
     "extract-comments": "^1.1.0",
     "prettier": "^1.15.3",
     "semver": "^6.3.0",
-    "solidity-parser-antlr": "^0.4.11",
-    "solidity-parser-diligence": "^0.4.15",
+    "solidity-parser-diligence": "^0.4.18",
     "string-width": "^4.1.0"
   }
 }
