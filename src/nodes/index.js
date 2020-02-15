@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1581640762.434 */
+/* This file was automatically generated on 1581775642.911 */
 
 /* eslint-disable global-require */
 
@@ -22,6 +22,7 @@ module.exports = {
   ContinueStatement: require('./ContinueStatement.js'),
   ContractDefinition: require('./ContractDefinition.js'),
   DecimalNumber: require('./DecimalNumber.js'),
+  DoWhileStatement: require('./DoWhileStatement.js'),
   ElementaryTypeName: require('./ElementaryTypeName.js'),
   EmitStatement: require('./EmitStatement.js'),
   EnumDefinition: require('./EnumDefinition.js'),

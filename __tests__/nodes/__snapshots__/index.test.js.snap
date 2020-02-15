@@ -21,6 +21,7 @@ Array [
   "ContinueStatement",
   "ContractDefinition",
   "DecimalNumber",
+  "DoWhileStatement",
   "ElementaryTypeName",
   "EmitStatement",
   "EnumDefinition",
