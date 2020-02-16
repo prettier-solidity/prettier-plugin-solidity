@@ -417,3 +417,13 @@ contract continueStatement {
     while (true) { continue; }
   }
 }
+
+abstract  contract  AbstractContract {
+
+}
+
+contract  ContractWithVirtual
+{
+  function   foo() public virtual  returns  ( uint ) {
+  }
+}

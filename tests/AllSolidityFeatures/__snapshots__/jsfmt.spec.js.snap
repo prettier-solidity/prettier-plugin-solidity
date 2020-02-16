@@ -420,6 +420,16 @@ contract continueStatement {
     while (true) { continue; }
   }
 }
+
+abstract  contract  AbstractContract {
+
+}
+
+contract  ContractWithVirtual
+{
+  function   foo() public virtual  returns  ( uint ) {
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Examples taken from the Solidity documentation online.
 
@@ -887,6 +897,14 @@ contract continueStatement {
             continue;
         }
     }
+}
+
+
+abstract contract AbstractContract {}
+
+
+contract ContractWithVirtual {
+    function foo() public virtual returns (uint256) {}
 }
 
 `;
