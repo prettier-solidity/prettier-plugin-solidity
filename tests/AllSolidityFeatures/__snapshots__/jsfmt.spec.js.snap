@@ -414,6 +414,12 @@ contract multilineReturn {
       5;
   }
 }
+
+contract continueStatement {
+  function a() {
+    while (true) { continue; }
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Examples taken from the Solidity documentation online.
 
@@ -871,6 +877,15 @@ contract Ballot {
 contract multilineReturn {
     function a() returns (uint256 x) {
         return 5;
+    }
+}
+
+
+contract continueStatement {
+    function a() {
+        while (true) {
+            continue;
+        }
     }
 }
 

@@ -411,3 +411,9 @@ contract multilineReturn {
       5;
   }
 }
+
+contract continueStatement {
+  function a() {
+    while (true) { continue; }
+  }
+}

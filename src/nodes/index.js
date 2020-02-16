@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1562128164 */
+/* This file was automatically generated on 1581775642.911 */
 
 /* eslint-disable global-require */
 
@@ -9,6 +9,7 @@ module.exports = {
   AssemblyCall: require('./AssemblyCall.js'),
   AssemblyCase: require('./AssemblyCase.js'),
   AssemblyFor: require('./AssemblyFor.js'),
+  AssemblyFunctionDefinition: require('./AssemblyFunctionDefinition.js'),
   AssemblyIf: require('./AssemblyIf.js'),
   AssemblyLocalDefinition: require('./AssemblyLocalDefinition.js'),
   AssemblySwitch: require('./AssemblySwitch.js'),
@@ -16,12 +17,13 @@ module.exports = {
   Block: require('./Block.js'),
   BooleanLiteral: require('./BooleanLiteral.js'),
   BreakStatement: require('./BreakStatement.js'),
+  CatchClause: require('./CatchClause.js'),
   Conditional: require('./Conditional.js'),
   ContinueStatement: require('./ContinueStatement.js'),
   ContractDefinition: require('./ContractDefinition.js'),
   DecimalNumber: require('./DecimalNumber.js'),
+  DoWhileStatement: require('./DoWhileStatement.js'),
   ElementaryTypeName: require('./ElementaryTypeName.js'),
-  ElementaryTypeNameExpression: require('./ElementaryTypeNameExpression.js'),
   EmitStatement: require('./EmitStatement.js'),
   EnumDefinition: require('./EnumDefinition.js'),
   EnumValue: require('./EnumValue.js'),
@@ -53,7 +55,9 @@ module.exports = {
   StringLiteral: require('./StringLiteral.js'),
   StructDefinition: require('./StructDefinition.js'),
   ThrowStatement: require('./ThrowStatement.js'),
+  TryStatement: require('./TryStatement.js'),
   TupleExpression: require('./TupleExpression.js'),
+  TypeNameExpression: require('./TypeNameExpression.js'),
   UnaryOperation: require('./UnaryOperation.js'),
   UserDefinedTypeName: require('./UserDefinedTypeName.js'),
   UsingForDeclaration: require('./UsingForDeclaration.js'),

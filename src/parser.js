@@ -1,6 +1,6 @@
 const extract = require('extract-comments');
 // https://prettier.io/docs/en/plugins.html#parsers
-const parser = require('solidity-parser-antlr');
+const parser = require('solidity-parser-diligence');
 
 const tryHug = (node, operators) => {
   if (node.type === 'BinaryOperation' && operators.includes(node.operator))
