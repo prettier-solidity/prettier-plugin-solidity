@@ -6,10 +6,12 @@ const {
 
 const printBody = (node, path, print) => {
   if (node.body.type === 'Block') {
-    return concat([' ', path.call(print, 'body')]);
+    return concat([' ', path.call(print, 'body'), ' ']);
   }
 
-  return group(indent(concat([line, path.call(print, 'body')])));
+  return group(
+    concat([indent(concat([line, path.call(print, 'body')])), line])
+  );
 };
 
 const DoWhileStatement = {
@@ -17,7 +19,7 @@ const DoWhileStatement = {
     concat([
       'do',
       printBody(node, path, print),
-      ' while (',
+      'while (',
       group(
         concat([
           indent(concat([softline, path.call(print, 'condition')])),
