@@ -1,29 +1,43 @@
 const {
   doc: {
-    builders: { concat, join }
+    builders: { concat, group, indent, join, line, softline }
   }
 } = require('prettier/standalone');
+
+const embraceVariables = (doc, embrace) =>
+  embrace ? concat(['(', doc, ')']) : doc;
+
+const variables = (node, path, print) =>
+  group(
+    concat([
+      indent(
+        concat([
+          softline,
+          join(
+            concat([',', line]),
+            path.map(statementPath => print(statementPath), 'variables')
+          )
+        ])
+      ),
+      softline
+    ])
+  );
+
+const initialValue = (node, path, print) =>
+  node.initialValue ? concat([' = ', path.call(print, 'initialValue')]) : '';
 
 const VariableDeclarationStatement = {
   print: ({ node, path, print }) => {
     const startsWithVar =
       node.variables.filter(x => x && x.typeName).length === 0;
 
-    let doc = join(
-      ', ',
-      path.map(statementPath => print(statementPath), 'variables')
-    );
-
-    if (node.variables.length > 1 || startsWithVar) {
-      doc = concat(['(', doc, ')']);
-    }
-
-    if (node.initialValue) {
-      doc = concat([doc, ' = ', path.call(print, 'initialValue')]);
-    }
     return concat([
       startsWithVar ? 'var ' : '',
-      doc,
+      embraceVariables(
+        variables(node, path, print),
+        node.variables.length > 1 || startsWithVar
+      ),
+      initialValue(node, path, print),
       node.omitSemicolon ? '' : ';'
     ]);
   }
