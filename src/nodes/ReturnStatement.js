@@ -6,10 +6,9 @@ const {
 
 const expression = (node, path, print) => {
   if (node.expression) {
-    if (node.expression.type === 'TupleExpression') {
-      return concat([' ', path.call(print, 'expression')]);
-    }
-    return group(indent(concat([line, path.call(print, 'expression')])));
+    return node.expression.type === 'TupleExpression'
+      ? concat([' ', path.call(print, 'expression')])
+      : group(indent(concat([line, path.call(print, 'expression')])));
   }
   return '';
 };

@@ -15,16 +15,10 @@ const printTrueBody = (node, path, print) => {
   );
 };
 
-const printFalseBody = (node, path, print) => {
-  if (
-    node.falseBody.type === 'Block' ||
-    node.falseBody.type === 'IfStatement'
-  ) {
-    return concat([' ', path.call(print, 'falseBody')]);
-  }
-
-  return group(indent(concat([line, path.call(print, 'falseBody')])));
-};
+const printFalseBody = (node, path, print) =>
+  node.falseBody.type === 'Block' || node.falseBody.type === 'IfStatement'
+    ? concat([' ', path.call(print, 'falseBody')])
+    : group(indent(concat([line, path.call(print, 'falseBody')])));
 
 const printElse = (node, path, print) => {
   if (node.falseBody) {

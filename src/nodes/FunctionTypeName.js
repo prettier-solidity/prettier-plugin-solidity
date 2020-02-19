@@ -6,31 +6,25 @@ const {
 
 const printList = require('./print-list');
 
-const returnTypes = (node, path, print) => {
-  if (node.returnTypes.length > 0) {
-    return concat([
-      line,
-      'returns (',
-      printList(path.map(print, 'returnTypes')),
-      ')'
-    ]);
-  }
-  return '';
-};
+const returnTypes = (node, path, print) =>
+  node.returnTypes.length > 0
+    ? concat([
+        line,
+        'returns (',
+        printList(path.map(print, 'returnTypes')),
+        ')'
+      ])
+    : '';
 
-const visibility = node => {
-  if (node.visibility && node.visibility !== 'default') {
-    return concat([line, node.visibility]);
-  }
-  return '';
-};
+const visibility = node =>
+  node.visibility && node.visibility !== 'default'
+    ? concat([line, node.visibility])
+    : '';
 
-const stateMutability = node => {
-  if (node.stateMutability && node.stateMutability !== 'default') {
-    return concat([line, node.stateMutability]);
-  }
-  return '';
-};
+const stateMutability = node =>
+  node.stateMutability && node.stateMutability !== 'default'
+    ? concat([line, node.stateMutability])
+    : '';
 
 const FunctionTypeName = {
   print: ({ node, path, print }) =>

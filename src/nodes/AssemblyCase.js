@@ -1,20 +1,16 @@
 const {
   doc: {
-    builders: { concat, join }
+    builders: { concat }
   }
 } = require('prettier/standalone');
 
 const AssemblyCase = {
-  print: ({ node, path, print }) => {
-    let doc;
-
-    if (node.default) {
-      doc = concat(['default']);
-    } else {
-      doc = concat(['case ', path.call(print, 'value')]);
-    }
-    return join(' ', [doc, path.call(print, 'block')]);
-  }
+  print: ({ node, path, print }) =>
+    concat([
+      node.default ? 'default' : concat(['case ', path.call(print, 'value')]),
+      ' ',
+      path.call(print, 'block')
+    ])
 };
 
 module.exports = AssemblyCase;
