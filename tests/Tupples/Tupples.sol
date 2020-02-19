@@ -1,9 +1,9 @@
 pragma solidity ^0.5.0;
 
 contract demo {
-    function hello() public view returns(bool,bool) {}    
+    function hello() public view returns(bool,bool) {}
     function hello2() public view returns(bool) {}
-    function hello3() public view returns(bool,bool,bool) {}   
+    function hello3() public view returns(bool,bool,bool) {}
 
 }
 
@@ -15,5 +15,11 @@ contract Tupples {
         (, yo) = demo(_yo).hello();
         (yo, , yo) = demo(_yo).hello3();
         (yo, yo) = demo(_yo).hello();
+        (string memory holderId,
+string memory containerId,
+string memory parentContainerId,
+bytes32 volumeId,
+bytes32 subUnitId,
+bytes32 requestId) = getParamsById(paramsId);
     }
 }
