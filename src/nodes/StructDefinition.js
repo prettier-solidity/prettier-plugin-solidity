@@ -13,9 +13,10 @@ const StructDefinition = {
       node.name,
       ' {',
       printList(
-        path.map(print, 'members').map(element => concat([element, ';'])),
+        path.map(print, 'members'),
         hardline,
-        hardline
+        concat([';', hardline]),
+        concat([';', hardline])
       ),
       '}'
     ])
