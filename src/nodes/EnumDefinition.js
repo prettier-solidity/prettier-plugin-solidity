@@ -1,8 +1,10 @@
 const {
   doc: {
-    builders: { concat, group, indent, join, line, softline }
+    builders: { concat, group, line, softline }
   }
 } = require('prettier/standalone');
+
+const printList = require('./print-list');
 
 const EnumDefinition = {
   print: ({ node, path, print, options }) =>
@@ -11,13 +13,10 @@ const EnumDefinition = {
         'enum ',
         node.name,
         ' {',
-        indent(
-          concat([
-            options.bracketSpacing ? line : softline,
-            join(concat([',', line]), path.map(print, 'members'))
-          ])
+        printList(
+          path.map(print, 'members'),
+          options.bracketSpacing ? line : softline
         ),
-        options.bracketSpacing ? line : softline,
         '}'
       ])
     )

@@ -1,8 +1,10 @@
 const {
   doc: {
-    builders: { concat, hardline, indent, join, line }
+    builders: { concat, hardline }
   }
 } = require('prettier/standalone');
+
+const printList = require('./print-list');
 
 const StructDefinition = {
   print: ({ node, path, print }) =>
@@ -10,14 +12,11 @@ const StructDefinition = {
       'struct ',
       node.name,
       ' {',
-      indent(line),
-      indent(
-        join(
-          hardline,
-          path.map(print, 'members').map(element => concat([element, ';']))
-        )
+      printList(
+        path.map(print, 'members').map(element => concat([element, ';'])),
+        hardline,
+        hardline
       ),
-      hardline,
       '}'
     ])
 };

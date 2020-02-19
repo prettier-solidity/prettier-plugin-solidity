@@ -1,25 +1,15 @@
 const {
   doc: {
-    builders: { concat, group, indent, join, line, softline }
+    builders: { concat }
   }
 } = require('prettier/standalone');
 
-const parameters = (node, path, print) => {
-  if (node.parameters && node.parameters.length > 0) {
-    return group(
-      concat([
-        indent(
-          concat([
-            softline,
-            join(concat([',', line]), path.map(print, 'parameters'))
-          ])
-        ),
-        softline
-      ])
-    );
-  }
-  return '';
-};
+const printList = require('./print-list');
+
+const parameters = (node, path, print) =>
+  node.parameters && node.parameters.length > 0
+    ? printList(path.map(print, 'parameters'))
+    : '';
 
 const EventDefinition = {
   print: ({ node, path, print }) =>
