@@ -52,4 +52,26 @@ contract FeedConsumer {
              errorCount++;
              return (0, false);
            } }
+
+           function rate3(address token) public returns (uint value, bool success) {
+              // Permanently disable the mechanism if there are
+              // more than 10 errors.
+              require(errorCount < 10);
+              try    feed.getData(token)   {
+                    return (v, true);
+              } catch
+              Error(string memory /*reason*/)
+                {
+                  // This is executed in case
+                  // revert was called inside getData
+                  // and a reason string was provided.
+                  errorCount++;
+                  return (0, false);
+              }      catch {
+                  // This is executed in case revert() was used
+                  // or there was a failing assertion, division
+                  // by zero, etc. inside getData.
+                errorCount++;
+                return (0, false);
+              } }
 }
