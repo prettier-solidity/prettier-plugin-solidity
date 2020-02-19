@@ -34,6 +34,13 @@ const visibility = node => {
   return '';
 };
 
+const virtual = node => {
+  if (node.isVirtual) {
+    return concat([line, 'virtual']);
+  }
+  return '';
+};
+
 const stateMutability = node => {
   if (node.stateMutability && node.stateMutability !== 'default') {
     return concat([line, node.stateMutability]);
@@ -81,6 +88,7 @@ const FunctionDefinition = {
         group(
           concat([
             visibility(node),
+            virtual(node),
             stateMutability(node),
             modifiers(node, path, print),
             returnParameters(node, path, print),

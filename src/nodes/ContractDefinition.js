@@ -36,7 +36,7 @@ const ContractDefinition = {
     concat([
       group(
         concat([
-          node.kind,
+          node.kind === 'abstract' ? 'abstract contract' : node.kind,
           ' ',
           node.name,
           inheritance(node, path, print),
