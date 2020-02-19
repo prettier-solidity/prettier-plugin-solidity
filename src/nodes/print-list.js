@@ -6,13 +6,14 @@ const {
 
 const printList = (
   list,
-  edgeSeparator = softline,
-  separator = concat([',', line])
+  firstSeparator = softline,
+  separator = concat([',', line]),
+  lastSeparator = firstSeparator
 ) =>
   group(
     concat([
-      indent(concat([edgeSeparator, join(separator, list)])),
-      edgeSeparator
+      indent(concat([firstSeparator, join(separator, list)])),
+      lastSeparator
     ])
   );
 

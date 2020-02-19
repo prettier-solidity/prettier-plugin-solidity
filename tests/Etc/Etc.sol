@@ -9,6 +9,7 @@ pragma solidity ^0.4.24;
 contract Contract {
   struct StructWithFunctionTypes {
     function (uint, uint) returns(bool)a;
+    function (uint, uint) returns(bool,bytes32, bytes32, bytes32, bytes32, bytes32, bytes32, bytes32)a;
     function(bytes32, bytes32)   internal view[]  b;
     function  (bytes32, bytes32)internal[]   c;
     function(bytes32, bytes32, bytes32, bytes32, bytes32, bytes32)   internal view[]  d;

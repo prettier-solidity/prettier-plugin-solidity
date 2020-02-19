@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, indent, join, line }
+    builders: { concat, group, indent, line }
   }
 } = require('prettier/standalone');
 
@@ -11,7 +11,7 @@ const returnTypes = (node, path, print) => {
     return concat([
       line,
       'returns (',
-      join(', ', path.map(print, 'returnTypes')),
+      printList(path.map(print, 'returnTypes')),
       ')'
     ]);
   }
