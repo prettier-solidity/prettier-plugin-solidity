@@ -5,18 +5,16 @@ const {
 } = require('prettier/standalone');
 
 const UsingForDeclaration = {
-  print: ({ node, path, print }) => {
-    if (node.typeName) {
-      return concat([
-        'using ',
-        node.libraryName,
-        ' for ',
-        path.call(print, 'typeName'),
-        ';'
-      ]);
-    }
-    return concat(['using ', node.libraryName, ' for *;']);
-  }
+  print: ({ node, path, print }) =>
+    node.typeName
+      ? concat([
+          'using ',
+          node.libraryName,
+          ' for ',
+          path.call(print, 'typeName'),
+          ';'
+        ])
+      : concat(['using ', node.libraryName, ' for *;'])
 };
 
 module.exports = UsingForDeclaration;
