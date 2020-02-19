@@ -77,9 +77,8 @@ contract WhileStatements {
         do a++; while (a < 100);
 
         do
-            a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(
-                LONG_VARIABLE
-            ); while (a < 200);
+            a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(LONG_VARIABLE);
+        while (a < 200);
 
         do {
             a++;
