@@ -73,4 +73,31 @@ for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
 			}
   		}
   }
+
+  function assemblyFunctionLongReturnParameters() {
+		assembly {
+			function sum  (a, b, c, d, e)
+      -> thisIs, aFunctionWithVery, veryLongParameterNames, andItAlsoHasALotOfParameters, soItShouldBeSplitInMultipleLines {
+        thisIs := 0
+        aFunctionWithVery := 0
+        veryLongParameterNames := 0
+        andItAlsoHasALotOfParameters := 0
+        soItShouldBeSplitInMultipleLines := 0
+			}
+  		}
+  }
+
+
+    function assemblyFunctionLongParametersAndReturnParameters() {
+  		assembly {
+  			function sum  (a,veryLong, listof, parameters, thatShould,splitForSure)
+        -> thisIs, aFunctionWithVery, veryLongParameterNames, andItAlsoHasALotOfParameters, soItShouldBeSplitInMultipleLines {
+          thisIs := 0
+          aFunctionWithVery := 0
+          veryLongParameterNames := 0
+          andItAlsoHasALotOfParameters := 0
+          soItShouldBeSplitInMultipleLines := 0
+  			}
+    		}
+    }
 }

@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, join }
+    builders: { concat, group, indent, line }
   }
 } = require('prettier/standalone');
 
@@ -14,9 +14,23 @@ const AssemblyFunctionDefinition = {
       '(',
       printList(path.map(print, 'arguments')),
       ')',
-      ' -> ',
-      join(', ', path.map(print, 'returnArguments')),
-      ' ',
+      group(
+        concat([
+          indent(
+            concat([
+              line,
+              '->',
+              printList(
+                path.map(print, 'returnArguments'),
+                line,
+                concat([',', line]),
+                ''
+              )
+            ])
+          ),
+          line
+        ])
+      ),
       path.call(print, 'body')
     ])
 };
