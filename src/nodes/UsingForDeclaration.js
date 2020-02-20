@@ -6,15 +6,13 @@ const {
 
 const UsingForDeclaration = {
   print: ({ node, path, print }) =>
-    node.typeName
-      ? concat([
-          'using ',
-          node.libraryName,
-          ' for ',
-          path.call(print, 'typeName'),
-          ';'
-        ])
-      : concat(['using ', node.libraryName, ' for *;'])
+    concat([
+      'using ',
+      node.libraryName,
+      ' for ',
+      node.typeName ? path.call(print, 'typeName') : '*',
+      ';'
+    ])
 };
 
 module.exports = UsingForDeclaration;
