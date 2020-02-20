@@ -10,7 +10,7 @@ const AssemblyLocalDefinition = {
   print: ({ path, print }) =>
     concat([
       'let',
-      printList(path.map(print, 'names'), line),
+      printList(path.map(print, 'names'), { firstSeparator: line }),
       ':= ',
       path.call(print, 'expression')
     ])

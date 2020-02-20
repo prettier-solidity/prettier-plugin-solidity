@@ -20,12 +20,10 @@ const AssemblyFunctionDefinition = {
             concat([
               line,
               '->',
-              printList(
-                path.map(print, 'returnArguments'),
-                line,
-                concat([',', line]),
-                ''
-              )
+              printList(path.map(print, 'returnArguments'), {
+                firstSeparator: line,
+                lastSeparator: ''
+              })
             ])
           ),
           line

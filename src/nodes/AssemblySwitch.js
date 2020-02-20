@@ -11,7 +11,11 @@ const AssemblySwitch = {
     concat([
       'switch ',
       path.call(print, 'expression'),
-      printList(path.map(print, 'cases'), hardline, hardline, '')
+      printList(path.map(print, 'cases'), {
+        firstSeparator: hardline,
+        separator: hardline,
+        lastSeparator: ''
+      })
     ])
 };
 

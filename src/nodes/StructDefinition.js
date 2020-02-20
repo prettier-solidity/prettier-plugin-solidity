@@ -12,12 +12,11 @@ const StructDefinition = {
       'struct ',
       node.name,
       ' {',
-      printList(
-        path.map(print, 'members'),
-        hardline,
-        concat([';', hardline]),
-        concat([';', hardline])
-      ),
+      printList(path.map(print, 'members'), {
+        firstSeparator: hardline,
+        separator: concat([';', hardline]),
+        lastSeparator: concat([';', hardline])
+      }),
       '}'
     ])
 };

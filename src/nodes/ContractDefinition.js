@@ -9,7 +9,10 @@ const printPreservingEmptyLines = require('./print-preserving-empty-lines');
 
 const inheritance = (node, path, print) =>
   node.baseContracts.length > 0
-    ? concat([' is', printList(path.map(print, 'baseContracts'), line)])
+    ? concat([
+        ' is',
+        printList(path.map(print, 'baseContracts'), { firstSeparator: line })
+      ])
     : line;
 
 const body = (node, path, options, print) =>

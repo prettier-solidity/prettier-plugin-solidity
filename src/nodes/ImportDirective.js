@@ -17,7 +17,7 @@ const ImportDirective = {
         '{',
         printList(
           node.symbolAliases.map(([a, b]) => (b ? `${a} as ${b}` : a)),
-          options.bracketSpacing ? line : softline
+          { firstSeparator: options.bracketSpacing ? line : softline }
         ),
         '} from ',
         doc

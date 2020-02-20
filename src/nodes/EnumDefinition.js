@@ -13,10 +13,9 @@ const EnumDefinition = {
         'enum ',
         node.name,
         ' {',
-        printList(
-          path.map(print, 'members'),
-          options.bracketSpacing ? line : softline
-        ),
+        printList(path.map(print, 'members'), {
+          firstSeparator: options.bracketSpacing ? line : softline
+        }),
         '}'
       ])
     )

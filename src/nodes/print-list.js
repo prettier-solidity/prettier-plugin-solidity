@@ -6,9 +6,11 @@ const {
 
 const printList = (
   list,
-  firstSeparator = softline,
-  separator = concat([',', line]),
-  lastSeparator = firstSeparator
+  {
+    firstSeparator = softline,
+    separator = concat([',', line]),
+    lastSeparator = firstSeparator
+  } = {}
 ) =>
   group(
     concat([

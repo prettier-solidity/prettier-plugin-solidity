@@ -14,7 +14,7 @@ const printObject = (node, path, print, options) =>
         path
           .map(print, 'arguments')
           .map((arg, index) => concat([node.names[index], ': ', arg])),
-        options.bracketSpacing ? line : softline
+        { firstSeparator: options.bracketSpacing ? line : softline }
       ),
       '}'
     ])
