@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, indent, join, line }
+    builders: { concat, join, line }
   }
 } = require('prettier/standalone');
 
@@ -14,14 +14,11 @@ const returnParameters = (node, path, print) =>
 const TryStatement = {
   print: ({ node, path, print }) =>
     concat([
-      group(
-        concat([
-          'try',
-          indent(concat([line, path.call(print, 'expression')])),
-          line,
-          returnParameters(node, path, print)
-        ])
-      ),
+      'try',
+      printList([path.call(print, 'expression')], {
+        firstSeparator: line
+      }),
+      returnParameters(node, path, print),
       ' ',
       path.call(print, 'body'),
       ' ',

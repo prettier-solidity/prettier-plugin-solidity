@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group }
+    builders: { concat }
   }
 } = require('prettier/standalone');
 
@@ -18,13 +18,7 @@ const parameters = (node, path, print) =>
 
 const CatchClause = {
   print: ({ node, path, print }) =>
-    group(
-      concat([
-        'catch ',
-        parameters(node, path, print),
-        path.call(print, 'body')
-      ])
-    )
+    concat(['catch ', parameters(node, path, print), path.call(print, 'body')])
 };
 
 module.exports = CatchClause;

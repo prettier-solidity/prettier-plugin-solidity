@@ -1,8 +1,10 @@
 const {
   doc: {
-    builders: { concat, group, indent, line, softline }
+    builders: { concat, group, indent, line }
   }
 } = require('prettier/standalone');
+
+const printList = require('./print-list');
 
 const printBody = (node, path, print) =>
   node.body.type === 'Block'
@@ -15,12 +17,7 @@ const DoWhileStatement = {
       'do',
       printBody(node, path, print),
       'while (',
-      group(
-        concat([
-          indent(concat([softline, path.call(print, 'condition')])),
-          softline
-        ])
-      ),
+      printList([path.call(print, 'condition')]),
       ');'
     ])
 };
