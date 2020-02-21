@@ -11,10 +11,9 @@ const contents = (node, path, print) =>
   node.components.length === 1 &&
   node.components[0].type === 'BinaryOperation'
     ? path.map(print, 'components')
-    : [printList(path.map(print, node.components ? 'components' : 'elements'))];
+    : [printList(path.map(print, 'components'))];
 
 const TupleExpression = {
-  // @TODO: remove hack once solidity-parser-antlr is fixed
   print: ({ node, path, print }) =>
     group(
       concat([
