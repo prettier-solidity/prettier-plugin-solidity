@@ -22,7 +22,8 @@ contract Comments3 is Interface1, Interface2, Interface3, Interface4, Interface5
 
   function someFunction() {
 
-  }
+  }/*1*//*2
+  */
 }
 
 contract Comments4 is Interface1, Interface2, Interface3, Interface4, Interface5, Interface6 {

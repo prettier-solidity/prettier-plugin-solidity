@@ -17,7 +17,7 @@ const inheritance = (node, path, print) =>
     : line;
 
 const body = (node, path, options, print) =>
-  node.subNodes.length > 0
+  node.subNodes.length > 0 || node.comments
     ? concat([
         indent(
           concat([

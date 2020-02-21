@@ -1,33 +1,10 @@
 const {
   doc: {
-    builders: { concat, join, line }
+    builders: { join, line }
   }
 } = require('prettier');
 
-const printComments = (node, path, options) => {
-  const parts = [];
-  if (node.comments) {
-    let first = true;
-    path.each(commentPath => {
-      const comment = commentPath.getValue();
-      if (comment.trailing || comment.leading) {
-        return;
-      }
-
-      if (first) {
-        first = false;
-      } else {
-        parts.push(line);
-      }
-
-      comment.printed = true;
-      parts.push(options.printer.printComment(commentPath, options));
-    }, 'comments');
-  }
-  return concat(parts);
-};
-
-const printCommentsNew = (node, path, options) =>
+const printComments = (node, path, options) =>
   node.comments
     ? join(
         line,
