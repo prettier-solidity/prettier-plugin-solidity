@@ -21,9 +21,7 @@ function parse(text, parsers, options) {
       if (ctx.initExpression) {
         ctx.initExpression.omitSemicolon = true;
       }
-      if (ctx.loopExpression) {
-        ctx.loopExpression.omitSemicolon = true;
-      }
+      ctx.loopExpression.omitSemicolon = true;
     },
     HexLiteral(ctx) {
       ctx.value = options.singleQuote
