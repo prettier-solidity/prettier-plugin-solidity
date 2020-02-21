@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedItem = require('./print-separated-item');
 
 const printBody = (node, path, print) =>
   node.body.type === 'Block'
@@ -14,9 +14,13 @@ const printBody = (node, path, print) =>
 const WhileStatement = {
   print: ({ node, path, print }) =>
     concat([
-      'while (',
-      printList([path.call(print, 'condition')]),
-      ')',
+      group(
+        concat([
+          'while (',
+          printSeparatedItem(path.call(print, 'condition')),
+          ')'
+        ])
+      ),
       printBody(node, path, print)
     ])
 };

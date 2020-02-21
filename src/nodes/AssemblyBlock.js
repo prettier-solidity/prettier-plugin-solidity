@@ -1,18 +1,20 @@
 const {
   doc: {
-    builders: { concat, hardline, indent }
+    builders: { concat, hardline }
   }
 } = require('prettier/standalone');
 
+const printSeparatedItem = require('./print-separated-item');
 const printPreservingEmptyLines = require('./print-preserving-empty-lines');
 
 const AssemblyBlock = {
   print: ({ options, path, print }) =>
     concat([
       '{',
-      indent(hardline),
-      indent(printPreservingEmptyLines(path, 'operations', options, print)),
-      hardline,
+      printSeparatedItem(
+        printPreservingEmptyLines(path, 'operations', options, print),
+        { firstSeparator: hardline }
+      ),
       '}'
     ])
 };

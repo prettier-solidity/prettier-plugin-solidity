@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = (
+const printSeparatedList = (
   list,
   {
     firstSeparator = softline,
@@ -19,4 +19,4 @@ const printList = (
     ])
   );
 
-module.exports = printList;
+module.exports = printSeparatedList;

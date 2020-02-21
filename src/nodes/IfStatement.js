@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedItem = require('./print-separated-item');
 
 const printTrueBody = (node, path, print) => {
   if (node.trueBody.type === 'Block') {
@@ -37,9 +37,9 @@ const printElse = (node, path, print) => {
 const IfStatement = {
   print: ({ node, path, print }) =>
     concat([
-      'if (',
-      printList([path.call(print, 'condition')]),
-      ')',
+      group(
+        concat(['if (', printSeparatedItem(path.call(print, 'condition')), ')'])
+      ),
       printTrueBody(node, path, print),
       printElse(node, path, print)
     ])

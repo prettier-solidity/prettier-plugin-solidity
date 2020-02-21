@@ -4,13 +4,13 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const AssemblyLocalDefinition = {
   print: ({ path, print }) =>
     concat([
       'let',
-      printList(path.map(print, 'names'), { firstSeparator: line }),
+      printSeparatedList(path.map(print, 'names'), { firstSeparator: line }),
       ':= ',
       path.call(print, 'expression')
     ])

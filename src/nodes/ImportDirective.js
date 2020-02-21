@@ -3,7 +3,8 @@ const {
     builders: { concat, group, line, softline }
   }
 } = require('prettier/standalone');
-const printList = require('./print-list');
+
+const printSeparatedList = require('./print-separated-list');
 const { printString } = require('../prettier-comments/common/util');
 
 const ImportDirective = {
@@ -15,7 +16,7 @@ const ImportDirective = {
     } else if (node.symbolAliases) {
       doc = concat([
         '{',
-        printList(
+        printSeparatedList(
           node.symbolAliases.map(([a, b]) => (b ? `${a} as ${b}` : a)),
           { firstSeparator: options.bracketSpacing ? line : softline }
         ),

@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const embraceVariables = (doc, embrace) =>
   embrace ? concat(['(', doc, ')']) : doc;
@@ -20,7 +20,7 @@ const VariableDeclarationStatement = {
     return concat([
       startsWithVar ? 'var ' : '',
       embraceVariables(
-        printList(path.map(print, 'variables')),
+        printSeparatedList(path.map(print, 'variables')),
         node.variables.length > 1 || startsWithVar
       ),
       initialValue(node, path, print),

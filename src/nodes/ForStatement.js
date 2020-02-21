@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const initExpression = (node, path, print) =>
   node.initExpression ? path.call(print, 'initExpression') : '';
@@ -24,7 +24,7 @@ const ForStatement = {
   print: ({ node, path, print }) =>
     concat([
       'for (',
-      printList(
+      printSeparatedList(
         [
           initExpression(node, path, print),
           conditionExpression(node, path, print),

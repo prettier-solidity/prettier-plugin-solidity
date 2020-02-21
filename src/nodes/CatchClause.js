@@ -4,14 +4,14 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const parameters = (node, path, print) =>
   node.parameters
     ? concat([
         node.isReasonStringType ? 'Error' : '',
         '(',
-        printList(path.map(print, 'parameters')),
+        printSeparatedList(path.map(print, 'parameters')),
         ') '
       ])
     : '';

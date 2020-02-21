@@ -4,14 +4,14 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const returnTypes = (node, path, print) =>
   node.returnTypes.length > 0
     ? concat([
         line,
         'returns (',
-        printList(path.map(print, 'returnTypes')),
+        printSeparatedList(path.map(print, 'returnTypes')),
         ')'
       ])
     : '';
@@ -30,7 +30,7 @@ const FunctionTypeName = {
   print: ({ node, path, print }) =>
     concat([
       'function(',
-      printList(path.map(print, 'parameterTypes')),
+      printSeparatedList(path.map(print, 'parameterTypes')),
       ')',
       indent(
         group(

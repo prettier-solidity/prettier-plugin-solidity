@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const AssemblyCall = {
   print: ({ node, path, print, options }) =>
@@ -14,7 +14,7 @@ const AssemblyCall = {
       : concat([
           node.functionName,
           '(',
-          printList(path.map(print, 'arguments')),
+          printSeparatedList(path.map(print, 'arguments')),
           ')'
         ])
 };
