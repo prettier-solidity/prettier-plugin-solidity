@@ -4,21 +4,16 @@ const {
   }
 } = require('prettier/standalone');
 
+const initialValue = (node, path, print) =>
+  node.initialValue ? concat([' = ', path.call(print, 'initialValue')]) : '';
+
 const StateVariableDeclaration = {
-  print: ({ node, path, print }) => {
-    let doc = concat(
-      path.map(statementPath => {
-        if (!statementPath.getValue()) {
-          return ', ';
-        }
-        return print(statementPath);
-      }, 'variables')
-    );
-    if (node.initialValue) {
-      doc = concat([doc, ' = ', path.call(print, 'initialValue')]);
-    }
-    return concat([doc, ';']);
-  }
+  print: ({ node, path, print }) =>
+    concat([
+      ...path.map(print, 'variables'),
+      initialValue(node, path, print),
+      ';'
+    ])
 };
 
 module.exports = StateVariableDeclaration;

@@ -6,15 +6,22 @@ const {
 
 const printList = require('./print-list');
 
+const parameters = (node, path, print) =>
+  node.parameters
+    ? concat([
+        node.isReasonStringType ? 'Error' : '',
+        '(',
+        printList(path.map(print, 'parameters')),
+        ') '
+      ])
+    : '';
+
 const CatchClause = {
   print: ({ node, path, print }) => {
     return group(
       concat([
         'catch ',
-        node.isReasonStringType ? 'Error' : '',
-        '(',
-        printList(path.map(print, 'parameters')),
-        ') ',
+        parameters(node, path, print),
         path.call(print, 'body')
       ])
     );
