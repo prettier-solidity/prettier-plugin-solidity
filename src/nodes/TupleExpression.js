@@ -1,30 +1,17 @@
 const {
   doc: {
-    builders: { concat, group, indent, join, line, softline }
+    builders: { concat, group }
   }
 } = require('prettier/standalone');
 
-const contents = (node, path, print) => {
-  if (
-    node.components &&
-    node.components.length === 1 &&
-    node.components[0].type === 'BinaryOperation'
-  ) {
-    return path.map(print, 'components');
-  }
-  return [
-    indent(
-      concat([
-        softline,
-        join(
-          concat([',', line]),
-          path.map(print, node.components ? 'components' : 'elements')
-        )
-      ])
-    ),
-    softline
-  ];
-};
+const printList = require('./print-list');
+
+const contents = (node, path, print) =>
+  node.components &&
+  node.components.length === 1 &&
+  node.components[0].type === 'BinaryOperation'
+    ? path.map(print, 'components')
+    : [printList(path.map(print, node.components ? 'components' : 'elements'))];
 
 const TupleExpression = {
   // @TODO: remove hack once solidity-parser-antlr is fixed

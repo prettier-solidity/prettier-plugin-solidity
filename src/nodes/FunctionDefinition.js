@@ -1,8 +1,10 @@
 const {
   doc: {
-    builders: { concat, dedent, group, indent, join, line, softline }
+    builders: { concat, dedent, group, indent, join, line }
   }
 } = require('prettier/standalone');
+
+const printList = require('./print-list');
 
 const functionName = node => {
   if (node.isConstructor && !node.name) return 'constructor';
@@ -10,22 +12,10 @@ const functionName = node => {
   return 'function';
 };
 
-const parameters = (parametersType, node, path, print) => {
-  if (node[parametersType] && node[parametersType].length > 0) {
-    return group(
-      concat([
-        indent(
-          concat([
-            softline,
-            join(concat([',', line]), path.map(print, parametersType))
-          ])
-        ),
-        softline
-      ])
-    );
-  }
-  return '';
-};
+const parameters = (parametersType, node, path, print) =>
+  node[parametersType] && node[parametersType].length > 0
+    ? printList(path.map(print, parametersType))
+    : '';
 
 const visibility = node => {
   if (node.visibility && node.visibility !== 'default') {

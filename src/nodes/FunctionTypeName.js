@@ -1,28 +1,17 @@
 const {
   doc: {
-    builders: { concat, group, indent, join, line, softline }
+    builders: { concat, group, indent, line }
   }
 } = require('prettier/standalone');
 
-const parameterTypes = (node, path, print) =>
-  group(
-    concat([
-      indent(
-        concat([
-          softline,
-          join(concat([',', line]), path.map(print, 'parameterTypes'))
-        ])
-      ),
-      softline
-    ])
-  );
+const printList = require('./print-list');
 
 const returnTypes = (node, path, print) => {
   if (node.returnTypes.length > 0) {
     return concat([
       line,
       'returns (',
-      join(', ', path.map(print, 'returnTypes')),
+      printList(path.map(print, 'returnTypes')),
       ')'
     ]);
   }
@@ -47,7 +36,7 @@ const FunctionTypeName = {
   print: ({ node, path, print }) =>
     concat([
       'function(',
-      parameterTypes(node, path, print),
+      printList(path.map(print, 'parameterTypes')),
       ')',
       indent(
         group(

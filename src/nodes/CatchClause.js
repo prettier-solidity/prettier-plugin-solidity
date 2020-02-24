@@ -1,8 +1,10 @@
 const {
   doc: {
-    builders: { concat, group, join, indent, line, softline }
+    builders: { concat, group }
   }
 } = require('prettier/standalone');
+
+const printList = require('./print-list');
 
 const CatchClause = {
   print: ({ node, path, print }) => {
@@ -11,17 +13,7 @@ const CatchClause = {
         'catch ',
         node.isReasonStringType ? 'Error' : '',
         '(',
-        group(
-          concat([
-            indent(
-              concat([
-                softline,
-                join(concat([',', line]), path.map(print, 'parameters'))
-              ])
-            ),
-            softline
-          ])
-        ),
+        printList(path.map(print, 'parameters')),
         ') ',
         path.call(print, 'body')
       ])

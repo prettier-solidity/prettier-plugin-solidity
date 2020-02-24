@@ -1,28 +1,15 @@
 const {
   doc: {
-    builders: { concat, group, indent, join, line, softline }
+    builders: { concat, group }
   }
 } = require('prettier/standalone');
 
-const printArguments = (node, path, print) => {
-  if (node.arguments && node.arguments.length) {
-    return group(
-      concat([
-        '(',
-        indent(
-          concat([
-            softline,
-            join(concat([',', line]), path.map(print, 'arguments'))
-          ])
-        ),
-        softline,
-        ')'
-      ])
-    );
-  }
+const printList = require('./print-list');
 
-  return '';
-};
+const printArguments = (node, path, print) =>
+  node.arguments && node.arguments.length
+    ? group(concat(['(', printList(path.map(print, 'arguments')), ')']))
+    : '';
 
 const InheritanceSpecifier = {
   print: ({ node, path, print }) =>
