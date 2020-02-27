@@ -101,6 +101,12 @@ for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
     		}
     }
 
+    function assemblyNoParameterCalls() {
+        assembly {
+            call(gas(), to, value, inputData, inputDataSize, 0, 0)
+        }
+    }
+
   function assemblyLabels() {
   assembly {
     let n := calldataload(4)

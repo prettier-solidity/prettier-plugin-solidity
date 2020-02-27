@@ -12,7 +12,10 @@ function genericPrint(path, options, print) {
   }
 
   if (hasNodeIgnoreComment(node)) {
-    return options.originalText.slice(node.range[0], node.range[1] + 1);
+    return options.originalText.slice(
+      options.locStart(node),
+      options.locEnd(node) + 1
+    );
   }
 
   return nodes[node.type].print({ node, options, path, print });
