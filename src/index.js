@@ -1,4 +1,6 @@
-const { handleComments } = require('./prettier-comments');
+// const { handleComments } = require('./prettier-comments');
+// const printComment = require('./comments/printer');
+const { handleComments, printComment } = require('./comments');
 
 const massageAstNode = require('./clean');
 const loc = require('./loc');
@@ -22,24 +24,8 @@ const parsers = {
   'solidity-parse': parser
 };
 
-function canAttachComment(node) {
-  return (
-    node.type && node.type !== 'BlockComment' && node.type !== 'LineComment'
-  );
-}
-
-function printComment(commentPath) {
-  const comment = commentPath.getValue();
-  switch (comment.type) {
-    case 'BlockComment': {
-      return `/*${comment.raw}*/`;
-    }
-    case 'LineComment':
-      return `//${comment.raw.trimRight()}`;
-    default:
-      throw new Error(`Not a comment: ${JSON.stringify(comment)}`);
-  }
-}
+const canAttachComment = node =>
+  node.type && node.type !== 'BlockComment' && node.type !== 'LineComment';
 
 // https://prettier.io/docs/en/plugins.html#printers
 const printers = {

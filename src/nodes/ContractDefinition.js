@@ -6,6 +6,7 @@ const {
 
 const printList = require('./print-list');
 const printPreservingEmptyLines = require('./print-preserving-empty-lines');
+const printComments = require('./print-comments');
 
 const inheritance = (node, path, print) =>
   node.baseContracts.length > 0
@@ -16,10 +17,15 @@ const inheritance = (node, path, print) =>
     : line;
 
 const body = (node, path, options, print) =>
-  node.subNodes.length > 0
+  node.subNodes.length > 0 || node.comments
     ? concat([
-        indent(line),
-        indent(printPreservingEmptyLines(path, 'subNodes', options, print)),
+        indent(
+          concat([
+            line,
+            printPreservingEmptyLines(path, 'subNodes', options, print),
+            printComments(node, path, options)
+          ])
+        ),
         line
       ])
     : '';
