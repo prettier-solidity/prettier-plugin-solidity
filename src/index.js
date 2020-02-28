@@ -1,5 +1,3 @@
-// const { handleComments } = require('./prettier-comments');
-// const printComment = require('./comments/printer');
 const { handleComments, printComment } = require('./comments');
 
 const massageAstNode = require('./clean');
@@ -19,7 +17,7 @@ const languages = [
 ];
 
 // https://prettier.io/docs/en/plugins.html#parsers
-const parser = Object.assign({}, { astFormat: 'solidity-ast', parse }, loc);
+const parser = { astFormat: 'solidity-ast', parse, ...loc};
 const parsers = {
   'solidity-parse': parser
 };

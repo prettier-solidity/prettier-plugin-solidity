@@ -2,7 +2,7 @@
   "env": {
     "jest": true
   },
-  "extends": ["airbnb", "prettier"],
+  "extends": ["airbnb-base", "prettier"],
   "globals": {
     "run_spec": false
   }
