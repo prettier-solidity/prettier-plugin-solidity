@@ -17,8 +17,7 @@ const languages = [
 ];
 
 // https://prettier.io/docs/en/plugins.html#parsers
-// eslint-disable-next-line prefer-object-spread
-const parser = Object.assign({}, { astFormat: 'solidity-ast', parse }, loc);
+const parser = { astFormat: 'solidity-ast', parse, ...loc };
 const parsers = {
   'solidity-parse': parser
 };

@@ -2,9 +2,9 @@ after_script:
   - npm run coverage
 language: node_js
 node_js:
-  - '8'
   - '10'
   - '12'
+  - '13'
 script:
   - npm run lint
   - npm test
