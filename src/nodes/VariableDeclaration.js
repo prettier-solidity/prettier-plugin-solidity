@@ -21,20 +21,17 @@ const storageLocation = node =>
 const name = node => (node.name ? concat([' ', node.name]) : '');
 
 const VariableDeclaration = {
-  print: ({ node, path, print }) => {
-    if (!node.typeName) {
-      return node.name;
-    }
-
-    return concat([
-      path.call(print, 'typeName'),
-      indexed(node),
-      visibility(node),
-      constantKeyword(node),
-      storageLocation(node),
-      name(node)
-    ]);
-  }
+  print: ({ node, path, print }) =>
+    node.typeName
+      ? concat([
+          path.call(print, 'typeName'),
+          indexed(node),
+          visibility(node),
+          constantKeyword(node),
+          storageLocation(node),
+          name(node)
+        ])
+      : node.name
 };
 
 module.exports = VariableDeclaration;

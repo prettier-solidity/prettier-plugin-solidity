@@ -1,16 +1,14 @@
 const {
   doc: {
-    builders: { join }
+    builders: { concat }
   }
 } = require('prettier/standalone');
 
 const NumberLiteral = {
-  print: ({ node }) => {
-    if (node.subdenomination) {
-      return join(' ', [node.number, node.subdenomination]);
-    }
-    return node.number;
-  }
+  print: ({ node }) =>
+    node.subdenomination
+      ? concat([node.number, ' ', node.subdenomination])
+      : node.number
 };
 
 module.exports = NumberLiteral;

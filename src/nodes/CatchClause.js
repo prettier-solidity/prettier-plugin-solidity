@@ -17,15 +17,14 @@ const parameters = (node, path, print) =>
     : '';
 
 const CatchClause = {
-  print: ({ node, path, print }) => {
-    return group(
+  print: ({ node, path, print }) =>
+    group(
       concat([
         'catch ',
         parameters(node, path, print),
         path.call(print, 'body')
       ])
-    );
-  }
+    )
 };
 
 module.exports = CatchClause;

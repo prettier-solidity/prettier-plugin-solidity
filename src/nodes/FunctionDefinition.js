@@ -17,55 +17,36 @@ const parameters = (parametersType, node, path, print) =>
     ? printList(path.map(print, parametersType))
     : '';
 
-const visibility = node => {
-  if (node.visibility && node.visibility !== 'default') {
-    return concat([line, node.visibility]);
-  }
-  return '';
-};
+const visibility = node =>
+  node.visibility && node.visibility !== 'default'
+    ? concat([line, node.visibility])
+    : '';
 
-const virtual = node => {
-  if (node.isVirtual) {
-    return concat([line, 'virtual']);
-  }
-  return '';
-};
+const virtual = node => (node.isVirtual ? concat([line, 'virtual']) : '');
 
-const stateMutability = node => {
-  if (node.stateMutability && node.stateMutability !== 'default') {
-    return concat([line, node.stateMutability]);
-  }
-  return '';
-};
+const stateMutability = node =>
+  node.stateMutability && node.stateMutability !== 'default'
+    ? concat([line, node.stateMutability])
+    : '';
 
-const modifiers = (node, path, print) => {
-  if (node.modifiers.length > 0) {
-    return concat([line, join(line, path.map(print, 'modifiers'))]);
-  }
-  return '';
-};
+const modifiers = (node, path, print) =>
+  node.modifiers.length > 0
+    ? concat([line, join(line, path.map(print, 'modifiers'))])
+    : '';
 
-const returnParameters = (node, path, print) => {
-  if (node.returnParameters) {
-    return concat([
-      line,
-      'returns (',
-      parameters('returnParameters', node, path, print),
-      ')'
-    ]);
-  }
-  return '';
-};
+const returnParameters = (node, path, print) =>
+  node.returnParameters
+    ? concat([
+        line,
+        'returns (',
+        parameters('returnParameters', node, path, print),
+        ')'
+      ])
+    : '';
 
-const signatureEnd = node => {
-  if (node.body) return dedent(line);
-  return ';';
-};
+const signatureEnd = node => (node.body ? dedent(line) : ';');
 
-const body = (node, path, print) => {
-  if (node.body) return path.call(print, 'body');
-  return '';
-};
+const body = (node, path, print) => (node.body ? path.call(print, 'body') : '');
 
 const FunctionDefinition = {
   print: ({ node, path, print }) =>

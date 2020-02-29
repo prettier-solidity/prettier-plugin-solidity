@@ -4,15 +4,10 @@ const {
   }
 } = require('prettier/standalone');
 
-const printBody = (node, path, print) => {
-  if (node.body.type === 'Block') {
-    return concat([' ', path.call(print, 'body'), ' ']);
-  }
-
-  return group(
-    concat([indent(concat([line, path.call(print, 'body')])), line])
-  );
-};
+const printBody = (node, path, print) =>
+  node.body.type === 'Block'
+    ? concat([' ', path.call(print, 'body'), ' '])
+    : group(concat([indent(concat([line, path.call(print, 'body')])), line]));
 
 const DoWhileStatement = {
   print: ({ node, path, print }) =>
