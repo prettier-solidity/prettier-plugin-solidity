@@ -12,15 +12,18 @@ const functionName = (node, options) => {
   if (node.isReceiveEther) return 'receive';
   // The parser doesn't give us any information about the keyword used for the
   // fallback.
-  // Luckily, `function` and `fallback` have 8 characters so using the
-  // originalText is the next best option.
+  // Using the originalText is the next best option.
   //
   // An neat idea would be to rely on the pragma and enforce it but for the
   // moment this will do.
-  return options.originalText.slice(
-    options.locStart(node),
-    options.locStart(node) + 8
-  );
+  if (
+    options.originalText.slice(
+      options.locStart(node),
+      options.locStart(node) + 8
+    ) === 'fallback'
+  )
+    return 'fallback';
+  return 'function';
 };
 
 const parameters = (parametersType, node, path, print) =>
