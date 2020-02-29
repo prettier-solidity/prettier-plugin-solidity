@@ -6,10 +6,21 @@ const {
 
 const printList = require('./print-list');
 
-const functionName = node => {
+const functionName = (node, options) => {
   if (node.isConstructor && !node.name) return 'constructor';
   if (node.name) return `function ${node.name}`;
-  return 'function';
+  if (node.isReceiveEther) return 'receive';
+  // The parser doesn't give us any information about the keyword used for the
+  // fallback.
+  // Using the originalText is the next best option.
+  // A neat idea would be to rely on the pragma and enforce it but for the
+  // moment this will do.
+  const names = { fallback: 'fallback', function: 'function' };
+  const name = options.originalText.slice(
+    options.locStart(node),
+    options.locStart(node) + 8
+  );
+  return names[name];
 };
 
 const parameters = (parametersType, node, path, print) =>
@@ -49,9 +60,9 @@ const signatureEnd = node => (node.body ? dedent(line) : ';');
 const body = (node, path, print) => (node.body ? path.call(print, 'body') : '');
 
 const FunctionDefinition = {
-  print: ({ node, path, print }) =>
+  print: ({ node, path, print, options }) =>
     concat([
-      functionName(node),
+      functionName(node, options),
       '(',
       parameters('parameters', node, path, print),
       ')',

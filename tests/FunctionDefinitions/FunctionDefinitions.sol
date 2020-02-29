@@ -37,6 +37,13 @@ interface FunctionInterfaces {
 }
 
 contract FunctionDefinitions {
+  function () external {}
+  fallback () external {}
+
+  function () external payable {}
+  fallback () external payable {}
+  receive () external payable {}
+
   function noParamsNoModifiersNoReturns() {
     a = 1;
   }
