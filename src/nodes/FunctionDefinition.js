@@ -13,17 +13,14 @@ const functionName = (node, options) => {
   // The parser doesn't give us any information about the keyword used for the
   // fallback.
   // Using the originalText is the next best option.
-  //
-  // An neat idea would be to rely on the pragma and enforce it but for the
+  // A neat idea would be to rely on the pragma and enforce it but for the
   // moment this will do.
-  if (
-    options.originalText.slice(
-      options.locStart(node),
-      options.locStart(node) + 8
-    ) === 'fallback'
-  )
-    return 'fallback';
-  return 'function';
+  const names = { fallback: 'fallback', function: 'function' };
+  const name = options.originalText.slice(
+    options.locStart(node),
+    options.locStart(node) + 8
+  );
+  return names[name];
 };
 
 const parameters = (parametersType, node, path, print) =>
