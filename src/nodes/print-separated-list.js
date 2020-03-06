@@ -9,7 +9,7 @@ const {
 // the list itself will be printed with a separator that in most cases is a
 // comma (,) and a `line`
 //
-// NOTE: the resulting `doc` in wrapped in a `group` because multiple items
+// NOTE: the resulting `doc` is wrapped in a `group` because multiple items
 // are usually their own structure.
 const printSeparatedList = (
   list,
