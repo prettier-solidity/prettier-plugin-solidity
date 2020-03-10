@@ -4,14 +4,14 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const AssemblySwitch = {
   print: ({ path, print }) =>
     concat([
       'switch ',
       path.call(print, 'expression'),
-      printList(path.map(print, 'cases'), {
+      printSeparatedList(path.map(print, 'cases'), {
         firstSeparator: hardline,
         separator: hardline,
         lastSeparator: ''

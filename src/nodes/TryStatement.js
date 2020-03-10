@@ -1,27 +1,31 @@
 const {
   doc: {
-    builders: { concat, group, indent, join, line }
+    builders: { concat, group, join, line }
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedItem = require('./print-separated-item');
+const printSeparatedList = require('./print-separated-list');
 
 const returnParameters = (node, path, print) =>
   node.returnParameters
-    ? concat(['returns (', printList(path.map(print, 'returnParameters')), ')'])
+    ? concat([
+        'returns (',
+        printSeparatedList(path.map(print, 'returnParameters')),
+        ')'
+      ])
     : '';
 
 const TryStatement = {
   print: ({ node, path, print }) =>
     concat([
+      'try',
       group(
-        concat([
-          'try',
-          indent(concat([line, path.call(print, 'expression')])),
-          line,
-          returnParameters(node, path, print)
-        ])
+        printSeparatedItem(path.call(print, 'expression'), {
+          firstSeparator: line
+        })
       ),
+      returnParameters(node, path, print),
       ' ',
       path.call(print, 'body'),
       ' ',

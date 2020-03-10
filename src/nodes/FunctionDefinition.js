@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const functionName = (node, options) => {
   if (node.isConstructor && !node.name) return 'constructor';
@@ -25,7 +25,7 @@ const functionName = (node, options) => {
 
 const parameters = (parametersType, node, path, print) =>
   node[parametersType] && node[parametersType].length > 0
-    ? printList(path.map(print, parametersType))
+    ? printSeparatedList(path.map(print, parametersType))
     : '';
 
 const visibility = node =>

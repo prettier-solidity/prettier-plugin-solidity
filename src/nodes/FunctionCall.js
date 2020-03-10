@@ -4,13 +4,13 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const printObject = (node, path, print, options) =>
   group(
     concat([
       '{',
-      printList(
+      printSeparatedList(
         path
           .map(print, 'arguments')
           .map((arg, index) => concat([node.names[index], ': ', arg])),
@@ -25,7 +25,7 @@ const printArguments = (node, path, print, options) => {
     return printObject(node, path, print, options);
   }
   if (node.arguments && node.arguments.length > 0) {
-    return printList(path.map(print, 'arguments'));
+    return printSeparatedList(path.map(print, 'arguments'));
   }
   return '';
 };

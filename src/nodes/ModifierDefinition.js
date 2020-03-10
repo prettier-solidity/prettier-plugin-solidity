@@ -1,15 +1,15 @@
 const {
   doc: {
-    builders: { concat, group }
+    builders: { concat }
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const modifierParameters = (node, path, print) => {
   if (node.parameters) {
     return node.parameters.length > 0
-      ? group(concat(['(', printList(path.map(print, 'parameters')), ')']))
+      ? concat(['(', printSeparatedList(path.map(print, 'parameters')), ')'])
       : '()';
   }
 

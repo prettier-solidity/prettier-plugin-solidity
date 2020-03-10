@@ -1,10 +1,11 @@
 const {
   doc: {
-    builders: { concat, group, indent, line }
+    builders: { concat, group, line, hardline }
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedItem = require('./print-separated-item');
+const printSeparatedList = require('./print-separated-list');
 const printPreservingEmptyLines = require('./print-preserving-empty-lines');
 const printComments = require('./print-comments');
 
@@ -12,22 +13,21 @@ const inheritance = (node, path, print) =>
   node.baseContracts.length > 0
     ? concat([
         ' is',
-        printList(path.map(print, 'baseContracts'), { firstSeparator: line })
+        printSeparatedList(path.map(print, 'baseContracts'), {
+          firstSeparator: line
+        })
       ])
     : line;
 
 const body = (node, path, options, print) =>
   node.subNodes.length > 0 || node.comments
-    ? concat([
-        indent(
-          concat([
-            line,
-            printPreservingEmptyLines(path, 'subNodes', options, print),
-            printComments(node, path, options)
-          ])
-        ),
-        line
-      ])
+    ? printSeparatedItem(
+        concat([
+          printPreservingEmptyLines(path, 'subNodes', options, print),
+          printComments(node, path, options)
+        ]),
+        { firstSeparator: hardline }
+      )
     : '';
 
 const ContractDefinition = {

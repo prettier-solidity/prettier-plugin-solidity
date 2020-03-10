@@ -1,8 +1,10 @@
 const {
   doc: {
-    builders: { concat, group, hardline, indent, line, softline }
+    builders: { concat, group, hardline, indent, line }
   }
 } = require('prettier/standalone');
+
+const printSeparatedItem = require('./print-separated-item');
 
 const printTrueBody = (node, path, print) => {
   if (node.trueBody.type === 'Block') {
@@ -36,12 +38,7 @@ const IfStatement = {
   print: ({ node, path, print }) =>
     concat([
       group(
-        concat([
-          'if (',
-          indent(concat([softline, path.call(print, 'condition')])),
-          softline,
-          ')'
-        ])
+        concat(['if (', printSeparatedItem(path.call(print, 'condition')), ')'])
       ),
       printTrueBody(node, path, print),
       printElse(node, path, print)

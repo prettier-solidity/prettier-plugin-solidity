@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const StructDefinition = {
   print: ({ node, path, print }) =>
@@ -12,7 +12,7 @@ const StructDefinition = {
       'struct ',
       node.name,
       ' {',
-      printList(path.map(print, 'members'), {
+      printSeparatedList(path.map(print, 'members'), {
         firstSeparator: hardline,
         separator: concat([';', hardline]),
         lastSeparator: concat([';', hardline])

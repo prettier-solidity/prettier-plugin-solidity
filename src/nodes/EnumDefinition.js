@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const printList = require('./print-list');
+const printSeparatedList = require('./print-separated-list');
 
 const EnumDefinition = {
   print: ({ node, path, print, options }) =>
@@ -13,7 +13,7 @@ const EnumDefinition = {
         'enum ',
         node.name,
         ' {',
-        printList(path.map(print, 'members'), {
+        printSeparatedList(path.map(print, 'members'), {
           firstSeparator: options.bracketSpacing ? line : softline
         }),
         '}'
