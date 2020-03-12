@@ -1,16 +1,14 @@
 // source: https://github.com/prettier/prettier/blob/ee2839bacbf6a52d004fa2f0373b732f6f191ccc/tests_config/run_spec.js
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 
-const AST_COMPARE = process.env['AST_COMPARE'];
+const { AST_COMPARE } = process.env;
 
 const prettier = require('prettier');
 
 function run_spec(dirname, options) {
   fs.readdirSync(dirname).forEach(filename => {
-    const filepath = dirname + '/' + filename;
+    const filepath = `${dirname}/${filename}`;
     if (
       path.extname(filename) !== '.snap' &&
       fs.lstatSync(filepath).isFile() &&
@@ -45,16 +43,16 @@ function run_spec(dirname, options) {
       const output = prettyprint(input, mergedOptions);
       test(filename, () => {
         expect(
-          raw(source + '~'.repeat(mergedOptions.printWidth) + '\n' + output)
+          raw(`${source + '~'.repeat(mergedOptions.printWidth)}\n${output}`)
         ).toMatchSnapshot();
       });
 
       if (AST_COMPARE) {
         test(`${filepath} parse`, () => {
-          const compareOptions = Object.assign({}, mergedOptions);
+          const compareOptions = { ...mergedOptions };
           delete compareOptions.cursorOffset;
           const astMassaged = parse(input, compareOptions);
-          let ppastMassaged = undefined;
+          let ppastMassaged;
 
           expect(() => {
             ppastMassaged = parse(
@@ -65,6 +63,8 @@ function run_spec(dirname, options) {
 
           expect(ppastMassaged).toBeDefined();
           if (!astMassaged.errors || astMassaged.errors.length === 0) {
+            delete astMassaged.comments;
+            delete ppastMassaged.comments;
             expect(astMassaged).toEqual(ppastMassaged);
           }
         });
@@ -82,10 +82,10 @@ function parse(string, opts) {
 function prettyprint(src, options) {
   const result = prettier.formatWithCursor(src, options);
   if (options.cursorOffset >= 0) {
-    result.formatted =
-      result.formatted.slice(0, result.cursorOffset) +
-      '<|>' +
-      result.formatted.slice(result.cursorOffset);
+    result.formatted = `${result.formatted.slice(
+      0,
+      result.cursorOffset
+    )}<|>${result.formatted.slice(result.cursorOffset)}`;
   }
   return result.formatted;
 }
@@ -107,11 +107,9 @@ function raw(string) {
 }
 
 function mergeDefaultOptions(parserConfig) {
-  return Object.assign(
-    {
-      plugins: [path.dirname(__dirname)],
-      printWidth: 80
-    },
-    parserConfig
-  );
+  return {
+    plugins: [path.dirname(__dirname)],
+    printWidth: 80,
+    ...parserConfig
+  };
 }

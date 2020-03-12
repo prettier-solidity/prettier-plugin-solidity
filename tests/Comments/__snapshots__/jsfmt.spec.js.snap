@@ -166,6 +166,7 @@ contract Comments7 {
     }
 }
 
+
 contract Comments8 {
     function someFunction() {
         // comment Before If

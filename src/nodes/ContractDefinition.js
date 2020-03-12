@@ -19,12 +19,22 @@ const inheritance = (node, path, print) =>
       ])
     : line;
 
+const comments = (node, path, options) =>
+  node.comments &&
+  // Trailing and leading comments are printed correctly by prettier.
+  node.comments.filter(comment => !comment.trailing && !comment.leading).length
+    ? concat([
+        printComments(node, path, options),
+        node.subNodes.length > 0 ? line : '' // separate with a line if subNodes follow
+      ])
+    : '';
+
 const body = (node, path, options, print) =>
   node.subNodes.length > 0 || node.comments
     ? printSeparatedItem(
         concat([
-          printPreservingEmptyLines(path, 'subNodes', options, print),
-          printComments(node, path, options)
+          comments(node, path, options),
+          printPreservingEmptyLines(path, 'subNodes', options, print)
         ]),
         { firstSeparator: hardline }
       )

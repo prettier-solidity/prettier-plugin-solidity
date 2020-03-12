@@ -37,7 +37,6 @@ function handleIfStatementComments(
 
   if (followingNode.type === 'IfStatement') {
     if (followingNode.trueBody.type === 'Block') {
-      // debug(comment);
       addDanglingComment(followingNode.trueBody, comment);
     } else {
       addLeadingComment(followingNode.trueBody, comment);

@@ -1,5 +1,12 @@
 contract IfStatements {
     function hi() public {
+        if (_providerPriceBlockIndex > block.number)
+            // comment
+            _providerPriceBlockIndex = providerInfo[providerInfo.length - 2];
+            else
+     	// comment
+           if (storageInfo.received == 0)
+               cacheCost = cacheCost.add(info.priceCache.mul(dataTransferIn[i])); // cacheCost
         if (simpleIf) return true;
 
         if (simpleIf) return (true,true,true,true,true,true,true,true,true,true,true);

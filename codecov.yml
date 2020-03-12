@@ -1,2 +1,3 @@
 ignore:
   - 'src/prettier-comments/**/*'
+  - 'src/comments/handlers/debug.js'
