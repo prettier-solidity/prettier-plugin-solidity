@@ -7,7 +7,7 @@ const {
 
 function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
-  path.each(childPath => {
+  path.each((childPath) => {
     const node = childPath.getValue();
     const nodeType = node.type;
 

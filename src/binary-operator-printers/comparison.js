@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const indentIfNecessaryBuilder = path => doc => {
+const indentIfNecessaryBuilder = (path) => (doc) => {
   let node = path.getNode();
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
@@ -19,7 +19,7 @@ const indentIfNecessaryBuilder = path => doc => {
 };
 
 module.exports = {
-  match: op => ['<', '>', '<=', '>=', '==', '!='].includes(op),
+  match: (op) => ['<', '>', '<=', '>=', '==', '!='].includes(op),
   print: (node, path, print) => {
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 

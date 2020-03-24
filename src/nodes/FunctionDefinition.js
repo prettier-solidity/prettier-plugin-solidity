@@ -28,14 +28,14 @@ const parameters = (parametersType, node, path, print) =>
     ? printSeparatedList(path.map(print, parametersType))
     : '';
 
-const visibility = node =>
+const visibility = (node) =>
   node.visibility && node.visibility !== 'default'
     ? concat([line, node.visibility])
     : '';
 
-const virtual = node => (node.isVirtual ? concat([line, 'virtual']) : '');
+const virtual = (node) => (node.isVirtual ? concat([line, 'virtual']) : '');
 
-const stateMutability = node =>
+const stateMutability = (node) =>
   node.stateMutability && node.stateMutability !== 'default'
     ? concat([line, node.stateMutability])
     : '';
@@ -55,7 +55,7 @@ const returnParameters = (node, path, print) =>
       ])
     : '';
 
-const signatureEnd = node => (node.body ? dedent(line) : ';');
+const signatureEnd = (node) => (node.body ? dedent(line) : ';');
 
 const body = (node, path, print) => (node.body ? path.call(print, 'body') : '');
 

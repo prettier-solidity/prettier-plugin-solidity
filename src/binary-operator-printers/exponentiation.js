@@ -5,7 +5,7 @@ const {
 } = require('prettier/standalone');
 
 module.exports = {
-  match: op => op === '**',
+  match: (op) => op === '**',
   print: (node, path, print) => {
     const right = concat([
       ifBreak(' ', ''),

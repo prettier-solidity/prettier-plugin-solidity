@@ -5,7 +5,7 @@ const {
 } = require('prettier/standalone');
 
 module.exports = {
-  match: op =>
+  match: (op) =>
     [
       '=',
       '|=',

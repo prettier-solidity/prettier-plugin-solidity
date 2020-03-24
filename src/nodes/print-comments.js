@@ -9,7 +9,7 @@ const printComments = (node, path, options) =>
     ? join(
         line,
         path
-          .map(commentPath => {
+          .map((commentPath) => {
             const comment = commentPath.getValue();
             if (comment.trailing || comment.leading) {
               return null;
@@ -17,7 +17,7 @@ const printComments = (node, path, options) =>
             comment.printed = true;
             return options.printer.printComment(commentPath);
           }, 'comments')
-          .filter(element => element)
+          .filter((element) => element)
       )
     : '';
 

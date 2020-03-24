@@ -4,21 +4,21 @@ const {
   }
 } = require('prettier/standalone');
 
-const indexed = node => (node.isIndexed ? ' indexed' : '');
+const indexed = (node) => (node.isIndexed ? ' indexed' : '');
 
-const visibility = node =>
+const visibility = (node) =>
   node.visibility && node.visibility !== 'default'
     ? concat([' ', node.visibility])
     : '';
 
-const constantKeyword = node => (node.isDeclaredConst ? ' constant' : '');
+const constantKeyword = (node) => (node.isDeclaredConst ? ' constant' : '');
 
-const storageLocation = node =>
+const storageLocation = (node) =>
   node.storageLocation && node.visibility !== 'default'
     ? concat([' ', node.storageLocation])
     : '';
 
-const name = node => (node.name ? concat([' ', node.name]) : '');
+const name = (node) => (node.name ? concat([' ', node.name]) : '');
 
 const VariableDeclaration = {
   print: ({ node, path, print }) =>

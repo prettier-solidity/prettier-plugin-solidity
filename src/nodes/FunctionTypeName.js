@@ -16,12 +16,12 @@ const returnTypes = (node, path, print) =>
       ])
     : '';
 
-const visibility = node =>
+const visibility = (node) =>
   node.visibility && node.visibility !== 'default'
     ? concat([line, node.visibility])
     : '';
 
-const stateMutability = node =>
+const stateMutability = (node) =>
   node.stateMutability && node.stateMutability !== 'default'
     ? concat([line, node.stateMutability])
     : '';

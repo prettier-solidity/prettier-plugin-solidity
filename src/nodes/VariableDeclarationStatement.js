@@ -15,7 +15,7 @@ const initialValue = (node, path, print) =>
 const VariableDeclarationStatement = {
   print: ({ node, path, print }) => {
     const startsWithVar =
-      node.variables.filter(x => x && x.typeName).length === 0;
+      node.variables.filter((x) => x && x.typeName).length === 0;
 
     return concat([
       startsWithVar ? 'var ' : '',
