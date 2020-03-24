@@ -11,7 +11,7 @@ function isIndentableBlockComment(comment) {
   // `*/` delimiters are not included in the comment value, so add them
   // back first.
   const lines = `*${comment.raw}*`.split('\n');
-  return lines.length > 1 && lines.every(line => line.trim()[0] === '*');
+  return lines.length > 1 && lines.every((line) => line.trim()[0] === '*');
 }
 
 function printIndentableBlockComment(comment) {

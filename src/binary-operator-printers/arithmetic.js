@@ -5,7 +5,7 @@ const {
 } = require('prettier/standalone');
 const comparison = require('./comparison.js');
 
-const groupIfNecessaryBuilder = path => doc => {
+const groupIfNecessaryBuilder = (path) => (doc) => {
   const parentNode = path.getParentNode();
   if (
     parentNode.type === 'BinaryOperation' &&
@@ -16,7 +16,7 @@ const groupIfNecessaryBuilder = path => doc => {
   return group(doc);
 };
 
-const indentIfNecessaryBuilder = path => doc => {
+const indentIfNecessaryBuilder = (path) => (doc) => {
   let node = path.getNode();
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
@@ -33,7 +33,7 @@ const indentIfNecessaryBuilder = path => doc => {
 };
 
 module.exports = {
-  match: op => ['+', '-', '*', '/', '%'].includes(op),
+  match: (op) => ['+', '-', '*', '/', '%'].includes(op),
   print: (node, path, print) => {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);

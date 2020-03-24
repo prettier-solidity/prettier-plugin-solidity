@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const isBeginnigOfChain = path => {
+const isBeginnigOfChain = (path) => {
   const parentNodeType = path.getParentNode().type;
 
   if (parentNodeType === 'MemberAccess') return false;

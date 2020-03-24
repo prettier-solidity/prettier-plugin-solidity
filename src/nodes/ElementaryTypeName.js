@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier/standalone');
 
-const stateMutability = node =>
+const stateMutability = (node) =>
   node.stateMutability && node.stateMutability.length > 0
     ? concat([' ', node.stateMutability])
     : '';
