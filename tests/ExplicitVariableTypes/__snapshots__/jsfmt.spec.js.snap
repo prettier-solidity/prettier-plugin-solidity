@@ -68,7 +68,17 @@ contract VariableTypesMixed {
         uint256 _e,
         int256 _f,
         bytes1 _g
-    ) public returns (uint256, int256, bytes1, uint256, int256, bytes1) {
+    )
+        public
+        returns (
+            uint256,
+            int256,
+            bytes1,
+            uint256,
+            int256,
+            bytes1
+        )
+    {
         emit Event(_a, _b, _c, _e, _f, _g);
         return (_a, _b, _c, _e, _f, _g);
     }
@@ -130,9 +140,23 @@ contract VariableTypesMixed {
 
     event Event(uint _a, int _b, byte _c, uint _e, int _f, byte _g);
 
-    function func(uint _a, int _b, byte _c, uint _e, int _f, byte _g)
+    function func(
+        uint _a,
+        int _b,
+        byte _c,
+        uint _e,
+        int _f,
+        byte _g
+    )
         public
-        returns (uint, int, byte, uint, int, byte)
+        returns (
+            uint,
+            int,
+            byte,
+            uint,
+            int,
+            byte
+        )
     {
         emit Event(_a, _b, _c, _e, _f, _g);
         return (_a, _b, _c, _e, _f, _g);
@@ -195,9 +219,23 @@ contract VariableTypesMixed {
 
     event Event(uint _a, int256 _b, bytes1 _c, uint256 _e, int _f, byte _g);
 
-    function func(uint256 _a, int256 _b, byte _c, uint _e, int _f, bytes1 _g)
+    function func(
+        uint256 _a,
+        int256 _b,
+        byte _c,
+        uint _e,
+        int _f,
+        bytes1 _g
+    )
         public
-        returns (uint, int256, byte, uint256, int, bytes1)
+        returns (
+            uint,
+            int256,
+            byte,
+            uint256,
+            int,
+            bytes1
+        )
     {
         emit Event(_a, _b, _c, _e, _f, _g);
         return (_a, _b, _c, _e, _f, _g);

@@ -168,19 +168,32 @@ interface FunctionInterfaces {
             uint256 y10
         );
 
-    function someParamsSomeModifiers(uint256 x1, uint256 x2, uint256 x3)
-        modifier1
-        modifier2
-        modifier3;
+    function someParamsSomeModifiers(
+        uint256 x1,
+        uint256 x2,
+        uint256 x3
+    ) modifier1 modifier2 modifier3;
 
-    function someParamsSomeReturns(uint256 x1, uint256 x2, uint256 x3)
-        returns (uint256 y1, uint256 y2, uint256 y3);
+    function someParamsSomeReturns(
+        uint256 x1,
+        uint256 x2,
+        uint256 x3
+    )
+        returns (
+            uint256 y1,
+            uint256 y2,
+            uint256 y3
+        );
 
     function someModifiersSomeReturns()
         modifier1
         modifier2
         modifier3
-        returns (uint256 y1, uint256 y2, uint256 y3);
+        returns (
+            uint256 y1,
+            uint256 y2,
+            uint256 y3
+        );
 
     function someParamSomeModifiersSomeReturns(
         uint256 x1,
@@ -190,9 +203,17 @@ interface FunctionInterfaces {
         modifier1
         modifier2
         modifier3
-        returns (uint256 y1, uint256 y2, uint256 y3);
+        returns (
+            uint256 y1,
+            uint256 y2,
+            uint256 y3
+        );
 
-    function someParamsManyModifiers(uint256 x1, uint256 x2, uint256 x3)
+    function someParamsManyModifiers(
+        uint256 x1,
+        uint256 x2,
+        uint256 x3
+    )
         modifier1
         modifier2
         modifier3
@@ -204,7 +225,11 @@ interface FunctionInterfaces {
         modifier9
         modifier10;
 
-    function someParamsManyReturns(uint256 x1, uint256 x2, uint256 x3)
+    function someParamsManyReturns(
+        uint256 x1,
+        uint256 x2,
+        uint256 x3
+    )
         returns (
             uint256 y1,
             uint256 y2,
@@ -242,7 +267,12 @@ interface FunctionInterfaces {
         uint256 x8,
         uint256 x9,
         uint256 x10
-    ) returns (uint256 y1, uint256 y2, uint256 y3);
+    )
+        returns (
+            uint256 y1,
+            uint256 y2,
+            uint256 y3
+        );
 
     function manyParamsManyModifiers(
         uint256 x1,
@@ -403,16 +433,24 @@ contract FunctionDefinitions {
         a = 1;
     }
 
-    function someParamsSomeModifiers(uint256 x1, uint256 x2, uint256 x3)
-        modifier1
-        modifier2
-        modifier3
-    {
+    function someParamsSomeModifiers(
+        uint256 x1,
+        uint256 x2,
+        uint256 x3
+    ) modifier1 modifier2 modifier3 {
         a = 1;
     }
 
-    function someParamsSomeReturns(uint256 x1, uint256 x2, uint256 x3)
-        returns (uint256 y1, uint256 y2, uint256 y3)
+    function someParamsSomeReturns(
+        uint256 x1,
+        uint256 x2,
+        uint256 x3
+    )
+        returns (
+            uint256 y1,
+            uint256 y2,
+            uint256 y3
+        )
     {
         a = 1;
     }
@@ -421,7 +459,11 @@ contract FunctionDefinitions {
         modifier1
         modifier2
         modifier3
-        returns (uint256 y1, uint256 y2, uint256 y3)
+        returns (
+            uint256 y1,
+            uint256 y2,
+            uint256 y3
+        )
     {
         a = 1;
     }
@@ -434,12 +476,20 @@ contract FunctionDefinitions {
         modifier1
         modifier2
         modifier3
-        returns (uint256 y1, uint256 y2, uint256 y3)
+        returns (
+            uint256 y1,
+            uint256 y2,
+            uint256 y3
+        )
     {
         a = 1;
     }
 
-    function someParamsManyModifiers(uint256 x1, uint256 x2, uint256 x3)
+    function someParamsManyModifiers(
+        uint256 x1,
+        uint256 x2,
+        uint256 x3
+    )
         modifier1
         modifier2
         modifier3
@@ -454,7 +504,11 @@ contract FunctionDefinitions {
         a = 1;
     }
 
-    function someParamsManyReturns(uint256 x1, uint256 x2, uint256 x3)
+    function someParamsManyReturns(
+        uint256 x1,
+        uint256 x2,
+        uint256 x3
+    )
         returns (
             uint256 y1,
             uint256 y2,
@@ -497,7 +551,13 @@ contract FunctionDefinitions {
         uint256 x8,
         uint256 x9,
         uint256 x10
-    ) returns (uint256 y1, uint256 y2, uint256 y3) {
+    )
+        returns (
+            uint256 y1,
+            uint256 y2,
+            uint256 y3
+        )
+    {
         a = 1;
     }
 
