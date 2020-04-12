@@ -355,34 +355,35 @@ contract FunctionDeclaration {
         doSomething();
     }
 
-    function thisFunctionNameIsReallyLong(address x, address y, address z)
-        public
-        onlyowner
-        priced
-        returns (address)
-    {
+    function thisFunctionNameIsReallyLong(
+        address x,
+        address y,
+        address z
+    ) public onlyowner priced returns (address) {
         doSomething();
     }
 
-    function thisFunctionNameIsReallyLong(address x, address y, address z)
-        public
-        onlyowner
-        priced
-        returns (address)
-    {
+    function thisFunctionNameIsReallyLong(
+        address x,
+        address y,
+        address z
+    ) public onlyowner priced returns (address) {
         doSomething();
     }
 
-    function thisFunctionNameIsReallyLong(address x, address y, address z)
-        public
-        onlyowner
-        priced
-        returns (address)
-    {
+    function thisFunctionNameIsReallyLong(
+        address x,
+        address y,
+        address z
+    ) public onlyowner priced returns (address) {
         doSomething();
     }
 
-    function thisFunctionNameIsReallyLong(address a, address b, address c)
+    function thisFunctionNameIsReallyLong(
+        address a,
+        address b,
+        address c
+    )
         public
         returns (
             address someAddressName,

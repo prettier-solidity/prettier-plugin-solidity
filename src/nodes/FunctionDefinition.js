@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, dedent, group, indent, join, line }
+    builders: { concat, dedent, group, hardline, indent, join, line }
   }
 } = require('prettier/standalone');
 
@@ -25,7 +25,15 @@ const functionName = (node, options) => {
 
 const parameters = (parametersType, node, path, print) =>
   node[parametersType] && node[parametersType].length > 0
-    ? printSeparatedList(path.map(print, parametersType))
+    ? printSeparatedList(path.map(print, parametersType), {
+        separator: concat([
+          ',',
+          // To keep consistency any list of parameters will split if it's longer than 2.
+          // For more information see:
+          // https://github.com/prettier-solidity/prettier-plugin-solidity/issues/256
+          node[parametersType].length > 2 ? hardline : line
+        ])
+      })
     : '';
 
 const visibility = (node) =>

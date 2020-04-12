@@ -35,7 +35,15 @@ contract demo {
 
     function hello2() public view returns (bool) {}
 
-    function hello3() public view returns (bool, bool, bool) {}
+    function hello3()
+        public
+        view
+        returns (
+            bool,
+            bool,
+            bool
+        )
+    {}
 }
 
 

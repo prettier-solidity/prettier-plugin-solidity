@@ -656,7 +656,11 @@ contract DualIndex {
         admin = msg.sender;
     }
 
-    function set(uint256 key1, uint256 key2, uint256 value) restricted {
+    function set(
+        uint256 key1,
+        uint256 key2,
+        uint256 value
+    ) restricted {
         uint256[2][4] memory defaults; // "memory" broke things at one time.
         data[key1][key2] = value;
     }
@@ -870,13 +874,21 @@ contract Ballot {
     function foobar()
         payable
         owner(myPrice)
-        returns (uint256[], address myAdd, string[] names)
+        returns (
+            uint256[],
+            address myAdd,
+            string[] names
+        )
     {}
 
     function foobar()
         payable
         owner(myPrice)
-        returns (uint256[], address myAdd, string[] names);
+        returns (
+            uint256[],
+            address myAdd,
+            string[] names
+        );
 
     Voter you = Voter(1, true);
 

@@ -764,7 +764,11 @@ library strings {
         uint256 _ptr;
     }
 
-    function memcpy(uint256 dest, uint256 src, uint256 len) private pure {
+    function memcpy(
+        uint256 dest,
+        uint256 src,
+        uint256 len
+    ) private pure {
         // Copy word-length chunks while possible
         for (; len >= 32; len -= 32) {
             assembly {
@@ -1384,11 +1388,11 @@ library strings {
      * @param token An output parameter to which the first token is written.
      * @return \`token\`.
      */
-    function split(slice memory self, slice memory needle, slice memory token)
-        internal
-        pure
-        returns (slice memory)
-    {
+    function split(
+        slice memory self,
+        slice memory needle,
+        slice memory token
+    ) internal pure returns (slice memory) {
         uint256 ptr = findPtr(self._len, self._ptr, needle._len, needle._ptr);
         token._ptr = self._ptr;
         token._len = ptr - self._ptr;
@@ -1429,11 +1433,11 @@ library strings {
      * @param token An output parameter to which the first token is written.
      * @return \`token\`.
      */
-    function rsplit(slice memory self, slice memory needle, slice memory token)
-        internal
-        pure
-        returns (slice memory)
-    {
+    function rsplit(
+        slice memory self,
+        slice memory needle,
+        slice memory token
+    ) internal pure returns (slice memory) {
         uint256 ptr = rfindPtr(self._len, self._ptr, needle._len, needle._ptr);
         token._ptr = ptr;
         token._len = self._len - (ptr - self._ptr);
