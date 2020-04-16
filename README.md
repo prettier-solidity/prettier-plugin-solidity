@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/prettier-solidity/prettier-plugin-solidity.svg?branch=master)](https://travis-ci.com/prettier-solidity/prettier-plugin-solidity)
 [![codecov](https://codecov.io/gh/prettier-solidity/prettier-plugin-solidity/branch/master/graph/badge.svg)](https://codecov.io/gh/prettier-solidity/prettier-plugin-solidity)
+[![Telegram](/assets/telegram-badge.svg)](https://t.me/joinchat/Je2WJFCfKJ_mht1XdhBh6w)
 
 This is a work in progress [Prettier Plugin](https://prettier.io/docs/en/plugins.html) for [Solidity](https://github.com/ethereum/solidity).
 
