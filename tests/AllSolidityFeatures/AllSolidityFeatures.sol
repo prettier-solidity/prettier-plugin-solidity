@@ -428,3 +428,13 @@ contract  ContractWithVirtual
   function   foo() public virtual  returns  ( uint ) {
   }
 }
+
+struct TopLevelStruct {
+  uint x; uint y;
+}
+
+enum TopLevelEnum {
+  Top,
+      Level,
+            Enum
+}

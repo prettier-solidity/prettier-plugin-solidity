@@ -431,6 +431,16 @@ contract  ContractWithVirtual
   function   foo() public virtual  returns  ( uint ) {
   }
 }
+
+struct TopLevelStruct {
+  uint x; uint y;
+}
+
+enum TopLevelEnum {
+  Top,
+      Level,
+            Enum
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Examples taken from the Solidity documentation online.
 
@@ -920,5 +930,12 @@ abstract contract AbstractContract {}
 contract ContractWithVirtual {
     function foo() public virtual returns (uint256) {}
 }
+
+struct TopLevelStruct {
+    uint256 x;
+    uint256 y;
+}
+
+enum TopLevelEnum {Top, Level, Enum}
 
 `;
