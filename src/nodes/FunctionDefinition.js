@@ -43,6 +43,17 @@ const visibility = (node) =>
 
 const virtual = (node) => (node.isVirtual ? concat([line, 'virtual']) : '');
 
+const override = (node, path, print) => {
+  if (!node.override) return '';
+  if (node.override.length === 0) return concat([line, 'override']);
+  return concat([
+    line,
+    'override(',
+    printSeparatedList(path.map(print, 'override')),
+    ')'
+  ]);
+};
+
 const stateMutability = (node) =>
   node.stateMutability && node.stateMutability !== 'default'
     ? concat([line, node.stateMutability])
@@ -79,6 +90,7 @@ const FunctionDefinition = {
           concat([
             visibility(node),
             virtual(node),
+            override(node, path, print),
             stateMutability(node),
             modifiers(node, path, print),
             returnParameters(node, path, print),
