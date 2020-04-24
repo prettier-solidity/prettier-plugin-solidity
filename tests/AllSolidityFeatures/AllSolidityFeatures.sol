@@ -428,3 +428,11 @@ contract  ContractWithVirtual
   function   foo() public virtual  returns  ( uint ) {
   }
 }
+
+contract Overrides {
+
+  function foo()   public override  {}
+  function bar()   public override( Foo  )  {}
+  function baz()   public override(Foo , Bar)  {}
+  function long()   public override(Foo , Bar, Baz, Baaaz, Baaaaaaaaaaaaaaz, BazQuxBazQuxBazQux, Quuuuuuuuuuuuuux)  {}
+}
