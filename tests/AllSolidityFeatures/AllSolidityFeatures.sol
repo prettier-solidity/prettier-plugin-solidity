@@ -429,8 +429,17 @@ contract  ContractWithVirtual
   }
 }
 
-contract Overrides {
+struct TopLevelStruct {
+  uint x; uint y;
+}
 
+enum TopLevelEnum {
+  Top,
+      Level,
+            Enum
+}
+
+contract Overrides {
   function foo()   public override  {}
   function bar()   public override( Foo  )  {}
   function baz()   public override(Foo , Bar)  {}
