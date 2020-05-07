@@ -18,6 +18,8 @@ const storageLocation = (node) =>
     ? concat([' ', node.storageLocation])
     : '';
 
+const immutable = (node) => (node.isImmutable ? ' immutable' : '');
+
 const name = (node) => (node.name ? concat([' ', node.name]) : '');
 
 const VariableDeclaration = {
@@ -29,6 +31,7 @@ const VariableDeclaration = {
           visibility(node),
           constantKeyword(node),
           storageLocation(node),
+          immutable(node),
           name(node)
         ])
       : node.name

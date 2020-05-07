@@ -29,9 +29,9 @@ contract C {
     uint256 constant X = 32**22 + 8;
     string constant TEXT = "abc";
     bytes32 constant MY_HASH = keccak256("abc");
-    uint256 decimals;
-    uint256 maxBalance;
-    address owner = msg.sender;
+    uint256 immutable decimals;
+    uint256 immutable maxBalance;
+    address immutable owner = msg.sender;
 
     constructor(uint256 _decimals, address _reference) public {
         decimals = _decimals;
