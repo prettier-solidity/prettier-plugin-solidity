@@ -38,6 +38,7 @@ Array [
   "IfStatement",
   "ImportDirective",
   "IndexAccess",
+  "IndexRangeAccess",
   "InheritanceSpecifier",
   "InlineAssemblyStatement",
   "LabelDefinition",
