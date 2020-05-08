@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1581775642.911 */
+/* This file was automatically generated on 1588903580.303 */
 
 /* eslint-disable global-require */
 
@@ -39,6 +39,7 @@ module.exports = {
   IfStatement: require('./IfStatement.js'),
   ImportDirective: require('./ImportDirective.js'),
   IndexAccess: require('./IndexAccess.js'),
+  IndexRangeAccess: require('./IndexRangeAccess.js'),
   InheritanceSpecifier: require('./InheritanceSpecifier.js'),
   InlineAssemblyStatement: require('./InlineAssemblyStatement.js'),
   LabelDefinition: require('./LabelDefinition.js'),

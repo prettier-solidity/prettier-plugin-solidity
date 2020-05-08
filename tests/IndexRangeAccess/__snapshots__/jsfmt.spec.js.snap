@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IndexRangeAccess.sol 1`] = `
+pragma solidity ^0.6.4;
+
+contract Demo {
+    event Log(bytes value);
+
+    function log(bytes calldata value) external {
+        emit Log(bytes(value[0:10]));
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pragma solidity ^0.6.4;
+
+
+contract Demo {
+    event Log(bytes value);
+
+    function log(bytes calldata value) external {
+        emit Log(bytes(value[0:10]));
+    }
+}
+
+`;
