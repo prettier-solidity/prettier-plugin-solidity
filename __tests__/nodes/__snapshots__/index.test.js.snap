@@ -46,6 +46,8 @@ Array [
   "MemberAccess",
   "ModifierDefinition",
   "ModifierInvocation",
+  "NameValueExpression",
+  "NameValueList",
   "NewExpression",
   "NumberLiteral",
   "PragmaDirective",
