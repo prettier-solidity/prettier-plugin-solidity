@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-alpha.51",
+  "version": "1.0.0-alpha.52",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
