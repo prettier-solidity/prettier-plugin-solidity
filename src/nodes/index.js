@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1588903580.303 */
+/* This file was automatically generated on 1589415198.485 */
 
 /* eslint-disable global-require */
 
@@ -47,6 +47,8 @@ module.exports = {
   MemberAccess: require('./MemberAccess.js'),
   ModifierDefinition: require('./ModifierDefinition.js'),
   ModifierInvocation: require('./ModifierInvocation.js'),
+  NameValueExpression: require('./NameValueExpression.js'),
+  NameValueList: require('./NameValueList.js'),
   NewExpression: require('./NewExpression.js'),
   NumberLiteral: require('./NumberLiteral.js'),
   PragmaDirective: require('./PragmaDirective.js'),
