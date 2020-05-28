@@ -1,8 +1,10 @@
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, group, line }
   }
 } = require('prettier/standalone');
+
+const printSeparatedList = require('./print-separated-list');
 
 const indexed = (node) => (node.isIndexed ? ' indexed' : '');
 
@@ -20,20 +22,34 @@ const storageLocation = (node) =>
 
 const immutable = (node) => (node.isImmutable ? ' immutable' : '');
 
+const override = (node, path, print) => {
+  if (!node.override) return '';
+  if (node.override.length === 0) return concat([line, 'override']);
+  return concat([
+    line,
+    'override(',
+    printSeparatedList(path.map(print, 'override')),
+    ')'
+  ]);
+};
+
 const name = (node) => (node.name ? concat([' ', node.name]) : '');
 
 const VariableDeclaration = {
   print: ({ node, path, print }) =>
     node.typeName
-      ? concat([
-          path.call(print, 'typeName'),
-          indexed(node),
-          visibility(node),
-          constantKeyword(node),
-          storageLocation(node),
-          immutable(node),
-          name(node)
-        ])
+      ? group(
+          concat([
+            path.call(print, 'typeName'),
+            indexed(node),
+            visibility(node),
+            constantKeyword(node),
+            storageLocation(node),
+            immutable(node),
+            override(node, path, print),
+            name(node)
+          ])
+        )
       : node.name
 };
 
