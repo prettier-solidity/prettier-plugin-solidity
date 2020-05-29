@@ -24,7 +24,6 @@ contract Immutable {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity >0.6.4 <0.7.0;
 
-
 contract Immutable {
     uint256 constant X = 32**22 + 8;
     string constant TEXT = "abc";

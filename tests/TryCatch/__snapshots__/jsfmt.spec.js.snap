@@ -81,11 +81,9 @@ contract FeedConsumer {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.6.0;
 
-
 interface DataFeed {
     function getData(address token) external returns (uint256 value);
 }
-
 
 contract FeedConsumer {
     DataFeed feed;

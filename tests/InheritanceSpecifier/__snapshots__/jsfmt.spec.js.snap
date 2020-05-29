@@ -6,7 +6,6 @@ contract LongInheritanceSpecifier is SomeOtherContract(123467890,false,0xCA35b7d
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract InheritanceSpecifier is SomeOtherContract(1234, false) {}
 
-
 contract LongInheritanceSpecifier is
     SomeOtherContract(
         123467890,

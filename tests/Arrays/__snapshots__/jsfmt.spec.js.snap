@@ -13,7 +13,6 @@ contract Arrays {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.5.2;
 
-
 contract Arrays {
     bytes32[] public permissions = [
         bytes32("addPartner"),

@@ -358,7 +358,6 @@ interface FunctionInterfaces {
         );
 }
 
-
 contract FunctionDefinitions {
     function() external {}
 

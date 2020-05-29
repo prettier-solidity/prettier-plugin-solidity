@@ -460,11 +460,9 @@ import "SomeFile.sol" as SomeOtherFile;
 import "AnotherFile.sol" as SomeSymbol;
 import {symbol1 as alias, symbol2} from "File.sol";
 
-
 interface i {
     function f();
 }
-
 
 contract c {
     function c() {
@@ -480,7 +478,6 @@ contract c {
     uint256 val4;
 }
 
-
 contract test {
     enum ActionChoices {GoLeft, GoRight, GoStraight, SitStill}
 
@@ -495,7 +492,6 @@ contract test {
     ActionChoices choices;
 }
 
-
 contract Base {
     function Base(uint256 i) {
         m_i = i;
@@ -504,11 +500,9 @@ contract Base {
     uint256 public m_i;
 }
 
-
 contract Derived is Base(0) {
     function Derived(uint256 i) Base(i) {}
 }
-
 
 contract C {
     uint248 x; // 31 bytes: slot 0, offset 0
@@ -525,7 +519,6 @@ contract C {
     uint8 gamma; // 1 byte, slot 7 (start new slot after array)
 }
 
-
 contract test {
     function f(uint256 x, uint256 y) returns (uint256 z) {
         var c = x + 3;
@@ -534,13 +527,11 @@ contract test {
     }
 }
 
-
 contract test {
     function f(uint256 x, uint256 y) returns (uint256 z) {
         return 10;
     }
 }
-
 
 contract c {
     function() returns (uint256) {
@@ -563,14 +554,12 @@ contract c {
     mapping(uint256 => uint256) data;
 }
 
-
 contract Sharer {
     function sendHalf(address addr) returns (uint256 balance) {
         if (!addr.send(msg.value / 2)) throw; // also reverts the transfer to Sharer
         return address(this).balance;
     }
 }
-
 
 /// @dev Models a modifiable and iterable set of uint values.
 library IntegerSet {
@@ -635,7 +624,6 @@ library IntegerSet {
     }
 }
 
-
 /// How to use it:
 contract User {
     /// Just a struct holding our data.
@@ -658,7 +646,6 @@ contract User {
         ) s += IntegerSet.iterate_get(data, i);
     }
 }
-
 
 // This broke it at one point (namely the modifiers).
 contract DualIndex {
@@ -691,25 +678,19 @@ contract DualIndex {
     }
 }
 
-
 contract A {}
-
 
 contract B {}
 
-
 contract C is A, B {}
-
 
 contract TestPrivate {
     uint256 private value;
 }
 
-
 contract TestInternal {
     uint256 internal value;
 }
-
 
 contract FromSolparse is A, B, TestPrivate, TestInternal {
     function() {
@@ -718,7 +699,6 @@ contract FromSolparse is A, B, TestPrivate, TestInternal {
         uint256 y = 2 days;
     }
 }
-
 
 contract CommentedOutFunction {
     // FYI: This empty function, as well as the commented
@@ -730,12 +710,10 @@ contract CommentedOutFunction {
     // }
 }
 
-
 library VarHasBrackets {
     string constant specialRight = "}";
     //string storage specialLeft = "{";
 }
-
 
 library UsingExampleLibrary {
     function sum(uint256[] storage self) returns (uint256 s) {
@@ -743,12 +721,10 @@ library UsingExampleLibrary {
     }
 }
 
-
 contract UsingExampleContract {
     using UsingExampleLibrary for *;
     using UsingExampleLibrary for uint256[];
 }
-
 
 contract NewStuff {
     uint256[] b;
@@ -759,12 +735,10 @@ contract NewStuff {
     }
 }
 
-
 // modifier with expression
 contract MyContract {
     function fun() mymodifier(foo.bar()) {}
 }
-
 
 library GetCode {
     function at(address _addr) returns (bytes o_code) {
@@ -787,7 +761,6 @@ library GetCode {
     }
 }
 
-
 contract assemblyLocalBinding {
     function test() {
         assembly {
@@ -798,7 +771,6 @@ contract assemblyLocalBinding {
         }
     }
 }
-
 
 contract assemblyReturn {
     uint256 a = 10;
@@ -813,11 +785,9 @@ contract assemblyReturn {
     }
 }
 
-
 contract usesConst {
     uint256 const = 0;
 }
-
 
 contract memoryArrays {
     uint256 seven = 7;
@@ -831,7 +801,6 @@ contract memoryArrays {
         uint256[] memory b = new uint256[](returnNumber(seven));
     }
 }
-
 
 contract DeclarativeExpressions {
     uint256 a;
@@ -854,7 +823,6 @@ contract DeclarativeExpressions {
     }
 }
 
-
 contract VariableDeclarationTuple {
     function getMyTuple() returns (bool, bool) {
         return (true, false);
@@ -871,12 +839,10 @@ contract VariableDeclarationTuple {
     }
 }
 
-
 contract TypeIndexSpacing {
     uint256[7] x;
     uint256[] y;
 }
-
 
 contract Ballot {
     struct Voter {
@@ -914,13 +880,11 @@ contract Ballot {
     Voter airbnb = Voter({weight: 2, voted: true});
 }
 
-
 contract multilineReturn {
     function a() returns (uint256 x) {
         return 5;
     }
 }
-
 
 contract continueStatement {
     function a() {
@@ -930,9 +894,7 @@ contract continueStatement {
     }
 }
 
-
 abstract contract AbstractContract {}
-
 
 contract ContractWithVirtual {
     function foo() public virtual returns (uint256) {}
@@ -944,7 +906,6 @@ struct TopLevelStruct {
 }
 
 enum TopLevelEnum {Top, Level, Enum}
-
 
 contract Overrides {
     function foo() public override {}

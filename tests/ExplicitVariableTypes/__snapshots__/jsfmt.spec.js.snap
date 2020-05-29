@@ -34,7 +34,6 @@ contract VariableTypesMixed {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity 0.5.8;
 
-
 contract VariableTypesMixed {
     uint256 public a;
     int256 public b;
@@ -120,7 +119,6 @@ contract VariableTypesMixed {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity 0.5.8;
 
-
 contract VariableTypesMixed {
     uint public a;
     int public b;
@@ -198,7 +196,6 @@ contract VariableTypesMixed {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity 0.5.8;
-
 
 contract VariableTypesMixed {
     uint256 public a;

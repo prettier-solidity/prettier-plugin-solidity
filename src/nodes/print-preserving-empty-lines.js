@@ -16,15 +16,8 @@ function printPreservingEmptyLines(path, key, options, print) {
     }
 
     if (childPath.getName() > 0) {
-      if (nodeType === 'ContractDefinition') {
-        if (parts[parts.length - 2] !== hardline) {
-          parts.push(hardline);
-        }
-        parts.push(hardline);
-      }
-
       if (
-        nodeType === 'FunctionDefinition' &&
+        ['ContractDefinition', 'FunctionDefinition'].includes(nodeType) &&
         parts[parts.length - 2] !== hardline
       ) {
         parts.push(hardline);
