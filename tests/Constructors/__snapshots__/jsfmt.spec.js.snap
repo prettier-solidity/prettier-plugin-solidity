@@ -12,7 +12,6 @@ contract Constructors is Ownable, Changeable {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.5.2;
 
-
 contract Constructors is Ownable, Changeable {
     function Constructors(variable1)
         public
