@@ -928,11 +928,9 @@ struct TopLevelStruct {
 enum TopLevelEnum {Top, Level, Enum}
 pragma solidity ^0.6.0;
 
-
 contract A {
     function doStuff() public virtual {}
 }
-
 
 contract B is A {
     function doStuff() public override {}
