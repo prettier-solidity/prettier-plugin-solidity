@@ -441,8 +441,28 @@ enum TopLevelEnum {
       Level,
             Enum
 }
+pragma solidity ^0.6.0;
+
+
+contract A {
+    function doStuff() public virtual {}
+}
+
+
+contract B is A {
+    function doStuff() public override {}
+}
 
 contract Overrides {
+  mapping(address => bool) public override varName;
+
+// Waiting for the parser to provide info on the modifiers \`virtual\` and \`override\`
+//   modifier onlyOwner() virtual {_;}
+//
+// modifier onlyOwner() override {
+//     require(msg.sender == owner(), "Ownable: caller is not the owner");
+//     _;
+// }
   function foo()   public override  {}
   function bar()   public override( Foo  )  {}
   function baz()   public override(Foo , Bar)  {}
@@ -944,9 +964,29 @@ struct TopLevelStruct {
 }
 
 enum TopLevelEnum {Top, Level, Enum}
+pragma solidity ^0.6.0;
+
+
+contract A {
+    function doStuff() public virtual {}
+}
+
+
+contract B is A {
+    function doStuff() public override {}
+}
 
 
 contract Overrides {
+    mapping(address => bool) public override varName;
+
+    // Waiting for the parser to provide info on the modifiers \`virtual\` and \`override\`
+    //   modifier onlyOwner() virtual {_;}
+    //
+    // modifier onlyOwner() override {
+    //     require(msg.sender == owner(), "Ownable: caller is not the owner");
+    //     _;
+    // }
     function foo() public override {}
 
     function bar() public override(Foo) {}

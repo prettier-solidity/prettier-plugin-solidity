@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, indent, line }
+    builders: { concat, indent, line, softline }
   }
 } = require('prettier/standalone');
 
@@ -16,12 +16,12 @@ const Block = {
           '{',
           indent(
             concat([
-              line,
+              options.bracketSpacing ? line : softline,
               printPreservingEmptyLines(path, 'statements', options, print),
               printComments(node, path, options)
             ])
           ),
-          line,
+          options.bracketSpacing ? line : softline,
           '}'
         ])
 };

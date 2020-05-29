@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, hardline, line }
+    builders: { concat, group, hardline, line }
   }
 } = require('prettier/standalone');
 
@@ -28,6 +28,22 @@ const modifierParameters = (node, path, print) => {
   return '';
 };
 
+const virtual = (node) => (node.isVirtual ? concat([line, 'virtual']) : '');
+
+const override = (node, path, print) => {
+  if (!node.override) return '';
+  if (node.override.length === 0) return concat([line, 'override']);
+  return concat([
+    line,
+    'override(',
+    printSeparatedList(path.map(print, 'override')),
+    ')'
+  ]);
+};
+
+const body = (node, path, print) =>
+  node.isVirtual ? group(path.call(print, 'body')) : path.call(print, 'body');
+
 const ModifierDefinition = {
   print: ({ node, path, print }) =>
     concat([
@@ -35,7 +51,9 @@ const ModifierDefinition = {
       node.name,
       modifierParameters(node, path, print),
       ' ',
-      path.call(print, 'body')
+      virtual(node),
+      override(node, path, print),
+      body(node, path, print)
     ])
 };
 
