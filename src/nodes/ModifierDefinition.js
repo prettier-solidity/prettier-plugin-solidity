@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, hardline, line }
+    builders: { concat, group, hardline, indent, line }
   }
 } = require('prettier/standalone');
 
@@ -50,9 +50,8 @@ const ModifierDefinition = {
       'modifier ',
       node.name,
       modifierParameters(node, path, print),
+      group(indent(concat([virtual(node), override(node, path, print)]))),
       ' ',
-      virtual(node),
-      override(node, path, print),
       body(node, path, print)
     ])
 };

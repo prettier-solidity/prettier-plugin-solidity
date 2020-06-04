@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, line }
+    builders: { concat, group, indent, line }
   }
 } = require('prettier/standalone');
 
@@ -10,14 +10,14 @@ const indexed = (node) => (node.isIndexed ? ' indexed' : '');
 
 const visibility = (node) =>
   node.visibility && node.visibility !== 'default'
-    ? concat([' ', node.visibility])
+    ? concat([line, node.visibility])
     : '';
 
 const constantKeyword = (node) => (node.isDeclaredConst ? ' constant' : '');
 
 const storageLocation = (node) =>
   node.storageLocation && node.visibility !== 'default'
-    ? concat([' ', node.storageLocation])
+    ? concat([line, node.storageLocation])
     : '';
 
 const immutable = (node) => (node.isImmutable ? ' immutable' : '');
@@ -41,13 +41,17 @@ const VariableDeclaration = {
       ? group(
           concat([
             path.call(print, 'typeName'),
-            indexed(node),
-            visibility(node),
-            constantKeyword(node),
-            storageLocation(node),
-            immutable(node),
-            override(node, path, print),
-            name(node)
+            indent(
+              concat([
+                indexed(node),
+                visibility(node),
+                constantKeyword(node),
+                storageLocation(node),
+                immutable(node),
+                override(node, path, print),
+                name(node)
+              ])
+            )
           ])
         )
       : node.name
