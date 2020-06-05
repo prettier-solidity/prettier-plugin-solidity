@@ -452,14 +452,27 @@ contract B is A {
 
 contract Overrides {
   mapping(address => bool) public override varName;
+  mapping(address => bool) public override(Foo) varName;
+  mapping(address => bool) public override(Foo, Bar) varName;
+  mapping(address => bool) public override(Foo , Bar, Baz, Baaaz, Baaaaaaaaaaaaaaz, BazQuxBazQuxBazQux, Quuuuuuuuuuuuuux) varName;
+  modifier onlyOwner() virtual {_;}
 
-// Waiting for the parser to provide info on the modifiers `virtual` and `override`
-//   modifier onlyOwner() virtual {_;}
-//
-// modifier onlyOwner() override {
-//     require(msg.sender == owner(), "Ownable: caller is not the owner");
-//     _;
-// }
+modifier onlyOwner() override {
+    require(msg.sender == owner(), "Ownable: caller is not the owner");
+    _;
+}
+modifier onlyOwner() override(Foo) {
+    require(msg.sender == owner(), "Ownable: caller is not the owner");
+    _;
+}
+modifier onlyOwner() override(Foo , Bar) {
+    require(msg.sender == owner(), "Ownable: caller is not the owner");
+    _;
+}
+modifier onlyOwner() override(Foo , Bar, Baz, Baaaz, Baaaaaaaaaaaaaaz, BazQuxBazQuxBazQux, Quuuuuuuuuuuuuux) {
+    require(msg.sender == owner(), "Ownable: caller is not the owner");
+    _;
+}
   function foo()   public override  {}
   function bar()   public override( Foo  )  {}
   function baz()   public override(Foo , Bar)  {}
