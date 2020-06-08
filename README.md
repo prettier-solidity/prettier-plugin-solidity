@@ -118,36 +118,7 @@ You'll notice now that `prettier` is formatting every time the files are saved b
 
 Note: When you install the npm package `prettier` in your project and create a `.prettierrc` file (which wasn't in your project before this), your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
 
-If that's not a problem for you, you can just ignore adding this part. You can add more overrides to `.prettierrc` based on rest of the types of files in your project. Below is an example of adding override for `.js` files.
-
-```json
-{
-  "overrides": [
-    {
-      "files": "*.sol",
-      "options": {
-        "printWidth": 80,
-        "tabWidth": 4,
-        "useTabs": false,
-        "singleQuote": false,
-        "bracketSpacing": false,
-        "explicitTypes": "always"
-      }
-    },
-    {
-      "files": "*.js",
-      "options": {
-        "printWidth": 80,
-        "tabWidth": 2,
-        "useTabs": false,
-        "singleQuote": true,
-        "bracketSpacing": true
-      }
-    }
-  ]
-}
-```
-For more customization, you can refer [prettier options docs](https://prettier.io/docs/en/options.html).
+If you want a different configuration for your javascript and solidity files, you can add an [overrides property](https://prettier.io/docs/en/configuration.html#configuration-overrides) to your `.prettierrc`.
 
 ## Contributing
 
