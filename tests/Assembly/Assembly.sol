@@ -138,4 +138,13 @@ assembly{
     three:
 }
 }
+
+  function assemblyFunctionNoReturn () {
+
+    assembly {
+
+function $somefn(somearg) {
+}
+    }
+  }
 }
