@@ -141,6 +141,15 @@ assembly{
     three:
 }
 }
+
+  function assemblyFunctionNoReturn () {
+
+    assembly {
+
+function $somefn(somearg) {
+}
+    }
+  }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract Assembly {
@@ -317,6 +326,14 @@ contract Assembly {
             jump(one)
 
         three:
+        }
+    }
+
+    function assemblyFunctionNoReturn() {
+        assembly {
+            function $somefn(somearg) {
+
+            }
         }
     }
 }

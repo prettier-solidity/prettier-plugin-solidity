@@ -15,18 +15,20 @@ const AssemblyFunctionDefinition = {
       '(',
       printSeparatedList(path.map(print, 'arguments')),
       ')',
-      group(
-        printSeparatedItem(
-          concat([
-            '->',
-            printSeparatedList(path.map(print, 'returnArguments'), {
-              firstSeparator: line,
-              lastSeparator: ''
-            })
-          ]),
-          { firstSeparator: line }
-        )
-      ),
+      node.returnArguments.length === 0
+        ? ' '
+        : group(
+            printSeparatedItem(
+              concat([
+                '->',
+                printSeparatedList(path.map(print, 'returnArguments'), {
+                  firstSeparator: line,
+                  lastSeparator: ''
+                })
+              ]),
+              { firstSeparator: line }
+            )
+          ),
       path.call(print, 'body')
     ])
 };
