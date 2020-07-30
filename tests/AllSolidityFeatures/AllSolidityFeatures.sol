@@ -478,3 +478,11 @@ modifier onlyOwner() override(Foo , Bar, Baz, Baaaz, Baaaaaaaaaaaaaaz, BazQuxBaz
   function baz()   public override(Foo , Bar)  {}
   function long()   public override(Foo , Bar, Baz, Baaaz, Baaaaaaaaaaaaaaz, BazQuxBazQuxBazQux, Quuuuuuuuuuuuuux)  {}
 }
+
+contract ConstructorWithoutVisibility {
+  uint public x;
+
+  constructor  ( uint _x ) {   
+    x = _x;
+  }
+}
