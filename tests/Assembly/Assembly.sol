@@ -147,4 +147,9 @@ function $somefn(somearg) {
 }
     }
   }
+
+    function   letWithoutValue ( ) {
+
+       assembly {   let result   }
+  }
 }
