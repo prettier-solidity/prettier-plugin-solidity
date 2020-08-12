@@ -150,6 +150,11 @@ function $somefn(somearg) {
 }
     }
   }
+
+    function   letWithoutValue ( ) {
+
+       assembly {   let result   }
+  }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract Assembly {
@@ -334,6 +339,12 @@ contract Assembly {
             function $somefn(somearg) {
 
             }
+        }
+    }
+
+    function letWithoutValue() {
+        assembly {
+            let result
         }
     }
 }
