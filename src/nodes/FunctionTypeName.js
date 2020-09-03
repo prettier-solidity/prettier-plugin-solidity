@@ -35,9 +35,9 @@ const FunctionTypeName = {
       indent(
         group(
           concat([
-            returnTypes(node, path, print),
             visibility(node),
-            stateMutability(node)
+            stateMutability(node),
+            returnTypes(node, path, print)
           ])
         )
       )
