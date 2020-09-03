@@ -152,4 +152,12 @@ function $somefn(somearg) {
 
        assembly {   let result   }
   }
+
+    function   memberAccess ( ) {
+
+       assembly {  
+          ds.slot   :=   position
+          offset   :=   x.offset
+       }
+  }
 }
