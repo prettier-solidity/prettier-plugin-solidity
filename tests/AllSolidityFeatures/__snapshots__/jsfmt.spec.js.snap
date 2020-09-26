@@ -505,6 +505,9 @@ function reduce(
         }
     }
 }
+
+// top-level function
+function   foo()   pure returns ( uint ) { return 42 ; }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Examples taken from the Solidity documentation online.
 
@@ -1058,6 +1061,11 @@ contract FunctionTypes {
             r = f(r, self[i]);
         }
     }
+}
+
+// top-level function
+function foo() pure returns (uint256) {
+    return 42;
 }
 
 `;
