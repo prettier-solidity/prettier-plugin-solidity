@@ -508,6 +508,11 @@ function reduce(
 
 // top-level function
 function   foo()   pure returns ( uint ) { return 42 ; }
+
+contract AnonymousEvent {
+  event   MyEvent() 
+  anonymous;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Examples taken from the Solidity documentation online.
 
@@ -1066,6 +1071,10 @@ contract FunctionTypes {
 // top-level function
 function foo() pure returns (uint256) {
     return 42;
+}
+
+contract AnonymousEvent {
+    event MyEvent() anonymous;
 }
 
 `;
