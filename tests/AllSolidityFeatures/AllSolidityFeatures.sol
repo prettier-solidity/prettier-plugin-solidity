@@ -505,3 +505,8 @@ function reduce(
 
 // top-level function
 function   foo()   pure returns ( uint ) { return 42 ; }
+
+contract AnonymousEvent {
+  event   MyEvent() 
+  anonymous;
+}
