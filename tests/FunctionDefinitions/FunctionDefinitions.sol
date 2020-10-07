@@ -34,6 +34,22 @@ interface FunctionInterfaces {
   function manyParamsManyReturns(uint x1, uint x2, uint x3, uint x4, uint x5, uint x6, uint x7, uint x8, uint x9, uint x10) returns(uint y1, uint y2, uint y3, uint y4, uint y5, uint y6, uint y7, uint y8, uint y9, uint y10);
 
   function manyParamsManyModifiersManyReturns(uint x1, uint x2, uint x3, uint x4, uint x5, uint x6, uint x7, uint x8, uint x9, uint x10) modifier1 modifier2 modifier3 modifier4 modifier5 modifier6 modifier7 modifier8 modifier9 modifier10 returns(uint y1, uint y2, uint y3, uint y4, uint y5, uint y6, uint y7, uint y8, uint y9, uint y10);
+
+  function modifierOrderCorrect01() public view virtual override modifier1 modifier2 returns(uint);
+
+  function modifierOrderCorrect02() private pure virtual modifier1 modifier2 returns(string);
+
+  function modifierOrderCorrect03() external payable override modifier1 modifier2 returns(address);
+
+  function modifierOrderCorrect04() internal virtual override modifier1 modifier2 returns(uint);
+
+  function modifierOrderIncorrect01() public modifier1 modifier2 override virtual view returns(uint);
+
+  function modifierOrderIncorrect02() virtual modifier1 external modifier2 override returns(uint);
+
+  function modifierOrderIncorrect03() modifier1 pure internal virtual modifier2 returns(uint);
+
+  function modifierOrderIncorrect04() override modifier1 payable external modifier2 returns(uint);
 }
 
 contract FunctionDefinitions {
@@ -113,6 +129,38 @@ contract FunctionDefinitions {
   }
 
   function manyParamsManyModifiersManyReturns(uint x1, uint x2, uint x3, uint x4, uint x5, uint x6, uint x7, uint x8, uint x9, uint x10) modifier1 modifier2 modifier3 modifier4 modifier5 modifier6 modifier7 modifier8 modifier9 modifier10 returns(uint y1, uint y2, uint y3, uint y4, uint y5, uint y6, uint y7, uint y8, uint y9, uint y10) {
+    a = 1;
+  }
+
+  function modifierOrderCorrect01() public view virtual override modifier1 modifier2 returns(uint) {
+    a = 1;
+  }
+
+  function modifierOrderCorrect02() private pure virtual modifier1 modifier2 returns(string) {
+    a = 1;
+  }
+
+  function modifierOrderCorrect03() external payable override modifier1 modifier2 returns(address) {
+    a = 1;
+  }
+
+  function modifierOrderCorrect04() internal virtual override modifier1 modifier2 returns(uint) {
+    a = 1;
+  }
+
+  function modifierOrderIncorrect01() public modifier1 modifier2 override virtual view returns(uint) {
+    a = 1;
+  }
+
+  function modifierOrderIncorrect02() virtual modifier1 external modifier2 override returns(uint) {
+    a = 1;
+  }
+
+  function modifierOrderIncorrect03() modifier1 pure internal virtual modifier2 returns(uint) {
+    a = 1;
+  }
+
+  function modifierOrderIncorrect04() override modifier1 payable external modifier2 returns(uint) {
     a = 1;
   }
 }

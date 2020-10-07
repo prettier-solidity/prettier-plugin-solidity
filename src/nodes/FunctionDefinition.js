@@ -89,9 +89,9 @@ const FunctionDefinition = {
         group(
           concat([
             visibility(node),
+            stateMutability(node),
             virtual(node),
             override(node, path, print),
-            stateMutability(node),
             modifiers(node, path, print),
             returnParameters(node, path, print),
             signatureEnd(node)
