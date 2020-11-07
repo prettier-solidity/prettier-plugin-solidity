@@ -6,6 +6,8 @@
 
 This is a work in progress [Prettier Plugin](https://prettier.io/docs/en/plugins.html) for [Solidity](https://github.com/ethereum/solidity).
 
+If you like this project, please consider contributing to our [Gitcoin grant](https://gitcoin.co/grants/1534/prettier-solidity)!
+
 ## Installation and usage
 
 Install both `prettier` and `prettier-plugin-solidity`:
