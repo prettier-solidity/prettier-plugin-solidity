@@ -510,3 +510,6 @@ contract AnonymousEvent {
   event   MyEvent() 
   anonymous;
 }
+
+uint   constant MULTIPLIER =
+  2**EXPONENT;

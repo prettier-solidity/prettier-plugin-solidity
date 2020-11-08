@@ -513,6 +513,9 @@ contract AnonymousEvent {
   event   MyEvent() 
   anonymous;
 }
+
+uint   constant MULTIPLIER =
+  2**EXPONENT;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Examples taken from the Solidity documentation online.
 
@@ -1076,5 +1079,7 @@ function foo() pure returns (uint256) {
 contract AnonymousEvent {
     event MyEvent() anonymous;
 }
+
+uint256 constant MULTIPLIER = 2**EXPONENT;
 
 `;
