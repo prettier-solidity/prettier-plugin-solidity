@@ -1477,8 +1477,9 @@ library strings {
         pure
         returns (uint256 cnt)
     {
-        uint256 ptr = findPtr(self._len, self._ptr, needle._len, needle._ptr) +
-            needle._len;
+        uint256 ptr =
+            findPtr(self._len, self._ptr, needle._len, needle._ptr) +
+                needle._len;
         while (ptr <= self._ptr + self._len) {
             cnt++;
             ptr =
