@@ -54,6 +54,28 @@ contract Comments7 {
     );
   }
 }
+
+contract Comments8 {
+  function someFunction() {
+    if (something) {
+    }
+    // comment
+    else {
+    }
+  }
+}
+
+
+contract Comments8 {
+  function someFunction() {
+    if (something) {
+    }
+    /* comment
+     * comment */
+    else {
+    }
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.4.24;
 
@@ -133,6 +155,23 @@ contract Comments7 {
             b, // the second value
             c // the lats value
         );
+    }
+}
+
+contract Comments8 {
+    function someFunction() {
+        if (something) {}
+        // comment
+        else {}
+    }
+}
+
+contract Comments8 {
+    function someFunction() {
+        if (something) {}
+        /* comment
+         * comment */
+        else {}
     }
 }
 
