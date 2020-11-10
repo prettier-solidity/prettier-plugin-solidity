@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Issue205.sol 1`] = `
+contract Example {
+    using SafeMath for uint256;
+    
+    struct BalanceState {
+        uint256 balance;
+    }
+
+    mapping(address => mapping(address => BalanceState)) private balanceStates;
+    function example(address token, uint amount) public {
+        balanceStates[msg.sender][token].balance = balanceStates[msg.sender][token].balance.sub(amount);
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract Example {
+    using SafeMath for uint256;
+
+    struct BalanceState {
+        uint256 balance;
+    }
+
+    mapping(address => mapping(address => BalanceState)) private balanceStates;
+
+    function example(address token, uint256 amount) public {
+        balanceStates[msg.sender][token].balance = balanceStates[msg.sender][
+            token
+        ]
+            .balance
+            .sub(amount);
+    }
+}
+
+`;
+
 exports[`Issue289.sol 1`] = `
 contract Issue289 {
   function f() {
