@@ -29,6 +29,7 @@ Array [
   "EnumValue",
   "EventDefinition",
   "ExpressionStatement",
+  "FileLevelConstant",
   "ForStatement",
   "FunctionCall",
   "FunctionDefinition",
