@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Issue289.sol 1`] = `
+contract Issue289 {
+  function f() {
+	address[] storage proposalValidators
+ = ethProposals[_blockNumber][_proposalId].proposalValidators;
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+contract Issue289 {
+    function f() {
+        address[] storage proposalValidators =
+            ethProposals[_blockNumber][_proposalId].proposalValidators;
+    }
+}
+
+`;

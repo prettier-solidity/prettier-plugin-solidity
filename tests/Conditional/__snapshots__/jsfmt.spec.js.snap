@@ -32,9 +32,8 @@ pragma solidity ^0.4.24;
 
 contract Conditional {
     function foo() {
-        address contextAddress = longAddress_ == address(0)
-            ? msg.sender
-            : currentContextAddress_;
+        address contextAddress =
+            longAddress_ == address(0) ? msg.sender : currentContextAddress_;
         asset == ETH
             ? require(
                 address(uint160(msg.sender)).send(quantity),
