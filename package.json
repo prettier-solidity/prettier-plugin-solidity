@@ -71,7 +71,7 @@
     "jest-watch-typeahead": "^0.6.0"
   },
   "dependencies": {
-    "@solidity-parser/parser": "^0.8.2",
+    "@solidity-parser/parser": "^0.9.0",
     "dir-to-object": "^2.0.0",
     "emoji-regex": "^9.0.0",
     "escape-string-regexp": "^4.0.0",
