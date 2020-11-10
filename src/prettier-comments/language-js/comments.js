@@ -183,6 +183,11 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
 }
 
 function addBlockStatementFirstComment(node, comment) {
+  if (!node.body) {
+    addDanglingComment(node, comment);
+    return;
+  }
+
   const body = node.body.filter(n => n.type !== "EmptyStatement");
   if (body.length === 0) {
     addDanglingComment(node, comment);

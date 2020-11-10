@@ -51,3 +51,35 @@ contract Comments7 {
     );
   }
 }
+
+contract Comments8 {
+  function someFunction() {
+    if (something) {
+    }
+    // comment
+    else {
+    }
+  }
+}
+
+
+contract Comments8 {
+  function someFunction() {
+    if (something) {
+    }
+    /* comment
+     * comment */
+    else {
+    }
+  }
+}
+
+contract Comments9 {
+  function someFunction() {
+    if (something) 
+      // a comment
+      f();
+    else {
+    }
+  }
+}
