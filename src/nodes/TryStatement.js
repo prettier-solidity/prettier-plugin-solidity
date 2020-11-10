@@ -17,20 +17,29 @@ const returnParameters = (node, path, print) =>
     : '';
 
 const TryStatement = {
-  print: ({ node, path, print }) =>
-    concat([
+  print: ({ node, path, print }) => {
+    let parts = [
       'try',
       group(
         printSeparatedItem(path.call(print, 'expression'), {
           firstSeparator: line
         })
-      ),
-      returnParameters(node, path, print),
-      ' ',
+      )
+    ];
+
+    const formattedReturnParameters = returnParameters(node, path, print);
+    if (formattedReturnParameters) {
+      parts = parts.concat([formattedReturnParameters, ' ']);
+    }
+
+    parts = parts.concat([
       path.call(print, 'body'),
       ' ',
       join(' ', path.map(print, 'catchClauses'))
-    ])
+    ]);
+
+    return concat(parts);
+  }
 };
 
 module.exports = TryStatement;
