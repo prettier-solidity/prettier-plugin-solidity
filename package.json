@@ -58,7 +58,7 @@
   },
   "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "devDependencies": {
     "codecov": "^3.6.5",
