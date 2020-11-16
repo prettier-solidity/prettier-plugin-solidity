@@ -75,9 +75,9 @@
     "dir-to-object": "^2.0.0",
     "emoji-regex": "^9.0.0",
     "escape-string-regexp": "^4.0.0",
-    "extract-comments": "^1.1.0",
     "prettier": "^2.0.5",
     "semver": "^7.3.2",
+    "solidity-comments-extractor": "^0.0.4",
     "string-width": "^4.2.0"
   }
 }

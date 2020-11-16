@@ -51,6 +51,35 @@ contract Issue289 {
 
 `;
 
+exports[`Issue355.sol 1`] = `
+pragma solidity 0.6.12;
+
+contract Bug {
+  // This is a comment
+  uint public hello;
+
+  // Another comment
+  uint public bigNum = 100_000;
+
+  // This will disappear
+  uint public magic;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pragma solidity 0.6.12;
+
+contract Bug {
+    // This is a comment
+    uint256 public hello;
+
+    // Another comment
+    uint256 public bigNum = 100_000;
+
+    // This will disappear
+    uint256 public magic;
+}
+
+`;
+
 exports[`Issue385.sol 1`] = `
 contract Issue385 {
   function emptyTryCatch() {

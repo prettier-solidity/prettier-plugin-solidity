@@ -1,4 +1,4 @@
-const extract = require('extract-comments');
+const extractComments = require('solidity-comments-extractor');
 // https://prettier.io/docs/en/plugins.html#parsers
 const parser = require('@solidity-parser/parser');
 
@@ -14,7 +14,7 @@ const tryHug = (node, operators) => {
 
 function parse(text, parsers, options) {
   const parsed = parser.parse(text, { loc: true, range: true });
-  parsed.comments = extract(text);
+  parsed.comments = extractComments(text);
 
   parser.visit(parsed, {
     ForStatement(ctx) {
