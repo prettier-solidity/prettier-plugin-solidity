@@ -3,8 +3,13 @@
 [![Build Status](https://travis-ci.com/prettier-solidity/prettier-plugin-solidity.svg?branch=master)](https://travis-ci.com/prettier-solidity/prettier-plugin-solidity)
 [![codecov](https://codecov.io/gh/prettier-solidity/prettier-plugin-solidity/branch/master/graph/badge.svg)](https://codecov.io/gh/prettier-solidity/prettier-plugin-solidity)
 [![Telegram](/assets/telegram-badge.svg)](https://t.me/joinchat/Je2WJFCfKJ_mht1XdhBh6w)
+[![Twitter Follow](https://img.shields.io/twitter/follow/PrettierSol.svg?style=social)](https://twitter.com/PrettierSol)
 
-This is a work in progress [Prettier Plugin](https://prettier.io/docs/en/plugins.html) for [Solidity](https://github.com/ethereum/solidity).
+<p align="center">
+  <img width="375" height="375" src="https://user-images.githubusercontent.com/1022054/59317198-f1149b80-8d15-11e9-9b0f-0c5e7d4b8b81.png">
+</p>
+
+A [Prettier Plugin](https://prettier.io/docs/en/plugins.html) for automatically formatting your [Solidity](https://github.com/ethereum/solidity) code.
 
 If you like this project, please consider contributing to our [Gitcoin grant](https://gitcoin.co/grants/1534/prettier-solidity)!
 
@@ -16,16 +21,22 @@ Install both `prettier` and `prettier-plugin-solidity`:
 npm install --save-dev prettier prettier-plugin-solidity
 ```
 
+Run prettier in your contracts:
+
+```
+npx prettier --write 'contracts/**/*.sol'
+```
+
 You can add a script for running prettier on all your contracts:
 
 ```
-"prettier": "prettier --write **/*.sol"
+"prettier": "prettier --write 'contracts/**/*.sol'"
 ```
 
 Or you can use it as part of your linting to check that all your code is prettified:
 
 ```
-"lint": "prettier --list-different **/*.sol"
+"lint": "prettier --list-different 'contracts/**/*.sol'"
 ```
 
 ## Integrations
