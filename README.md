@@ -45,10 +45,12 @@ These are some of the projects using Prettier Solidity:
 
 - [Bancor](https://app.bancor.network)
 - [Gelato](https://gelato.network/)
+- [Gnosis Protocol](https://docs.gnosis.io/protocol/)
 - [PieDAO](https://www.piedao.org/)
 - [Sablier](https://sablier.finance/)
 - [Synthetix](https://www.synthetix.io)
 - [The Sandbox](https://www.sandbox.game/en/)
+- [UMA](https://umaproject.org/)
 - [Uniswap](https://uniswap.org)
 
 ## Integrations
