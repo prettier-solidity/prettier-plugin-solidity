@@ -39,6 +39,18 @@ Or you can use it as part of your linting to check that all your code is prettif
 "lint": "prettier --list-different 'contracts/**/*.sol'"
 ```
 
+## Who's using it?
+
+These are some of the projects using Prettier Solidity:
+
+- [Bancor](https://app.bancor.network)
+- [Gelato](https://gelato.network/)
+- [PieDAO](https://www.piedao.org/)
+- [Sablier](https://sablier.finance/)
+- [Synthetix](https://www.synthetix.io)
+- [The Sandbox](https://www.sandbox.game/en/)
+- [Uniswap](https://uniswap.org)
+
 ## Integrations
 
 ### Vim
