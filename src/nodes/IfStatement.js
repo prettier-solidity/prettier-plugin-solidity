@@ -51,11 +51,9 @@ const IfStatement = {
       )
     );
     parts.push(printTrueBody(node, path, print));
-    if (commentsBetweenIfAndElse.length) {
-      if (node.falseBody) {
-        parts.push(hardline);
-        parts.push(printComments(node, path, options));
-      }
+    if (commentsBetweenIfAndElse.length && node.falseBody) {
+      parts.push(hardline);
+      parts.push(printComments(node, path, options));
     }
     parts.push(printElse(node, path, print, commentsBetweenIfAndElse));
 
