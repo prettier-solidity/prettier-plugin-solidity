@@ -516,6 +516,14 @@ contract AnonymousEvent {
 
 uint   constant MULTIPLIER =
   2**EXPONENT;
+
+contract WithUncheckedBlock {
+  function f() public pure returns (uint) {
+    uint x = 0;
+    unchecked   {   x--;   }
+    return x;
+  }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Examples taken from the Solidity documentation online.
 
@@ -1081,5 +1089,15 @@ contract AnonymousEvent {
 }
 
 uint256 constant MULTIPLIER = 2**EXPONENT;
+
+contract WithUncheckedBlock {
+    function f() public pure returns (uint256) {
+        uint256 x = 0;
+        unchecked {
+            x--;
+        }
+        return x;
+    }
+}
 
 `;
