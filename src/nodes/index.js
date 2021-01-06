@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1604800512.152 */
+/* This file was automatically generated on 1609182476.784 */
 
 /* eslint-disable global-require */
 
@@ -64,6 +64,7 @@ module.exports = {
   TupleExpression: require('./TupleExpression.js'),
   TypeNameExpression: require('./TypeNameExpression.js'),
   UnaryOperation: require('./UnaryOperation.js'),
+  UncheckedStatement: require('./UncheckedStatement.js'),
   UserDefinedTypeName: require('./UserDefinedTypeName.js'),
   UsingForDeclaration: require('./UsingForDeclaration.js'),
   VariableDeclaration: require('./VariableDeclaration.js'),

@@ -513,3 +513,11 @@ contract AnonymousEvent {
 
 uint   constant MULTIPLIER =
   2**EXPONENT;
+
+contract WithUncheckedBlock {
+  function f() public pure returns (uint) {
+    uint x = 0;
+    unchecked   {   x--;   }
+    return x;
+  }
+}
