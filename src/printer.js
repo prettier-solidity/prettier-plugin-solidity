@@ -1,5 +1,6 @@
 const nodes = require('./nodes');
 const { hasNodeIgnoreComment } = require('./prettier-comments/common/util.js');
+const ignoreComments = require('./comments/ignore.js');
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -12,6 +13,8 @@ function genericPrint(path, options, print) {
   }
 
   if (hasNodeIgnoreComment(node)) {
+    ignoreComments(node);
+
     return options.originalText.slice(
       options.locStart(node),
       options.locEnd(node) + 1
