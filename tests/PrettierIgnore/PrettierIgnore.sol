@@ -16,3 +16,20 @@ contract PrettierIgnore {
         );
     }
 }
+
+// prettier-ignore
+contract Example {
+// Test comment
+    function() public payable {        
+        // this should be marked as printed
+        // Everything inside is also ignored
+        matrix(
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1
+        );
+        if (true) {
+            // comments of children should be marked as printed
+        }
+    }
+}
