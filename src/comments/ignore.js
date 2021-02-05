@@ -4,6 +4,7 @@ function ignoreComments(node) {
   keys.forEach((key) => {
     if (key === 'comments') {
       node.comments.forEach((comment) => {
+        // eslint-disable-next-line no-param-reassign
         comment.printed = true;
       });
       return;
