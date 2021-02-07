@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
@@ -10,7 +10,8 @@
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prettier": "prettier '{.,{src,tests_config}/**}/*.{js{,on},md}' 'tests/**/jsfmt.spec.js' '!src/prettier-comments/**/*'",
-    "test": "jest"
+    "test": "jest",
+    "test:all": "AST_COMPARE=true npm t -- --coverage"
   },
   "repository": {
     "type": "git",
