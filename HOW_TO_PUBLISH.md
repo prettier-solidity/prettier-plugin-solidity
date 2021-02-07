@@ -15,5 +15,9 @@ npm run test:all
 - Create a branch with the name of the new verion number e.g.: `git checkout -b 1.0.0-beta.4`
 
 ```bash
+git add .
+
+git commit -m 'bump version'
+
 git push
 ```
