@@ -5,14 +5,18 @@ const {
 } = require('prettier/standalone');
 
 const printSeparatedItem = require('./print-separated-item');
+const printComments = require('./print-comments');
 const printPreservingEmptyLines = require('./print-preserving-empty-lines');
 
 const AssemblyBlock = {
-  print: ({ options, path, print }) =>
+  print: ({ node, options, path, print }) =>
     concat([
       '{',
       printSeparatedItem(
-        printPreservingEmptyLines(path, 'operations', options, print),
+        concat([
+          printPreservingEmptyLines(path, 'operations', options, print),
+          printComments(node, path, options)
+        ]),
         { firstSeparator: hardline }
       ),
       '}'
