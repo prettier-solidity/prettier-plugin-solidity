@@ -21,15 +21,19 @@ contract PrettierIgnore {
 contract Example {
 // Test comment
     function() public payable {        
-        // this should be marked as printed
+        // This should be marked as printed
         // Everything inside is also ignored
         matrix(
             1, 0, 0,
             0, 1, 0,
             0, 0, 1
         );
-        if (true) {
-            // comments of children should be marked as printed
-        }
+        // Comments for members of an Array are marked as printed
+        if (true)
+            // Comments of single child Objects are marked as printed
+            return;
+        else
+            // Comments of children should be marked as printed
+            return;
     }
 }

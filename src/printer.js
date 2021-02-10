@@ -13,7 +13,7 @@ function genericPrint(path, options, print) {
   }
 
   if (hasNodeIgnoreComment(node)) {
-    ignoreComments(node);
+    ignoreComments(path);
 
     return options.originalText.slice(
       options.locStart(node),
