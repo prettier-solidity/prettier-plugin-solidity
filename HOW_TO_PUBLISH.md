@@ -12,9 +12,11 @@ npm i
 npm run test:all
 ```
 
+- Create a branch with the name of the new version number, e.g.: `git checkout -b 1.0.0-beta.4`
+
 - Bump the version in the package.json file
 
-- Create a branch with the name of the new version number, e.g.: `git checkout -b 1.0.0-beta.4`
+- `npm i`
 
 ```bash
 git add .
