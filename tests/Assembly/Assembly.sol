@@ -160,4 +160,12 @@ function $somefn(somearg) {
           offset   :=   x.offset
        }
   }
+
+  function commentsInAssemblyBlock () {
+
+       assembly {  
+                 /* foo bar baz */
+                 /* foobbbbbb */
+       }
+  }
 }

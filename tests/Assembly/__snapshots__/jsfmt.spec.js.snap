@@ -163,6 +163,14 @@ function $somefn(somearg) {
           offset   :=   x.offset
        }
   }
+
+  function commentsInAssemblyBlock () {
+
+       assembly {  
+                 /* foo bar baz */
+                 /* foobbbbbb */
+       }
+  }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 contract Assembly {
@@ -360,6 +368,13 @@ contract Assembly {
         assembly {
             ds.slot := position
             offset := x.offset
+        }
+    }
+
+    function commentsInAssemblyBlock() {
+        assembly {
+            /* foo bar baz */
+            /* foobbbbbb */
         }
     }
 }
