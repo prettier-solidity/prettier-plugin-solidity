@@ -9,7 +9,7 @@ const printSeparatedList = require('./print-separated-list');
 const parameters = (node, path, print) =>
   node.parameters
     ? concat([
-        node.isReasonStringType ? 'Error' : '',
+        node.kind || '',
         '(',
         printSeparatedList(path.map(print, 'parameters')),
         ') '
