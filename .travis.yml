@@ -7,4 +7,4 @@ node_js:
   - '13'
 script:
   - npm run lint
-  - npm test
+  - npm run test:all
