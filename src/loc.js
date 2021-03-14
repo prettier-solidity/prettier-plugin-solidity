@@ -11,6 +11,6 @@ function getRange(index, node) {
 }
 
 module.exports = {
-  locEnd: node => getRange(1, node),
-  locStart: node => getRange(0, node)
+  locEnd: (node) => getRange(1, node),
+  locStart: (node) => getRange(0, node)
 };
