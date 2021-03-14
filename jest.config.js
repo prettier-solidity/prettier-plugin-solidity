@@ -1,5 +1,7 @@
+const { FULL_TEST } = process.env;
+
 module.exports = {
-  collectCoverage: true,
+  collectCoverage: !!FULL_TEST,
   collectCoverageFrom: [
     'scripts/**/*.js',
     '!scripts/generateIndexes.js',
