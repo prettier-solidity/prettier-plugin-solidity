@@ -16,7 +16,7 @@ module.exports = {
       statements: 100
     }
   },
-  setupFiles: ['<rootDir>/tests_config/run_spec.js'],
+  setupFiles: ['<rootDir>/tests_config/setup.js'],
   snapshotSerializers: ['<rootDir>/tests_config/raw-serializer.js'],
   testEnvironment: 'node',
   testRegex: 'jsfmt\\.spec\\.js$|__tests__/.*\\.js$|scripts/.*\\.test\\.js$',

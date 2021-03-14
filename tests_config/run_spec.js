@@ -76,4 +76,4 @@ function runSpec(dirname, options) {
   });
 }
 
-global.run_spec = runSpec;
+module.exports = runSpec;
