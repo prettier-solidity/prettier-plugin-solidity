@@ -17,7 +17,10 @@ module.exports = {
     }
   },
   setupFiles: ['<rootDir>/tests_config/setup.js'],
-  snapshotSerializers: ['<rootDir>/tests_config/raw-serializer.js'],
+  snapshotSerializers: [
+    'jest-snapshot-serializer-raw',
+    'jest-snapshot-serializer-ansi'
+  ],
   testEnvironment: 'node',
   testRegex: 'jsfmt\\.spec\\.js$|__tests__/.*\\.js$|scripts/.*\\.test\\.js$',
   transform: {},
