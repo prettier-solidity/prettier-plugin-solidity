@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BlankLines.sol 1`] = `
+exports[`BlankLines.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity >=0.4.0 <0.7.0;
 
 
@@ -20,7 +25,8 @@ contract A {
         // ...
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity >=0.4.0 <0.7.0;
 
 contract A {}
@@ -39,9 +45,15 @@ contract A {
     }
 }
 
+================================================================================
 `;
 
-exports[`ControlStructures.sol 1`] = `
+exports[`ControlStructures.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity >=0.4.0 <0.7.0;
 
 
@@ -99,7 +111,8 @@ contract ControlStructures
         */
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity >=0.4.0 <0.7.0;
 
 contract ControlStructures {
@@ -153,9 +166,15 @@ contract ControlStructures {
     }
 }
 
+================================================================================
 `;
 
-exports[`FunctionDeclaration.sol 1`] = `
+exports[`FunctionDeclaration.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity >=0.4.0 <0.7.0;
 
 
@@ -291,7 +310,8 @@ contract X is B, C, D {
         x = param5;
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity >=0.4.0 <0.7.0;
 
 contract FunctionDeclaration {
@@ -437,9 +457,15 @@ contract X is B, C, D {
     }
 }
 
+================================================================================
 `;
 
-exports[`Mappings.sol 1`] = `
+exports[`Mappings.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity >=0.4.0 <0.7.0;
 
 
@@ -449,7 +475,8 @@ contract Mappings {
     mapping (uint => mapping (bool => Data[])) public data;
     mapping(uint => mapping (uint => s)) data;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity >=0.4.0 <0.7.0;
 
 contract Mappings {
@@ -459,9 +486,15 @@ contract Mappings {
     mapping(uint256 => mapping(uint256 => s)) data;
 }
 
+================================================================================
 `;
 
-exports[`MaximumLineLength.sol 1`] = `
+exports[`MaximumLineLength.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity >=0.4.0 <0.7.0;
 
 
@@ -529,7 +562,8 @@ contract EventDefinitionsAndEventEmitters {
                                longAttribute);
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity >=0.4.0 <0.7.0;
 
 contract FunctionCalls {
@@ -607,9 +641,15 @@ contract EventDefinitionsAndEventEmitters {
     }
 }
 
+================================================================================
 `;
 
-exports[`OtherRecommendations.sol 1`] = `
+exports[`OtherRecommendations.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity >=0.4.0 <0.7.0;
 
 
@@ -639,7 +679,8 @@ contract OtherRecommendations {
         x +=1;
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity >=0.4.0 <0.7.0;
 
 contract OtherRecommendations {
@@ -667,25 +708,38 @@ contract OtherRecommendations {
     }
 }
 
+================================================================================
 `;
 
-exports[`VariableDeclarations.sol 1`] = `
+exports[`VariableDeclarations.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity >=0.4.0 <0.7.0;
 
 
 contract VariableDeclarations {
     uint [] x;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity >=0.4.0 <0.7.0;
 
 contract VariableDeclarations {
     uint256[] x;
 }
 
+================================================================================
 `;
 
-exports[`WhitespaceInExpressions.sol 1`] = `
+exports[`WhitespaceInExpressions.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity >=0.4.0 <0.7.0;
 
 
@@ -699,7 +753,8 @@ contract WhitespaceInExpressions {
 
     function spam(uint i , Coin coin) public ;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity >=0.4.0 <0.7.0;
 
 contract WhitespaceInExpressions {
@@ -713,4 +768,5 @@ contract WhitespaceInExpressions {
     function spam(uint256 i, Coin coin) public;
 }
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tupples.sol 1`] = `
+exports[`Tupples.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity ^0.5.0;
 
 contract demo {
@@ -26,7 +31,8 @@ bytes32 subUnitId,
 bytes32 requestId) = getParamsById(paramsId);
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity ^0.5.0;
 
 contract demo {
@@ -64,4 +70,5 @@ contract Tupples {
     }
 }
 
+================================================================================
 `;

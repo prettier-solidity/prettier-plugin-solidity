@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AllSolidityFeatures.sol 1`] = `
+exports[`AllSolidityFeatures.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Examples taken from the Solidity documentation online.
 
 // for pragma version numbers, see https://docs.npmjs.com/misc/semver#versions
@@ -524,7 +529,8 @@ contract WithUncheckedBlock {
     return x;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Examples taken from the Solidity documentation online.
 
 // for pragma version numbers, see https://docs.npmjs.com/misc/semver#versions
@@ -1100,4 +1106,5 @@ contract WithUncheckedBlock {
     }
 }
 
+================================================================================
 `;

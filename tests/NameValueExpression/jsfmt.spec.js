@@ -1,2 +1,2 @@
-run_spec(__dirname);
-run_spec(__dirname, { bracketSpacing: true });
+run_spec(__dirname, ['solidity-parse']);
+run_spec(__dirname, ['solidity-parse'], { bracketSpacing: true });

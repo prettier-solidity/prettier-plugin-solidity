@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MemberAccess.sol 1`] = `
+exports[`MemberAccess.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity ^0.5.0;
 
 contract MemberAccess {
@@ -16,7 +21,8 @@ contract MemberAccess {
         veryLongVariable.veryLongCall(veryLongAttribute).veryLongCall(veryLongAttribute).veryLongCall(veryLongAttribute);
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity ^0.5.0;
 
 contract MemberAccess {
@@ -53,4 +59,5 @@ contract MemberAccess {
     }
 }
 
+================================================================================
 `;

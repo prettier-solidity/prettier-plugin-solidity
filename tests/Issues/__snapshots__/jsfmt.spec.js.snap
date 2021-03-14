@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Issue205.sol 1`] = `
+exports[`Issue205.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 contract Example {
     using SafeMath for uint256;
     
@@ -13,7 +18,8 @@ contract Example {
         balanceStates[msg.sender][token].balance = balanceStates[msg.sender][token].balance.sub(amount);
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 contract Example {
     using SafeMath for uint256;
 
@@ -32,16 +38,23 @@ contract Example {
     }
 }
 
+================================================================================
 `;
 
-exports[`Issue289.sol 1`] = `
+exports[`Issue289.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 contract Issue289 {
   function f() {
 	address[] storage proposalValidators
  = ethProposals[_blockNumber][_proposalId].proposalValidators;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 contract Issue289 {
     function f() {
         address[] storage proposalValidators =
@@ -49,9 +62,15 @@ contract Issue289 {
     }
 }
 
+================================================================================
 `;
 
-exports[`Issue355.sol 1`] = `
+exports[`Issue355.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity 0.6.12;
 
 contract Bug {
@@ -64,7 +83,8 @@ contract Bug {
   // This will disappear
   uint public magic;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity 0.6.12;
 
 contract Bug {
@@ -78,9 +98,15 @@ contract Bug {
     uint256 public magic;
 }
 
+================================================================================
 `;
 
-exports[`Issue385.sol 1`] = `
+exports[`Issue385.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 contract Issue385 {
   function emptyTryCatch() {
             try
@@ -94,7 +120,8 @@ contract Issue385 {
             }
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 contract Issue385 {
     function emptyTryCatch() {
         try
@@ -109,4 +136,5 @@ contract Issue385 {
     }
 }
 
+================================================================================
 `;

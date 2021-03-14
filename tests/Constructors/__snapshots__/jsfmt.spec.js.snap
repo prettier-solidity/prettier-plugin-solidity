@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Constructors.sol 1`] = `
+exports[`Constructors.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity ^0.5.2;
 
 contract Constructors is Ownable, Changeable {
@@ -9,7 +14,8 @@ contract Constructors is Ownable, Changeable {
 
   constructor(variable1, variable2, variable3, variable4, variable5, variable6, variable7) public Changeable(variable1, variable2, variable3, variable4, variable5, variable6, variable7) Ownable() onlyOwner {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity ^0.5.2;
 
 contract Constructors is Ownable, Changeable {
@@ -44,4 +50,5 @@ contract Constructors is Ownable, Changeable {
     {}
 }
 
+================================================================================
 `;

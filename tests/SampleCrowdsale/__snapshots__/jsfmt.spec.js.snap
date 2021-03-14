@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SampleCrowdsale.sol 1`] = `
+exports[`SampleCrowdsale.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity ^0.4.18;
 
 import "../crowdsale/CappedCrowdsale.sol";
@@ -49,7 +54,8 @@ contract SampleCrowdsale is CappedCrowdsale, RefundableCrowdsale {
   }
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity ^0.4.18;
 
 import "../crowdsale/CappedCrowdsale.sol";
@@ -103,4 +109,5 @@ contract SampleCrowdsale is CappedCrowdsale, RefundableCrowdsale {
     }
 }
 
+================================================================================
 `;

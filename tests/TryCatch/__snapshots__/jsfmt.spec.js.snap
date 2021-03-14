@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TryCatch.sol 1`] = `
+exports[`TryCatch.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity ^0.6.0;
 
 interface DataFeed { function getData(address token) external returns (uint value); }
@@ -104,7 +109,8 @@ contract FeedConsumer {
         }
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity ^0.6.0;
 
 interface DataFeed {
@@ -231,4 +237,5 @@ contract FeedConsumer {
     }
 }
 
+================================================================================
 `;

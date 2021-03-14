@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IndexRangeAccess.sol 1`] = `
+exports[`IndexRangeAccess.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity ^0.6.4;
 
 contract Demo {
@@ -10,7 +15,8 @@ contract Demo {
         emit Log(bytes(value[0:10]));
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity ^0.6.4;
 
 contract Demo {
@@ -21,4 +27,5 @@ contract Demo {
     }
 }
 
+================================================================================
 `;

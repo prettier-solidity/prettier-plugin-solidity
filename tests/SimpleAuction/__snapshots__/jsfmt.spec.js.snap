@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SimpleAuction.sol 1`] = `
+exports[`SimpleAuction.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity ^0.4.22;
 
 contract SimpleAuction {
@@ -124,7 +129,8 @@ contract SimpleAuction {
         beneficiary.transfer(highestBid);
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity ^0.4.22;
 
 contract SimpleAuction {
@@ -240,4 +246,5 @@ contract SimpleAuction {
     }
 }
 
+================================================================================
 `;
