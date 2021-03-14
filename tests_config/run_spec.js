@@ -1,7 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-// TODO: add support for standalone
-const prettier = require('prettier');
+const { TEST_STANDALONE } = process.env;
+
+const fs = require("fs");
+const path = require("path");
+const prettier = !TEST_STANDALONE
+  ? require("./require_prettier")
+  : require("./require_standalone");
 const checkParsers = require('./utils/check-parsers');
 const createSnapshot = require('./utils/create-snapshot');
 const visualizeEndOfLine = require('./utils/visualize-end-of-line');
