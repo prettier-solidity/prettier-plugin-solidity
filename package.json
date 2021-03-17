@@ -5,11 +5,11 @@
   "main": "src",
   "scripts": {
     "coverage": "codecov",
-    "eslint": "eslint 'src/**'",
+    "eslint": "eslint 'scripts/**' 'src/**' '__tests__/**' 'tests/**'",
     "generateindexes": "SCRIPT=true node scripts/generateIndexes.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
-    "prettier": "prettier '{.,{src,tests_config}/**}/*.{js{,on},md}' 'tests/**/jsfmt.spec.js'",
+    "prettier": "prettier './*.{js,json,md,yml}' '{scripts,src,__tests__,tests}/**/*.js'",
     "test": "jest",
     "test:all": "FULL_TEST=1 jest"
   },
