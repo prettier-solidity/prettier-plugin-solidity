@@ -83,3 +83,13 @@ contract Comments9 {
     }
   }
 }
+
+interface Comments10 {
+  function someFunction(
+    // the first value
+    // the second value
+    // the lats value
+  ) /* comment outside the parameters */ external;
+
+  function someOtherFunction(/* checking for Block comment */) external;
+}

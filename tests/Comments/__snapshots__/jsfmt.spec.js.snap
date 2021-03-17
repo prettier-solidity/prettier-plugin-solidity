@@ -86,7 +86,16 @@ contract Comments9 {
     }
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+interface Comments10 {
+  function someFunction(
+    // the first value
+    // the second value
+    // the lats value
+  ) /* comment outside the parameters */ external;
+
+  function someOtherFunction(/* checking for Block comment */) external;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 pragma solidity ^0.4.24;
 
 contract Comments1 {
@@ -192,6 +201,18 @@ contract Comments9 {
             f();
         else {}
     }
+}
+
+interface Comments10 {
+    function someFunction(
+        // the first value
+        // the second value
+        // the lats value
+    )/* comment outside the parameters */ external;
+
+    function someOtherFunction(
+        /* checking for Block comment */
+    ) external;
 }
 
 `;
