@@ -1,7 +1,7 @@
-const { FULL_TEST } = process.env;
+const FULL_TEST = Boolean(process.env.FULL_TEST);
 
 module.exports = {
-  collectCoverage: !!FULL_TEST,
+  collectCoverage: FULL_TEST,
   collectCoverageFrom: [
     'scripts/**/*.js',
     '!scripts/generateIndexes.js',
