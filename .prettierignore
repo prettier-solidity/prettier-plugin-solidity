@@ -1,1 +1,3 @@
 tests/**/*.sol
+tests_config/**/*.js
+src/prettier-comments/**/*.js

@@ -1,5 +1,7 @@
+const FULL_TEST = Boolean(process.env.FULL_TEST);
+
 module.exports = {
-  collectCoverage: true,
+  collectCoverage: FULL_TEST,
   collectCoverageFrom: [
     'scripts/**/*.js',
     '!scripts/generateIndexes.js',
@@ -16,8 +18,11 @@ module.exports = {
       statements: 100
     }
   },
-  setupFiles: ['<rootDir>/tests_config/run_spec.js'],
-  snapshotSerializers: ['<rootDir>/tests_config/raw-serializer.js'],
+  setupFiles: ['<rootDir>/tests_config/setup.js'],
+  snapshotSerializers: [
+    'jest-snapshot-serializer-raw',
+    'jest-snapshot-serializer-ansi'
+  ],
   testEnvironment: 'node',
   testRegex: 'jsfmt\\.spec\\.js$|__tests__/.*\\.js$|scripts/.*\\.test\\.js$',
   transform: {},

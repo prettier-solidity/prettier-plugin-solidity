@@ -152,8 +152,9 @@ If you want a different configuration for your javascript and solidity files, yo
 1. [Fork it](https://github.com/prettier-solidity/prettier-plugin-solidity/fork)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+4. All existing test and coverage must pass (`npm run test:all`), if coverage drops below 100% add missing tests.
+5. Push to the branch (`git push origin feature/fooBar`)
+6. Create a new Pull Request
 
 ## License
 

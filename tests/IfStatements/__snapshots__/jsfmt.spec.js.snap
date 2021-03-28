@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IfStatements.sol 1`] = `
+exports[`IfStatements.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 contract IfStatements {
     function hi() public {
         if (simpleIf) return true;
@@ -113,7 +118,8 @@ contract IfStatements {
         if (simpleIf) {if (simpleIfWithinIf) {return true;} else {return false;}} else return false;
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 contract IfStatements {
     function hi() public {
         if (simpleIf) return true;
@@ -524,4 +530,5 @@ contract IfStatements {
     }
 }
 
+================================================================================
 `;

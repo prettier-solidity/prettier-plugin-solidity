@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IndexOf.sol 1`] = `
+exports[`IndexOf.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 contract IndexOf {
 
     address creator;
@@ -68,7 +73,8 @@ contract IndexOf {
         }
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 contract IndexOf {
     address creator;
 
@@ -134,4 +140,5 @@ contract IndexOf {
     }
 }
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FunctionDefinitions.sol 1`] = `
+exports[`FunctionDefinitions.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface FunctionInterfaces {
   function noParamsNoModifiersNoReturns();
 
@@ -167,7 +172,8 @@ contract FunctionDefinitions {
     a = 1;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface FunctionInterfaces {
     function noParamsNoModifiersNoReturns();
 
@@ -858,4 +864,5 @@ contract FunctionDefinitions {
     }
 }
 
+================================================================================
 `;

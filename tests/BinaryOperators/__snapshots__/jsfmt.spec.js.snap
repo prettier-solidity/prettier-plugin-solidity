@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BinaryOperators.sol 1`] = `
+exports[`BinaryOperators.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 contract ArithmeticOperators {
   // ['+', '-', '*', '/', '%']
   function someFunction() {
@@ -187,7 +192,8 @@ contract LogicalOperators {
     return veryVeryVeryVeryVeryLongFunctionCalledA(veryVeryVeryVeryVeryLongVariableCalledB) || c;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 contract ArithmeticOperators {
     // ['+', '-', '*', '/', '%']
     function someFunction() {
@@ -667,9 +673,15 @@ contract LogicalOperators {
     }
 }
 
+================================================================================
 `;
 
-exports[`Parentheses.sol 1`] = `
+exports[`Parentheses.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity 0.5.8;
 
 
@@ -802,7 +814,8 @@ contract Parentheses {
         a && b && c;
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity 0.5.8;
 
 contract Parentheses {
@@ -935,4 +948,5 @@ contract Parentheses {
     }
 }
 
+================================================================================
 `;

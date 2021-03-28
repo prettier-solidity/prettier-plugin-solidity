@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WhileStatements.sol 1`] = `
+exports[`WhileStatements.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 contract WhileStatements {
     uint constant LONG_VARIABLE = 1;
 
@@ -38,7 +43,8 @@ contract WhileStatements {
         do  { a++; }while (a < veryLongVariableName.add(LONG_VARIABLE).add(LONG_VARIABLE) * 600);
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 contract WhileStatements {
     uint256 constant LONG_VARIABLE = 1;
 
@@ -100,4 +106,5 @@ contract WhileStatements {
     }
 }
 
+================================================================================
 `;

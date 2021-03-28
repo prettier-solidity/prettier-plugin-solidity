@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SimpleStorage.sol 1`] = `
+exports[`SimpleStorage.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 pragma solidity ^0.4.0;
 
 contract SimpleStorage {
@@ -15,7 +20,8 @@ contract SimpleStorage {
     return storedData;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 pragma solidity ^0.4.0;
 
 contract SimpleStorage {
@@ -31,4 +37,5 @@ contract SimpleStorage {
     }
 }
 
+================================================================================
 `;

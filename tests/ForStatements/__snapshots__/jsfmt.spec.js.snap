@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ForStatements.sol 1`] = `
+exports[`ForStatements.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 contract ForStatements {
     uint constant LONG_VARIABLE = 1;
 
@@ -44,7 +49,8 @@ contract ForStatements {
         }
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 contract ForStatements {
     uint256 constant LONG_VARIABLE = 1;
 
@@ -98,4 +104,5 @@ contract ForStatements {
     }
 }
 
+================================================================================
 `;
