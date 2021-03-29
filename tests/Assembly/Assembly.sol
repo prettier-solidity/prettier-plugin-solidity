@@ -117,6 +117,7 @@ loop:
     a add swap1
     n := sub(n, 1)
     jump(loop)
+
 loopend:
     mstore(0, a)
     return(0, 0x20)
