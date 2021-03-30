@@ -5,11 +5,11 @@
   "main": "src",
   "scripts": {
     "coverage": "codecov",
-    "eslint": "eslint 'src/**'",
+    "eslint": "eslint 'scripts/**' 'src/**' '__tests__/**' 'tests/**'",
     "generateindexes": "SCRIPT=true node scripts/generateIndexes.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
-    "prettier": "prettier '{.,{src,tests_config}/**}/*.{js{,on},md}' 'tests/**/jsfmt.spec.js'",
+    "prettier": "prettier './*.{js,json,md,yml}' '{scripts,src,__tests__,tests}/**/*.js'",
     "test": "jest",
     "test:all": "FULL_TEST=1 jest"
   },
@@ -63,9 +63,9 @@
   },
   "devDependencies": {
     "codecov": "^3.8.1",
-    "eslint": "^7.19.0",
+    "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^8.0.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
     "jest": "^26.6.3",
     "jest-mock-now": "^1.3.0",
@@ -80,7 +80,7 @@
     "emoji-regex": "^9.2.1",
     "escape-string-regexp": "^4.0.0",
     "prettier": "^2.2.1",
-    "semver": "^7.3.4",
+    "semver": "^7.3.5",
     "solidity-comments-extractor": "^0.0.4",
     "string-width": "^4.2.0"
   }

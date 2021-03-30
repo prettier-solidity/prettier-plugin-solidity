@@ -22,7 +22,7 @@ const parsers = {
   'solidity-parse': parser
 };
 
-const canAttachComment = node =>
+const canAttachComment = (node) =>
   node.type && node.type !== 'BlockComment' && node.type !== 'LineComment';
 
 // https://prettier.io/docs/en/plugins.html#printers
