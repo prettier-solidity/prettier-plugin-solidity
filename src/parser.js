@@ -29,14 +29,18 @@ function parse(text, parsers, options) {
         : `hex"${ctx.value.slice(4, -1)}"`;
     },
     ElementaryTypeName(ctx) {
+      // We avoid making changes for bytes1 since the type 'byte' was removed
+      // in v0.8.0
+      // See the breaking changes in https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html#silent-changes-of-the-semantics
+      // The type byte has been removed. It was an alias of bytes1.
+      // TODO once we decide to keep track of the pragma, we can implement this again.
+
       if (options.explicitTypes === 'always') {
         if (ctx.name === 'uint') ctx.name = 'uint256';
         if (ctx.name === 'int') ctx.name = 'int256';
-        if (ctx.name === 'byte') ctx.name = 'bytes1';
       } else if (options.explicitTypes === 'never') {
         if (ctx.name === 'uint256') ctx.name = 'uint';
         if (ctx.name === 'int256') ctx.name = 'int';
-        if (ctx.name === 'bytes1') ctx.name = 'byte';
       }
     },
     BinaryOperation(ctx) {
@@ -56,7 +60,12 @@ function parse(text, parsers, options) {
           ctx.left = tryHug(ctx.left, ['*', '/', '%']);
           break;
         case '**':
-          ctx.left = tryHug(ctx.left, ['**']);
+          // We avoid making changes here since the order of precedence of the
+          // operators for ** changed in v0.8.0
+          // See the breaking changes in https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html#silent-changes-of-the-semantics
+          // Exponentiation is right associative, i.e., the expression a**b**c
+          // is parsed as a**(b**c). Before 0.8.0, it was parsed as (a**b)**c.
+          // TODO once we decide to keep track of the pragma, we can implement this again.
           break;
         case '<<':
         case '>>':
