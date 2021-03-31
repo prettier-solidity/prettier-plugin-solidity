@@ -38,6 +38,35 @@ const unstableAstTests = new Map(
   })
 );
 
+const astChangedTests = new Map(
+  [
+    [
+      'ExplicitVariableTypes/ExplicitVariableTypes.sol',
+      (options) =>
+        options.explicitTypes === undefined ||
+        options.explicitTypes !== 'preserve'
+    ],
+    'Parentheses/AddNoParentheses.sol',
+    'Parentheses/SubNoParentheses.sol',
+    'Parentheses/MulNoParentheses.sol',
+    'Parentheses/DivNoParentheses.sol',
+    'Parentheses/ModNoParentheses.sol',
+    'Parentheses/ExpNoParentheses.sol',
+    'Parentheses/ShiftLNoParentheses.sol',
+    'Parentheses/ShiftRNoParentheses.sol',
+    'Parentheses/BitAndNoParentheses.sol',
+    'Parentheses/BitOrNoParentheses.sol',
+    'Parentheses/BitXorNoParentheses.sol',
+    'Parentheses/LogicNoParentheses.sol',
+    'HexLiteral/HexLiteral.sol'
+  ].map((fixture) => {
+    const [file, compareBytecode = () => true] = Array.isArray(fixture)
+      ? fixture
+      : [fixture];
+    return [path.join(__dirname, '../tests/', file), compareBytecode];
+  })
+);
+
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
 
@@ -50,6 +79,16 @@ const isUnstable = (filename, options) => {
 
 const isAstUnstable = (filename, options) => {
   const testFunction = unstableAstTests.get(filename);
+
+  if (!testFunction) {
+    return false;
+  }
+
+  return testFunction(options);
+};
+
+const shouldCompareBytecode = (filename, options) => {
+  const testFunction = astChangedTests.get(filename);
 
   if (!testFunction) {
     return false;
@@ -302,6 +341,20 @@ function runTest({
     test(`[${parser}] BOM`, () => {
       const output = format(BOM + code, formatOptions).eolVisualizedOutput;
       const expected = BOM + formatResult.eolVisualizedOutput;
+      expect(output).toEqual(expected);
+    });
+  }
+  if (shouldCompareBytecode(filename, formatOptions)) {
+    test(`[${parser}] compare Bytecode`, () => {
+      // We require the compiler here as it makes all tests slow when added at
+      // the top of the file.
+      // TODO investigate this warning
+      //   - A worker process has failed to exit gracefully and has been force
+      //     exited. This is likely caused by tests leaking due to improper
+      //     teardown. Try running with --detectOpenHandles to find leaks.
+      const compileContract = require('./utils/compile-contract');
+      const output = compileContract(filename, formatResult.output);
+      const expected = compileContract(filename, formatResult.input);
       expect(output).toEqual(expected);
     });
   }
