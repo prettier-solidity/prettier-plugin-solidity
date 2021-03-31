@@ -18,9 +18,9 @@ const CURSOR_PLACEHOLDER = '<|>';
 const RANGE_START_PLACEHOLDER = '<<<PRETTIER_RANGE_START>>>';
 const RANGE_END_PLACEHOLDER = '<<<PRETTIER_RANGE_END>>>';
 
-// TODO: these test files need fix
+// Here we add files that will not be the same when formating a second time.
 const unstableTests = new Map(
-  ['Assembly/Assembly.sol'].map((fixture) => {
+  [].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
@@ -28,7 +28,15 @@ const unstableTests = new Map(
   })
 );
 
-const unstableAstTests = new Map();
+// Here we add files that will not have the same AST after being formated.
+const unstableAstTests = new Map(
+  [].map((fixture) => {
+    const [file, isAstUnstable = () => true] = Array.isArray(fixture)
+      ? fixture
+      : [fixture];
+    return [path.join(__dirname, '../tests/', file), isAstUnstable];
+  })
+);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
