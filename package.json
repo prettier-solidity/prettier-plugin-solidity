@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
@@ -59,7 +59,7 @@
   },
   "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "devDependencies": {
     "codecov": "^3.8.1",
