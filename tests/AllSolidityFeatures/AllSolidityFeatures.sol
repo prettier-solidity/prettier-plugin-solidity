@@ -520,4 +520,13 @@ contract WithUncheckedBlock {
     unchecked   {   x--;   }
     return x;
   }
+  
+  function g() public pure returns (uint) {
+    uint x = 0;
+    unchecked   {   x--; return x; }
+  }
+
+  function mul(uint256 x, uint256 y) internal pure returns (uint256) {
+    unchecked { return x * y; }
+  }
 }

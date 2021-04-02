@@ -1,11 +1,12 @@
 const {
   doc: {
-    builders: { concat }
+    builders: { concat, group }
   }
 } = require('prettier/standalone');
 
 const UncheckedStatement = {
-  print: ({ path, print }) => concat(['unchecked ', path.call(print, 'block')])
+  print: ({ path, print }) =>
+    group(concat(['unchecked ', path.call(print, 'block')]))
 };
 
 module.exports = UncheckedStatement;
