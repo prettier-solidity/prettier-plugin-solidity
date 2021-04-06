@@ -475,12 +475,11 @@ function printString(rawContent, options) {
       options.parser === "css" ||
       options.parser === "less" ||
       options.parser === "scss"
-    ),
-    options.isUnicode
+    )
   );
 }
 
-function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes, isUnicode) {
+function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
   // Matches _any_ escape and unescaped quotes (both single and double).
@@ -515,7 +514,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes, isUn
       : "\\" + escaped;
   });
 
-  return (isUnicode ? "unicode" : "") + enclosingQuote + newContent + enclosingQuote;
+  return enclosingQuote + newContent + enclosingQuote;
 }
 
 function printNumber(rawNumber) {
