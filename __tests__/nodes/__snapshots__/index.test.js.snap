@@ -16,6 +16,7 @@ Array [
   "BinaryOperation",
   "Block",
   "BooleanLiteral",
+  "Break",
   "BreakStatement",
   "CatchClause",
   "Conditional",

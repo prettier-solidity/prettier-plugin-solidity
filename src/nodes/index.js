@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1609182476.784 */
+/* This file was automatically generated on 1617759496.843 */
 
 /* eslint-disable global-require */
 
@@ -17,6 +17,7 @@ module.exports = {
   BinaryOperation: require('./BinaryOperation.js'),
   Block: require('./Block.js'),
   BooleanLiteral: require('./BooleanLiteral.js'),
+  Break: require('./Break.js'),
   BreakStatement: require('./BreakStatement.js'),
   CatchClause: require('./CatchClause.js'),
   Conditional: require('./Conditional.js'),
