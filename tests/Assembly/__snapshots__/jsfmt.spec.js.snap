@@ -177,6 +177,14 @@ function $somefn(somearg) {
                  /* foobbbbbb */
        }
   }
+
+  function withBreak() {
+    assembly {
+            for {} 1 {} {
+                break
+            }
+        }
+  }
 }
 
 =====================================output=====================================
@@ -378,6 +386,18 @@ contract Assembly {
         assembly {
             /* foo bar baz */
             /* foobbbbbb */
+        }
+    }
+
+    function withBreak() {
+        assembly {
+            for {
+
+            } 1 {
+
+            } {
+                break
+            }
         }
     }
 }

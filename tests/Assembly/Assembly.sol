@@ -169,4 +169,12 @@ function $somefn(somearg) {
                  /* foobbbbbb */
        }
   }
+
+  function withBreak() {
+    assembly {
+            for {} 1 {} {
+                break
+            }
+        }
+  }
 }
