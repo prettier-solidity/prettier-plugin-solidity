@@ -528,8 +528,16 @@ contract WithUncheckedBlock {
     unchecked   {   x--;   }
     return x;
   }
-}
+  
+  function g() public pure returns (uint) {
+    uint x = 0;
+    unchecked   {   x--; return x; }
+  }
 
+  function mul(uint256 x, uint256 y) internal pure returns (uint256) {
+    unchecked { return x * y; }
+  }
+}
 =====================================output=====================================
 // Examples taken from the Solidity documentation online.
 
@@ -1099,10 +1107,20 @@ uint256 constant MULTIPLIER = 2**EXPONENT;
 contract WithUncheckedBlock {
     function f() public pure returns (uint256) {
         uint256 x = 0;
+        unchecked {x--;}
+        return x;
+    }
+
+    function g() public pure returns (uint256) {
+        uint256 x = 0;
         unchecked {
             x--;
+            return x;
         }
-        return x;
+    }
+
+    function mul(uint256 x, uint256 y) internal pure returns (uint256) {
+        unchecked {return x * y;}
     }
 }
 
