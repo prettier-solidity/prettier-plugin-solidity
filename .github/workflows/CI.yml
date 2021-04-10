@@ -28,25 +28,6 @@ jobs:
       - name: lint
         run: npm run lint
 
-  test_macos:
-    name: Test on MacOS with Node 12
-    runs-on: macos-latest
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('package-lock.json') }}
-      - name: Install
-        run: npm install
-      - name: Run tests
-        run: npm run test:all
-
   test_linux:
     name: Test on Linux with Node ${{ matrix.node }}
     runs-on: ubuntu-latest
@@ -59,6 +40,25 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: install vyper
         run: docker pull ethereum/vyper:0.1.0b10
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('package-lock.json') }}
+      - name: Install
+        run: npm install
+      - name: Run tests
+        run: npm run test:all
+
+  test_macos:
+    name: Test on MacOS with Node 12
+    runs-on: macos-latest
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
         id: cache
