@@ -6,13 +6,15 @@ const {
 } = require('../prettier-comments/language-js/comments');
 
 const handleContractDefinitionComments = require('./handlers/ContractDefinition');
+const handleIfStatementComments = require('./handlers/IfStatementComments');
 
-function solidityHandleOwnLineComment(
+function handleCommentScenario(
   comment,
   text,
   options,
   ast,
-  isLastComment
+  isLastComment,
+  callback
 ) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   const handlerArguments = [
@@ -26,11 +28,29 @@ function solidityHandleOwnLineComment(
 
   if (
     handleContractDefinitionComments(...handlerArguments) ||
-    handleOwnLineComment(comment, text, options, ast, isLastComment)
+    handleIfStatementComments(...handlerArguments) ||
+    callback(comment, text, options, ast, isLastComment)
   ) {
     return true;
   }
   return false;
+}
+
+function solidityHandleOwnLineComment(
+  comment,
+  text,
+  options,
+  ast,
+  isLastComment
+) {
+  return handleCommentScenario(
+    comment,
+    text,
+    options,
+    ast,
+    isLastComment,
+    handleOwnLineComment
+  );
 }
 
 function solidityHandleEndOfLineComment(
@@ -40,23 +60,14 @@ function solidityHandleEndOfLineComment(
   ast,
   isLastComment
 ) {
-  const { precedingNode, enclosingNode, followingNode } = comment;
-  const handlerArguments = [
-    text,
-    precedingNode,
-    enclosingNode,
-    followingNode,
+  return handleCommentScenario(
     comment,
-    options
-  ];
-
-  if (
-    handleContractDefinitionComments(...handlerArguments) ||
-    handleEndOfLineComment(comment, text, options, ast, isLastComment)
-  ) {
-    return true;
-  }
-  return false;
+    text,
+    options,
+    ast,
+    isLastComment,
+    handleEndOfLineComment
+  );
 }
 
 function solidityHandleRemainingComment(
@@ -66,23 +77,14 @@ function solidityHandleRemainingComment(
   ast,
   isLastComment
 ) {
-  const { precedingNode, enclosingNode, followingNode } = comment;
-  const handlerArguments = [
-    text,
-    precedingNode,
-    enclosingNode,
-    followingNode,
+  return handleCommentScenario(
     comment,
-    options
-  ];
-
-  if (
-    handleContractDefinitionComments(...handlerArguments) ||
-    handleRemainingComment(comment, text, options, ast, isLastComment)
-  ) {
-    return true;
-  }
-  return false;
+    text,
+    options,
+    ast,
+    isLastComment,
+    handleRemainingComment
+  );
 }
 
 module.exports = {

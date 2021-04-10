@@ -93,3 +93,33 @@ interface Comments10 {
 
   function someOtherFunction(/* checking for Block comment */) external;
 }
+
+
+contract Comments11 {
+  function someFunction() {
+    if (something /* a comment for the condition */) 
+      f();
+    else {
+    }
+  }
+}
+
+contract Comments12 {
+  function someFunction() {
+    if (something)
+      // Comment for second If
+      if (somethingElse)
+      // Comment for third If
+      if (somethingElse) {
+        f();
+      }
+    else {
+    }
+    if (something) /* Comment for second If */ {
+      if (somethingElse) 
+        f();
+    }
+    else {
+    }
+  }
+}
