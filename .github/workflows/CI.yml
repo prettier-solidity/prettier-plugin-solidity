@@ -6,7 +6,7 @@ on:
       - master
   pull_request:
     branches:
-      - "*"
+      - '*'
 
 jobs:
   lint:
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
         id: cache
@@ -28,26 +28,13 @@ jobs:
       - name: lint
         run: npm run lint
 
-  test_windows:
-    name: Test on Windows with Node 10
-    runs-on: windows-latest
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - uses: actions/checkout@v2
-      - name: Install
-        run: npm install
-      - name: Run tests
-        run: npm run test:all
-
   test_macos:
-    name: Test on MacOS with Node 10
+    name: Test on MacOS with Node 12
     runs-on: macos-latest
     steps:
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
         id: cache
@@ -65,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [10, 12, 14, 15]
+        node: [12, 14, 15]
     steps:
       - uses: actions/setup-node@v1
         with:
@@ -79,6 +66,19 @@ jobs:
           path: |
             node_modules
           key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('package-lock.json') }}
+      - name: Install
+        run: npm install
+      - name: Run tests
+        run: npm run test:all
+
+  test_windows:
+    name: Test on Windows with Node 12
+    runs-on: windows-latest
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - uses: actions/checkout@v2
       - name: Install
         run: npm install
       - name: Run tests
