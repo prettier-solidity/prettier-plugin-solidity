@@ -81,7 +81,7 @@
     "escape-string-regexp": "^4.0.0",
     "prettier": "^2.2.1",
     "semver": "^7.3.5",
-    "solidity-comments-extractor": "^0.0.5",
+    "solidity-comments-extractor": "^0.0.6",
     "string-width": "^4.2.0"
   }
 }
