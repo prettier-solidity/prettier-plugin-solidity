@@ -6,12 +6,12 @@
   "scripts": {
     "coverage": "codecov",
     "eslint": "eslint 'scripts/**' 'src/**' '__tests__/**' 'tests/**'",
-    "generateindexes": "SCRIPT=true node scripts/generateIndexes.js",
+    "generateindexes": "cross-env SCRIPT=true node scripts/generateIndexes.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prettier": "prettier './*.{js,json,md,yml}' '{scripts,src,__tests__,tests}/**/*.js'",
     "test": "jest",
-    "test:all": "FULL_TEST=1 jest"
+    "test:all": "cross-env FULL_TEST=1 jest"
   },
   "repository": {
     "type": "git",
@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "codecov": "^3.8.1",
+    "cross-env": "^7.0.3",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.1.0",
