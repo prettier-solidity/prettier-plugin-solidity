@@ -4,7 +4,6 @@
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
-    "coverage": "codecov",
     "eslint": "eslint 'scripts/**' 'src/**' '__tests__/**' 'tests/**'",
     "generateindexes": "cross-env SCRIPT=true node scripts/generateIndexes.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
@@ -62,7 +61,6 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "codecov": "^3.8.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
