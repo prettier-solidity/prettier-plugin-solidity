@@ -22,7 +22,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install
         run: npm install
       - name: lint
@@ -65,7 +65,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install
         run: npm install
       - name: Run tests
