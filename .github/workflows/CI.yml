@@ -38,8 +38,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: install vyper
-        run: docker pull ethereum/vyper:0.1.0b10
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
         id: cache
