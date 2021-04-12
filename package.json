@@ -4,14 +4,13 @@
   "description": "prettier plugin for solidity",
   "main": "src",
   "scripts": {
-    "coverage": "codecov",
     "eslint": "eslint 'scripts/**' 'src/**' '__tests__/**' 'tests/**'",
-    "generateindexes": "SCRIPT=true node scripts/generateIndexes.js",
+    "generateindexes": "cross-env SCRIPT=true node scripts/generateIndexes.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prettier": "prettier './*.{js,json,md,yml}' '{scripts,src,__tests__,tests}/**/*.js'",
     "test": "jest",
-    "test:all": "FULL_TEST=1 jest"
+    "test:all": "cross-env FULL_TEST=1 jest"
   },
   "repository": {
     "type": "git",
@@ -62,7 +61,7 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "codecov": "^3.8.1",
+    "cross-env": "^7.0.3",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.1.0",
@@ -81,7 +80,7 @@
     "escape-string-regexp": "^4.0.0",
     "prettier": "^2.2.1",
     "semver": "^7.3.5",
-    "solidity-comments-extractor": "^0.0.5",
+    "solidity-comments-extractor": "^0.0.6",
     "string-width": "^4.2.0"
   }
 }
