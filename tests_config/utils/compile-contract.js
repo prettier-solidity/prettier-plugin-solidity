@@ -17,9 +17,15 @@ function compileContract(filename, content) {
     }
   };
   const output = JSON.parse(solc.compile(JSON.stringify(input)));
+
+  // We throw if the contract doesn't compile.
+  if (output.errors && output.errors.length > 0) {
+    throw output.errors[0].formattedMessage;
+  }
+
   const compiledContracts = output.contracts[filename];
   const bytecodes = {};
-  for (const contractName in compiledContracts) {
+  Object.keys(compiledContracts).forEach((contractName) => {
     const contract = compiledContracts[contractName].evm;
     const bytecode = contract.bytecode.object;
     bytecodes[contractName] = bytecode.substring(
@@ -27,7 +33,7 @@ function compileContract(filename, content) {
       // We have to remove the auxdata at the end of the compiled bytecode.
       bytecode.lastIndexOf(contract.legacyAssembly['.data']['0']['.auxdata'])
     );
-  }
+  });
   return bytecodes;
 }
 
