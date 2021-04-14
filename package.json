@@ -74,7 +74,7 @@
     "outdent": "^0.8.0"
   },
   "dependencies": {
-    "@solidity-parser/parser": "^0.12.0",
+    "@solidity-parser/parser": "^0.12.1",
     "dir-to-object": "^2.0.0",
     "emoji-regex": "^9.2.1",
     "escape-string-regexp": "^4.0.0",
