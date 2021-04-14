@@ -5,13 +5,13 @@ const {
 } = require('prettier/standalone');
 
 const IndexRangeAccess = {
-  print: ({ path, print }) =>
+  print: ({ node, path, print }) =>
     concat([
       path.call(print, 'base'),
       '[',
-      path.call(print, 'indexStart'),
+      node.indexStart ? path.call(print, 'indexStart') : '',
       ':',
-      path.call(print, 'indexEnd'),
+      node.indexEnd ? path.call(print, 'indexEnd') : '',
       ']'
     ])
 };
