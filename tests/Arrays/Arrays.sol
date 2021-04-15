@@ -7,3 +7,11 @@ contract Arrays {
     Outcome.OutcomeItem[] memory outcomeFrom = abi.decode(fromPart.outcome, (Outcome.OutcomeItem[]));
 }
 }
+
+contract ArraySlices {
+    function f(bytes calldata x) public {
+        bytes memory a1 = abi.decode(x[:], (bytes));
+        bytes4 a2 = abi.decode(x[:4], (bytes4));
+        address a3 = abi.decode(x[4:], (address));
+    }
+}
