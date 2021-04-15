@@ -38,7 +38,7 @@ const unstableAstTests = new Map(
   })
 );
 
-const astChangedTests = new Map(
+const testsWithAstChanges = new Map(
   [
     [
       'ExplicitVariableTypes/ExplicitVariableTypes.sol',
@@ -88,7 +88,7 @@ const isAstUnstable = (filename, options) => {
 };
 
 const shouldCompareBytecode = (filename, options) => {
-  const testFunction = astChangedTests.get(filename);
+  const testFunction = testsWithAstChanges.get(filename);
 
   if (!testFunction) {
     return false;
