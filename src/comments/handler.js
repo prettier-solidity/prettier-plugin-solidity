@@ -6,7 +6,7 @@ const {
 } = require('../prettier-comments/language-js/comments');
 
 const handleContractDefinitionComments = require('./handlers/ContractDefinition');
-const handleIfStatementComments = require('./handlers/IfStatementComments');
+const handleIfStatementComments = require('./handlers/IfStatement');
 
 function handleCommentScenario(
   comment,
