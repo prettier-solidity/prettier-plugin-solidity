@@ -9,6 +9,7 @@ function compileContract(filename, content) {
       }
     },
     settings: {
+      metadata: { bytecodeHash: 'none' },
       outputSelection: {
         '*': {
           '*': ['*']
@@ -26,13 +27,8 @@ function compileContract(filename, content) {
   const compiledContracts = output.contracts[filename];
   const bytecodes = {};
   Object.keys(compiledContracts).forEach((contractName) => {
-    const contract = compiledContracts[contractName].evm;
-    const bytecode = contract.bytecode.object;
-    bytecodes[contractName] = bytecode.substring(
-      0,
-      // We have to remove the auxdata at the end of the compiled bytecode.
-      bytecode.lastIndexOf(contract.legacyAssembly['.data']['0']['.auxdata'])
-    );
+    bytecodes[contractName] =
+      compiledContracts[contractName].evm.bytecode.object;
   });
   return bytecodes;
 }
