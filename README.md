@@ -7,7 +7,7 @@
   <img width="375" height="375" src="https://user-images.githubusercontent.com/1022054/59317198-f1149b80-8d15-11e9-9b0f-0c5e7d4b8b81.png">
 </p>
 
-A [Prettier Plugin](https://prettier.io/docs/en/plugins.html) for automatically formatting your [Solidity](https://github.com/ethereum/solidity) code.
+A [Prettier plugin](https://prettier.io/docs/en/plugins.html) for automatically formatting your [Solidity](https://github.com/ethereum/solidity) code.
 
 If you like this project, please consider contributing to our [Gitcoin grant](https://gitcoin.co/grants/1534/prettier-solidity)!
 
