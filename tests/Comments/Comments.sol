@@ -93,3 +93,12 @@ interface Comments10 {
 
   function someOtherFunction(/* checking for Block comment */) external;
 }
+
+contract Comments11 {
+  string a = "\\";
+  string b = '\\';
+
+  function f() public {
+    // this should not be removed
+  }
+}
