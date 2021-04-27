@@ -26,6 +26,7 @@ module.exports = {
   testEnvironment: 'node',
   testRegex: 'jsfmt\\.spec\\.js$|__tests__/.*\\.js$|scripts/.*\\.test\\.js$',
   transform: {},
+  transformIgnorePatterns: ['/node_modules/?!(string-width)'],
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
