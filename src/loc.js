@@ -1,4 +1,4 @@
-// see: https://github.com/prettier/prettier/blob/master/src/language-js/loc.js
+// see: https://github.com/prettier/prettier/blob/main/src/language-js/loc.js
 
 function getRange(index, node) {
   if (node.range) {

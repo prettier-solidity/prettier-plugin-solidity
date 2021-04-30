@@ -3,7 +3,7 @@
 ```bash
 nvm use
 
-git checkout master
+git checkout main
 
 git pull
 
@@ -26,7 +26,7 @@ git commit -m 'bump version'
 git push
 ```
 
-- Once the PR is merged, then `git checkout master` and `git pull`
+- Once the PR is merged, then `git checkout main` and `git pull`
 
 - Uncomment the first line of the `.npmrc` file and comment the second line
 
