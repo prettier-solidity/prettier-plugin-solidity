@@ -9,8 +9,8 @@
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prettier": "prettier './*.{js,json,md,yml}' '{scripts,src,__tests__,tests}/**/*.js'",
-    "test": "jest",
-    "test:all": "cross-env FULL_TEST=1 jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "test:all": "cross-env FULL_TEST=1 node --experimental-vm-modules node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",
