@@ -1,6 +1,10 @@
 "use strict";
 const importESM = async function (module) {
-  return await import(module);
+  try {
+    return await import(module);
+  } catch (error) {
+    // throw new Error(`Could not import module: ${module}`);
+  } 
 }
 
 const stringWidth = require("string-width");
