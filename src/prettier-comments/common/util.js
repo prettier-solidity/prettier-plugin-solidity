@@ -1,8 +1,11 @@
 "use strict";
+const importESM = async function (module) {
+  return await import(module);
+}
 
 const stringWidth = require("string-width");
 const emojiRegex = require("emoji-regex")();
-const escapeStringRegexp = require("escape-string-regexp");
+const escapeStringRegexp = importESM("escape-string-regexp");
 
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
