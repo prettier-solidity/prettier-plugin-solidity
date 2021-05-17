@@ -1,6 +1,6 @@
 const nodes = require('./nodes');
-const { hasNodeIgnoreComment } = require('./prettier-comments/common/util.js');
-const ignoreComments = require('./comments/ignore.js');
+const { hasNodeIgnoreComment } = require('./prettier-comments/common/util');
+const ignoreComments = require('./comments/ignore');
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

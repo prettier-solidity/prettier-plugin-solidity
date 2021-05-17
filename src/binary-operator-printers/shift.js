@@ -1,4 +1,4 @@
-const arithmetic = require('./arithmetic.js');
+const arithmetic = require('./arithmetic');
 
 module.exports = {
   match: (op) => ['<<', '>>'].includes(op),

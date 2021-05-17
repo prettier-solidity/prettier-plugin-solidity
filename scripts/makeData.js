@@ -4,7 +4,7 @@ function makeData(dir) {
   const nodes = Object.keys(
     dirToObject(`${__dirname}/${dir}`, { canAdd: (data) => data.print })
   ).reduce((accumulator, current) => {
-    accumulator[current] = `require('./${current}.js')`;
+    accumulator[current] = `require('./${current}')`;
     return accumulator;
   }, {});
 

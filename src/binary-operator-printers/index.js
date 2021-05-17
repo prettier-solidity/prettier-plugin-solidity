@@ -1,13 +1,13 @@
-/* This file was automatically generated on 1617759496.914 */
+/* This file was automatically generated on 1621236946.49 */
 
 /* eslint-disable global-require */
 
 module.exports = {
-  arithmetic: require('./arithmetic.js'),
-  assignment: require('./assignment.js'),
-  bit: require('./bit.js'),
-  comparison: require('./comparison.js'),
-  exponentiation: require('./exponentiation.js'),
-  logical: require('./logical.js'),
-  shift: require('./shift.js')
+  arithmetic: require('./arithmetic'),
+  assignment: require('./assignment'),
+  bit: require('./bit'),
+  comparison: require('./comparison'),
+  exponentiation: require('./exponentiation'),
+  logical: require('./logical'),
+  shift: require('./shift')
 };
