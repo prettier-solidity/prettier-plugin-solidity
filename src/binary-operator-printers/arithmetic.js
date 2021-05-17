@@ -3,7 +3,7 @@ const {
     builders: { group, line, concat, indent }
   }
 } = require('prettier/standalone');
-const comparison = require('./comparison.js');
+const comparison = require('./comparison');
 
 const groupIfNecessaryBuilder = (path) => (doc) => {
   const parentNode = path.getParentNode();
