@@ -10,6 +10,7 @@ module.exports = {
     '!src/prettier-comments/**/*.js'
   ],
   coverageDirectory: './coverage/',
+  coveragePathIgnorePatterns: ['/node_modules/', '/scripts/'],
   coverageThreshold: {
     global: {
       branches: 100,
