@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1621236946.407 */
+/* This file was automatically generated on 1621622090.034 */
 
 /* eslint-disable global-require */
 
@@ -23,6 +23,7 @@ module.exports = {
   Conditional: require('./Conditional'),
   ContinueStatement: require('./ContinueStatement'),
   ContractDefinition: require('./ContractDefinition'),
+  CustomErrorDefinition: require('./CustomErrorDefinition'),
   DecimalNumber: require('./DecimalNumber'),
   DoWhileStatement: require('./DoWhileStatement'),
   ElementaryTypeName: require('./ElementaryTypeName'),
@@ -56,6 +57,7 @@ module.exports = {
   NumberLiteral: require('./NumberLiteral'),
   PragmaDirective: require('./PragmaDirective'),
   ReturnStatement: require('./ReturnStatement'),
+  RevertStatement: require('./RevertStatement'),
   SourceUnit: require('./SourceUnit'),
   StateVariableDeclaration: require('./StateVariableDeclaration'),
   StringLiteral: require('./StringLiteral'),
