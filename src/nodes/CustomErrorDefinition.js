@@ -13,14 +13,7 @@ const parameters = (node, path, print) =>
 
 const CustomErrorDefinition = {
   print: ({ node, path, print }) =>
-    concat([
-      'error ',
-      node.name,
-      '(',
-      parameters(node, path, print),
-      ')',
-      ';'
-    ])
+    concat(['error ', node.name, '(', parameters(node, path, print), ')', ';'])
 };
 
 module.exports = CustomErrorDefinition;
