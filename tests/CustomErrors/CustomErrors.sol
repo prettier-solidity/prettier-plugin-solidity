@@ -13,8 +13,8 @@ contract CustomErrors {
 
   function throwCustomError() {
     revert
-      ContractCustomError();
-    revert ContractCustomErrorWithArg(  1  )  ;
-    revert    ContractCustomErrorArgWithoutName  (  "a reason");
+      FunctionCustomError();
+    revert FunctionCustomErrorWithArg(  1  )  ;
+    revert    FunctionCustomErrorArgWithoutName  (  "a reason");
   }
 }
