@@ -15,9 +15,9 @@ error TopLevelCustomErrorArgWithoutName  (string);
 
 contract CustomErrors {
   error
-    TopLevelCustomError();
-    error TopLevelCustomErrorWithArg(uint    x)  ;
-  error TopLevelCustomErrorArgWithoutName  (string);
+    ContractCustomError();
+    error ContractCustomErrorWithArg(uint    x)  ;
+  error ContractCustomErrorArgWithoutName  (string);
 
   function throwCustomError() {
     revert
@@ -35,9 +35,9 @@ error TopLevelCustomErrorWithArg(uint256 x);
 error TopLevelCustomErrorArgWithoutName(string);
 
 contract CustomErrors {
-    error TopLevelCustomError();
-    error TopLevelCustomErrorWithArg(uint256 x);
-    error TopLevelCustomErrorArgWithoutName(string);
+    error ContractCustomError();
+    error ContractCustomErrorWithArg(uint256 x);
+    error ContractCustomErrorArgWithoutName(string);
 
     function throwCustomError() {
         revert ContractCustomError();

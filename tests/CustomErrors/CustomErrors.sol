@@ -7,9 +7,9 @@ error TopLevelCustomErrorArgWithoutName  (string);
 
 contract CustomErrors {
   error
-    TopLevelCustomError();
-    error TopLevelCustomErrorWithArg(uint    x)  ;
-  error TopLevelCustomErrorArgWithoutName  (string);
+    ContractCustomError();
+    error ContractCustomErrorWithArg(uint    x)  ;
+  error ContractCustomErrorArgWithoutName  (string);
 
   function throwCustomError() {
     revert
