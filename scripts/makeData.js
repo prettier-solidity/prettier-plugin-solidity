@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const dirToObject = require('dir-to-object');
 
 function makeData(dir) {
