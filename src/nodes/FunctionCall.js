@@ -13,9 +13,11 @@ const printObject = (node, path, print, options) =>
       path
         .map(print, 'arguments')
         .map((arg, index) => [node.names[index], ': ', arg]),
-      { firstSeparator: options.bracketSpacing ? line : softline }
-    ),
-    '}'
+      {
+        firstSeparator: options.bracketSpacing ? line : softline,
+        lastSeparator: [options.bracketSpacing ? line : softline, '})']
+      }
+    )
   ]);
 
 const printArguments = (node, path, print, options) => {
@@ -23,17 +25,18 @@ const printArguments = (node, path, print, options) => {
     return printObject(node, path, print, options);
   }
   if (node.arguments && node.arguments.length > 0) {
-    return printSeparatedList(path.map(print, 'arguments'));
+    return printSeparatedList(path.map(print, 'arguments'), {
+      lastSeparator: [softline, ')']
+    });
   }
-  return '';
+  return ')';
 };
 
 const FunctionCall = {
   print: ({ node, path, print, options }) => [
     path.call(print, 'expression'),
     '(',
-    printArguments(node, path, print, options),
-    ')'
+    printArguments(node, path, print, options)
   ]
 };
 
