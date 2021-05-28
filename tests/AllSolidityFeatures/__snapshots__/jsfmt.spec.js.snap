@@ -569,7 +569,12 @@ contract c {
 }
 
 contract test {
-    enum ActionChoices {GoLeft, GoRight, GoStraight, SitStill}
+    enum ActionChoices {
+        GoLeft,
+        GoRight,
+        GoStraight,
+        SitStill
+    }
 
     function test() {
         choices = ActionChoices.GoStraight;
@@ -995,7 +1000,11 @@ struct TopLevelStruct {
     uint256 y;
 }
 
-enum TopLevelEnum {Top, Level, Enum}
+enum TopLevelEnum {
+    Top,
+    Level,
+    Enum
+}
 pragma solidity ^0.6.0;
 
 contract A {
