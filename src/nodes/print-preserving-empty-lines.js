@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, hardline }
+    builders: { hardline }
   },
   util: { isNextLineEmptyAfterIndex }
 } = require('prettier/standalone');
@@ -47,7 +47,7 @@ function printPreservingEmptyLines(path, key, options, print) {
     parts.pop();
   }
 
-  return concat(parts);
+  return parts;
 }
 
 module.exports = printPreservingEmptyLines;

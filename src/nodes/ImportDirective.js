@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, line, softline }
+    builders: { group, line, softline }
   }
 } = require('prettier/standalone');
 
@@ -12,9 +12,9 @@ const ImportDirective = {
     let doc = printString(node.path, options);
 
     if (node.unitAlias) {
-      doc = concat([doc, ' as ', node.unitAlias]);
+      doc = [doc, ' as ', node.unitAlias];
     } else if (node.symbolAliases) {
-      doc = concat([
+      doc = [
         '{',
         printSeparatedList(
           node.symbolAliases.map(([a, b]) => (b ? `${a} as ${b}` : a)),
@@ -22,9 +22,9 @@ const ImportDirective = {
         ),
         '} from ',
         doc
-      ]);
+      ];
     }
-    return group(concat(['import ', doc, ';']));
+    return group(['import ', doc, ';']);
   }
 };
 

@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, line, softline }
+    builders: { line, softline }
   }
 } = require('prettier/standalone');
 
@@ -11,7 +11,7 @@ const NameValueList = {
     printSeparatedList(
       path
         .map(print, 'arguments')
-        .map((argument, index) => concat([node.names[index], ': ', argument])),
+        .map((argument, index) => [node.names[index], ': ', argument]),
       {
         firstSeparator: options.bracketSpacing ? line : softline
       }
