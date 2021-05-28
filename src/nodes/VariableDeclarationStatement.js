@@ -9,9 +9,7 @@ const printSeparatedList = require('./print-separated-list');
 const embraceVariables = (doc, embrace) => (embrace ? ['(', doc, ')'] : doc);
 
 const initialValue = (node, path, print) =>
-  node.initialValue
-    ? group([' =', indent([line, path.call(print, 'initialValue')])])
-    : '';
+  node.initialValue ? [' = ', path.call(print, 'initialValue')] : '';
 
 const VariableDeclarationStatement = {
   print: ({ node, path, print }) => {
