@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, indent, line }
+    builders: { group, indent, line }
   }
 } = require('prettier/standalone');
 
