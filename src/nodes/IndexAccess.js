@@ -1,22 +1,16 @@
 const {
   doc: {
-    builders: { concat, group, indent, softline }
+    builders: { group, indent, softline }
   }
 } = require('prettier/standalone');
 
 const IndexAccess = {
-  print: ({ path, print }) =>
-    concat([
-      path.call(print, 'base'),
-      '[',
-      group(
-        concat([
-          indent(concat([softline, path.call(print, 'index')])),
-          softline
-        ])
-      ),
-      ']'
-    ])
+  print: ({ path, print }) => [
+    path.call(print, 'base'),
+    '[',
+    group([indent([softline, path.call(print, 'index')]), softline]),
+    ']'
+  ]
 };
 
 module.exports = IndexAccess;

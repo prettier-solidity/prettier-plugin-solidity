@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, indent, join, line, softline }
+    builders: { group, indent, join, line, softline }
   }
 } = require('prettier/standalone');
 
@@ -15,15 +15,9 @@ const printSeparatedList = (
   list,
   {
     firstSeparator = softline,
-    separator = concat([',', line]),
+    separator = [',', line],
     lastSeparator = firstSeparator
   } = {}
-) =>
-  group(
-    concat([
-      indent(concat([firstSeparator, join(separator, list)])),
-      lastSeparator
-    ])
-  );
+) => group([indent([firstSeparator, join(separator, list)]), lastSeparator]);
 
 module.exports = printSeparatedList;

@@ -1,19 +1,16 @@
 const {
   doc: {
-    builders: { concat, group, indent, line }
+    builders: { group, indent, line }
   }
 } = require('prettier/standalone');
 
 const printSeparatedList = require('./print-separated-list');
 
-const embraceVariables = (doc, embrace) =>
-  embrace ? concat(['(', doc, ')']) : doc;
+const embraceVariables = (doc, embrace) => (embrace ? ['(', doc, ')'] : doc);
 
 const initialValue = (node, path, print) =>
   node.initialValue
-    ? group(
-        concat([' =', indent(concat([line, path.call(print, 'initialValue')]))])
-      )
+    ? group([' =', indent([line, path.call(print, 'initialValue')])])
     : '';
 
 const VariableDeclarationStatement = {
@@ -21,17 +18,15 @@ const VariableDeclarationStatement = {
     const startsWithVar =
       node.variables.filter((x) => x && x.typeName).length === 0;
 
-    return group(
-      concat([
-        startsWithVar ? 'var ' : '',
-        embraceVariables(
-          printSeparatedList(path.map(print, 'variables')),
-          node.variables.length > 1 || startsWithVar
-        ),
-        initialValue(node, path, print),
-        node.omitSemicolon ? '' : ';'
-      ])
-    );
+    return group([
+      startsWithVar ? 'var ' : '',
+      embraceVariables(
+        printSeparatedList(path.map(print, 'variables')),
+        node.variables.length > 1 || startsWithVar
+      ),
+      initialValue(node, path, print),
+      node.omitSemicolon ? '' : ';'
+    ]);
   }
 };
 

@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, hardline, join }
+    builders: { hardline, join }
   }
 } = require('prettier');
 const { hasNewline } = require('../prettier-comments/common/util');
@@ -17,7 +17,7 @@ function isIndentableBlockComment(comment) {
 function printIndentableBlockComment(comment) {
   const lines = comment.raw.split('\n');
 
-  return concat([
+  return [
     '/*',
     join(
       hardline,
@@ -28,7 +28,7 @@ function printIndentableBlockComment(comment) {
       )
     ),
     '*/'
-  ]);
+  ];
 }
 
 function printComment(commentPath, options) {
@@ -47,7 +47,7 @@ function printComment(commentPath, options) {
             backwards: true
           })
         ) {
-          return concat([hardline, printed]);
+          return [hardline, printed];
         }
         return printed;
       }

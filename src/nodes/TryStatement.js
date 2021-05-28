@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, join, line }
+    builders: { group, join, line }
   }
 } = require('prettier/standalone');
 
@@ -9,11 +9,11 @@ const printSeparatedList = require('./print-separated-list');
 
 const returnParameters = (node, path, print) =>
   node.returnParameters
-    ? concat([
+    ? [
         'returns (',
         printSeparatedList(path.map(print, 'returnParameters')),
         ')'
-      ])
+      ]
     : '';
 
 const TryStatement = {
@@ -38,7 +38,7 @@ const TryStatement = {
       join(' ', path.map(print, 'catchClauses'))
     ]);
 
-    return concat(parts);
+    return parts;
   }
 };
 

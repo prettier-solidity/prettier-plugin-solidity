@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, indent, softline }
+    builders: { group, indent, softline }
   }
 } = require('prettier/standalone');
 
@@ -18,10 +18,10 @@ const isBeginnigOfChain = (path) => {
 
 const MemberAccess = {
   print: ({ node, path, print }) => {
-    const doc = concat([
+    const doc = [
       path.call(print, 'expression'),
-      indent(concat([softline, '.', node.memberName]))
-    ]);
+      indent([softline, '.', node.memberName])
+    ];
 
     return isBeginnigOfChain(path) ? group(doc) : doc;
   }

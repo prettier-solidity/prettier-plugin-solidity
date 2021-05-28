@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, hardline }
+    builders: { hardline }
   }
 } = require('prettier/standalone');
 
@@ -25,7 +25,7 @@ const ExpressionStatement = {
     parts.push(path.call(print, 'expression'));
     parts.push(node.omitSemicolon ? '' : ';');
 
-    return concat(parts);
+    return parts;
   }
 };
 

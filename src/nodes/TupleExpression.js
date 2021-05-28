@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group }
+    builders: { group }
   }
 } = require('prettier/standalone');
 
@@ -15,13 +15,11 @@ const contents = (node, path, print) =>
 
 const TupleExpression = {
   print: ({ node, path, print }) =>
-    group(
-      concat([
-        node.isArray ? '[' : '(',
-        ...contents(node, path, print),
-        node.isArray ? ']' : ')'
-      ])
-    )
+    group([
+      node.isArray ? '[' : '(',
+      ...contents(node, path, print),
+      node.isArray ? ']' : ')'
+    ])
 };
 
 module.exports = TupleExpression;

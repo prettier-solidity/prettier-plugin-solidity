@@ -1,9 +1,3 @@
-const {
-  doc: {
-    builders: { concat }
-  }
-} = require('prettier/standalone');
-
 const semver = require('semver');
 
 const PragmaDirective = {
@@ -17,7 +11,7 @@ const PragmaDirective = {
     if (value.split(' ').length > 1) {
       value = semver.validRange(value);
     }
-    return concat(['pragma ', node.name, ' ', value, ';']);
+    return ['pragma ', node.name, ' ', value, ';'];
   }
 };
 

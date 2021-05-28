@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, line, hardline }
+    builders: { group, line, hardline }
   }
 } = require('prettier/standalone');
 
@@ -11,40 +11,37 @@ const printComments = require('./print-comments');
 
 const inheritance = (node, path, print) =>
   node.baseContracts.length > 0
-    ? concat([
+    ? [
         ' is',
         printSeparatedList(path.map(print, 'baseContracts'), {
           firstSeparator: line
         })
-      ])
+      ]
     : line;
 
 const body = (node, path, options, print) =>
   node.subNodes.length > 0 || node.comments
     ? printSeparatedItem(
-        concat([
+        [
           printPreservingEmptyLines(path, 'subNodes', options, print),
           printComments(node, path, options)
-        ]),
+        ],
         { firstSeparator: hardline }
       )
     : '';
 
 const ContractDefinition = {
-  print: ({ node, options, path, print }) =>
-    concat([
-      group(
-        concat([
-          node.kind === 'abstract' ? 'abstract contract' : node.kind,
-          ' ',
-          node.name,
-          inheritance(node, path, print),
-          '{'
-        ])
-      ),
-      body(node, path, options, print),
-      '}'
-    ])
+  print: ({ node, options, path, print }) => [
+    group([
+      node.kind === 'abstract' ? 'abstract contract' : node.kind,
+      ' ',
+      node.name,
+      inheritance(node, path, print),
+      '{'
+    ]),
+    body(node, path, options, print),
+    '}'
+  ]
 };
 
 module.exports = ContractDefinition;

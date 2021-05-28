@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, line, concat, indent }
+    builders: { group, line, indent }
   }
 } = require('prettier/standalone');
 const comparison = require('./comparison');
@@ -38,18 +38,16 @@ module.exports = {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
-    const right = concat([node.operator, line, path.call(print, 'right')]);
+    const right = [node.operator, line, path.call(print, 'right')];
     // If it's a single binary operation, avoid having a small right
     // operand like - 1 on its own line
     const shouldGroup =
       node.left.type !== 'BinaryOperation' &&
       path.getParentNode().type !== 'BinaryOperation';
-    return groupIfNecessary(
-      concat([
-        path.call(print, 'left'),
-        ' ',
-        indentIfNecessary(shouldGroup ? group(right) : right)
-      ])
-    );
+    return groupIfNecessary([
+      path.call(print, 'left'),
+      ' ',
+      indentIfNecessary(shouldGroup ? group(right) : right)
+    ]);
   }
 };

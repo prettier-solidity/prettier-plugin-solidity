@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, group, indent, line }
+    builders: { group, indent, line }
   }
 } = require('prettier/standalone');
 
@@ -17,31 +17,30 @@ const loopExpression = (node, path, print) =>
 
 const printBody = (node, path, print) =>
   node.body.type === 'Block'
-    ? concat([' ', path.call(print, 'body')])
-    : group(indent(concat([line, path.call(print, 'body')])));
+    ? [' ', path.call(print, 'body')]
+    : group(indent([line, path.call(print, 'body')]));
 
 const ForStatement = {
-  print: ({ node, path, print }) =>
-    concat([
-      'for (',
-      printSeparatedList(
-        [
-          initExpression(node, path, print),
-          conditionExpression(node, path, print),
-          loopExpression(node, path, print)
-        ],
-        {
-          separator:
-            node.initExpression ||
-            node.conditionExpression ||
-            node.loopExpression.expression
-              ? concat([';', line])
-              : ';'
-        }
-      ),
-      ')',
-      printBody(node, path, print)
-    ])
+  print: ({ node, path, print }) => [
+    'for (',
+    printSeparatedList(
+      [
+        initExpression(node, path, print),
+        conditionExpression(node, path, print),
+        loopExpression(node, path, print)
+      ],
+      {
+        separator:
+          node.initExpression ||
+          node.conditionExpression ||
+          node.loopExpression.expression
+            ? [';', line]
+            : ';'
+      }
+    ),
+    ')',
+    printBody(node, path, print)
+  ]
 };
 
 module.exports = ForStatement;

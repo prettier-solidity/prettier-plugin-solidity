@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { concat, line }
+    builders: { line }
   }
 } = require('prettier/standalone');
 
@@ -18,7 +18,7 @@ const AssemblyLocalDefinition = {
       parts.push(path.call(print, 'expression'));
     }
 
-    return concat(parts);
+    return parts;
   }
 };
 
