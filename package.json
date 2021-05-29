@@ -77,7 +77,7 @@
     "solc": "^0.8.4"
   },
   "dependencies": {
-    "@solidity-parser/parser": "^0.13.0",
+    "@solidity-parser/parser": "^0.13.2",
     "emoji-regex": "^9.2.2",
     "escape-string-regexp": "^4.0.0",
     "prettier": "^2.3.0",

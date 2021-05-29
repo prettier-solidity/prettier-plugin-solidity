@@ -11,6 +11,7 @@ printWidth: 80
 // for pragma version numbers, see https://docs.npmjs.com/misc/semver#versions
 pragma solidity 0.4.0;
 pragma solidity ^0.4.0;
+pragma experimental ABIEncoderV2;
 
 import "SomeFile.sol";
 import "SomeFile.sol" as SomeOtherFile;
@@ -538,12 +539,14 @@ contract WithUncheckedBlock {
     unchecked { return x * y; }
   }
 }
+
 =====================================output=====================================
 // Examples taken from the Solidity documentation online.
 
 // for pragma version numbers, see https://docs.npmjs.com/misc/semver#versions
 pragma solidity 0.4.0;
 pragma solidity ^0.4.0;
+pragma experimental ABIEncoderV2;
 
 import "SomeFile.sol";
 import "SomeFile.sol" as SomeOtherFile;
