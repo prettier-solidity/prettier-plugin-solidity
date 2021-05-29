@@ -14,7 +14,12 @@ contract EnumDefinitions {
 
 =====================================output=====================================
 contract EnumDefinitions {
-    enum ActionChoices { GoLeft, GoRight, GoStraight, SitStill }
+    enum ActionChoices {
+        GoLeft,
+        GoRight,
+        GoStraight,
+        SitStill
+    }
     enum States {
         State1,
         State2,
@@ -44,7 +49,12 @@ contract EnumDefinitions {
 
 =====================================output=====================================
 contract EnumDefinitions {
-    enum ActionChoices {GoLeft, GoRight, GoStraight, SitStill}
+    enum ActionChoices {
+        GoLeft,
+        GoRight,
+        GoStraight,
+        SitStill
+    }
     enum States {
         State1,
         State2,
