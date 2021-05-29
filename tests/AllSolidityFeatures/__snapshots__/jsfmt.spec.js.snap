@@ -1030,7 +1030,9 @@ contract Overrides {
             BazQuxBazQuxBazQux,
             Quuuuuuuuuuuuuux
         ) varName;
-    modifier onlyOwner() virtual {_;}
+    modifier onlyOwner() virtual {
+        _;
+    }
 
     modifier onlyOwner() override {
         require(msg.sender == owner(), "Ownable: caller is not the owner");
@@ -1116,7 +1118,9 @@ uint256 constant MULTIPLIER = 2**EXPONENT;
 contract WithUncheckedBlock {
     function f() public pure returns (uint256) {
         uint256 x = 0;
-        unchecked {x--;}
+        unchecked {
+            x--;
+        }
         return x;
     }
 
@@ -1129,7 +1133,9 @@ contract WithUncheckedBlock {
     }
 
     function mul(uint256 x, uint256 y) internal pure returns (uint256) {
-        unchecked {return x * y;}
+        unchecked {
+            return x * y;
+        }
     }
 }
 

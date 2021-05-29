@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { indent, line, softline }
+    builders: { hardline, indent }
   }
 } = require('prettier/standalone');
 
@@ -15,11 +15,11 @@ const Block = {
       : [
           '{',
           indent([
-            options.bracketSpacing ? line : softline,
+            hardline,
             printPreservingEmptyLines(path, 'statements', options, print),
             printComments(node, path, options)
           ]),
-          options.bracketSpacing ? line : softline,
+          hardline,
           '}'
         ]
 };
