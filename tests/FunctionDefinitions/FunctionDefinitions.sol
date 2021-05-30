@@ -163,4 +163,7 @@ contract FunctionDefinitions {
   function modifierOrderIncorrect04() override modifier1 payable external modifier2 returns(uint) {
     a = 1;
   }
+
+  fallback() external payable virtual {}
+  receive() external payable virtual {}
 }
