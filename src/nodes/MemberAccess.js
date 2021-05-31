@@ -4,15 +4,32 @@ const {
   }
 } = require('prettier/standalone');
 
-const isBeginnigOfChain = (path) => {
-  const parentNodeType = path.getParentNode().type;
 
-  if (parentNodeType === 'MemberAccess') return false;
-  if (parentNodeType === 'FunctionCall') {
-    const grandParentNodeType = path.getParentNode(1).type;
-    return grandParentNodeType !== 'MemberAccess';
+const isEndOfChain = (node, path) => {
+  let i = 0;
+  let currentNode = node;
+  let parentNode = path.getParentNode(i);
+  while (parentNode) {
+    // If direct ParentNode is a MemberAcces we are not at the end of the chain
+    if (parentNode.type === 'MemberAccess') return false;
+
+    // If direct ParentNode is a FunctionCall and currentNode is not the expression
+    // then it must be and argument in which case it is the end of the chain.
+    if (
+      parentNode.type === 'FunctionCall' &&
+      currentNode !== parentNode.expression
+    )
+      return true;
+
+    // If direct ParentNode is an IndexAccess and currentNode is not the base
+    // then it must be the index in which case it is the end of the chain.
+    if (parentNode.type === 'IndexAccess' && currentNode !== parentNode.base)
+      return true;
+
+    i += 1;
+    currentNode = parentNode;
+    parentNode = path.getParentNode(i);
   }
-
   return true;
 };
 
@@ -51,7 +68,7 @@ const MemberAccess = {
       node.memberName
     ];
 
-    return isBeginnigOfChain(path) ? group(doc) : doc;
+    return isEndOfChain(node, path) ? group(doc) : doc;
   }
 };
 
