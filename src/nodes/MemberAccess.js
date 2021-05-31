@@ -4,7 +4,6 @@ const {
   }
 } = require('prettier/standalone');
 
-
 const isEndOfChain = (node, path) => {
   let i = 0;
   let currentNode = node;
@@ -19,12 +18,23 @@ const isEndOfChain = (node, path) => {
       parentNode.type === 'FunctionCall' &&
       currentNode !== parentNode.expression
     )
-      return true;
+      break;
 
     // If direct ParentNode is an IndexAccess and currentNode is not the base
     // then it must be the index in which case it is the end of the chain.
     if (parentNode.type === 'IndexAccess' && currentNode !== parentNode.base)
-      return true;
+      break;
+
+    if (
+      parentNode.type === 'BinaryOperation' ||
+      parentNode.type === 'UnaryOperation' ||
+      parentNode.type === 'IfStatement' ||
+      parentNode.type === 'WhileStatement' ||
+      parentNode.type === 'ForStatement' ||
+      parentNode.type === 'VariableDeclarationStatement' ||
+      parentNode.type === 'ExpressionStatement'
+    )
+      break;
 
     i += 1;
     currentNode = parentNode;
