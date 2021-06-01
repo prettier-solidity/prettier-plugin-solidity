@@ -14,10 +14,14 @@ const {
 const printSeparatedList = (
   list,
   {
+    groupId = undefined,
     firstSeparator = softline,
     separator = [',', line],
     lastSeparator = firstSeparator
   } = {}
-) => group([indent([firstSeparator, join(separator, list)]), lastSeparator]);
-
+) =>
+  group(
+    [indent([firstSeparator, join(separator, list)]), lastSeparator],
+    groupId ? { id: groupId } : {}
+  );
 module.exports = printSeparatedList;
