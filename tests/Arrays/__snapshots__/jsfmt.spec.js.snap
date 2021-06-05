@@ -44,8 +44,10 @@ contract Arrays {
     ];
 
     function a() {
-        Outcome.OutcomeItem[] memory outcomeFrom =
-            abi.decode(fromPart.outcome, (Outcome.OutcomeItem[]));
+        Outcome.OutcomeItem[] memory outcomeFrom = abi.decode(
+            fromPart.outcome,
+            (Outcome.OutcomeItem[])
+        );
     }
 }
 
