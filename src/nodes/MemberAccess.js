@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, indent, softline }
+    builders: { group, ifBreak, indent, softline }
   }
 } = require('prettier/standalone');
 
@@ -33,11 +33,22 @@ const shallIndent = (path) => {
 
 const MemberAccess = {
   print: ({ node, path, print }) => {
+    const expressionDoc = path.call(print, 'expression');
+    let separator = [softline, '.'];
+    let labelData;
+    if (expressionDoc.label) {
+      labelData = JSON.parse(expressionDoc.label);
+    }
+    if (labelData && labelData.groupId) {
+      separator = ifBreak('.', [softline, '.'], {
+        groupId: labelData.groupId
+      });
+    }
+
     const doc = [
-      path.call(print, 'expression'),
-      shallIndent(path)
-        ? indent([softline, '.', node.memberName])
-        : [softline, '.', node.memberName]
+      expressionDoc,
+      shallIndent(path) ? indent(separator) : separator,
+      node.memberName
     ];
 
     return isBeginnigOfChain(path) ? group(doc) : doc;

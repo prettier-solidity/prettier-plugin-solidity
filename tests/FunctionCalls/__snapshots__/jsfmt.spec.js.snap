@@ -81,8 +81,7 @@ contract FunctionCalls {
                         keccak256(req.data)
                     )
                 )
-            )
-            ._hashTypedDataV2(
+            )._hashTypedDataV2(
                 keccak256(
                     abi.encode(
                         TYPEHASH,
@@ -94,8 +93,7 @@ contract FunctionCalls {
                         keccak256(req.data)
                     )
                 )
-            )
-            ._hashTypedDataV3(
+            )._hashTypedDataV3(
                 keccak256(
                     abi.encode(
                         TYPEHASH,
@@ -107,8 +105,7 @@ contract FunctionCalls {
                         keccak256(req.data)
                     )
                 )
-            )
-            .recover(signature);
+            ).recover(signature);
         signer = _hashTypedDataV1(
             keccak256(
                 abi.encode(
@@ -121,8 +118,7 @@ contract FunctionCalls {
                     keccak256(req.data)
                 )
             )
-        )
-        ._hashTypedDataV2(
+        )._hashTypedDataV2(
             keccak256(
                 abi.encode(
                     TYPEHASH,
@@ -134,8 +130,7 @@ contract FunctionCalls {
                     keccak256(req.data)
                 )
             )
-        )
-        ._hashTypedDataV3(
+        )._hashTypedDataV3(
             keccak256(
                 abi.encode(
                     TYPEHASH,
@@ -147,8 +142,7 @@ contract FunctionCalls {
                     keccak256(req.data)
                 )
             )
-        )
-        .recover(signature);
+        ).recover(signature);
         return _nonces[req.from] == req.nonce && signer == req.from;
     }
 }
@@ -236,8 +230,7 @@ contract FunctionCalls {
                         keccak256(req.data)
                     )
                 )
-            )
-            ._hashTypedDataV2(
+            )._hashTypedDataV2(
                 keccak256(
                     abi.encode(
                         TYPEHASH,
@@ -249,8 +242,7 @@ contract FunctionCalls {
                         keccak256(req.data)
                     )
                 )
-            )
-            ._hashTypedDataV3(
+            )._hashTypedDataV3(
                 keccak256(
                     abi.encode(
                         TYPEHASH,
@@ -262,8 +254,7 @@ contract FunctionCalls {
                         keccak256(req.data)
                     )
                 )
-            )
-            .recover(signature);
+            ).recover(signature);
         signer = _hashTypedDataV1(
             keccak256(
                 abi.encode(
@@ -276,8 +267,7 @@ contract FunctionCalls {
                     keccak256(req.data)
                 )
             )
-        )
-        ._hashTypedDataV2(
+        )._hashTypedDataV2(
             keccak256(
                 abi.encode(
                     TYPEHASH,
@@ -289,8 +279,7 @@ contract FunctionCalls {
                     keccak256(req.data)
                 )
             )
-        )
-        ._hashTypedDataV3(
+        )._hashTypedDataV3(
             keccak256(
                 abi.encode(
                     TYPEHASH,
@@ -302,8 +291,7 @@ contract FunctionCalls {
                     keccak256(req.data)
                 )
             )
-        )
-        .recover(signature);
+        ).recover(signature);
         return _nonces[req.from] == req.nonce && signer == req.from;
     }
 }
