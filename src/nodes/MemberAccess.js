@@ -25,16 +25,13 @@ const isEndOfChain = (node, path) => {
     if (parentNode.type === 'IndexAccess' && currentNode !== parentNode.base)
       break;
 
-    if (
-      parentNode.type === 'BinaryOperation' ||
-      parentNode.type === 'UnaryOperation' ||
-      parentNode.type === 'IfStatement' ||
-      parentNode.type === 'WhileStatement' ||
-      parentNode.type === 'ForStatement' ||
-      parentNode.type === 'VariableDeclarationStatement' ||
-      parentNode.type === 'ExpressionStatement'
-    )
-      break;
+    if (parentNode.type === 'BinaryOperation') break;
+    if (parentNode.type === 'UnaryOperation') break;
+    if (parentNode.type === 'IfStatement') break;
+    if (parentNode.type === 'WhileStatement') break;
+    if (parentNode.type === 'ForStatement') break;
+    if (parentNode.type === 'VariableDeclarationStatement') break;
+    if (parentNode.type === 'ExpressionStatement') break;
 
     i += 1;
     currentNode = parentNode;

@@ -13,3 +13,28 @@ contract MemberAccess {
         veryLongVariable.veryLongCall(veryLongAttribute).veryLongCall(veryLongAttribute).veryLongCall(veryLongAttribute);
     }
 }
+
+contract MemberAccessIsEndOfChainCases {
+    function() {
+        // break if is an argument of a FunctionCall
+        a(b.c);
+        // break if is an index of an IndexAccess
+        a[b.c];
+        // break if is a part of a BinaryOperation
+        a = b.c;
+        // break if is a part of a UnaryOperation
+        !b.c;
+        // break if is a condition of a IfStatement
+        if (b.c) {}
+        // break if is a condition of a WhileStatement
+        while (b.c) {}
+        // break if is a part of a ForStatement
+        // for (b.c;;) {}
+        for (;b.c;) {}
+        // for (;;b.c) {}
+        // break if is a part of a VariableDeclarationStatement
+        uint a = b.c;
+        // break if is an ExpressionStatement
+        b.c;
+    }
+}
