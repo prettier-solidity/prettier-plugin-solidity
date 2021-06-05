@@ -1,30 +1,44 @@
 const {
   doc: {
-    builders: { group, line, softline }
+    builders: { join }
   }
 } = require('prettier/standalone');
 
-const printSeparatedList = require('./print-separated-list');
 const { printString } = require('../prettier-comments/common/util');
 
 const ImportDirective = {
   print: ({ node, options }) => {
-    let doc = printString(node.path, options);
+    const importPath = printString(node.path, options);
+
+    let doc;
 
     if (node.unitAlias) {
-      doc = [doc, ' as ', node.unitAlias];
+      // import "./Foo.sol" as Foo;
+      doc = [importPath, ' as ', node.unitAlias];
     } else if (node.symbolAliases) {
-      doc = [
-        '{',
-        printSeparatedList(
-          node.symbolAliases.map(([a, b]) => (b ? `${a} as ${b}` : a)),
-          { firstSeparator: options.bracketSpacing ? line : softline }
-        ),
-        '} from ',
-        doc
-      ];
+      // import { Foo, Bar as Qux } from "./Foo.sol";
+      doc = ['{'];
+
+      if (options.bracketSpacing) {
+        doc.push(' ');
+      }
+
+      const symbolAliases = node.symbolAliases.map(([a, b]) =>
+        b ? `${a} as ${b}` : a
+      );
+      doc.push(join(', ', symbolAliases));
+
+      if (options.bracketSpacing) {
+        doc.push(' ');
+      }
+
+      doc.push('} from ', importPath);
+    } else {
+      // import "./Foo.sol";
+      doc = importPath;
     }
-    return group(['import ', doc, ';']);
+
+    return ['import ', doc, ';'];
   }
 };
 
