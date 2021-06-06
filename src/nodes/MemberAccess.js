@@ -8,37 +8,35 @@ const isEndOfChain = (node, path) => {
   let i = 0;
   let currentNode = node;
   let parentNode = path.getParentNode(i);
-  while (parentNode) {
-    // If direct ParentNode is a MemberAcces we are not at the end of the chain
-    if (parentNode.type === 'MemberAccess') return false;
+  while (
+    parentNode &&
+    [
+      'FunctionCall',
+      'IndexAccess',
+      'NameValueExpression',
+      'MemberAccess'
+    ].includes(parentNode.type)
+  ) {
+    switch (parentNode.type) {
+      case 'MemberAccess':
+        // If direct ParentNode is a MemberAcces we are not at the end of the chain
+        return false;
 
-    // If direct ParentNode is a FunctionCall and currentNode is not the expression
-    // then it must be and argument in which case it is the end of the chain.
-    if (
-      parentNode.type === 'FunctionCall' &&
-      currentNode !== parentNode.expression
-    )
-      break;
+      case 'IndexAccess':
+        // If direct ParentNode is an IndexAccess and currentNode is not the base
+        // then it must be the index in which case it is the end of the chain.
+        if (currentNode !== parentNode.base) return true;
+        break;
 
-    // If direct ParentNode is an IndexAccess and currentNode is not the base
-    // then it must be the index in which case it is the end of the chain.
-    if (parentNode.type === 'IndexAccess' && currentNode !== parentNode.base)
-      break;
+      case 'FunctionCall':
+        // If direct ParentNode is a FunctionCall and currentNode is not the expression
+        // then it must be and argument in which case it is the end of the chain.
+        if (currentNode !== parentNode.expression) return true;
+        break;
 
-    if (parentNode.type === 'BinaryOperation') break;
-    if (parentNode.type === 'Conditional') break;
-    if (parentNode.type === 'ExpressionStatement') break;
-    if (parentNode.type === 'ForStatement') break;
-    if (parentNode.type === 'IfStatement') break;
-    if (parentNode.type === 'NameValueList') break;
-    if (parentNode.type === 'ModifierInvocation') break;
-    if (parentNode.type === 'ReturnStatement') break;
-    if (parentNode.type === 'StateVariableDeclaration') break;
-    if (parentNode.type === 'TryStatement') break;
-    if (parentNode.type === 'TupleExpression') break;
-    if (parentNode.type === 'UnaryOperation') break;
-    if (parentNode.type === 'VariableDeclarationStatement') break;
-    if (parentNode.type === 'WhileStatement') break;
+      default:
+        break;
+    }
 
     i += 1;
     currentNode = parentNode;
