@@ -1,7 +1,11 @@
 const {
-  util: { addLeadingComment, addTrailingComment, addDanglingComment }
+  util: {
+    addLeadingComment,
+    addTrailingComment,
+    addDanglingComment,
+    getNextNonSpaceNonCommentCharacterIndex
+  }
 } = require('prettier');
-const privateUtil = require('../../prettier-comments/common/util');
 
 function handleContractDefinitionComments(
   text,
@@ -20,10 +24,8 @@ function handleContractDefinitionComments(
   //   contract a is abc /* comment */ {}
   // The only workaround I found is to look at the next character to see if
   // it is a {}.
-  const nextCharacter = privateUtil.getNextNonSpaceNonCommentCharacter(
-    text,
-    comment,
-    options.locEnd
+  const nextCharacter = text.charAt(
+    getNextNonSpaceNonCommentCharacterIndex(text, comment, options.locEnd)
   );
 
   // The comment is behind the start of the Block `{}` or behind a base contract
