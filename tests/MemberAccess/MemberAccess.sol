@@ -47,9 +47,7 @@ contract MemberAccessIsEndOfChainCases {
         a ? b.c : d;
         a ? b : c.d;
         // break if is an NameValueList
-        a{value: b.d};
-        // break if is an NameValueList
-        a{value: b.d};
+        a.b{value: c.d}();
         // break if is an TryStatement
         try a.b() {} catch {}
         // break if is an ReturnStatement
