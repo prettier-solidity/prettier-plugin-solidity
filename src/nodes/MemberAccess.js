@@ -4,15 +4,44 @@ const {
   }
 } = require('prettier/standalone');
 
-const isBeginnigOfChain = (path) => {
-  const parentNodeType = path.getParentNode().type;
+const isEndOfChain = (node, path) => {
+  let i = 0;
+  let currentNode = node;
+  let parentNode = path.getParentNode(i);
+  while (
+    parentNode &&
+    [
+      'FunctionCall',
+      'IndexAccess',
+      'NameValueExpression',
+      'MemberAccess'
+    ].includes(parentNode.type)
+  ) {
+    switch (parentNode.type) {
+      case 'MemberAccess':
+        // If direct ParentNode is a MemberAcces we are not at the end of the chain
+        return false;
 
-  if (parentNodeType === 'MemberAccess') return false;
-  if (parentNodeType === 'FunctionCall') {
-    const grandParentNodeType = path.getParentNode(1).type;
-    return grandParentNodeType !== 'MemberAccess';
+      case 'IndexAccess':
+        // If direct ParentNode is an IndexAccess and currentNode is not the base
+        // then it must be the index in which case it is the end of the chain.
+        if (currentNode !== parentNode.base) return true;
+        break;
+
+      case 'FunctionCall':
+        // If direct ParentNode is a FunctionCall and currentNode is not the expression
+        // then it must be and argument in which case it is the end of the chain.
+        if (currentNode !== parentNode.expression) return true;
+        break;
+
+      default:
+        break;
+    }
+
+    i += 1;
+    currentNode = parentNode;
+    parentNode = path.getParentNode(i);
   }
-
   return true;
 };
 
@@ -51,7 +80,7 @@ const MemberAccess = {
       node.memberName
     ];
 
-    return isBeginnigOfChain(path) ? group(doc) : doc;
+    return isEndOfChain(node, path) ? group(doc) : doc;
   }
 };
 
