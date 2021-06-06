@@ -32,6 +32,13 @@ const isEndOfChain = (node, path) => {
     if (parentNode.type === 'ForStatement') break;
     if (parentNode.type === 'VariableDeclarationStatement') break;
     if (parentNode.type === 'ExpressionStatement') break;
+    if (parentNode.type === 'TupleExpression') break;
+    if (parentNode.type === 'ReturnStatement') break;
+    if (parentNode.type === 'ModifierInvocation') break;
+    if (parentNode.type === 'Conditional') break;
+    if (parentNode.type === 'NameValueList') break;
+    if (parentNode.type === 'StateVariableDeclaration') break;
+    if (parentNode.type === 'TryStatement') break;
 
     i += 1;
     currentNode = parentNode;

@@ -15,7 +15,10 @@ contract MemberAccess {
 }
 
 contract MemberAccessIsEndOfChainCases {
-    function() {
+    // break if is an ReturnStatement
+    uint a = b.c;
+
+    function() modifierCase(b.c) {
         // break if is an argument of a FunctionCall
         a(b.c);
         // break if is an index of an IndexAccess
@@ -36,5 +39,20 @@ contract MemberAccessIsEndOfChainCases {
         uint a = b.c;
         // break if is an ExpressionStatement
         b.c;
+        // break if is an TupleExpression
+        [a, b.c];
+        (b.c);
+        // break if is an Conditional
+        a.b ? c : d;
+        a ? b.c : d;
+        a ? b : c.d;
+        // break if is an NameValueList
+        a{value: b.d};
+        // break if is an NameValueList
+        a{value: b.d};
+        // break if is an TryStatement
+        try a.b() {} catch {}
+        // break if is an ReturnStatement
+        return b.c;
     }
 }
