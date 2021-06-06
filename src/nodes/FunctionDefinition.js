@@ -1,10 +1,10 @@
 const {
   doc: {
     builders: { dedent, group, hardline, indent, join, line }
-  }
+  },
+  util: { getNextNonSpaceNonCommentCharacterIndex }
 } = require('prettier/standalone');
 
-const privateUtil = require('../prettier-comments/common/util');
 const printSeparatedList = require('./print-separated-list');
 const printSeparatedItem = require('./print-separated-item');
 const printComments = require('./print-comments');
@@ -45,10 +45,12 @@ const parameters = (parametersType, node, path, print, options) => {
       path,
       options,
       (comment) =>
-        privateUtil.getNextNonSpaceNonCommentCharacter(
-          options.originalText,
-          comment,
-          options.locEnd
+        options.originalText.charAt(
+          getNextNonSpaceNonCommentCharacterIndex(
+            options.originalText,
+            comment,
+            options.locEnd
+          )
         ) === ')'
     );
     return paremeterComments.parts.length > 0
