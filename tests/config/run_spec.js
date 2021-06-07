@@ -24,7 +24,7 @@ const unstableTests = new Map(
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, '../tests/format/', file), isUnstable];
+    return [path.join(__dirname, '../format/', file), isUnstable];
   })
 );
 
@@ -34,7 +34,7 @@ const unstableAstTests = new Map(
     const [file, isAstUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, '../tests/format/', file), isAstUnstable];
+    return [path.join(__dirname, '../format/', file), isAstUnstable];
   })
 );
 
@@ -63,7 +63,7 @@ const testsWithAstChanges = new Map(
     const [file, compareBytecode = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, '../tests/format/', file), compareBytecode];
+    return [path.join(__dirname, '../format/', file), compareBytecode];
   })
 );
 
@@ -114,7 +114,7 @@ const shouldThrowOnFormat = (filename, options) => {
 
 const isTestDirectory = (dirname, name) =>
   (dirname + path.sep).startsWith(
-    path.join(__dirname, '../tests/format', name) + path.sep
+    path.join(__dirname, '../format', name) + path.sep
   );
 
 function runSpec(fixtures, parsers, options) {
@@ -193,7 +193,7 @@ function runSpec(fixtures, parsers, options) {
 
     describe(title, () => {
       const formatOptions = {
-        plugins: [path.dirname(__dirname)],
+        plugins: [path.dirname(path.join(__dirname, '..'))],
         printWidth: 80,
         ...options,
         filepath: filename,

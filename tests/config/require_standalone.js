@@ -1,5 +1,5 @@
 const prettier = require('prettier/standalone');
-const solidityPlugin = require('../src/index');
+const solidityPlugin = require('../../src/index');
 
 module.exports = {
   formatWithCursor(input, options) {
