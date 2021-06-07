@@ -62,11 +62,12 @@ const shallIndent = (path) => {
 
 const MemberAccess = {
   print: ({ node, path, print }) => {
-    const expressionDoc = path.call(print, 'expression');
+    let expressionDoc = path.call(print, 'expression');
     let separator = [softline, '.'];
     let labelData;
     if (expressionDoc.label) {
       labelData = JSON.parse(expressionDoc.label);
+      expressionDoc = expressionDoc.contents.flat();
     }
     if (labelData && labelData.groupId) {
       separator = ifBreak('.', [softline, '.'], {
@@ -78,7 +79,7 @@ const MemberAccess = {
       expressionDoc,
       shallIndent(path) ? indent(separator) : separator,
       node.memberName
-    ];
+    ].flat();
 
     return isEndOfChain(node, path) ? group(doc) : doc;
   }
