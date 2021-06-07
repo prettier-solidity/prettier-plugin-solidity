@@ -1,7 +1,7 @@
-const runSpec = require('./run_spec.js');
+"use strict";
 
-Object.defineProperty(global, 'run_spec', {
+Object.defineProperty(global, "run_spec", {
   get() {
-    return runSpec;
-  }
+    return require("./format-test");
+  },
 });

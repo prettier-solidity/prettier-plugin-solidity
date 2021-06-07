@@ -1,121 +1,123 @@
-const path = require('path');
-const { outdent } = require('outdent');
+"use strict";
 
-const TESTS_ROOT = path.join(__dirname, '../../format');
+const path = require("path");
+const { outdent } = require("outdent");
+
+const TESTS_ROOT = path.join(__dirname, "../../format");
 
 const getCategory = (dirname) =>
   path.relative(TESTS_ROOT, dirname).split(path.sep).shift();
 
 const categoryParsers = new Map([
   [
-    'angular',
+    "angular",
     {
-      parsers: ['angular', '__ng_interpolation', '__ng_action'],
+      parsers: ["angular", "__ng_interpolation", "__ng_action"],
       verifyParsers: [],
-      extensions: ['.html', '.ng']
-    }
+      extensions: [".html", ".ng"],
+    },
   ],
   [
-    'css',
-    { parsers: ['css'], verifyParsers: ['less', 'scss'], extensions: ['.css'] }
+    "css",
+    { parsers: ["css"], verifyParsers: ["less", "scss"], extensions: [".css"] },
   ],
   [
-    'flow',
+    "flow",
     {
-      parsers: ['flow', 'babel-flow'],
-      verifyParsers: ['babel', 'flow', 'babel-flow', 'typescript', 'babel-ts'],
-      extensions: ['.js']
-    }
+      parsers: ["flow", "babel-flow"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js"],
+    },
   ],
   [
-    'flow-repo',
+    "flow-repo",
     {
-      parsers: ['flow', 'babel-flow'],
-      verifyParsers: ['babel', 'flow', 'babel-flow', 'typescript', 'babel-ts'],
-      extensions: ['.js']
-    }
+      parsers: ["flow", "babel-flow"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js"],
+    },
   ],
   [
-    'graphql',
-    { parsers: ['graphql'], verifyParsers: [], extensions: ['.graphql'] }
+    "graphql",
+    { parsers: ["graphql"], verifyParsers: [], extensions: [".graphql"] },
   ],
   [
-    'handlebars',
-    { parsers: ['glimmer'], verifyParsers: [], extensions: ['.hbs'] }
+    "handlebars",
+    { parsers: ["glimmer"], verifyParsers: [], extensions: [".hbs"] },
   ],
-  ['html', { parsers: ['html'], verifyParsers: [], extensions: ['.html'] }],
-  ['mjml', { parsers: ['html'], verifyParsers: [], extensions: ['.mjml'] }],
+  ["html", { parsers: ["html"], verifyParsers: [], extensions: [".html"] }],
+  ["mjml", { parsers: ["html"], verifyParsers: [], extensions: [".mjml"] }],
   [
-    'js',
+    "js",
     {
-      parsers: ['babel', 'meriyah', 'espree'],
+      parsers: ["babel", "meriyah", "espree"],
       verifyParsers: [
-        'babel',
-        'meriyah',
-        'espree',
-        'flow',
-        'babel-flow',
-        'typescript',
-        'babel-ts'
+        "babel",
+        "meriyah",
+        "espree",
+        "flow",
+        "babel-flow",
+        "typescript",
+        "babel-ts",
       ],
-      extensions: ['.js']
-    }
+      extensions: [".js"],
+    },
   ],
   [
-    'json',
+    "json",
     {
-      parsers: ['json', 'json5', 'json-stringify'],
-      verifyParsers: [],
-      extensions: ['.json']
-    }
+      parsers: ["json", "json5", "json-stringify"],
+      verifyParsers: ["json", "json5", "json-stringify"],
+      extensions: [".json"],
+    },
   ],
   [
-    'jsx',
+    "jsx",
     {
-      parsers: ['babel', 'flow', 'babel-flow', 'typescript', 'babel-ts'],
-      verifyParsers: ['babel', 'flow', 'babel-flow', 'typescript', 'babel-ts'],
-      extensions: ['.js']
-    }
+      parsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js"],
+    },
   ],
   [
-    'less',
+    "less",
     {
-      parsers: ['less'],
-      verifyParsers: ['css', 'scss'],
-      extensions: ['.less']
-    }
+      parsers: ["less"],
+      verifyParsers: ["css", "scss"],
+      extensions: [".less"],
+    },
   ],
-  ['lwc', { parsers: ['lwc'], verifyParsers: [], extensions: ['.html'] }],
+  ["lwc", { parsers: ["lwc"], verifyParsers: [], extensions: [".html"] }],
   [
-    'markdown',
-    { parsers: ['markdown'], verifyParsers: [], extensions: ['.md'] }
+    "markdown",
+    { parsers: ["markdown"], verifyParsers: [], extensions: [".md"] },
   ],
-  ['mdx', { parsers: ['mdx'], verifyParsers: [], extensions: ['.mdx'] }],
+  ["mdx", { parsers: ["mdx"], verifyParsers: [], extensions: [".mdx"] }],
   [
-    'scss',
+    "scss",
     {
-      parsers: ['scss'],
-      verifyParsers: ['css', 'less'],
-      extensions: ['.scss']
-    }
+      parsers: ["scss"],
+      verifyParsers: ["css", "less"],
+      extensions: [".scss"],
+    },
   ],
   [
-    'stylefmt-repo',
-    { parsers: ['css', 'scss'], verifyParsers: [], extensions: ['.css'] }
+    "stylefmt-repo",
+    { parsers: ["css", "scss"], verifyParsers: [], extensions: [".css"] },
   ],
   [
-    'typescript',
+    "typescript",
     {
-      parsers: ['typescript', 'babel-ts'],
-      verifyParsers: ['babel', 'flow', 'babel-flow', 'typescript', 'babel-ts'],
-      extensions: ['.ts', '.tsx']
-    }
+      parsers: ["typescript", "babel-ts"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".ts", ".tsx"],
+    },
   ],
   [
-    'vue',
-    { parsers: ['vue'], verifyParsers: [], extensions: ['.vue', '.html'] }
+    "vue",
+    { parsers: ["vue"], verifyParsers: [], extensions: [".vue", ".html"] },
   ],
-  ['yaml', { parsers: ['yaml'], verifyParsers: [], extensions: ['.yml'] }]
+  ["yaml", { parsers: ["yaml"], verifyParsers: [], extensions: [".yml"] }],
 ]);
 
 const getParserCategories = (parser) => {
@@ -140,7 +142,7 @@ const checkParser = ({ dirname, files }, parsers = []) => {
   const {
     parsers: allowedParsers = [],
     verifyParsers: allowedVerifyParsers = [],
-    extensions = []
+    extensions = [],
   } = categoryAllowedParsers;
 
   const [parser, ...verifyParsers] = parsers;
@@ -158,19 +160,19 @@ const checkParser = ({ dirname, files }, parsers = []) => {
 
     const suggestion =
       suggestCategories.length === 0
-        ? ''
+        ? ""
         : outdent`
             Suggest move your tests to:
             ${suggestCategories
               .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
-              .join('\n')}
+              .join("\n")}
 
             Or config to allow use this parser in "${__filename}".
           `;
 
     throw new Error(
       `Parser "${parser}" should not used in "${dirname}".${
-        suggestion ? `\n\n${suggestion}` : ''
+        suggestion ? `\n\n${suggestion}` : ""
       }`
     );
   }
@@ -194,7 +196,7 @@ const checkParser = ({ dirname, files }, parsers = []) => {
       throw new Error(
         outdent`
           File "${name}" should not tested in "${dirname}".
-          Allowed extensions: ${extensions.join(',')}.
+          Allowed extensions: ${extensions.join(",")}.
           Please rename it or config to allow test "${ext}" file in "${__filename}".
         `
       );
