@@ -25,7 +25,7 @@ module.exports = {
     'jest-snapshot-serializer-ansi'
   ],
   testEnvironment: 'node',
-  testRegex: 'jsfmt\\.spec\\.js$|__tests__/.*\\.js$|scripts/.*\\.test\\.js$',
+  testRegex: 'jsfmt\\.spec\\.js$|tests/unit/.*\\.js$',
   transform: {},
   watchPlugins: [
     'jest-watch-typeahead/filename',

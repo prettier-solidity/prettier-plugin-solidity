@@ -24,7 +24,7 @@ const unstableTests = new Map(
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, '../tests/', file), isUnstable];
+    return [path.join(__dirname, '../tests/format/', file), isUnstable];
   })
 );
 
@@ -34,7 +34,7 @@ const unstableAstTests = new Map(
     const [file, isAstUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, '../tests/', file), isAstUnstable];
+    return [path.join(__dirname, '../tests/format/', file), isAstUnstable];
   })
 );
 
@@ -63,7 +63,7 @@ const testsWithAstChanges = new Map(
     const [file, compareBytecode = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, '../tests/', file), compareBytecode];
+    return [path.join(__dirname, '../tests/format/', file), compareBytecode];
   })
 );
 
@@ -114,7 +114,7 @@ const shouldThrowOnFormat = (filename, options) => {
 
 const isTestDirectory = (dirname, name) =>
   (dirname + path.sep).startsWith(
-    path.join(__dirname, '../tests', name) + path.sep
+    path.join(__dirname, '../tests/format', name) + path.sep
   );
 
 function runSpec(fixtures, parsers, options) {
@@ -322,8 +322,10 @@ function runTest({
   if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ['\r\n', '\r']) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
-        const output = format(code.replace(/\n/g, eol), formatOptions)
-          .eolVisualizedOutput;
+        const output = format(
+          code.replace(/\n/g, eol),
+          formatOptions
+        ).eolVisualizedOutput;
         // Only if `endOfLine: "auto"` the result will be different
         const expected =
           formatOptions.endOfLine === 'auto'
