@@ -68,18 +68,17 @@ function parse(text, _parsers, options) {
 
   parser.visit(parsed, {
     ElementaryTypeName(ctx) {
-      // We avoid making changes for bytes1 since the type 'byte' was removed
-      // in v0.8.0
-      // See the breaking changes in https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html#silent-changes-of-the-semantics
-      // The type byte has been removed. It was an alias of bytes1.
-      // TODO once we decide to keep track of the pragma, we can implement this again.
+      const pre080 = semver.satisfies(compiler, '<0.8.0');
+      if (!pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
 
       if (options.explicitTypes === 'always') {
         if (ctx.name === 'uint') ctx.name = 'uint256';
         if (ctx.name === 'int') ctx.name = 'int256';
+        if (pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
       } else if (options.explicitTypes === 'never') {
         if (ctx.name === 'uint256') ctx.name = 'uint';
         if (ctx.name === 'int256') ctx.name = 'int';
+        if (pre080 && ctx.name === 'bytes1') ctx.name = 'byte';
       }
     }
   });
