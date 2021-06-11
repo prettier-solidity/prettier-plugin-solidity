@@ -2,3 +2,4 @@ coverage/**/*.js
 tests/format/**/*.sol
 tests/config/**/*.js
 src/prettier-comments/**/*.js
+**/*.json
