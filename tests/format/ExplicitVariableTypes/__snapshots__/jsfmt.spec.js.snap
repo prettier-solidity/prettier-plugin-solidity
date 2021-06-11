@@ -1,5 +1,262 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ExplicitVariableTypes.sol - {"compiler":"0.8.0"} format 1`] = `
+====================================options=====================================
+compiler: "0.8.0"
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.5;
+
+contract VariableTypesMixed {
+    uint256 public a;
+    int256 public b;
+    uint public e;
+    int public f;
+
+    struct S {
+        uint a;
+        int b;
+        uint256 e;
+        int256 f;
+    }
+
+    event Event(uint _a, int256 _b, uint256 _e, int _f);
+
+    function func(
+        uint256 _a,
+        int256 _b,
+        uint _e,
+        int _f
+    )
+        public
+        returns (
+            uint,
+            int256,
+            uint256,
+            int
+        )
+    {
+        emit Event(_a, _b, _e, _f);
+        return (_a, _b, _e, _f);
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.5;
+
+contract VariableTypesMixed {
+    uint256 public a;
+    int256 public b;
+    uint256 public e;
+    int256 public f;
+
+    struct S {
+        uint256 a;
+        int256 b;
+        uint256 e;
+        int256 f;
+    }
+
+    event Event(uint256 _a, int256 _b, uint256 _e, int256 _f);
+
+    function func(
+        uint256 _a,
+        int256 _b,
+        uint256 _e,
+        int256 _f
+    )
+        public
+        returns (
+            uint256,
+            int256,
+            uint256,
+            int256
+        )
+    {
+        emit Event(_a, _b, _e, _f);
+        return (_a, _b, _e, _f);
+    }
+}
+
+================================================================================
+`;
+
+exports[`ExplicitVariableTypes.sol - {"compiler":"earliest","explicitTypes":"always"} format 1`] = `
+====================================options=====================================
+compiler: "earliest"
+explicitTypes: "always"
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.5;
+
+contract VariableTypesMixed {
+    uint256 public a;
+    int256 public b;
+    uint public e;
+    int public f;
+
+    struct S {
+        uint a;
+        int b;
+        uint256 e;
+        int256 f;
+    }
+
+    event Event(uint _a, int256 _b, uint256 _e, int _f);
+
+    function func(
+        uint256 _a,
+        int256 _b,
+        uint _e,
+        int _f
+    )
+        public
+        returns (
+            uint,
+            int256,
+            uint256,
+            int
+        )
+    {
+        emit Event(_a, _b, _e, _f);
+        return (_a, _b, _e, _f);
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.5;
+
+contract VariableTypesMixed {
+    uint256 public a;
+    int256 public b;
+    uint256 public e;
+    int256 public f;
+
+    struct S {
+        uint256 a;
+        int256 b;
+        uint256 e;
+        int256 f;
+    }
+
+    event Event(uint256 _a, int256 _b, uint256 _e, int256 _f);
+
+    function func(
+        uint256 _a,
+        int256 _b,
+        uint256 _e,
+        int256 _f
+    )
+        public
+        returns (
+            uint256,
+            int256,
+            uint256,
+            int256
+        )
+    {
+        emit Event(_a, _b, _e, _f);
+        return (_a, _b, _e, _f);
+    }
+}
+
+================================================================================
+`;
+
+exports[`ExplicitVariableTypes.sol - {"compiler":"earliest","explicitTypes":"never"} format 1`] = `
+====================================options=====================================
+compiler: "earliest"
+explicitTypes: "never"
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.5;
+
+contract VariableTypesMixed {
+    uint256 public a;
+    int256 public b;
+    uint public e;
+    int public f;
+
+    struct S {
+        uint a;
+        int b;
+        uint256 e;
+        int256 f;
+    }
+
+    event Event(uint _a, int256 _b, uint256 _e, int _f);
+
+    function func(
+        uint256 _a,
+        int256 _b,
+        uint _e,
+        int _f
+    )
+        public
+        returns (
+            uint,
+            int256,
+            uint256,
+            int
+        )
+    {
+        emit Event(_a, _b, _e, _f);
+        return (_a, _b, _e, _f);
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.5;
+
+contract VariableTypesMixed {
+    uint public a;
+    int public b;
+    uint public e;
+    int public f;
+
+    struct S {
+        uint a;
+        int b;
+        uint e;
+        int f;
+    }
+
+    event Event(uint _a, int _b, uint _e, int _f);
+
+    function func(
+        uint _a,
+        int _b,
+        uint _e,
+        int _f
+    )
+        public
+        returns (
+            uint,
+            int,
+            uint,
+            int
+        )
+    {
+        emit Event(_a, _b, _e, _f);
+        return (_a, _b, _e, _f);
+    }
+}
+
+================================================================================
+`;
+
 exports[`ExplicitVariableTypes.sol - {"explicitTypes":"never"} format 1`] = `
 ====================================options=====================================
 explicitTypes: "never"
@@ -248,6 +505,367 @@ contract VariableTypesMixed {
     {
         emit Event(_a, _b, _e, _f);
         return (_a, _b, _e, _f);
+    }
+}
+
+================================================================================
+`;
+
+exports[`ExplicitVariableTypesNoCompiler.sol - {"compiler":"0.8.0"} format 1`] = `
+====================================options=====================================
+compiler: "0.8.0"
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    byte public g;
+
+    struct S {
+        bytes1 c;
+        byte g;
+    }
+
+    event Event(bytes1 _c, byte _g);
+
+    function func(
+        bytes1 _c,
+        byte _g
+    )
+        public
+        returns (
+            bytes1,
+            byte
+        )
+    {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    bytes1 public g;
+
+    struct S {
+        bytes1 c;
+        bytes1 g;
+    }
+
+    event Event(bytes1 _c, bytes1 _g);
+
+    function func(bytes1 _c, bytes1 _g) public returns (bytes1, bytes1) {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+================================================================================
+`;
+
+exports[`ExplicitVariableTypesNoCompiler.sol - {"compiler":"earliest","explicitTypes":"always"} format 1`] = `
+====================================options=====================================
+compiler: "earliest"
+explicitTypes: "always"
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    byte public g;
+
+    struct S {
+        bytes1 c;
+        byte g;
+    }
+
+    event Event(bytes1 _c, byte _g);
+
+    function func(
+        bytes1 _c,
+        byte _g
+    )
+        public
+        returns (
+            bytes1,
+            byte
+        )
+    {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    bytes1 public g;
+
+    struct S {
+        bytes1 c;
+        bytes1 g;
+    }
+
+    event Event(bytes1 _c, bytes1 _g);
+
+    function func(bytes1 _c, bytes1 _g) public returns (bytes1, bytes1) {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+================================================================================
+`;
+
+exports[`ExplicitVariableTypesNoCompiler.sol - {"compiler":"earliest","explicitTypes":"never"} format 1`] = `
+====================================options=====================================
+compiler: "earliest"
+explicitTypes: "never"
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    byte public g;
+
+    struct S {
+        bytes1 c;
+        byte g;
+    }
+
+    event Event(bytes1 _c, byte _g);
+
+    function func(
+        bytes1 _c,
+        byte _g
+    )
+        public
+        returns (
+            bytes1,
+            byte
+        )
+    {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    byte public c;
+    byte public g;
+
+    struct S {
+        byte c;
+        byte g;
+    }
+
+    event Event(byte _c, byte _g);
+
+    function func(byte _c, byte _g) public returns (byte, byte) {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+================================================================================
+`;
+
+exports[`ExplicitVariableTypesNoCompiler.sol - {"explicitTypes":"never"} format 1`] = `
+====================================options=====================================
+explicitTypes: "never"
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    byte public g;
+
+    struct S {
+        bytes1 c;
+        byte g;
+    }
+
+    event Event(bytes1 _c, byte _g);
+
+    function func(
+        bytes1 _c,
+        byte _g
+    )
+        public
+        returns (
+            bytes1,
+            byte
+        )
+    {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    bytes1 public g;
+
+    struct S {
+        bytes1 c;
+        bytes1 g;
+    }
+
+    event Event(bytes1 _c, bytes1 _g);
+
+    function func(bytes1 _c, bytes1 _g) public returns (bytes1, bytes1) {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+================================================================================
+`;
+
+exports[`ExplicitVariableTypesNoCompiler.sol - {"explicitTypes":"preserve"} format 1`] = `
+====================================options=====================================
+explicitTypes: "preserve"
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    byte public g;
+
+    struct S {
+        bytes1 c;
+        byte g;
+    }
+
+    event Event(bytes1 _c, byte _g);
+
+    function func(
+        bytes1 _c,
+        byte _g
+    )
+        public
+        returns (
+            bytes1,
+            byte
+        )
+    {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    bytes1 public g;
+
+    struct S {
+        bytes1 c;
+        bytes1 g;
+    }
+
+    event Event(bytes1 _c, bytes1 _g);
+
+    function func(bytes1 _c, bytes1 _g) public returns (bytes1, bytes1) {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+================================================================================
+`;
+
+exports[`ExplicitVariableTypesNoCompiler.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    byte public g;
+
+    struct S {
+        bytes1 c;
+        byte g;
+    }
+
+    event Event(bytes1 _c, byte _g);
+
+    function func(
+        bytes1 _c,
+        byte _g
+    )
+        public
+        returns (
+            bytes1,
+            byte
+        )
+    {
+        emit Event(_c, _g);
+        return (_c, _g);
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <=0.8.5;
+
+contract VariableTypesMixed {
+    bytes1 public c;
+    bytes1 public g;
+
+    struct S {
+        bytes1 c;
+        bytes1 g;
+    }
+
+    event Event(bytes1 _c, bytes1 _g);
+
+    function func(bytes1 _c, bytes1 _g) public returns (bytes1, bytes1) {
+        emit Event(_c, _g);
+        return (_c, _g);
     }
 }
 

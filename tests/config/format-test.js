@@ -45,8 +45,9 @@ const testsWithAstChanges = new Map(
     [
       "ExplicitVariableTypes/ExplicitVariableTypes.sol",
       (options) =>
-        options.explicitTypes === undefined ||
-        options.explicitTypes !== "preserve",
+        options.compiler != "earliest" &&
+        (options.explicitTypes === undefined ||
+          options.explicitTypes !== "preserve"),
     ],
     "Parentheses/AddNoParentheses.sol",
     "Parentheses/SubNoParentheses.sol",
