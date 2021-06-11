@@ -1,3 +1,5 @@
+const solc = require('./solc.json');
+
 const CATEGORY_SOLIDITY = 'Solidity';
 
 const options = {
@@ -20,6 +22,25 @@ const options = {
         value: 'preserve',
         description: 'Respect the type used by the developer.'
       }
+    ]
+  },
+  compiler: {
+    category: CATEGORY_SOLIDITY,
+    type: 'string',
+    default: 'latest',
+    description: 'The Solidity compiler version to decide .',
+    choices: [
+      {
+        value: 'latest',
+        description:
+          'Will attempt to infer the latest possible compiler according to the pragma statements.'
+      },
+      {
+        value: 'earliest',
+        description:
+          'Will attempt to infer the earliest possible compiler according to the pragma statements.'
+      },
+      ...solc
     ]
   }
 };
