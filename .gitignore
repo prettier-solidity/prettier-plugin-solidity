@@ -65,3 +65,7 @@ typings/
 # package-lock.json
 
 yarn.lock
+
+# yarn 2 config
+.yarn
+.yarnrc.yml
