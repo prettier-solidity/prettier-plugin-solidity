@@ -34,14 +34,17 @@ function parse(text, _parsers, options) {
       if (ctx.name !== 'solidity') return;
       if (!['latest', 'earliest'].includes(compiler)) return;
       compilers = compilers.filter((version) =>
-        semver.satisfies(version.value, ctx.value)
+        semver.satisfies(version, ctx.value)
       );
     }
   });
 
-  if (compilers.length === 0) compilers = [...solc];
-  if (compiler === 'latest') compiler = compilers[0].value;
-  if (compiler === 'earliest') compiler = compilers.slice(-1)[0].value;
+  if (compilers.length === 0) {
+    // Could not infer the compiler version from the document.
+    compilers = [...solc];
+  }
+  if (compiler === 'latest') [compiler] = compilers;
+  if (compiler === 'earliest') [compiler] = compilers.slice(-1);
 
   parser.visit(parsed, {
     SourceUnit(ctx) {

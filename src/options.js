@@ -26,9 +26,10 @@ const options = {
   },
   compiler: {
     category: CATEGORY_SOLIDITY,
-    type: 'string',
+    type: 'choice',
     default: 'latest',
-    description: 'The Solidity compiler version to decide .',
+    description:
+      'The Solidity compiler version to help us avoid critical errors in format for the wrong version.',
     choices: [
       {
         value: 'latest',
@@ -40,7 +41,10 @@ const options = {
         description:
           'Will attempt to infer the earliest possible compiler according to the pragma statements.'
       },
-      ...solc
+      ...solc.map((version) => ({
+        value: version,
+        description: `Solidity ${version}`
+      }))
     ]
   }
 };
