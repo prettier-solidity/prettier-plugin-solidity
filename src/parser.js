@@ -31,8 +31,12 @@ function parse(text, _parsers, options) {
       if (ctx.value.split(' ').length > 1) {
         ctx.value = semver.validRange(ctx.value);
       }
+      // if the pragma is for solidity we proceed.
       if (ctx.name !== 'solidity') return;
+      // if the compiler option is 'latest' or 'earliest' we proceed.
       if (!['latest', 'earliest'].includes(compiler)) return;
+      // the list of valid compilers will shrink for each pragma directive in
+      // the document.
       compilers = compilers.filter((version) =>
         semver.satisfies(version, ctx.value)
       );
@@ -40,12 +44,15 @@ function parse(text, _parsers, options) {
   });
 
   if (compilers.length === 0) {
-    // Could not infer the compiler version from the document.
+    // if the list of valid compilers shrank to 0, we could not infer the
+    // compiler version from the document and we will use the full list.
     compilers = [...solc];
   }
   if (compiler === 'latest') [compiler] = compilers;
   if (compiler === 'earliest') [compiler] = compilers.slice(-1);
 
+  // Since we should not modify options, we assign the chosen compiler at the
+  // SourceUnit level.
   parser.visit(parsed, {
     SourceUnit(ctx) {
       ctx.compiler = compiler;
@@ -71,6 +78,9 @@ function parse(text, _parsers, options) {
 
   parser.visit(parsed, {
     ElementaryTypeName(ctx) {
+      // if the compiler is below 0.8.0 we will recognize the type 'byte' as an
+      // alias of 'bytes1'. Otherwise we will ignore this and enforce always
+      // 'bytes1'.
       const pre080 = semver.satisfies(compiler, '<0.8.0');
       if (!pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
 
