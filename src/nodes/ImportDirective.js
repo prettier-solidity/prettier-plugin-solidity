@@ -10,13 +10,22 @@ const { printString } = require('../prettier-comments/common/util');
 
 const ImportDirective = {
   print: ({ node, path, options }) => {
-    let doc = printString(node.path, options);
+    const importPath = printString(node.path, options);
+    let doc;
 
     if (node.unitAlias) {
-      doc = [doc, ' as ', node.unitAlias];
+      // import "./Foo.sol" as Foo;
+      doc = [importPath, ' as ', node.unitAlias];
     } else if (node.symbolAliases) {
+      // import { Foo, Bar as Qux } from "./Foo.sol";
+      const symbolAliases = node.symbolAliases.map(([a, b]) =>
+        b ? `${a} as ${b}` : a
+      );
       let firstSeparator;
       let separator;
+
+      // if the compiler is below 0.7.4 we must not split the group since it
+      // only recognizes ImportDirectives in a single line.
       if (semver.satisfies(getCompiler(path), '<0.7.4')) {
         firstSeparator = options.bracketSpacing ? ' ' : '';
         separator = ', ';
@@ -27,13 +36,13 @@ const ImportDirective = {
 
       doc = [
         '{',
-        printSeparatedList(
-          node.symbolAliases.map(([a, b]) => (b ? `${a} as ${b}` : a)),
-          { firstSeparator, separator }
-        ),
+        printSeparatedList(symbolAliases, { firstSeparator, separator }),
         '} from ',
-        doc
+        importPath
       ];
+    } else {
+      // import "./Foo.sol";
+      doc = importPath;
     }
     return group(['import ', doc, ';']);
   }
