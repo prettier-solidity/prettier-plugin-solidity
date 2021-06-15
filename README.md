@@ -61,7 +61,6 @@ instructions assume you are using [`vim-plug`](https://github.com/junegunn/vim-p
 ```vim
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install && yarn add prettier-plugin-solidity',
-  \ 'branch': 'release/1.x',
   \ 'for': [
     \ 'javascript',
     \ 'typescript',
@@ -82,10 +81,10 @@ Plug 'prettier/vim-prettier', {
 ```
 
 We modified the `do` instruction to also install this plugin. Then you'll have to configure the plugin to always use the
-version installed in the vim plugin's directory:
+version installed in the vim plugin's directory. The vim-plug directory depends on value you use in `call plug#begin('~/.vim/<dir>')`:
 
 ```vim
-let g:prettier#exec_cmd_path = '~/.vim/bundle/vim-prettier/node_modules/.bin/prettier'
+let g:prettier#exec_cmd_path = '~/.vim/plugged/vim-prettier/node_modules/.bin/prettier'
 ```
 
 To check that everything is working, open a solidity file and run `:Prettier`.
