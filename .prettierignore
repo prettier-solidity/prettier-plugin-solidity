@@ -1,4 +1,3 @@
 coverage/**/*.js
-tests/**/*.sol
-tests_config/**/*.js
+tests/format/**/*.sol
 src/prettier-comments/**/*.js

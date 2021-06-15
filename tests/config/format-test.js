@@ -1,22 +1,24 @@
+"use strict";
+
 const { TEST_STANDALONE } = process.env;
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 const prettier = !TEST_STANDALONE
-  ? require('./require_prettier')
-  : require('./require_standalone');
-const checkParsers = require('./utils/check-parsers');
-const createSnapshot = require('./utils/create-snapshot');
-const visualizeEndOfLine = require('./utils/visualize-end-of-line');
-const consistentEndOfLine = require('./utils/consistent-end-of-line');
-const stringifyOptionsForTitle = require('./utils/stringify-options-for-title');
+  ? require("./require-prettier")
+  : require("./require-standalone");
+const checkParsers = require("./utils/check-parsers");
+const createSnapshot = require("./utils/create-snapshot");
+const visualizeEndOfLine = require("./utils/visualize-end-of-line");
+const consistentEndOfLine = require("./utils/consistent-end-of-line");
+const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
 
 const { FULL_TEST } = process.env;
-const BOM = '\uFEFF';
+const BOM = "\uFEFF";
 
-const CURSOR_PLACEHOLDER = '<|>';
-const RANGE_START_PLACEHOLDER = '<<<PRETTIER_RANGE_START>>>';
-const RANGE_END_PLACEHOLDER = '<<<PRETTIER_RANGE_END>>>';
+const CURSOR_PLACEHOLDER = "<|>";
+const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
+const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
 // Here we add files that will not be the same when formating a second time.
 const unstableTests = new Map(
@@ -24,7 +26,7 @@ const unstableTests = new Map(
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, '../tests/', file), isUnstable];
+    return [path.join(__dirname, "../format/", file), isUnstable];
   })
 );
 
@@ -34,36 +36,36 @@ const unstableAstTests = new Map(
     const [file, isAstUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, '../tests/', file), isAstUnstable];
+    return [path.join(__dirname, "../format/", file), isAstUnstable];
   })
 );
 
 const testsWithAstChanges = new Map(
   [
     [
-      'ExplicitVariableTypes/ExplicitVariableTypes.sol',
+      "ExplicitVariableTypes/ExplicitVariableTypes.sol",
       (options) =>
         options.explicitTypes === undefined ||
-        options.explicitTypes !== 'preserve'
+        options.explicitTypes !== "preserve",
     ],
-    'Parentheses/AddNoParentheses.sol',
-    'Parentheses/SubNoParentheses.sol',
-    'Parentheses/MulNoParentheses.sol',
-    'Parentheses/DivNoParentheses.sol',
-    'Parentheses/ModNoParentheses.sol',
-    'Parentheses/ExpNoParentheses.sol',
-    'Parentheses/ShiftLNoParentheses.sol',
-    'Parentheses/ShiftRNoParentheses.sol',
-    'Parentheses/BitAndNoParentheses.sol',
-    'Parentheses/BitOrNoParentheses.sol',
-    'Parentheses/BitXorNoParentheses.sol',
-    'Parentheses/LogicNoParentheses.sol',
-    'HexLiteral/HexLiteral.sol'
+    "Parentheses/AddNoParentheses.sol",
+    "Parentheses/SubNoParentheses.sol",
+    "Parentheses/MulNoParentheses.sol",
+    "Parentheses/DivNoParentheses.sol",
+    "Parentheses/ModNoParentheses.sol",
+    "Parentheses/ExpNoParentheses.sol",
+    "Parentheses/ShiftLNoParentheses.sol",
+    "Parentheses/ShiftRNoParentheses.sol",
+    "Parentheses/BitAndNoParentheses.sol",
+    "Parentheses/BitOrNoParentheses.sol",
+    "Parentheses/BitXorNoParentheses.sol",
+    "Parentheses/LogicNoParentheses.sol",
+    "HexLiteral/HexLiteral.sol",
   ].map((fixture) => {
     const [file, compareBytecode = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, '../tests/', file), compareBytecode];
+    return [path.join(__dirname, "../format/", file), compareBytecode];
   })
 );
 
@@ -114,23 +116,23 @@ const shouldThrowOnFormat = (filename, options) => {
 
 const isTestDirectory = (dirname, name) =>
   (dirname + path.sep).startsWith(
-    path.join(__dirname, '../tests', name) + path.sep
+    path.join(__dirname, "../format", name) + path.sep
   );
 
 function runSpec(fixtures, parsers, options) {
   let { dirname, snippets = [] } =
-    typeof fixtures === 'string' ? { dirname: fixtures } : fixtures;
+    typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
     dirname,
-    'misc/parser-inference'
+    "misc/parser-inference"
   );
 
   // `IS_ERROR_TESTS` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TESTS = isTestDirectory(dirname, 'misc/errors');
+  const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
   if (IS_ERROR_TESTS) {
     options = { errors: true, ...options };
   }
@@ -140,10 +142,10 @@ function runSpec(fixtures, parsers, options) {
   }
 
   snippets = snippets.map((test, index) => {
-    test = typeof test === 'string' ? { code: test } : test;
+    test = typeof test === "string" ? { code: test } : test;
     return {
       ...test,
-      name: `snippet: ${test.name || `#${index}`}`
+      name: `snippet: ${test.name || `#${index}`}`,
     };
   });
 
@@ -153,22 +155,22 @@ function runSpec(fixtures, parsers, options) {
       const basename = file.name;
       const filename = path.join(dirname, basename);
       if (
-        path.extname(basename) === '.snap' ||
+        path.extname(basename) === ".snap" ||
         !file.isFile() ||
-        basename[0] === '.' ||
-        basename === 'jsfmt.spec.js' ||
+        basename[0] === "." ||
+        basename === "jsfmt.spec.js" ||
         // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
-        basename === 'debug.log'
+        basename === "debug.log"
       ) {
         return;
       }
 
-      const text = fs.readFileSync(filename, 'utf8');
+      const text = fs.readFileSync(filename, "utf8");
 
       return {
         name: basename,
         filename,
-        code: text
+        code: text,
       };
     })
     .filter(Boolean);
@@ -188,16 +190,16 @@ function runSpec(fixtures, parsers, options) {
 
   for (const { name, filename, code, output } of [...files, ...snippets]) {
     const title = `${name}${
-      stringifiedOptions ? ` - ${stringifiedOptions}` : ''
+      stringifiedOptions ? ` - ${stringifiedOptions}` : ""
     }`;
 
     describe(title, () => {
       const formatOptions = {
-        plugins: [path.dirname(__dirname)],
+        plugins: [path.dirname(path.join(__dirname, ".."))],
         printWidth: 80,
         ...options,
         filepath: filename,
-        parser
+        parser,
       };
       const mainParserFormatResult = shouldThrowOnFormat(name, formatOptions)
         ? { options: formatOptions, error: true }
@@ -212,7 +214,7 @@ function runSpec(fixtures, parsers, options) {
           output,
           parser: currentParser,
           mainParserFormatResult,
-          mainParserFormatOptions: formatOptions
+          mainParserFormatOptions: formatOptions,
         });
       }
     });
@@ -227,11 +229,11 @@ function runTest({
   output,
   parser,
   mainParserFormatResult,
-  mainParserFormatOptions
+  mainParserFormatOptions,
 }) {
   let formatOptions = mainParserFormatOptions;
   let formatResult = mainParserFormatResult;
-  let formatTestTitle = 'format';
+  let formatTestTitle = "format";
 
   // Verify parsers or error tests
   if (
@@ -261,7 +263,7 @@ function runTest({
     );
 
     // The result is assert to equals to `output`
-    if (typeof output === 'string') {
+    if (typeof output === "string") {
       expect(formatResult.eolVisualizedOutput).toEqual(
         visualizeEndOfLine(output)
       );
@@ -273,7 +275,7 @@ function runTest({
       createSnapshot(formatResult, {
         parsers,
         formatOptions,
-        CURSOR_PLACEHOLDER
+        CURSOR_PLACEHOLDER,
       })
     ).toMatchSnapshot();
   });
@@ -320,13 +322,15 @@ function runTest({
   }
 
   if (!shouldSkipEolTest(code, formatResult.options)) {
-    for (const eol of ['\r\n', '\r']) {
+    for (const eol of ["\r\n", "\r"]) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
-        const output = format(code.replace(/\n/g, eol), formatOptions)
-          .eolVisualizedOutput;
+        const output = format(
+          code.replace(/\n/g, eol),
+          formatOptions
+        ).eolVisualizedOutput;
         // Only if `endOfLine: "auto"` the result will be different
         const expected =
-          formatOptions.endOfLine === 'auto'
+          formatOptions.endOfLine === "auto"
             ? visualizeEndOfLine(
                 // All `code` use `LF`, so the `eol` of result is always `LF`
                 formatResult.outputWithCursor.replace(/\n/g, eol)
@@ -352,7 +356,7 @@ function runTest({
       //   - A worker process has failed to exit gracefully and has been force
       //     exited. This is likely caused by tests leaking due to improper
       //     teardown. Try running with --detectOpenHandles to find leaks.
-      const compileContract = require('./utils/compile-contract');
+      const compileContract = require("./utils/compile-contract");
       const output = compileContract(filename, formatResult.output);
       const expected = compileContract(filename, formatResult.input);
       expect(output).toEqual(expected);
@@ -361,7 +365,7 @@ function runTest({
 }
 
 function shouldSkipEolTest(code, options) {
-  if (code.includes('\r')) {
+  if (code.includes("\r")) {
     return true;
   }
   const { requirePragma, rangeStart, rangeEnd } = options;
@@ -370,8 +374,8 @@ function shouldSkipEolTest(code, options) {
   }
 
   if (
-    typeof rangeStart === 'number' &&
-    typeof rangeEnd === 'number' &&
+    typeof rangeStart === "number" &&
+    typeof rangeEnd === "number" &&
     rangeStart >= rangeEnd
   ) {
     return true;
@@ -385,17 +389,17 @@ function parse(source, options) {
 
 const indexProperties = [
   {
-    property: 'cursorOffset',
-    placeholder: CURSOR_PLACEHOLDER
+    property: "cursorOffset",
+    placeholder: CURSOR_PLACEHOLDER,
   },
   {
-    property: 'rangeStart',
-    placeholder: RANGE_START_PLACEHOLDER
+    property: "rangeStart",
+    placeholder: RANGE_START_PLACEHOLDER,
   },
   {
-    property: 'rangeEnd',
-    placeholder: RANGE_END_PLACEHOLDER
-  }
+    property: "rangeEnd",
+    placeholder: RANGE_END_PLACEHOLDER,
+  },
 ];
 function replacePlaceholders(originalText, originalOptions) {
   const indexes = indexProperties
@@ -410,7 +414,7 @@ function replacePlaceholders(originalText, originalOptions) {
   let text = originalText;
   let offset = 0;
   for (const { property, value, placeholder } of indexes) {
-    text = text.replace(placeholder, '');
+    text = text.replace(placeholder, "");
     options[property] = value + offset;
     offset -= placeholder.length;
   }
@@ -446,7 +450,7 @@ function format(originalText, originalOptions) {
     inputWithCursor,
     output,
     outputWithCursor,
-    eolVisualizedOutput
+    eolVisualizedOutput,
   };
 }
 

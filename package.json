@@ -4,11 +4,11 @@
   "description": "A Prettier Plugin for automatically formatting your Solidity code.",
   "main": "src",
   "scripts": {
-    "eslint": "eslint 'scripts/**' 'src/**' '__tests__/**' 'tests/**'",
+    "eslint": "eslint 'scripts/**' 'src/**' 'tests/**'",
     "generateindexes": "cross-env SCRIPT=true node scripts/generateIndexes.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
-    "prettier": "prettier './*.{js,json,md,yml}' '{scripts,src,__tests__,tests}/**/*.js'",
+    "prettier": "prettier './*.{js,json,md,yml}' '{scripts,src,tests}/**/*.js'",
     "test": "jest",
     "test:all": "cross-env FULL_TEST=1 jest"
   },

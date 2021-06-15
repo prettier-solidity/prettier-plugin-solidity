@@ -1,21 +1,21 @@
-const solc = require('solc');
+const solc = require("solc");
 
 function compileContract(filename, content) {
   const input = {
-    language: 'Solidity',
+    language: "Solidity",
     sources: {
       [filename]: {
-        content
-      }
+        content,
+      },
     },
     settings: {
-      metadata: { bytecodeHash: 'none' },
+      metadata: { bytecodeHash: "none" },
       outputSelection: {
-        '*': {
-          '*': ['*']
-        }
-      }
-    }
+        "*": {
+          "*": ["*"],
+        },
+      },
+    },
   };
   const output = JSON.parse(solc.compile(JSON.stringify(input)));
 

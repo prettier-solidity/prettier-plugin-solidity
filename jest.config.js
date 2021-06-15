@@ -19,13 +19,13 @@ module.exports = {
       statements: 100
     }
   },
-  setupFiles: ['<rootDir>/tests_config/setup.js'],
+  setupFiles: ['<rootDir>/tests/config/setup.js'],
   snapshotSerializers: [
     'jest-snapshot-serializer-raw',
     'jest-snapshot-serializer-ansi'
   ],
   testEnvironment: 'node',
-  testRegex: 'jsfmt\\.spec\\.js$|__tests__/.*\\.js$|scripts/.*\\.test\\.js$',
+  testRegex: 'jsfmt\\.spec\\.js$|tests/unit/.*\\.js$',
   transform: {},
   watchPlugins: [
     'jest-watch-typeahead/filename',
