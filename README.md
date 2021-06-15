@@ -61,7 +61,6 @@ instructions assume you are using [`vim-plug`](https://github.com/junegunn/vim-p
 ```vim
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install && yarn add prettier-plugin-solidity',
-  \ 'branch': 'release/1.x',
   \ 'for': [
     \ 'javascript',
     \ 'typescript',
