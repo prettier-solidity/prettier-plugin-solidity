@@ -2,7 +2,7 @@ const extractComments = require('solidity-comments-extractor');
 // https://prettier.io/docs/en/plugins.html#parsers
 const parser = require('@solidity-parser/parser');
 const semver = require('semver');
-const solc = require('./solc.json');
+const { getCompiler } = require('./common/util');
 
 const tryHug = (node, operators) => {
   if (node.type === 'BinaryOperation' && operators.includes(node.operator))
@@ -15,8 +15,7 @@ const tryHug = (node, operators) => {
 };
 
 function parse(text, _parsers, options) {
-  let { compiler } = options;
-  let compilers = [...solc];
+  const compiler = getCompiler(options);
   const parsed = parser.parse(text, { loc: true, range: true });
   parsed.comments = extractComments(text);
 
@@ -31,57 +30,36 @@ function parse(text, _parsers, options) {
       if (ctx.value.split(' ').length > 1) {
         ctx.value = semver.validRange(ctx.value);
       }
-      // if the pragma is for solidity we proceed.
+      // if the pragma is not for solidity we leave.
       if (ctx.name !== 'solidity') return;
-      // if the compiler option is 'latest' or 'earliest' we proceed.
-      if (!['latest', 'earliest'].includes(compiler)) return;
-      // the list of valid compilers will shrink for each pragma directive in
-      // the document.
-      compilers = compilers.filter((version) =>
-        semver.satisfies(version, ctx.value)
-      );
-    }
-  });
-
-  if (compilers.length === 0) {
-    // if the list of valid compilers shrank to 0, we could not infer the
-    // compiler version from the document and we will use the full list.
-    compilers = [...solc];
-  }
-  if (compiler === 'latest') [compiler] = compilers;
-  if (compiler === 'earliest') [compiler] = compilers.slice(-1);
-
-  // Since we should not modify options, we assign the chosen compiler at the
-  // SourceUnit level.
-  parser.visit(parsed, {
-    SourceUnit(ctx) {
-      ctx.compiler = compiler;
-    }
-  });
-
-  parser.visit(parsed, {
+      // if the compiler option has not been provided we leave.
+      if (!compiler) return;
+      // we make a check against each pragma directive in the document.
+      if (!semver.satisfies(compiler, ctx.value)) {
+        // @TODO: investigate the best way to warn that would apply to
+        // different editors.
+        // eslint-disable-next-line no-console
+        console.warn(
+          `The compiler '${options.compiler}' does not satisfy 'pragma solidity ${ctx.value}'.`
+        );
+      }
+    },
     ForStatement(ctx) {
       if (ctx.initExpression) {
         ctx.initExpression.omitSemicolon = true;
       }
       ctx.loopExpression.omitSemicolon = true;
-    }
-  });
-
-  parser.visit(parsed, {
+    },
     HexLiteral(ctx) {
       ctx.value = options.singleQuote
         ? `hex'${ctx.value.slice(4, -1)}'`
         : `hex"${ctx.value.slice(4, -1)}"`;
-    }
-  });
-
-  parser.visit(parsed, {
+    },
     ElementaryTypeName(ctx) {
       // if the compiler is below 0.8.0 we will recognize the type 'byte' as an
       // alias of 'bytes1'. Otherwise we will ignore this and enforce always
       // 'bytes1'.
-      const pre080 = semver.satisfies(compiler, '<0.8.0');
+      const pre080 = compiler && semver.satisfies(compiler, '<0.8.0');
       if (!pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
 
       if (options.explicitTypes === 'always') {
@@ -93,10 +71,7 @@ function parse(text, _parsers, options) {
         if (ctx.name === 'int256') ctx.name = 'int';
         if (pre080 && ctx.name === 'bytes1') ctx.name = 'byte';
       }
-    }
-  });
-
-  parser.visit(parsed, {
+    },
     BinaryOperation(ctx) {
       switch (ctx.operator) {
         case '+':
@@ -114,12 +89,31 @@ function parse(text, _parsers, options) {
           ctx.left = tryHug(ctx.left, ['*', '/', '%']);
           break;
         case '**':
-          // We avoid making changes here since the order of precedence of the
-          // operators for ** changed in v0.8.0
-          // See the breaking changes in https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html#silent-changes-of-the-semantics
-          // Exponentiation is right associative, i.e., the expression a**b**c
-          // is parsed as a**(b**c). Before 0.8.0, it was parsed as (a**b)**c.
-          // TODO once we decide to keep track of the pragma, we can implement this again.
+          // If the compiler has not been given as an option using we leave a**b**c.
+          if (!compiler) break;
+
+          if (semver.satisfies(compiler, '<0.8.0')) {
+            // If the compiler is less than 0.8.0 then a**b**c is formatted as
+            // (a**b)**c.
+            ctx.left = tryHug(ctx.left, ['**']);
+          } else if (
+            ctx.left.type === 'BinaryOperation' &&
+            ctx.left.operator === '**'
+          ) {
+            ctx.right = {
+              type: 'TupleExpression',
+              components: [
+                {
+                  type: 'BinaryOperation',
+                  operator: '**',
+                  left: ctx.left.right,
+                  right: ctx.right
+                }
+              ],
+              isArray: false
+            };
+            ctx.left = ctx.left.left;
+          }
           break;
         case '<<':
         case '>>':

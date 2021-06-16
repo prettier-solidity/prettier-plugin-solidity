@@ -1,5 +1,3 @@
-const solc = require('./solc.json');
-
 const CATEGORY_SOLIDITY = 'Solidity';
 
 const options = {
@@ -26,26 +24,9 @@ const options = {
   },
   compiler: {
     category: CATEGORY_SOLIDITY,
-    type: 'choice',
-    default: 'latest',
+    type: 'string',
     description:
-      'The Solidity compiler version to help us avoid critical errors in format for the wrong version.',
-    choices: [
-      {
-        value: 'latest',
-        description:
-          'Will attempt to infer the latest possible compiler according to the pragma statements.'
-      },
-      {
-        value: 'earliest',
-        description:
-          'Will attempt to infer the earliest possible compiler according to the pragma statements.'
-      },
-      ...solc.map((version) => ({
-        value: version,
-        description: `Solidity ${version}`
-      }))
-    ]
+      'The Solidity compiler version to help us avoid critical errors in format for the wrong version.'
   }
 };
 

@@ -1,11 +1,6 @@
-const getCompiler = (path) => {
-  let i = 0;
-  let elderNode;
-  do {
-    elderNode = path.getParentNode(i);
-    i += 1;
-  } while (elderNode.type !== 'SourceUnit');
-  return elderNode.compiler;
+const getCompiler = (options) => {
+  if (!options.compiler) return undefined;
+  return options.compiler.split(/-|\+/)[0];
 };
 
 module.exports = { getCompiler };
