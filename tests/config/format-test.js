@@ -20,7 +20,7 @@ const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
 const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
-// Here we add files that will not be the same when formating a second time.
+// Here we add files that will not be the same when formatting a second time.
 const unstableTests = new Map(
   [].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
@@ -30,7 +30,7 @@ const unstableTests = new Map(
   })
 );
 
-// Here we add files that will not have the same AST after being formated.
+// Here we add files that will not have the same AST after being formatted.
 const unstableAstTests = new Map(
   [].map((fixture) => {
     const [file, isAstUnstable = () => true] = Array.isArray(fixture)

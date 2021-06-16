@@ -19,7 +19,8 @@ const isEndOfChain = (node, path) => {
   ) {
     switch (parentNode.type) {
       case 'MemberAccess':
-        // If direct ParentNode is a MemberAcces we are not at the end of the chain
+        // If direct ParentNode is a MemberAccess we are not at the end of the
+        // chain.
         return false;
 
       case 'IndexAccess':
@@ -29,8 +30,9 @@ const isEndOfChain = (node, path) => {
         break;
 
       case 'FunctionCall':
-        // If direct ParentNode is a FunctionCall and currentNode is not the expression
-        // then it must be and argument in which case it is the end of the chain.
+        // If direct ParentNode is a FunctionCall and currentNode is not the
+        // expression then it must be and argument in which case it is the end
+        // of the chain.
         if (currentNode !== parentNode.expression) return true;
         break;
 

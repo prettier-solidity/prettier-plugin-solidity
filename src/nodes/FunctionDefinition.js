@@ -40,7 +40,7 @@ const parameters = (parametersType, node, path, print, options) => {
   }
   if (node.comments && node.comments.length > 0) {
     // we add a check to see if the comment is inside the parentheses
-    const paremeterComments = printComments(
+    const parameterComments = printComments(
       node,
       path,
       options,
@@ -53,8 +53,8 @@ const parameters = (parametersType, node, path, print, options) => {
           )
         ) === ')'
     );
-    return paremeterComments.parts.length > 0
-      ? printSeparatedItem(paremeterComments)
+    return parameterComments.parts.length > 0
+      ? printSeparatedItem(parameterComments)
       : '';
   }
   return '';

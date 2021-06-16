@@ -100,6 +100,8 @@ function parse(text, _parsers, options) {
             ctx.left.type === 'BinaryOperation' &&
             ctx.left.operator === '**'
           ) {
+            // the parser still organizes the a**b**c as (a**b)**c so we need
+            // to restructure it.
             ctx.right = {
               type: 'TupleExpression',
               components: [
