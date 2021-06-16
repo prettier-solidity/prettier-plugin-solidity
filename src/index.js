@@ -1,5 +1,5 @@
+const linguistData = require('linguist-languages/data/Solidity.json');
 const { handleComments, printComment } = require('./comments');
-
 const massageAstNode = require('./clean');
 const loc = require('./loc');
 const options = require('./options');
@@ -7,16 +7,13 @@ const parse = require('./parser');
 const print = require('./printer');
 
 // https://prettier.io/docs/en/plugins.html#languages
+const { languageId, ...rest } = linguistData;
 const languages = [
   {
-    aceMode: 'text',
-    color: '#AA6746',
-    extensions: ['.sol'],
-    linguistLanguageId: 237469032,
-    name: 'Solidity',
+    linguistLanguageId: languageId,
+    ...rest,
+    since: '0.0.0',
     parsers: ['solidity-parse'],
-    tmScope: 'source.solidity',
-    type: 'programming',
     vscodeLanguageIds: ['solidity']
   }
 ];
