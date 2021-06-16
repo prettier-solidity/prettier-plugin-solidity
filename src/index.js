@@ -9,9 +9,14 @@ const print = require('./printer');
 // https://prettier.io/docs/en/plugins.html#languages
 const languages = [
   {
+    aceMode: 'text',
+    color: '#AA6746',
     extensions: ['.sol'],
+    linguistLanguageId: 237469032,
     name: 'Solidity',
     parsers: ['solidity-parse'],
+    tmScope: 'source.solidity',
+    type: 'programming',
     vscodeLanguageIds: ['solidity']
   }
 ];
