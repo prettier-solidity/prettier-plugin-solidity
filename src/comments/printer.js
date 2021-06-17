@@ -1,9 +1,9 @@
 const {
+  doc: {
+    builders: { hardline, join }
+  },
   util: { hasNewline }
 } = require('prettier');
-const {
-  builders: { hardline, join }
-} = require('prettier/doc');
 
 function isIndentableBlockComment(comment) {
   // If the comment has multiple lines and every line starts with a star

@@ -1,4 +1,5 @@
 const FULL_TEST = Boolean(process.env.FULL_TEST);
+const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 
 module.exports = {
   collectCoverage: FULL_TEST,
@@ -18,6 +19,11 @@ module.exports = {
       lines: 100,
       statements: 100
     }
+  },
+  moduleNameMapper: {
+    '^prettier$': TEST_STANDALONE
+      ? '<rootDir>/node_modules/prettier/standalone'
+      : '<rootDir>/node_modules/prettier'
   },
   setupFiles: ['<rootDir>/tests/config/setup.js'],
   snapshotSerializers: [
