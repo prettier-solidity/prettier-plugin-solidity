@@ -1,6 +1,8 @@
 const {
-  builders: { join }
-} = require('prettier/doc');
+  doc: {
+    builders: { join }
+  }
+} = require('prettier');
 
 const AssemblyFor = {
   print: ({ path, print }) =>

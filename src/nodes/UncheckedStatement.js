@@ -1,6 +1,8 @@
 const {
-  builders: { group }
-} = require('prettier/doc');
+  doc: {
+    builders: { group }
+  }
+} = require('prettier');
 
 const UncheckedStatement = {
   print: ({ path, print }) => group(['unchecked ', path.call(print, 'block')])

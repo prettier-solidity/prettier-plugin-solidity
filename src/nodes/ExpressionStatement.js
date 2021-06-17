@@ -1,6 +1,8 @@
 const {
-  builders: { hardline }
-} = require('prettier/doc');
+  doc: {
+    builders: { hardline }
+  }
+} = require('prettier');
 
 const printComments = require('./print-comments');
 

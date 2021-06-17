@@ -1,6 +1,8 @@
 const {
-  builders: { group, ifBreak, indent, softline }
-} = require('prettier/doc');
+  doc: {
+    builders: { group, ifBreak, indent, softline }
+  }
+} = require('prettier');
 
 const isEndOfChain = (node, path) => {
   let i = 0;

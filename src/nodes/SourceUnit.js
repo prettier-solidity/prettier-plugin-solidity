@@ -1,6 +1,8 @@
 const {
-  builders: { line }
-} = require('prettier/doc');
+  doc: {
+    builders: { line }
+  }
+} = require('prettier');
 
 const printPreservingEmptyLines = require('./print-preserving-empty-lines');
 

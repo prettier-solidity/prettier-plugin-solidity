@@ -1,6 +1,8 @@
 const {
-  builders: { group, indent, softline }
-} = require('prettier/doc');
+  doc: {
+    builders: { group, indent, softline }
+  }
+} = require('prettier');
 
 const IndexAccess = {
   print: ({ path, print }) => [

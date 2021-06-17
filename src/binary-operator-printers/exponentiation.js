@@ -1,6 +1,8 @@
 const {
-  builders: { group, ifBreak, indent, softline }
-} = require('prettier/doc');
+  doc: {
+    builders: { group, ifBreak, indent, softline }
+  }
+} = require('prettier');
 
 module.exports = {
   match: (op) => op === '**',

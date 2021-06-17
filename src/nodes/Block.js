@@ -1,6 +1,8 @@
 const {
-  builders: { hardline, indent }
-} = require('prettier/doc');
+  doc: {
+    builders: { hardline, indent }
+  }
+} = require('prettier');
 
 const printPreservingEmptyLines = require('./print-preserving-empty-lines');
 const printComments = require('./print-comments');
