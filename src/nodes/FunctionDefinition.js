@@ -1,9 +1,9 @@
 const {
-  doc: {
-    builders: { dedent, group, hardline, indent, join, line }
-  },
   util: { getNextNonSpaceNonCommentCharacterIndex }
 } = require('prettier/standalone');
+const {
+  builders: { dedent, group, hardline, indent, join, line }
+} = require('prettier/doc');
 
 const printSeparatedList = require('./print-separated-list');
 const printSeparatedItem = require('./print-separated-item');

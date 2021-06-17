@@ -1,8 +1,6 @@
 const {
-  doc: {
-    builders: { group, line, indent }
-  }
-} = require('prettier/standalone');
+  builders: { group, line, indent }
+} = require('prettier/doc');
 
 module.exports = {
   match: (op) =>

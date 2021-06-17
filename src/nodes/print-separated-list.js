@@ -1,8 +1,6 @@
 const {
-  doc: {
-    builders: { group, indent, join, line, softline }
-  }
-} = require('prettier/standalone');
+  builders: { group, indent, join, line, softline }
+} = require('prettier/doc');
 
 // This function will add an indentation to the `list` and separate it from the
 // rest of the `doc` in most cases by a `softline`.

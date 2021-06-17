@@ -1,9 +1,9 @@
 const {
-  doc: {
-    builders: { hardline }
-  },
   util: { isNextLineEmptyAfterIndex }
 } = require('prettier/standalone');
+const {
+  builders: { hardline }
+} = require('prettier/doc');
 
 function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];

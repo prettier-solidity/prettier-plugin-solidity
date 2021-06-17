@@ -1,8 +1,6 @@
 const {
-  doc: {
-    builders: { group, line, indent }
-  }
-} = require('prettier/standalone');
+  builders: { group, line, indent }
+} = require('prettier/doc');
 const comparison = require('./comparison');
 
 const groupIfNecessaryBuilder = (path) => (doc) => {

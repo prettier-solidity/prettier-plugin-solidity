@@ -1,8 +1,6 @@
 const {
-  doc: {
-    builders: { group, indent, line }
-  }
-} = require('prettier/standalone');
+  builders: { group, indent, line }
+} = require('prettier/doc');
 
 const expression = (node, path, print) => {
   if (node.expression) {

@@ -1,8 +1,6 @@
 const {
-  doc: {
-    builders: { group, hardline, indent, line }
-  }
-} = require('prettier/standalone');
+  builders: { group, hardline, indent, line }
+} = require('prettier/doc');
 
 const printSeparatedList = require('./print-separated-list');
 

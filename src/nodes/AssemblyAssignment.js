@@ -1,8 +1,6 @@
 const {
-  doc: {
-    builders: { join }
-  }
-} = require('prettier/standalone');
+  builders: { join }
+} = require('prettier/doc');
 
 const AssemblyAssignment = {
   print: ({ path, print }) =>

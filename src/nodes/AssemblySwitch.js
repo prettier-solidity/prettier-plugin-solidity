@@ -1,8 +1,6 @@
 const {
-  doc: {
-    builders: { hardline, join }
-  }
-} = require('prettier/standalone');
+  builders: { hardline, join }
+} = require('prettier/doc');
 
 const AssemblySwitch = {
   print: ({ path, print }) => [

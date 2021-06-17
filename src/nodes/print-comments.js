@@ -1,8 +1,6 @@
 const {
-  doc: {
-    builders: { join, line }
-  }
-} = require('prettier');
+  builders: { join, line }
+} = require('prettier/doc');
 
 const printComments = (node, path, options, filter = () => true) =>
   node.comments
