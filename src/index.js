@@ -6,6 +6,7 @@ const parse = require('./parser');
 const print = require('./printer');
 
 // https://prettier.io/docs/en/plugins.html#languages
+// https://github.com/ikatyang/linguist-languages/blob/master/data/Solidity.json
 const languages = [
   {
     linguistLanguageId: 237469032,
