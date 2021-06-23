@@ -14,8 +14,8 @@ function printPreservingEmptyLines(path, key, options, print) {
     if (
       // Avoid adding a hardline at the beginning of the document.
       parts.length !== 0 &&
-      // LabelDefinition adds a dedented line so we have don't have to prepend
-      // a hardline.
+      // LabelDefinition adds a dedented line so we don't have to prepend a
+      // hardline.
       nodeType !== 'LabelDefinition'
     ) {
       parts.push(hardline);
