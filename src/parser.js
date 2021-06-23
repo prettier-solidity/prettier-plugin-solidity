@@ -2,7 +2,6 @@ const extractComments = require('solidity-comments-extractor');
 // https://prettier.io/docs/en/plugins.html#parsers
 const parser = require('@solidity-parser/parser');
 const semver = require('semver');
-const { getCompiler } = require('./common/util');
 
 const tryHug = (node, operators) => {
   if (node.type === 'BinaryOperation' && operators.includes(node.operator))
@@ -15,7 +14,7 @@ const tryHug = (node, operators) => {
 };
 
 function parse(text, _parsers, options) {
-  const compiler = getCompiler(options);
+  const compiler = semver.coerce(options.compiler);
   const parsed = parser.parse(text, { loc: true, range: true });
   parsed.comments = extractComments(text);
 
@@ -96,7 +95,9 @@ function parse(text, _parsers, options) {
             // If the compiler is less than 0.8.0 then a**b**c is formatted as
             // (a**b)**c.
             ctx.left = tryHug(ctx.left, ['**']);
-          } else if (
+            break;
+          }
+          if (
             ctx.left.type === 'BinaryOperation' &&
             ctx.left.operator === '**'
           ) {

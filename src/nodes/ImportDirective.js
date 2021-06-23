@@ -5,7 +5,6 @@ const {
 } = require('prettier');
 const semver = require('semver');
 
-const { getCompiler } = require('../common/util');
 const printSeparatedList = require('./print-separated-list');
 const { printString } = require('../prettier-comments/common/util');
 
@@ -19,7 +18,7 @@ const ImportDirective = {
       doc = [importPath, ' as ', node.unitAlias];
     } else if (node.symbolAliases) {
       // import { Foo, Bar as Qux } from "./Foo.sol";
-      const compiler = getCompiler(options);
+      const compiler = semver.coerce(options.compiler);
       const symbolAliases = node.symbolAliases.map(([a, b]) =>
         b ? `${a} as ${b}` : a
       );
