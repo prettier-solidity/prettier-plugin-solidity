@@ -15,7 +15,7 @@ const semver = require('semver');
  * @param {Object} options          - The options object given to Prettier's API.
  * @param {string} options.compiler - The compiler version to be used for
  *                                    formatting.
- * @returns {string} A clean semantic version of the compiler
+ * @returns {string} A clean semantic version of the compiler.
  */
 const getCompiler = ({ compiler }) => semver.valid(semver.coerce(compiler));
 
