@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { join, line }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const { printString } = require('../prettier-comments/common/util');
 

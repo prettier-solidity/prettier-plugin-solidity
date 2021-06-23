@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { group, ifBreak, indent, softline }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const isEndOfChain = (node, path) => {
   let i = 0;

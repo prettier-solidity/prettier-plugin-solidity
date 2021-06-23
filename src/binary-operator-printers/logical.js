@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { group, line, indent }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const groupIfNecessaryBuilder = (path) => (doc) =>
   path.getParentNode().type === 'BinaryOperation' ? doc : group(doc);

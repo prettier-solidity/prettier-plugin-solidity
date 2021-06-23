@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { hardline }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const printSeparatedItem = require('./print-separated-item');
 const printComments = require('./print-comments');

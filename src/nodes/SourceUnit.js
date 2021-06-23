@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { line }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const printPreservingEmptyLines = require('./print-preserving-empty-lines');
 

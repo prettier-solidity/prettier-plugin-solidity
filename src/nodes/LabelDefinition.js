@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { dedent, line }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const LabelDefinition = {
   print: ({ node }) => [dedent(line), node.name, ':']

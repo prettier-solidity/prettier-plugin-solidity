@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { group, indent, softline }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const IndexAccess = {
   print: ({ path, print }) => [

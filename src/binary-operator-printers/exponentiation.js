@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { group, ifBreak, indent, softline }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 module.exports = {
   match: (op) => op === '**',

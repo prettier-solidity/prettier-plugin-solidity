@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { group, indent, join, line, softline }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 // This function will add an indentation to the `list` and separate it from the
 // rest of the `doc` in most cases by a `softline`.
@@ -14,7 +14,7 @@ const {
 const printSeparatedList = (
   list,
   {
-    groupId = undefined,
+    groupId,
     firstSeparator = softline,
     separator = [',', line],
     lastSeparator = firstSeparator

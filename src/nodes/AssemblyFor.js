@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { join }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const AssemblyFor = {
   print: ({ path, print }) =>

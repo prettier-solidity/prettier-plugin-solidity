@@ -2,7 +2,7 @@ const {
   doc: {
     builders: { group, line, indent }
   }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const indentIfNecessaryBuilder = (path) => (doc) => {
   let node = path.getNode();

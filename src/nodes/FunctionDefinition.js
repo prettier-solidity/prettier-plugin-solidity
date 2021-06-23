@@ -3,7 +3,7 @@ const {
     builders: { dedent, group, hardline, indent, join, line }
   },
   util: { getNextNonSpaceNonCommentCharacterIndex }
-} = require('prettier/standalone');
+} = require('prettier');
 
 const printSeparatedList = require('./print-separated-list');
 const printSeparatedItem = require('./print-separated-item');
