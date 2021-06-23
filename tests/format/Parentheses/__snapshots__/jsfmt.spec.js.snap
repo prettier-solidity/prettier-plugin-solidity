@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`AddNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -197,9 +197,9 @@ contract AddNoParentheses {
 ================================================================================
 `;
 
-exports[`BitAndNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`BitAndNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -394,9 +394,9 @@ contract BitAndNoParentheses {
 ================================================================================
 `;
 
-exports[`BitOrNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`BitOrNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -591,9 +591,9 @@ contract BitOrNoParentheses {
 ================================================================================
 `;
 
-exports[`BitXorNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`BitXorNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -788,9 +788,9 @@ contract BitXorNoParentheses {
 ================================================================================
 `;
 
-exports[`DivNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`DivNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -985,9 +985,9 @@ contract DivNoParentheses {
 ================================================================================
 `;
 
-exports[`ExpNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`ExpNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -1182,9 +1182,9 @@ contract ExpNoParentheses {
 ================================================================================
 `;
 
-exports[`LogicNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`LogicNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -1251,9 +1251,9 @@ contract LogicNoParentheses {
 ================================================================================
 `;
 
-exports[`ModNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`ModNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -1448,9 +1448,9 @@ contract ModNoParentheses {
 ================================================================================
 `;
 
-exports[`MulNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`MulNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -1645,9 +1645,9 @@ contract MulNoParentheses {
 ================================================================================
 `;
 
-exports[`ShiftLNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`ShiftLNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -1842,9 +1842,9 @@ contract ShiftLNoParentheses {
 ================================================================================
 `;
 
-exports[`ShiftRNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`ShiftRNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -2039,9 +2039,9 @@ contract ShiftRNoParentheses {
 ================================================================================
 `;
 
-exports[`SubNoParentheses.sol - {"compiler":"0.8.5"} format 1`] = `
+exports[`SubNoParentheses.sol - {"compiler":"0.8.6"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.5"
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
