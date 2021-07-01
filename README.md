@@ -51,6 +51,69 @@ These are some of the projects using Prettier Solidity:
 - [UMA](https://umaproject.org/)
 - [Uniswap](https://uniswap.org)
 
+## Configuration File
+
+Prettier provides a flexible system to configure the formatting rules of a project. For more information please refer to the [documentation](https://prettier.io/docs/en/configuration.html).
+The following is the default configuration internally used by this plugin.
+
+```json
+{
+  "overrides": [
+    {
+      "files": "*.sol",
+      "options": {
+        "printWidth": 80,
+        "tabWidth": 4,
+        "useTabs": false,
+        "singleQuote": false,
+        "bracketSpacing": false,
+        "explicitTypes": "always"
+      }
+    }
+  ]
+}
+```
+
+Note the use of the [overrides property](https://prettier.io/docs/en/configuration.html#configuration-overrides) which allows for multiple configurations in case there are other languages in the project (i.e. JavaScript, JSON, Markdown).
+
+Most options are described in Prettier's [documentation](https://prettier.io/docs/en/options.html).
+
+### Explicit Types
+
+Solidity provides the aliases `uint` and `int` for `uint256` and `int256` respectively.
+Multiple developers will have different coding styles and prefer one over another.
+This option was added to standardize the code across a project and enforce the usage of one alias over another.
+
+Valid options:
+
+- `"always"`: Prefer the explicit types `uint256`, `int256`.
+- `"never"`: Prefer the type aliases `uint`, `int`.
+- `"preserve"`: Respect the type used by the developer.
+
+| Default    | CLI Override                                 | API Override                                 |
+| ---------- | -------------------------------------------- | -------------------------------------------- |
+| `"always"` | `--explicit-types <always\|never\|preserve>` | `explicitTypes: "<always\|never\|preserve>"` |
+
+```Solidity
+// Input
+uint public a;
+int256 public b;
+
+// "explicitTypes": "always"
+uint256 public a;
+int256 public b;
+
+// "explicitTypes": "never"
+uint public a;
+int public b;
+
+// "explicitTypes": "preserve"
+uint public a;
+int256 public b;
+```
+
+Note: switching between `uint` and `uint256` does not alter the bytecode at all and we have implemented tests for this. However, there will be a change in the AST reflecting the switch.
+
 ## Integrations
 
 ### Vim
@@ -100,13 +163,15 @@ Now Prettier will be run every time the file is saved.
 
 ### VSCode
 
-VSCode is not familiar with the solidity language, so [`solidity support`](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity) needs to be installed.
+VSCode is not familiar with the solidity language, so [`solidity`](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity) support needs to be installed.
 
 ```Bash
 code --install-extension JuanBlanco.solidity
 ```
 
-Having done that you should proceed to install [`prettier-vscode`](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+This extension provides basic integration with Prettier for most cases no further action is needed.
+
+If you want more control over other details, you should proceed to install [`prettier-vscode`](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
 ```Bash
 code --install-extension esbenp.prettier-vscode
@@ -118,31 +183,12 @@ To interact with 3rd party plugins, `prettier-vscode` will look in the project's
 npm install --save-dev prettier prettier-plugin-solidity
 ```
 
+This will allow you to specify the version of the plugin in case you need to freeze the formatting since new versions of this plugin will implement tweaks on the possible formats.
+
+You'll have to let VSCode what formatter you prefer.
 As a final check, make sure that VSCode is configured to format files on save.
 
-You'll notice now that `prettier` is formatting every time the files are saved but the indentation is using 2 spaces instead of 4. This has been [reported](https://github.com/prettier/prettier-vscode/issues/961) and in the meantime you can use the following configuration in your `.prettierrc` file:
-
-```json
-{
-  "overrides": [
-    {
-      "files": "*.sol",
-      "options": {
-        "printWidth": 80,
-        "tabWidth": 4,
-        "useTabs": false,
-        "singleQuote": false,
-        "bracketSpacing": false,
-        "explicitTypes": "always"
-      }
-    }
-  ]
-}
-```
-
-Note: When you install the npm package `prettier` in your project and create a `.prettierrc` file (which wasn't in your project before this), your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
-
-If you want a different configuration for your javascript and solidity files, you can add an [overrides property](https://prettier.io/docs/en/configuration.html#configuration-overrides) to your `.prettierrc`.
+Note: By design, Prettier prioritizes a local over a global configuration. If you have a `.prettierrc` file in your porject, your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
 
 ## Contributing
 
