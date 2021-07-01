@@ -78,6 +78,68 @@ Note the use of the [overrides property](https://prettier.io/docs/en/configurati
 
 Most options are described in Prettier's [documentation](https://prettier.io/docs/en/options.html).
 
+### Compiler
+
+The Solidity compiler has breaking changes where the format of the code has had an impact in the output. That's why we decided to include this option.
+
+It accepts a string of the semver version of the target compiler. If no version is provided the plugin will choose a safe format for any scenario.
+
+- `v0.7.4`: Versions prior `0.7.4` did have a bug that would not interpret correctly imports unless they are formatted in a single line.
+
+  ```Solidity
+  // Input
+  import { Foo as Bar } from "/an/extremely/long/location";
+
+  // "compiler": undefined
+  import { Foo as Bar } from "/an/extremely/long/location";
+
+  // "compiler": "0.7.3" (or lesser)
+  import { Foo as Bar } from "/an/extremely/long/location";
+
+  // "compiler": "0.7.4" (or greater)
+  import {
+      Foo as Bar
+  } from "/an/extremely/long/location";
+  ```
+
+- `v0.8.0`: Introduced these [changes](https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html)
+
+  - The type byte has been removed. It was an alias of bytes1.
+  - Exponentiation is right associative, i.e., the expression a**b**c is parsed as a**(b**c). Before 0.8.0, it was parsed as (a**b)**c.
+
+  ```Solidity
+  // Input
+  bytes1 public a;
+  byte public b;
+
+  uint public c = 1 ** 2 ** 3;
+
+  // "compiler": undefined
+  // "explicitTypes": "never"
+  bytes1 public a;
+  bytes1 public b;
+
+  uint public c = 1 ** 2 ** 3;
+
+  // "compiler": "0.7.6" (or lesser)
+  // "explicitTypes": "never"
+  byte public a;
+  byte public b;
+
+  uint public c = (1**2)**3;
+
+  // "compiler": "0.8.0" (or greater)
+  // "explicitTypes": "never"
+  bytes1 public a;
+  bytes1 public b;
+
+  uint public c = 1**(2**3);
+  ```
+
+| Default | CLI Override          | API Override           |
+| ------- | --------------------- | ---------------------- |
+| None    | `--compiler <string>` | `compiler: "<string>"` |
+
 ### Explicit Types
 
 Solidity provides the aliases `uint` and `int` for `uint256` and `int256` respectively.
@@ -111,6 +173,8 @@ int public b;
 uint public a;
 int256 public b;
 ```
+
+Note: if the compiler option is provided and is lesser than 0.8.0, explicitTypes will also consider the alias `byte` for the explicit type `bytes1`.
 
 Note: switching between `uint` and `uint256` does not alter the bytecode at all and we have implemented tests for this. However, there will be a change in the AST reflecting the switch.
 
