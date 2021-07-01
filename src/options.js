@@ -48,12 +48,11 @@ const options = {
     choices: [
       {
         value: 'always',
-        description:
-          'Prefer the explicit types `uint256`, `int256`, and `bytes1`.'
+        description: 'Prefer the explicit types `uint256`, `int256`.'
       },
       {
         value: 'never',
-        description: 'Prefer the type aliases `uint`, `int`, and `byte`.'
+        description: 'Prefer the type aliases `uint`, `int`.'
       },
       {
         value: 'preserve',
