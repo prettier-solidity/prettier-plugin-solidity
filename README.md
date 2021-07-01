@@ -112,7 +112,7 @@ uint public a;
 int256 public b;
 ```
 
-Note: switching between `uint` and `uint256` does not alter the bytecode at all and we have implemented tests for this. However there will be a change in the AST reflecting the switch.
+Note: switching between `uint` and `uint256` does not alter the bytecode at all and we have implemented tests for this. However, there will be a change in the AST reflecting the switch.
 
 ## Integrations
 
@@ -169,9 +169,9 @@ VSCode is not familiar with the solidity language, so [`solidity`](https://marke
 code --install-extension JuanBlanco.solidity
 ```
 
-This extension provides a basic integration with Prettier for most cases no further action is needed.
+This extension provides basic integration with Prettier for most cases no further action is needed.
 
-If you want more control on other details, you should proceed to install [`prettier-vscode`](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+If you want more control over other details, you should proceed to install [`prettier-vscode`](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
 ```Bash
 code --install-extension esbenp.prettier-vscode
@@ -188,7 +188,7 @@ This will allow you to specify the version of the plugin in case you need to fre
 You'll have to let VSCode what formatter you prefer.
 As a final check, make sure that VSCode is configured to format files on save.
 
-Note: By design Prettier prioritizes a local over a global configuration. If you have a `.prettierrc` file in your porject, your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
+Note: By design, Prettier prioritizes a local over a global configuration. If you have a `.prettierrc` file in your porject, your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
 
 ## Contributing
 
