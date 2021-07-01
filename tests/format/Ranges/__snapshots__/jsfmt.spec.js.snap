@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Array.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+rangeEnd: 61
+rangeStart: 48
+      |                                                                                | printWidth
+=====================================input======================================
+   1 | contract ArrayRange {
+   2 | bytes32[] public a = [
+   3 | a,
+>  4 | s,b,c,d,
+     | ^^^^^^^^
+>  5 | e
+     | ^
+>  6 | ,
+     | ^
+>  7 |
+     | ^
+   8 | f,
+   9 | a
+  10 | ];
+  11 | }
+=====================================output=====================================
+contract ArrayRange {
+bytes32[] public a = [
+a,
+s,b,c,d,
+e
+,
+
+f,
+a
+];
+}
+================================================================================
+`;
