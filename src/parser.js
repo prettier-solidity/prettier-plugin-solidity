@@ -39,7 +39,7 @@ function parse(text, _parsers, options) {
         // different editors.
         // eslint-disable-next-line no-console
         console.warn(
-          `The compiler '${options.compiler}' does not satisfy 'pragma solidity ${ctx.value}'.`
+          `[prettier-solidity] The compiler option is set to '${options.compiler}', which does not satisfy 'pragma solidity ${ctx.value}'.`
         );
       }
     },
