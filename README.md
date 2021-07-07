@@ -116,13 +116,15 @@ Note: if the compiler option is provided and is lesser than 0.8.0, explicitTypes
 
 Note: switching between `uint` and `uint256` does not alter the bytecode at all and we have implemented tests for this. However, there will be a change in the AST reflecting the switch.
 
-### Compiler
+### Compiler (experimental)
 
-The Solidity compiler has breaking changes where the format of the code has had an impact in the output. That's why we decided to include this option.
+Many versions of the Solidity compiler have changes that affect how the code should be formatted. This plugin, by default, tries to format the code in the most compatible way that it's possible.
 
-It accepts a string of the semver version of the target compiler. If no version is provided the plugin will choose a safe format for any scenario.
+One example of this are import directives. Before `0.7.4`, the compiler didn't accept multi-line import statements, so we always format them in a single line. But if you use the `compiler` option to indicate that you are using a version greater or equal than `0.7.4`, the plugin will use multi-line imports when it makes sense.
 
-- `v0.7.4`: Versions prior `0.7.4` did have a bug that would not interpret correctly imports unless they are formatted in a single line.
+The solidity versions taken into consideration during formatting are:
+
+- `v0.7.4`: Versions prior `0.7.4` had a bug that would not interpret correctly imports unless they are formatted in a single line.
 
   ```Solidity
   // Input
@@ -142,8 +144,8 @@ It accepts a string of the semver version of the target compiler. If no version 
 
 - `v0.8.0`: Introduced these [changes](https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html)
 
-  - The type byte has been removed. It was an alias of bytes1.
-  - Exponentiation is right associative, i.e., the expression a**b**c is parsed as a**(b**c). Before 0.8.0, it was parsed as (a**b)**c.
+  - The type `byte` has been removed. It was an alias of `bytes1`.
+  - Exponentiation is right associative, i.e., the expression `a**b**c` is parsed as `a**(b**c)`. Before 0.8.0, it was parsed as `(a**b)**c`.
 
   ```Solidity
   // Input
@@ -173,6 +175,27 @@ It accepts a string of the semver version of the target compiler. If no version 
 
   uint public c = 1**(2**3);
   ```
+
+You might have a multi-version project, where different files are compiled with different compilers. If that's the case, you can use [overrides](https://prettier.io/docs/en/configuration.html#configuration-overrides) to have a more granular configuration:
+
+```
+{
+  "overrides": [
+    {
+      "files": "contracts/v1/**/*.sol",
+      "options": {
+        "compiler": "0.6.3"
+      }
+    },
+    {
+      "files": "contracts/v2/**/*.sol",
+      "options": {
+        "compiler": "0.8.4"
+      }
+    }
+  ]
+}
+```
 
 | Default | CLI Override          | API Override           |
 | ------- | --------------------- | ---------------------- |
