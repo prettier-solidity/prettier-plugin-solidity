@@ -62,6 +62,10 @@ typings/
 
 .DS_Store
 
-# package-lock.json
-
+# yarn 2 config
 yarn.lock
+.yarn
+.yarnrc.yml
+
+# vscode config
+.vscode

@@ -1,6 +1,7 @@
 const extractComments = require('solidity-comments-extractor');
 // https://prettier.io/docs/en/plugins.html#parsers
 const parser = require('@solidity-parser/parser');
+const semver = require('semver');
 
 const tryHug = (node, operators) => {
   if (node.type === 'BinaryOperation' && operators.includes(node.operator))
@@ -12,11 +13,36 @@ const tryHug = (node, operators) => {
   return node;
 };
 
-function parse(text, parsers, options) {
+function parse(text, _parsers, options) {
+  const compiler = semver.coerce(options.compiler);
   const parsed = parser.parse(text, { loc: true, range: true });
   parsed.comments = extractComments(text);
 
   parser.visit(parsed, {
+    PragmaDirective(ctx) {
+      // @TODO: remove hack once the retrieval of @solidity-parser/parser is fixed
+      ctx.value = ctx.value
+        .replace(/([<>=])/g, ' $1')
+        .replace(/< =/g, '<=')
+        .replace(/> =/g, '>=')
+        .trim();
+      if (ctx.value.split(' ').length > 1) {
+        ctx.value = semver.validRange(ctx.value);
+      }
+      // if the pragma is not for solidity we leave.
+      if (ctx.name !== 'solidity') return;
+      // if the compiler option has not been provided we leave.
+      if (!compiler) return;
+      // we make a check against each pragma directive in the document.
+      if (!semver.satisfies(compiler, ctx.value)) {
+        // @TODO: investigate the best way to warn that would apply to
+        // different editors.
+        // eslint-disable-next-line no-console
+        console.warn(
+          `[prettier-solidity] The compiler option is set to '${options.compiler}', which does not satisfy 'pragma solidity ${ctx.value}'.`
+        );
+      }
+    },
     ForStatement(ctx) {
       if (ctx.initExpression) {
         ctx.initExpression.omitSemicolon = true;
@@ -29,18 +55,20 @@ function parse(text, parsers, options) {
         : `hex"${ctx.value.slice(4, -1)}"`;
     },
     ElementaryTypeName(ctx) {
-      // We avoid making changes for bytes1 since the type 'byte' was removed
-      // in v0.8.0
-      // See the breaking changes in https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html#silent-changes-of-the-semantics
-      // The type byte has been removed. It was an alias of bytes1.
-      // TODO once we decide to keep track of the pragma, we can implement this again.
+      // if the compiler is below 0.8.0 we will recognize the type 'byte' as an
+      // alias of 'bytes1'. Otherwise we will ignore this and enforce always
+      // 'bytes1'.
+      const pre080 = compiler && semver.satisfies(compiler, '<0.8.0');
+      if (!pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
 
       if (options.explicitTypes === 'always') {
         if (ctx.name === 'uint') ctx.name = 'uint256';
         if (ctx.name === 'int') ctx.name = 'int256';
+        if (pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
       } else if (options.explicitTypes === 'never') {
         if (ctx.name === 'uint256') ctx.name = 'uint';
         if (ctx.name === 'int256') ctx.name = 'int';
+        if (pre080 && ctx.name === 'bytes1') ctx.name = 'byte';
       }
     },
     BinaryOperation(ctx) {
@@ -60,12 +88,35 @@ function parse(text, parsers, options) {
           ctx.left = tryHug(ctx.left, ['*', '/', '%']);
           break;
         case '**':
-          // We avoid making changes here since the order of precedence of the
-          // operators for ** changed in v0.8.0
-          // See the breaking changes in https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html#silent-changes-of-the-semantics
-          // Exponentiation is right associative, i.e., the expression a**b**c
-          // is parsed as a**(b**c). Before 0.8.0, it was parsed as (a**b)**c.
-          // TODO once we decide to keep track of the pragma, we can implement this again.
+          // If the compiler has not been given as an option using we leave a**b**c.
+          if (!compiler) break;
+
+          if (semver.satisfies(compiler, '<0.8.0')) {
+            // If the compiler is less than 0.8.0 then a**b**c is formatted as
+            // (a**b)**c.
+            ctx.left = tryHug(ctx.left, ['**']);
+            break;
+          }
+          if (
+            ctx.left.type === 'BinaryOperation' &&
+            ctx.left.operator === '**'
+          ) {
+            // the parser still organizes the a**b**c as (a**b)**c so we need
+            // to restructure it.
+            ctx.right = {
+              type: 'TupleExpression',
+              components: [
+                {
+                  type: 'BinaryOperation',
+                  operator: '**',
+                  left: ctx.left.right,
+                  right: ctx.right
+                }
+              ],
+              isArray: false
+            };
+            ctx.left = ctx.left.left;
+          }
           break;
         case '<<':
         case '>>':

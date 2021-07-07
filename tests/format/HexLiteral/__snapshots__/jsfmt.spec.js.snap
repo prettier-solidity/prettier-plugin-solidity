@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HexLiteral.sol - {"singleQuote":false} format 1`] = `
+exports[`HexLiteral.sol - {"compiler":"0.8.6","singleQuote":false} format 1`] = `
 ====================================options=====================================
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
 singleQuote: false
@@ -27,8 +28,9 @@ contract HexLiteral {
 ================================================================================
 `;
 
-exports[`HexLiteral.sol - {"singleQuote":true} format 1`] = `
+exports[`HexLiteral.sol - {"compiler":"0.8.6","singleQuote":true} format 1`] = `
 ====================================options=====================================
+compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
 singleQuote: true
