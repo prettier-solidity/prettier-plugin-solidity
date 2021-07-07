@@ -78,6 +78,44 @@ Note the use of the [overrides property](https://prettier.io/docs/en/configurati
 
 Most options are described in Prettier's [documentation](https://prettier.io/docs/en/options.html).
 
+### Explicit Types
+
+Solidity provides the aliases `uint` and `int` for `uint256` and `int256` respectively.
+Multiple developers will have different coding styles and prefer one over another.
+This option was added to standardize the code across a project and enforce the usage of one alias over another.
+
+Valid options:
+
+- `"always"`: Prefer the explicit types `uint256`, `int256`.
+- `"never"`: Prefer the type aliases `uint`, `int`.
+- `"preserve"`: Respect the type used by the developer.
+
+| Default    | CLI Override                                 | API Override                                 |
+| ---------- | -------------------------------------------- | -------------------------------------------- |
+| `"always"` | `--explicit-types <always\|never\|preserve>` | `explicitTypes: "<always\|never\|preserve>"` |
+
+```Solidity
+// Input
+uint public a;
+int256 public b;
+
+// "explicitTypes": "always"
+uint256 public a;
+int256 public b;
+
+// "explicitTypes": "never"
+uint public a;
+int public b;
+
+// "explicitTypes": "preserve"
+uint public a;
+int256 public b;
+```
+
+Note: if the compiler option is provided and is lesser than 0.8.0, explicitTypes will also consider the alias `byte` for the explicit type `bytes1`.
+
+Note: switching between `uint` and `uint256` does not alter the bytecode at all and we have implemented tests for this. However, there will be a change in the AST reflecting the switch.
+
 ### Compiler
 
 The Solidity compiler has breaking changes where the format of the code has had an impact in the output. That's why we decided to include this option.
@@ -139,44 +177,6 @@ It accepts a string of the semver version of the target compiler. If no version 
 | Default | CLI Override          | API Override           |
 | ------- | --------------------- | ---------------------- |
 | None    | `--compiler <string>` | `compiler: "<string>"` |
-
-### Explicit Types
-
-Solidity provides the aliases `uint` and `int` for `uint256` and `int256` respectively.
-Multiple developers will have different coding styles and prefer one over another.
-This option was added to standardize the code across a project and enforce the usage of one alias over another.
-
-Valid options:
-
-- `"always"`: Prefer the explicit types `uint256`, `int256`.
-- `"never"`: Prefer the type aliases `uint`, `int`.
-- `"preserve"`: Respect the type used by the developer.
-
-| Default    | CLI Override                                 | API Override                                 |
-| ---------- | -------------------------------------------- | -------------------------------------------- |
-| `"always"` | `--explicit-types <always\|never\|preserve>` | `explicitTypes: "<always\|never\|preserve>"` |
-
-```Solidity
-// Input
-uint public a;
-int256 public b;
-
-// "explicitTypes": "always"
-uint256 public a;
-int256 public b;
-
-// "explicitTypes": "never"
-uint public a;
-int public b;
-
-// "explicitTypes": "preserve"
-uint public a;
-int256 public b;
-```
-
-Note: if the compiler option is provided and is lesser than 0.8.0, explicitTypes will also consider the alias `byte` for the explicit type `bytes1`.
-
-Note: switching between `uint` and `uint256` does not alter the bytecode at all and we have implemented tests for this. However, there will be a change in the AST reflecting the switch.
 
 ## Integrations
 
