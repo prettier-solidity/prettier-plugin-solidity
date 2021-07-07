@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.0.0-beta.13",
+  "version": "1.0.0-beta.14",
   "description": "A Prettier Plugin for automatically formatting your Solidity code.",
   "main": "src",
   "scripts": {
@@ -64,7 +64,7 @@
     "@babel/code-frame": "^7.14.5",
     "cross-env": "^7.0.3",
     "dir-to-object": "^2.0.0",
-    "eslint": "^7.29.0",
+    "eslint": "^7.30.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
