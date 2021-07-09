@@ -195,7 +195,7 @@ function runSpec(fixtures, parsers, options) {
 
     describe(title, () => {
       const formatOptions = {
-        plugins: [path.dirname(path.join(__dirname, ".."))],
+        plugins: [path.join(__dirname, "../..")],
         printWidth: 80,
         ...options,
         filepath: filename,
