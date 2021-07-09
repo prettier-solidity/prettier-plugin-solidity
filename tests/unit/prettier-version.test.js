@@ -12,7 +12,7 @@ jest.mock('prettier', () => {
 
 const prettier = require('prettier');
 
-test('should throw if the installed version of prettier is lesser than v2.3.0', () => {
+test('should throw if the installed version of prettier is less than v2.3.0', () => {
   const data = 'contract CheckPrettierVersion {}';
 
   const options = {
