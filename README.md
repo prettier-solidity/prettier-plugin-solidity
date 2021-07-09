@@ -86,8 +86,8 @@ This option was added to standardize the code across a project and enforce the u
 
 Valid options:
 
-- `"always"`: Prefer the explicit types `uint256`, `int256`.
-- `"never"`: Prefer the type aliases `uint`, `int`.
+- `"always"`: Prefer explicit types (`uint256`, `int256`, etc.)
+- `"never"`: Prefer type aliases (`uint`, `int`, etc.).
 - `"preserve"`: Respect the type used by the developer.
 
 | Default    | CLI Override                                 | API Override                                 |
