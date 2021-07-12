@@ -159,7 +159,7 @@ The solidity versions taken into consideration during formatting are:
   bytes1 public a;
   bytes1 public b;
 
-  uint public c = 1 ** 2 ** 3;
+  uint public c = 1**2**3;
 
   // "compiler": "0.7.6" (or lesser)
   // "explicitTypes": "never"
