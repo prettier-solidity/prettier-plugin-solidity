@@ -1033,23 +1033,23 @@ contract Overrides {
             BazQuxBazQuxBazQux,
             Quuuuuuuuuuuuuux
         ) varName;
-    modifier onlyOwner() virtual {
+    modifier onlyOwner virtual {
         _;
     }
 
-    modifier onlyOwner() override {
+    modifier onlyOwner override {
         require(msg.sender == owner(), "Ownable: caller is not the owner");
         _;
     }
-    modifier onlyOwner() override(Foo) {
+    modifier onlyOwner override(Foo) {
         require(msg.sender == owner(), "Ownable: caller is not the owner");
         _;
     }
-    modifier onlyOwner() override(Foo, Bar) {
+    modifier onlyOwner override(Foo, Bar) {
         require(msg.sender == owner(), "Ownable: caller is not the owner");
         _;
     }
-    modifier onlyOwner()
+    modifier onlyOwner
         override(
             Foo,
             Bar,
