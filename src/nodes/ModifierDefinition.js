@@ -23,7 +23,7 @@ const modifierParameters = (node, path, print) => {
     ];
   }
 
-  return '';
+  return '()';
 };
 
 const virtual = (node) => (node.isVirtual ? [line, 'virtual'] : '');

@@ -98,7 +98,7 @@ contract Contract {
 
     event SomeEvent();
 
-    modifier modifierWithoutParams {
+    modifier modifierWithoutParams() {
         require(msg.sender != address(0));
         _;
     }
