@@ -2,7 +2,7 @@
 pragma solidity 0.8.6;
 
 contract ModifierDefinitions {
-  modifier emptyParams() {_;}
+  modifier emptyParams {_;}
   modifier noParams() {_;}
   modifier oneParam(uint a) {_;}
 }
