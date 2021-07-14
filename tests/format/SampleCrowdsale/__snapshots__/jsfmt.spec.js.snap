@@ -95,7 +95,7 @@ contract SampleCrowdsale is CappedCrowdsale, RefundableCrowdsale {
     )
         public
         CappedCrowdsale(_cap)
-        FinalizableCrowdsale
+        FinalizableCrowdsale()
         RefundableCrowdsale(_goal)
         Crowdsale(_startTime, _endTime, _rate, _wallet)
     {

@@ -1,7 +1,11 @@
 const printSeparatedList = require('./print-separated-list');
 
 const modifierArguments = (node, path, print) => {
-  if (node.arguments && node.arguments.length > 0) {
+  if (node.arguments) {
+    if (node.arguments.length === 0) {
+      const functionDefinition = path.getParentNode();
+      return functionDefinition.isConstructor ? '()' : '';
+    }
     return ['(', printSeparatedList(path.map(print, 'arguments')), ')'];
   }
 

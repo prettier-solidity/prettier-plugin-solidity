@@ -22,7 +22,7 @@ contract Constructors is Ownable, Changeable {
     function Constructors(variable1)
         public
         Changeable(variable1)
-        Ownable
+        Ownable()
         onlyOwner
     {}
 
@@ -45,7 +45,7 @@ contract Constructors is Ownable, Changeable {
             variable6,
             variable7
         )
-        Ownable
+        Ownable()
         onlyOwner
     {}
 }

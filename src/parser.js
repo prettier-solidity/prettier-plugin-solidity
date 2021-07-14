@@ -48,9 +48,14 @@ function parse(text, _parsers, options) {
         ctx.parameters = null;
       }
     },
-    ModifierInvocation(ctx) {
-      if (ctx.arguments && ctx.arguments.length === 0) {
-        ctx.arguments = null;
+    FunctionDefinition(ctx) {
+      if (!ctx.isConstructor) {
+        ctx.modifiers.forEach((modifier) => {
+          if (modifier.arguments && modifier.arguments.length === 0) {
+            // eslint-disable-next-line no-param-reassign
+            modifier.arguments = null;
+          }
+        });
       }
     },
     ForStatement(ctx) {
