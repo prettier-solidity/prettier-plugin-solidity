@@ -2,11 +2,11 @@ const printSeparatedList = require('./print-separated-list');
 
 const modifierArguments = (node, path, print) => {
   if (node.arguments) {
-    if (node.arguments.length === 0) {
-      const functionDefinition = path.getParentNode();
-      return functionDefinition.isConstructor ? '()' : '';
-    }
-    return ['(', printSeparatedList(path.map(print, 'arguments')), ')'];
+    // We always print parentheses at this stage because the parser already
+    // stripped them in FunctionDefinitions that are not a constructor.
+    return node.arguments.length > 0
+      ? ['(', printSeparatedList(path.map(print, 'arguments')), ')']
+      : '()';
   }
 
   return '';
