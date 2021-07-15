@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, ifBreak, indent, softline }
+    builders: { group, ifBreak, indent, label, softline }
   }
 } = require('prettier');
 
@@ -47,43 +47,61 @@ const isEndOfChain = (node, path) => {
   return true;
 };
 
-const shallIndent = (path) => {
-  let i = 0;
-  let elderNode = path.getParentNode(i);
-  while (elderNode) {
-    if (
-      elderNode.type === 'VariableDeclarationStatement' ||
-      elderNode.type === 'BinaryOperation'
-    )
-      return false;
-    i += 1;
-    elderNode = path.getParentNode(i);
-  }
-  return true;
+const processChain = (chain) => {
+  const firstSeparatorIndex = chain.findIndex((element) => {
+    if (element.label) {
+      const labelData = JSON.parse(element.label);
+      if (labelData && labelData.type) {
+        return labelData.type === 'separator';
+      }
+    }
+    return false;
+  });
+  const { groupId } = JSON.parse(chain[firstSeparatorIndex].label);
+  const firstExpression = chain.slice(0, firstSeparatorIndex);
+
+  const restOfChain = group(
+    chain
+      .slice(firstSeparatorIndex)
+      .map((element) => {
+        if (element.label) {
+          return element.contents.flat();
+        }
+        return element;
+      })
+      .flat()
+  );
+
+  return groupId
+    ? [
+        ...firstExpression,
+        ifBreak(restOfChain, indent(restOfChain), { groupId })
+      ]
+    : [...firstExpression, indent(restOfChain)];
 };
 
 const MemberAccess = {
   print: ({ node, path, print }) => {
     let expressionDoc = path.call(print, 'expression');
-    let separator = [softline, '.'];
-    let labelData;
+    const separatorLabel = {
+      type: 'separator'
+    };
+
     if (expressionDoc.label) {
-      labelData = JSON.parse(expressionDoc.label);
+      const labelData = JSON.parse(expressionDoc.label);
+      if (labelData && labelData.groupId) {
+        separatorLabel.groupId = labelData.groupId;
+      }
       expressionDoc = expressionDoc.contents.flat();
-    }
-    if (labelData && labelData.groupId) {
-      separator = ifBreak('.', [softline, '.'], {
-        groupId: labelData.groupId
-      });
     }
 
     const doc = [
       expressionDoc,
-      shallIndent(path) ? indent(separator) : separator,
+      label(JSON.stringify(separatorLabel), [softline, '.']),
       node.memberName
     ].flat();
 
-    return isEndOfChain(node, path) ? group(doc) : doc;
+    return isEndOfChain(node, path) ? group(processChain(doc)) : doc;
   }
 };
 

@@ -10,6 +10,8 @@ pragma solidity ^0.5.0;
 
 contract MemberAccess {
     function() {
+        int256 amount = SafeCast.toInt256(10**(18 - underlyingAssetDecimals)).neg();
+        longNameAmount = SafeCast.toInt256(10**(18 - underlyingAssetDecimals)).neg();
         a.b.c.d;
         a.b().c.d;
         a.b.c.d();
@@ -67,6 +69,12 @@ pragma solidity ^0.5.0;
 
 contract MemberAccess {
     function() {
+        int256 amount = SafeCast
+            .toInt256(10**(18 - underlyingAssetDecimals))
+            .neg();
+        longNameAmount = SafeCast
+            .toInt256(10**(18 - underlyingAssetDecimals))
+            .neg();
         a.b.c.d;
         a.b().c.d;
         a.b.c.d();
