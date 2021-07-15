@@ -9,11 +9,11 @@ interface FunctionInterfaces {
 
   function manyParams(uint x1, uint x2, uint x3, uint x4, uint x5, uint x6, uint x7, uint x8, uint x9, uint x10);
 
-  function manyModifiers() modifier1 modifier2 modifier3 modifier4 modifier5 modifier6 modifier7 modifier8 modifier9 modifier10;
+  function manyModifiers() modifier1() modifier2() modifier3 modifier4 modifier5 modifier6 modifier7 modifier8 modifier9 modifier10;
 
   function manyReturns() returns(uint y1, uint y2, uint y3, uint y4, uint y5, uint y6, uint y7, uint y8, uint y9, uint y10);
 
-  function someParamsSomeModifiers(uint x1, uint x2, uint x3) modifier1 modifier2 modifier3;
+  function someParamsSomeModifiers(uint x1, uint x2, uint x3) modifier1() modifier2 modifier3;
 
   function someParamsSomeReturns(uint x1, uint x2, uint x3) returns(uint y1, uint y2, uint y3);
 

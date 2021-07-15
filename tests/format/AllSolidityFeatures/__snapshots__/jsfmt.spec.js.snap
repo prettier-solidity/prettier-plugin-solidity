@@ -750,7 +750,7 @@ contract DualIndex {
     mapping(uint256 => mapping(uint256 => uint256)) data;
     address public admin;
 
-    modifier restricted {
+    modifier restricted() {
         if (msg.sender == admin) _;
     }
 

@@ -43,6 +43,21 @@ function parse(text, _parsers, options) {
         );
       }
     },
+    ModifierDefinition(ctx) {
+      if (!ctx.parameters) {
+        ctx.parameters = [];
+      }
+    },
+    FunctionDefinition(ctx) {
+      if (!ctx.isConstructor) {
+        ctx.modifiers.forEach((modifier) => {
+          if (modifier.arguments && modifier.arguments.length === 0) {
+            // eslint-disable-next-line no-param-reassign
+            modifier.arguments = null;
+          }
+        });
+      }
+    },
     ForStatement(ctx) {
       if (ctx.initExpression) {
         ctx.initExpression.omitSemicolon = true;

@@ -61,6 +61,7 @@ const testsWithAstChanges = new Map(
     "Parentheses/BitXorNoParentheses.sol",
     "Parentheses/LogicNoParentheses.sol",
     "HexLiteral/HexLiteral.sol",
+    "ModifierInvocations/ModifierInvocations.sol",
   ].map((fixture) => {
     const [file, compareBytecode = () => true] = Array.isArray(fixture)
       ? fixture
