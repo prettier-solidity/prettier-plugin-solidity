@@ -14,14 +14,9 @@ const {
 const printSeparatedList = (
   list,
   {
-    groupId,
     firstSeparator = softline,
     separator = [',', line],
     lastSeparator = firstSeparator
   } = {}
-) =>
-  group(
-    [indent([firstSeparator, join(separator, list)]), lastSeparator],
-    groupId ? { id: groupId } : {}
-  );
+) => group([indent([firstSeparator, join(separator, list)]), lastSeparator]);
 module.exports = printSeparatedList;

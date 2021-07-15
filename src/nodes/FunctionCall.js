@@ -1,58 +1,41 @@
 const {
   doc: {
-    builders: { label, line, softline }
+    builders: { line, softline }
   }
 } = require('prettier');
 
 const printSeparatedList = require('./print-separated-list');
 
-let functionCallId = 0;
-
-const printObject = (node, path, print, options, groupId) => [
+const printObject = (node, path, print, options) => [
   '{',
   printSeparatedList(
     path
       .map(print, 'arguments')
       .map((arg, index) => [node.names[index], ': ', arg]),
     {
-      groupId,
       firstSeparator: options.bracketSpacing ? line : softline,
       lastSeparator: [options.bracketSpacing ? line : softline, '})']
     }
   )
 ];
 
-const printArguments = (path, print, groupId) =>
+const printArguments = (path, print) =>
   printSeparatedList(path.map(print, 'arguments'), {
-    groupId,
     lastSeparator: [softline, ')']
   });
 
 const FunctionCall = {
   print: ({ node, path, print, options }) => {
     let argumentsDoc = ')';
-    const functionCallLabel = { type: 'FunctionCall', groupId: null };
     if (node.arguments && node.arguments.length > 0) {
-      functionCallLabel.groupId = `FunctionCall-${functionCallId}`;
-      functionCallId += 1;
       if (node.names && node.names.length > 0) {
-        argumentsDoc = printObject(
-          node,
-          path,
-          print,
-          options,
-          functionCallLabel.groupId
-        );
+        argumentsDoc = printObject(node, path, print, options);
       } else {
-        argumentsDoc = printArguments(path, print, functionCallLabel.groupId);
+        argumentsDoc = printArguments(path, print);
       }
     }
 
-    return label(JSON.stringify(functionCallLabel), [
-      path.call(print, 'expression'),
-      '(',
-      argumentsDoc
-    ]);
+    return [path.call(print, 'expression'), '(', argumentsDoc];
   }
 };
 
