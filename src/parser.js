@@ -44,8 +44,8 @@ function parse(text, _parsers, options) {
       }
     },
     ModifierDefinition(ctx) {
-      if (ctx.parameters && ctx.parameters.length === 0) {
-        ctx.parameters = null;
+      if (!ctx.parameters) {
+        ctx.parameters = [];
       }
     },
     FunctionDefinition(ctx) {
