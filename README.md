@@ -303,6 +303,8 @@ contract Foo is Bar {
 }
 ```
 
+Notice that the unnecessary parentheses in `modifier2` were removed in the function but not in the constructor.
+
 ## Contributing
 
 1. [Fork it](https://github.com/prettier-solidity/prettier-plugin-solidity/fork)
