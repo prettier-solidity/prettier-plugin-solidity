@@ -63,13 +63,14 @@ const isEndOfChain = (node, path) => {
  *
  * i.e.
  * ```
- * a = functionCall(arg1, arg2).rest.of.chain
+ * functionCall(arg1, arg2).rest.of.chain
  *
- * b = functionCall(arg1, arg2)
+ * functionCall(arg1, arg2)
  *     .long
  *     .rest
  *     .of
  *     .chain
+ *
  * functionCall(
  *     arg1,
  *     arg2
@@ -79,21 +80,6 @@ const isEndOfChain = (node, path) => {
  *     arg1,
  *     arg2
  * )
- * .long
- * .rest
- * .of
- * .chain
- * ```
- *
- * If the first element doesn't break into multiple lines we treat the rest of
- * the chain as a normal chain and proceed to indent it.
- *
- *
- * i.e.
- * ```
- * a = functionCall(arg1, arg2).rest.of.chain
- *
- * b = functionCall(arg1, arg2)
  *     .long
  *     .rest
  *     .of
