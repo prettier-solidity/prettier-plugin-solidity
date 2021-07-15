@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, ifBreak, indent, softline }
+    builders: { group, ifBreak, indent, label, softline }
   }
 } = require('prettier');
 
@@ -47,43 +47,106 @@ const isEndOfChain = (node, path) => {
   return true;
 };
 
-const shallIndent = (path) => {
-  let i = 0;
-  let elderNode = path.getParentNode(i);
-  while (elderNode) {
-    if (
-      elderNode.type === 'VariableDeclarationStatement' ||
-      elderNode.type === 'BinaryOperation'
-    )
-      return false;
-    i += 1;
-    elderNode = path.getParentNode(i);
-  }
-  return true;
+/**
+ * processChain expects the doc[] of the full chain of MemberAccess.
+ *
+ * It uses the separator label to split the chain into 2 arrays.
+ * The first array is the doc[] corresponding to the first element before the
+ * first separator.
+ * The second array contains the rest of the chain.
+ *
+ * The indentation of the whole chain depends on the result of the first
+ * element.
+ *
+ * If the first element breaks into multiple lines, we won't indent the rest of
+ * the chain as the last line (most likely a closing parentheses) won't be
+ * indented.
+ *
+ * i.e.
+ * ```
+ * functionCall(
+ *     arg1,
+ *     arg2
+ * ).rest.of.chain
+ *
+ * functionCall(
+ *     arg1,
+ *     arg2
+ * )
+ * .long
+ * .rest
+ * .of
+ * .chain
+ * ```
+ *
+ * If the first element doesn't break into multiple lines we treat the rest of
+ * the chain as a normal chain and proceed to indent it.
+ *
+ *
+ * i.e.
+ * ```
+ * a = functionCall(arg1, arg2).rest.of.chain
+ *
+ * b = functionCall(arg1, arg2)
+ *     .long
+ *     .rest
+ *     .of
+ *     .chain
+ * ```
+ *
+ * NOTE: As described in the examples above, the rest of the chain will be grouped
+ * and try to stay in the same line as the end of the first element.
+ *
+ * @param {doc[]} chain is the full chain of MemberAccess
+ * @returns a processed doc[] with the proper grouping and indentation ready to
+ * be printed.
+ */
+const processChain = (chain) => {
+  const firstSeparatorIndex = chain.findIndex((element) => {
+    if (element.label) {
+      return JSON.parse(element.label).type === 'separator';
+    }
+    return false;
+  });
+  // We fetch the groupId from the firstSeparator
+  const { groupId } = JSON.parse(chain[firstSeparatorIndex].label);
+  // The doc[] before the first separator
+  const firstExpression = chain.slice(0, firstSeparatorIndex);
+  // The doc[] containing the rest of the chain
+  const restOfChain = group(chain.slice(firstSeparatorIndex));
+
+  return groupId
+    ? [
+        ...firstExpression,
+        ifBreak(restOfChain, indent(restOfChain), { groupId })
+      ]
+    : [...firstExpression, indent(restOfChain)];
 };
 
 const MemberAccess = {
   print: ({ node, path, print }) => {
     let expressionDoc = path.call(print, 'expression');
-    let separator = [softline, '.'];
-    let labelData;
+    const separatorLabel = {
+      type: 'separator'
+    };
+
     if (expressionDoc.label) {
-      labelData = JSON.parse(expressionDoc.label);
+      const labelData = JSON.parse(expressionDoc.label);
+      if (labelData && labelData.groupId) {
+        // if there's a groupId in the data, we pass it to the separator as
+        // this doc[] is going to be stripped of it's metadata
+        separatorLabel.groupId = labelData.groupId;
+      }
       expressionDoc = expressionDoc.contents.flat();
-    }
-    if (labelData && labelData.groupId) {
-      separator = ifBreak('.', [softline, '.'], {
-        groupId: labelData.groupId
-      });
     }
 
     const doc = [
       expressionDoc,
-      shallIndent(path) ? indent(separator) : separator,
+      label(JSON.stringify(separatorLabel), [softline, '.']),
       node.memberName
     ].flat();
 
-    return isEndOfChain(node, path) ? group(doc) : doc;
+    return isEndOfChain(node, path) ? group(processChain(doc)) : doc;
   }
 };
 
