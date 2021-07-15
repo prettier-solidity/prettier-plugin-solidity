@@ -283,7 +283,7 @@ Prettier Solidity does its best to be pretty and consistent, but in some cases i
 
 ### Modifiers in constructors
 
-Modifiers with no arguments are formatted with their parentheses removed, except for constructors. The reason for this is that Prettier Solidity cannot always tell apart a modifier from a base constructors. So modifiers in constructors are not modified. For example, this:
+Modifiers with no arguments are formatted with their parentheses removed, except for constructors. The reason for this is that Prettier Solidity cannot always tell apart a modifier from a base constructor. So modifiers in constructors are not modified. For example, this:
 
 ```solidity
 contract Foo is Bar {
