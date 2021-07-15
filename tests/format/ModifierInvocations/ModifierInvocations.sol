@@ -2,12 +2,16 @@
 pragma solidity 0.8.6;
 
 contract ModifierDefinitions {
+  // We enforce the use of parentheses in modifiers without parameters.
   modifier emptyParams {_;}
   modifier noParams() {_;}
-  modifier oneParam(uint a) {_;}
 }
 
 contract ModifierInvocations is ModifierDefinitions {
+  // We can't differentiate between constructor calls or modifiers, so we keep
+  // parentheses untouched in constructors.
   constructor () emptyParams noParams() ModifierDefinitions() {}
-  function test() public emptyParams noParams() oneParam(5) {}
+
+  // We remove parentheses in modifiers without arguments.
+  function test() public emptyParams noParams() {}
 }
