@@ -277,6 +277,32 @@ As a final check, make sure that VSCode is configured to format files on save.
 
 Note: By design, Prettier prioritizes a local over a global configuration. If you have a `.prettierrc` file in your porject, your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
 
+## Edge cases
+
+Prettier Solidity does its best to be pretty and consistent, but in some cases it falls back to doing things that are less than ideal.
+
+### Modifiers in constructors
+
+Modifiers with no arguments are formatted with their parentheses removed, except for constructors. The reason for this is that Prettier Solidity cannot always tell apart a modifier from a base constructors. So modifiers in constructors are not modified. For example, this:
+
+```solidity
+contract Foo is Bar {
+  constructor() Bar() modifier1 modifier2() modifier3(42) {}
+
+  function f() modifier1 modifier2() modifier3(42) {}
+}
+```
+
+will be formatted as
+
+```solidity
+contract Foo is Bar {
+  constructor() Bar() modifier1 modifier2() modifier3(42) {}
+
+  function f() modifier1 modifier2 modifier3(42) {}
+}
+```
+
 ## Contributing
 
 1. [Fork it](https://github.com/prettier-solidity/prettier-plugin-solidity/fork)
