@@ -55,7 +55,7 @@ const isEndOfChain = (node, path) => {
  * first separator.
  * The second array contains the rest of the chain.
  *
- * The second array is grouped and indented and while the first element's
+ * The second array is grouped and indented, while the first element's
  * formatting logic remains separated.
  *
  * That way the first element can safely split into multiple lines and the rest
