@@ -20,7 +20,7 @@ const printComments = (node, path, options, filter = () => true) =>
             comment.printed = true;
             return options.printer.printComment(commentPath);
           }, 'comments')
-          .filter((element) => element)
+          .filter(Boolean)
       )
     : '';
 
