@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { line, softline }
+    builders: { group, dedent, indent, ifBreak, line, softline },
   }
 } = require('prettier');
 
@@ -24,6 +24,7 @@ const printArguments = (path, print) =>
     lastSeparator: [softline, ')']
   });
 
+let groupIndex = 0
 const FunctionCall = {
   print: ({ node, path, print, options }) => {
     let argumentsDoc = ')';
@@ -35,7 +36,14 @@ const FunctionCall = {
       }
     }
 
-    return [path.call(print, 'expression'), '(', argumentsDoc];
+    const expression = group(path.call(print, 'expression'), { id: `expression-${groupIndex}` })
+    groupIndex += 1
+
+    return indent([
+      expression,
+      '(',
+      ifBreak(argumentsDoc, dedent(argumentsDoc), { groupId: expression.id })
+    ]);
   }
 };
 
