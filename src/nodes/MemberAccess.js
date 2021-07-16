@@ -33,7 +33,7 @@ const isEndOfChain = (node, path) => {
         // If direct ParentNode is a FunctionCall and currentNode is not the
         // expression then it must be and argument in which case it is the end
         // of the chain.
-        if (currentNode !== parentNode.expression) return true;
+        if (currentNode === parentNode.expression) return false;
         break;
 
       default:
