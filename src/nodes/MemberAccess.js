@@ -33,7 +33,7 @@ const isEndOfChain = (node, path) => {
         // If direct ParentNode is a FunctionCall and currentNode is not the
         // expression then it must be and argument in which case it is the end
         // of the chain.
-        if (currentNode === parentNode.expression) return false;
+        if (currentNode !== parentNode.expression) return true;
         break;
 
       default:
@@ -102,7 +102,9 @@ const processChain = (chain) => {
   // The doc[] containing the rest of the chain
   const restOfChain = group(indent(chain.slice(firstSeparatorIndex)));
 
-  return group([firstExpression, restOfChain]);
+  // We wrap the expression in a label in case there is an IndexAccess or
+  // a FunctionCall following this MemberAccess.
+  return label('MemberAccessChain', group([firstExpression, restOfChain]));
 };
 
 const MemberAccess = {
