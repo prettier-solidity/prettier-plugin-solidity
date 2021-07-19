@@ -38,7 +38,7 @@ const FunctionCall = {
       }
     }
 
-    // If we are at the en of a MemberAccessChain we should indent the
+    // If we are at the end of a MemberAccessChain we should indent the
     // arguments accordingly.
     if (expressionDoc.label === 'MemberAccessChain') {
       expressionDoc = group(expressionDoc.contents, {
