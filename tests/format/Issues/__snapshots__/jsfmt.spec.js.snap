@@ -137,3 +137,38 @@ contract Issue385 {
 
 ================================================================================
 `;
+
+exports[`Issue564.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+contract Issue564 {
+    function isAuthorized(
+        bytes32 serviceId,
+        address client
+    ) external view override returns (bool) {
+        WhitelistStatus storage whitelistStatus = serviceIdToClientToWhitelistStatus[serviceId][client];
+        return true;
+    }
+}
+
+=====================================output=====================================
+contract Issue564 {
+    function isAuthorized(bytes32 serviceId, address client)
+        external
+        view
+        override
+        returns (bool)
+    {
+        WhitelistStatus
+            storage whitelistStatus = serviceIdToClientToWhitelistStatus[
+            serviceId
+        ][client];
+        return true;
+    }
+}
+
+================================================================================
+`;
