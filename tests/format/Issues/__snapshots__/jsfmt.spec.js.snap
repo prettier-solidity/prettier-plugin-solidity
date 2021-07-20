@@ -164,8 +164,8 @@ contract Issue564 {
     {
         WhitelistStatus
             storage whitelistStatus = serviceIdToClientToWhitelistStatus[
-            serviceId
-        ][client];
+                serviceId
+            ][client];
         return true;
     }
 }
