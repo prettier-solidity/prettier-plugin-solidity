@@ -102,7 +102,9 @@ const processChain = (chain) => {
   // The doc[] containing the rest of the chain
   const restOfChain = group(indent(chain.slice(firstSeparatorIndex)));
 
-  return group([firstExpression, restOfChain]);
+  // We wrap the expression in a label in case there is an IndexAccess or
+  // a FunctionCall following this MemberAccess.
+  return label('MemberAccessChain', group([firstExpression, restOfChain]));
 };
 
 const MemberAccess = {

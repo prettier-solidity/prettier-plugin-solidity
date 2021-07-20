@@ -13,6 +13,50 @@ contract MemberAccess {
         veryLongVariable.veryLongMember.veryLongCall(veryLongAttribute).veryLongMember.veryLongMember;
         veryLongVariable.veryLongMember.veryLongMember.veryLongMember.veryLongCall(veryLongAttribute);
         veryLongVariable.veryLongCall(veryLongAttribute).veryLongCall(veryLongAttribute).veryLongCall(veryLongAttribute);
+        uint256[] memory amounts = IUniswapV2Router(routerAddress)
+            .swapExactTokensForTokens(
+            sourceAmount,
+            minDestination,
+            path,
+            address(this, aoeu, aoeueu, aoeu)
+        )[IUniswapV2Router(routerAddress)
+            .swapExactTokensForTokens(
+            sourceAmount,
+            minDestination,
+            path,
+            address(this, aoeu, aoeueu, aoeu)
+        )];
+        uint256[] memory amounts = IUniswapV2Router(routerAddress)
+            .swapExactTokensForTokens(
+            sourceAmount,
+            minDestination,
+            path,
+            address(this, aoeu, aoeueu, aoeu)
+        )[IUniswapV2Router(routerAddress)
+            .swapExactTokensForTokens(
+            sourceAmount,
+            minDestination,
+            path,
+            address(this, aoeu, aoeueu, aoeu)
+        )][IUniswapV2Router(routerAddress)
+            .swapExactTokensForTokens(
+            sourceAmount,
+            minDestination,
+            path,
+            address(this, aoeu, aoeueu, aoeu)
+        )];
+        uint256[] memory amounts = IUniswapV2Router(routerAddress)
+            .swapExactTokensForTokens(
+            sourceAmount,
+            minDestination,
+            path,
+            address(this, aoeu, aoeueu, aoeu)
+        )(
+            sourceAmount,
+            minDestination,
+            path,
+            address(this, aoeu, aoeueu, aoeu)
+        );
     }
 }
 
