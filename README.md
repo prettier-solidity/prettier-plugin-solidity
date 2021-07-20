@@ -288,7 +288,7 @@ npm install --save-dev prettier prettier-plugin-solidity
 This will allow you to specify the version of the plugin in case you want to use the latest version of the plugin or need to freeze the formatting since new versions of this plugin will implement tweaks on the possible formats.
 
 You'll have to let VSCode what formatter you prefer.
-This can be done by opening the command pallette and executing:
+This can be done by opening the command palette and executing:
 
 ```
 >Preferences: Configure Language Specific Settings...
