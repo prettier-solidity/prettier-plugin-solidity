@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.6;
+pragma solidity 0.8.7;
 
 contract ModNoParentheses {
     function modAdd(uint256 a, uint256 b, uint256 c)
