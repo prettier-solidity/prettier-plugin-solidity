@@ -27,7 +27,9 @@ contract MultipartStrings {
         hex"c0000000000ffeeeeeeeeeeeeeeeeeee";
 
     string s1 = "foo";
-    string s2 = "foo" "bar";
+    string s2 =
+        "foo"
+        "bar";
     string s3 =
         "foofoofoofooofoofoofofoooofofoo"
         "barbarbrabrbarbarbabrabrbabr";
