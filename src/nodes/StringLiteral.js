@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { join, line }
+    builders: { join, hardline }
   }
 } = require('prettier');
 const { printString } = require('../prettier-comments/common/util');
@@ -14,7 +14,7 @@ const StringLiteral = {
         (node.isUnicode[index] ? 'unicode' : '') + printString(part, options)
     );
 
-    return join(line, list);
+    return join(hardline, list);
   }
 };
 
