@@ -20,15 +20,6 @@ function parse(text, _parsers, options) {
 
   parser.visit(parsed, {
     PragmaDirective(ctx) {
-      // @TODO: remove hack once the retrieval of @solidity-parser/parser is fixed
-      ctx.value = ctx.value
-        .replace(/([<>=])/g, ' $1')
-        .replace(/< =/g, '<=')
-        .replace(/> =/g, '>=')
-        .trim();
-      if (ctx.value.split(' ').length > 1) {
-        ctx.value = semver.validRange(ctx.value);
-      }
       // if the pragma is not for solidity we leave.
       if (ctx.name !== 'solidity') return;
       // if the compiler option has not been provided we leave.
