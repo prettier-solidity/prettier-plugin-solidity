@@ -80,7 +80,7 @@
   },
   "dependencies": {
     "@solidity-parser/parser": "^0.13.2",
-    "emoji-regex": "^9.2.2",
+    "emoji-regex": "^10.0.0",
     "escape-string-regexp": "^4.0.0",
     "semver": "^7.3.5",
     "solidity-comments-extractor": "^0.0.7",
