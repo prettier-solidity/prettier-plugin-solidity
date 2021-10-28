@@ -65,6 +65,7 @@ module.exports = {
   ThrowStatement: require('./ThrowStatement'),
   TryStatement: require('./TryStatement'),
   TupleExpression: require('./TupleExpression'),
+  TypeDefinition: require('./TypeDefinition'),
   TypeNameExpression: require('./TypeNameExpression'),
   UnaryOperation: require('./UnaryOperation'),
   UncheckedStatement: require('./UncheckedStatement'),
