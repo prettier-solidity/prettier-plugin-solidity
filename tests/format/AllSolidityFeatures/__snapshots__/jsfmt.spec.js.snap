@@ -270,6 +270,7 @@ library UsingExampleLibrary {
 contract UsingExampleContract {
   using UsingExampleLibrary for *;
   using UsingExampleLibrary for uint[];
+  using Example.UsingExampleLibrary for uint;
 }
 
 contract NewStuff {
@@ -822,6 +823,7 @@ library UsingExampleLibrary {
 contract UsingExampleContract {
     using UsingExampleLibrary for *;
     using UsingExampleLibrary for uint256[];
+    using Example.UsingExampleLibrary for uint256;
 }
 
 contract NewStuff {
