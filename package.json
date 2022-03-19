@@ -83,7 +83,7 @@
     "solc": "^0.8.12"
   },
   "dependencies": {
-    "@solidity-parser/parser": "^0.14.1",
+    "@solidity-parser/parser": "github:pizza-777/parser#ton-solidity-module",
     "emoji-regex": "^10.0.0",
     "escape-string-regexp": "^4.0.0",
     "semver": "^7.3.5",
