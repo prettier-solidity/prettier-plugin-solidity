@@ -22,6 +22,8 @@ const storageLocation = (node) =>
 
 const immutable = (node) => (node.isImmutable ? ' immutable' : '');
 
+const isStatic = (node) => (node.isStatic ? ' static' : '');
+
 const override = (node, path, print) => {
   if (!node.override) return '';
   if (node.override.length === 0) return [line, 'override'];
@@ -39,17 +41,18 @@ const VariableDeclaration = {
   print: ({ node, path, print }) =>
     node.typeName
       ? group([
-          path.call(print, 'typeName'),
-          indent([
-            indexed(node),
-            visibility(node),
-            constantKeyword(node),
-            storageLocation(node),
-            immutable(node),
-            override(node, path, print),
-            name(node)
-          ])
+        path.call(print, 'typeName'),
+        indent([
+          indexed(node),
+          visibility(node),
+          constantKeyword(node),
+          storageLocation(node),
+          immutable(node),
+          isStatic(node),
+          override(node, path, print),
+          name(node)
         ])
+      ])
       : node.name
 };
 
