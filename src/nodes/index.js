@@ -34,6 +34,7 @@ module.exports = {
   ExpressionStatement: require('./ExpressionStatement'),
   FileLevelConstant: require('./FileLevelConstant'),
   ForStatement: require('./ForStatement'),
+  ForRangeStatement: require('./ForRangeStatement'),
   FunctionCall: require('./FunctionCall'),
   FunctionDefinition: require('./FunctionDefinition'),
   FunctionTypeName: require('./FunctionTypeName'),
