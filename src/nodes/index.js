@@ -57,6 +57,7 @@ module.exports = {
   NewExpression: require('./NewExpression'),
   NumberLiteral: require('./NumberLiteral'),
   PragmaDirective: require('./PragmaDirective'),
+  RepeatStatement: require('./RepeatStatement'),
   ReturnStatement: require('./ReturnStatement'),
   RevertStatement: require('./RevertStatement'),
   SourceUnit: require('./SourceUnit'),
