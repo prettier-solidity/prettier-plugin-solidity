@@ -14,10 +14,10 @@ const languages = [
     type: 'programming',
     color: '#AA6746',
     aceMode: 'text',
-    tmScope: 'source.solidity',
+    tmScope: 'source.ton-solidity',
     extensions: ['.sol'],
     parsers: ['solidity-parse'],
-    vscodeLanguageIds: ['solidity']
+    vscodeLanguageIds: ['ton-solidity']
   }
 ];
 
