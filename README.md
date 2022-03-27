@@ -1,5 +1,13 @@
 # prettier-plugin-solidity
 
+---
+**NOTE**
+
+This is the fork of the Ethereum-solidity plugin for prettier. This plugin works with Everscale Solidity (or ton-solidity)
+
+---
+Original Readme is bellow
+
 [![Telegram](/assets/telegram-badge.svg)](https://t.me/joinchat/Je2WJFCfKJ_mht1XdhBh6w)
 [![Twitter Follow](https://img.shields.io/twitter/follow/PrettierSol.svg?style=social)](https://twitter.com/PrettierSol)
 
