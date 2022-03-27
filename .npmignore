@@ -1,0 +1,10 @@
+.editorconfig
+.github/
+.npmignore
+.travis.yml
+CONTRIBUTING.md
+tests/
+assets/
+contracts
+.vscode
+solidityTests/loop.mjs
