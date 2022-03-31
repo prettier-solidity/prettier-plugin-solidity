@@ -54,6 +54,7 @@ module.exports = {
   ModifierInvocation: require('./ModifierInvocation'),
   NameValueExpression: require('./NameValueExpression'),
   NameValueList: require('./NameValueList'),
+  NameValueBlockStatement: require('./NameValueBlockStatement'),
   NewExpression: require('./NewExpression'),
   NumberLiteral: require('./NumberLiteral'),
   PragmaDirective: require('./PragmaDirective'),
