@@ -22,7 +22,7 @@ const options = {
     since: '1.0.0',
     category: CATEGORY_GLOBAL,
     type: 'boolean',
-    default: false,
+    default: true,
     description: 'Indent with tabs instead of spaces.'
   },
   bracketSpacing: {
