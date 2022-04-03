@@ -57,6 +57,7 @@ module.exports = {
   NameValueBlockStatement: require('./NameValueBlockStatement'),
   NewExpression: require('./NewExpression'),
   NumberLiteral: require('./NumberLiteral'),
+  OptionalTypeName: require('./OptionalTypeName'),
   PragmaDirective: require('./PragmaDirective'),
   RepeatStatement: require('./RepeatStatement'),
   ReturnStatement: require('./ReturnStatement'),
