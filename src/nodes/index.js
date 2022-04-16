@@ -31,6 +31,7 @@ module.exports = {
   EnumDefinition: require('./EnumDefinition'),
   EnumValue: require('./EnumValue'),
   EventDefinition: require('./EventDefinition'),
+  ExpressionNameValue: require('./ExpressionNameValue'),
   ExpressionStatement: require('./ExpressionStatement'),
   FileLevelConstant: require('./FileLevelConstant'),
   ForStatement: require('./ForStatement'),
