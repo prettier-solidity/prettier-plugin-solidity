@@ -45,6 +45,12 @@ You can add a script to your package.json for running prettier on all your contr
   }
 ```
 
+You can add a script to your package.json for running prettier on all your contracts:
+
+```Bash
+"lint": "prettier --list-different 'contracts/**/*.sol'"
+```
+
 ## Configuration File
 
 Prettier provides a flexible system to configure the formatting rules of a project. For more information please refer to the [documentation](https://prettier.io/docs/en/configuration.html).
