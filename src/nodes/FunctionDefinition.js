@@ -70,6 +70,8 @@ const virtual = (node) => (node.isVirtual ? [line, 'virtual'] : '');
 
 const inline = (node) => (node.isInline ? [line, 'inline'] : '');
 
+const responsible = (node) => (node.isResponsible ? [line, 'responsible'] : '');
+
 const override = (node, path, print) => {
   if (!node.override) return '';
   if (node.override.length === 0) return [line, 'override'];
@@ -119,6 +121,7 @@ const FunctionDefinition = {
         inline(node),
         stateMutability(node),
         virtual(node),
+        responsible(node),
         override(node, path, print),
         modifiers(node, path, print),
         returnParameters(node, path, print, options),
