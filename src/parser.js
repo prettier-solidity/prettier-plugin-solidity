@@ -1,6 +1,6 @@
 const extractComments = require('solidity-comments-extractor');
 // https://prettier.io/docs/en/plugins.html#parsers
-const parser = require('@solidity-parser/parser');
+const parser = require('tvm-solidity-parser');
 const semver = require('semver');
 
 const tryHug = (node, operators) => {

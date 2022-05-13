@@ -1,5 +1,5 @@
 {
-  "name": "prettier-plugin-solidity",
+  "name": "prettier-plugin-tvmsolidity",
   "version": "1.0.0-beta.19",
   "description": "A Prettier Plugin for automatically formatting your Solidity code.",
   "main": "src",
@@ -83,12 +83,12 @@
     "solc": "^0.8.12"
   },
   "dependencies": {
-    "@solidity-parser/parser": "github:pizza-777/parser#ton-solidity-module",
     "emoji-regex": "^10.0.0",
     "escape-string-regexp": "^4.0.0",
     "semver": "^7.3.5",
     "solidity-comments-extractor": "^0.0.7",
-    "string-width": "^4.2.3"
+    "string-width": "^4.2.3",
+    "tvm-solidity-parser": "^0.14.1"
   },
   "peerDependencies": {
     "prettier": "^2.3.0"

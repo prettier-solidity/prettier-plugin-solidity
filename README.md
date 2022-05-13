@@ -20,7 +20,7 @@ A [Prettier plugin](https://prettier.io/docs/en/plugins.html) for automatically 
 Install both `prettier` and `prettier-plugin-solidity`:
 
 ```Bash
-npm install --save-dev prettier github:pizza-777/prettier-plugin-solidity
+npm install --save-dev prettier prettier-plugin-tvmsolidity
 ```
 
 Run prettier in your contracts:
