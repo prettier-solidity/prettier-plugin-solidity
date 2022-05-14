@@ -1,7 +1,7 @@
 {
   "name": "prettier-plugin-tvmsolidity",
-  "version": "1.0.0-beta.19",
-  "description": "A Prettier Plugin for automatically formatting your Solidity code.",
+  "version": "1.0.0-beta.21",
+  "description": "A Prettier Plugin for automatically formatting your Everscale Solidity code.",
   "main": "src",
   "scripts": {
     "eslint": "eslint 'scripts/**' 'src/**' 'tests/**'",
@@ -14,10 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prettier-solidity/prettier-plugin-solidity.git"
+    "url": "git+https://github.com/pizza-777/prettier-plugin-solidity"
   },
   "keywords": [
-    "ethereum",
+    "everscale",
     "plugin",
     "prettier",
     "solidity"
@@ -58,9 +58,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/prettier-solidity/prettier-plugin-solidity/issues"
+    "url": "https://github.com/pizza-777/prettier-plugin-solidity/issues"
   },
-  "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
+  "homepage": "https://github.com/pizza-777/prettier-plugin-solidity#readme",
   "engines": {
     "node": ">=12"
   },
