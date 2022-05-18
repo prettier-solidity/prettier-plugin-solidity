@@ -68,7 +68,7 @@
     "@babel/code-frame": "^7.16.7",
     "cross-env": "^7.0.3",
     "dir-to-object": "^2.0.0",
-    "eslint": "^8.13.0",
+    "eslint": "^8.16.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -76,11 +76,11 @@
     "jest-mock-now": "^1.3.0",
     "jest-snapshot-serializer-ansi": "^1.0.0",
     "jest-snapshot-serializer-raw": "^1.2.0",
-    "jest-watch-typeahead": "^1.0.0",
+    "jest-watch-typeahead": "^1.1.0",
     "lines-and-columns": "^2.0.3",
     "outdent": "^0.8.0",
     "prettier": "^2.6.2",
-    "solc": "^0.8.13"
+    "solc": "^0.8.14-fixed"
   },
   "dependencies": {
     "@solidity-parser/parser": "^0.14.1",
