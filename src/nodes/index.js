@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1621622090.034 */
+/* This file was automatically generated on 1653243394.65 */
 
 /* eslint-disable global-require */
 
@@ -66,7 +66,6 @@ module.exports = {
   TryStatement: require('./TryStatement'),
   TupleExpression: require('./TupleExpression'),
   TypeDefinition: require('./TypeDefinition'),
-  TypeNameExpression: require('./TypeNameExpression'),
   UnaryOperation: require('./UnaryOperation'),
   UncheckedStatement: require('./UncheckedStatement'),
   UserDefinedTypeName: require('./UserDefinedTypeName'),
