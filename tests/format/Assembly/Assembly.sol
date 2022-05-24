@@ -177,4 +177,9 @@ function $somefn(somearg) {
             }
         }
   }
+
+  function memorySafe() {
+    assembly ("memory-safe") {
+    }
+  }
 }
