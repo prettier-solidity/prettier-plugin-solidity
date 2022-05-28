@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Libraries.sol - {"bracketSpacing":true} format 1`] = `
+====================================options=====================================
+bracketSpacing: true
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+  using   Lib    for uint;
+using Lib for
+    uint global;
+using { f} for uint;
+using {f } for uint global;
+using { a, very,     long, and, complex,     Function, list, with, long, names }     for
+    uint;
+using { a, very,
+        long, and, complex, Function,
+        list, with, long, names }       for uint global;
+
+=====================================output=====================================
+using Lib for uint256;
+using Lib for uint256 global;
+using { f } for uint256;
+using { f } for uint256 global;
+using {
+    a,
+    very,
+    long,
+    and,
+    complex,
+    Function,
+    list,
+    with,
+    long,
+    names
+} for uint256;
+using {
+    a,
+    very,
+    long,
+    and,
+    complex,
+    Function,
+    list,
+    with,
+    long,
+    names
+} for uint256 global;
+
+================================================================================
+`;
+
+exports[`Libraries.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+  using   Lib    for uint;
+using Lib for
+    uint global;
+using { f} for uint;
+using {f } for uint global;
+using { a, very,     long, and, complex,     Function, list, with, long, names }     for
+    uint;
+using { a, very,
+        long, and, complex, Function,
+        list, with, long, names }       for uint global;
+
+=====================================output=====================================
+using Lib for uint256;
+using Lib for uint256 global;
+using {f} for uint256;
+using {f} for uint256 global;
+using {
+    a,
+    very,
+    long,
+    and,
+    complex,
+    Function,
+    list,
+    with,
+    long,
+    names
+} for uint256;
+using {
+    a,
+    very,
+    long,
+    and,
+    complex,
+    Function,
+    list,
+    with,
+    long,
+    names
+} for uint256 global;
+
+================================================================================
+`;
