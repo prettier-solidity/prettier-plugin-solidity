@@ -181,5 +181,7 @@ function $somefn(somearg) {
   function memorySafe() {
     assembly ("memory-safe") {
     }
+    assembly "evmasm" ("memory-safe") {
+    }
   }
 }
