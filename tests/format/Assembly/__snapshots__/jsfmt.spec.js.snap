@@ -185,6 +185,13 @@ function $somefn(somearg) {
             }
         }
   }
+
+  function memorySafe() {
+    assembly ("memory-safe") {
+    }
+    assembly "evmasm" ("memory-safe") {
+    }
+  }
 }
 
 =====================================output=====================================
@@ -398,6 +405,15 @@ contract Assembly {
             } {
                 break
             }
+        }
+    }
+
+    function memorySafe() {
+        assembly ("memory-safe") {
+
+        }
+        assembly "evmasm" ("memory-safe") {
+
         }
     }
 }
