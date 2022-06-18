@@ -88,7 +88,7 @@
     "semver": "^7.3.5",
     "solidity-comments-extractor": "^0.0.7",
     "string-width": "^4.2.3",
-    "tvm-solidity-parser": "^0.14.1"
+    "tvm-solidity-parser": "^0.14.2"
   },
   "peerDependencies": {
     "prettier": "^2.3.0"
