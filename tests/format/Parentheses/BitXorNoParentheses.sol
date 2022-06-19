@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.14;
+pragma solidity 0.8.15;
 
 contract BitXorNoParentheses {
     function bitXorAdd(uint256 a, uint256 b, uint256 c)
