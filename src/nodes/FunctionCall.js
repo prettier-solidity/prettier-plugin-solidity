@@ -6,7 +6,7 @@ const {
 
 const printSeparatedList = require('./print-separated-list');
 
-const printObject = (node, path, print, options) => {
+const printObject = (path, print, options) => {
   const identifiers = path.map(print, 'identifiers');
   return [
     '{',
@@ -35,7 +35,7 @@ const FunctionCall = {
 
     if (node.arguments && node.arguments.length > 0) {
       if (node.identifiers && node.identifiers.length > 0) {
-        argumentsDoc = printObject(node, path, print, options);
+        argumentsDoc = printObject(path, print, options);
       } else {
         argumentsDoc = printArguments(path, print);
       }
