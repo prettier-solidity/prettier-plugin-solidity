@@ -22,7 +22,7 @@ const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
 // Here we add files that will not be the same when formatting a second time.
 const unstableTests = new Map(
-  [].map((fixture) => {
+  ["Comments/Comments.sol"].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
