@@ -40,10 +40,9 @@ const override = (node, path, print) => {
 };
 
 const body = (node, path, print) => {
-  if (!node.isVirtual) {
-    return [' ', path.call(print, 'body')];
-  }
-  return node.body ? group([' ', path.call(print, 'body')]) : ';';
+  if (!node.isVirtual) return [' ', path.call(print, 'body')];
+  if (!node.body) return ';';
+  return group([' ', path.call(print, 'body')]);
 };
 
 const ModifierDefinition = {
