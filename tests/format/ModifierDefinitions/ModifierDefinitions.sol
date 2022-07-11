@@ -3,4 +3,6 @@ contract ModifierDefinitions {
   modifier oneParam(uint a) {}
   modifier twoParams(uint a,uint b) {}
   modifier threeParams(uint a,uint b   ,uint c) {}
+  modifier test() virtual;
+  modifier test() virtual {}
 }

@@ -39,8 +39,11 @@ const override = (node, path, print) => {
   ];
 };
 
-const body = (node, path, print) =>
-  node.isVirtual ? group(path.call(print, 'body')) : path.call(print, 'body');
+const body = (node, path, print) => {
+  if (!node.body) return ';';
+  if (node.isVirtual) return group([' ', path.call(print, 'body')]);
+  return [' ', path.call(print, 'body')];
+};
 
 const ModifierDefinition = {
   print: ({ node, path, print }) => [
@@ -48,7 +51,6 @@ const ModifierDefinition = {
     node.name,
     modifierParameters(node, path, print),
     group(indent([virtual(node), override(node, path, print)])),
-    ' ',
     body(node, path, print)
   ]
 };
