@@ -6,18 +6,21 @@ const {
 
 const printSeparatedList = require('./print-separated-list');
 
-const printObject = (node, path, print, options) => [
-  '{',
-  printSeparatedList(
-    path
-      .map(print, 'arguments')
-      .map((arg, index) => [node.names[index], ': ', arg]),
-    {
-      firstSeparator: options.bracketSpacing ? line : softline,
-      lastSeparator: [options.bracketSpacing ? line : softline, '})']
-    }
-  )
-];
+const printObject = (path, print, options) => {
+  const identifiers = path.map(print, 'identifiers');
+  return [
+    '{',
+    printSeparatedList(
+      path
+        .map(print, 'arguments')
+        .map((arg, index) => [identifiers[index], ': ', arg]),
+      {
+        firstSeparator: options.bracketSpacing ? line : softline,
+        lastSeparator: [options.bracketSpacing ? line : softline, '})']
+      }
+    )
+  ];
+};
 
 const printArguments = (path, print) =>
   printSeparatedList(path.map(print, 'arguments'), {
@@ -31,8 +34,8 @@ const FunctionCall = {
     let argumentsDoc = ')';
 
     if (node.arguments && node.arguments.length > 0) {
-      if (node.names && node.names.length > 0) {
-        argumentsDoc = printObject(node, path, print, options);
+      if (node.identifiers && node.identifiers.length > 0) {
+        argumentsDoc = printObject(path, print, options);
       } else {
         argumentsDoc = printArguments(path, print);
       }
