@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1653243394.65 */
+/* This file was automatically generated on 1657595765.093 */
 
 /* eslint-disable global-require */
 
@@ -21,6 +21,7 @@ module.exports = {
   BreakStatement: require('./BreakStatement'),
   CatchClause: require('./CatchClause'),
   Conditional: require('./Conditional'),
+  Continue: require('./Continue'),
   ContinueStatement: require('./ContinueStatement'),
   ContractDefinition: require('./ContractDefinition'),
   CustomErrorDefinition: require('./CustomErrorDefinition'),

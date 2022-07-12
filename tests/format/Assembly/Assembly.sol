@@ -184,4 +184,20 @@ function $somefn(somearg) {
     assembly "evmasm" ("memory-safe") {
     }
   }
+
+function continueAdnBreak(uint256 x) public pure returns (uint a, uint b){
+assembly {
+for { let i := 0 } lt(i, x) { i := add(i, 1) } {
+            if lt(i, 10) { 
+                    a := add(a, i)
+                    continue
+                }
+                if eq(i, 15) {
+                    break
+                }
+
+                b := i
+        }
+}
+}
 }
