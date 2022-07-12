@@ -185,7 +185,7 @@ function $somefn(somearg) {
     }
   }
 
-function continueAdnBreak(uint256 x) public pure returns (uint a, uint b){
+function continueAndBreak(uint256 x) public pure returns (uint a, uint b){
 assembly {
 for { let i := 0 } lt(i, x) { i := add(i, 1) } {
             if lt(i, 10) { 
