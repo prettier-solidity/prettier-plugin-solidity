@@ -167,5 +167,4 @@ contract FunctionDefinitions {
   fallback() external payable virtual {}
   fallback(bytes calldata _input) external {}
   receive() external payable virtual {}
-  receive(bytes calldata _input) external {}
 }
