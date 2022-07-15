@@ -250,7 +250,7 @@ Now Prettier will be run every time the file is saved.
 
 ### VSCode
 
-VSCode is not familiar with the solidity language.
+VSCode is not familiar with the Solidity language.
 There are 2 extensions that you can install to provide support for solidity:
 
 - [`solidity`](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity)
@@ -264,7 +264,7 @@ code --install-extension NomicFoundation.hardhat-solidity
 
 > :warning: **These 2 extensions offer similar functionality and will clash with each other**: Please choose which one matches your projects better.
 
-These extensions provides basic integration with Prettier and for most cases no further action is needed.
+These extensions provide basic integration with Prettier; in most cases, no further action is needed.
 
 Make sure your editor has format on save set to true.
 When you save VSCode will ask you what formatter would you like to use for the solidity language, you can choose `JuanBlanco.solidity` or `NomicFoundation.hardhat-solidity`.
