@@ -15,13 +15,13 @@ If you like this project, please consider contributing to our [Gitcoin grant](ht
 
 Install both `prettier` and `prettier-plugin-solidity`:
 
-```
+```Bash
 npm install --save-dev prettier prettier-plugin-solidity
 ```
 
 Run prettier in your contracts:
 
-```
+```Bash
 npx prettier --write 'contracts/**/*.sol'
 ```
 
@@ -56,7 +56,7 @@ These are some of the projects using Prettier Solidity:
 Prettier provides a flexible system to configure the formatting rules of a project. For more information please refer to the [documentation](https://prettier.io/docs/en/configuration.html).
 The following is the default configuration internally used by this plugin.
 
-```json
+```JSON
 {
   "overrides": [
     {
@@ -122,7 +122,7 @@ Many versions of the Solidity compiler have changes that affect how the code sho
 
 One example of this are import directives. Before `0.7.4`, the compiler didn't accept multi-line import statements, so we always format them in a single line. But if you use the `compiler` option to indicate that you are using a version greater or equal than `0.7.4`, the plugin will use multi-line imports when it makes sense.
 
-The solidity versions taken into consideration during formatting are:
+The Solidity versions taken into consideration during formatting are:
 
 - `v0.7.4`: Versions prior `0.7.4` had a bug that would not interpret correctly imports unless they are formatted in a single line.
 
@@ -178,7 +178,7 @@ The solidity versions taken into consideration during formatting are:
 
 You might have a multi-version project, where different files are compiled with different compilers. If that's the case, you can use [overrides](https://prettier.io/docs/en/configuration.html#configuration-overrides) to have a more granular configuration:
 
-```
+```JSON
 {
   "overrides": [
     {
@@ -237,7 +237,7 @@ version installed in the vim plugin's directory. The vim-plug directory depends 
 let g:prettier#exec_cmd_path = '~/.vim/plugged/vim-prettier/node_modules/.bin/prettier'
 ```
 
-To check that everything is working, open a solidity file and run `:Prettier`.
+To check that everything is working, open a Solidity file and run `:Prettier`.
 
 If you also want to autoformat every time you write the buffer, add these lines:
 
@@ -251,7 +251,7 @@ Now Prettier will be run every time the file is saved.
 ### VSCode
 
 VSCode is not familiar with the Solidity language.
-There are 2 extensions that you can install to provide support for solidity:
+There are 2 extensions that you can install to provide support for Solidity:
 
 - [`solidity`](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity)
 - [`hardhat-solidity`](https://marketplace.visualstudio.com/items?itemName=NomicFoundation.hardhat-solidity)
@@ -267,7 +267,7 @@ code --install-extension NomicFoundation.hardhat-solidity
 These extensions provide basic integration with Prettier; in most cases, no further action is needed.
 
 Make sure your editor has format on save set to true.
-When you save VSCode will ask you what formatter would you like to use for the solidity language, you can choose `JuanBlanco.solidity` or `NomicFoundation.hardhat-solidity`.
+When you save VSCode will ask you what formatter would you like to use for the Solidity language, you can choose `JuanBlanco.solidity` or `NomicFoundation.hardhat-solidity`.
 
 At this point VSCode's `settings.json` should have a configuration similar to this:
 
@@ -290,7 +290,7 @@ code --install-extension esbenp.prettier-vscode
 
 To interact with 3rd party plugins, `prettier-vscode` will look in the project's npm modules, so you'll need to have `prettier` and `prettier-plugin-solidity` in your `package.json`
 
-```
+```Bash
 npm install --save-dev prettier prettier-plugin-solidity
 ```
 
@@ -327,7 +327,7 @@ Prettier Solidity does its best to be pretty and consistent, but in some cases i
 
 Modifiers with no arguments are formatted with their parentheses removed, except for constructors. The reason for this is that Prettier Solidity cannot always tell apart a modifier from a base constructor. So modifiers in constructors are not modified. For example, this:
 
-```solidity
+```Solidity
 contract Foo is Bar {
   constructor() Bar() modifier1 modifier2() modifier3(42) {}
 
@@ -337,7 +337,7 @@ contract Foo is Bar {
 
 will be formatted as
 
-```solidity
+```Solidity
 contract Foo is Bar {
   constructor() Bar() modifier1 modifier2() modifier3(42) {}
 
