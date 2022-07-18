@@ -6,6 +6,7 @@ const {
 } = require('../prettier-comments/language-js/comments');
 
 const handleContractDefinitionComments = require('./handlers/ContractDefinition');
+const handleMemberAccessComments = require('./handlers/MemberAccess');
 
 function solidityHandleOwnLineComment(
   comment,
@@ -26,6 +27,7 @@ function solidityHandleOwnLineComment(
 
   if (
     handleContractDefinitionComments(...handlerArguments) ||
+    handleMemberAccessComments(...handlerArguments) ||
     handleOwnLineComment(comment, text, options, ast, isLastComment)
   ) {
     return true;
@@ -52,6 +54,7 @@ function solidityHandleEndOfLineComment(
 
   if (
     handleContractDefinitionComments(...handlerArguments) ||
+    handleMemberAccessComments(...handlerArguments) ||
     handleEndOfLineComment(comment, text, options, ast, isLastComment)
   ) {
     return true;
@@ -78,6 +81,7 @@ function solidityHandleRemainingComment(
 
   if (
     handleContractDefinitionComments(...handlerArguments) ||
+    handleMemberAccessComments(...handlerArguments) ||
     handleRemainingComment(comment, text, options, ast, isLastComment)
   ) {
     return true;

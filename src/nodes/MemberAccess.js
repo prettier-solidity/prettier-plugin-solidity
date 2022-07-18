@@ -1,8 +1,9 @@
 const {
   doc: {
-    builders: { group, indent, label, softline }
+    builders: { group, hardline, indent, label, softline }
   }
 } = require('prettier');
+const printComments = require('./print-comments');
 
 const isEndOfChain = (node, path) => {
   let i = 0;
@@ -94,33 +95,68 @@ const isEndOfChain = (node, path) => {
  * be printed.
  */
 const processChain = (chain) => {
-  const firstSeparatorIndex = chain.findIndex(
+  // Extract comments and reverse the order of print.
+  const comments = chain
+    .filter((element) => element.label && element.label === 'comments')
+    .reverse();
+  const chainContent = chain.filter(
+    (element) => !element.label || element.label !== 'comments'
+  );
+
+  const firstSeparatorIndex = chainContent.findIndex(
     (element) => element.label === 'separator'
   );
   // The doc[] before the first separator
-  const firstExpression = chain.slice(0, firstSeparatorIndex);
+  const firstExpression = chainContent.slice(0, firstSeparatorIndex);
   // The doc[] containing the rest of the chain
-  const restOfChain = group(indent(chain.slice(firstSeparatorIndex)));
+  const restOfChain = group(indent(chainContent.slice(firstSeparatorIndex)));
 
   // We wrap the expression in a label in case there is an IndexAccess or
   // a FunctionCall following this MemberAccess.
-  return label('MemberAccessChain', group([firstExpression, restOfChain]));
+  return label('MemberAccessChain', [
+    comments,
+    group([firstExpression, restOfChain])
+  ]);
 };
 
 const MemberAccess = {
-  print: ({ node, path, print }) => {
+  print: ({ node, path, print, options }) => {
+    let comments;
+    const extractComments = (expressionPath) => {
+      const expression = expressionPath.getValue();
+      if (expression.type === 'FunctionCall') {
+        expressionPath.call(extractComments, 'expression');
+        return;
+      }
+      if (expression.type === 'IndexAccess') {
+        expressionPath.call(extractComments, 'base');
+        return;
+      }
+      comments = printComments(expression, path, options);
+      if (comments) {
+        comments = label('comments', [comments, hardline]);
+      }
+    };
+
+    path.call(extractComments, 'expression');
+
     let expressionDoc = path.call(print, 'expression');
-    if (Array.isArray(expressionDoc)) {
-      expressionDoc = expressionDoc.flat();
-    }
+    expressionDoc = Array.isArray(expressionDoc)
+      ? expressionDoc.flat()
+      : [expressionDoc];
 
     const doc = [
-      expressionDoc,
+      comments,
+      ...expressionDoc,
       label('separator', [softline, '.']),
       node.memberName
     ].flat();
 
-    return isEndOfChain(node, path) ? processChain(doc) : doc;
+    if (isEndOfChain(node, path)) {
+      extractComments(path);
+      return processChain([comments, doc].flat());
+    }
+    return doc;
   }
 };
 

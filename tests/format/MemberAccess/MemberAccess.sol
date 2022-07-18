@@ -57,6 +57,59 @@ contract MemberAccess {
             path,
             address(this, aoeu, aoeueu, aoeu)
         );
+
+        // Comment before chain
+        game.
+            // CONFIG
+            config.
+            // Comment 1
+            // Comment 2
+            resolveWindow.
+            // Comment 3
+            functionCall(/* inside function comment */).
+            // Comment 4
+            array[/* inside array comment */ 1].
+            // Comment 5
+            call{value: 10, gas: 800}();
+
+
+        // Comment before chain
+        game.
+            // CONFIG
+            config.
+            // Comment 1
+            // Comment 2
+            resolveWindow.
+            // Comment 3
+            functionCall(/* inside function comment */).
+            // Comment 4
+            array[/* inside array comment */ 1].
+            // Comment 5
+            endOfChain;
+
+
+        // Comment before chain
+        game.
+            // CONFIG
+            config.
+            // Comment 1
+            // Comment 2
+            resolveWindow.
+            // Comment 3
+            functionCall(/* inside function comment */).
+            // Comment 4
+            endOfChain;
+
+
+        // Comment before chain
+        game.
+            // CONFIG
+            config.
+            // Comment 1
+            // Comment 2
+            resolveWindow.
+            // Comment 3
+            endOfChain;
     }
 }
 

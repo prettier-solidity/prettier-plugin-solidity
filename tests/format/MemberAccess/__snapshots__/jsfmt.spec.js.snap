@@ -65,6 +65,59 @@ contract MemberAccess {
             path,
             address(this, aoeu, aoeueu, aoeu)
         );
+
+        // Comment before chain
+        game.
+            // CONFIG
+            config.
+            // Comment 1
+            // Comment 2
+            resolveWindow.
+            // Comment 3
+            functionCall(/* inside function comment */).
+            // Comment 4
+            array[/* inside array comment */ 1].
+            // Comment 5
+            call{value: 10, gas: 800}();
+
+
+        // Comment before chain
+        game.
+            // CONFIG
+            config.
+            // Comment 1
+            // Comment 2
+            resolveWindow.
+            // Comment 3
+            functionCall(/* inside function comment */).
+            // Comment 4
+            array[/* inside array comment */ 1].
+            // Comment 5
+            endOfChain;
+
+
+        // Comment before chain
+        game.
+            // CONFIG
+            config.
+            // Comment 1
+            // Comment 2
+            resolveWindow.
+            // Comment 3
+            functionCall(/* inside function comment */).
+            // Comment 4
+            endOfChain;
+
+
+        // Comment before chain
+        game.
+            // CONFIG
+            config.
+            // Comment 1
+            // Comment 2
+            resolveWindow.
+            // Comment 3
+            endOfChain;
     }
 }
 
@@ -195,6 +248,59 @@ contract MemberAccess {
                 path,
                 address(this, aoeu, aoeueu, aoeu)
             );
+
+        // Comment before chain
+        // CONFIG
+        // Comment 1
+        // Comment 2
+        // Comment 3
+        // Comment 4
+        // Comment 5
+        game
+            .config
+            .resolveWindow
+            .functionCall() /* inside function comment */
+            .array[
+                /* inside array comment */
+                1
+            ]
+            .call{value: 10, gas: 800}();
+
+        // Comment before chain
+        // CONFIG
+        // Comment 1
+        // Comment 2
+        // Comment 3
+        // Comment 4
+        // Comment 5
+        game
+            .config
+            .resolveWindow
+            .functionCall() /* inside function comment */
+            .array[
+                /* inside array comment */
+                1
+            ]
+            .endOfChain;
+
+        // Comment before chain
+        // CONFIG
+        // Comment 1
+        // Comment 2
+        // Comment 3
+        // Comment 4
+        game
+            .config
+            .resolveWindow
+            .functionCall() /* inside function comment */
+            .endOfChain;
+
+        // Comment before chain
+        // CONFIG
+        // Comment 1
+        // Comment 2
+        // Comment 3
+        game.config.resolveWindow.endOfChain;
     }
 }
 
