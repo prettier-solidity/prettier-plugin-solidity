@@ -7,14 +7,14 @@ const {
   }
 } = require('prettier');
 
-function handleContractDefinitionComments(
+function handleContractDefinitionComments({
   text,
   precedingNode,
   enclosingNode,
   followingNode,
   comment,
   options
-) {
+}) {
   if (!enclosingNode || enclosingNode.type !== 'ContractDefinition') {
     return false;
   }
@@ -57,4 +57,9 @@ function handleContractDefinitionComments(
   return false;
 }
 
-module.exports = handleContractDefinitionComments;
+module.exports = {
+  print: true,
+  handleOwnLineComment: handleContractDefinitionComments,
+  handleEndOfLineComment: handleContractDefinitionComments,
+  handleRemainingComment: handleContractDefinitionComments
+};
