@@ -37,4 +37,8 @@ contract FunctionCalls {
         )                .recover(signature);
     return _nonces[req.from] == req.nonce && signer == req.from;
 }
+    function comments() {
+        // Comment 0
+        functionCall /* Comment 1 */(/* Comment 2 */) /* Comment 3 */;
+    }
 }

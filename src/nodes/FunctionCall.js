@@ -3,6 +3,7 @@ const {
     builders: { group, ifBreak, indent, label, line, softline }
   }
 } = require('prettier');
+const printComments = require('./print-comments');
 
 const printSeparatedList = require('./print-separated-list');
 
@@ -30,8 +31,10 @@ const printArguments = (path, print) =>
 let groupIndex = 0;
 const FunctionCall = {
   print: ({ node, path, print, options }) => {
+    console.log(node.expression.type);
     let expressionDoc = path.call(print, 'expression');
-    let argumentsDoc = ')';
+    const commentsDoc = printComments(node, path, options);
+    let argumentsDoc = [commentsDoc, ')'];
 
     if (node.arguments && node.arguments.length > 0) {
       if (node.identifiers && node.identifiers.length > 0) {
@@ -54,7 +57,7 @@ const FunctionCall = {
         groupId: expressionDoc.id
       });
       // We wrap the expression in a label in case there is an IndexAccess or
-      // a FunctionCall following this IndexAccess.
+      // a FunctionCall following this FunctionCall.
       return label('MemberAccessChain', [expressionDoc, '(', argumentsDoc]);
     }
 

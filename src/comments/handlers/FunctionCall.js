@@ -29,7 +29,7 @@ function handleRemainingComment({
   );
 
   console.log(comment);
-  // The comment is behind the closing of the FunctionCall `)`
+  // The comment is behind the opening of the FunctionCall `(`
   if (nextCharacter === '(') {
     addTrailingComment(precedingNode, comment);
     return true;
