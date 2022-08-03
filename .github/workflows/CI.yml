@@ -70,7 +70,7 @@ jobs:
         run: npm run test:all
 
   test_windows:
-    name: Test on Windows with Node 14
+    name: Test on Windows with Node 16
     runs-on: windows-latest
     steps:
       - uses: actions/setup-node@v1
