@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.15;
+pragma solidity 0.8.16;
 
 contract ExpNoParentheses {
     function expAdd(uint256 a, uint256 b, uint256 c)
