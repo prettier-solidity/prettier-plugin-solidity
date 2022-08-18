@@ -1,6 +1,6 @@
 # prettier-plugin-solidity
 
-[![Telegram](/assets/telegram-badge.svg)](https://t.me/joinchat/Je2WJFCfKJ_mht1XdhBh6w)
+[![Telegram](/assets/telegram-badge.svg)](https://t.me/+kgTgkFgIwJkwMjcx)
 [![Twitter Follow](https://img.shields.io/twitter/follow/PrettierSol.svg?style=social)](https://twitter.com/PrettierSol)
 
 <p align="center">
