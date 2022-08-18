@@ -16,6 +16,9 @@ const modifierArguments = (node, path, print, options) => {
       (comment) => !comment.leading && !comment.trailing && !comment.printed
     )
   ) {
+    // We print parentheses here because the comment is supposed to be a block
+    // comment inside empty parentheses.
+    //    modifier(/* comment */)
     return ['(', printComments(node, path, options), ')'];
   }
 
