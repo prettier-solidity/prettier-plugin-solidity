@@ -12,9 +12,9 @@ const modifierArguments = (node, path, print, options) => {
 
   if (
     node.comments &&
-    node.comments.filter(
+    node.comments.some(
       (comment) => !comment.leading && !comment.trailing && !comment.printed
-    ).length > 0
+    )
   ) {
     return ['(', printComments(node, path, options), ')'];
   }
