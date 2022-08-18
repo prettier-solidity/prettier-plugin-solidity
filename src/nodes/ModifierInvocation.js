@@ -2,18 +2,21 @@ const printSeparatedList = require('./print-separated-list');
 const printComments = require('./print-comments');
 
 const modifierArguments = (node, path, print, options) => {
-  if (node.arguments || node.comments) {
+  if (node.arguments) {
     // We always print parentheses at this stage because the parser already
     // stripped them in FunctionDefinitions that are not a constructor.
-    return node.arguments && node.arguments.length > 0
-      ? [
-          '(',
-          printSeparatedList(path.map(print, 'arguments')),
-          printComments(node, path, options),
+    return node.arguments.length > 0
+      ? ['(', printSeparatedList(path.map(print, 'arguments')), ')']
+      : '()';
+  }
 
-          ')'
-        ]
-      : ['(', printComments(node, path, options), ')'];
+  if (
+    node.comments &&
+    node.comments.filter(
+      (comment) => !comment.leading && !comment.trailing && !comment.printed
+    ).length > 0
+  ) {
+    return ['(', printComments(node, path, options), ')'];
   }
 
   return '';

@@ -294,7 +294,7 @@ contract Comments13 {
         // comment 1
         // comment 2
         // comment 3
-        modifier1() // comment 4
+        modifier1 // comment 4
         // comment 5
         // comment 6
         modifier2(/* comment 7 */) // comment 8
