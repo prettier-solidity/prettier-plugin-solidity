@@ -1,8 +1,3 @@
-const {
-  doc: {
-    builders: { softline }
-  }
-} = require('prettier');
 const printSeparatedList = require('./print-separated-list');
 const printComments = require('./print-comments');
 
