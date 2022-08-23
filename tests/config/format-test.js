@@ -22,7 +22,7 @@ const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
 // Here we add files that will not be the same when formatting a second time.
 const unstableTests = new Map(
-  ["Comments/Comments.sol"].map((fixture) => {
+  ["Comments/Comments.sol", "MemberAccess/MemberAccess.sol"].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
@@ -32,7 +32,7 @@ const unstableTests = new Map(
 
 // Here we add files that will not have the same AST after being formatted.
 const unstableAstTests = new Map(
-  [].map((fixture) => {
+  ["MemberAccess/MemberAccess.sol"].map((fixture) => {
     const [file, isAstUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
