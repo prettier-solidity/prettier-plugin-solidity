@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, ifBreak, indent, label, softline }
+    builders: { group, indent, indentIfBreak, label, softline }
   }
 } = require('prettier');
 
@@ -23,7 +23,7 @@ const IndexAccess = {
 
       groupIndex += 1;
 
-      indexDoc = ifBreak(indent(indexDoc), indexDoc, {
+      indexDoc = indentIfBreak(indexDoc, {
         groupId: baseDoc.id
       });
       // We wrap the expression in a label in case there is an IndexAccess or

@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, ifBreak, indent }
+    builders: { group, indentIfBreak }
   }
 } = require('prettier');
 
@@ -33,7 +33,7 @@ const VariableDeclarationStatement = {
 
     return group([
       declarationDoc,
-      ifBreak(indent(initialValueDoc), initialValueDoc, {
+      indentIfBreak(initialValueDoc, {
         groupId: declarationDoc.id
       }),
       node.omitSemicolon ? '' : ';'
