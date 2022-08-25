@@ -7,7 +7,7 @@ const {
   }
 } = require('prettier');
 
-function handleContractDefinitionComments({
+function handleModifierInvocationComments({
   text,
   precedingNode,
   enclosingNode,
@@ -66,8 +66,4 @@ function handleContractDefinitionComments({
   return false;
 }
 
-module.exports = {
-  handleOwnLineComment: handleContractDefinitionComments,
-  handleEndOfLineComment: handleContractDefinitionComments,
-  handleRemainingComment: handleContractDefinitionComments
-};
+module.exports = handleModifierInvocationComments;

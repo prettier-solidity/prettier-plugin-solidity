@@ -57,8 +57,4 @@ function handleContractDefinitionComments({
   return false;
 }
 
-module.exports = {
-  handleOwnLineComment: handleContractDefinitionComments,
-  handleEndOfLineComment: handleContractDefinitionComments,
-  handleRemainingComment: handleContractDefinitionComments
-};
+module.exports = handleContractDefinitionComments;

@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 
 module.exports = [
-  require('./ContractDefinition'),
-  require('./ModifierInvocation')
+  require('./handleContractDefinitionComments'),
+  require('./handleModifierInvocationComments')
 ];
