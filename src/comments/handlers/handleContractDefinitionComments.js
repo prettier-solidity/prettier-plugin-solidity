@@ -7,20 +7,20 @@ const {
   }
 } = require('prettier');
 
-function handleContractDefinitionComments(
+function handleContractDefinitionComments({
   text,
   precedingNode,
   enclosingNode,
   followingNode,
   comment,
   options
-) {
+}) {
   if (!enclosingNode || enclosingNode.type !== 'ContractDefinition') {
     return false;
   }
 
   // We unfortunately have no way using the AST or location of nodes to know
-  // if the comment is positioned before the condition parenthesis:
+  // if the comment is positioned before the Contract's body:
   //   contract a is abc /* comment */ {}
   // The only workaround I found is to look at the next character to see if
   // it is a {}.

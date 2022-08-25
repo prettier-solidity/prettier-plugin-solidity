@@ -123,6 +123,28 @@ contract Comments12 {
   }
 }
 
+contract Comments13 {
+  function commentInModifierInvocation() 
+      external 
+      // comment 1
+      modifier1 // comment 2
+      (
+        // comment 3
+      ) // comment 4
+      // comment 5
+      modifier2 // comment 6
+      (
+        /* comment 7 */
+      ) // comment 8
+      modifier3 // comment 9
+      (
+        // comment 10
+        param1 // comment 11
+        // comment 12
+      ) // comment 13
+      {
+  }
+}
 =====================================output=====================================
 pragma solidity ^0.4.24;
 
@@ -264,6 +286,25 @@ contract Comments12 {
             wasAllowedToSubdomainMintOnCreation: true
         });
     }
+}
+
+contract Comments13 {
+    function commentInModifierInvocation()
+        external
+        // comment 1
+        // comment 2
+        // comment 3
+        modifier1 // comment 4
+        // comment 5
+        // comment 6
+        modifier2(/* comment 7 */) // comment 8
+        // comment 9
+        modifier3(
+            // comment 10
+            param1 // comment 11
+            // comment 12
+        ) // comment 13
+    {}
 }
 
 ================================================================================
