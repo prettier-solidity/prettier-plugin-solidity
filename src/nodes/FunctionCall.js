@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, ifBreak, indent, label, line, softline }
+    builders: { group, indentIfBreak, label, line, softline }
   }
 } = require('prettier');
 
@@ -50,7 +50,7 @@ const FunctionCall = {
 
       groupIndex += 1;
 
-      argumentsDoc = ifBreak(indent(argumentsDoc), argumentsDoc, {
+      argumentsDoc = indentIfBreak(argumentsDoc, {
         groupId: expressionDoc.id
       });
       // We wrap the expression in a label in case there is an IndexAccess or
