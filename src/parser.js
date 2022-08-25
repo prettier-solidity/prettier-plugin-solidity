@@ -14,7 +14,7 @@ const tryHug = (node, operators) => {
   return node;
 };
 
-function parse(text, _parsers, options) {
+function parse(text, _parsers, options = _parsers) {
   const compiler = coerce(options.compiler);
   const parsed = parser.parse(text, { loc: true, range: true });
   parsed.comments = extractComments(text);
