@@ -25,8 +25,9 @@ function solidityHandleOwnLineComment(
   };
 
   if (
-    handlers.ContractDefinition.handleOwnLineComment(handlerArguments) ||
-    handlers.ModifierInvocation.handleOwnLineComment(handlerArguments) ||
+    handlers.some((handler) =>
+      handler.handleOwnLineComment(handlerArguments)
+    ) ||
     handleOwnLineComment(comment, text, options, ast, isLastComment)
   ) {
     return true;
@@ -52,8 +53,9 @@ function solidityHandleEndOfLineComment(
   };
 
   if (
-    handlers.ContractDefinition.handleEndOfLineComment(handlerArguments) ||
-    handlers.ModifierInvocation.handleEndOfLineComment(handlerArguments) ||
+    handlers.some((handler) =>
+      handler.handleEndOfLineComment(handlerArguments)
+    ) ||
     handleEndOfLineComment(comment, text, options, ast, isLastComment)
   ) {
     return true;
@@ -79,8 +81,9 @@ function solidityHandleRemainingComment(
   };
 
   if (
-    handlers.ContractDefinition.handleRemainingComment(handlerArguments) ||
-    handlers.ModifierInvocation.handleRemainingComment(handlerArguments) ||
+    handlers.some((handler) =>
+      handler.handleRemainingComment(handlerArguments)
+    ) ||
     handleRemainingComment(comment, text, options, ast, isLastComment)
   ) {
     return true;
