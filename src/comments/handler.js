@@ -1,8 +1,7 @@
 const {
   handleOwnLineComment,
   handleEndOfLineComment,
-  handleRemainingComment,
-  isBlockComment
+  handleRemainingComment
 } = require('../prettier-comments/language-js/comments');
 
 const handlers = require('./handlers');
@@ -83,6 +82,10 @@ function solidityHandleRemainingComment(
     return true;
   }
   return false;
+}
+
+function isBlockComment(comment) {
+  return comment.type === 'BlockComment';
 }
 
 module.exports = {
