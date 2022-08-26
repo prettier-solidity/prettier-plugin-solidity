@@ -23,8 +23,8 @@ function printIndentableBlockComment(comment) {
       hardline,
       lines.map((line, index) =>
         index === 0
-          ? line.trimRight()
-          : ` ${index < lines.length - 1 ? line.trim() : line.trimLeft()}`
+          ? line.trimEnd()
+          : ` ${index < lines.length - 1 ? line.trim() : line.trimStart()}`
       )
     ),
     '*/'
@@ -55,7 +55,7 @@ function printComment(commentPath, options) {
       return `/*${comment.raw}*/`;
     }
     case 'LineComment':
-      return `//${comment.raw.trimRight()}`;
+      return `//${comment.raw.trimEnd()}`;
     default:
       throw new Error(`Not a comment: ${JSON.stringify(comment)}`);
   }
