@@ -47,7 +47,7 @@ const parameters = (parametersType, node, path, print, options) => {
           )
         ) === ')'
     );
-    return parameterComments.parts.length > 0
+    return parameterComments.length > 0
       ? printSeparatedItem(parameterComments)
       : '';
   }
