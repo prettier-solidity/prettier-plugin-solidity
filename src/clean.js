@@ -1,13 +1,8 @@
-/* eslint-disable no-param-reassign */
-// eslint-disable-next-line no-unused-vars
-function clean(ast, newObj /* , parent */) {
-  delete newObj.code;
-  delete newObj.codeStart;
-  delete newObj.loc;
-  delete newObj.range;
-  delete newObj.raw;
-  // TODO: for some reason comments are not iterated through.
-  delete newObj.comments;
-}
+// Prettier now offers a clean way to define ignored properties.
+// TODO: for some reason clean doesn't iterate over comments. Either ignore
+// them completely or add logic to iterate over them in the clean function.
+const ignoredProperties = new Set(['loc', 'range', 'comments']);
+function clean(/* ast, newObj, parent */) {}
+clean.ignoredProperties = ignoredProperties;
 
 module.exports = clean;
