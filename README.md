@@ -1,6 +1,7 @@
 # prettier-plugin-solidity
 
 ---
+
 **NOTE**
 
 This is the fork of the Ethereum-solidity plugin for prettier. This plugin works with Everscale Solidity (or ton-solidity)
@@ -58,18 +59,18 @@ The following is the default configuration internally used by this plugin.
 
 ```json
 {
-  "overrides": [
-    {
-      "files": "*.sol",
-      "options": {
-        "printWidth": 80,        
-        "useTabs": true,
-        "singleQuote": false,
-        "bracketSpacing": false,
-        "explicitTypes": "always"
-      }
-    }
-  ]
+ "overrides": [
+  {
+   "files": "*.sol",
+   "options": {
+    "printWidth": 80,
+    "useTabs": true,
+    "singleQuote": false,
+    "bracketSpacing": false,
+    "explicitTypes": "always"
+   }
+  }
+ ]
 }
 ```
 
@@ -161,20 +162,22 @@ Modifiers with no arguments are formatted with their parentheses removed, except
 
 ```solidity
 contract Foo is Bar {
-  constructor() Bar() modifier1 modifier2() modifier3(42) {}
+ constructor() Bar() modifier1 modifier2() modifier3(42) {}
 
-  function f() modifier1 modifier2() modifier3(42) {}
+ function f() modifier1 modifier2 modifier3(42) {}
 }
+
 ```
 
 will be formatted as
 
 ```solidity
 contract Foo is Bar {
-  constructor() Bar() modifier1 modifier2() modifier3(42) {}
+ constructor() Bar() modifier1 modifier2() modifier3(42) {}
 
-  function f() modifier1 modifier2 modifier3(42) {}
+ function f() modifier1 modifier2 modifier3(42) {}
 }
+
 ```
 
 Notice that the unnecessary parentheses in `modifier2` were removed in the function but not in the constructor.
