@@ -13,6 +13,9 @@ module.exports = {
     'jest-snapshot-serializer-ansi'
   ],
   testEnvironment: 'node',
+  testPathIgnorePatterns: TEST_STANDALONE
+    ? ['tests/format/RespectDefaultOptions']
+    : undefined,
   testMatch: [
     '<rootDir>/tests/format/**/jsfmt.spec.js',
     '<rootDir>/tests/unit/**/*.js'

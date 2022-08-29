@@ -1,4 +1,9 @@
-const prettier = require('prettier');
+const { TEST_STANDALONE } = process.env;
+
+const prettier = !TEST_STANDALONE
+  ? require('../config/require-prettier')
+  : require('../config/require-standalone');
+
 const proxyquire = require('proxyquire');
 
 const plugin = proxyquire('../../src', {
@@ -14,6 +19,6 @@ test('should throw if the installed version of prettier is less than v2.3.0', as
   };
 
   await expect(async () => {
-    await prettier.format(data, options);
-  }).rejects.toThrow('>=2.3.0');
+    await prettier.formatWithCursor(data, options);
+  }).toThrow('>=2.3.0');
 });
