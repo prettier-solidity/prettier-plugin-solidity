@@ -181,7 +181,12 @@ function runSpec(fixtures, parsers, options) {
 
     describe(title, () => {
       const formatOptions = {
-        plugins: [path.join(__dirname, "../../src/index.js")],
+        plugins: [
+          path.join(
+            __dirname,
+            TEST_STANDALONE ? "../../dist/standalone.js" : "../../src/index.js"
+          ),
+        ],
         printWidth: 80,
         // Should not search plugins by default
         pluginSearchDirs: false,

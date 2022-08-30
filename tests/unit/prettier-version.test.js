@@ -6,9 +6,12 @@ const prettier = !TEST_STANDALONE
 
 const proxyquire = require('proxyquire');
 
-const plugin = proxyquire('../../src', {
-  prettier: { ...prettier, version: '2.2.1', '@global': true }
-});
+const plugin = proxyquire(
+  TEST_STANDALONE ? '../../dist/standalone.js' : '../../src/index.js',
+  {
+    prettier: { ...prettier, version: '2.2.1', '@global': true }
+  }
+);
 
 test('should throw if the installed version of prettier is less than v2.3.0', async () => {
   const data = 'contract CheckPrettierVersion {}';
@@ -20,5 +23,5 @@ test('should throw if the installed version of prettier is less than v2.3.0', as
 
   await expect(async () => {
     await prettier.formatWithCursor(data, options);
-  }).toThrow('>=2.3.0');
+  }).rejects.toThrow('>=2.3.0');
 });
