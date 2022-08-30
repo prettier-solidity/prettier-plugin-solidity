@@ -3,7 +3,7 @@
 const prettier = require("prettier/standalone");
 const markdownPlugin = require("prettier/parser-markdown");
 const babelPlugin = require("prettier/parser-babel");
-const solidityPlugin = require("../../src/index");
+const solidityPlugin = require("../../dist/standalone");
 
 module.exports = {
   formatWithCursor(input, options) {

@@ -14,7 +14,10 @@ module.exports = {
   ],
   testEnvironment: 'node',
   testPathIgnorePatterns: TEST_STANDALONE
-    ? ['tests/format/RespectDefaultOptions']
+    ? [
+        'tests/format/RespectDefaultOptions',
+        'tests/unit/prettier-version.test.js'
+      ]
     : undefined,
   testMatch: [
     '<rootDir>/tests/format/**/jsfmt.spec.js',
