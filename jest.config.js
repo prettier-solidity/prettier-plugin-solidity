@@ -20,7 +20,7 @@ module.exports = {
         'tests/format/RespectDefaultOptions',
         'tests/unit/prettier-version.test.js'
       ]
-    : undefined,
+    : [],
   testMatch: [
     '<rootDir>/tests/format/**/jsfmt.spec.js',
     '<rootDir>/tests/unit/**/*.js'
