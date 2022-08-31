@@ -1,10 +1,16 @@
 const path = require('path');
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = function (webpackEnv) {
-  const isEnvProduction = webpackEnv === 'production';
+module.exports = (webpackEnv) => {
+  const isEnvProduction = Boolean(webpackEnv.production);
+
   return {
-    target: ['browserslist'],
+    entry: './src/index.js',
+
+    mode: isEnvProduction ? 'production' : 'development',
+    bail: isEnvProduction,
+    devtool: isEnvProduction ? undefined : 'cheap-module-source-map',
+
     // We tell webpack to use the browser friendly package.
     resolve: {
       alias: {
@@ -26,16 +32,15 @@ module.exports = function (webpackEnv) {
         }
       ]
     },
-    bail: isEnvProduction,
-    devtool: isEnvProduction ? undefined : 'cheap-module-source-map',
     optimization: {
       minimize: isEnvProduction
     },
-    entry: './src/index.js',
+    target: ['browserslist'],
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'standalone.js',
-      library: { type: 'commonjs' }
+      globalObject: 'this',
+      library: { name: ['prettierPlugins', 'solidity'], type: 'umd2' }
     }
   };
 };

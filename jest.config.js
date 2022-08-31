@@ -13,6 +13,8 @@ module.exports = {
     'jest-snapshot-serializer-ansi'
   ],
   testEnvironment: 'node',
+  // ignore console warnings in TEST_STANDALONE
+  silent: TEST_STANDALONE,
   testPathIgnorePatterns: TEST_STANDALONE
     ? [
         'tests/format/RespectDefaultOptions',
