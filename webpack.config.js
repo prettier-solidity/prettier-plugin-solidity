@@ -7,6 +7,11 @@ module.exports = (webpackEnv) => {
   return {
     entry: './src/index.js',
 
+    // Avoid bundling Prettier
+    externals: {
+      prettier: 'prettier'
+    },
+
     mode: isEnvProduction ? 'production' : 'development',
     bail: isEnvProduction,
     devtool: isEnvProduction ? undefined : 'cheap-module-source-map',
