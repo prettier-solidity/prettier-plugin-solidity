@@ -44,8 +44,21 @@ module.exports = (webpackEnv) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'standalone.js',
-      globalObject: 'this',
-      library: { name: ['prettierPlugins', 'solidity'], type: 'umd2' }
+      globalObject: `
+        typeof globalThis !== "undefined"
+          ? globalThis
+          : typeof global !== "undefined"
+          ? global
+          : typeof self !== "undefined"
+          ? self
+          : this || {}
+      `,
+      library: {
+        name: {
+          root: ['prettierPlugins', 'solidity']
+        },
+        type: 'umd2'
+      }
     }
   };
 };
