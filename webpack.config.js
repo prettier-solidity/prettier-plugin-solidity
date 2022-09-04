@@ -55,6 +55,7 @@ module.exports = (webpackEnv) => {
       `,
       library: {
         name: {
+          commonjs: 'prettierPluginSolidity',
           root: ['prettierPlugins', 'solidity']
         },
         type: 'umd2'
