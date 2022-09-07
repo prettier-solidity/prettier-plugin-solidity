@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExplicitVariableTypes.sol - {"compiler":"0.8.6","explicitTypes":"never"} format 1`] = `
+exports[`ExplicitVariableTypes.sol - {"explicitTypes":"never"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.6"
 explicitTypes: "never"
 parsers: ["solidity-parse"]
 printWidth: 80
@@ -86,9 +85,8 @@ contract VariableTypesMixed {
 ================================================================================
 `;
 
-exports[`ExplicitVariableTypes.sol - {"compiler":"0.8.6","explicitTypes":"preserve"} format 1`] = `
+exports[`ExplicitVariableTypes.sol - {"explicitTypes":"preserve"} format 1`] = `
 ====================================options=====================================
-compiler: "0.8.6"
 explicitTypes: "preserve"
 parsers: ["solidity-parse"]
 printWidth: 80
@@ -172,9 +170,8 @@ contract VariableTypesMixed {
 ================================================================================
 `;
 
-exports[`ExplicitVariableTypes.sol - {"compiler":"0.8.6"} format 1`] = `
+exports[`ExplicitVariableTypes.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.8.6"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth

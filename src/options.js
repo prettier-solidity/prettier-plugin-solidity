@@ -59,12 +59,6 @@ const options = {
         description: 'Respect the type used by the developer.'
       }
     ]
-  },
-  compiler: {
-    category: CATEGORY_SOLIDITY,
-    type: 'string',
-    description:
-      'The Solidity compiler version to help us avoid critical errors in format for the wrong version.'
   }
 };
 
