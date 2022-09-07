@@ -83,7 +83,7 @@ contract SplittableCommodity is MintableCommodity {
     );
 
     function split(
-        uint256 _tokenId,
+        uint _tokenId,
         address _to,
         uint256 _amount
     ) public whenNotPaused {
@@ -108,7 +108,7 @@ contract SplittableCommodity is MintableCommodity {
             locked: false,
             misc: commodities[_tokenId].misc
         });
-        uint256 newCRCId = commodities.push(_commodity).sub(1);
+        uint newCRCId = commodities.push(_commodity).sub(1);
         require(
             newCRCId <= 18446744073709551616,
             "You can only split a commodity if it is within a valid index range"

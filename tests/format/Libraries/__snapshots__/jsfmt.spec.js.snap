@@ -19,10 +19,10 @@ using { a, very,
         list, with, long, names }       for uint global;
 
 =====================================output=====================================
-using Lib for uint256;
-using Lib for uint256 global;
-using { f } for uint256;
-using { f } for uint256 global;
+using Lib for uint;
+using Lib for uint global;
+using { f } for uint;
+using { f } for uint global;
 using {
     a,
     very,
@@ -34,7 +34,7 @@ using {
     with,
     long,
     names
-} for uint256;
+} for uint;
 using {
     a,
     very,
@@ -46,7 +46,7 @@ using {
     with,
     long,
     names
-} for uint256 global;
+} for uint global;
 
 ================================================================================
 `;
@@ -69,10 +69,11 @@ using { a, very,
         list, with, long, names }       for uint global;
 
 =====================================output=====================================
-using Lib for uint256;
-using Lib for uint256 global;
-using {f} for uint256;
-using {f} for uint256 global;
+using Lib for uint;
+using Lib for uint global;
+using {f} for uint;
+using {f} for uint global;
+using {a, very, long, and, complex, Function, list, with, long, names} for uint;
 using {
     a,
     very,
@@ -84,19 +85,7 @@ using {
     with,
     long,
     names
-} for uint256;
-using {
-    a,
-    very,
-    long,
-    and,
-    complex,
-    Function,
-    list,
-    with,
-    long,
-    names
-} for uint256 global;
+} for uint global;
 
 ================================================================================
 `;

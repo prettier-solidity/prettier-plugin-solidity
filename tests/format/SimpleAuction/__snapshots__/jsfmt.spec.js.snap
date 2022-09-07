@@ -138,21 +138,21 @@ contract SimpleAuction {
     // absolute unix timestamps (seconds since 1970-01-01)
     // or time periods in seconds.
     address public beneficiary;
-    uint256 public auctionEnd;
+    uint public auctionEnd;
 
     // Current state of the auction.
     address public highestBidder;
-    uint256 public highestBid;
+    uint public highestBid;
 
     // Allowed withdrawals of previous bids
-    mapping(address => uint256) pendingReturns;
+    mapping(address => uint) pendingReturns;
 
     // Set to true at the end, disallows any change
     bool ended;
 
     // Events that will be fired on changes.
-    event HighestBidIncreased(address bidder, uint256 amount);
-    event AuctionEnded(address winner, uint256 amount);
+    event HighestBidIncreased(address bidder, uint amount);
+    event AuctionEnded(address winner, uint amount);
 
     // The following is a so-called natspec comment,
     // recognizable by the three slashes.
@@ -162,7 +162,7 @@ contract SimpleAuction {
     /// Create a simple auction with \`_biddingTime\`
     /// seconds bidding time on behalf of the
     /// beneficiary address \`_beneficiary\`.
-    constructor(uint256 _biddingTime, address _beneficiary) public {
+    constructor(uint _biddingTime, address _beneficiary) public {
         beneficiary = _beneficiary;
         auctionEnd = now + _biddingTime;
     }
@@ -201,7 +201,7 @@ contract SimpleAuction {
 
     /// Withdraw a bid that was overbid.
     function withdraw() public returns (bool) {
-        uint256 amount = pendingReturns[msg.sender];
+        uint amount = pendingReturns[msg.sender];
         if (amount > 0) {
             // It is important to set this to zero because the recipient
             // can call this function again as part of the receiving call

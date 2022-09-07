@@ -66,16 +66,6 @@ function parse(text, _parsers, options) {
       // 'bytes1'.
       const pre080 = compiler && semver.satisfies(compiler, '<0.8.0');
       if (!pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
-
-      if (options.explicitTypes === 'always') {
-        if (ctx.name === 'uint') ctx.name = 'uint256';
-        if (ctx.name === 'int') ctx.name = 'int256';
-        if (pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
-      } else if (options.explicitTypes === 'never') {
-        if (ctx.name === 'uint256') ctx.name = 'uint';
-        if (ctx.name === 'int256') ctx.name = 'int';
-        if (pre080 && ctx.name === 'bytes1') ctx.name = 'byte';
-      }
     },
     BinaryOperation(ctx) {
       switch (ctx.operator) {

@@ -67,7 +67,6 @@ The following is the default configuration internally used by this plugin.
         "useTabs": false,
         "singleQuote": false,
         "bracketSpacing": false,
-        "explicitTypes": "always"
       }
     }
   ]
@@ -77,44 +76,6 @@ The following is the default configuration internally used by this plugin.
 Note the use of the [overrides property](https://prettier.io/docs/en/configuration.html#configuration-overrides) which allows for multiple configurations in case there are other languages in the project (i.e. JavaScript, JSON, Markdown).
 
 Most options are described in Prettier's [documentation](https://prettier.io/docs/en/options.html).
-
-### Explicit Types
-
-Solidity provides the aliases `uint` and `int` for `uint256` and `int256` respectively.
-Multiple developers will have different coding styles and prefer one over another.
-This option was added to standardize the code across a project and enforce the usage of one alias over another.
-
-Valid options:
-
-- `"always"`: Prefer explicit types (`uint256`, `int256`, etc.)
-- `"never"`: Prefer type aliases (`uint`, `int`, etc.).
-- `"preserve"`: Respect the type used by the developer.
-
-| Default    | CLI Override                                 | API Override                                 |
-| ---------- | -------------------------------------------- | -------------------------------------------- |
-| `"always"` | `--explicit-types <always\|never\|preserve>` | `explicitTypes: "<always\|never\|preserve>"` |
-
-```Solidity
-// Input
-uint public a;
-int256 public b;
-
-// "explicitTypes": "always"
-uint256 public a;
-int256 public b;
-
-// "explicitTypes": "never"
-uint public a;
-int public b;
-
-// "explicitTypes": "preserve"
-uint public a;
-int256 public b;
-```
-
-Note: if the compiler option is provided and is lesser than 0.8.0, explicitTypes will also consider the alias `byte` for the explicit type `bytes1`.
-
-Note: switching between `uint` and `uint256` does not alter the bytecode at all and we have implemented tests for this. However, there will be a change in the AST reflecting the switch.
 
 ### Compiler (experimental)
 
@@ -155,21 +116,18 @@ The Solidity versions taken into consideration during formatting are:
   uint public c = 1 ** 2 ** 3;
 
   // "compiler": undefined
-  // "explicitTypes": "never"
   bytes1 public a;
-  bytes1 public b;
+  byte public b;
 
   uint public c = 1**2**3;
 
   // "compiler": "0.7.6" (or lesser)
-  // "explicitTypes": "never"
-  byte public a;
+  bytes1 public a;
   byte public b;
 
   uint public c = (1**2)**3;
 
   // "compiler": "0.8.0" (or greater)
-  // "explicitTypes": "never"
   bytes1 public a;
   bytes1 public b;
 

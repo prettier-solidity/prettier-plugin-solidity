@@ -200,7 +200,7 @@ contract MemberAccess {
 
 contract MemberAccessIsEndOfChainCases {
     // break if is an ReturnStatement
-    uint256 a = b.c;
+    uint a = b.c;
 
     function() modifierCase(b.c) {
         // break if is an argument of a FunctionCall
@@ -220,7 +220,7 @@ contract MemberAccessIsEndOfChainCases {
         for (; b.c; ) {}
         // for (;;b.c) {}
         // break if is a part of a VariableDeclarationStatement
-        uint256 a = b.c;
+        uint a = b.c;
         // break if is an ExpressionStatement
         b.c;
         // break if is an TupleExpression

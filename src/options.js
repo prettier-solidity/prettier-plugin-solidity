@@ -40,26 +40,6 @@ const options = {
     default: false,
     description: 'Use single quotes instead of double quotes.'
   },
-  explicitTypes: {
-    category: CATEGORY_SOLIDITY,
-    type: 'choice',
-    default: 'always',
-    description: 'Change when type aliases are used.',
-    choices: [
-      {
-        value: 'always',
-        description: 'Prefer explicit types (`uint256`, `int256`, etc.)'
-      },
-      {
-        value: 'never',
-        description: 'Prefer type aliases (`uint`, `int`, etc.)'
-      },
-      {
-        value: 'preserve',
-        description: 'Respect the type used by the developer.'
-      }
-    ]
-  },
   compiler: {
     category: CATEGORY_SOLIDITY,
     type: 'string',
