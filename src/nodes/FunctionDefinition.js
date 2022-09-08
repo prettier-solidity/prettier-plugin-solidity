@@ -28,7 +28,7 @@ const functionName = (node, options) => {
 const parameters = (parametersType, node, path, print, options) => {
   if (node[parametersType] && node[parametersType].length > 0) {
     return printSeparatedList(path.map(print, parametersType), {
-      grouped: false
+      grouped: node[parametersType].length === 1
     });
   }
   if (node.comments && node.comments.length > 0) {

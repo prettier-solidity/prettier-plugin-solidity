@@ -1023,9 +1023,11 @@ library strings {
      * @param self The slice to operate on.
      * @return A slice containing only the first rune from \`self\`.
      */
-    function nextRune(
-        slice memory self
-    ) internal pure returns (slice memory ret) {
+    function nextRune(slice memory self)
+        internal
+        pure
+        returns (slice memory ret)
+    {
         nextRune(self, ret);
     }
 
