@@ -4,11 +4,6 @@ const {
   }
 } = require('prettier');
 
-const separatedList = (list, firstSeparator, separator, lastSeparator) => [
-  indent([firstSeparator, join(separator, list)]),
-  lastSeparator
-];
-
 // This function will add an indentation to the `list` and separate it from the
 // rest of the `doc` in most cases by a `softline`.
 // the list itself will be printed with a separator that in most cases is a
@@ -21,8 +16,8 @@ const printSeparatedList = (
     lastSeparator = firstSeparator,
     grouped = true
   } = {}
-) =>
-  grouped
-    ? group(separatedList(list, firstSeparator, separator, lastSeparator))
-    : separatedList(list, firstSeparator, separator, lastSeparator);
+) => {
+  const doc = [indent([firstSeparator, join(separator, list)]), lastSeparator];
+  return grouped ? group(doc) : doc;
+};
 module.exports = printSeparatedList;
