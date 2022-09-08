@@ -4,19 +4,25 @@ const {
   }
 } = require('prettier');
 
+const separatedList = (list, firstSeparator, separator, lastSeparator) => [
+  indent([firstSeparator, join(separator, list)]),
+  lastSeparator
+];
+
 // This function will add an indentation to the `list` and separate it from the
 // rest of the `doc` in most cases by a `softline`.
 // the list itself will be printed with a separator that in most cases is a
 // comma (,) and a `line`
-//
-// NOTE: the resulting `doc` is wrapped in a `group` because multiple items
-// are usually their own structure.
 const printSeparatedList = (
   list,
   {
     firstSeparator = softline,
     separator = [',', line],
-    lastSeparator = firstSeparator
+    lastSeparator = firstSeparator,
+    grouped = true
   } = {}
-) => group([indent([firstSeparator, join(separator, list)]), lastSeparator]);
+) =>
+  grouped
+    ? group(separatedList(list, firstSeparator, separator, lastSeparator))
+    : separatedList(list, firstSeparator, separator, lastSeparator);
 module.exports = printSeparatedList;

@@ -258,9 +258,7 @@ interface Comments10 {
         // the lats value
     )/* comment outside the parameters */ external;
 
-    function someOtherFunction(
-        /* checking for Block comment */
-    ) external;
+    function someOtherFunction(/* checking for Block comment */) external;
 }
 
 contract Comments11 {

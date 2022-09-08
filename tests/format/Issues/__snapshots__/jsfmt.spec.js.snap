@@ -156,12 +156,10 @@ contract Issue564 {
 
 =====================================output=====================================
 contract Issue564 {
-    function isAuthorized(bytes32 serviceId, address client)
-        external
-        view
-        override
-        returns (bool)
-    {
+    function isAuthorized(
+        bytes32 serviceId,
+        address client
+    ) external view override returns (bool) {
         WhitelistStatus
             storage whitelistStatus = serviceIdToClientToWhitelistStatus[
                 serviceId

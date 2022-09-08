@@ -236,36 +236,19 @@ interface FunctionInterfaces {
         uint x1,
         uint x2,
         uint x3
-    )
-        returns (
-            uint y1,
-            uint y2,
-            uint y3
-        );
+    ) returns (uint y1, uint y2, uint y3);
 
     function someModifiersSomeReturns()
         modifier1
         modifier2
         modifier3
-        returns (
-            uint y1,
-            uint y2,
-            uint y3
-        );
+        returns (uint y1, uint y2, uint y3);
 
     function someParamSomeModifiersSomeReturns(
         uint x1,
         uint x2,
         uint x3
-    )
-        modifier1
-        modifier2
-        modifier3
-        returns (
-            uint y1,
-            uint y2,
-            uint y3
-        );
+    ) modifier1 modifier2 modifier3 returns (uint y1, uint y2, uint y3);
 
     function someParamsManyModifiers(
         uint x1,
@@ -325,12 +308,7 @@ interface FunctionInterfaces {
         uint x8,
         uint x9,
         uint x10
-    )
-        returns (
-            uint y1,
-            uint y2,
-            uint y3
-        );
+    ) returns (uint y1, uint y2, uint y3);
 
     function manyParamsManyModifiers(
         uint x1,
@@ -568,13 +546,7 @@ contract FunctionDefinitions {
         uint x1,
         uint x2,
         uint x3
-    )
-        returns (
-            uint y1,
-            uint y2,
-            uint y3
-        )
-    {
+    ) returns (uint y1, uint y2, uint y3) {
         a = 1;
     }
 
@@ -582,11 +554,7 @@ contract FunctionDefinitions {
         modifier1
         modifier2
         modifier3
-        returns (
-            uint y1,
-            uint y2,
-            uint y3
-        )
+        returns (uint y1, uint y2, uint y3)
     {
         a = 1;
     }
@@ -595,16 +563,7 @@ contract FunctionDefinitions {
         uint x1,
         uint x2,
         uint x3
-    )
-        modifier1
-        modifier2
-        modifier3
-        returns (
-            uint y1,
-            uint y2,
-            uint y3
-        )
-    {
+    ) modifier1 modifier2 modifier3 returns (uint y1, uint y2, uint y3) {
         a = 1;
     }
 
@@ -674,13 +633,7 @@ contract FunctionDefinitions {
         uint x8,
         uint x9,
         uint x10
-    )
-        returns (
-            uint y1,
-            uint y2,
-            uint y3
-        )
-    {
+    ) returns (uint y1, uint y2, uint y3) {
         a = 1;
     }
 

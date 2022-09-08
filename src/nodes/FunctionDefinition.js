@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { dedent, group, hardline, indent, join, line }
+    builders: { dedent, group, indent, join, line }
   },
   util: { getNextNonSpaceNonCommentCharacterIndex }
 } = require('prettier');
@@ -29,13 +29,7 @@ const functionName = (node, options) => {
 const parameters = (parametersType, node, path, print, options) => {
   if (node[parametersType] && node[parametersType].length > 0) {
     return printSeparatedList(path.map(print, parametersType), {
-      separator: [
-        ',',
-        // To keep consistency any list of parameters will split if it's longer than 2.
-        // For more information see:
-        // https://github.com/prettier-solidity/prettier-plugin-solidity/issues/256
-        node[parametersType].length > 2 ? hardline : line
-      ]
+      grouped: false
     });
   }
   if (node.comments && node.comments.length > 0) {
@@ -93,7 +87,7 @@ const returnParameters = (node, path, print, options) =>
     ? [
         line,
         'returns (',
-        parameters('returnParameters', node, path, print, options),
+        group(parameters('returnParameters', node, path, print, options)),
         ')'
       ]
     : '';
@@ -104,23 +98,25 @@ const body = (node, path, print) => (node.body ? path.call(print, 'body') : '');
 
 const FunctionDefinition = {
   print: ({ node, path, print, options }) => [
-    functionName(node, options),
-    '(',
-    parameters('parameters', node, path, print, options),
-    ')',
-    indent(
-      group([
-        // TODO: sort comments for modifiers and return parameters
-        printComments(node, path, options),
-        visibility(node),
-        stateMutability(node),
-        virtual(node),
-        override(node, path, print),
-        modifiers(node, path, print),
-        returnParameters(node, path, print, options),
-        signatureEnd(node)
-      ])
-    ),
+    group([
+      functionName(node, options),
+      '(',
+      parameters('parameters', node, path, print, options),
+      ')',
+      indent(
+        group([
+          // TODO: sort comments for modifiers and return parameters
+          printComments(node, path, options),
+          visibility(node),
+          stateMutability(node),
+          virtual(node),
+          override(node, path, print),
+          modifiers(node, path, print),
+          returnParameters(node, path, print, options),
+          signatureEnd(node)
+        ])
+      )
+    ]),
     body(node, path, print)
   ]
 };
