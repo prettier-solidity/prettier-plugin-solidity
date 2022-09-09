@@ -45,9 +45,7 @@ const IfStatement = {
 
     const parts = [];
 
-    parts.push(
-      group(['if (', printSeparatedItem(path.call(print, 'condition')), ')'])
-    );
+    parts.push('if (', printSeparatedItem(path.call(print, 'condition')), ')');
     parts.push(printTrueBody(node, path, print));
     if (commentsBetweenIfAndElse.length && node.falseBody) {
       parts.push(hardline);

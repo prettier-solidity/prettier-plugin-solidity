@@ -15,7 +15,9 @@ const DoWhileStatement = {
   print: ({ node, path, print }) => [
     'do',
     printBody(node, path, print),
-    group(['while (', printSeparatedItem(path.call(print, 'condition')), ');'])
+    'while (',
+    printSeparatedItem(path.call(print, 'condition')),
+    ');'
   ]
 };
 

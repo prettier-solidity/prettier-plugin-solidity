@@ -16,7 +16,7 @@ const AssemblyBlock = {
         printPreservingEmptyLines(path, 'operations', options, print),
         printComments(node, path, options)
       ],
-      { firstSeparator: hardline }
+      { firstSeparator: hardline, grouped: false }
     ),
     '}'
   ]
