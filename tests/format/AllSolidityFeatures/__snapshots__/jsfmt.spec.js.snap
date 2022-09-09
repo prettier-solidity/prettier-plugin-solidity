@@ -584,7 +584,7 @@ contract test {
         choices = ActionChoices.GoStraight;
     }
 
-    function getChoice() returns (uint256 d) {
+    function getChoice() returns (uint d) {
         d = uint256(choices);
     }
 
@@ -592,15 +592,15 @@ contract test {
 }
 
 contract Base {
-    function Base(uint256 i) {
+    function Base(uint i) {
         m_i = i;
     }
 
-    uint256 public m_i;
+    uint public m_i;
 }
 
 contract Derived is Base(0) {
-    function Derived(uint256 i) Base(i) {}
+    function Derived(uint i) Base(i) {}
 }
 
 contract C {
@@ -619,7 +619,7 @@ contract C {
 }
 
 contract test {
-    function f(uint256 x, uint256 y) returns (uint256 z) {
+    function f(uint x, uint y) returns (uint z) {
         var c = x + 3;
         var b = 7 + (c * (8 - 7)) - x;
         return -(-b | 0);
@@ -627,34 +627,34 @@ contract test {
 }
 
 contract test {
-    function f(uint256 x, uint256 y) returns (uint256 z) {
+    function f(uint x, uint y) returns (uint z) {
         return 10;
     }
 }
 
 contract c {
-    function() returns (uint256) {
+    function() returns (uint) {
         return g(8);
     }
 
-    function g(uint256 pos) internal returns (uint256) {
+    function g(uint pos) internal returns (uint) {
         setData(pos, 8);
         return getData(pos);
     }
 
-    function setData(uint256 pos, uint256 value) internal {
+    function setData(uint pos, uint value) internal {
         data[pos] = value;
     }
 
-    function getData(uint256 pos) internal {
+    function getData(uint pos) internal {
         return data[pos];
     }
 
-    mapping(uint256 => uint256) data;
+    mapping(uint => uint) data;
 }
 
 contract Sharer {
-    function sendHalf(address addr) returns (uint256 balance) {
+    function sendHalf(address addr) returns (uint balance) {
         if (!addr.send(msg.value / 2)) throw; // also reverts the transfer to Sharer
         return address(this).balance;
     }
@@ -664,17 +664,17 @@ contract Sharer {
 library IntegerSet {
     struct data {
         /// Mapping item => index (or zero if not present)
-        mapping(uint256 => uint256) index;
+        mapping(uint => uint) index;
         /// Items by index (index 0 is invalid), items with index[item] == 0 are invalid.
-        uint256[] items;
+        uint[] items;
         /// Number of stored items.
-        uint256 size;
+        uint size;
     }
 
-    function insert(data storage self, uint256 value)
+    function insert(data storage self, uint value)
         returns (bool alreadyPresent)
     {
-        uint256 index = self.index[value];
+        uint index = self.index[value];
         if (index > 0) return true;
         else {
             if (self.items.length == 0) self.items.length = 1;
@@ -686,28 +686,28 @@ library IntegerSet {
         }
     }
 
-    function remove(data storage self, uint256 value) returns (bool success) {
-        uint256 index = self.index[value];
+    function remove(data storage self, uint value) returns (bool success) {
+        uint index = self.index[value];
         if (index == 0) return false;
         delete self.index[value];
         delete self.items[index];
         self.size--;
     }
 
-    function contains(data storage self, uint256 value) returns (bool) {
+    function contains(data storage self, uint value) returns (bool) {
         return self.index[value] > 0;
     }
 
-    function iterate_start(data storage self) returns (uint256 index) {
+    function iterate_start(data storage self) returns (uint index) {
         return iterate_advance(self, 0);
     }
 
-    function iterate_valid(data storage self, uint256 index) returns (bool) {
+    function iterate_valid(data storage self, uint index) returns (bool) {
         return index < self.items.length;
     }
 
-    function iterate_advance(data storage self, uint256 index)
-        returns (uint256 r_index)
+    function iterate_advance(data storage self, uint index)
+        returns (uint r_index)
     {
         index++;
         while (
@@ -716,9 +716,7 @@ library IntegerSet {
         return index;
     }
 
-    function iterate_get(data storage self, uint256 index)
-        returns (uint256 value)
-    {
+    function iterate_get(data storage self, uint index) returns (uint value) {
         return self.items[index];
     }
 }
@@ -729,7 +727,7 @@ contract User {
     IntegerSet.data data;
 
     /// Insert something
-    function insert(uint256 v) returns (uint256 size) {
+    function insert(uint v) returns (uint size) {
         /// Sends \`data\` via reference, so IntegerSet can modify it.
         IntegerSet.insert(data, v);
         /// We can access members of the struct - but we should take care not to mess with them.
@@ -737,7 +735,7 @@ contract User {
     }
 
     /// Computes the sum of all stored data.
-    function sum() returns (uint256 s) {
+    function sum() returns (uint s) {
         for (
             var i = IntegerSet.iterate_start(data);
             IntegerSet.iterate_valid(data, i);
@@ -748,7 +746,7 @@ contract User {
 
 // This broke it at one point (namely the modifiers).
 contract DualIndex {
-    mapping(uint256 => mapping(uint256 => uint256)) data;
+    mapping(uint => mapping(uint => uint)) data;
     address public admin;
 
     modifier restricted() {
@@ -760,11 +758,11 @@ contract DualIndex {
     }
 
     function set(
-        uint256 key1,
-        uint256 key2,
-        uint256 value
+        uint key1,
+        uint key2,
+        uint value
     ) restricted {
-        uint256[2][4] memory defaults; // "memory" broke things at one time.
+        uint[2][4] memory defaults; // "memory" broke things at one time.
         data[key1][key2] = value;
     }
 
@@ -772,7 +770,7 @@ contract DualIndex {
         admin = _admin;
     }
 
-    function lookup(uint256 key1, uint256 key2) returns (uint256) {
+    function lookup(uint key1, uint key2) returns (uint) {
         return data[key1][key2];
     }
 }
@@ -784,18 +782,18 @@ contract B {}
 contract C is A, B {}
 
 contract TestPrivate {
-    uint256 private value;
+    uint private value;
 }
 
 contract TestInternal {
-    uint256 internal value;
+    uint internal value;
 }
 
 contract FromSolparse is A, B, TestPrivate, TestInternal {
     function() {
-        uint256 a = 6**9;
+        uint a = 6**9;
         var (x) = 100;
-        uint256 y = 2 days;
+        uint y = 2 days;
     }
 }
 
@@ -815,19 +813,19 @@ library VarHasBrackets {
 }
 
 library UsingExampleLibrary {
-    function sum(uint256[] storage self) returns (uint256 s) {
-        for (uint256 i = 0; i < self.length; i++) s += self[i];
+    function sum(uint[] storage self) returns (uint s) {
+        for (uint i = 0; i < self.length; i++) s += self[i];
     }
 }
 
 contract UsingExampleContract {
     using UsingExampleLibrary for *;
-    using UsingExampleLibrary for uint256[];
-    using Example.UsingExampleLibrary for uint256;
+    using UsingExampleLibrary for uint[];
+    using Example.UsingExampleLibrary for uint;
 }
 
 contract NewStuff {
-    uint256[] b;
+    uint[] b;
 
     function someFunction() payable {
         string storage a = hex"ab1248fe";
@@ -873,9 +871,9 @@ contract assemblyLocalBinding {
 }
 
 contract assemblyReturn {
-    uint256 a = 10;
+    uint a = 10;
 
-    function get() constant returns (uint256) {
+    function get() constant returns (uint) {
         assembly {
             mstore(0x40, sload(0))
             byte(0)
@@ -886,40 +884,40 @@ contract assemblyReturn {
 }
 
 contract usesConst {
-    uint256 const = 0;
+    uint const = 0;
 }
 
 contract memoryArrays {
-    uint256 seven = 7;
+    uint seven = 7;
 
-    function returnNumber(uint256 number) returns (uint256) {
+    function returnNumber(uint number) returns (uint) {
         return number;
     }
 
     function alloc() {
-        uint256[] memory a = new uint256[](7);
-        uint256[] memory b = new uint256[](returnNumber(seven));
+        uint[] memory a = new uint[](7);
+        uint[] memory b = new uint[](returnNumber(seven));
     }
 }
 
 contract DeclarativeExpressions {
-    uint256 a;
-    uint256 b = 7;
-    uint256 b2 = 0;
-    uint256 public c;
-    uint256 public constant d;
-    uint256 public constant e;
-    uint256 private constant f = 7;
+    uint a;
+    uint b = 7;
+    uint b2 = 0;
+    uint public c;
+    uint public constant d;
+    uint public constant e;
+    uint private constant f = 7;
     struct S {
-        uint256 q;
+        uint q;
     }
 
-    function ham(S storage s1, uint256[] storage arr) internal {
-        uint256 x;
-        uint256 y = 7;
+    function ham(S storage s1, uint[] storage arr) internal {
+        uint x;
+        uint y = 7;
         S storage s2 = s1;
-        uint256[] memory stor;
-        uint256[] storage stor2 = arr;
+        uint[] memory stor;
+        uint[] storage stor2 = arr;
     }
 }
 
@@ -940,13 +938,13 @@ contract VariableDeclarationTuple {
 }
 
 contract TypeIndexSpacing {
-    uint256[7] x;
-    uint256[] y;
+    uint[7] x;
+    uint[] y;
 }
 
 contract Ballot {
     struct Voter {
-        uint256 weight;
+        uint weight;
         bool voted;
     }
 
@@ -958,7 +956,7 @@ contract Ballot {
         payable
         owner(myPrice)
         returns (
-            uint256[],
+            uint[],
             address myAdd,
             string[] names
         )
@@ -968,7 +966,7 @@ contract Ballot {
         payable
         owner(myPrice)
         returns (
-            uint256[],
+            uint[],
             address myAdd,
             string[] names
         );
@@ -981,7 +979,7 @@ contract Ballot {
 }
 
 contract multilineReturn {
-    function a() returns (uint256 x) {
+    function a() returns (uint x) {
         return 5;
     }
 }
@@ -997,12 +995,12 @@ contract continueStatement {
 abstract contract AbstractContract {}
 
 contract ContractWithVirtual {
-    function foo() public virtual returns (uint256) {}
+    function foo() public virtual returns (uint) {}
 }
 
 struct TopLevelStruct {
-    uint256 x;
-    uint256 y;
+    uint x;
+    uint y;
 }
 
 enum TopLevelEnum {
@@ -1086,9 +1084,9 @@ contract Overrides {
 }
 
 contract ConstructorWithoutVisibility {
-    uint256 public x;
+    uint public x;
 
-    constructor(uint256 _x) {
+    constructor(uint _x) {
         x = _x;
     }
 }
@@ -1110,7 +1108,7 @@ contract FunctionTypes {
 }
 
 // top-level function
-function foo() pure returns (uint256) {
+function foo() pure returns (uint) {
     return 42;
 }
 
@@ -1118,19 +1116,19 @@ contract AnonymousEvent {
     event MyEvent() anonymous;
 }
 
-uint256 constant MULTIPLIER = 2**EXPONENT;
+uint constant MULTIPLIER = 2**EXPONENT;
 
 contract WithUncheckedBlock {
-    function f() public pure returns (uint256) {
-        uint256 x = 0;
+    function f() public pure returns (uint) {
+        uint x = 0;
         unchecked {
             x--;
         }
         return x;
     }
 
-    function g() public pure returns (uint256) {
-        uint256 x = 0;
+    function g() public pure returns (uint) {
+        uint x = 0;
         unchecked {
             x--;
             return x;

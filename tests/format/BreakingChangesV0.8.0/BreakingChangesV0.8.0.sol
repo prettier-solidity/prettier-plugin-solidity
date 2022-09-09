@@ -11,9 +11,8 @@ contract BreakingChangesV080 {
     uint a = 1**2**3;
 
     /**
-     * - if options.compiler is undefined we enforce the use of bytes1.
-     * - if options.compiler is lower than 0.8.0 we rely on
-     *   options.explicitTypes to decide wether to use byte or bytes1.
+     * - if options.compiler is undefined or lower than 0.8.0 we enforce the
+     *   use of bytes1.
      * - if options.compiler is greater than or equal to 0.8.0 we enforce the
      *   use of bytes1.
      */

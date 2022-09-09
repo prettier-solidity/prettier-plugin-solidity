@@ -82,11 +82,11 @@ contract IndexOf {
         creator = msg.sender;
     }
 
-    int256 whatwastheval = -10; // -2 = not yet tested, as separate from -1, tested but error
+    int whatwastheval = -10; // -2 = not yet tested, as separate from -1, tested but error
 
     function indexOf(string _a, string _b)
         returns (
-            int256 // _a = string to search, _b = string we want to find
+            int // _a = string to search, _b = string we want to find
         )
     {
         bytes memory a = bytes(_a);
@@ -102,8 +102,8 @@ contract IndexOf {
             whatwastheval = -1;
             return -1;
         } else {
-            uint256 subindex = 0;
-            for (uint256 i = 0; i < a.length; i++) {
+            uint subindex = 0;
+            for (uint i = 0; i < a.length; i++) {
                 if (a[i] == b[0]) // found the first char of b
                 {
                     subindex = 1;
@@ -115,8 +115,8 @@ contract IndexOf {
                         subindex++;
                     }
                     if (subindex == b.length) {
-                        whatwastheval = int256(i);
-                        return int256(i);
+                        whatwastheval = int(i);
+                        return int(i);
                     }
                 }
             }
@@ -125,7 +125,7 @@ contract IndexOf {
         }
     }
 
-    function whatWasTheVal() constant returns (int256) {
+    function whatWasTheVal() constant returns (int) {
         return whatwastheval;
     }
 

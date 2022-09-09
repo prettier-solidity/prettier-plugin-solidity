@@ -46,11 +46,11 @@ contract WhileStatements {
 
 =====================================output=====================================
 contract WhileStatements {
-    uint256 constant LONG_VARIABLE = 1;
+    uint constant LONG_VARIABLE = 1;
 
     function whileStatements() public {
-        uint256 a;
-        uint256 veryLongVariableName;
+        uint a;
+        uint veryLongVariableName;
 
         while (a < 100) a++;
 
@@ -77,8 +77,8 @@ contract WhileStatements {
     }
 
     function doWhileStatements() public {
-        uint256 a;
-        uint256 veryLongVariableName;
+        uint a;
+        uint veryLongVariableName;
 
         do a++; while (a < 100);
 

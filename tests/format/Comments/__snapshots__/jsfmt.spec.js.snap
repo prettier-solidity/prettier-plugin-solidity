@@ -213,9 +213,9 @@ contract Comments4 is
 
 contract Comments7 {
     function someFunction(
-        uint256 a, // the first value
-        uint256 b, // the second value
-        uint256 c // the lats value
+        uint a, // the first value
+        uint b, // the second value
+        uint c // the lats value
     ) {
         someFunction(
             a, // the first value

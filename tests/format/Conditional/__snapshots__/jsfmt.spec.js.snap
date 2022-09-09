@@ -72,7 +72,7 @@ contract Conditional {
     // }
 
     function bar() {
-        uint256 a = true ? 0 : 1;
+        uint a = true ? 0 : 1;
     }
 }
 
