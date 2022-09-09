@@ -80,7 +80,7 @@
     "lines-and-columns": "^2.0.3",
     "outdent": "^0.8.0",
     "prettier": "^2.7.1",
-    "solc": "^0.8.16"
+    "solc": "^0.8.17"
   },
   "dependencies": {
     "@solidity-parser/parser": "^0.14.3",
