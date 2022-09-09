@@ -63,11 +63,10 @@ contract FunctionCalls {
         Voter airbnb = Voter({ weight: 2, voted: true });
     }
 
-    function verify(ForwardRequest calldata req, bytes calldata signature)
-        public
-        view
-        returns (bool)
-    {
+    function verify(
+        ForwardRequest calldata req,
+        bytes calldata signature
+    ) public view returns (bool) {
         address signer = _hashTypedDataV1(
             keccak256(
                 abi.encode(
@@ -217,11 +216,10 @@ contract FunctionCalls {
         Voter airbnb = Voter({weight: 2, voted: true});
     }
 
-    function verify(ForwardRequest calldata req, bytes calldata signature)
-        public
-        view
-        returns (bool)
-    {
+    function verify(
+        ForwardRequest calldata req,
+        bytes calldata signature
+    ) public view returns (bool) {
         address signer = _hashTypedDataV1(
             keccak256(
                 abi.encode(

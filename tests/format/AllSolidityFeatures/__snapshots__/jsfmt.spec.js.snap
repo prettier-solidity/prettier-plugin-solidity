@@ -671,9 +671,10 @@ library IntegerSet {
         uint size;
     }
 
-    function insert(data storage self, uint value)
-        returns (bool alreadyPresent)
-    {
+    function insert(
+        data storage self,
+        uint value
+    ) returns (bool alreadyPresent) {
         uint index = self.index[value];
         if (index > 0) return true;
         else {
@@ -706,9 +707,10 @@ library IntegerSet {
         return index < self.items.length;
     }
 
-    function iterate_advance(data storage self, uint index)
-        returns (uint r_index)
-    {
+    function iterate_advance(
+        data storage self,
+        uint index
+    ) returns (uint r_index) {
         index++;
         while (
             iterate_valid(self, index) && self.index[self.items[index]] == index
@@ -757,11 +759,7 @@ contract DualIndex {
         admin = msg.sender;
     }
 
-    function set(
-        uint key1,
-        uint key2,
-        uint value
-    ) restricted {
+    function set(uint key1, uint key2, uint value) restricted {
         uint[2][4] memory defaults; // "memory" broke things at one time.
         data[key1][key2] = value;
     }
@@ -955,21 +953,13 @@ contract Ballot {
     function foobar()
         payable
         owner(myPrice)
-        returns (
-            uint[],
-            address myAdd,
-            string[] names
-        )
+        returns (uint[], address myAdd, string[] names)
     {}
 
     function foobar()
         payable
         owner(myPrice)
-        returns (
-            uint[],
-            address myAdd,
-            string[] names
-        );
+        returns (uint[], address myAdd, string[] names);
 
     Voter you = Voter(1, true);
 
