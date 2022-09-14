@@ -77,9 +77,9 @@ Note the use of the [overrides property](https://prettier.io/docs/en/configurati
 
 Most options are described in Prettier's [documentation](https://prettier.io/docs/en/options.html).
 
-### Compiler (experimental)
+### Compiler
 
-Many versions of the Solidity compiler have changes that affect how the code should be formatted. This plugin, by default, tries to format the code in the most compatible way that it's possible, but you can use the experimental `compiler` option to nudge it in the right direction.
+Many versions of the Solidity compiler have changes that affect how the code should be formatted. This plugin, by default, tries to format the code in the most compatible way that it's possible, but you can use the `compiler` option to nudge it in the right direction.
 
 One example of this is import directives. Before `0.7.4`, the compiler didn't accept multi-line import statements, so we always format them in a single line. But if you use the `compiler` option to indicate that you are using a version greater or equal than `0.7.4`, the plugin will use multi-line imports when it makes sense.
 
