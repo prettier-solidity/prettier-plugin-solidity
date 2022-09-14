@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, line }
+    builders: { line }
   }
 } = require('prettier');
 
@@ -16,17 +16,15 @@ const AssemblyFunctionDefinition = {
     ')',
     node.returnArguments.length === 0
       ? ' '
-      : group(
-          printSeparatedItem(
-            [
-              '->',
-              printSeparatedList(path.map(print, 'returnArguments'), {
-                firstSeparator: line,
-                lastSeparator: ''
-              })
-            ],
-            { firstSeparator: line }
-          )
+      : printSeparatedItem(
+          [
+            '->',
+            printSeparatedList(path.map(print, 'returnArguments'), {
+              firstSeparator: line,
+              lastSeparator: ''
+            })
+          ],
+          { firstSeparator: line }
         ),
     path.call(print, 'body')
   ]

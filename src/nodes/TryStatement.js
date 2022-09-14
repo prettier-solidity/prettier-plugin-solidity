@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, join, line }
+    builders: { join, line }
   }
 } = require('prettier');
 
@@ -20,11 +20,9 @@ const TryStatement = {
   print: ({ node, path, print }) => {
     let parts = [
       'try',
-      group(
-        printSeparatedItem(path.call(print, 'expression'), {
-          firstSeparator: line
-        })
-      )
+      printSeparatedItem(path.call(print, 'expression'), {
+        firstSeparator: line
+      })
     ];
 
     const formattedReturnParameters = returnParameters(node, path, print);

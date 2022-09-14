@@ -13,7 +13,9 @@ const printBody = (node, path, print) =>
 
 const WhileStatement = {
   print: ({ node, path, print }) => [
-    group(['while (', printSeparatedItem(path.call(print, 'condition')), ')']),
+    'while (',
+    printSeparatedItem(path.call(print, 'condition')),
+    ')',
     printBody(node, path, print)
   ]
 };

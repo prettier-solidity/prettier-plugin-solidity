@@ -26,7 +26,7 @@ const body = (node, path, options, print) =>
           printPreservingEmptyLines(path, 'subNodes', options, print),
           printComments(node, path, options)
         ],
-        { firstSeparator: hardline }
+        { firstSeparator: hardline, grouped: false }
       )
     : '';
 
