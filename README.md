@@ -81,7 +81,7 @@ Most options are described in Prettier's [documentation](https://prettier.io/doc
 
 Many versions of the Solidity compiler have changes that affect how the code should be formatted. This plugin, by default, tries to format the code in the most compatible way that it's possible, but you can use the experimental `compiler` option to nudge it in the right direction.
 
-One example of this are import directives. Before `0.7.4`, the compiler didn't accept multi-line import statements, so we always format them in a single line. But if you use the `compiler` option to indicate that you are using a version greater or equal than `0.7.4`, the plugin will use multi-line imports when it makes sense.
+One example of this is import directives. Before `0.7.4`, the compiler didn't accept multi-line import statements, so we always format them in a single line. But if you use the `compiler` option to indicate that you are using a version greater or equal than `0.7.4`, the plugin will use multi-line imports when it makes sense.
 
 The Solidity versions taken into consideration during formatting are:
 
@@ -275,7 +275,7 @@ Now VSCode's `settings.json` should have this:
 }
 ```
 
-Note: By design, Prettier prioritizes a local over a global configuration. If you have a `.prettierrc` file in your porject, your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
+Note: By design, Prettier prioritizes a local over a global configuration. If you have a `.prettierrc` file in your project, your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
 
 ## Edge cases
 
@@ -310,7 +310,7 @@ Notice that the unnecessary parentheses in `modifier2` were removed in the funct
 1. [Fork it](https://github.com/prettier-solidity/prettier-plugin-solidity/fork)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. All existing test and coverage must pass (`npm run test:all`), if coverage drops below 100% add missing tests.
+4. All existing tests and coverage must pass (`npm run test:all`), if coverage drops below 100% add missing tests.
 5. Push to the branch (`git push origin feature/fooBar`)
 6. Create a new Pull Request
 
