@@ -60,6 +60,10 @@ module.exports = (webpackEnv) => {
         },
         type: 'umd2'
       }
+    },
+    performance: {
+      maxEntrypointSize: 1024 * 1024,
+      maxAssetSize: 1024 * 1024
     }
   };
 };
