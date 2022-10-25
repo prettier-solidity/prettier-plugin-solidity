@@ -233,6 +233,14 @@ contract MultipleAssemblyAssignement {
     }
 }
 
+contract AssemblyStackAssignment {
+  function f() public {
+    assembly {
+      4 =: y
+    }
+  }
+}
+
 =====================================output=====================================
 contract Assembly {
     function ifAssembly() {
@@ -496,6 +504,14 @@ contract MultipleAssemblyAssignement {
             }
 
             let i, j := bar()
+        }
+    }
+}
+
+contract AssemblyStackAssignment {
+    function f() public {
+        assembly {
+            4 =: y
         }
     }
 }

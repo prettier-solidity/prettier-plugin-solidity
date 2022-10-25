@@ -224,3 +224,11 @@ contract MultipleAssemblyAssignement {
         }
     }
 }
+
+contract AssemblyStackAssignment {
+  function f() public {
+    assembly {
+      4 =: y
+    }
+  }
+}
