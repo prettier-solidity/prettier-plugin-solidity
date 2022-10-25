@@ -57,6 +57,11 @@ contract MemberAccess {
             path,
             address(this, aoeu, aoeueu, aoeu)
         );
+        vm.mockCall(
+            f.address,
+            abi.encodeWithSelector(f.selector),
+            abi.encode(returned1)
+        );
     }
 }
 
