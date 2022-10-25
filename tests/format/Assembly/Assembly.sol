@@ -201,3 +201,13 @@ for { let i := 0 } lt(i, x) { i := add(i, 1) } {
 }
 }
 }
+
+contract BooleanLiteralsInAssembly {
+  function f() {
+    uint a;
+    assembly {
+      a := true
+      a := false
+    }
+  }
+}
