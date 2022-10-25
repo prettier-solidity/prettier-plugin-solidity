@@ -211,3 +211,16 @@ contract BooleanLiteralsInAssembly {
     }
   }
 }
+
+contract MultipleAssemblyAssignement {
+    function foo() public pure {
+        assembly {
+            function bar() -> a, b {
+                a := 1
+                b := 2
+            }
+
+            let i, j := bar()
+        }
+    }
+}

@@ -220,6 +220,19 @@ contract BooleanLiteralsInAssembly {
   }
 }
 
+contract MultipleAssemblyAssignement {
+    function foo() public pure {
+        assembly {
+            function bar() -> a, b {
+                a := 1
+                b := 2
+            }
+
+            let i, j := bar()
+        }
+    }
+}
+
 =====================================output=====================================
 contract Assembly {
     function ifAssembly() {
@@ -470,6 +483,19 @@ contract BooleanLiteralsInAssembly {
         assembly {
             a := true
             a := false
+        }
+    }
+}
+
+contract MultipleAssemblyAssignement {
+    function foo() public pure {
+        assembly {
+            function bar() -> a, b {
+                a := 1
+                b := 2
+            }
+
+            let i, j := bar()
         }
     }
 }
