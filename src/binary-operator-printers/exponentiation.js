@@ -1,6 +1,6 @@
 const {
   doc: {
-    builders: { group, ifBreak, indent, softline }
+    builders: { group, ifBreak, indent, line }
   }
 } = require('prettier');
 
@@ -8,9 +8,9 @@ module.exports = {
   match: (op) => op === '**',
   print: (node, path, print) => {
     const right = [
-      ifBreak(' ', ''),
+      ' ',
       node.operator,
-      softline,
+      line,
       path.call(print, 'right')
     ];
     // If it's a single binary operation, avoid having a small right

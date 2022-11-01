@@ -789,7 +789,7 @@ contract TestInternal {
 
 contract FromSolparse is A, B, TestPrivate, TestInternal {
     function() {
-        uint a = 6**9;
+        uint a = 6 ** 9;
         var (x) = 100;
         uint y = 2 days;
     }
@@ -1106,7 +1106,7 @@ contract AnonymousEvent {
     event MyEvent() anonymous;
 }
 
-uint constant MULTIPLIER = 2**EXPONENT;
+uint constant MULTIPLIER = 2 ** EXPONENT;
 
 contract WithUncheckedBlock {
     function f() public pure returns (uint) {
