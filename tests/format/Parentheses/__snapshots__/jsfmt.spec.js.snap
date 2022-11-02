@@ -150,7 +150,7 @@ contract AddNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a + b**c;
+        return a + b ** c;
     }
 
     function addShiftL(
@@ -347,7 +347,7 @@ contract BitAndNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & (b**c);
+        return a & (b ** c);
     }
 
     function bitAndShiftL(
@@ -544,7 +544,7 @@ contract BitOrNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | (b**c);
+        return a | (b ** c);
     }
 
     function bitOrShiftL(
@@ -741,7 +741,7 @@ contract BitXorNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ (b**c);
+        return a ^ (b ** c);
     }
 
     function bitXorShiftL(
@@ -938,7 +938,7 @@ contract DivNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a / b**c;
+        return a / b ** c;
     }
 
     function divShiftL(
@@ -1095,7 +1095,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a**b + c;
+        return a ** b + c;
     }
 
     function expSub(
@@ -1103,7 +1103,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a**b - c;
+        return a ** b - c;
     }
 
     function expMul(
@@ -1111,7 +1111,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a**b * c;
+        return a ** b * c;
     }
 
     function expDiv(
@@ -1119,7 +1119,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a**b / c;
+        return a ** b / c;
     }
 
     function expMod(
@@ -1127,7 +1127,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a**b % c;
+        return a ** b % c;
     }
 
     function expExp(
@@ -1135,7 +1135,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a**(b**c);
+        return a ** (b ** c);
     }
 
     function expShiftL(
@@ -1143,7 +1143,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return (a**b) << c;
+        return (a ** b) << c;
     }
 
     function expShiftR(
@@ -1151,7 +1151,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return (a**b) >> c;
+        return (a ** b) >> c;
     }
 
     function expBitAnd(
@@ -1159,7 +1159,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return (a**b) & c;
+        return (a ** b) & c;
     }
 
     function expBitOr(
@@ -1167,7 +1167,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return (a**b) | c;
+        return (a ** b) | c;
     }
 
     function expBitXor(
@@ -1175,7 +1175,7 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return (a**b) ^ c;
+        return (a ** b) ^ c;
     }
 }
 
@@ -1385,7 +1385,7 @@ contract ModNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a % b**c;
+        return a % b ** c;
     }
 
     function modShiftL(
@@ -1582,7 +1582,7 @@ contract MulNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a * b**c;
+        return a * b ** c;
     }
 
     function mulShiftL(
@@ -1779,7 +1779,7 @@ contract ShiftLNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << (b**c);
+        return a << (b ** c);
     }
 
     function shiftLShiftL(
@@ -1976,7 +1976,7 @@ contract ShiftRNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> (b**c);
+        return a >> (b ** c);
     }
 
     function shiftRShiftL(
@@ -2173,7 +2173,7 @@ contract SubNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a - b**c;
+        return a - b ** c;
     }
 
     function subShiftL(

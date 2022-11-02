@@ -202,8 +202,8 @@ contract ArithmeticOperators {
         a * b;
         a / b;
         a % b;
-        a**b;
-        (a % b) + c - (d * e) / f**g;
+        a ** b;
+        (a % b) + c - (d * e) / f ** g;
         veryVeryVeryVeryVeryLongVariableCalledA +
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA -
@@ -218,7 +218,7 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA +
             veryVeryVeryVeryVeryLongVariableCalledB -
-            (((c * d) / e) % f**g);
+            (((c * d) / e) % f ** g);
         a =
             veryVeryVeryVeryVeryLongVariableCalledA +
             veryVeryVeryVeryVeryLongVariableCalledB;
@@ -286,14 +286,23 @@ contract ArithmeticOperators {
 contract ArithmeticOperators {
     // ['**']
     function someFunction() {
-        a**b;
-        a**c * d**e;
-        a**c * d**e * a**c * d**e * a**c * d**e * a**c * d**e * a**c * d**e;
+        a ** b;
+        a ** c * d ** e;
+        a ** c *
+            d ** e *
+            a ** c *
+            d ** e *
+            a ** c *
+            d ** e *
+            a ** c *
+            d ** e *
+            a ** c *
+            d ** e;
         veryVeryVeryVeryVeryLongVariableCalledA **
             veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongVariableCalledA *
-            veryVeryVeryVeryVeryLongVariableCalledB**c;
-        c**veryVeryVeryVeryVeryLongVariableCalledA *
+            veryVeryVeryVeryVeryLongVariableCalledB ** c;
+        c ** veryVeryVeryVeryVeryLongVariableCalledA *
             veryVeryVeryVeryVeryLongVariableCalledB;
         a =
             veryVeryVeryVeryVeryLongVariableCalledA **
@@ -332,7 +341,7 @@ contract ArithmeticOperators {
                 veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongFunctionCalledA(
             veryVeryVeryVeryVeryLongVariableCalledB
-        )**c;
+        ) ** c;
         veryVeryVeryVeryVeryLongFunctionCalledA(
             veryVeryVeryVeryVeryLongVariableCalledB
         ) **
@@ -349,17 +358,17 @@ contract ArithmeticOperators {
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            )**c
+            ) ** c
         ) {}
         a(
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            )**c
+            ) ** c
         );
         return
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            )**c;
+            ) ** c;
     }
 }
 
@@ -825,7 +834,7 @@ contract Parentheses {
         a + b * c;
         a + b / c;
         a + (b % c);
-        a + b**c;
+        a + b ** c;
         (a + b) << c;
         (a + b) >> c;
         (a + b) & c;
@@ -836,7 +845,7 @@ contract Parentheses {
         a - b * c;
         a - b / c;
         a - (b % c);
-        a - b**c;
+        a - b ** c;
         (a - b) << c;
         (a - b) >> c;
         (a - b) & c;
@@ -847,7 +856,7 @@ contract Parentheses {
         a * b * c;
         (a * b) / c;
         (a * b) % c;
-        a * b**c;
+        a * b ** c;
         (a * b) << c;
         (a * b) >> c;
         (a * b) & c;
@@ -858,7 +867,7 @@ contract Parentheses {
         (a / b) * c;
         a / b / c;
         (a / b) % c;
-        a / b**c;
+        a / b ** c;
         (a / b) << c;
         (a / b) >> c;
         (a / b) & c;
@@ -869,29 +878,29 @@ contract Parentheses {
         (a % b) * c;
         (a % b) / c;
         (a % b) % c;
-        a % b**c;
+        a % b ** c;
         a % b << c;
         a % b >> c;
         a % b & c;
         a % b | c;
         a % b ^ c;
-        a**b + c;
-        a**b - c;
-        a**b * c;
-        a**b / c;
-        a**b % c;
-        a**b**c;
-        (a**b) << c;
-        (a**b) >> c;
-        (a**b) & c;
-        (a**b) | c;
-        (a**b) ^ c;
+        a ** b + c;
+        a ** b - c;
+        a ** b * c;
+        a ** b / c;
+        a ** b % c;
+        a ** b ** c;
+        (a ** b) << c;
+        (a ** b) >> c;
+        (a ** b) & c;
+        (a ** b) | c;
+        (a ** b) ^ c;
         a << (b + c);
         a << (b - c);
         a << (b * c);
         a << (b / c);
         a << b % c;
-        a << (b**c);
+        a << (b ** c);
         (a << b) << c;
         (a << b) >> c;
         (a << b) & c;
@@ -902,7 +911,7 @@ contract Parentheses {
         a >> (b * c);
         a >> (b / c);
         a >> b % c;
-        a >> (b**c);
+        a >> (b ** c);
         (a >> b) << c;
         (a >> b) >> c;
         (a >> b) & c;
@@ -913,7 +922,7 @@ contract Parentheses {
         a & (b * c);
         a & (b / c);
         a & b % c;
-        a & (b**c);
+        a & (b ** c);
         a & (b << c);
         a & (b >> c);
         a & b & c;
@@ -924,7 +933,7 @@ contract Parentheses {
         a | (b * c);
         a | (b / c);
         a | b % c;
-        a | (b**c);
+        a | (b ** c);
         a | (b << c);
         a | (b >> c);
         a | (b & c);
@@ -935,7 +944,7 @@ contract Parentheses {
         a ^ (b * c);
         a ^ (b / c);
         a ^ b % c;
-        a ^ (b**c);
+        a ^ (b ** c);
         a ^ (b << c);
         a ^ (b >> c);
         a ^ (b & c);
