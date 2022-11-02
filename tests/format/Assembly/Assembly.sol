@@ -201,3 +201,34 @@ for { let i := 0 } lt(i, x) { i := add(i, 1) } {
 }
 }
 }
+
+contract BooleanLiteralsInAssembly {
+  function f() {
+    uint a;
+    assembly {
+      a := true
+      a := false
+    }
+  }
+}
+
+contract MultipleAssemblyAssignement {
+    function foo() public pure {
+        assembly {
+            function bar() -> a, b {
+                a := 1
+                b := 2
+            }
+
+            let i, j := bar()
+        }
+    }
+}
+
+contract AssemblyStackAssignment {
+  function f() public {
+    assembly {
+      4 =: y
+    }
+  }
+}

@@ -1,4 +1,4 @@
-/* This file was automatically generated on 1657595765.093 */
+/* This file was automatically generated on 1666691919.885 */
 
 /* eslint-disable global-require */
 
@@ -13,6 +13,7 @@ module.exports = {
   AssemblyIf: require('./AssemblyIf'),
   AssemblyLocalDefinition: require('./AssemblyLocalDefinition'),
   AssemblyMemberAccess: require('./AssemblyMemberAccess'),
+  AssemblyStackAssignment: require('./AssemblyStackAssignment'),
   AssemblySwitch: require('./AssemblySwitch'),
   BinaryOperation: require('./BinaryOperation'),
   Block: require('./Block'),
