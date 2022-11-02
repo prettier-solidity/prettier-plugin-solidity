@@ -1,4 +1,4 @@
-const AssemblyAssignment = {
+const AssemblyStackAssignment = {
   print: ({ node, path, print }) => [
     path.call(print, 'expression'),
     ' =: ',
@@ -6,4 +6,4 @@ const AssemblyAssignment = {
   ]
 };
 
-module.exports = AssemblyAssignment;
+module.exports = AssemblyStackAssignment;
