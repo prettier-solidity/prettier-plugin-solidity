@@ -5,7 +5,7 @@ const plugin = proxyquire('../../src', {
   prettier: { ...prettier, version: '2.2.1', '@global': true }
 });
 
-test('should throw if the installed version of prettier is less than v2.3.0', () => {
+test('should throw if the installed version of prettier is less than v2.3.0', async () => {
   const data = 'contract CheckPrettierVersion {}';
 
   const options = {
@@ -13,7 +13,7 @@ test('should throw if the installed version of prettier is less than v2.3.0', ()
     parser: 'solidity-parse'
   };
 
-  expect(async () => {
+  await expect(async () => {
     await prettier.format(data, options);
   }).rejects.toThrow('>=2.3.0');
 });
