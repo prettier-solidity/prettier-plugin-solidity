@@ -1,0 +1,11 @@
+{
+  "check-coverage": true,
+  "branches": 99,
+  "lines": 100,
+  "functions": 100,
+  "statements": 100,
+  "exclude": ["/node_modules/", "/scripts/", "/src/prettier-comments/"],
+  "include": ["src/**/*.js", "!src/prettier-comments/**/*.js"],
+  "reporter": ["lcov", "text"],
+  "temp-dir": "./coverage/"
+}

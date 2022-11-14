@@ -1,26 +1,19 @@
-const path = require('path');
+const prettier = require('prettier');
+const proxyquire = require('proxyquire');
 
-jest.mock('prettier', () => {
-  // Require the original module to not be mocked...
-  const originalModule = jest.requireActual('prettier');
-
-  return {
-    ...originalModule,
-    version: '2.2.1'
-  };
+const plugin = proxyquire('../../src', {
+  prettier: { ...prettier, version: '2.2.1', '@global': true }
 });
 
-const prettier = require('prettier');
-
-test('should throw if the installed version of prettier is less than v2.3.0', () => {
+test('should throw if the installed version of prettier is less than v2.3.0', async () => {
   const data = 'contract CheckPrettierVersion {}';
 
   const options = {
-    plugins: [path.join(__dirname, '../..')],
+    plugins: [plugin],
     parser: 'solidity-parse'
   };
 
-  expect(() => {
-    prettier.format(data, options);
-  }).toThrow('>=2.3.0');
+  await expect(async () => {
+    await prettier.format(data, options);
+  }).rejects.toThrow('>=2.3.0');
 });
