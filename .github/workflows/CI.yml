@@ -50,7 +50,7 @@ jobs:
         run: npm run test:standalone
 
   test_prettier_v2:
-    name: Test Prettier V2
+    name: Prettier V2
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v1
