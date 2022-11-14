@@ -2,10 +2,9 @@ const {
   doc: {
     builders: { dedent, group, indent, join, line }
   },
-  util: { getNextNonSpaceNonCommentCharacterIndex },
-  version
+  util: { getNextNonSpaceNonCommentCharacterIndex }
 } = require('prettier');
-const semver = require('semver');
+const prettierVersionSatisfies = require('../prettier-version-satisfies');
 
 const printSeparatedList = require('./print-separated-list');
 const printSeparatedItem = require('./print-separated-item');
@@ -49,7 +48,7 @@ const parameters = (parametersType, node, path, print, options) => {
           )
         ) === ')'
     );
-    const hasComments = semver.satisfies(version, '^2.3.0')
+    const hasComments = prettierVersionSatisfies('^2.3.0')
       ? parameterComments.parts.length > 0 // Prettier V2
       : parameterComments.length > 0; // Prettier V3
     return hasComments ? printSeparatedItem(parameterComments) : '';

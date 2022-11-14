@@ -1,10 +1,9 @@
 const {
   doc: {
     builders: { hardline }
-  },
-  version
+  }
 } = require('prettier');
-const semver = require('semver');
+const prettierVersionSatisfies = require('../prettier-version-satisfies');
 
 const printComments = require('./print-comments');
 
@@ -17,7 +16,7 @@ const ExpressionStatement = {
     if (parent.type === 'IfStatement') {
       if (node.comments && node.comments.length) {
         const comments = printComments(node, path, options);
-        const hasComments = semver.satisfies(version, '^2.3.0')
+        const hasComments = prettierVersionSatisfies('^2.3.0')
           ? comments && comments.parts && comments.parts.length // Prettier V2
           : comments && comments.length; // Prettier V3
         if (hasComments) {
