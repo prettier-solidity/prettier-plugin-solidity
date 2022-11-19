@@ -37,19 +37,7 @@ Or you can use it as part of your linting to check that all your code is prettif
 "lint": "prettier --list-different 'contracts/**/*.sol'"
 ```
 
-## Who's using it?
-
-These are some of the projects using Prettier Solidity:
-
-- [Bancor](https://app.bancor.network)
-- [Gelato](https://gelato.network/)
-- [Gnosis Protocol](https://docs.gnosis.io/protocol/)
-- [PieDAO](https://www.piedao.org/)
-- [Sablier](https://sablier.finance/)
-- [Synthetix](https://www.synthetix.io)
-- [The Sandbox](https://www.sandbox.game/en/)
-- [UMA](https://umaproject.org/)
-- [Uniswap](https://uniswap.org)
+> Prettier Solidity only works with valid code. If there is a syntax error, nothing will be done and a parser error will be thrown.
 
 ## Configuration File
 
@@ -313,6 +301,20 @@ Notice that the unnecessary parentheses in `modifier2` were removed in the funct
 4. All existing tests and coverage must pass (`npm run test:all`), if coverage drops below 100% add missing tests.
 5. Push to the branch (`git push origin feature/fooBar`)
 6. Create a new Pull Request
+
+## Who's using it?
+
+These are some of the projects using Prettier Solidity:
+
+- [Bancor](https://app.bancor.network)
+- [Gelato](https://gelato.network/)
+- [Gnosis Protocol](https://docs.gnosis.io/protocol/)
+- [PieDAO](https://www.piedao.org/)
+- [Sablier](https://sablier.finance/)
+- [Synthetix](https://www.synthetix.io)
+- [The Sandbox](https://www.sandbox.game/en/)
+- [UMA](https://umaproject.org/)
+- [Uniswap](https://uniswap.org)
 
 ## License
 
