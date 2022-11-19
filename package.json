@@ -2,7 +2,9 @@
   "name": "prettier-plugin-solidity",
   "version": "1.0.0",
   "description": "A Prettier Plugin for automatically formatting your Solidity code.",
-  "main": "src",
+  "main": "./src/index.js",
+  "browser": "./dist/standalone.js",
+  "unpkg": "./dist/standalone.js",
   "scripts": {
     "build": "webpack --env production",
     "build:dev": "webpack --env development",
@@ -10,11 +12,19 @@
     "generateindexes": "cross-env SCRIPT=true node scripts/generateIndexes.js",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
+    "prepublishOnly": "npm run build",
     "prettier": "prettier './*.{js,json,md,yml}' '{scripts,src,tests}/**/*.js'",
     "test": "jest",
     "test:all": "cross-env FULL_TEST=1 c8 jest",
     "test:standalone": "cross-env TEST_STANDALONE=1 FULL_TEST=1 jest"
   },
+  "files": [
+    "src",
+    "dist/standalone.js",
+    "dist/standalone.js.LICENSE.txt",
+    "LICENSE",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/prettier-solidity/prettier-plugin-solidity.git"
