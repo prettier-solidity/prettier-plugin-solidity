@@ -14,7 +14,7 @@ module.exports = (webpackEnv) => {
 
     mode: isEnvProduction ? 'production' : 'development',
     bail: isEnvProduction,
-    devtool: isEnvProduction ? undefined : 'cheap-module-source-map',
+    devtool: 'cheap-module-source-map',
 
     // We tell webpack to use the browser friendly package.
     resolve: {

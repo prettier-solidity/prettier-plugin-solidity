@@ -22,6 +22,7 @@
     "src",
     "dist/standalone.js",
     "dist/standalone.js.LICENSE.txt",
+    "dist/standalone.js.map",
     "LICENSE",
     "README.md"
   ],
