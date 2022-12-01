@@ -7,7 +7,7 @@ const coerce = require('semver/functions/coerce');
 const satisfies = require('semver/functions/satisfies');
 
 const printSeparatedList = require('./print-separated-list');
-const { printString } = require('../prettier-comments/common/util');
+const { printString } = require('../common/util');
 
 const ImportDirective = {
   print: ({ node, options }) => {

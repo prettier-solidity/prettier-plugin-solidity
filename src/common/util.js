@@ -1,10 +1,5 @@
-"use strict";
-
 const {
-  util: {
-    getNextNonSpaceNonCommentCharacterIndex,
-    makeString
-  }
+  util: { getNextNonSpaceNonCommentCharacterIndex, makeString }
 } = require('prettier');
 
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
@@ -21,7 +16,6 @@ function printString(rawContent, options) {
   const alternate = preferred === single ? double : single;
 
   let shouldUseAlternateQuote = false;
-  let canChangeDirectiveQuotes = false;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
@@ -36,30 +30,17 @@ function printString(rawContent, options) {
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
     shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-  } else {
-    canChangeDirectiveQuotes = true;
   }
 
-  const enclosingQuote =
-    options.parser === "json"
-      ? double.quote
-      : shouldUseAlternateQuote
-        ? alternate.quote
-        : preferred.quote;
+  const enclosingQuote = shouldUseAlternateQuote
+    ? alternate.quote
+    : preferred.quote;
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  return makeString(
-    rawContent,
-    enclosingQuote,
-    !(
-      options.parser === "css" ||
-      options.parser === "less" ||
-      options.parser === "scss"
-    )
-  );
+  return makeString(rawContent, enclosingQuote);
 }
 
 function hasNodeIgnoreComment(node) {
@@ -67,12 +48,12 @@ function hasNodeIgnoreComment(node) {
     node &&
     node.comments &&
     node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+    node.comments.some((comment) => comment.value.trim() === 'prettier-ignore')
   );
 }
 
 module.exports = {
   getNextNonSpaceNonCommentCharacter,
   printString,
-  hasNodeIgnoreComment,
+  hasNodeIgnoreComment
 };

@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const { printString } = require('../prettier-comments/common/util');
+const { printString } = require('../common/util');
 
 const HexLiteral = {
   print: ({ node, options }) => {

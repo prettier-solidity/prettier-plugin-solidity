@@ -10,7 +10,7 @@ const {
     hasNewlineInRange
   }
 } = require('prettier');
-const { getNextNonSpaceNonCommentCharacter } = require("../common/util");
+const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;

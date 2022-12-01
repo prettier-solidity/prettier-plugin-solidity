@@ -1,7 +1,7 @@
 const prettier = require('prettier');
 const satisfies = require('semver/functions/satisfies');
 const nodes = require('./nodes');
-const { hasNodeIgnoreComment } = require('./prettier-comments/common/util');
+const { hasNodeIgnoreComment } = require('./common/util');
 const ignoreComments = require('./comments/ignore');
 
 let checked = false;
