@@ -13,6 +13,8 @@ If you like this project, please consider contributing to our [Gitcoin grant](ht
 
 ## Installation and usage
 
+### Using in NodeJS
+
 Install both `prettier` and `prettier-plugin-solidity`:
 
 ```Bash
@@ -38,6 +40,35 @@ Or you can use it as part of your linting to check that all your code is prettif
 ```
 
 > Prettier Solidity only works with valid code. If there is a syntax error, nothing will be done and a parser error will be thrown.
+
+### Using in the Browser
+
+_Added in v1.0.1_
+
+To use this package in the browser, you need to load Prettier's standalone bundle before loading the build provided in this package.
+
+```html
+<script src="https://unpkg.com/prettier@latest"></script>
+<script src="https://unpkg.com/prettier-plugin-solidity@latest"></script>
+```
+
+Prettier's unpkg field points to `https://unpkg.com/prettier/standalone.js`, in a similar way this plugin points to `https://unpkg.com/prettier-plugin-solidity/dist/standalone.js`.
+
+Once the scripts are loaded you will have access the globals `prettier` and `prettierPlugins`.
+
+We follow Prettier's strategy for populating their plugins in the object `prettierPlugins`, you can load other plugins like `https://unpkg.com/prettier@2.8.0/parser-markdown.js` and Prettier will have access to multiple parsers.
+
+```html
+<script>
+  const originalCode = 'contract Foo {}';
+  const formattedCode = prettier.format(originalCode, {
+    parser: 'solidity-parse',
+    plugins: prettierPlugins
+  });
+</script>
+```
+
+For more details and please have a look at [Prettier's documentation](https://prettier.io/docs/en/browser.html).
 
 ## Configuration File
 
