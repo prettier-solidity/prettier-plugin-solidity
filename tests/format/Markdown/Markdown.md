@@ -1,13 +1,13 @@
 # Embedded Solidity Code
 
-- original
+## Original
 
 <!-- prettier-ignore -->
 ```solidity
 import    "./Foo.sol";
 ```
 
-- formatted
+## Formatted
 ```solidity
 import    "./Foo.sol";
 ```

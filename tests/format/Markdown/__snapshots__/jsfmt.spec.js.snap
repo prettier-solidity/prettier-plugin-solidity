@@ -8,14 +8,14 @@ printWidth: 80
 =====================================input======================================
 # Embedded Solidity Code
 
-- original
+## Original
 
 <!-- prettier-ignore -->
 \`\`\`solidity
 import    "./Foo.sol";
 \`\`\`
 
-- formatted
+## Formatted
 \`\`\`solidity
 import    "./Foo.sol";
 \`\`\`
@@ -23,14 +23,14 @@ import    "./Foo.sol";
 =====================================output=====================================
 # Embedded Solidity Code
 
-- original
+## Original
 
 <!-- prettier-ignore -->
 \`\`\`solidity
 import    "./Foo.sol";
 \`\`\`
 
-- formatted
+## Formatted
 
 \`\`\`solidity
 import "./Foo.sol";
