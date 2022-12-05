@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Markdown.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# Embedded Solidity Code
+
+- original
+
+<!-- prettier-ignore -->
+\`\`\`solidity
+import    "./Foo.sol";
+\`\`\`
+
+- formatted
+\`\`\`solidity
+import    "./Foo.sol";
+\`\`\`
+
+=====================================output=====================================
+# Embedded Solidity Code
+
+- original
+
+<!-- prettier-ignore -->
+\`\`\`solidity
+import    "./Foo.sol";
+\`\`\`
+
+- formatted
+
+\`\`\`solidity
+import "./Foo.sol";
+\`\`\`
+
+================================================================================
+`;
