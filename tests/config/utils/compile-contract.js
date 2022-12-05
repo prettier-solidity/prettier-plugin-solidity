@@ -25,12 +25,13 @@ function compileContract(filename, content) {
   }
 
   const compiledContracts = output.contracts[filename];
-  const bytecodes = {};
-  Object.keys(compiledContracts).forEach((contractName) => {
-    bytecodes[contractName] =
-      compiledContracts[contractName].evm.bytecode.object;
-  });
-  return bytecodes;
+  return Object.keys(compiledContracts).reduce(
+    (byteCodes, contractName) => ({
+      ...byteCodes,
+      [contractName]: compiledContracts[contractName].evm.bytecode.object,
+    }),
+    {}
+  );
 }
 
 module.exports = compileContract;
