@@ -1,11 +1,6 @@
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 
 module.exports = {
-  moduleNameMapper: {
-    '^prettier$': TEST_STANDALONE
-      ? '<rootDir>/node_modules/prettier/standalone'
-      : '<rootDir>/node_modules/prettier'
-  },
   runner: 'jest-light-runner',
   setupFiles: ['<rootDir>/tests/config/setup.js'],
   snapshotSerializers: [
