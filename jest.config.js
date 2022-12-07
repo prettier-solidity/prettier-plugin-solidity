@@ -12,8 +12,9 @@ module.exports = {
   silent: TEST_STANDALONE,
   testPathIgnorePatterns: TEST_STANDALONE
     ? [
-        'tests/format/RespectDefaultOptions',
-        'tests/unit/prettier-version.test.js'
+        // Standalone mode doesn't have default options.
+        // This has been reported https://github.com/prettier/prettier/issues/11107
+        'tests/format/RespectDefaultOptions'
       ]
     : [],
   testMatch: [
