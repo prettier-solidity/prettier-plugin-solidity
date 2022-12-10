@@ -47,6 +47,7 @@ const testsWithAstChanges = new Map(
     "Parentheses/DivNoParentheses.sol",
     "Parentheses/ModNoParentheses.sol",
     "Parentheses/ExpNoParentheses.sol",
+    "Parentheses/ExtraParentheses.sol",
     "Parentheses/ShiftLNoParentheses.sol",
     "Parentheses/ShiftRNoParentheses.sol",
     "Parentheses/BitAndNoParentheses.sol",

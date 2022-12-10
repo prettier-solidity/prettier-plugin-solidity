@@ -177,6 +177,18 @@ function parse(text, _parsers, options) {
         default:
           break;
       }
+    },
+    TupleExpression(ctx) {
+      if (!ctx.isArray) {
+        while (
+          ctx.components &&
+          ctx.components.length === 1 &&
+          ctx.components[0].type === 'TupleExpression' &&
+          !ctx.components[0].isArray
+        ) {
+          ctx.components = ctx.components[0].components;
+        }
+      }
     }
   });
 
