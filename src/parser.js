@@ -13,6 +13,21 @@ const tryHug = (node, operators) => {
   return node;
 };
 
+const containsSingleTupleExpression = (ctx) =>
+  ctx.components &&
+  ctx.components.length === 1 &&
+  ctx.components[0].type === 'TupleExpression' &&
+  !ctx.components[0].isArray;
+
+const removeHug = (ctx) => {
+  if (ctx && ctx.type === 'TupleExpression' && !ctx.isArray) {
+    while (containsSingleTupleExpression(ctx)) {
+      ctx.components = ctx.components[0].components;
+    }
+  }
+  return ctx;
+};
+
 function parse(text, _parsers, options) {
   const compiler = semver.coerce(options.compiler);
   const parsed = parser.parse(text, { loc: true, range: true });
@@ -178,16 +193,19 @@ function parse(text, _parsers, options) {
           break;
       }
     },
+    FunctionCall(ctx) {
+      if (ctx.arguments && ctx.arguments.length > 0) {
+        ctx.arguments = ctx.arguments.map(removeHug);
+      }
+    },
+    ReturnStatement(ctx) {
+      if (ctx.expression) {
+        ctx.expression = removeHug(ctx.expression);
+      }
+    },
     TupleExpression(ctx) {
       if (!ctx.isArray) {
-        while (
-          ctx.components &&
-          ctx.components.length === 1 &&
-          ctx.components[0].type === 'TupleExpression' &&
-          !ctx.components[0].isArray
-        ) {
-          ctx.components = ctx.components[0].components;
-        }
+        ctx.components = ctx.components.map(removeHug);
       }
     }
   });
