@@ -43,7 +43,7 @@ Or you can use it as part of your linting to check that all your code is prettif
 
 ### Using in the Browser
 
-_Added in v1.0.1_
+_Added in v1.1.0_
 
 To use this package in the browser, you need to load Prettier's standalone bundle before loading the build provided in this package.
 
