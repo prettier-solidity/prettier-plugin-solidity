@@ -2,7 +2,7 @@
 
 [![Telegram](/assets/telegram-badge.svg)](https://t.me/+kgTgkFgIwJkwMjcx)
 [![Twitter Follow](https://img.shields.io/twitter/follow/PrettierSol.svg?style=social)](https://twitter.com/PrettierSol)
-[![GitPOAP Badge](https://public-api.gitpoap.io/v1/repo/prettier-solidity/prettier-plugin-solidity/badge)](https://www.gitpoap.io/gh/gitpoap/gitpoap-docs)
+[![GitPOAP Badge](https://public-api.gitpoap.io/v1/repo/prettier-solidity/prettier-plugin-solidity/badge)](https://www.gitpoap.io/gh/prettier-solidity/prettier-plugin-solidity)
 
 <p align="center">
   <img width="375" height="375" src="https://user-images.githubusercontent.com/1022054/59317198-f1149b80-8d15-11e9-9b0f-0c5e7d4b8b81.png">
