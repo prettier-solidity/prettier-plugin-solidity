@@ -1,7 +1,8 @@
 const extractComments = require('solidity-comments-extractor');
 // https://prettier.io/docs/en/plugins.html#parsers
 const parser = require('@solidity-parser/parser');
-const semver = require('semver');
+const coerce = require('semver/functions/coerce');
+const satisfies = require('semver/functions/satisfies');
 
 const tryHug = (node, operators) => {
   if (node.type === 'BinaryOperation' && operators.includes(node.operator))
@@ -14,7 +15,7 @@ const tryHug = (node, operators) => {
 };
 
 function parse(text, _parsers, options) {
-  const compiler = semver.coerce(options.compiler);
+  const compiler = coerce(options.compiler);
   const parsed = parser.parse(text, { loc: true, range: true });
   parsed.comments = extractComments(text);
 
@@ -25,7 +26,7 @@ function parse(text, _parsers, options) {
       // if the compiler option has not been provided we leave.
       if (!compiler) return;
       // we make a check against each pragma directive in the document.
-      if (!semver.satisfies(compiler, ctx.value)) {
+      if (!satisfies(compiler, ctx.value)) {
         // @TODO: investigate the best way to warn that would apply to
         // different editors.
         // eslint-disable-next-line no-console
@@ -64,7 +65,7 @@ function parse(text, _parsers, options) {
       // if the compiler is below 0.8.0 we will recognize the type 'byte' as an
       // alias of 'bytes1'. Otherwise we will ignore this and enforce always
       // 'bytes1'.
-      const pre080 = compiler && semver.satisfies(compiler, '<0.8.0');
+      const pre080 = compiler && satisfies(compiler, '<0.8.0');
       if (!pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
     },
     BinaryOperation(ctx) {
@@ -87,7 +88,7 @@ function parse(text, _parsers, options) {
           // If the compiler has not been given as an option using we leave a**b**c.
           if (!compiler) break;
 
-          if (semver.satisfies(compiler, '<0.8.0')) {
+          if (satisfies(compiler, '<0.8.0')) {
             // If the compiler is less than 0.8.0 then a**b**c is formatted as
             // (a**b)**c.
             ctx.left = tryHug(ctx.left, ['**']);

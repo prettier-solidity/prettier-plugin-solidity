@@ -1,11 +1,6 @@
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 
 module.exports = {
-  moduleNameMapper: {
-    '^prettier$': TEST_STANDALONE
-      ? '<rootDir>/node_modules/prettier/standalone'
-      : '<rootDir>/node_modules/prettier'
-  },
   runner: 'jest-light-runner',
   setupFiles: ['<rootDir>/tests/config/setup.js'],
   snapshotSerializers: [
@@ -13,6 +8,15 @@ module.exports = {
     'jest-snapshot-serializer-ansi'
   ],
   testEnvironment: 'node',
+  // ignore console warnings in TEST_STANDALONE
+  silent: TEST_STANDALONE,
+  testPathIgnorePatterns: TEST_STANDALONE
+    ? [
+        // Standalone mode doesn't have default options.
+        // This has been reported https://github.com/prettier/prettier/issues/11107
+        'tests/format/RespectDefaultOptions'
+      ]
+    : [],
   testMatch: [
     '<rootDir>/tests/format/**/jsfmt.spec.js',
     '<rootDir>/tests/unit/**/*.js'

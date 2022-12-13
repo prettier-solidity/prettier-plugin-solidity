@@ -5,10 +5,12 @@ const {
     addLeadingComment,
     addTrailingComment,
     addDanglingComment,
-    getNextNonSpaceNonCommentCharacterIndex
+    getNextNonSpaceNonCommentCharacterIndex,
+    hasNewline,
+    hasNewlineInRange
   }
 } = require('prettier');
-const privateUtil = require("../common/util");
+const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
@@ -241,7 +243,7 @@ function handleIfStatementComments(
   //   if (a /* comment */) {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
-  const nextCharacter = privateUtil.getNextNonSpaceNonCommentCharacter(
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
     comment,
     options.locEnd
@@ -310,7 +312,7 @@ function handleWhileComments(
   //   while (a /* comment */) {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
-  const nextCharacter = privateUtil.getNextNonSpaceNonCommentCharacter(
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
     comment,
     options.locEnd
@@ -391,7 +393,7 @@ function handleConditionalExpressionComments(
 ) {
   const isSameLineAsPrecedingNode =
     precedingNode &&
-    !privateUtil.hasNewlineInRange(
+    !hasNewlineInRange(
       text,
       options.locEnd(precedingNode),
       options.locStart(comment)
@@ -469,7 +471,7 @@ function handleMethodNameComments(
     enclosingNode.key === precedingNode &&
     // special Property case: { key: /*comment*/(value) };
     // comment should be attached to value instead of key
-    privateUtil.getNextNonSpaceNonCommentCharacter(
+    getNextNonSpaceNonCommentCharacter(
       text,
       precedingNode,
       options.locEnd
@@ -506,7 +508,7 @@ function handleFunctionNameComments(
   options
 ) {
   if (
-    privateUtil.getNextNonSpaceNonCommentCharacter(
+    getNextNonSpaceNonCommentCharacter(
       text,
       comment,
       options.locEnd
@@ -550,7 +552,7 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
 
 function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   if (
-    privateUtil.getNextNonSpaceNonCommentCharacter(
+    getNextNonSpaceNonCommentCharacter(
       text,
       comment,
       options.locEnd
@@ -621,7 +623,7 @@ function handleLastFunctionArgComments(
       enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "ObjectMethod" ||
       enclosingNode.type === "ClassMethod") &&
-    privateUtil.getNextNonSpaceNonCommentCharacter(
+    getNextNonSpaceNonCommentCharacter(
       text,
       comment,
       options.locEnd
@@ -755,7 +757,7 @@ function handleImportDeclarationComments(
     precedingNode.type === "ImportSpecifier" &&
     enclosingNode &&
     enclosingNode.type === "ImportDeclaration" &&
-    privateUtil.hasNewline(text, options.locEnd(comment))
+    hasNewline(text, options.locEnd(comment))
   ) {
     addTrailingComment(precedingNode, comment);
     return true;

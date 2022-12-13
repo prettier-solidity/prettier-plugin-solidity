@@ -3,10 +3,11 @@ const {
     builders: { group, line, softline }
   }
 } = require('prettier');
-const semver = require('semver');
+const coerce = require('semver/functions/coerce');
+const satisfies = require('semver/functions/satisfies');
 
 const printSeparatedList = require('./print-separated-list');
-const { printString } = require('../prettier-comments/common/util');
+const { printString } = require('../common/util');
 
 const ImportDirective = {
   print: ({ node, options }) => {
@@ -18,14 +19,14 @@ const ImportDirective = {
       doc = [importPath, ' as ', node.unitAlias];
     } else if (node.symbolAliases) {
       // import { Foo, Bar as Qux } from "./Foo.sol";
-      const compiler = semver.coerce(options.compiler);
+      const compiler = coerce(options.compiler);
       const symbolAliases = node.symbolAliases.map(([a, b]) =>
         b ? `${a} as ${b}` : a
       );
       let firstSeparator;
       let separator;
 
-      if (compiler && semver.satisfies(compiler, '>=0.7.4')) {
+      if (compiler && satisfies(compiler, '>=0.7.4')) {
         // if the compiler exists and is greater than or equal to 0.7.4 we will
         // split the ImportDirective.
         firstSeparator = options.bracketSpacing ? line : softline;

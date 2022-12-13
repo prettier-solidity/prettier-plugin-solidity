@@ -3,7 +3,7 @@ const {
     builders: { join, hardline }
   }
 } = require('prettier');
-const { printString } = require('../prettier-comments/common/util');
+const { printString } = require('../common/util');
 
 const StringLiteral = {
   print: ({ node, options }) => {

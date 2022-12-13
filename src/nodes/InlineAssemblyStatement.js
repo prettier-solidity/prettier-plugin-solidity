@@ -1,5 +1,5 @@
 // @TODO: add support for assembly language specifier
-const { printString } = require('../prettier-comments/common/util');
+const { printString } = require('../common/util');
 const printSeparatedList = require('./print-separated-list');
 
 const InlineAssemblyStatement = {

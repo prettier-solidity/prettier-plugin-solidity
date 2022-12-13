@@ -1,14 +1,14 @@
 const prettier = require('prettier');
-const semver = require('semver');
+const satisfies = require('semver/functions/satisfies');
 const nodes = require('./nodes');
-const { hasNodeIgnoreComment } = require('./prettier-comments/common/util');
+const { hasNodeIgnoreComment } = require('./common/util');
 const ignoreComments = require('./comments/ignore');
 
 let checked = false;
 
 function prettierVersionCheck() {
   if (checked) return;
-  if (!semver.satisfies(prettier.version, '>=2.3.0')) {
+  if (!satisfies(prettier.version, '>=2.3.0')) {
     throw new Error(
       'The version of prettier in your node-modules does not satisfy the required ">=2.3.0" constraint. Please update the version of Prettier.'
     );
