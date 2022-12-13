@@ -1,6 +1,6 @@
 const { version } = require('prettier');
-const semver = require('semver');
+const satisfies = require('semver/functions/satisfies');
 
-const prettierVersionSatisfies = (range) => semver.satisfies(version, range);
+const prettierVersionSatisfies = (range) => satisfies(version, range);
 
 module.exports = prettierVersionSatisfies;
