@@ -10,9 +10,13 @@ git pull
 npm i
 
 npm run test:all
+
+npm run build
+
+npm run test:standalone
 ```
 
-- Create a branch with the name of the new version number, e.g.: `git checkout -b 1.0.0-beta.4`
+- Create a branch with the name of the new version number, e.g.: `git checkout -b 1.1.0`
 
 - Bump the version in the package.json file
 
