@@ -4,7 +4,7 @@ const {
   },
   util: { getNextNonSpaceNonCommentCharacterIndex }
 } = require('prettier');
-const prettierVersionSatisfies = require('../prettier-version-satisfies');
+const { prettierVersionSatisfies } = require('../common/util');
 
 const printSeparatedList = require('./print-separated-list');
 const printSeparatedItem = require('./print-separated-item');

@@ -3,7 +3,7 @@ const {
     builders: { hardline }
   }
 } = require('prettier');
-const prettierVersionSatisfies = require('../prettier-version-satisfies');
+const { prettierVersionSatisfies } = require('../common/util');
 
 const printComments = require('./print-comments');
 
