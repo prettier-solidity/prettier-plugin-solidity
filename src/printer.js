@@ -1,5 +1,8 @@
 const nodes = require('./nodes');
-const { hasNodeIgnoreComment, prettierVersionSatisfies } = require('./common/util');
+const {
+  hasNodeIgnoreComment,
+  prettierVersionSatisfies
+} = require('./common/util');
 const ignoreComments = require('./comments/ignore');
 
 let checked = false;
