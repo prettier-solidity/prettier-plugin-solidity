@@ -3,12 +3,23 @@
 const path = require("path");
 const vm = require("vm");
 const createSandBox = require("./utils/create-sandbox");
+const { prettierVersionSatisfies } = require("../../src/common/util");
+
+const pluginPrefix = prettierVersionSatisfies("^2.3.0")
+  ? "parser-" // Prettier V2
+  : "plugins/"; // Prettier V3
 
 const sandbox = createSandBox({
   files: [
     path.join(path.dirname(require.resolve("prettier")), "standalone.js"),
-    path.join(path.dirname(require.resolve("prettier")), "plugins/babel.js"),
-    path.join(path.dirname(require.resolve("prettier")), "plugins/markdown.js"),
+    path.join(
+      path.dirname(require.resolve("prettier")),
+      `${pluginPrefix}babel.js`
+    ),
+    path.join(
+      path.dirname(require.resolve("prettier")),
+      `${pluginPrefix}markdown.js`
+    ),
     path.join(__dirname, "../../dist/standalone.js"),
   ],
 });
