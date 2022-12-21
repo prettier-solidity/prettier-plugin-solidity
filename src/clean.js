@@ -1,8 +1,6 @@
-// eslint-disable-next-line no-unused-vars
-function clean(ast, newObj, parent) {
-  ['code', 'codeStart', 'loc', 'range', 'raw'].forEach((name) => {
-    delete newObj[name]; // eslint-disable-line no-param-reassign
-  });
-}
+// Prettier offers a clean way to define ignored properties.
+const ignoredProperties = new Set(['loc', 'range', 'comments']);
+function clean(/* ast, newObj, parent */) {}
+clean.ignoredProperties = ignoredProperties;
 
 module.exports = clean;

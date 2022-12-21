@@ -3,6 +3,7 @@ const {
     builders: { hardline }
   }
 } = require('prettier');
+const { prettierVersionSatisfies } = require('../common/util');
 
 const printComments = require('./print-comments');
 
@@ -15,7 +16,10 @@ const ExpressionStatement = {
     if (parent.type === 'IfStatement') {
       if (node.comments && node.comments.length) {
         const comments = printComments(node, path, options);
-        if (comments && comments.parts && comments.parts.length) {
+        const hasComments = prettierVersionSatisfies('^2.3.0')
+          ? comments && comments.parts && comments.parts.length // Prettier V2
+          : comments && comments.length; // Prettier V3
+        if (hasComments) {
           parts.push(comments);
           parts.push(hardline);
         }

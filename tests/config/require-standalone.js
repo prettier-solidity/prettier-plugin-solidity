@@ -7,8 +7,8 @@ const createSandBox = require("./utils/create-sandbox");
 const sandbox = createSandBox({
   files: [
     path.join(path.dirname(require.resolve("prettier")), "standalone.js"),
-    path.join(path.dirname(require.resolve("prettier")), "parser-babel.js"),
-    path.join(path.dirname(require.resolve("prettier")), "parser-markdown.js"),
+    path.join(path.dirname(require.resolve("prettier")), "plugins/babel.js"),
+    path.join(path.dirname(require.resolve("prettier")), "plugins/markdown.js"),
     path.join(__dirname, "../../dist/standalone.js"),
   ],
 });

@@ -4,6 +4,7 @@ const {
   },
   util: { getNextNonSpaceNonCommentCharacterIndex }
 } = require('prettier');
+const { prettierVersionSatisfies } = require('../common/util');
 
 const printSeparatedList = require('./print-separated-list');
 const printSeparatedItem = require('./print-separated-item');
@@ -47,9 +48,10 @@ const parameters = (parametersType, node, path, print, options) => {
           )
         ) === ')'
     );
-    return parameterComments.parts.length > 0
-      ? printSeparatedItem(parameterComments)
-      : '';
+    const hasComments = prettierVersionSatisfies('^2.3.0')
+      ? parameterComments.parts.length > 0 // Prettier V2
+      : parameterComments.length > 0; // Prettier V3
+    return hasComments ? printSeparatedItem(parameterComments) : '';
   }
   return '';
 };

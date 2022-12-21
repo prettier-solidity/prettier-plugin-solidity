@@ -1,6 +1,10 @@
 const {
-  util: { getNextNonSpaceNonCommentCharacterIndex, makeString }
+  util: { getNextNonSpaceNonCommentCharacterIndex, makeString },
+  version
 } = require('prettier');
+const satisfies = require('semver/functions/satisfies');
+
+const prettierVersionSatisfies = (range) => satisfies(version, range);
 
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
@@ -55,5 +59,6 @@ function hasNodeIgnoreComment(node) {
 module.exports = {
   getNextNonSpaceNonCommentCharacter,
   printString,
+  prettierVersionSatisfies,
   hasNodeIgnoreComment
 };
