@@ -65,10 +65,14 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install
         run: npm install
-      - name: Downgrade Prettier
+      - name: Build with Prettier V3
+        run: npm run build
+      - name: Downgrade Prettier to V2
         run: npm install prettier@2.8.1
       - name: Run tests
         run: npm run test:all
+      - name: Run standalone tests
+        run: npm run test:standalone
 
   test_linux:
     name: Test on Linux with Node ${{ matrix.node }}
