@@ -1,6 +1,6 @@
 const genericPrint = require('../../src/printer');
 
-test('given an unknown module type then genericPrint function should throw', () => {
+test('given an unknown operator then the BinaryOperation print function should throw', () => {
   const mockPath = {
     getValue: () => ({ type: 'BinaryOperation', operator: '?' })
   };
