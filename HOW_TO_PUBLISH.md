@@ -40,4 +40,4 @@ git push
 
 - Once the new version is published, add a new release in GitHub; https://github.com/prettier-solidity/prettier-plugin-solidity/releases/new
 
-- The tag version and the name should be prefixed by a `v` followed by the latest published version number; e.g.: `v1.0.0-beta.4`
+- The tag version and the name should be prefixed by a `v` followed by the latest published version number; e.g.: `v1.1.0`
