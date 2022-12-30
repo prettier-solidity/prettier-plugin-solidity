@@ -19,8 +19,7 @@ module.exports = (webpackEnv) => {
     // We tell webpack to use the browser friendly package.
     resolve: {
       alias: {
-        '@solidity-parser/parser': '@solidity-parser/parser/dist/index.iife.js',
-        'emoji-regex': 'emoji-regex/index.js'
+        '@solidity-parser/parser': '@solidity-parser/parser/dist/index.iife.js'
       }
     },
 
