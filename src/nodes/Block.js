@@ -4,8 +4,10 @@ const {
   }
 } = require('prettier');
 
-const printPreservingEmptyLines = require('./print-preserving-empty-lines');
-const printComments = require('./print-comments');
+const {
+  printComments,
+  printPreservingEmptyLines
+} = require('../common/printer-helpers');
 
 const Block = {
   print: ({ node, options, path, print }) =>

@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const printPreservingEmptyLines = require('./print-preserving-empty-lines');
+const { printPreservingEmptyLines } = require('../common/printer-helpers');
 
 const SourceUnit = {
   print: ({ options, path, print }) => [

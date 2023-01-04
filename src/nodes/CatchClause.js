@@ -1,4 +1,4 @@
-const printSeparatedList = require('./print-separated-list');
+const { printSeparatedList } = require('../common/printer-helpers');
 
 const parameters = (node, path, print) =>
   node.parameters

@@ -4,8 +4,10 @@ const {
   }
 } = require('prettier');
 
-const printComments = require('./print-comments');
-const printSeparatedItem = require('./print-separated-item');
+const {
+  printComments,
+  printSeparatedItem
+} = require('../common/printer-helpers');
 
 const printTrueBody = (node, path, print) => {
   if (node.trueBody.type === 'Block') {

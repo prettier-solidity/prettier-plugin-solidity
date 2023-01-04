@@ -4,10 +4,12 @@ const {
   }
 } = require('prettier');
 
-const printSeparatedItem = require('./print-separated-item');
-const printSeparatedList = require('./print-separated-list');
-const printPreservingEmptyLines = require('./print-preserving-empty-lines');
-const printComments = require('./print-comments');
+const {
+  printComments,
+  printPreservingEmptyLines,
+  printSeparatedItem,
+  printSeparatedList
+} = require('../common/printer-helpers');
 
 const inheritance = (node, path, print) =>
   node.baseContracts.length > 0

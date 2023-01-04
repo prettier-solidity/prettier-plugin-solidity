@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const printSeparatedList = require('./print-separated-list');
+const { printSeparatedList } = require('../common/printer-helpers');
 
 const EnumDefinition = {
   print: ({ node, path, print }) =>

@@ -4,8 +4,10 @@ const {
   }
 } = require('prettier');
 
-const printSeparatedItem = require('./print-separated-item');
-const printSeparatedList = require('./print-separated-list');
+const {
+  printSeparatedItem,
+  printSeparatedList
+} = require('../common/printer-helpers');
 
 const returnParameters = (node, path, print) =>
   node.returnParameters

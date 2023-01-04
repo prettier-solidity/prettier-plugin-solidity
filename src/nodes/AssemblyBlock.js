@@ -4,9 +4,11 @@ const {
   }
 } = require('prettier');
 
-const printSeparatedItem = require('./print-separated-item');
-const printComments = require('./print-comments');
-const printPreservingEmptyLines = require('./print-preserving-empty-lines');
+const {
+  printComments,
+  printPreservingEmptyLines,
+  printSeparatedItem
+} = require('../common/printer-helpers');
 
 const AssemblyBlock = {
   print: ({ node, options, path, print }) => [

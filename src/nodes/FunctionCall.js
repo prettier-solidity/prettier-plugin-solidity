@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const printSeparatedList = require('./print-separated-list');
+const { printSeparatedList } = require('../common/printer-helpers');
 
 const printObject = (path, print, options) => {
   const identifiers = path.map(print, 'identifiers');
