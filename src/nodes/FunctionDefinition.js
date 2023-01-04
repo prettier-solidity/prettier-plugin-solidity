@@ -73,9 +73,7 @@ const override = (node, path, print) => {
 };
 
 const stateMutability = (node) =>
-  node.stateMutability && node.stateMutability !== 'default'
-    ? [line, node.stateMutability]
-    : '';
+  node.stateMutability ? [line, node.stateMutability] : '';
 
 const modifiers = (node, path, print) =>
   node.modifiers.length > 0
