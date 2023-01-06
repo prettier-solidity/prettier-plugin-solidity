@@ -5,9 +5,11 @@ const {
   util: { getNextNonSpaceNonCommentCharacterIndex }
 } = require('prettier');
 
-const printSeparatedList = require('./print-separated-list');
-const printSeparatedItem = require('./print-separated-item');
-const printComments = require('./print-comments');
+const {
+  printComments,
+  printSeparatedItem,
+  printSeparatedList
+} = require('../common/printer-helpers');
 
 const functionName = (node, options) => {
   if (node.isConstructor && !node.name) return 'constructor';
@@ -73,9 +75,7 @@ const override = (node, path, print) => {
 };
 
 const stateMutability = (node) =>
-  node.stateMutability && node.stateMutability !== 'default'
-    ? [line, node.stateMutability]
-    : '';
+  node.stateMutability ? [line, node.stateMutability] : '';
 
 const modifiers = (node, path, print) =>
   node.modifiers.length > 0

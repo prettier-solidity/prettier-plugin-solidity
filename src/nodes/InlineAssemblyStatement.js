@@ -1,6 +1,6 @@
 // @TODO: add support for assembly language specifier
 const { printString } = require('../common/util');
-const printSeparatedList = require('./print-separated-list');
+const { printSeparatedList } = require('../common/printer-helpers');
 
 const InlineAssemblyStatement = {
   print: ({ node, path, print, options }) => [

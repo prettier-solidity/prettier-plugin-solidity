@@ -1,5 +1,7 @@
-const printSeparatedList = require('./print-separated-list');
-const printComments = require('./print-comments');
+const {
+  printComments,
+  printSeparatedList
+} = require('../common/printer-helpers');
 
 const modifierArguments = (node, path, print, options) => {
   if (node.arguments) {

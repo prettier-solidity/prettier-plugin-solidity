@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const printSeparatedList = require('./print-separated-list');
+const { printSeparatedList } = require('../common/printer-helpers');
 
 const initExpression = (node, path, print) =>
   node.initExpression ? path.call(print, 'initExpression') : '';

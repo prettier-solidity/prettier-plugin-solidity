@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const printSeparatedItem = require('./print-separated-item');
+const { printSeparatedItem } = require('../common/printer-helpers');
 
 const printBody = (node, path, print) =>
   node.body.type === 'Block'

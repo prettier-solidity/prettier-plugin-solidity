@@ -4,7 +4,7 @@ const {
   }
 } = require('prettier');
 
-const printComments = require('./print-comments');
+const { printComments } = require('../common/printer-helpers');
 
 const ExpressionStatement = {
   print: ({ node, options, path, print }) => {

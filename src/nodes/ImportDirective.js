@@ -6,7 +6,7 @@ const {
 const coerce = require('semver/functions/coerce');
 const satisfies = require('semver/functions/satisfies');
 
-const printSeparatedList = require('./print-separated-list');
+const { printSeparatedList } = require('../common/printer-helpers');
 const { printString } = require('../common/util');
 
 const ImportDirective = {
