@@ -96,6 +96,8 @@ contract c {
   function setData(uint pos, uint value) internal { data[pos] = value; }
   function getData(uint pos) internal { return data[pos]; }
   mapping(uint => uint) data;
+  mapping(uint id => uint ) data;
+  mapping(address owner => mapping(address spender => uint  amount)) allowances;
 }
 
 contract Sharer {
@@ -651,6 +653,8 @@ contract c {
     }
 
     mapping(uint => uint) data;
+    mapping(uint id => uint) data;
+    mapping(address owner => mapping(address spender => uint amount)) allowances;
 }
 
 contract Sharer {
