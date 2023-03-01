@@ -534,3 +534,9 @@ contract WithUncheckedBlock {
     unchecked { return x * y; }
   }
 }
+
+// user-defined operators
+using {  add as +   }   for   Fixed18   global  ;
+using {  add   as +  , sub as - } for   Fixed18 global  ;
+using {  add   , sub as -   } for Fixed18   global  ;
+using {    add as   +  , sub   } for   Fixed18 global  ;

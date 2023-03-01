@@ -543,6 +543,12 @@ contract WithUncheckedBlock {
   }
 }
 
+// user-defined operators
+using {  add as +   }   for   Fixed18   global  ;
+using {  add   as +  , sub as - } for   Fixed18 global  ;
+using {  add   , sub as -   } for Fixed18   global  ;
+using {    add as   +  , sub   } for   Fixed18 global  ;
+
 =====================================output=====================================
 // Examples taken from the Solidity documentation online.
 
@@ -1135,6 +1141,12 @@ contract WithUncheckedBlock {
         }
     }
 }
+
+// user-defined operators
+using {add as +} for Fixed18 global;
+using {add as +, sub as -} for Fixed18 global;
+using {add, sub as -} for Fixed18 global;
+using {add as +, sub} for Fixed18 global;
 
 ================================================================================
 `;
