@@ -297,6 +297,32 @@ Now VSCode's `settings.json` should have this:
 
 Note: By design, Prettier prioritizes a local over a global configuration. If you have a `.prettierrc` file in your project, your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
 
+### Pnpm
+
+There's a [known bug](https://github.com/pnpm/pnpm/issues/4700) in Pnpm v7 that prevents Prettier plugins from working out of the box. To make Prettier Solidity work in your project, you have to add the following settings in your `.prettierrc.` file:
+
+```json
+{
+  "plugins": "prettier-plugin-solidity",
+  "overrides": [
+    {
+      "files": "*.sol",
+      "options": {
+        "parser": "solidity-parse"
+      }
+    }
+  ]
+}
+```
+
+Then, if you are using VSCode, you also need to add this to your VSCode settings:
+
+```json
+{
+  "prettier.documentSelectors": ["**/*.sol"]
+}
+```
+
 ## Edge cases
 
 Prettier Solidity does its best to be pretty and consistent, but in some cases it falls back to doing things that are less than ideal.
