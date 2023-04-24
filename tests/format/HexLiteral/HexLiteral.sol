@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 contract HexLiteral {
   bytes8 hex1 = hex'DeadBeef';
