@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 contract DivNoParentheses {
     function divAdd(uint256 a, uint256 b, uint256 c)

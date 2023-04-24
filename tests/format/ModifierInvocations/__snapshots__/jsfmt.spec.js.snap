@@ -7,7 +7,7 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 contract ModifierDefinitions {
   // We enforce the use of parentheses in modifiers without parameters.
@@ -26,7 +26,7 @@ contract ModifierInvocations is ModifierDefinitions {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 contract ModifierDefinitions {
     // We enforce the use of parentheses in modifiers without parameters.
