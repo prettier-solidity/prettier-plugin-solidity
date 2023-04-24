@@ -1,19 +1,20 @@
+const namedParameter = (prefix, node, path, print) =>
+  node[`${prefix}Name`]
+    ? [
+        path.call(print, `${prefix}Type`),
+        ' ',
+        path.call(print, `${prefix}Name`)
+      ]
+    : path.call(print, `${prefix}Type`);
+
 const Mapping = {
-  print: ({ path, print }) => {
-    const keyType = path.call(print, 'keyType');
-    const keyName = path.call(print, 'keyName');
-    const valueType = path.call(print, 'valueType');
-    const valueName = path.call(print, 'valueName');
-    return [
-      'mapping(',
-      keyType,
-      keyName ? ` ${keyName}` : '',
-      ' => ',
-      valueType,
-      valueName ? ` ${valueName}` : '',
-      ')'
-    ];
-  }
+  print: ({ node, path, print }) => [
+    'mapping(',
+    namedParameter('key', node, path, print),
+    ' => ',
+    namedParameter('value', node, path, print),
+    ')'
+  ]
 };
 
 module.exports = Mapping;
