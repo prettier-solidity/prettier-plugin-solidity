@@ -15,7 +15,7 @@ const UsingForDeclaration = {
           printSeparatedList(
             node.functions.map((functionName, i) =>
               node.operators[i]
-                ? `${functionName} as ${node.operators[i]}`
+                ? [functionName, ' as ', node.operators[i]]
                 : functionName
             ),
             {
