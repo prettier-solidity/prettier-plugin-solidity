@@ -184,3 +184,29 @@ struct EmptyStruct {}
 
 ================================================================================
 `;
+
+exports[`Issue843.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+pragma solidity ^0.8.0;
+
+//about the contract
+contract ContractWithLeadingComment {
+
+}
+
+contract ContractWithoutComments {}
+
+=====================================output=====================================
+pragma solidity ^0.8.0;
+
+//about the contract
+contract ContractWithLeadingComment {}
+
+contract ContractWithoutComments {}
+
+================================================================================
+`;
