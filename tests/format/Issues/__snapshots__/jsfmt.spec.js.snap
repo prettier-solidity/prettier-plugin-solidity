@@ -198,7 +198,9 @@ contract ContractWithLeadingComment {
 
 }
 
-contract ContractWithoutComments {}
+contract ContractWithoutComments {
+
+}
 
 =====================================output=====================================
 pragma solidity ^0.8.0;
