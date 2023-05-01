@@ -21,16 +21,15 @@ const inheritance = (node, path, print) =>
       ]
     : line;
 
-const body = (node, path, options, print) =>
-  node.subNodes.length > 0 || node.comments
+const body = (node, path, options, print) => {
+  const comments = printComments(node, path, options);
+  return node.subNodes.length > 0 || (comments && comments.length)
     ? printSeparatedItem(
-        [
-          printPreservingEmptyLines(path, 'subNodes', options, print),
-          printComments(node, path, options)
-        ],
+        [printPreservingEmptyLines(path, 'subNodes', options, print), comments],
         { firstSeparator: hardline, grouped: false }
       )
     : '';
+};
 
 const ContractDefinition = {
   print: ({ node, options, path, print }) => [
