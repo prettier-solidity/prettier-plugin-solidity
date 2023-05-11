@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity 0.8.20;
 
 contract ShiftRNoParentheses {
     function shiftRAdd(uint256 a, uint256 b, uint256 c)
