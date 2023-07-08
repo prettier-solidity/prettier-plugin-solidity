@@ -95,7 +95,7 @@
     "jest-snapshot-serializer-raw": "^1.2.0",
     "jest-watch-typeahead": "^2.2.2",
     "lines-and-columns": "^2.0.3",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "proxyquire": "^2.1.3",
     "solc": "^0.8.19",
     "webpack": "^5.80.0",
