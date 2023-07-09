@@ -3,7 +3,7 @@ const {
     builders: { group, indent, join, line, softline, hardline }
   }
 } = require('prettier');
-const { isNextLineEmpty, prettierVersionSatisfies } = require('./util');
+const { isNextLineEmpty, isPrettier2 } = require('./util');
 
 const printComments = (node, path, options, filter = () => true) => {
   if (!node.comments) return '';
@@ -28,7 +28,7 @@ const printComments = (node, path, options, filter = () => true) => {
   // since it depends on the version of Prettier being used.
   // Mocking the behaviour will introduce a lot of maintenance in the tests.
   /* c8 ignore start */
-  return prettierVersionSatisfies('^2.3.0')
+  return isPrettier2()
     ? doc.parts // Prettier V2
     : doc; // Prettier V3
   /* c8 ignore stop */

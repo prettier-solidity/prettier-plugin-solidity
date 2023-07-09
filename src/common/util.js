@@ -2,26 +2,32 @@ const { util, version } = require('prettier');
 const satisfies = require('semver/functions/satisfies');
 
 const prettierVersionSatisfies = (range) => satisfies(version, range);
+const isPrettier2 = () => prettierVersionSatisfies('^2.3.0');
 
+// The following functions will never be 100% covered in a single run
+// since it depends on the version of Prettier being used.
+// Mocking the behaviour will introduce a lot of maintenance in the tests.
+/* c8 ignore start */
 function isNextLineEmpty(text, startIndex) {
-  return prettierVersionSatisfies('^2.3.0')
+  return isPrettier2()
     ? util.isNextLineEmptyAfterIndex(text, startIndex)
-    : util.isNextLineEmpty(text, startIndex);
+    : util.isNextLineEmpty(text, startIndex); // V3 deprecated `isNextLineEmptyAfterIndex`
 }
 
 function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
-  return prettierVersionSatisfies('^2.3.0')
+  return isPrettier2()
     ? util.getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
-    : util.getNextNonSpaceNonCommentCharacterIndex(text, locEnd(node));
+    : util.getNextNonSpaceNonCommentCharacterIndex(text, locEnd(node)); // V3 signature changed
 }
 
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
-  return prettierVersionSatisfies('^2.3.0')
+  return isPrettier2()
     ? text.charAt(
         util.getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
       )
-    : util.getNextNonSpaceNonCommentCharacter(text, locEnd(node));
+    : util.getNextNonSpaceNonCommentCharacter(text, locEnd(node)); // V3 exposes this function directly
 }
+/* c8 ignore stop */
 
 function printString(rawContent, options) {
   const double = { quote: '"', regex: /"/g };
@@ -71,6 +77,7 @@ module.exports = {
   getNextNonSpaceNonCommentCharacter,
   getNextNonSpaceNonCommentCharacterIndex,
   isNextLineEmpty,
+  isPrettier2,
   printString,
   prettierVersionSatisfies,
   hasNodeIgnoreComment
