@@ -25,19 +25,19 @@ npm install --save-dev prettier prettier-plugin-solidity
 Run prettier in your contracts:
 
 ```Bash
-npx prettier --write 'contracts/**/*.sol'
+npx prettier --write --plugin=prettier-plugin-solidity 'contracts/**/*.sol'
 ```
 
 You can add a script for running prettier on all your contracts:
 
 ```
-"prettier": "prettier --write 'contracts/**/*.sol'"
+"prettier": "prettier --write --plugin=prettier-plugin-solidity 'contracts/**/*.sol'"
 ```
 
 Or you can use it as part of your linting to check that all your code is prettified:
 
 ```
-"lint": "prettier --list-different 'contracts/**/*.sol'"
+"lint": "prettier --list-different --plugin=prettier-plugin-solidity 'contracts/**/*.sol'"
 ```
 
 > Prettier Solidity only works with valid code. If there is a syntax error, nothing will be done and a parser error will be thrown.
@@ -78,10 +78,12 @@ The following is the default configuration internally used by this plugin.
 
 ```JSON
 {
+  "plugins": ["prettier-plugin-solidity"],
   "overrides": [
     {
       "files": "*.sol",
       "options": {
+        "parser": "solidity-parse",
         "printWidth": 80,
         "tabWidth": 4,
         "useTabs": false,
@@ -94,6 +96,8 @@ The following is the default configuration internally used by this plugin.
 ```
 
 Note the use of the [overrides property](https://prettier.io/docs/en/configuration.html#configuration-overrides) which allows for multiple configurations in case there are other languages in the project (i.e. JavaScript, JSON, Markdown).
+
+Since Prettier v3.0.0, the plugin search feature has been removed so we encourage adding our plugin to the configuration file.
 
 Most options are described in Prettier's [documentation](https://prettier.io/docs/en/options.html).
 
@@ -299,21 +303,7 @@ Note: By design, Prettier prioritizes a local over a global configuration. If yo
 
 ### Pnpm
 
-There's a [known bug](https://github.com/pnpm/pnpm/issues/4700) in Pnpm v7 that prevents Prettier plugins from working out of the box. To make Prettier Solidity work in your project, you have to add the following settings in your `.prettierrc.` file:
-
-```json
-{
-  "plugins": "prettier-plugin-solidity",
-  "overrides": [
-    {
-      "files": "*.sol",
-      "options": {
-        "parser": "solidity-parse"
-      }
-    }
-  ]
-}
-```
+To make Prettier Solidity work in your project, you have to add a `.prettierrc` file as shown [here](#configuration-file).
 
 Then, if you are using VSCode, you also need to add this to your VSCode settings:
 
