@@ -49,8 +49,8 @@ jobs:
       - name: Run tests
         run: npm run test:standalone
 
-  test_prettier_v3:
-    name: Prettier V3
+  test_prettier_v2:
+    name: Prettier V2
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v1
@@ -65,10 +65,10 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install
         run: npm install
-      - name: Build with Prettier V2
+      - name: Build with Prettier V3
         run: npm run build
-      - name: Upgrade Prettier to V3
-        run: npm install prettier@3.0.0-alpha.4
+      - name: Downgrade Prettier to V2
+        run: npm install prettier@2.8.8
       - name: Run tests
         run: npm run test:all
       - name: Run standalone tests
