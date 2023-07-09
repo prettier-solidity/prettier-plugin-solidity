@@ -1,15 +1,26 @@
-const {
-  util: { getNextNonSpaceNonCommentCharacterIndex, makeString },
-  version
-} = require('prettier');
+const { util, version } = require('prettier');
 const satisfies = require('semver/functions/satisfies');
 
 const prettierVersionSatisfies = (range) => satisfies(version, range);
 
+function isNextLineEmpty(text, startIndex) {
+  return prettierVersionSatisfies('^2.3.0')
+    ? util.isNextLineEmptyAfterIndex(text, startIndex)
+    : util.isNextLineEmpty(text, startIndex);
+}
+
+function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+  return prettierVersionSatisfies('^2.3.0')
+    ? util.getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
+    : util.getNextNonSpaceNonCommentCharacterIndex(text, locEnd(node));
+}
+
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
-  return text.charAt(
-    getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
-  );
+  return prettierVersionSatisfies('^2.3.0')
+    ? text.charAt(
+        util.getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
+      )
+    : util.getNextNonSpaceNonCommentCharacter(text, locEnd(node));
 }
 
 function printString(rawContent, options) {
@@ -44,7 +55,7 @@ function printString(rawContent, options) {
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  return makeString(rawContent, enclosingQuote);
+  return util.makeString(rawContent, enclosingQuote);
 }
 
 function hasNodeIgnoreComment(node) {
@@ -58,6 +69,8 @@ function hasNodeIgnoreComment(node) {
 
 module.exports = {
   getNextNonSpaceNonCommentCharacter,
+  getNextNonSpaceNonCommentCharacterIndex,
+  isNextLineEmpty,
   printString,
   prettierVersionSatisfies,
   hasNodeIgnoreComment

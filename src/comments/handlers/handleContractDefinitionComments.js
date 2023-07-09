@@ -1,11 +1,7 @@
 const {
-  util: {
-    addLeadingComment,
-    addTrailingComment,
-    addDanglingComment,
-    getNextNonSpaceNonCommentCharacterIndex
-  }
+  util: { addLeadingComment, addTrailingComment, addDanglingComment }
 } = require('prettier');
+const { getNextNonSpaceNonCommentCharacter } = require('../../common/util');
 
 function handleContractDefinitionComments({
   text,
@@ -24,8 +20,10 @@ function handleContractDefinitionComments({
   //   contract a is abc /* comment */ {}
   // The only workaround I found is to look at the next character to see if
   // it is a {}.
-  const nextCharacter = text.charAt(
-    getNextNonSpaceNonCommentCharacterIndex(text, comment, options.locEnd)
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
+    text,
+    comment,
+    options.locEnd
   );
 
   // The comment is behind the start of the Block `{}` or behind a base contract

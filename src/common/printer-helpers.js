@@ -1,10 +1,9 @@
 const {
   doc: {
     builders: { group, indent, join, line, softline, hardline }
-  },
-  util: { isNextLineEmptyAfterIndex }
+  }
 } = require('prettier');
-const { prettierVersionSatisfies } = require('./util');
+const { isNextLineEmpty, prettierVersionSatisfies } = require('./util');
 
 const printComments = (node, path, options, filter = () => true) => {
   if (!node.comments) return '';
@@ -63,10 +62,7 @@ function printPreservingEmptyLines(path, key, options, print) {
     parts.push(print(childPath));
 
     if (
-      isNextLineEmptyAfterIndex(
-        options.originalText,
-        options.locEnd(node) + 1
-      ) ||
+      isNextLineEmpty(options.originalText, options.locEnd(node) + 1) ||
       nodeType === 'FunctionDefinition'
     ) {
       parts.push(hardline);
