@@ -76,7 +76,7 @@
   },
   "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "devDependencies": {
     "@babel/code-frame": "^7.22.5",
