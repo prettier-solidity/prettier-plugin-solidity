@@ -1,5 +1,3 @@
-const ThrowStatement = {
+export const ThrowStatement = {
   print: () => 'throw;'
 };
-
-module.exports = ThrowStatement;

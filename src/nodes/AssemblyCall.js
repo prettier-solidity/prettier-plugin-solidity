@@ -1,6 +1,6 @@
-const { printSeparatedList } = require('../common/printer-helpers');
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const AssemblyCall = {
+export const AssemblyCall = {
   print: ({ node, path, print, options }) =>
     node.arguments.length === 0 &&
     options.originalText.charAt(options.locEnd(node)) !== ')'
@@ -12,5 +12,3 @@ const AssemblyCall = {
           ')'
         ]
 };
-
-module.exports = AssemblyCall;

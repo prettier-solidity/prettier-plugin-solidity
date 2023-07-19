@@ -1,4 +1,4 @@
-const { printSeparatedList } = require('../common/printer-helpers');
+import { printSeparatedList } from '../common/printer-helpers.js';
 
 const parameters = (node, path, print) =>
   node.parameters
@@ -10,12 +10,10 @@ const parameters = (node, path, print) =>
       ]
     : '';
 
-const CatchClause = {
+export const CatchClause = {
   print: ({ node, path, print }) => [
     'catch ',
     parameters(node, path, print),
     path.call(print, 'body')
   ]
 };
-
-module.exports = CatchClause;

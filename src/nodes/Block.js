@@ -1,15 +1,12 @@
-const {
-  doc: {
-    builders: { hardline, indent }
-  }
-} = require('prettier');
-
-const {
+import { doc } from 'prettier';
+import {
   printComments,
   printPreservingEmptyLines
-} = require('../common/printer-helpers');
+} from '../common/printer-helpers.js';
 
-const Block = {
+const { hardline, indent } = doc.builders;
+
+export const Block = {
   print: ({ node, options, path, print }) =>
     // if block is empty, just return the pair of braces
     node.statements.length === 0 && !node.comments
@@ -25,5 +22,3 @@ const Block = {
           '}'
         ]
 };
-
-module.exports = Block;

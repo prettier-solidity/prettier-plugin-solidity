@@ -1,12 +1,9 @@
-const {
-  doc: {
-    builders: { line, softline }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { line, softline } = doc.builders;
 
-const NameValueList = {
+export const NameValueList = {
   print: ({ node, path, print, options }) =>
     printSeparatedList(
       path
@@ -17,5 +14,3 @@ const NameValueList = {
       }
     )
 };
-
-module.exports = NameValueList;

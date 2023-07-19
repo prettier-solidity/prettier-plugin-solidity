@@ -1,4 +1,4 @@
-const NameValueExpression = {
+export const NameValueExpression = {
   print: ({ path, print }) => [
     path.call(print, 'expression'),
     '{',
@@ -6,5 +6,3 @@ const NameValueExpression = {
     '}'
   ]
 };
-
-module.exports = NameValueExpression;

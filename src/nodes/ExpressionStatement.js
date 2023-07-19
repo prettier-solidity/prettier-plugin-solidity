@@ -1,12 +1,9 @@
-const {
-  doc: {
-    builders: { hardline }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printComments } from '../common/printer-helpers.js';
 
-const { printComments } = require('../common/printer-helpers');
+const { hardline } = doc.builders;
 
-const ExpressionStatement = {
+export const ExpressionStatement = {
   print: ({ node, options, path, print }) => {
     const parts = [];
 
@@ -28,5 +25,3 @@ const ExpressionStatement = {
     return parts;
   }
 };
-
-module.exports = ExpressionStatement;

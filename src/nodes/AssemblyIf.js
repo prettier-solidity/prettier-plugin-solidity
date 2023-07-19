@@ -1,4 +1,4 @@
-const AssemblyIf = {
+export const AssemblyIf = {
   print: ({ path, print }) => [
     'if ',
     path.call(print, 'condition'),
@@ -6,5 +6,3 @@ const AssemblyIf = {
     path.call(print, 'body')
   ]
 };
-
-module.exports = AssemblyIf;

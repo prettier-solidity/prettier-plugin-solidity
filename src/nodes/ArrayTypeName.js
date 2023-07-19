@@ -1,4 +1,4 @@
-const ArrayTypeName = {
+export const ArrayTypeName = {
   print: ({ node, path, print }) => [
     path.call(print, 'baseTypeName'),
     '[',
@@ -6,5 +6,3 @@ const ArrayTypeName = {
     ']'
   ]
 };
-
-module.exports = ArrayTypeName;

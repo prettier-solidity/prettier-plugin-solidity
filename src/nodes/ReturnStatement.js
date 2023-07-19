@@ -1,8 +1,6 @@
-const {
-  doc: {
-    builders: { group, indent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+
+const { group, indent, line } = doc.builders;
 
 const expression = (node, path, print) => {
   if (node.expression) {
@@ -13,12 +11,10 @@ const expression = (node, path, print) => {
   return '';
 };
 
-const ReturnStatement = {
+export const ReturnStatement = {
   print: ({ node, path, print }) => [
     'return',
     expression(node, path, print),
     ';'
   ]
 };
-
-module.exports = ReturnStatement;

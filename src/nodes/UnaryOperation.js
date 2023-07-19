@@ -1,4 +1,4 @@
-const UnaryOperation = {
+export const UnaryOperation = {
   print: ({ node, path, print }) =>
     node.isPrefix
       ? [
@@ -8,5 +8,3 @@ const UnaryOperation = {
         ]
       : [path.call(print, 'subExpression'), node.operator]
 };
-
-module.exports = UnaryOperation;

@@ -1,10 +1,7 @@
-const {
-  doc: {
-    builders: { group, indent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { group, indent, line } = doc.builders;
 
 const indexed = (node) => (node.isIndexed ? ' indexed' : '');
 
@@ -35,7 +32,7 @@ const override = (node, path, print) => {
 
 const name = (node) => (node.name ? [' ', node.name] : '');
 
-const VariableDeclaration = {
+export const VariableDeclaration = {
   print: ({ node, path, print }) =>
     node.typeName
       ? group([
@@ -52,5 +49,3 @@ const VariableDeclaration = {
         ])
       : node.name
 };
-
-module.exports = VariableDeclaration;

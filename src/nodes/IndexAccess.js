@@ -1,11 +1,9 @@
-const {
-  doc: {
-    builders: { group, indent, indentIfBreak, label, softline }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+
+const { group, indent, indentIfBreak, label, softline } = doc.builders;
 
 let groupIndex = 0;
-const IndexAccess = {
+export const IndexAccess = {
   print: ({ path, print }) => {
     let baseDoc = path.call(print, 'base');
     let indexDoc = group([
@@ -34,5 +32,3 @@ const IndexAccess = {
     return [baseDoc, '[', indexDoc];
   }
 };
-
-module.exports = IndexAccess;

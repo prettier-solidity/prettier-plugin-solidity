@@ -1,5 +1,3 @@
-const ContinueStatement = {
+export const ContinueStatement = {
   print: () => 'continue;'
 };
-
-module.exports = ContinueStatement;

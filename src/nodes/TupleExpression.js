@@ -1,10 +1,7 @@
-const {
-  doc: {
-    builders: { group }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { group } = doc.builders;
 
 const contents = (node, path, print) =>
   node.components &&
@@ -13,7 +10,7 @@ const contents = (node, path, print) =>
     ? path.map(print, 'components')
     : [printSeparatedList(path.map(print, 'components'))];
 
-const TupleExpression = {
+export const TupleExpression = {
   print: ({ node, path, print }) =>
     group([
       node.isArray ? '[' : '(',
@@ -21,5 +18,3 @@ const TupleExpression = {
       node.isArray ? ']' : ')'
     ])
 };
-
-module.exports = TupleExpression;

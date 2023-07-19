@@ -1,12 +1,9 @@
-const {
-  doc: {
-    builders: { line, softline }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { line, softline } = doc.builders;
 
-const UsingForDeclaration = {
+export const UsingForDeclaration = {
   print: ({ node, path, print, options }) => [
     'using ',
     node.functions && node.functions.length
@@ -30,5 +27,3 @@ const UsingForDeclaration = {
     node.isGlobal ? ' global;' : ';'
   ]
 };
-
-module.exports = UsingForDeclaration;

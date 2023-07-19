@@ -1,7 +1,7 @@
-const {
+import {
   printComments,
   printSeparatedList
-} = require('../common/printer-helpers');
+} from '../common/printer-helpers.js';
 
 const modifierArguments = (node, path, print, options) => {
   if (node.arguments) {
@@ -27,11 +27,9 @@ const modifierArguments = (node, path, print, options) => {
   return '';
 };
 
-const ModifierInvocation = {
+export const ModifierInvocation = {
   print: ({ node, path, print, options }) => [
     node.name,
     modifierArguments(node, path, print, options)
   ]
 };
-
-module.exports = ModifierInvocation;

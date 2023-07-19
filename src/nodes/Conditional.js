@@ -1,10 +1,8 @@
-const {
-  doc: {
-    builders: { group, indent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
 
-const Conditional = {
+const { group, indent, line } = doc.builders;
+
+export const Conditional = {
   print: ({ path, print }) =>
     group([
       path.call(print, 'condition'),
@@ -18,5 +16,3 @@ const Conditional = {
       ])
     ])
 };
-
-module.exports = Conditional;

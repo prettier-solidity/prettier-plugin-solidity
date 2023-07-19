@@ -7,7 +7,7 @@ const namedParameter = (prefix, node, path, print) =>
       ]
     : path.call(print, `${prefix}Type`);
 
-const Mapping = {
+export const Mapping = {
   print: ({ node, path, print }) => [
     'mapping(',
     namedParameter('key', node, path, print),
@@ -16,5 +16,3 @@ const Mapping = {
     ')'
   ]
 };
-
-module.exports = Mapping;

@@ -1,17 +1,14 @@
-const {
-  doc: {
-    builders: { group, indent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedItem } from '../common/printer-helpers.js';
 
-const { printSeparatedItem } = require('../common/printer-helpers');
+const { group, indent, line } = doc.builders;
 
 const printBody = (node, path, print) =>
   node.body.type === 'Block'
     ? [' ', path.call(print, 'body'), ' ']
     : group([indent([line, path.call(print, 'body')]), line]);
 
-const DoWhileStatement = {
+export const DoWhileStatement = {
   print: ({ node, path, print }) => [
     'do',
     printBody(node, path, print),
@@ -20,5 +17,3 @@ const DoWhileStatement = {
     ');'
   ]
 };
-
-module.exports = DoWhileStatement;

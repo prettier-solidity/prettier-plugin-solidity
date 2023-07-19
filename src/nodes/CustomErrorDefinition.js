@@ -1,11 +1,11 @@
-const { printSeparatedList } = require('../common/printer-helpers');
+import { printSeparatedList } from '../common/printer-helpers.js';
 
 const parameters = (node, path, print) =>
   node.parameters && node.parameters.length > 0
     ? printSeparatedList(path.map(print, 'parameters'))
     : '';
 
-const CustomErrorDefinition = {
+export const CustomErrorDefinition = {
   print: ({ node, path, print }) => [
     'error ',
     node.name,
@@ -14,5 +14,3 @@ const CustomErrorDefinition = {
     ');'
   ]
 };
-
-module.exports = CustomErrorDefinition;

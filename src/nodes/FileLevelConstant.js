@@ -1,4 +1,4 @@
-const FileLevelConstant = {
+export const FileLevelConstant = {
   print: ({ node, path, print }) => [
     path.call(print, 'typeName'),
     ' constant ',
@@ -8,5 +8,3 @@ const FileLevelConstant = {
     ';'
   ]
 };
-
-module.exports = FileLevelConstant;

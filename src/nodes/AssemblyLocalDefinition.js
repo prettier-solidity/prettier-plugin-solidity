@@ -1,12 +1,9 @@
-const {
-  doc: {
-    builders: { line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { line } = doc.builders;
 
-const AssemblyLocalDefinition = {
+export const AssemblyLocalDefinition = {
   print: ({ node, path, print }) => {
     const parts = [
       'let',
@@ -21,5 +18,3 @@ const AssemblyLocalDefinition = {
     return parts;
   }
 };
-
-module.exports = AssemblyLocalDefinition;

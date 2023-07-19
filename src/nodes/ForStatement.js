@@ -1,10 +1,7 @@
-const {
-  doc: {
-    builders: { group, indent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { group, indent, line } = doc.builders;
 
 const initExpression = (node, path, print) =>
   node.initExpression ? path.call(print, 'initExpression') : '';
@@ -20,7 +17,7 @@ const printBody = (node, path, print) =>
     ? [' ', path.call(print, 'body')]
     : group(indent([line, path.call(print, 'body')]));
 
-const ForStatement = {
+export const ForStatement = {
   print: ({ node, path, print }) => [
     'for (',
     printSeparatedList(
@@ -42,5 +39,3 @@ const ForStatement = {
     printBody(node, path, print)
   ]
 };
-
-module.exports = ForStatement;

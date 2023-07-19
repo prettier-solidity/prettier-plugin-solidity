@@ -1,11 +1,9 @@
-const {
-  doc: {
-    builders: { join, hardline }
-  }
-} = require('prettier');
-const { printString } = require('../common/util');
+import { doc } from 'prettier';
+import { printString } from '../common/util.js';
 
-const StringLiteral = {
+const { join, hardline } = doc.builders;
+
+export const StringLiteral = {
   print: ({ node, options }) => {
     const list = node.parts.map(
       (part, index) =>
@@ -17,5 +15,3 @@ const StringLiteral = {
     return join(hardline, list);
   }
 };
-
-module.exports = StringLiteral;
