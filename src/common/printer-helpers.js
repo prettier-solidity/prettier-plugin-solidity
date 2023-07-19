@@ -1,13 +1,11 @@
-const {
-  doc: {
-    builders: { group, indent, join, line, softline, hardline }
-  }
-} = require('prettier');
-const { isNextLineEmpty, isPrettier2 } = require('./util');
+import { doc } from 'prettier';
+import { isNextLineEmpty, isPrettier2 } from './util.js';
 
-const printComments = (node, path, options, filter = () => true) => {
+const { group, indent, join, line, softline, hardline } = doc.builders;
+
+export const printComments = (node, path, options, filter = () => true) => {
   if (!node.comments) return '';
-  const doc = join(
+  const document = join(
     line,
     path
       .map((commentPath) => {
@@ -29,12 +27,12 @@ const printComments = (node, path, options, filter = () => true) => {
   // Mocking the behaviour will introduce a lot of maintenance in the tests.
   /* c8 ignore start */
   return isPrettier2()
-    ? doc.parts // Prettier V2
-    : doc; // Prettier V3
+    ? document.parts // Prettier V2
+    : document; // Prettier V3
   /* c8 ignore stop */
 };
 
-function printPreservingEmptyLines(path, key, options, print) {
+export function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
   path.each((childPath, index) => {
     const node = childPath.getValue();
@@ -78,7 +76,7 @@ function printPreservingEmptyLines(path, key, options, print) {
 
 // This function will add an indentation to the `item` and separate it from the
 // rest of the `doc` in most cases by a `softline`.
-const printSeparatedItem = (
+export const printSeparatedItem = (
   item,
   {
     firstSeparator = softline,
@@ -86,15 +84,15 @@ const printSeparatedItem = (
     grouped = true
   } = {}
 ) => {
-  const doc = [indent([firstSeparator, item]), lastSeparator];
-  return grouped ? group(doc) : doc;
+  const document = [indent([firstSeparator, item]), lastSeparator];
+  return grouped ? group(document) : document;
 };
 
 // This function will add an indentation to the `list` and separate it from the
 // rest of the `doc` in most cases by a `softline`.
 // the list itself will be printed with a separator that in most cases is a
 // comma (,) and a `line`
-const printSeparatedList = (
+export const printSeparatedList = (
   list,
   { firstSeparator, separator = [',', line], lastSeparator, grouped } = {}
 ) =>
@@ -103,10 +101,3 @@ const printSeparatedList = (
     lastSeparator,
     grouped
   });
-
-module.exports = {
-  printComments,
-  printPreservingEmptyLines,
-  printSeparatedList,
-  printSeparatedItem
-};

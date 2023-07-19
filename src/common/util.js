@@ -1,26 +1,26 @@
-const { util, version } = require('prettier');
-const satisfies = require('semver/functions/satisfies');
+import { util, version } from 'prettier';
+import satisfies from 'semver/functions/satisfies.js';
 
-const prettierVersionSatisfies = (range) => satisfies(version, range);
-const isPrettier2 = () => prettierVersionSatisfies('^2.3.0');
+export const prettierVersionSatisfies = (range) => satisfies(version, range);
+export const isPrettier2 = () => prettierVersionSatisfies('^2.3.0');
 
 // The following functions will never be 100% covered in a single run
 // since it depends on the version of Prettier being used.
 // Mocking the behaviour will introduce a lot of maintenance in the tests.
 /* c8 ignore start */
-function isNextLineEmpty(text, startIndex) {
+export function isNextLineEmpty(text, startIndex) {
   return isPrettier2()
     ? util.isNextLineEmptyAfterIndex(text, startIndex)
     : util.isNextLineEmpty(text, startIndex); // V3 deprecated `isNextLineEmptyAfterIndex`
 }
 
-function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+export function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   return isPrettier2()
     ? util.getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
     : util.getNextNonSpaceNonCommentCharacterIndex(text, locEnd(node)); // V3 signature changed
 }
 
-function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
+export function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return isPrettier2()
     ? text.charAt(
         util.getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
@@ -29,7 +29,7 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
 }
 /* c8 ignore stop */
 
-function printString(rawContent, options) {
+export function printString(rawContent, options) {
   const double = { quote: '"', regex: /"/g };
   const single = { quote: "'", regex: /'/g };
 
@@ -64,7 +64,7 @@ function printString(rawContent, options) {
   return util.makeString(rawContent, enclosingQuote);
 }
 
-function hasNodeIgnoreComment(node) {
+export function hasNodeIgnoreComment(node) {
   return (
     node &&
     node.comments &&
@@ -72,13 +72,3 @@ function hasNodeIgnoreComment(node) {
     node.comments.some((comment) => comment.value.trim() === 'prettier-ignore')
   );
 }
-
-module.exports = {
-  getNextNonSpaceNonCommentCharacter,
-  getNextNonSpaceNonCommentCharacterIndex,
-  isNextLineEmpty,
-  isPrettier2,
-  printString,
-  prettierVersionSatisfies,
-  hasNodeIgnoreComment
-};
