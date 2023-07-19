@@ -1,6 +1,6 @@
-const arithmetic = require('./arithmetic');
+import { arithmetic } from './arithmetic.js';
 
-module.exports = {
+export const bit = {
   match: (op) => ['&', '|', '^'].includes(op),
   print: arithmetic.print
 };
