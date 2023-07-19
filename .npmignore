@@ -1,7 +1,6 @@
 # -*- mode: gitignore; -*-
 .github/
 tests/
-scripts/
 assets/
 *.md/
 !README.md

@@ -9,12 +9,11 @@
   "scripts": {
     "build": "webpack --env production",
     "build:dev": "webpack --env development",
-    "eslint": "eslint 'scripts/**' 'src/**' 'tests/**'",
-    "generateindexes": "cross-env SCRIPT=true node scripts/generateIndexes.js",
+    "eslint": "eslint 'src/**' 'tests/**'",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prepublishOnly": "npm run build",
-    "prettier": "prettier './*.{js,json,md,yml}' '{scripts,src,tests}/**/*.js'",
+    "prettier": "prettier './*.{js,json,md,yml}' '{src,tests}/**/*.js'",
     "test": "jest",
     "test:all": "cross-env FULL_TEST=1 c8 jest",
     "test:standalone": "cross-env TEST_STANDALONE=1 FULL_TEST=1 jest"
@@ -83,7 +82,6 @@
     "@babel/code-frame": "^7.22.5",
     "c8": "^8.0.0",
     "cross-env": "^7.0.3",
-    "dir-to-object": "^2.0.0",
     "eslint": "^8.44.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
