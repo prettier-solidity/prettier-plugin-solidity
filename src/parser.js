@@ -1,8 +1,8 @@
-const extractComments = require('solidity-comments-extractor');
+import extractComments from 'solidity-comments-extractor';
 // https://prettier.io/docs/en/plugins.html#parsers
-const parser = require('@solidity-parser/parser');
-const coerce = require('semver/functions/coerce');
-const satisfies = require('semver/functions/satisfies');
+import parser from '@solidity-parser/parser';
+import coerce from 'semver/functions/coerce.js';
+import satisfies from 'semver/functions/satisfies.js';
 
 const tryHug = (node, operators) => {
   if (node.type === 'BinaryOperation' && operators.includes(node.operator))
@@ -184,4 +184,4 @@ function parse(text, _parsers, options = _parsers) {
   return parsed;
 }
 
-module.exports = parse;
+export default parse;
