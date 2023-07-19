@@ -1,6 +1,6 @@
-const solc = require("solc");
+import solc from "solc";
 
-function compileContract(filename, content) {
+export function compileContract(filename, content) {
   const input = {
     language: "Solidity",
     sources: {
@@ -33,5 +33,3 @@ function compileContract(filename, content) {
     {}
   );
 }
-
-module.exports = compileContract;

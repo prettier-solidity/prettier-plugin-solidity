@@ -1,18 +1,16 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
+import createEsmUtils from "esm-utils";
+import getPrettier from "./get-prettier.js";
+import createSnapshot from "./utils/create-snapshot.js";
+import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import consistentEndOfLine from "./utils/consistent-end-of-line.js";
+import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
 
-const { TEST_STANDALONE } = process.env;
+const { __dirname } = createEsmUtils(import.meta);
 
-const fs = require("fs");
-const path = require("path");
-const prettier = !TEST_STANDALONE
-  ? require("./require-prettier")
-  : require("./require-standalone");
-const createSnapshot = require("./utils/create-snapshot");
-const visualizeEndOfLine = require("./utils/visualize-end-of-line");
-const consistentEndOfLine = require("./utils/consistent-end-of-line");
-const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
-
-const { FULL_TEST } = process.env;
+const { FULL_TEST, TEST_STANDALONE } = process.env;
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
@@ -114,8 +112,10 @@ const isTestDirectory = (dirname, name) =>
   );
 
 function runSpec(fixtures, parsers, options) {
-  let { dirname, snippets = [] } =
-    typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
+  let { importMeta, snippets = [] } = fixtures.importMeta
+    ? fixtures
+    : { importMeta: fixtures };
+  const dirname = path.dirname(url.fileURLToPath(importMeta.url));
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
@@ -137,6 +137,11 @@ function runSpec(fixtures, parsers, options) {
 
   snippets = snippets.map((test, index) => {
     test = typeof test === "string" ? { code: test } : test;
+
+    if (typeof test.code !== "string") {
+      throw Object.assign(new Error("Invalid test"), { test });
+    }
+
     return {
       ...test,
       name: `snippet: ${test.name || `#${index}`}`,
@@ -188,8 +193,6 @@ function runSpec(fixtures, parsers, options) {
           ),
         ],
         printWidth: 80,
-        // Should not search plugins by default
-        pluginSearchDirs: false,
         ...options,
         filepath: filename,
         parser,
@@ -356,7 +359,7 @@ async function runTest({
     //   - A worker process has failed to exit gracefully and has been force
     //     exited. This is likely caused by tests leaking due to improper
     //     teardown. Try running with --detectOpenHandles to find leaks.
-    const compileContract = require("./utils/compile-contract");
+    const { compileContract } = await import("./utils/compile-contract.js");
     const output = compileContract(filename, formatResult.output);
     const expected = compileContract(filename, formatResult.input);
     expect(output).toEqual(expected);
@@ -383,6 +386,7 @@ function shouldSkipEolTest(code, options) {
 }
 
 async function parse(source, options) {
+  const prettier = await getPrettier();
   const { ast } = await prettier.__debug.parse(source, options, {
     massage: true,
   });
@@ -435,6 +439,7 @@ async function format(originalText, originalOptions) {
     originalOptions
   );
   const inputWithCursor = insertCursor(input, options.cursorOffset);
+  const prettier = await getPrettier();
 
   const { formatted: output, cursorOffset } = await prettier.formatWithCursor(
     input,
@@ -456,4 +461,4 @@ async function format(originalText, originalOptions) {
   };
 }
 
-module.exports = runSpec;
+export default runSpec;

@@ -2,11 +2,12 @@
 
 const path = require("path");
 const vm = require("vm");
-const createSandBox = require("./utils/create-sandbox");
-const { isPrettier2 } = require("../../src/common/util");
+const prettier = require("prettier");
+const satisfies = require("semver/functions/satisfies");
+const createSandBox = require("./utils/create-sandbox.cjs");
 
 const prettierPath = path.dirname(require.resolve("prettier"));
-const pluginPrefix = isPrettier2()
+const pluginPrefix = satisfies(prettier.version, "^2.3.0")
   ? "parser-" // Prettier V2
   : "plugins/"; // Prettier V3
 
