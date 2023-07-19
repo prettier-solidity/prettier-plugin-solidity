@@ -5,5 +5,9 @@
   "extends": ["airbnb-base", "prettier"],
   "globals": {
     "run_spec": false
+  },
+  "rules": {
+    "import/extensions": "off",
+    "import/prefer-default-export": "off"
   }
 }
