@@ -1,12 +1,11 @@
-const {
+import {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment
-} = require('../prettier-comments/language-js/comments');
+} from '../prettier-comments/language-js/comments.js';
+import handlers from './handlers/index.js';
 
-const handlers = require('./handlers');
-
-function solidityHandleOwnLineComment(
+export function solidityHandleOwnLineComment(
   comment,
   text,
   options,
@@ -32,7 +31,7 @@ function solidityHandleOwnLineComment(
   return false;
 }
 
-function solidityHandleEndOfLineComment(
+export function solidityHandleEndOfLineComment(
   comment,
   text,
   options,
@@ -58,7 +57,7 @@ function solidityHandleEndOfLineComment(
   return false;
 }
 
-function solidityHandleRemainingComment(
+export function solidityHandleRemainingComment(
   comment,
   text,
   options,
@@ -84,13 +83,6 @@ function solidityHandleRemainingComment(
   return false;
 }
 
-function isBlockComment(comment) {
+export function isBlockComment(comment) {
   return comment.type === 'BlockComment';
 }
-
-module.exports = {
-  handleOwnLineComment: solidityHandleOwnLineComment,
-  handleEndOfLineComment: solidityHandleEndOfLineComment,
-  handleRemainingComment: solidityHandleRemainingComment,
-  isBlockComment
-};

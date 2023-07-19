@@ -30,4 +30,4 @@ function ignoreComments(path) {
   });
 }
 
-module.exports = ignoreComments;
+export default ignoreComments;

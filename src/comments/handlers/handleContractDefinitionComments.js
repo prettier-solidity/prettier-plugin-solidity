@@ -1,7 +1,7 @@
-const {
-  util: { addLeadingComment, addTrailingComment, addDanglingComment }
-} = require('prettier');
-const { getNextNonSpaceNonCommentCharacter } = require('../../common/util');
+import { util } from 'prettier';
+import { getNextNonSpaceNonCommentCharacter } from '../../common/util.js';
+
+const { addLeadingComment, addTrailingComment, addDanglingComment } = util;
 
 function handleContractDefinitionComments({
   text,
@@ -55,4 +55,4 @@ function handleContractDefinitionComments({
   return false;
 }
 
-module.exports = handleContractDefinitionComments;
+export default handleContractDefinitionComments;

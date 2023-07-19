@@ -1,6 +1,8 @@
 /* eslint-disable global-require */
+import handleContractDefinitionComments from './handleContractDefinitionComments.js';
+import handleModifierInvocationComments from './handleModifierInvocationComments.js';
 
-module.exports = [
-  require('./handleContractDefinitionComments'),
-  require('./handleModifierInvocationComments')
+export default [
+  handleContractDefinitionComments,
+  handleModifierInvocationComments
 ];
