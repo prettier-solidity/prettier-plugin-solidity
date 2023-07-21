@@ -7,8 +7,6 @@ import ignoreComments from './comments/ignore.js';
 
 let checked = false;
 
-// TODO: research mocks for testing wrong Prettier version
-/* c8 ignore start */
 function prettierVersionCheck() {
   if (checked) return;
   if (!prettierVersionSatisfies('>=2.3.0')) {
@@ -18,7 +16,6 @@ function prettierVersionCheck() {
   }
   checked = true;
 }
-/* c8 ignore stop */
 
 function genericPrint(path, options, print) {
   prettierVersionCheck();

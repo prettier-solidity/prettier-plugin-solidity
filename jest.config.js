@@ -19,7 +19,7 @@ export default {
     : [],
   testMatch: [
     '<rootDir>/tests/format/**/jsfmt.spec.js',
-    '<rootDir>/tests/unit/**/*.js'
+    '<rootDir>/tests/unit/**/*.test.js'
   ],
   transform: {},
   watchPlugins: [

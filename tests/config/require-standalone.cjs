@@ -16,7 +16,7 @@ const sandbox = createSandBox({
     path.join(prettierPath, "standalone.js"),
     path.join(prettierPath, `${pluginPrefix}babel.js`),
     path.join(prettierPath, `${pluginPrefix}markdown.js`),
-    path.join(__dirname, "../../dist/standalone.js"),
+    path.join(__dirname, "../../dist/standalone.cjs"),
   ],
 });
 

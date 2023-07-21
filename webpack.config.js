@@ -52,7 +52,7 @@ export default (webpackEnv) => {
     target: ['browserslist'],
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'standalone.js',
+      filename: 'standalone.cjs',
       globalObject: `
         typeof globalThis !== "undefined"
           ? globalThis
