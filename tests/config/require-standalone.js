@@ -3,10 +3,10 @@
 const path = require("path");
 const vm = require("vm");
 const createSandBox = require("./utils/create-sandbox");
-const { prettierVersionSatisfies } = require("../../src/common/util");
+const { isPrettier2 } = require("../../src/common/util");
 
 const prettierPath = path.dirname(require.resolve("prettier"));
-const pluginPrefix = prettierVersionSatisfies("^2.3.0")
+const pluginPrefix = isPrettier2()
   ? "parser-" // Prettier V2
   : "plugins/"; // Prettier V3
 

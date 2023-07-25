@@ -1,11 +1,7 @@
 const {
-  util: {
-    addLeadingComment,
-    addTrailingComment,
-    addDanglingComment,
-    getNextNonSpaceNonCommentCharacterIndex
-  }
+  util: { addLeadingComment, addTrailingComment, addDanglingComment }
 } = require('prettier');
+const { getNextNonSpaceNonCommentCharacter } = require('../../common/util');
 
 function handleModifierInvocationComments({
   text,
@@ -23,8 +19,10 @@ function handleModifierInvocationComments({
   //    function a() public modifier /* comment 1 */ ( /* comment 2 */ ) /* comment 3 */
   // The only workaround I found is to look at the next character to see if
   // it is a ().
-  const nextCharacter = text.charAt(
-    getNextNonSpaceNonCommentCharacterIndex(text, comment, options.locEnd)
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
+    text,
+    comment,
+    options.locEnd
   );
 
   // The comment is behind the start of the Parentheses `()`
