@@ -107,7 +107,7 @@
     "solidity-comments-extractor": "^0.0.7"
   },
   "peerDependencies": {
-    "prettier": ">=2.3.0 || >=3.0.0-alpha.0"
+    "prettier": ">=2.3.0"
   },
   "browserslist": {
     "production": [
