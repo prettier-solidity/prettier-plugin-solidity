@@ -3,6 +3,7 @@ import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
 import getPrettier from "./get-prettier.js";
+import compileContract from "./utils/compile-contract.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
@@ -186,12 +187,9 @@ function runSpec(fixtures, parsers, options) {
 
     describe(title, () => {
       const formatOptions = {
-        plugins: [
-          path.join(
-            __dirname,
-            TEST_STANDALONE ? "../../dist/standalone.js" : "../../src/index.js"
-          ),
-        ],
+        plugins: TEST_STANDALONE
+          ? []
+          : [path.join(__dirname, "../../src/index.js")],
         printWidth: 80,
         ...options,
         filepath: filename,
@@ -353,13 +351,6 @@ async function runTest({
   }
 
   if (shouldCompareBytecode(filename, formatOptions)) {
-    // We require the compiler here as it makes all tests slow when added at
-    // the top of the file.
-    // TODO investigate this warning
-    //   - A worker process has failed to exit gracefully and has been force
-    //     exited. This is likely caused by tests leaking due to improper
-    //     teardown. Try running with --detectOpenHandles to find leaks.
-    const { compileContract } = await import("./utils/compile-contract.js");
     const output = compileContract(filename, formatResult.output);
     const expected = compileContract(filename, formatResult.input);
     expect(output).toEqual(expected);
