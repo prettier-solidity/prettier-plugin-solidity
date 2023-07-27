@@ -7,18 +7,22 @@ const satisfies = require("semver/functions/satisfies");
 const createSandBox = require("./utils/create-sandbox.cjs");
 
 const prettierPath = path.dirname(require.resolve("prettier"));
-const pluginPrefix = satisfies(prettier.version, "^2.3.0")
+const isPrettier2 = satisfies(prettier.version, "^2.3.0");
+const pluginPrefix = isPrettier2
   ? "parser-" // Prettier V2
   : "plugins/"; // Prettier V3
 
-const sandbox = createSandBox({
-  files: [
-    path.join(prettierPath, "standalone.js"),
-    path.join(prettierPath, `${pluginPrefix}babel.js`),
-    path.join(prettierPath, `${pluginPrefix}markdown.js`),
-    path.join(__dirname, "../../dist/standalone.cjs"),
-  ],
-});
+let files = [
+  path.join(prettierPath, "standalone.js"),
+  path.join(prettierPath, `${pluginPrefix}babel.js`),
+  path.join(prettierPath, `${pluginPrefix}markdown.js`),
+  path.join(__dirname, "../../dist/standalone.cjs"),
+];
+
+if (!isPrettier2)
+  files = [path.join(prettierPath, `${pluginPrefix}estree.js`), ...files];
+
+const sandbox = createSandBox({ files });
 
 // TODO: maybe expose (and write tests) for `format`, `utils`, and
 // `__debug` methods
