@@ -26,7 +26,7 @@ export const printComments = (node, path, options, filter = () => true) => {
   // since it depends on the version of Prettier being used.
   // Mocking the behaviour will introduce a lot of maintenance in the tests.
   /* c8 ignore start */
-  return isPrettier2()
+  return isPrettier2
     ? document.parts // Prettier V2
     : document; // Prettier V3
   /* c8 ignore stop */
