@@ -12,15 +12,19 @@ const pluginPrefix = isPrettier2
   ? "parser-" // Prettier V2
   : "plugins/"; // Prettier V3
 
-let files = [
-  path.join(prettierPath, "standalone.js"),
+const plugins = [
   path.join(prettierPath, `${pluginPrefix}babel.js`),
   path.join(prettierPath, `${pluginPrefix}markdown.js`),
   path.join(__dirname, "../../dist/standalone.cjs"),
 ];
 
-if (!isPrettier2)
-  files = [path.join(prettierPath, `${pluginPrefix}estree.js`), ...files];
+const files = isPrettier2
+  ? [path.join(prettierPath, "standalone.js"), ...plugins]
+  : [
+      path.join(prettierPath, "standalone.js"),
+      path.join(prettierPath, `${pluginPrefix}estree.js`),
+      ...plugins,
+    ];
 
 const sandbox = createSandBox({ files });
 
