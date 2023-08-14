@@ -86,7 +86,7 @@
     "@babel/code-frame": "^7.22.10",
     "c8": "^8.0.1",
     "cross-env": "^7.0.3",
-    "eslint": "^8.46.0",
+    "eslint": "^8.47.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.0",
