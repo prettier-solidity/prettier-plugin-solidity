@@ -13,11 +13,11 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         id: cache
         with:
           path: |
@@ -32,11 +32,11 @@ jobs:
     name: Test production
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         id: cache
         with:
           path: |
@@ -53,11 +53,11 @@ jobs:
     name: Prettier V2
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         id: cache
         with:
           path: |
@@ -81,11 +81,11 @@ jobs:
       matrix:
         node: [16, 18, 20]
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         id: cache
         with:
           path: |
@@ -100,11 +100,11 @@ jobs:
     name: Test on MacOS with Node 16
     runs-on: macos-latest
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         id: cache
         with:
           path: |
@@ -119,10 +119,10 @@ jobs:
     name: Test on Windows with Node 16
     runs-on: windows-latest
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install
         run: npm install
       - name: Run tests
