@@ -30,8 +30,8 @@ export const FunctionCall = {
     let expressionDoc = path.call(print, 'expression');
     let argumentsDoc = ')';
 
-    if (node.arguments && node.arguments.length > 0) {
-      if (node.identifiers && node.identifiers.length > 0) {
+    if (node.arguments?.length > 0) {
+      if (node.identifiers?.length > 0) {
         argumentsDoc = printObject(path, print, options);
       } else {
         argumentsDoc = printArguments(path, print);

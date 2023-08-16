@@ -6,7 +6,7 @@ const { line, softline } = doc.builders;
 export const UsingForDeclaration = {
   print: ({ node, path, print, options }) => [
     'using ',
-    node.functions && node.functions.length
+    node.functions?.length
       ? [
           '{',
           printSeparatedList(

@@ -10,9 +10,9 @@ export const ExpressionStatement = {
     const parent = path.getParentNode();
 
     if (parent.type === 'IfStatement') {
-      if (node.comments && node.comments.length) {
+      if (node.comments?.length) {
         const comments = printComments(node, path, options);
-        if (comments && comments.length) {
+        if (comments?.length) {
           parts.push(comments);
           parts.push(hardline);
         }

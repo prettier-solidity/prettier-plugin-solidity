@@ -13,8 +13,7 @@ const modifierArguments = (node, path, print, options) => {
   }
 
   if (
-    node.comments &&
-    node.comments.some(
+    node.comments?.some(
       (comment) => !comment.leading && !comment.trailing && !comment.printed
     )
   ) {

@@ -26,12 +26,12 @@ const functionName = (node, options) => {
 };
 
 const parameters = (parametersType, node, path, print, options) => {
-  if (node[parametersType] && node[parametersType].length > 0) {
+  if (node[parametersType]?.length > 0) {
     return printSeparatedList(path.map(print, parametersType), {
       grouped: false
     });
   }
-  if (node.comments && node.comments.length > 0) {
+  if (node.comments?.length > 0) {
     // we add a check to see if the comment is inside the parentheses
     const parameterComments = printComments(
       node,

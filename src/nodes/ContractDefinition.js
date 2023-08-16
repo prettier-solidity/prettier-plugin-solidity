@@ -20,7 +20,7 @@ const inheritance = (node, path, print) =>
 
 const body = (node, path, options, print) => {
   const comments = printComments(node, path, options);
-  return node.subNodes.length > 0 || (comments && comments.length)
+  return node.subNodes.length > 0 || comments?.length
     ? printSeparatedItem(
         [printPreservingEmptyLines(path, 'subNodes', options, print), comments],
         { firstSeparator: hardline, grouped: false }
