@@ -13,7 +13,6 @@ const pluginPrefix = isPrettier2
   : "plugins/"; // Prettier V3
 
 const plugins = [
-  path.join(prettierPath, `${pluginPrefix}babel.js`),
   path.join(prettierPath, `${pluginPrefix}markdown.js`),
   path.join(__dirname, "../../dist/standalone.cjs"),
 ];
@@ -22,6 +21,7 @@ const files = isPrettier2
   ? [path.join(prettierPath, "standalone.js"), ...plugins]
   : [
       path.join(prettierPath, "standalone.js"),
+      path.join(prettierPath, `${pluginPrefix}babel.js`),
       path.join(prettierPath, `${pluginPrefix}estree.js`),
       ...plugins,
     ];
