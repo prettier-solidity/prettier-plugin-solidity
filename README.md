@@ -10,8 +10,6 @@
 
 A [Prettier plugin](https://prettier.io/docs/en/plugins.html) for automatically formatting your [Solidity](https://github.com/ethereum/solidity) code.
 
-If you like this project, please consider contributing to our [Gitcoin grant](https://gitcoin.co/grants/1534/prettier-solidity)!
-
 ## Installation and usage
 
 ### Using in NodeJS
