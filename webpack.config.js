@@ -20,9 +20,6 @@ module.exports = (webpackEnv) => {
     resolve: {
       alias: {
         '@solidity-parser/parser': '@solidity-parser/parser/dist/index.iife.js'
-      },
-      fallback: {
-        util: false
       }
     },
 
