@@ -50,6 +50,7 @@ export default (webpackEnv) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'standalone.cjs',
+      clean: true,
       globalObject: `
         typeof globalThis !== "undefined"
           ? globalThis
