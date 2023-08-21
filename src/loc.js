@@ -10,7 +10,7 @@ function getRange(index, node) {
   return null;
 }
 
-module.exports = {
+export default {
   locEnd: (node) => getRange(1, node),
   locStart: (node) => getRange(0, node)
 };

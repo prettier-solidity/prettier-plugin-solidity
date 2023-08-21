@@ -1,10 +1,7 @@
-const {
-  doc: {
-    builders: { group, indentIfBreak, label, line, softline }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { group, indentIfBreak, label, line, softline } = doc.builders;
 
 const printObject = (path, print, options) => {
   const identifiers = path.map(print, 'identifiers');
@@ -28,7 +25,7 @@ const printArguments = (path, print) =>
   });
 
 let groupIndex = 0;
-const FunctionCall = {
+export const FunctionCall = {
   print: ({ node, path, print, options }) => {
     let expressionDoc = path.call(print, 'expression');
     let argumentsDoc = ')';
@@ -61,5 +58,3 @@ const FunctionCall = {
     return [expressionDoc, '(', argumentsDoc];
   }
 };
-
-module.exports = FunctionCall;

@@ -1,16 +1,11 @@
-const {
-  doc: {
-    builders: { join, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printString } from '../common/util.js';
 
-const { printString } = require('../common/util');
+const { join, line } = doc.builders;
 
-const HexLiteral = {
+export const HexLiteral = {
   print: ({ node, options }) => {
     const list = node.parts.map((part) => `hex${printString(part, options)}`);
     return join(line, list);
   }
 };
-
-module.exports = HexLiteral;

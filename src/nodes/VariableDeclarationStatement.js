@@ -1,19 +1,16 @@
-const {
-  doc: {
-    builders: { group, indentIfBreak }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { group, indentIfBreak } = doc.builders;
 
-const embraceVariables = (doc, embrace) =>
-  embrace ? ['(', printSeparatedList(doc), ')'] : doc;
+const embraceVariables = (document, embrace) =>
+  embrace ? ['(', printSeparatedList(document), ')'] : document;
 
 const initialValue = (node, path, print) =>
   node.initialValue ? [' = ', path.call(print, 'initialValue')] : '';
 
 let groupIndex = 0;
-const VariableDeclarationStatement = {
+export const VariableDeclarationStatement = {
   print: ({ node, path, print }) => {
     const startsWithVar =
       node.variables.filter((x) => x && x.typeName).length === 0;
@@ -40,5 +37,3 @@ const VariableDeclarationStatement = {
     ]);
   }
 };
-
-module.exports = VariableDeclarationStatement;

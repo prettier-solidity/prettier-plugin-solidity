@@ -1,8 +1,6 @@
-const {
-  doc: {
-    builders: { group, indent, label, softline }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+
+const { group, indent, label, softline } = doc.builders;
 
 const isEndOfChain = (node, path) => {
   let i = 0;
@@ -107,21 +105,19 @@ const processChain = (chain) => {
   return label('MemberAccessChain', group([firstExpression, restOfChain]));
 };
 
-const MemberAccess = {
+export const MemberAccess = {
   print: ({ node, path, print }) => {
     let expressionDoc = path.call(print, 'expression');
     if (Array.isArray(expressionDoc)) {
       expressionDoc = expressionDoc.flat();
     }
 
-    const doc = [
+    const document = [
       expressionDoc,
       label('separator', [softline, '.']),
       node.memberName
     ].flat();
 
-    return isEndOfChain(node, path) ? processChain(doc) : doc;
+    return isEndOfChain(node, path) ? processChain(document) : document;
   }
 };
-
-module.exports = MemberAccess;

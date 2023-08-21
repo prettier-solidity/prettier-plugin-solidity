@@ -1,7 +1,13 @@
-const path = require('path');
+import path from 'node:path';
+import { createRequire } from 'node:module';
+import createEsmUtils from 'esm-utils';
+
+const require = createRequire(import.meta.url);
+const { __dirname } = createEsmUtils(import.meta);
+
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = (webpackEnv) => {
+export default (webpackEnv) => {
   const isEnvProduction = Boolean(webpackEnv.production);
 
   return {
@@ -43,7 +49,8 @@ module.exports = (webpackEnv) => {
     target: ['browserslist'],
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'standalone.js',
+      filename: 'standalone.cjs',
+      clean: true,
       globalObject: `
         typeof globalThis !== "undefined"
           ? globalThis
@@ -54,6 +61,7 @@ module.exports = (webpackEnv) => {
           : this || {}
       `,
       library: {
+        export: 'default',
         name: {
           commonjs: 'prettierPluginSolidity',
           root: ['prettierPlugins', 'solidity']

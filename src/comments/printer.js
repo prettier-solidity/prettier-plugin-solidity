@@ -1,9 +1,6 @@
-const {
-  doc: {
-    builders: { hardline, join }
-  },
-  util: { hasNewline }
-} = require('prettier');
+import { doc, util } from 'prettier';
+
+const { hardline, join } = doc.builders;
 
 function isIndentableBlockComment(comment) {
   // If the comment has multiple lines and every line starts with a star
@@ -31,7 +28,7 @@ function printIndentableBlockComment(comment) {
   ];
 }
 
-function printComment(commentPath, options) {
+export function printComment(commentPath, options) {
   const comment = commentPath.getValue();
 
   switch (comment.type) {
@@ -43,7 +40,7 @@ function printComment(commentPath, options) {
         // interleaved. See https://github.com/prettier/prettier/issues/4412
         if (
           comment.trailing &&
-          !hasNewline(options.originalText, options.locStart(comment), {
+          !util.hasNewline(options.originalText, options.locStart(comment), {
             backwards: true
           })
         ) {
@@ -60,5 +57,3 @@ function printComment(commentPath, options) {
       throw new Error(`Not a comment: ${JSON.stringify(comment)}`);
   }
 }
-
-module.exports = printComment;

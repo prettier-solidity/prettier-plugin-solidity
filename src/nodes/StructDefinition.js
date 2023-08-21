@@ -1,12 +1,9 @@
-const {
-  doc: {
-    builders: { hardline }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { hardline } = doc.builders;
 
-const StructDefinition = {
+export const StructDefinition = {
   print: ({ node, path, print }) => [
     'struct ',
     node.name,
@@ -21,5 +18,3 @@ const StructDefinition = {
     '}'
   ]
 };
-
-module.exports = StructDefinition;

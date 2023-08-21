@@ -1,15 +1,11 @@
-const {
-  doc: {
-    builders: { join }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
 
-const AssemblyAssignment = {
+const { join } = doc.builders;
+
+export const AssemblyAssignment = {
   print: ({ path, print }) => [
     join(', ', path.map(print, 'names')),
     ' := ',
     path.call(print, 'expression')
   ]
 };
-
-module.exports = AssemblyAssignment;

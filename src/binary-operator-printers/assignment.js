@@ -1,10 +1,8 @@
-const {
-  doc: {
-    builders: { group, line, indent }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
 
-module.exports = {
+const { group, line, indent } = doc.builders;
+
+export const assignment = {
   match: (op) =>
     [
       '=',

@@ -1,10 +1,8 @@
-const {
-  doc: {
-    builders: { hardline, join }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
 
-const AssemblySwitch = {
+const { hardline, join } = doc.builders;
+
+export const AssemblySwitch = {
   print: ({ path, print }) => [
     'switch ',
     path.call(print, 'expression'),
@@ -12,5 +10,3 @@ const AssemblySwitch = {
     join(hardline, path.map(print, 'cases'))
   ]
 };
-
-module.exports = AssemblySwitch;

@@ -2,11 +2,12 @@
 
 const path = require("path");
 const vm = require("vm");
-const createSandBox = require("./utils/create-sandbox");
-const { isPrettier2 } = require("../../src/common/util");
+const prettier = require("prettier");
+const satisfies = require("semver/functions/satisfies");
+const createSandBox = require("./utils/create-sandbox.cjs");
 
 const prettierPath = path.dirname(require.resolve("prettier"));
-const pluginPrefix = isPrettier2()
+const pluginPrefix = satisfies(prettier.version, "^2.3.0")
   ? "parser-" // Prettier V2
   : "plugins/"; // Prettier V3
 
@@ -15,7 +16,7 @@ const sandbox = createSandBox({
     path.join(prettierPath, "standalone.js"),
     path.join(prettierPath, `${pluginPrefix}babel.js`),
     path.join(prettierPath, `${pluginPrefix}markdown.js`),
-    path.join(__dirname, "../../dist/standalone.js"),
+    path.join(__dirname, "../../dist/standalone.cjs"),
   ],
 });
 
@@ -39,7 +40,7 @@ module.exports = {
   },
 
   __debug: {
-    parse(input, options, massage) {
+    parse(input, options, devOptions) {
       return vm.runInNewContext(
         `
           const options = {
@@ -49,9 +50,14 @@ module.exports = {
               ...($$$options.plugins || []),
             ],
           };
-          prettier.__debug.parse($$$input, options, ${JSON.stringify(massage)});
+          prettier.__debug.parse($$$input, options, $$$devOptions);
         `,
-        { $$$input: input, $$$options: options, ...sandbox }
+        {
+          $$$input: input,
+          $$$options: options,
+          $$$devOptions: devOptions,
+          ...sandbox,
+        }
       );
     },
   },

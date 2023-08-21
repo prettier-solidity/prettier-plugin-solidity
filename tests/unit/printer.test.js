@@ -1,4 +1,4 @@
-const genericPrint = require('../../src/printer');
+import genericPrint from '../../src/printer.js';
 
 test('given an unknown module type then genericPrint function should throw', () => {
   const mockPath = { getValue: () => ({ type: 'UnknownModule' }) };

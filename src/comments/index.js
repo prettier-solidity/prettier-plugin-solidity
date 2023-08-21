@@ -1,4 +1,2 @@
-const handler = require('./handler');
-const printer = require('./printer');
-
-module.exports = { handleComments: handler, printComment: printer };
+export * from './handler.js';
+export * from './printer.js';

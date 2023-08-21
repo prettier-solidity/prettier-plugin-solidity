@@ -1,17 +1,15 @@
-"use strict";
+import { util } from "prettier";
+import { getNextNonSpaceNonCommentCharacter } from "../../common/util.js";
 
 const {
-  util: {
-    addLeadingComment,
-    addTrailingComment,
-    addDanglingComment,
-    hasNewline,
-    hasNewlineInRange
-  }
-} = require('prettier');
-const { getNextNonSpaceNonCommentCharacter, getNextNonSpaceNonCommentCharacterIndex} = require("../../common/util");
+  addLeadingComment,
+  addTrailingComment,
+  addDanglingComment,
+  hasNewline,
+  hasNewlineInRange
+} = util
 
-function handleOwnLineComment(comment, text, options, ast, isLastComment) {
+export function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   if (
     handleLastFunctionArgComments(
@@ -76,7 +74,7 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   return false;
 }
 
-function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
+export function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   if (
     handleLastFunctionArgComments(
@@ -131,7 +129,7 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
   return false;
 }
 
-function handleRemainingComment(comment, text, options, ast, isLastComment) {
+export function handleRemainingComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
 
   if (
@@ -833,13 +831,6 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function isBlockComment(comment) {
+export function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
-
-module.exports = {
-  handleOwnLineComment,
-  handleEndOfLineComment,
-  handleRemainingComment,
-  isBlockComment
-};

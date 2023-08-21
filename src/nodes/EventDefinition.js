@@ -1,11 +1,11 @@
-const { printSeparatedList } = require('../common/printer-helpers');
+import { printSeparatedList } from '../common/printer-helpers.js';
 
 const parameters = (node, path, print) =>
   node.parameters && node.parameters.length > 0
     ? printSeparatedList(path.map(print, 'parameters'))
     : '';
 
-const EventDefinition = {
+export const EventDefinition = {
   print: ({ node, path, print }) => [
     'event ',
     node.name,
@@ -16,5 +16,3 @@ const EventDefinition = {
     ';'
   ]
 };
-
-module.exports = EventDefinition;

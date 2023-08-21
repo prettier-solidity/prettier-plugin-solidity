@@ -1,4 +1,4 @@
-const IndexRangeAccess = {
+export const IndexRangeAccess = {
   print: ({ node, path, print }) => [
     path.call(print, 'base'),
     '[',
@@ -8,5 +8,3 @@ const IndexRangeAccess = {
     ']'
   ]
 };
-
-module.exports = IndexRangeAccess;

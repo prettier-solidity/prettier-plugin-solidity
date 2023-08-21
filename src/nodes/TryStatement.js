@@ -1,13 +1,10 @@
-const {
-  doc: {
-    builders: { join, line }
-  }
-} = require('prettier');
-
-const {
+import { doc } from 'prettier';
+import {
   printSeparatedItem,
   printSeparatedList
-} = require('../common/printer-helpers');
+} from '../common/printer-helpers.js';
+
+const { join, line } = doc.builders;
 
 const returnParameters = (node, path, print) =>
   node.returnParameters
@@ -18,7 +15,7 @@ const returnParameters = (node, path, print) =>
       ]
     : '';
 
-const TryStatement = {
+export const TryStatement = {
   print: ({ node, path, print }) => {
     let parts = [
       'try',
@@ -41,5 +38,3 @@ const TryStatement = {
     return parts;
   }
 };
-
-module.exports = TryStatement;

@@ -1,16 +1,11 @@
-const {
-  doc: {
-    builders: { line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printPreservingEmptyLines } from '../common/printer-helpers.js';
 
-const { printPreservingEmptyLines } = require('../common/printer-helpers');
+const { line } = doc.builders;
 
-const SourceUnit = {
+export const SourceUnit = {
   print: ({ options, path, print }) => [
     printPreservingEmptyLines(path, 'children', options, print),
     options.parentParser ? '' : line
   ]
 };
-
-module.exports = SourceUnit;

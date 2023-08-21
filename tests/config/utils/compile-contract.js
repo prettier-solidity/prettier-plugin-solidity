@@ -1,6 +1,16 @@
-const solc = require("solc");
+function importSolcInternal() {
+  return import("solc").then((module) => module.default);
+}
 
-function compileContract(filename, content) {
+let promise;
+function importSolc() {
+  promise = promise ?? importSolcInternal();
+
+  return promise;
+}
+
+async function compileContract(filename, content) {
+  const solc = await importSolc();
   const input = {
     language: "Solidity",
     sources: {
@@ -34,4 +44,4 @@ function compileContract(filename, content) {
   );
 }
 
-module.exports = compileContract;
+export default compileContract;

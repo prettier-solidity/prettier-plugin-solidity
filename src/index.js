@@ -1,9 +1,9 @@
-const { handleComments, printComment } = require('./comments');
-const massageAstNode = require('./clean');
-const loc = require('./loc');
-const options = require('./options');
-const parse = require('./parser');
-const print = require('./printer');
+import * as comments from './comments/index.js';
+import massageAstNode from './clean.js';
+import loc from './loc.js';
+import options from './options.js';
+import parse from './parser.js';
+import print from './printer.js';
 
 // https://prettier.io/docs/en/plugins.html#languages
 // https://github.com/ikatyang/linguist-languages/blob/master/data/Solidity.json
@@ -35,14 +35,14 @@ const printers = {
   'solidity-ast': {
     canAttachComment,
     handleComments: {
-      ownLine: handleComments.handleOwnLineComment,
-      endOfLine: handleComments.handleEndOfLineComment,
-      remaining: handleComments.handleRemainingComment
+      ownLine: comments.solidityHandleOwnLineComment,
+      endOfLine: comments.solidityHandleEndOfLineComment,
+      remaining: comments.solidityHandleRemainingComment
     },
-    isBlockComment: handleComments.isBlockComment,
+    isBlockComment: comments.isBlockComment,
     massageAstNode,
     print,
-    printComment
+    printComment: comments.printComment
   }
 };
 
@@ -52,10 +52,12 @@ const defaultOptions = {
   tabWidth: 4
 };
 
-module.exports = {
+const plugin = {
   languages,
   parsers,
   printers,
   options,
   defaultOptions
 };
+
+export default plugin;

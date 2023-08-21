@@ -1,22 +1,19 @@
-const {
-  doc: {
-    builders: { group, line, softline }
-  }
-} = require('prettier');
-const coerce = require('semver/functions/coerce');
-const satisfies = require('semver/functions/satisfies');
+import { doc } from 'prettier';
+import coerce from 'semver/functions/coerce.js';
+import satisfies from 'semver/functions/satisfies.js';
+import { printSeparatedList } from '../common/printer-helpers.js';
+import { printString } from '../common/util.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
-const { printString } = require('../common/util');
+const { group, line, softline } = doc.builders;
 
-const ImportDirective = {
+export const ImportDirective = {
   print: ({ node, options }) => {
     const importPath = printString(node.path, options);
-    let doc;
+    let document;
 
     if (node.unitAlias) {
       // import "./Foo.sol" as Foo;
-      doc = [importPath, ' as ', node.unitAlias];
+      document = [importPath, ' as ', node.unitAlias];
     } else if (node.symbolAliases) {
       // import { Foo, Bar as Qux } from "./Foo.sol";
       const compiler = coerce(options.compiler);
@@ -38,7 +35,7 @@ const ImportDirective = {
         separator = ', ';
       }
 
-      doc = [
+      document = [
         '{',
         printSeparatedList(symbolAliases, { firstSeparator, separator }),
         '} from ',
@@ -46,10 +43,8 @@ const ImportDirective = {
       ];
     } else {
       // import "./Foo.sol";
-      doc = importPath;
+      document = importPath;
     }
-    return group(['import ', doc, ';']);
+    return group(['import ', document, ';']);
   }
 };
-
-module.exports = ImportDirective;

@@ -1,15 +1,12 @@
-const {
-  doc: {
-    builders: { dedent, group, indent, join, line }
-  }
-} = require('prettier');
-const { getNextNonSpaceNonCommentCharacter } = require('../common/util');
-
-const {
+import { doc } from 'prettier';
+import { getNextNonSpaceNonCommentCharacter } from '../common/util.js';
+import {
   printComments,
   printSeparatedItem,
   printSeparatedList
-} = require('../common/printer-helpers');
+} from '../common/printer-helpers.js';
+
+const { dedent, group, indent, join, line } = doc.builders;
 
 const functionName = (node, options) => {
   if (node.isConstructor && !node.name) return 'constructor';
@@ -94,7 +91,7 @@ const signatureEnd = (node) => (node.body ? dedent(line) : ';');
 
 const body = (node, path, print) => (node.body ? path.call(print, 'body') : '');
 
-const FunctionDefinition = {
+export const FunctionDefinition = {
   print: ({ node, path, print, options }) => [
     group([
       functionName(node, options),
@@ -118,5 +115,3 @@ const FunctionDefinition = {
     body(node, path, print)
   ]
 };
-
-module.exports = FunctionDefinition;

@@ -1,15 +1,12 @@
-const {
-  doc: {
-    builders: { group, line, hardline }
-  }
-} = require('prettier');
-
-const {
+import { doc } from 'prettier';
+import {
   printComments,
   printPreservingEmptyLines,
   printSeparatedItem,
   printSeparatedList
-} = require('../common/printer-helpers');
+} from '../common/printer-helpers.js';
+
+const { group, line, hardline } = doc.builders;
 
 const inheritance = (node, path, print) =>
   node.baseContracts.length > 0
@@ -31,7 +28,7 @@ const body = (node, path, options, print) => {
     : '';
 };
 
-const ContractDefinition = {
+export const ContractDefinition = {
   print: ({ node, options, path, print }) => [
     group([
       node.kind === 'abstract' ? 'abstract contract' : node.kind,
@@ -44,5 +41,3 @@ const ContractDefinition = {
     '}'
   ]
 };
-
-module.exports = ContractDefinition;

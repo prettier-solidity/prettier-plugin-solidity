@@ -1,7 +1,6 @@
-/* eslint-disable consistent-return */
-const printers = require('../binary-operator-printers');
+import * as printers from '../binary-operator-printers/index.js';
 
-const BinaryOperation = {
+export const BinaryOperation = {
   print: ({ node, path, print, options }) => {
     const binaryOperationPrinter = Object.values(printers).find((printer) =>
       printer.match(node.operator)
@@ -16,5 +15,3 @@ const BinaryOperation = {
     return binaryOperationPrinter.print(node, path, print, options);
   }
 };
-
-module.exports = BinaryOperation;

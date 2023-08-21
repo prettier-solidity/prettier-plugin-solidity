@@ -1,11 +1,7 @@
-const {
-  doc: {
-    builders: { dedent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
 
-const LabelDefinition = {
+const { dedent, line } = doc.builders;
+
+export const LabelDefinition = {
   print: ({ node }) => [dedent(line), node.name, ':']
 };
-
-module.exports = LabelDefinition;

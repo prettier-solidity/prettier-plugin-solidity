@@ -1,8 +1,8 @@
 // @TODO: add support for assembly language specifier
-const { printString } = require('../common/util');
-const { printSeparatedList } = require('../common/printer-helpers');
+import { printString } from '../common/util.js';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const InlineAssemblyStatement = {
+export const InlineAssemblyStatement = {
   print: ({ node, path, print, options }) => [
     'assembly ',
     node.language ? `${printString(node.language, options)} ` : '',
@@ -18,4 +18,3 @@ const InlineAssemblyStatement = {
     path.call(print, 'body')
   ]
 };
-module.exports = InlineAssemblyStatement;

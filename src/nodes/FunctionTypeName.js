@@ -1,10 +1,7 @@
-const {
-  doc: {
-    builders: { group, indent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { group, indent, line } = doc.builders;
 
 const returnTypes = (node, path, print) =>
   node.returnTypes.length > 0
@@ -26,7 +23,7 @@ const stateMutability = (node) =>
     ? [line, node.stateMutability]
     : '';
 
-const FunctionTypeName = {
+export const FunctionTypeName = {
   print: ({ node, path, print }) => [
     'function(',
     printSeparatedList(path.map(print, 'parameterTypes')),
@@ -40,5 +37,3 @@ const FunctionTypeName = {
     )
   ]
 };
-
-module.exports = FunctionTypeName;

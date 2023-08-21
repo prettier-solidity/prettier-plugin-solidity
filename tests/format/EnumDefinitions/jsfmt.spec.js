@@ -1,2 +1,2 @@
-run_spec(__dirname, ['solidity-parse']);
-run_spec(__dirname, ['solidity-parse'], { bracketSpacing: true });
+run_spec(import.meta, ['solidity-parse']);
+run_spec(import.meta, ['solidity-parse'], { bracketSpacing: true });

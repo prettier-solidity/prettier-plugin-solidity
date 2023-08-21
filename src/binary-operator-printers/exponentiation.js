@@ -1,10 +1,8 @@
-const {
-  doc: {
-    builders: { group, indent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
 
-module.exports = {
+const { group, indent, line } = doc.builders;
+
+export const exponentiation = {
   match: (op) => op === '**',
   print: (node, path, print) => {
     const right = [' ', node.operator, line, path.call(print, 'right')];

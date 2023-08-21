@@ -3,8 +3,6 @@ const stateMutability = (node) =>
     ? [' ', node.stateMutability]
     : '';
 
-const ElementaryTypeName = {
+export const ElementaryTypeName = {
   print: ({ node }) => [node.name, stateMutability(node)]
 };
-
-module.exports = ElementaryTypeName;

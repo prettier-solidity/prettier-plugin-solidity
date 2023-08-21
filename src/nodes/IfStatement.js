@@ -1,13 +1,10 @@
-const {
-  doc: {
-    builders: { group, hardline, indent, line }
-  }
-} = require('prettier');
-
-const {
+import { doc } from 'prettier';
+import {
   printComments,
   printSeparatedItem
-} = require('../common/printer-helpers');
+} from '../common/printer-helpers.js';
+
+const { group, hardline, indent, line } = doc.builders;
 
 const printTrueBody = (node, path, print) => {
   if (node.trueBody.type === 'Block') {
@@ -38,7 +35,7 @@ const printElse = (node, path, print, commentsBetweenIfAndElse) => {
   return '';
 };
 
-const IfStatement = {
+export const IfStatement = {
   print: ({ node, options, path, print }) => {
     const comments = node.comments || [];
     const commentsBetweenIfAndElse = comments.filter(
@@ -58,5 +55,3 @@ const IfStatement = {
     return parts;
   }
 };
-
-module.exports = IfStatement;

@@ -1,5 +1,3 @@
-const Break = {
+export const Break = {
   print: () => 'break'
 };
-
-module.exports = Break;

@@ -1,8 +1,6 @@
-const {
-  doc: {
-    builders: { group, indent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+
+const { group, indent, line } = doc.builders;
 
 const initialValue = (node, path, print) => {
   if (!node.initialValue) {
@@ -16,12 +14,10 @@ const initialValue = (node, path, print) => {
   return group([' =', indent([line, path.call(print, 'initialValue')])]);
 };
 
-const StateVariableDeclaration = {
+export const StateVariableDeclaration = {
   print: ({ node, path, print }) => [
     ...path.map(print, 'variables'),
     initialValue(node, path, print),
     ';'
   ]
 };
-
-module.exports = StateVariableDeclaration;

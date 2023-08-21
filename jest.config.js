@@ -1,6 +1,6 @@
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 
-module.exports = {
+export default {
   runner: 'jest-light-runner',
   setupFiles: ['<rootDir>/tests/config/setup.js'],
   snapshotSerializers: [
@@ -19,7 +19,7 @@ module.exports = {
     : [],
   testMatch: [
     '<rootDir>/tests/format/**/jsfmt.spec.js',
-    '<rootDir>/tests/unit/**/*.js'
+    '<rootDir>/tests/unit/**/*.test.js'
   ],
   transform: {},
   watchPlugins: [

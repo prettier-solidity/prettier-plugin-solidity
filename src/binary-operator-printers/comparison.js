@@ -1,24 +1,22 @@
-const {
-  doc: {
-    builders: { group, line, indent }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
 
-const indentIfNecessaryBuilder = (path) => (doc) => {
+const { group, indent, line } = doc.builders;
+
+const indentIfNecessaryBuilder = (path) => (document) => {
   let node = path.getNode();
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
-    if (parentNode.type === 'ReturnStatement') return doc;
-    if (parentNode.type === 'IfStatement') return doc;
-    if (parentNode.type === 'ForStatement') return doc;
-    if (parentNode.type === 'WhileStatement') return doc;
-    if (parentNode.type !== 'BinaryOperation') return indent(doc);
-    if (node === parentNode.right) return doc;
+    if (parentNode.type === 'ReturnStatement') return document;
+    if (parentNode.type === 'IfStatement') return document;
+    if (parentNode.type === 'ForStatement') return document;
+    if (parentNode.type === 'WhileStatement') return document;
+    if (parentNode.type !== 'BinaryOperation') return indent(document);
+    if (node === parentNode.right) return document;
     node = parentNode;
   }
 };
 
-module.exports = {
+export const comparison = {
   match: (op) => ['<', '>', '<=', '>=', '==', '!='].includes(op),
   print: (node, path, print) => {
     const indentIfNecessary = indentIfNecessaryBuilder(path);

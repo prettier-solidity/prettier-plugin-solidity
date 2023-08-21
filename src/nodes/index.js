@@ -1,78 +1,72 @@
-/* This file was automatically generated on 1666691919.885 */
-
-/* eslint-disable global-require */
-
-module.exports = {
-  ArrayTypeName: require('./ArrayTypeName'),
-  AssemblyAssignment: require('./AssemblyAssignment'),
-  AssemblyBlock: require('./AssemblyBlock'),
-  AssemblyCall: require('./AssemblyCall'),
-  AssemblyCase: require('./AssemblyCase'),
-  AssemblyFor: require('./AssemblyFor'),
-  AssemblyFunctionDefinition: require('./AssemblyFunctionDefinition'),
-  AssemblyIf: require('./AssemblyIf'),
-  AssemblyLocalDefinition: require('./AssemblyLocalDefinition'),
-  AssemblyMemberAccess: require('./AssemblyMemberAccess'),
-  AssemblyStackAssignment: require('./AssemblyStackAssignment'),
-  AssemblySwitch: require('./AssemblySwitch'),
-  BinaryOperation: require('./BinaryOperation'),
-  Block: require('./Block'),
-  BooleanLiteral: require('./BooleanLiteral'),
-  Break: require('./Break'),
-  BreakStatement: require('./BreakStatement'),
-  CatchClause: require('./CatchClause'),
-  Conditional: require('./Conditional'),
-  Continue: require('./Continue'),
-  ContinueStatement: require('./ContinueStatement'),
-  ContractDefinition: require('./ContractDefinition'),
-  CustomErrorDefinition: require('./CustomErrorDefinition'),
-  DecimalNumber: require('./DecimalNumber'),
-  DoWhileStatement: require('./DoWhileStatement'),
-  ElementaryTypeName: require('./ElementaryTypeName'),
-  EmitStatement: require('./EmitStatement'),
-  EnumDefinition: require('./EnumDefinition'),
-  EnumValue: require('./EnumValue'),
-  EventDefinition: require('./EventDefinition'),
-  ExpressionStatement: require('./ExpressionStatement'),
-  FileLevelConstant: require('./FileLevelConstant'),
-  ForStatement: require('./ForStatement'),
-  FunctionCall: require('./FunctionCall'),
-  FunctionDefinition: require('./FunctionDefinition'),
-  FunctionTypeName: require('./FunctionTypeName'),
-  HexLiteral: require('./HexLiteral'),
-  HexNumber: require('./HexNumber'),
-  Identifier: require('./Identifier'),
-  IfStatement: require('./IfStatement'),
-  ImportDirective: require('./ImportDirective'),
-  IndexAccess: require('./IndexAccess'),
-  IndexRangeAccess: require('./IndexRangeAccess'),
-  InheritanceSpecifier: require('./InheritanceSpecifier'),
-  InlineAssemblyStatement: require('./InlineAssemblyStatement'),
-  LabelDefinition: require('./LabelDefinition'),
-  Mapping: require('./Mapping'),
-  MemberAccess: require('./MemberAccess'),
-  ModifierDefinition: require('./ModifierDefinition'),
-  ModifierInvocation: require('./ModifierInvocation'),
-  NameValueExpression: require('./NameValueExpression'),
-  NameValueList: require('./NameValueList'),
-  NewExpression: require('./NewExpression'),
-  NumberLiteral: require('./NumberLiteral'),
-  PragmaDirective: require('./PragmaDirective'),
-  ReturnStatement: require('./ReturnStatement'),
-  RevertStatement: require('./RevertStatement'),
-  SourceUnit: require('./SourceUnit'),
-  StateVariableDeclaration: require('./StateVariableDeclaration'),
-  StringLiteral: require('./StringLiteral'),
-  StructDefinition: require('./StructDefinition'),
-  ThrowStatement: require('./ThrowStatement'),
-  TryStatement: require('./TryStatement'),
-  TupleExpression: require('./TupleExpression'),
-  TypeDefinition: require('./TypeDefinition'),
-  UnaryOperation: require('./UnaryOperation'),
-  UncheckedStatement: require('./UncheckedStatement'),
-  UserDefinedTypeName: require('./UserDefinedTypeName'),
-  UsingForDeclaration: require('./UsingForDeclaration'),
-  VariableDeclaration: require('./VariableDeclaration'),
-  VariableDeclarationStatement: require('./VariableDeclarationStatement'),
-  WhileStatement: require('./WhileStatement')
-};
+export * from './ArrayTypeName.js';
+export * from './AssemblyAssignment.js';
+export * from './AssemblyBlock.js';
+export * from './AssemblyCall.js';
+export * from './AssemblyCase.js';
+export * from './AssemblyFor.js';
+export * from './AssemblyFunctionDefinition.js';
+export * from './AssemblyIf.js';
+export * from './AssemblyLocalDefinition.js';
+export * from './AssemblyMemberAccess.js';
+export * from './AssemblyStackAssignment.js';
+export * from './AssemblySwitch.js';
+export * from './BinaryOperation.js';
+export * from './Block.js';
+export * from './BooleanLiteral.js';
+export * from './Break.js';
+export * from './BreakStatement.js';
+export * from './CatchClause.js';
+export * from './Conditional.js';
+export * from './Continue.js';
+export * from './ContinueStatement.js';
+export * from './ContractDefinition.js';
+export * from './CustomErrorDefinition.js';
+export * from './DecimalNumber.js';
+export * from './DoWhileStatement.js';
+export * from './ElementaryTypeName.js';
+export * from './EmitStatement.js';
+export * from './EnumDefinition.js';
+export * from './EnumValue.js';
+export * from './EventDefinition.js';
+export * from './ExpressionStatement.js';
+export * from './FileLevelConstant.js';
+export * from './ForStatement.js';
+export * from './FunctionCall.js';
+export * from './FunctionDefinition.js';
+export * from './FunctionTypeName.js';
+export * from './HexLiteral.js';
+export * from './HexNumber.js';
+export * from './Identifier.js';
+export * from './IfStatement.js';
+export * from './ImportDirective.js';
+export * from './IndexAccess.js';
+export * from './IndexRangeAccess.js';
+export * from './InheritanceSpecifier.js';
+export * from './InlineAssemblyStatement.js';
+export * from './LabelDefinition.js';
+export * from './Mapping.js';
+export * from './MemberAccess.js';
+export * from './ModifierDefinition.js';
+export * from './ModifierInvocation.js';
+export * from './NameValueExpression.js';
+export * from './NameValueList.js';
+export * from './NewExpression.js';
+export * from './NumberLiteral.js';
+export * from './PragmaDirective.js';
+export * from './ReturnStatement.js';
+export * from './RevertStatement.js';
+export * from './SourceUnit.js';
+export * from './StateVariableDeclaration.js';
+export * from './StringLiteral.js';
+export * from './StructDefinition.js';
+export * from './ThrowStatement.js';
+export * from './TryStatement.js';
+export * from './TupleExpression.js';
+export * from './TypeDefinition.js';
+export * from './UnaryOperation.js';
+export * from './UncheckedStatement.js';
+export * from './UserDefinedTypeName.js';
+export * from './UsingForDeclaration.js';
+export * from './VariableDeclaration.js';
+export * from './VariableDeclarationStatement.js';
+export * from './WhileStatement.js';

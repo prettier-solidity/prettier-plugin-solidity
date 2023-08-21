@@ -1,9 +1,9 @@
-const nodes = require('./nodes');
-const {
+import * as nodes from './nodes/index.js';
+import {
   hasNodeIgnoreComment,
   prettierVersionSatisfies
-} = require('./common/util');
-const ignoreComments = require('./comments/ignore');
+} from './common/util.js';
+import ignoreComments from './comments/ignore.js';
 
 let checked = false;
 
@@ -41,4 +41,4 @@ function genericPrint(path, options, print) {
   return nodes[node.type].print({ node, options, path, print });
 }
 
-module.exports = genericPrint;
+export default genericPrint;

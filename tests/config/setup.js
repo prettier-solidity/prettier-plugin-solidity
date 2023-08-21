@@ -1,7 +1,3 @@
-"use strict";
+import runSpec from "./format-test.js";
 
-Object.defineProperty(global, "run_spec", {
-  get() {
-    return require("./format-test");
-  },
-});
+globalThis.run_spec = runSpec;

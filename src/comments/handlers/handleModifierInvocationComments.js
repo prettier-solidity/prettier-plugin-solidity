@@ -1,7 +1,7 @@
-const {
-  util: { addLeadingComment, addTrailingComment, addDanglingComment }
-} = require('prettier');
-const { getNextNonSpaceNonCommentCharacter } = require('../../common/util');
+import { util } from 'prettier';
+import { getNextNonSpaceNonCommentCharacter } from '../../common/util.js';
+
+const { addLeadingComment, addTrailingComment, addDanglingComment } = util;
 
 function handleModifierInvocationComments({
   text,
@@ -64,4 +64,4 @@ function handleModifierInvocationComments({
   return false;
 }
 
-module.exports = handleModifierInvocationComments;
+export default handleModifierInvocationComments;

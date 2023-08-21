@@ -1,10 +1,7 @@
-const {
-  doc: {
-    builders: { group, hardline, indent, line }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { group, hardline, indent, line } = doc.builders;
 
 const modifierParameters = (node, path, print) => {
   if (node.parameters && node.parameters.length > 0) {
@@ -45,7 +42,7 @@ const body = (node, path, print) => {
   return [' ', path.call(print, 'body')];
 };
 
-const ModifierDefinition = {
+export const ModifierDefinition = {
   print: ({ node, path, print }) => [
     'modifier ',
     node.name,
@@ -54,5 +51,3 @@ const ModifierDefinition = {
     body(node, path, print)
   ]
 };
-
-module.exports = ModifierDefinition;

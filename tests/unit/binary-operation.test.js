@@ -1,4 +1,4 @@
-const genericPrint = require('../../src/printer');
+import genericPrint from '../../src/printer.js';
 
 test('given an unknown operator then the BinaryOperation print function should throw', () => {
   const mockPath = {

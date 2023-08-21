@@ -1,12 +1,9 @@
-const {
-  doc: {
-    builders: { group, hardline }
-  }
-} = require('prettier');
+import { doc } from 'prettier';
+import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { printSeparatedList } = require('../common/printer-helpers');
+const { group, hardline } = doc.builders;
 
-const EnumDefinition = {
+export const EnumDefinition = {
   print: ({ node, path, print }) =>
     group([
       'enum ',
@@ -18,5 +15,3 @@ const EnumDefinition = {
       '}'
     ])
 };
-
-module.exports = EnumDefinition;

@@ -1,5 +1,3 @@
-const UserDefinedTypeName = {
+export const UserDefinedTypeName = {
   print: ({ node }) => node.namePath
 };
-
-module.exports = UserDefinedTypeName;

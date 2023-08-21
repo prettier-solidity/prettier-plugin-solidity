@@ -1,38 +1,36 @@
-const {
-  doc: {
-    builders: { group, line, indent }
-  }
-} = require('prettier');
-const comparison = require('./comparison');
+import { doc } from 'prettier';
+import { comparison } from './comparison.js';
 
-const groupIfNecessaryBuilder = (path) => (doc) => {
+const { group, line, indent } = doc.builders;
+
+const groupIfNecessaryBuilder = (path) => (document) => {
   const parentNode = path.getParentNode();
   if (
     parentNode.type === 'BinaryOperation' &&
     !comparison.match(parentNode.operator)
   ) {
-    return doc;
+    return document;
   }
-  return group(doc);
+  return group(document);
 };
 
-const indentIfNecessaryBuilder = (path) => (doc) => {
+const indentIfNecessaryBuilder = (path) => (document) => {
   let node = path.getNode();
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
-    if (parentNode.type === 'ReturnStatement') return doc;
+    if (parentNode.type === 'ReturnStatement') return document;
     if (
       parentNode.type !== 'BinaryOperation' ||
       comparison.match(parentNode.operator)
     ) {
-      return indent(doc);
+      return indent(document);
     }
-    if (node === parentNode.right) return doc;
+    if (node === parentNode.right) return document;
     node = parentNode;
   }
 };
 
-module.exports = {
+export const arithmetic = {
   match: (op) => ['+', '-', '*', '/', '%'].includes(op),
   print: (node, path, print) => {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
