@@ -16,7 +16,10 @@ const experimentalTernaries = (
   const parent = path.getParentNode();
   const isNested = parent.type === 'Conditional';
   const isNestedAsTrueExpression = isNested && parent.trueExpression === node;
-  const falseExpressionIsNested = node.falseExpression.type === 'Conditional';
+  const falseExpressionIsTuple =
+    node.falseExpression.type === 'TupleExpression';
+  const falseExpressionInSameLine =
+    falseExpressionIsTuple || node.falseExpression.type === 'Conditional';
 
   // If the `condition` breaks into multiple lines, we add parentheses,
   // unless it already is a `TupleExpression`.
@@ -47,7 +50,7 @@ const experimentalTernaries = (
   // space.
   let fillTab = ' ';
   if (
-    !falseExpressionIsNested && // avoid processing if it's not needed
+    !falseExpressionInSameLine && // avoid processing if it's not needed
     (options.tabWidth > 2 || options.useTabs)
   ) {
     fillTab = options.useTabs ? '\t' : ' '.repeat(options.tabWidth - 1);
@@ -56,9 +59,13 @@ const experimentalTernaries = (
   // A nested `falseExpression` is always printed in a new line.
   const falseExpression = path.call(print, 'falseExpression');
   const falseExpressionDoc = [
-    isNested ? hardline : line,
+    falseExpressionIsTuple
+      ? ifBreak(line, ' ', { groupId: conditionAndTrueExpressionGroup.id })
+      : isNested
+        ? hardline
+        : line,
     ':',
-    falseExpressionIsNested
+    falseExpressionInSameLine
       ? [' ', falseExpression]
       : ifBreak([fillTab, indent(falseExpression)], [' ', falseExpression], {
           // We only add `fillTab` if we are sure the trueExpression is indented

@@ -315,8 +315,9 @@ contract Conditional {
 
   // unless the consequent is short (less than ten characters long):
   string storage shortSoCase =
-   isLoudReallyReallyReallyReallyLoud() ? silent()
-   : (makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud());
+   isLoudReallyReallyReallyReallyLoud() ? silent() : (
+    makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
+   );
 
   // if chained, always break and put after the =
   string storage chainedShort =
@@ -825,8 +826,9 @@ contract Conditional {
 
 		// unless the consequent is short (less than ten characters long):
 		string storage shortSoCase =
-			isLoudReallyReallyReallyReallyLoud() ? silent()
-			: (makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud());
+			isLoudReallyReallyReallyReallyLoud() ? silent() : (
+				makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
+			);
 
 		// if chained, always break and put after the =
 		string storage chainedShort =
@@ -1338,8 +1340,9 @@ contract Conditional {
 
         // unless the consequent is short (less than ten characters long):
         string storage shortSoCase =
-            isLoudReallyReallyReallyReallyLoud() ? silent()
-            : (makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud());
+            isLoudReallyReallyReallyReallyLoud() ? silent() : (
+                makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
+            );
 
         // if chained, always break and put after the =
         string storage chainedShort =
