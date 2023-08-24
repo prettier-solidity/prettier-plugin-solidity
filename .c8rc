@@ -9,7 +9,7 @@
     "src/**/*.js",
     "src/**/*.ts",
     "!src/prettier-comments/**/*.ts",
-    "!src/common/backward-compatibility.js"
+    "!src/common/backward-compatibility.ts"
   ],
   "reporter": ["lcov", "text"],
   "temp-dir": "./coverage/"

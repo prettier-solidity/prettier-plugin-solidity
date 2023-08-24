@@ -1,6 +1,8 @@
 import { printers } from '../binary-operator-printers/index.js';
+import type { BinaryOperation as IBinaryOperation } from '@solidity-parser/parser/src/ast-types';
+import type { NodePrinter } from './types';
 
-export const BinaryOperation = {
+export const BinaryOperation: NodePrinter<IBinaryOperation> = {
   print: ({ node, path, print, options }) => {
     const binaryOperationPrinter = printers[node.operator];
     if (binaryOperationPrinter === undefined) {
