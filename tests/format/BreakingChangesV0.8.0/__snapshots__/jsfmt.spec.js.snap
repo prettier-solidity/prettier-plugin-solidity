@@ -9,6 +9,7 @@ printWidth: 80
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;
+pragma experimental ABIEncoderV2;
 
 contract BreakingChangesV080 {
     /**
@@ -53,6 +54,7 @@ contract BreakingChangesV080 {
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;
+pragma experimental ABIEncoderV2;
 
 contract BreakingChangesV080 {
     /**
@@ -97,6 +99,7 @@ printWidth: 80
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;
+pragma experimental ABIEncoderV2;
 
 contract BreakingChangesV080 {
     /**
@@ -141,6 +144,7 @@ contract BreakingChangesV080 {
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;
+pragma experimental ABIEncoderV2;
 
 contract BreakingChangesV080 {
     /**
@@ -184,6 +188,7 @@ printWidth: 80
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;
+pragma experimental ABIEncoderV2;
 
 contract BreakingChangesV080 {
     /**
@@ -228,6 +233,7 @@ contract BreakingChangesV080 {
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;
+pragma experimental ABIEncoderV2;
 
 contract BreakingChangesV080 {
     /**

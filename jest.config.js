@@ -1,3 +1,6 @@
+import prettier from 'prettier';
+import satisfies from 'semver/functions/satisfies.js';
+
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const testMatch = ['<rootDir>/tests/format/**/jsfmt.spec.js'];
 
@@ -19,13 +22,13 @@ export default {
   ],
   // ignore console warnings in TEST_STANDALONE
   silent: TEST_STANDALONE,
-  testPathIgnorePatterns: TEST_STANDALONE
+  testPathIgnorePatterns: satisfies(prettier.version, '^2.3.0')
     ? [
         // Standalone mode doesn't have default options.
         // This has been reported https://github.com/prettier/prettier/issues/11107
         'tests/format/RespectDefaultOptions'
-      ]
-    : [],
+      ] // Ignore on v2
+    : [], // fixed on V3
   testMatch,
   watchPlugins: [
     'jest-watch-typeahead/filename',

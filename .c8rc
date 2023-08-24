@@ -1,12 +1,11 @@
 {
   "check-coverage": true,
-  "branches": 97,
-  "lines": 99,
+  "branches": 100,
+  "lines": 100,
   "functions": 100,
-  "statements": 99,
+  "statements": 100,
   "exclude": ["/node_modules/", "/src/prettier-comments/"],
   "include": [
-    "src/**/*.js",
     "src/**/*.ts",
     "!src/prettier-comments/**/*.ts",
     "!src/common/backward-compatibility.ts"

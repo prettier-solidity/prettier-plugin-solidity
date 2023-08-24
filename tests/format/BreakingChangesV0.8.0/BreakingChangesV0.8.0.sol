@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;
+pragma experimental ABIEncoderV2;
 
 contract BreakingChangesV080 {
     /**
