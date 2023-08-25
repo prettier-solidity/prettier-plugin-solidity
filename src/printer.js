@@ -1,4 +1,5 @@
 import * as nodes from './nodes/index.js';
+import { getNode } from './common/backward-compatibility.js';
 import {
   hasNodeIgnoreComment,
   prettierVersionSatisfies
@@ -20,7 +21,7 @@ function prettierVersionCheck() {
 function genericPrint(path, options, print) {
   prettierVersionCheck();
 
-  const node = path.getValue();
+  const node = getNode(path);
   if (node === null) {
     return '';
   }

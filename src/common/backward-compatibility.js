@@ -27,6 +27,9 @@ export function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
     : util.getNextNonSpaceNonCommentCharacter(text, locEnd(node)); // V3 exposes this function directly
 }
 
+export const getNode = (path) =>
+  isPrettier2 ? path.getValue() : path.getNode(); // V3 deprecated `getValue`
+
 export function isLast(path, key, index) {
   return isPrettier2
     ? index === path.getParentNode()[key].length - 1

@@ -1,4 +1,5 @@
 import { doc, util } from 'prettier';
+import { getNode } from '../common/backward-compatibility.js';
 
 const { hardline, join } = doc.builders;
 
@@ -29,7 +30,7 @@ function printIndentableBlockComment(comment) {
 }
 
 export function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
+  const comment = getNode(commentPath);
 
   switch (comment.type) {
     case 'BlockComment': {

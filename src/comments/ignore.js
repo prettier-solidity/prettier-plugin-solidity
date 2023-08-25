@@ -1,5 +1,7 @@
+import { getNode } from '../common/backward-compatibility.js';
+
 function ignoreComments(path) {
-  const node = path.getValue();
+  const node = getNode(path);
   // We ignore anything that is not an object
   if (node === null || typeof node !== 'object') return;
 
@@ -13,7 +15,7 @@ function ignoreComments(path) {
       // The key `comments` will contain every comment for this node
       case 'comments':
         path.each((commentPath) => {
-          const comment = commentPath.getValue();
+          const comment = getNode(commentPath);
           comment.printed = true;
         }, 'comments');
         break;
