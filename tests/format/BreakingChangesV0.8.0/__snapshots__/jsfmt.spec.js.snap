@@ -158,16 +158,16 @@ contract BreakingChangesV080 {
      *   use of bytes1.
      */
     bytes1 public c;
-    bytes1 public g;
+    byte public g;
 
     struct S {
         bytes1 c;
-        bytes1 g;
+        byte g;
     }
 
-    event Event(bytes1 _c, bytes1 _g);
+    event Event(bytes1 _c, byte _g);
 
-    function func(bytes1 _c, bytes1 _g) public returns (bytes1, bytes1) {
+    function func(bytes1 _c, byte _g) public returns (bytes1, byte) {
         emit Event(_c, _g);
         return (_c, _g);
     }
@@ -245,16 +245,16 @@ contract BreakingChangesV080 {
      *   use of bytes1.
      */
     bytes1 public c;
-    bytes1 public g;
+    byte public g;
 
     struct S {
         bytes1 c;
-        bytes1 g;
+        byte g;
     }
 
-    event Event(bytes1 _c, bytes1 _g);
+    event Event(bytes1 _c, byte _g);
 
-    function func(bytes1 _c, bytes1 _g) public returns (bytes1, bytes1) {
+    function func(bytes1 _c, byte _g) public returns (bytes1, byte) {
         emit Event(_c, _g);
         return (_c, _g);
     }
