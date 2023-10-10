@@ -61,13 +61,6 @@ function parse(text, _parsers, options = _parsers) {
         ? `hex'${ctx.value.slice(4, -1)}'`
         : `hex"${ctx.value.slice(4, -1)}"`;
     },
-    ElementaryTypeName(ctx) {
-      // if the compiler is below 0.8.0 we will recognize the type 'byte' as an
-      // alias of 'bytes1'. Otherwise we will ignore this and enforce always
-      // 'bytes1'.
-      const pre080 = compiler && satisfies(compiler, '<0.8.0');
-      if (!pre080 && ctx.name === 'byte') ctx.name = 'bytes1';
-    },
     BinaryOperation(ctx) {
       switch (ctx.operator) {
         case '+':
