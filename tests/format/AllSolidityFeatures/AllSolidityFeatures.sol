@@ -11,12 +11,16 @@ import * as SomeSymbol from "AnotherFile.sol";
 import {symbol1 as alias, symbol2} from "File.sol";
 
 interface i {
+  event ForeignEvent();
   function f();
 }
+
+event E();
 
 contract c {
   function c()
   {
+      emit i.ForeignEvent();
       val1 = 1 wei;    // 1
       val2 = 1 szabo;  // 1 * 10 ** 12
       val3 = 1 finney; // 1 * 10 ** 15
