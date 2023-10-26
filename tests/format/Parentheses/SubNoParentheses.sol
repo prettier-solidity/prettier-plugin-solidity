@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.21;
+pragma solidity 0.8.22;
 
 contract SubNoParentheses {
     function subAdd(uint256 a, uint256 b, uint256 c)
