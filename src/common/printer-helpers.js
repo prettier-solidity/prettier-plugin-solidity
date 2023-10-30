@@ -32,9 +32,26 @@ export const printComments = (node, path, options, filter = () => true) => {
   /* c8 ignore stop */
 };
 
+const shouldHaveEmptyLine = (node, commentPosition) =>
+  Boolean(
+    // if node is not FunctionDefinition, it should have an empty line
+    node.type !== 'FunctionDefinition' ||
+      // if FunctionDefinition is not abstract, it should have an empty line
+      node.body ||
+      // if FunctionDefinition has the comment we are looking for (trailing or
+      // leading), it should have an empty line
+      node.comments?.some((comment) => comment[commentPosition])
+  );
+
+const separatingLine = (firstNode, secondNode) =>
+  shouldHaveEmptyLine(firstNode, 'trailing') ||
+  shouldHaveEmptyLine(secondNode, 'leading')
+    ? hardline
+    : '';
+
 export function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
-  path.each((childPath, index) => {
+  path.each((childPath) => {
     const node = childPath.getValue();
     const nodeType = node.type;
 
@@ -48,22 +65,20 @@ export function printPreservingEmptyLines(path, key, options, print) {
       parts.push(hardline);
     }
 
-    if (index > 0) {
-      if (
-        ['ContractDefinition', 'FunctionDefinition'].includes(nodeType) &&
-        parts[parts.length - 2] !== hardline
-      ) {
+    if (!childPath.isFirst && parts[parts.length - 2] !== hardline) {
+      if (nodeType === 'ContractDefinition') {
         parts.push(hardline);
+      } else if (nodeType === 'FunctionDefinition') {
+        parts.push(separatingLine(childPath.previous, node));
       }
     }
 
     parts.push(print(childPath));
 
-    if (
-      isNextLineEmpty(options.originalText, options.locEnd(node) + 1) ||
-      nodeType === 'FunctionDefinition'
-    ) {
+    if (isNextLineEmpty(options.originalText, options.locEnd(node) + 1)) {
       parts.push(hardline);
+    } else if (nodeType === 'FunctionDefinition' && !childPath.isLast) {
+      parts.push(separatingLine(node, childPath.next));
     }
   }, key);
 
