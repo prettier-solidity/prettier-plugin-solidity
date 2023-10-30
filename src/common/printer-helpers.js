@@ -1,5 +1,12 @@
 import { doc } from 'prettier';
-import { isNextLineEmpty, isPrettier2 } from './util.js';
+import {
+  isFirst,
+  isLast,
+  isNextLineEmpty,
+  isPrettier2,
+  next,
+  previous
+} from './util.js';
 
 const { group, indent, join, line, softline, hardline } = doc.builders;
 
@@ -51,7 +58,7 @@ const separatingLine = (firstNode, secondNode) =>
 
 export function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
-  path.each((childPath) => {
+  path.each((childPath, index) => {
     const node = childPath.getValue();
     const nodeType = node.type;
 
@@ -65,11 +72,14 @@ export function printPreservingEmptyLines(path, key, options, print) {
       parts.push(hardline);
     }
 
-    if (!childPath.isFirst && parts[parts.length - 2] !== hardline) {
+    if (
+      !isFirst(childPath, key, index) &&
+      parts[parts.length - 2] !== hardline
+    ) {
       if (nodeType === 'ContractDefinition') {
         parts.push(hardline);
       } else if (nodeType === 'FunctionDefinition') {
-        parts.push(separatingLine(childPath.previous, node));
+        parts.push(separatingLine(previous(childPath, key, index), node));
       }
     }
 
@@ -77,8 +87,11 @@ export function printPreservingEmptyLines(path, key, options, print) {
 
     if (isNextLineEmpty(options.originalText, options.locEnd(node) + 1)) {
       parts.push(hardline);
-    } else if (nodeType === 'FunctionDefinition' && !childPath.isLast) {
-      parts.push(separatingLine(node, childPath.next));
+    } else if (
+      nodeType === 'FunctionDefinition' &&
+      !isLast(childPath, key, index)
+    ) {
+      parts.push(separatingLine(node, next(childPath, key, index)));
     }
   }, key);
 
