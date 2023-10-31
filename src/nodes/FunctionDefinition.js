@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { getNextNonSpaceNonCommentCharacter } from '../common/util.js';
+import { getNextNonSpaceNonCommentCharacter } from '../common/backward-compatibility.js';
 import {
   printComments,
   printSeparatedItem,
