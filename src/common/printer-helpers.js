@@ -85,19 +85,14 @@ export function printPreservingEmptyLines(path, key, options, print) {
 
     parts.push(print(childPath));
 
-    if (isNextLineEmpty(options.originalText, options.locEnd(node) + 1)) {
-      parts.push(hardline);
-    } else if (
-      nodeType === 'FunctionDefinition' &&
-      !isLast(childPath, key, index)
-    ) {
-      parts.push(separatingLine(node, next(childPath, key, index)));
+    if (!isLast(childPath, key, index)) {
+      if (isNextLineEmpty(options.originalText, options.locEnd(node) + 1)) {
+        parts.push(hardline);
+      } else if (nodeType === 'FunctionDefinition') {
+        parts.push(separatingLine(node, next(childPath, key, index)));
+      }
     }
   }, key);
-
-  if (parts.length > 1 && parts[parts.length - 1] === hardline) {
-    parts.pop();
-  }
 
   return parts;
 }
