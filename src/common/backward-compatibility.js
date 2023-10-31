@@ -1,5 +1,7 @@
 import { util } from 'prettier';
-import { isPrettier2 } from './util.js';
+import { prettierVersionSatisfies } from './util.js';
+
+export const isPrettier2 = () => prettierVersionSatisfies('^2.3.0');
 
 // The functions in this file will never be 100% covered in a single run
 // since it depends on the version of Prettier being used.

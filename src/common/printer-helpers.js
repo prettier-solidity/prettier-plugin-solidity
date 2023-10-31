@@ -1,9 +1,9 @@
 import { doc } from 'prettier';
-import { isPrettier2 } from './util.js';
 import {
   isFirst,
   isLast,
   isNextLineEmpty,
+  isPrettier2,
   next,
   previous
 } from './backward-compatibility.js';

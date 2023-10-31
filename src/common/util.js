@@ -2,7 +2,6 @@ import { util, version } from 'prettier';
 import satisfies from 'semver/functions/satisfies.js';
 
 export const prettierVersionSatisfies = (range) => satisfies(version, range);
-export const isPrettier2 = () => prettierVersionSatisfies('^2.3.0');
 
 export function printString(rawContent, options) {
   const double = { quote: '"', regex: /"/g };
