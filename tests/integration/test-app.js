@@ -1,4 +1,4 @@
-import prettier from 'prettier/standalone';
+import prettier from 'prettier/standalone.js';
 import solidityPlugin from '../../dist/standalone.cjs';
 
 export default async function format(code) {

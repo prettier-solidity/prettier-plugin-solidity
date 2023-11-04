@@ -1,5 +1,5 @@
 const proxyquire = require('proxyquire');
-const prettier = require('prettier/standalone');
+const prettier = require('prettier/standalone.js');
 
 const proxyquirePlugin = () => {
   const prettierMock = { ...prettier, version: '2.2.1', '@global': true };
