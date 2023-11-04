@@ -15,7 +15,14 @@ export default (webpackEnv) => {
 
     // Avoid bundling Prettier
     externals: {
-      prettier: 'prettier'
+      prettier: {
+        // use 'prettier/standalone' in case the project importing this file is
+        // bundling for the browser.
+        amd: 'prettier/standalone',
+        commonjs: 'prettier/standalone',
+        commonjs2: 'prettier/standalone',
+        root: 'prettier' // global variable if it was loaded by the browser
+      }
     },
 
     mode: isEnvProduction ? 'production' : 'development',

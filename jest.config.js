@@ -1,4 +1,13 @@
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
+const testMatch = [
+  '<rootDir>/tests/format/**/jsfmt.spec.js',
+
+  '<rootDir>/tests/unit/**/*.test.js'
+];
+
+if (TEST_STANDALONE) {
+  testMatch.push('<rootDir>/tests/integration/**/*.test.js');
+}
 
 export default {
   runner: 'jest-light-runner',
@@ -17,10 +26,7 @@ export default {
         'tests/format/RespectDefaultOptions'
       ]
     : [],
-  testMatch: [
-    '<rootDir>/tests/format/**/jsfmt.spec.js',
-    '<rootDir>/tests/unit/**/*.test.js'
-  ],
+  testMatch,
   transform: {},
   watchPlugins: [
     'jest-watch-typeahead/filename',

@@ -59,15 +59,40 @@ We follow Prettier's strategy for populating their plugins in the object `pretti
 
 ```html
 <script>
+  async function format(code) {
+    return await prettier.format(code, {
+      parser: "solidity-parse",
+      plugins: [solidityPlugin],
+    });
+  }
+
   const originalCode = 'contract Foo {}';
-  const formattedCode = prettier.format(originalCode, {
-    parser: 'solidity-parse',
-    plugins: prettierPlugins
-  });
+  const formattedCode = format(originalCode);
 </script>
 ```
 
 For more details and please have a look at [Prettier's documentation](https://prettier.io/docs/en/browser.html).
+
+### Creating a package for the Browser
+
+_Added in v1.1.4_
+
+If you are creating your own package to be run in a browser, you might want to import the standalone files directly.
+
+```Javascript
+import prettier from 'prettier/standalone';
+import solidityPlugin from 'prettier-plugin-solidity/standalone';
+
+async function format(code) {
+  return await prettier.format(code, {
+    parser: "solidity-parse",
+    plugins: [solidityPlugin],
+  });
+}
+
+const originalCode = 'contract Foo {}';
+const formattedCode = format(originalCode);
+```
 
 ## Configuration File
 

@@ -7,12 +7,18 @@
   "browser": "./dist/standalone.cjs",
   "unpkg": "./dist/standalone.cjs",
   "exports": {
-    "import": "./src/index.js",
-    "require": "./dist/standalone.cjs"
+    ".": {
+      "import": "./src/index.js",
+      "require": "./dist/standalone.cjs"
+    },
+    "./standalone": {
+      "default": "./dist/standalone.cjs"
+    }
   },
   "scripts": {
     "build": "webpack --env production",
     "build:dev": "webpack --env development",
+    "build:test": "webpack --config test.config.js",
     "eslint": "eslint 'src/**' 'tests/**'",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",

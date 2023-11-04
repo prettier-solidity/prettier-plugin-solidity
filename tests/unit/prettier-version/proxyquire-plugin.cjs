@@ -1,11 +1,11 @@
 const proxyquire = require('proxyquire');
-const prettier = require('prettier/standalone.js');
+const prettier = require('prettier/standalone');
 
 const proxyquirePlugin = () => {
   const prettierMock = { ...prettier, version: '2.2.1', '@global': true };
 
   const plugin = proxyquire('../../../dist/standalone.cjs', {
-    prettier: prettierMock
+    'prettier/standalone': prettierMock
   });
 
   return { plugin, prettierMock };

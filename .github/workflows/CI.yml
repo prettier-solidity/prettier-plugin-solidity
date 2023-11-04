@@ -36,6 +36,8 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: Build test app
+        run: npm run build:test
       - name: Run tests
         run: npm run test:standalone
 
@@ -54,8 +56,10 @@ jobs:
         run: npm run build
       - name: Downgrade Prettier to V2
         run: npm install prettier@2.8.8
+      - name: Build test app
+        run: npm run build:test
       - name: Run standalone tests
-        run: npm run test:standalone tests/format tests/unit/prettier-version
+        run: npm run test:standalone tests/format tests/integration tests/unit/prettier-version
 
   test_linux:
     name: Test on Linux with Node ${{ matrix.node }}
