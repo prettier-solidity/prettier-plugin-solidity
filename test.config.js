@@ -4,8 +4,6 @@ import createEsmUtils from 'esm-utils';
 
 const { __dirname } = createEsmUtils(import.meta);
 
-// This is the production and development configuration.
-// It is focused on developer experience, fast rebuilds, and a minimal bundle.
 export default {
   entry: './tests/integration/test-app.js',
   mode: 'production',
@@ -28,10 +26,7 @@ export default {
     `,
     library: {
       export: 'default',
-      name: {
-        commonjs: 'format',
-        root: 'format'
-      },
+      name: 'format',
       type: 'umd2'
     }
   },
