@@ -409,7 +409,6 @@ interface FunctionInterfaces {
 
     function functionDefinition6();
     function functionDefinition7(); // Tailing Comment
-
     function functionDefinition8();
     function functionDefinition9();
 }

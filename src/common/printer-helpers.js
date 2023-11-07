@@ -39,7 +39,7 @@ export const printComments = (node, path, options, filter = () => true) => {
   /* c8 ignore stop */
 };
 
-const shouldHaveEmptyLine = (node, commentPosition) =>
+const shouldHaveEmptyLine = (node, checkForLeading) =>
   Boolean(
     // if node is not FunctionDefinition, it should have an empty line
     node.type !== 'FunctionDefinition' ||
@@ -47,12 +47,11 @@ const shouldHaveEmptyLine = (node, commentPosition) =>
       node.body ||
       // if FunctionDefinition has the comment we are looking for (trailing or
       // leading), it should have an empty line
-      node.comments?.some((comment) => comment[commentPosition])
+      node.comments?.some((comment) => checkForLeading && comment.leading)
   );
 
 const separatingLine = (firstNode, secondNode) =>
-  shouldHaveEmptyLine(firstNode, 'trailing') ||
-  shouldHaveEmptyLine(secondNode, 'leading')
+  shouldHaveEmptyLine(firstNode, false) || shouldHaveEmptyLine(secondNode, true)
     ? hardline
     : '';
 
