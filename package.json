@@ -110,7 +110,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@solidity-parser/parser": "^0.16.1",
+    "@solidity-parser/parser": "^0.16.2",
     "semver": "^7.5.4",
     "solidity-comments-extractor": "^0.0.7"
   },
