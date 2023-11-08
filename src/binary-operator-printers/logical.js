@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { getNode } from '../common/backward-compatibility.js';
 
 const { group, line, indent } = doc.builders;
 
@@ -6,7 +7,7 @@ const groupIfNecessaryBuilder = (path) => (document) =>
   path.getParentNode().type === 'BinaryOperation' ? document : group(document);
 
 const indentIfNecessaryBuilder = (path, options) => (document) => {
-  let node = path.getNode();
+  let node = getNode(path);
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
     if (parentNode.type === 'ReturnStatement') return document;

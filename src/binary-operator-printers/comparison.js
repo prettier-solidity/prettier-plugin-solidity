@@ -1,9 +1,10 @@
 import { doc } from 'prettier';
+import { getNode } from '../common/backward-compatibility.js';
 
 const { group, indent, line } = doc.builders;
 
 const indentIfNecessaryBuilder = (path) => (document) => {
-  let node = path.getNode();
+  let node = getNode(path);
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
     if (parentNode.type === 'ReturnStatement') return document;

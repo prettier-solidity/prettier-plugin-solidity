@@ -1,5 +1,6 @@
 import { doc } from 'prettier';
 import { comparison } from './comparison.js';
+import { getNode } from '../common/backward-compatibility.js';
 
 const { group, line, indent } = doc.builders;
 
@@ -15,7 +16,7 @@ const groupIfNecessaryBuilder = (path) => (document) => {
 };
 
 const indentIfNecessaryBuilder = (path) => (document) => {
-  let node = path.getNode();
+  let node = getNode(path);
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
     if (parentNode.type === 'ReturnStatement') return document;
