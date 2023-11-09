@@ -75,7 +75,7 @@ For more details and please have a look at [Prettier's documentation](https://pr
 
 ### Creating a package for the Browser
 
-_Added in v1.1.4_
+_Added in v1.2.0_
 
 If you are creating your own package to be run in a browser, you might want to import the standalone files directly.
 
