@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.22;
+pragma solidity 0.8.23;
 
 contract LogicNoParentheses {
     function orOr(bool a, bool b, bool c) public pure returns (bool) {
