@@ -7,21 +7,17 @@ export const ExpressionStatement = {
   print: ({ node, options, path, print }) => {
     const parts = [];
 
-    const parent = path.getParentNode();
-
-    if (parent.type === 'IfStatement') {
-      if (node.comments && node.comments.length) {
-        const comments = printComments(node, path, options);
-        if (comments && comments.length) {
-          parts.push(comments);
-          parts.push(hardline);
-        }
+    if (path.getParentNode().type === 'IfStatement') {
+      const comments = printComments(node, path, options);
+      if (comments.length) {
+        parts.push(comments, hardline);
       }
     }
 
     parts.push(path.call(print, 'expression'));
-    parts.push(node.omitSemicolon ? '' : ';');
-
+    if (!node.omitSemicolon) {
+      parts.push(';');
+    }
     return parts;
   }
 };

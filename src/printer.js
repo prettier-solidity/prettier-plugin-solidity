@@ -21,7 +21,7 @@ function genericPrint(path, options, print) {
   prettierVersionCheck();
 
   const node = path.getValue();
-  if (node === null) {
+  if (typeof node === 'undefined' || node === null) {
     return '';
   }
 

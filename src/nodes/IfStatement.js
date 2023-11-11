@@ -22,36 +22,32 @@ const printFalseBody = (node, path, print) =>
     ? [' ', path.call(print, 'falseBody')]
     : group(indent([line, path.call(print, 'falseBody')]));
 
-const printElse = (node, path, print, commentsBetweenIfAndElse) => {
+const printElse = (node, path, print, options) => {
+  const parts = [];
   if (node.falseBody) {
+    const comments = printComments(node, path, options);
+    if (comments.length) {
+      parts.push(hardline, comments);
+    }
+
     const elseOnSameLine =
-      node.trueBody.type === 'Block' && commentsBetweenIfAndElse.length === 0;
-    return [
+      node.trueBody.type === 'Block' && comments.length === 0;
+
+    parts.push(
       elseOnSameLine ? ' ' : hardline,
       'else',
       printFalseBody(node, path, print)
-    ];
+    );
   }
-  return '';
+  return parts;
 };
 
 export const IfStatement = {
-  print: ({ node, options, path, print }) => {
-    const comments = node.comments || [];
-    const commentsBetweenIfAndElse = comments.filter(
-      (comment) => !comment.leading && !comment.trailing
-    );
-
-    const parts = [];
-
-    parts.push('if (', printSeparatedItem(path.call(print, 'condition')), ')');
-    parts.push(printTrueBody(node, path, print));
-    if (commentsBetweenIfAndElse.length && node.falseBody) {
-      parts.push(hardline);
-      parts.push(printComments(node, path, options));
-    }
-    parts.push(printElse(node, path, print, commentsBetweenIfAndElse));
-
-    return parts;
-  }
+  print: ({ node, options, path, print }) => [
+    'if (',
+    printSeparatedItem(path.call(print, 'condition')),
+    ')',
+    printTrueBody(node, path, print),
+    printElse(node, path, print, options)
+  ]
 };
