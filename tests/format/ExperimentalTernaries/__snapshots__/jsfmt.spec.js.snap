@@ -252,13 +252,17 @@ contract Conditional {
 
         // multiline conditions and consequents/alternates:
         string storage multilineConditionsConsequentsAndAlternates =
-            (isAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)) ?
+            (
+                isAnAdorableKittyCat() &&
+                    (someReallyLongCondition || moreInThisLongCondition)
+            ) ?
                 someReallyLargeExpression
                     .thatWouldCauseALineBreak()
                     .willCauseAnIndentButNotParens()
-            : (isNotAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)) ? bark()
+            : (
+                isNotAnAdorableKittyCat() &&
+                    (someReallyLongCondition || moreInThisLongCondition)
+            ) ? bark()
             : shortCondition() ? shortConsequent()
             : someReallyLargeExpression
                 .thatWouldCauseALineBreak()
@@ -269,30 +273,34 @@ contract Conditional {
             x == 1 ? "one"
             : x == 2 ? "two"
             : x == 3 ? "three"
-            : (x == 5 &&
-                y == 7 &&
-                someOtherThing
-                    .thatIsSoLong
-                    .thatItBreaksTheTestCondition()) ? "four"
+            : (
+                x == 5 &&
+                    y == 7 &&
+                    someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
+            ) ? "four"
             : x == 6 ? "six"
             : "idk";
 
         // long conditional, short consequent/alternate, not chained - do indent after ?
         string storage longConditional =
-            (bifornCringerMoshedPerplexSawder ==
-                2 / askTrovenaBeenaDependsRowans &&
-                glimseGlyphsHazardNoopsTieTie >=
-                averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol()) ? "foo" : "bar";
+            (
+                bifornCringerMoshedPerplexSawder ==
+                    2 / askTrovenaBeenaDependsRowans &&
+                    glimseGlyphsHazardNoopsTieTie >=
+                    averredBathersBoxroomBuggyNurl()
+                        .anodyneCondosMalateOverateRetinol()
+            ) ? "foo" : "bar";
 
         // long conditional, short consequent/alternate, chained
         // (break on short consequents iff in chained ternary and its conditional broke)
         string storage longConditionalChained =
-            (bifornCringerMoshedPerplexSawder ==
-                2 / askTrovenaBeenaDependsRowans &&
-                glimseGlyphsHazardNoopsTieTie >=
-                averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol()) ? "foo"
+            (
+                bifornCringerMoshedPerplexSawder ==
+                    2 / askTrovenaBeenaDependsRowans &&
+                    glimseGlyphsHazardNoopsTieTie >=
+                    averredBathersBoxroomBuggyNurl()
+                        .anodyneCondosMalateOverateRetinol()
+            ) ? "foo"
             : anotherCondition ? "bar"
             : "baz";
 
@@ -301,8 +309,7 @@ contract Conditional {
             : definition.defaults != "undefined" ? definition.defaults
             : "null", row[field] == "undefined" ?
                 definition.defaults == "undefined" ? "null"
-                : definition.defaults
-            : row[field]);
+                : definition.defaults : row[field]);
 
         // In a return, break and over-indent:
         if (short) {
@@ -330,8 +337,8 @@ contract Conditional {
         string storage paymentMessageWithABreak =
             state == "success" ? "Payment completed successfully"
             : state == "processing" ? "Payment processing"
-            : state ==
-                "invalid_cvc" ? "There was an issue with your CVC number, and you need to take a prompt action on it."
+            : state == "invalid_cvc" ?
+                "There was an issue with your CVC number, and you need to take a prompt action on it."
             : state == "invalid_expiry" ? "Expiry must be sometime in the past."
             : "There was an issue with the payment.  Please contact support.";
 
@@ -350,8 +357,7 @@ contract Conditional {
                 definition.encode(
                     row[field] == "undefined" ?
                         definition.defaults == "undefined" ? "null"
-                        : definition.defaults
-                    : row[field]
+                        : definition.defaults : row[field]
                 )
             : row[field] == "undefined" ?
                 definition.defaults == "undefined" ? "null"

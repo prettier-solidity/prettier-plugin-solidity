@@ -14,6 +14,32 @@ const tryHug = (node, operators) => {
   return node;
 };
 
+// The parser wrongly groups nested Conditionals in the falseExpression
+// in the following way:
+//
+// (a ? b : c) ? d : e;
+//
+// By reorganizing the group we have more flexibility when printing:
+//
+// a ? b : (c ? d : e);
+//
+// this is closer to the executed code and prints the same output.
+const rearrangeConditional = (ctx) => {
+  while (ctx.condition.type === 'Conditional') {
+    const falseExpression = {
+      type: 'Conditional',
+      condition: ctx.condition.falseExpression,
+      trueExpression: ctx.trueExpression,
+      falseExpression: ctx.falseExpression
+    };
+    rearrangeConditional(falseExpression);
+
+    ctx.falseExpression = falseExpression;
+    ctx.trueExpression = ctx.condition.trueExpression;
+    ctx.condition = ctx.condition.condition;
+  }
+};
+
 function parse(text, _parsers, options = _parsers) {
   const compiler = coerce(options.compiler);
   const parsed = parser.parse(text, { loc: true, range: true });
@@ -57,9 +83,11 @@ function parse(text, _parsers, options = _parsers) {
       ctx.loopExpression.omitSemicolon = true;
     },
     HexLiteral(ctx) {
-      ctx.value = options.singleQuote
-        ? `hex'${ctx.value.slice(4, -1)}'`
-        : `hex"${ctx.value.slice(4, -1)}"`;
+      const value = ctx.value.slice(4, -1);
+      ctx.value = options.singleQuote ? `hex'${value}'` : `hex"${value}"`;
+    },
+    Conditional(ctx) {
+      rearrangeConditional(ctx);
     },
     BinaryOperation(ctx) {
       switch (ctx.operator) {
