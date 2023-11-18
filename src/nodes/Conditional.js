@@ -3,61 +3,56 @@ import { doc } from 'prettier';
 const { group, indent, line, ifBreak, hardline, hardlineWithoutBreakParent } =
   doc.builders;
 
+let groupIndex = 0;
 const experimentalTernaries = (node, path, print) => {
   const parent = path.getParentNode();
-  let style = 'case-style';
 
-  if (parent.type === 'Conditional') {
-    if (parent.condition === node) style = 'curious';
-    if (parent.trueExpression === node) style = 'case-style';
-    if (parent.falseExpression === node) style = 'case-style';
-  }
-
-  const hasConditionalAtBeginning = [
-    node.condition.type,
-    node.trueExpression.type
-  ].includes('Conditional');
   const hasConditionalAtEnd = node.falseExpression.type === 'Conditional';
-  const hasConditional = hasConditionalAtBeginning || hasConditionalAtEnd;
+  const hasConditional =
+    [node.condition.type, node.trueExpression.type].includes('Conditional') ||
+    hasConditionalAtEnd;
+
+  const conditionalGroup = group([path.call(print, 'condition'), ' ?'], {
+    id: `Conditional.condition-${groupIndex}`
+  });
+
+  groupIndex += 1;
+  const expressionSeparator = ifBreak(hardlineWithoutBreakParent, line, {
+    groupId: conditionalGroup.id
+  });
 
   const document = group([
     group([
-      path.call(print, 'condition'),
-      ' ?',
-      group(
-        indent([
-          style === 'curious' ? hardlineWithoutBreakParent : line,
-          path.call(print, 'trueExpression')
-        ])
-      )
+      conditionalGroup,
+      group(indent([expressionSeparator, path.call(print, 'trueExpression')]))
     ]),
     group([
-      parent.type === 'Conditional' || hasConditionalAtEnd
-        ? hardlineWithoutBreakParent
-        : line,
+      parent.type === 'Conditional' || hasConditionalAtEnd ?
+        hardlineWithoutBreakParent
+      : expressionSeparator,
       ': ',
       path.call(print, 'falseExpression')
     ])
   ]);
 
-  return path.parent.type === 'VariableDeclarationStatement'
-    ? ifBreak(indent([hasConditional ? hardline : line, document]), document)
+  return path.parent.type === 'VariableDeclarationStatement' ?
+      ifBreak(indent([hasConditional ? hardline : line, document]), document)
     : document;
 };
 
 export const Conditional = {
   print: ({ node, path, print, options }) =>
-    options.experimentalTernaries
-      ? experimentalTernaries(node, path, print)
-      : group([
-          path.call(print, 'condition'),
-          indent([
-            line,
-            '? ',
-            path.call(print, 'trueExpression'),
-            line,
-            ': ',
-            path.call(print, 'falseExpression')
-          ])
+    options.experimentalTernaries ?
+      experimentalTernaries(node, path, print)
+    : group([
+        path.call(print, 'condition'),
+        indent([
+          line,
+          '? ',
+          path.call(print, 'trueExpression'),
+          line,
+          ': ',
+          path.call(print, 'falseExpression')
         ])
+      ])
 };

@@ -262,7 +262,8 @@ contract Conditional {
             : (
                 isNotAnAdorableKittyCat() &&
                     (someReallyLongCondition || moreInThisLongCondition)
-            ) ? bark()
+            ) ?
+                bark()
             : shortCondition() ? shortConsequent()
             : someReallyLargeExpression
                 .thatWouldCauseALineBreak()
@@ -277,7 +278,8 @@ contract Conditional {
                 x == 5 &&
                     y == 7 &&
                     someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
-            ) ? "four"
+            ) ?
+                "four"
             : x == 6 ? "six"
             : "idk";
 
@@ -289,7 +291,9 @@ contract Conditional {
                     glimseGlyphsHazardNoopsTieTie >=
                     averredBathersBoxroomBuggyNurl()
                         .anodyneCondosMalateOverateRetinol()
-            ) ? "foo" : "bar";
+            ) ?
+                "foo"
+            : "bar";
 
         // long conditional, short consequent/alternate, chained
         // (break on short consequents iff in chained ternary and its conditional broke)
@@ -300,7 +304,8 @@ contract Conditional {
                     glimseGlyphsHazardNoopsTieTie >=
                     averredBathersBoxroomBuggyNurl()
                         .anodyneCondosMalateOverateRetinol()
-            ) ? "foo"
+            ) ?
+                "foo"
             : anotherCondition ? "bar"
             : "baz";
 
