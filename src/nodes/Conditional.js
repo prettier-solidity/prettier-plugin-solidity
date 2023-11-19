@@ -48,19 +48,22 @@ const experimentalTernaries = (node, path, print) => {
     : document;
 };
 
+const traditionalTernaries = (path, print) =>
+  group([
+    path.call(print, 'condition'),
+    indent([
+      path.getParentNode().type === 'Conditional' ? hardline : line,
+      '? ',
+      path.call(print, 'trueExpression'),
+      line,
+      ': ',
+      path.call(print, 'falseExpression')
+    ])
+  ]);
+
 export const Conditional = {
   print: ({ node, path, print, options }) =>
     options.experimentalTernaries
       ? experimentalTernaries(node, path, print)
-      : group([
-          path.call(print, 'condition'),
-          indent([
-            line,
-            '? ',
-            path.call(print, 'trueExpression'),
-            line,
-            ': ',
-            path.call(print, 'falseExpression')
-          ])
-        ])
+      : traditionalTernaries(path, print)
 };
