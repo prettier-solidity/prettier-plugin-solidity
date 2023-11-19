@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { printSeparatedItem } from '../common/printer-helpers.js';
 
 const { group, indent, line, ifBreak, hardline, hardlineWithoutBreakParent } =
   doc.builders;
@@ -17,7 +18,10 @@ const experimentalTernaries = (node, path, print) => {
       parent.type === 'Conditional' && parent.trueExpression === node
         ? hardlineWithoutBreakParent
         : '',
-      path.call(print, 'condition'),
+      ifBreak(
+        ['(', printSeparatedItem(path.call(print, 'condition')), ')'],
+        path.call(print, 'condition')
+      ),
       ' ?'
     ],
     {
@@ -27,9 +31,17 @@ const experimentalTernaries = (node, path, print) => {
 
   groupIndex += 1;
 
-  const expressionSeparator = ifBreak(hardlineWithoutBreakParent, line, {
-    groupId: conditionalGroup.id
-  });
+  const expressionSeparator = ifBreak(
+    ['Conditional', 'VariableDeclarationStatement', 'ReturnStatement'].includes(
+      parent.type
+    )
+      ? hardlineWithoutBreakParent
+      : hardline,
+    line,
+    {
+      groupId: conditionalGroup.id
+    }
+  );
 
   const document = group([
     conditionalGroup,

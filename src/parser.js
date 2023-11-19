@@ -88,6 +88,13 @@ function parse(text, _parsers, options = _parsers) {
     },
     Conditional(ctx) {
       rearrangeConditional(ctx);
+      if (
+        ctx.condition.type === 'TupleExpression' &&
+        !ctx.condition.isArray &&
+        ctx.condition.components.length === 1
+      ) {
+        [ctx.condition] = ctx.condition.components;
+      }
     },
     BinaryOperation(ctx) {
       switch (ctx.operator) {
