@@ -234,7 +234,8 @@ contract Conditional {
 
         // nested ternary in consequent always breaks:
         string storage chainedWithTernaryConsequent =
-            isCat() ? aNestedCondition ? theResult()
+            isCat() ?
+                aNestedCondition ? theResult()
                 : theAlternate()
             : isDog() ? bark()
             : silent();
@@ -358,12 +359,9 @@ contract Conditional {
 
         // (the following is semantically equivalent to the above, but written in a more-confusing style – it'd be hard to grok no matter the formatting)
         string storage typeofExampleFlipped =
-            definition.encode ?
-                definition.encode(
-                    row[field] == "undefined" ?
+            definition.encode ? definition.encode(row[field] == "undefined" ?
                         definition.defaults == "undefined" ? "null"
-                        : definition.defaults : row[field]
-                )
+                        : definition.defaults : row[field])
             : row[field] == "undefined" ?
                 definition.defaults == "undefined" ? "null"
                 : definition.defaults
