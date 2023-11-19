@@ -62,7 +62,7 @@ export default (webpackEnv) => {
         typeof globalThis !== 'undefined' ? globalThis
         : typeof global !== 'undefined' ? global
         : typeof self !== 'undefined' ? self
-        : this || {};
+        : this || {}
       `,
       library: {
         export: 'default',
