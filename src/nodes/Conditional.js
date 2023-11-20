@@ -24,35 +24,27 @@ const experimentalTernaries = (node, path, print) => {
       ),
       ' ?'
     ],
-    {
-      id: `Conditional.condition-${groupIndex}`
-    }
+    { id: `Conditional.condition-${groupIndex}` }
   );
 
   groupIndex += 1;
 
   const expressionSeparator = ifBreak(
-    ['Conditional', 'VariableDeclarationStatement', 'ReturnStatement'].includes(
-      parent.type
-    )
+    ['Conditional', 'VariableDeclarationStatement'].includes(parent.type)
       ? hardlineWithoutBreakParent
-      : hardline,
+      : line,
     line,
-    {
-      groupId: conditionalGroup.id
-    }
+    { groupId: conditionalGroup.id }
   );
 
   const document = group([
     conditionalGroup,
     group(indent([expressionSeparator, path.call(print, 'trueExpression')])),
-    group([
-      parent.type === 'Conditional' || falseExpressionIsConditional
-        ? hardlineWithoutBreakParent
-        : expressionSeparator,
-      ': ',
-      path.call(print, 'falseExpression')
-    ])
+    parent.type === 'Conditional' || falseExpressionIsConditional
+      ? hardlineWithoutBreakParent
+      : expressionSeparator,
+    ': ',
+    path.call(print, 'falseExpression')
   ]);
 
   return parent.type === 'VariableDeclarationStatement'
