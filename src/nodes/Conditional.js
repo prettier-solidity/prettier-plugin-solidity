@@ -1,18 +1,18 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 
-const { group, indent, line, ifBreak, hardline, hardlineWithoutBreakParent } =
+const { group, hardline, hardlineWithoutBreakParent, ifBreak, indent, line } =
   doc.builders;
 
 let groupIndex = 0;
 const experimentalTernaries = (node, path, print) => {
   const parent = path.getParentNode();
 
-  const falseExpressionIsConditional =
-    node.falseExpression.type === 'Conditional';
-  const trueExpressionIsConditional =
-    node.trueExpression.type === 'Conditional';
-
+  // If the current `Conditional` is nested in another `Conditional`'s
+  // `trueExpression`, we add a line without propagating the break group.
+  // If the `conditionDoc` breaks into multiple lines, we add parentheses.
+  // This can only be done because we are sure that the `condition` must be a
+  // single `bool` value.
   const conditionDoc = path.call(print, 'condition');
   const conditionGroup = group(
     [
@@ -27,6 +27,10 @@ const experimentalTernaries = (node, path, print) => {
 
   groupIndex += 1;
 
+  // If the `conditionGroup` breaks we force a new line to separate the
+  // `trueExpression` and `falseExpression`.
+  // In the case of `Conditional`, `VariableDeclarationStatement` and
+  // `ReturnStatement` we avoid propagating the group breaking.
   const expressionSeparator = ifBreak(
     ['Conditional', 'VariableDeclarationStatement', 'ReturnStatement'].includes(
       parent.type
@@ -37,27 +41,38 @@ const experimentalTernaries = (node, path, print) => {
     { groupId: conditionGroup.id }
   );
 
-  const document = group([
-    conditionGroup,
-    group(
-      indent([
-        trueExpressionIsConditional ? '' : expressionSeparator,
-        path.call(print, 'trueExpression')
-      ])
-    ),
-    parent.type === 'Conditional' || falseExpressionIsConditional
+  // We avoid prepending a separation if the `trueExpression` is a
+  // `Conditional` since it's added by default in the `conditionGroup`.
+  const trueIsConditional = node.trueExpression.type === 'Conditional';
+  const trueExpressionDoc = printSeparatedItem(
+    [
+      trueIsConditional ? '' : expressionSeparator,
+      path.call(print, 'trueExpression')
+    ],
+    { firstSeparator: '' }
+  );
+
+  // We force a new line if it's a nested `Conditional` or if the
+  // `falseExpression` is a `Conditional`. Otherwise we add a normal separator.
+  const falseIsConditional = node.falseExpression.type === 'Conditional';
+  const falseExpressionDoc = [
+    parent.type === 'Conditional' || falseIsConditional
       ? hardlineWithoutBreakParent
       : expressionSeparator,
     ': ',
     path.call(print, 'falseExpression')
+  ];
+
+  const document = group([
+    conditionGroup,
+    trueExpressionDoc,
+    falseExpressionDoc
   ]);
 
   return parent.type === 'VariableDeclarationStatement'
     ? ifBreak(
         indent([
-          trueExpressionIsConditional || falseExpressionIsConditional
-            ? hardline
-            : line,
+          trueIsConditional || falseIsConditional ? hardline : line,
           document
         ]),
         document
