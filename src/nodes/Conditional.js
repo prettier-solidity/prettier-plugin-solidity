@@ -10,18 +10,16 @@ const experimentalTernaries = (node, path, print) => {
 
   const falseExpressionIsConditional =
     node.falseExpression.type === 'Conditional';
-  const hasConditional =
-    node.trueExpression.type === 'Conditional' || falseExpressionIsConditional;
+  const trueExpressionIsConditional =
+    node.trueExpression.type === 'Conditional';
 
-  const conditionalGroup = group(
+  const conditionDoc = path.call(print, 'condition');
+  const conditionGroup = group(
     [
       parent.type === 'Conditional' && parent.trueExpression === node
         ? hardlineWithoutBreakParent
         : '',
-      ifBreak(
-        ['(', printSeparatedItem(path.call(print, 'condition')), ')'],
-        path.call(print, 'condition')
-      ),
+      ifBreak(['(', printSeparatedItem(conditionDoc), ')'], conditionDoc),
       ' ?'
     ],
     { id: `Conditional.condition-${groupIndex}` }
@@ -30,16 +28,23 @@ const experimentalTernaries = (node, path, print) => {
   groupIndex += 1;
 
   const expressionSeparator = ifBreak(
-    ['Conditional', 'VariableDeclarationStatement'].includes(parent.type)
+    ['Conditional', 'VariableDeclarationStatement', 'ReturnStatement'].includes(
+      parent.type
+    )
       ? hardlineWithoutBreakParent
-      : line,
+      : hardline,
     line,
-    { groupId: conditionalGroup.id }
+    { groupId: conditionGroup.id }
   );
 
   const document = group([
-    conditionalGroup,
-    group(indent([expressionSeparator, path.call(print, 'trueExpression')])),
+    conditionGroup,
+    group(
+      indent([
+        trueExpressionIsConditional ? '' : expressionSeparator,
+        path.call(print, 'trueExpression')
+      ])
+    ),
     parent.type === 'Conditional' || falseExpressionIsConditional
       ? hardlineWithoutBreakParent
       : expressionSeparator,
@@ -48,7 +53,15 @@ const experimentalTernaries = (node, path, print) => {
   ]);
 
   return parent.type === 'VariableDeclarationStatement'
-    ? ifBreak(indent([hasConditional ? hardline : line, document]), document)
+    ? ifBreak(
+        indent([
+          trueExpressionIsConditional || falseExpressionIsConditional
+            ? hardline
+            : line,
+          document
+        ]),
+        document
+      )
     : document;
 };
 
