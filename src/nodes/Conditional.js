@@ -84,6 +84,7 @@ const traditionalTernaries = (path, print) =>
   group([
     path.call(print, 'condition'),
     indent([
+      // We force line breaks if it's a nested `Conditional`
       path.getParentNode().type === 'Conditional' ? hardline : line,
       '? ',
       path.call(print, 'trueExpression'),
