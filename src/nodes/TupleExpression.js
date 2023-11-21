@@ -18,19 +18,14 @@ const contents = (node, path, print, options) => {
     : printSeparatedList(path.map(print, 'components'));
 };
 
-const brackets = {
-  true: '[]',
-  false: '()'
-};
-
 export const TupleExpression = {
   print: ({ node, path, print, options }) => {
-    const bracket = brackets[node.isArray.toString()];
+    const [openingBracket, closingBracket] = node.isArray ? '[]' : '()';
 
     return group([
-      bracket[0],
+      openingBracket,
       contents(node, path, print, options),
-      bracket[1]
+      closingBracket
     ]);
   }
 };
