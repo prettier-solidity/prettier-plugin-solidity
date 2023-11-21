@@ -206,6 +206,19 @@ You might have a multi-version project, where different files are compiled with 
 | ------- | --------------------- | ---------------------- |
 | None    | `--compiler <string>` | `compiler: "<string>"` |
 
+### Experimental Ternaries
+
+Mimicking prettier's [new ternary formatting](https://prettier.io/blog/2023/11/13/curious-ternaries) for the community to try.
+
+Valid options:
+
+- `true` - Use curious ternaries, with the question mark after the condition.
+- `false` - Retain the default behavior of ternaries; keep question marks on the same line as the consequent.
+
+| Default | CLI Override               | API Override                    |
+| ------- | -------------------------- | ------------------------------- |
+| false   | `--experimental-ternaries` | `experimentalTernaries: <bool>` |
+
 ## Integrations
 
 ### Vim
