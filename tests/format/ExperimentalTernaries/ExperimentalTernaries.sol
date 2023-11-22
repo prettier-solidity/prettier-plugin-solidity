@@ -142,6 +142,12 @@ contract Conditional {
         : row[field]
         );
 
+        // Conditional as a condition
+        (((foo ? 1 : bar))) ? 3 : 4;
+        (isCat() ? meow()
+        : isDog() ? bark()
+        : silent()) ? 1: 2;
+
         // In a return, break and over-indent:
         if (short) {
             return foo ? 1 : 2;

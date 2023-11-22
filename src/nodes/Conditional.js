@@ -10,7 +10,8 @@ const experimentalTernaries = (node, path, print) => {
 
   // If the current `Conditional` is nested in another `Conditional`'s
   // `trueExpression`, we add a line without propagating the break group.
-  // If the `conditionDoc` breaks into multiple lines, we add parentheses.
+  // If the `conditionDoc` breaks into multiple lines, we add parentheses,
+  // unless it already is a `TupleExpression`.
   // This can only be done because we are sure that the `condition` must be a
   // single `bool` value.
   const conditionDoc = path.call(print, 'condition');
@@ -19,7 +20,9 @@ const experimentalTernaries = (node, path, print) => {
       parent.type === 'Conditional' && parent.trueExpression === node
         ? hardlineWithoutBreakParent
         : '',
-      ifBreak(['(', printSeparatedItem(conditionDoc), ')'], conditionDoc),
+      node.condition.type === 'TupleExpression'
+        ? conditionDoc
+        : ifBreak(['(', printSeparatedItem(conditionDoc), ')'], conditionDoc),
       ' ?'
     ],
     { id: `Conditional.condition-${groupIndex}` }

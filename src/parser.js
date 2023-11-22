@@ -88,10 +88,11 @@ function parse(text, _parsers, options = _parsers) {
     },
     Conditional(ctx) {
       rearrangeConditional(ctx);
-      if (
+      while (
         ctx.condition.type === 'TupleExpression' &&
         !ctx.condition.isArray &&
-        ctx.condition.components.length === 1
+        ctx.condition.components.length === 1 &&
+        ctx.condition.components[0].type !== 'Conditional'
       ) {
         [ctx.condition] = ctx.condition.components;
       }
