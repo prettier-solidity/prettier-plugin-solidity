@@ -88,6 +88,8 @@ function parse(text, _parsers, options = _parsers) {
     },
     Conditional(ctx) {
       rearrangeConditional(ctx);
+      // We can remove parentheses only because we are sure that the
+      // `condition` must be a single `bool` value.
       while (
         ctx.condition.type === 'TupleExpression' &&
         !ctx.condition.isArray &&
