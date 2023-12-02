@@ -7,9 +7,6 @@ const experimentalTernaries = (node, path, print) => {
   const parent = path.getParentNode();
   const isNested = parent.type === 'Conditional';
   const isNestedAsTrueExpression = isNested && parent.trueExpression === node;
-  const hasNestedConditional =
-    node.trueExpression.type === 'Conditional' ||
-    node.falseExpression.type === 'Conditional';
 
   // If the `conditionDoc` breaks into multiple lines, we add parentheses,
   // unless it already is a `TupleExpression`.
@@ -29,10 +26,10 @@ const experimentalTernaries = (node, path, print) => {
     path.call(print, 'trueExpression')
   ]);
 
-  // We force a new line if current `Conditional` is nested or nests a
-  // `Conditional`. Otherwise we add a normal line.
+  // We force a new line if current `Conditional` is a nested `Conditional`.
+  // Otherwise we add a normal line.
   const falseExpressionDoc = [
-    isNested || hasNestedConditional ? hardline : line,
+    isNested ? hardline : line,
     ': ',
     path.call(print, 'falseExpression')
   ];
