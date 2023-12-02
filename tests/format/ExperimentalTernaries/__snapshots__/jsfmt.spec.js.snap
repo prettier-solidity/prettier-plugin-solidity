@@ -367,15 +367,13 @@ contract Conditional {
 
         // Conditional as a condition
         (
-            foo ?
-                1
+            foo ? 1
             : bar
         ) ?
             3
         : 4;
         (
-            isCat() ?
-                meow()
+            isCat() ? meow()
             : isDog() ? bark()
             : silent()
         ) ?

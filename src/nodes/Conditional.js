@@ -1,8 +1,15 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 
-const { group, hardline, hardlineWithoutBreakParent, ifBreak, indent, line } =
-  doc.builders;
+const {
+  breakParent,
+  group,
+  hardline,
+  hardlineWithoutBreakParent,
+  ifBreak,
+  indent,
+  line
+} = doc.builders;
 
 let groupIndex = 0;
 const experimentalTernaries = (node, path, print) => {
@@ -19,10 +26,14 @@ const experimentalTernaries = (node, path, print) => {
     [
       parent.type === 'Conditional' && parent.trueExpression === node
         ? hardlineWithoutBreakParent
-        : '',
+        : parent.type === 'FunctionCall'
+          ? breakParent
+          : '',
       node.condition.type === 'TupleExpression'
         ? conditionDoc
-        : ifBreak(['(', printSeparatedItem(conditionDoc), ')'], conditionDoc),
+        : group(
+            ifBreak(['(', printSeparatedItem(conditionDoc), ')'], conditionDoc)
+          ),
       ' ?'
     ],
     { id: `Conditional.condition-${groupIndex}` }
@@ -34,15 +45,9 @@ const experimentalTernaries = (node, path, print) => {
   // `trueExpression` and `falseExpression`.
   // In the case of `Conditional`, `VariableDeclarationStatement` and
   // `ReturnStatement` we avoid propagating the group breaking.
-  const expressionSeparator = ifBreak(
-    ['Conditional', 'VariableDeclarationStatement', 'ReturnStatement'].includes(
-      parent.type
-    )
-      ? hardlineWithoutBreakParent
-      : hardline,
-    line,
-    { groupId: conditionGroup.id }
-  );
+  const expressionSeparator = ifBreak(hardlineWithoutBreakParent, line, {
+    groupId: conditionGroup.id
+  });
 
   // We avoid prepending a separation if the `trueExpression` is a
   // `Conditional` since it's added by default in the `conditionGroup`.
@@ -67,6 +72,7 @@ const experimentalTernaries = (node, path, print) => {
   ];
 
   const document = group([
+    parent.type === 'TupleExpression' ? breakParent : '',
     conditionGroup,
     trueExpressionDoc,
     falseExpressionDoc
