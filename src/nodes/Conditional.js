@@ -14,6 +14,11 @@ const {
 let groupIndex = 0;
 const experimentalTernaries = (node, path, print) => {
   const parent = path.getParentNode();
+  const isNested = parent.type === 'Conditional';
+  const isNestedAsTrueExpression = isNested && parent.trueExpression === node;
+  const hasNestedConditional =
+    node.trueExpression.type === 'Conditional' ||
+    node.falseExpression.type === 'Conditional';
 
   // If the current `Conditional` is nested in another `Conditional`'s
   // `trueExpression`, we add a line without propagating the break group.
@@ -24,14 +29,10 @@ const experimentalTernaries = (node, path, print) => {
   const conditionDoc = path.call(print, 'condition');
   const conditionGroup = group(
     [
-      parent.type === 'Conditional' && parent.trueExpression === node
-        ? hardlineWithoutBreakParent
-        : '',
+      isNestedAsTrueExpression ? hardlineWithoutBreakParent : '',
       node.condition.type === 'TupleExpression'
         ? conditionDoc
-        : group(
-            ifBreak(['(', printSeparatedItem(conditionDoc), ')'], conditionDoc)
-          ),
+        : ifBreak(['(', printSeparatedItem(conditionDoc), ')'], conditionDoc),
       ' ?'
     ],
     { id: `Conditional.condition-${groupIndex}` }
@@ -47,27 +48,28 @@ const experimentalTernaries = (node, path, print) => {
     groupId: conditionGroup.id
   });
 
-  // We avoid prepending a separation if the `trueExpression` is a
-  // `Conditional` since it's added by default in the `conditionGroup`.
-  const trueIsConditional = node.trueExpression.type === 'Conditional';
+  // To switch between "case-style" and "curious" ternaries we force a
+  // `hardline` without propagating the break thus keeping "case-style"
+  // ternaries in the parent `Conditional`s.
   const trueExpressionDoc = printSeparatedItem(
     [
-      trueIsConditional ? '' : expressionSeparator,
+      isNestedAsTrueExpression
+        ? hardlineWithoutBreakParent
+        : expressionSeparator,
       path.call(print, 'trueExpression')
     ],
     { firstSeparator: '' }
   );
 
-  // We force a new line if it's a nested `Conditional` or if the
-  // `falseExpression` is a `Conditional`. Otherwise we add a normal separator.
-  const falseIsConditional = node.falseExpression.type === 'Conditional';
-  const falseExpressionDoc = [
-    parent.type === 'Conditional' || falseIsConditional
+  // We force a new line if current `Conditional` is nested or nests a
+  // `Conditional`. Otherwise we add a normal separator.
+  const falseExpressionDoc = group([
+    isNested || hasNestedConditional
       ? hardlineWithoutBreakParent
       : expressionSeparator,
     ': ',
     path.call(print, 'falseExpression')
-  ];
+  ]);
 
   const document = group([
     parent.type === 'TupleExpression' || parent.type === 'FunctionCall'
@@ -80,10 +82,7 @@ const experimentalTernaries = (node, path, print) => {
 
   return parent.type === 'VariableDeclarationStatement'
     ? ifBreak(
-        indent([
-          trueIsConditional || falseIsConditional ? hardline : line,
-          document
-        ]),
+        indent([hasNestedConditional ? hardline : line, document]),
         document
       )
     : document;

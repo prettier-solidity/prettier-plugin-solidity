@@ -260,7 +260,8 @@ contract Conditional {
         // nested ternary in consequent always breaks:
         string storage chainedWithTernaryConsequent =
             isCat() ?
-                aNestedCondition ? theResult()
+                aNestedCondition ?
+                    theResult()
                 : theAlternate()
             : isDog() ? bark()
             : silent();
@@ -359,15 +360,15 @@ contract Conditional {
             : definition.defaults != "undefined" ? definition.defaults
             : "null",
             row[field] == "undefined" ?
-                definition.defaults == "undefined" ? "null"
+                definition.defaults == "undefined" ?
+                    "null"
                 : definition.defaults
             : row[field]
         );
 
         // Conditional as a condition
         (
-            foo ? 1
-            : bar
+            foo ? 1 : bar
         ) ?
             3
         : 4;
@@ -425,12 +426,14 @@ contract Conditional {
             definition.encode ?
                 definition.encode(
                     row[field] == "undefined" ?
-                        definition.defaults == "undefined" ? "null"
+                        definition.defaults == "undefined" ?
+                            "null"
                         : definition.defaults
                     : row[field]
                 )
             : row[field] == "undefined" ?
-                definition.defaults == "undefined" ? "null"
+                definition.defaults == "undefined" ?
+                    "null"
                 : definition.defaults
             : row[field];
     }
