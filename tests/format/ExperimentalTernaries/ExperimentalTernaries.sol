@@ -2,6 +2,36 @@ pragma solidity ^0.4.24;
 
 
 contract Conditional {
+    function blogPostExample() {
+      // "curious" ternaries
+      string storage animalName =
+        pet.canBark() ?
+          pet.isScary() ?
+            'wolf'
+          : 'dog'
+        : pet.canMeow() ?
+          'cat'
+        : 'probably a bunny';
+
+      // "case-style" ternaries
+      string storage animalName =
+        pet.isScary() ? 'wolf'
+        : pet.canBark() ? 'dog'
+        : pet.canMeow() ? 'cat'
+        : 'probably a bunny';
+      
+      // fluidity between "case-style" and "curious" ternaries
+      string storage animalName =
+        pet.canSqueak() ? 'mouse'
+        : pet.canBark() ?
+          pet.isScary() ?
+            'wolf'
+          : 'dog'
+        : pet.canMeow() ? 'cat'
+        : pet.canSqueak() ? 'mouse'
+        : 'probably a bunny';
+    }
+
     function examples1() {
         // remain on one line if possible:
         string storage short = isLoud() ? makeNoise() : silent();
