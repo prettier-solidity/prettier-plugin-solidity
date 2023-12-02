@@ -355,8 +355,7 @@ contract Conditional {
 
         // As a function parameter, don't add an extra indent:
         definition.encode(
-            row[field] != "undefined" ?
-                row[field]
+            row[field] != "undefined" ? row[field]
             : definition.defaults != "undefined" ? definition.defaults
             : "null",
             row[field] == "undefined" ?
@@ -413,8 +412,7 @@ contract Conditional {
         string storage typeofExample =
             definition.encode ?
                 definition.encode(
-                    row[field] != "undefined" ?
-                        row[field]
+                    row[field] != "undefined" ? row[field]
                     : definition.defaults != "undefined" ? definition.defaults
                     : "null"
                 )

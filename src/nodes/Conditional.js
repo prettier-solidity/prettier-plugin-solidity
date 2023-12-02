@@ -26,9 +26,7 @@ const experimentalTernaries = (node, path, print) => {
     [
       parent.type === 'Conditional' && parent.trueExpression === node
         ? hardlineWithoutBreakParent
-        : parent.type === 'FunctionCall'
-          ? breakParent
-          : '',
+        : '',
       node.condition.type === 'TupleExpression'
         ? conditionDoc
         : group(
@@ -72,7 +70,9 @@ const experimentalTernaries = (node, path, print) => {
   ];
 
   const document = group([
-    parent.type === 'TupleExpression' ? breakParent : '',
+    parent.type === 'TupleExpression' || parent.type === 'FunctionCall'
+      ? breakParent
+      : '',
     conditionGroup,
     trueExpressionDoc,
     falseExpressionDoc
