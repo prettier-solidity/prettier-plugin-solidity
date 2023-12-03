@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 
-const { group, hardline, ifBreak, indent, line } = doc.builders;
+const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
 const experimentalTernaries = (node, path, print) => {
   const parent = path.getParentNode();
@@ -40,7 +40,7 @@ const experimentalTernaries = (node, path, print) => {
   ]);
 
   return parent.type === 'VariableDeclarationStatement'
-    ? ifBreak(indent([line, document]), document)
+    ? indent([softline, document])
     : document;
 };
 
