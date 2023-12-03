@@ -18,16 +18,15 @@ const experimentalTernaries = (node, path, print) => {
     ' ?'
   ]);
 
-  // To switch between "case-style" and "curious" ternaries we force a
-  // `hardline` without propagating the break thus keeping "case-style"
-  // ternaries in the parent `Conditional`s.
+  // To switch between "case-style" and "curious" ternaries we force a new line
+  // before a nested `trueExpression` if the current `Conditional` is also a
+  // `trueExpression`.
   const trueExpressionDoc = indent([
     isNestedAsTrueExpression ? hardline : line,
     path.call(print, 'trueExpression')
   ]);
 
-  // We force a new line if current `Conditional` is a nested `Conditional`.
-  // Otherwise we add a normal line.
+  // A nested `falseExpression` is always printed in a new line.
   const falseExpressionDoc = [
     isNested ? hardline : line,
     ': ',
@@ -48,7 +47,8 @@ const traditionalTernaries = (path, print) =>
   group([
     path.call(print, 'condition'),
     indent([
-      // We force line breaks if it's a nested `Conditional`
+      // Nested trueExpression and falseExpression are always printed in a new
+      // line
       path.getParentNode().type === 'Conditional' ? hardline : line,
       '? ',
       path.call(print, 'trueExpression'),
