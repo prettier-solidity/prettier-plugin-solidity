@@ -27,20 +27,8 @@ export function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
     : util.getNextNonSpaceNonCommentCharacter(text, locEnd(node)); // V3 exposes this function directly
 }
 
-export function isFirst(path, _, index) {
-  return isPrettier2 ? index === 0 : path.isFirst;
-}
-
 export function isLast(path, key, index) {
   return isPrettier2
     ? index === path.getParentNode()[key].length - 1
     : path.isLast;
-}
-
-export function previous(path, key, index) {
-  return isPrettier2 ? path.getParentNode()[key][index - 1] : path.previous;
-}
-
-export function next(path, key, index) {
-  return isPrettier2 ? path.getParentNode()[key][index + 1] : path.next;
 }

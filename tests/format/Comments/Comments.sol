@@ -2,6 +2,14 @@ pragma solidity ^0.4.24;
 
 
 contract Comments1 {
+  /* solhint-disable var-name-mixedcase */
+IEIP712DomainSeparator private EIP712domainSeparator;
+bytes32 private _CACHED_DOMAIN_SEPARATOR;
+
+
+/* solhint-enable var-name-mixedcase */
+
+
     function() {
         // solhint-disable-previous-line no-empty-blocks
     }
@@ -39,6 +47,18 @@ contract Comments6 /*why the name `Comments6`*/ is Interface1/*why we used Inter
 }
 
 contract Comments7 {
+
+
+  // 1 comment before first function
+
+
+
+  // 2 comment before first function
+
+
+
+  // 3 comment before first function
+
   function someFunction(
     uint a, // the first value
     uint b, // the second value

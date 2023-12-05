@@ -568,7 +568,6 @@ import {symbol1 as alias, symbol2} from "File.sol";
 
 interface i {
     event ForeignEvent();
-
     function f();
 }
 
@@ -582,7 +581,6 @@ contract c {
         val3 = 1 finney; // 1 * 10 ** 15
         val4 = 1 ether; // 1 * 10 ** 18
     }
-
     uint256 val1;
     uint256 val2;
     uint256 val3;
@@ -600,11 +598,9 @@ contract test {
     function test() {
         choices = ActionChoices.GoStraight;
     }
-
     function getChoice() returns (uint d) {
         d = uint256(choices);
     }
-
     ActionChoices choices;
 }
 
@@ -612,10 +608,8 @@ contract Base {
     function Base(uint i) {
         m_i = i;
     }
-
     uint public m_i;
 }
-
 contract Derived is Base(0) {
     function Derived(uint i) Base(i) {}
 }
@@ -653,20 +647,16 @@ contract c {
     function() returns (uint) {
         return g(8);
     }
-
     function g(uint pos) internal returns (uint) {
         setData(pos, 8);
         return getData(pos);
     }
-
     function setData(uint pos, uint value) internal {
         data[pos] = value;
     }
-
     function getData(uint pos) internal {
         return data[pos];
     }
-
     mapping(uint => uint) data;
     mapping(uint id => uint) data;
     mapping(address owner => mapping(address spender => uint amount)) allowances;
@@ -689,7 +679,6 @@ library IntegerSet {
         /// Number of stored items.
         uint size;
     }
-
     function insert(
         data storage self,
         uint value
@@ -705,7 +694,6 @@ library IntegerSet {
             return false;
         }
     }
-
     function remove(data storage self, uint value) returns (bool success) {
         uint index = self.index[value];
         if (index == 0) return false;
@@ -713,19 +701,15 @@ library IntegerSet {
         delete self.items[index];
         self.size--;
     }
-
     function contains(data storage self, uint value) returns (bool) {
         return self.index[value] > 0;
     }
-
     function iterate_start(data storage self) returns (uint index) {
         return iterate_advance(self, 0);
     }
-
     function iterate_valid(data storage self, uint index) returns (bool) {
         return index < self.items.length;
     }
-
     function iterate_advance(
         data storage self,
         uint index
@@ -736,7 +720,6 @@ library IntegerSet {
         ) index++;
         return index;
     }
-
     function iterate_get(data storage self, uint index) returns (uint value) {
         return self.items[index];
     }
@@ -746,7 +729,6 @@ library IntegerSet {
 contract User {
     /// Just a struct holding our data.
     IntegerSet.data data;
-
     /// Insert something
     function insert(uint v) returns (uint size) {
         /// Sends \`data\` via reference, so IntegerSet can modify it.
@@ -754,7 +736,6 @@ contract User {
         /// We can access members of the struct - but we should take care not to mess with them.
         return data.size;
     }
-
     /// Computes the sum of all stored data.
     function sum() returns (uint s) {
         for (
@@ -974,7 +955,6 @@ contract Ballot {
         owner(myPrice)
         returns (uint[], address myAdd, string[] names)
     {}
-
     function foobar()
         payable
         owner(myPrice)
@@ -1071,13 +1051,9 @@ contract Overrides {
         require(msg.sender == owner(), "Ownable: caller is not the owner");
         _;
     }
-
     function foo() public override {}
-
     function bar() public override(Foo) {}
-
     function baz() public override(Foo, Bar) {}
-
     function long()
         public
         override(

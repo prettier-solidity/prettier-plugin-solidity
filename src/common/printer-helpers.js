@@ -1,11 +1,8 @@
 import { doc } from 'prettier';
 import {
-  isFirst,
   isLast,
   isNextLineEmpty,
-  isPrettier2,
-  next,
-  previous
+  isPrettier2
 } from './backward-compatibility.js';
 
 const { group, indent, join, line, softline, hardline } = doc.builders;
@@ -24,7 +21,7 @@ export const printComments = (node, path, options, filter = () => true) => {
           return null;
         }
         comment.printed = true;
-        return options.printer.printComment(commentPath);
+        return options.printer.printComment(commentPath, options);
       }, 'comments')
       .filter(Boolean)
   );
@@ -38,22 +35,6 @@ export const printComments = (node, path, options, filter = () => true) => {
     : document; // Prettier V3
   /* c8 ignore stop */
 };
-
-const shouldHaveEmptyLine = (node, checkForLeading) =>
-  Boolean(
-    // if node is not FunctionDefinition, it should have an empty line
-    node.type !== 'FunctionDefinition' ||
-      // if FunctionDefinition is not abstract, it should have an empty line
-      node.body ||
-      // if FunctionDefinition has the comment we are looking for (trailing or
-      // leading), it should have an empty line
-      node.comments?.some((comment) => checkForLeading && comment.leading)
-  );
-
-const separatingLine = (firstNode, secondNode) =>
-  shouldHaveEmptyLine(firstNode, false) || shouldHaveEmptyLine(secondNode, true)
-    ? hardline
-    : '';
 
 export function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
@@ -71,38 +52,16 @@ export function printPreservingEmptyLines(path, key, options, print) {
       parts.push(hardline);
     }
 
-    // Only attempt to prepend an empty line if `node` is not the first item
-    // and an empty line hasn't already been appended after the previous `node`
-    if (
-      !isFirst(childPath, key, index) &&
-      parts[parts.length - 2] !== hardline
-    ) {
-      if (nodeType === 'FunctionDefinition') {
-        // Prepend FunctionDefinition with an empty line if there should be a
-        // separation with the previous `node`
-        parts.push(separatingLine(previous(childPath, key, index), node));
-      } else if (nodeType === 'ContractDefinition') {
-        // Prepend ContractDefinition with an empty line
-        parts.push(hardline);
-      }
-    }
-
     parts.push(print(childPath));
 
     // Only attempt to append an empty line if `node` is not the last item
-    if (!isLast(childPath, key, index)) {
-      if (isNextLineEmpty(options.originalText, options.locEnd(node) + 1)) {
-        // Append an empty line if the original text already had an one after
-        // the current `node`
-        parts.push(hardline);
-      } else if (nodeType === 'FunctionDefinition') {
-        // Append FunctionDefinition with an empty line if there should be a
-        // separation with the next `node`
-        parts.push(separatingLine(node, next(childPath, key, index)));
-      } else if (nodeType === 'ContractDefinition') {
-        // Append ContractDefinition with an empty line
-        parts.push(hardline);
-      }
+    if (
+      !isLast(childPath, key, index) &&
+      isNextLineEmpty(options.originalText, options.locEnd(node) + 1)
+    ) {
+      // Append an empty line if the original text already had an one after
+      // the current `node`
+      parts.push(hardline);
     }
   }, key);
 

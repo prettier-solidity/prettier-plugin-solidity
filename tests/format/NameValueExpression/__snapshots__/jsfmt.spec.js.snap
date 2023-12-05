@@ -27,7 +27,6 @@ contract NameValueExpression {
             forSplits: true
         }();
     }
-
     D newD = new D{ value: amount }(arg);
 }
 
@@ -60,7 +59,6 @@ contract NameValueExpression {
             forSplits: true
         }();
     }
-
     D newD = new D{value: amount}(arg);
 }
 
