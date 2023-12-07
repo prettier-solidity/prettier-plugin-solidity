@@ -106,7 +106,7 @@
     "jest-watch-typeahead": "^3.0.1",
     "knip": "^5.83.0",
     "lines-and-columns": "^2.0.4",
-    "prettier": "^3.8.1",
+    "prettier": "^4.0.0-alpha.13",
     "solc": "^0.8.33",
     "ts-loader": "^9.5.4",
     "ts-node": "^10.9.2",
@@ -120,7 +120,7 @@
     "semver": "^7.7.4"
   },
   "peerDependencies": {
-    "prettier": ">=3.0.0"
+    "prettier": ">=4.0.0-alpha.13"
   },
   "browserslist": {
     "production": [
