@@ -102,7 +102,7 @@
     "jest-snapshot-serializer-raw": "^2.0.0",
     "jest-watch-typeahead": "^2.2.2",
     "lines-and-columns": "^2.0.4",
-    "prettier": "^3.5.3",
+    "prettier": "^4.0.0-alpha.12",
     "solc": "^0.8.29",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
@@ -116,7 +116,7 @@
     "semver": "^7.7.1"
   },
   "peerDependencies": {
-    "prettier": ">=3.0.0"
+    "prettier": ">=4.0.0-alpha.12"
   },
   "browserslist": {
     "production": [
