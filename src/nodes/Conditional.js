@@ -3,18 +3,20 @@ import { printSeparatedItem } from '../common/printer-helpers.js';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
-const experimentalTernaries = (node, path, print) => {
+let groupIndex = 0;
+const experimentalTernaries = (node, path, print, options) => {
   const parent = path.getParentNode();
   const isNested = parent.type === 'Conditional';
   const isNestedAsTrueExpression = isNested && parent.trueExpression === node;
+  const falseExpressionIsNested = node.falseExpression.type === 'Conditional';
 
-  // If the `conditionDoc` breaks into multiple lines, we add parentheses,
+  // If the `condition` breaks into multiple lines, we add parentheses,
   // unless it already is a `TupleExpression`.
-  const conditionDoc = path.call(print, 'condition');
-  const conditionGroup = group([
+  const condition = path.call(print, 'condition');
+  const conditionDoc = group([
     node.condition.type === 'TupleExpression'
-      ? conditionDoc
-      : ifBreak(['(', printSeparatedItem(conditionDoc), ')'], conditionDoc),
+      ? condition
+      : ifBreak(['(', printSeparatedItem(condition), ')'], condition),
     ' ?'
   ]);
 
@@ -26,17 +28,37 @@ const experimentalTernaries = (node, path, print) => {
     path.call(print, 'trueExpression')
   ]);
 
+  const conditionAndTrueExpressionGroup = group(
+    [conditionDoc, trueExpressionDoc],
+    { id: `Conditional.trueExpressionDoc-${groupIndex}` }
+  );
+
+  groupIndex += 1;
+
+  // For the odd case of `tabWidth` of 1 or 0 we initiate `fillTab` as a single
+  // space.
+  let fillTab = ' ';
+  if (
+    !falseExpressionIsNested && // avoid processing if it's not needed
+    (options.tabWidth > 2 || options.useTabs)
+  ) {
+    fillTab = options.useTabs ? '\t' : ' '.repeat(options.tabWidth - 1);
+  }
+
   // A nested `falseExpression` is always printed in a new line.
+  const falseExpression = path.call(print, 'falseExpression');
   const falseExpressionDoc = [
     isNested ? hardline : line,
-    ': ',
-    path.call(print, 'falseExpression')
+    ':',
+    falseExpressionIsNested
+      ? [' ', falseExpression]
+      : ifBreak([fillTab, falseExpression], [' ', falseExpression], {
+          // We only add `fillTab` if we are sure the trueExpression is indented
+          groupId: conditionAndTrueExpressionGroup.id
+        })
   ];
 
-  const document = group([
-    group([conditionGroup, trueExpressionDoc]),
-    falseExpressionDoc
-  ]);
+  const document = group([conditionAndTrueExpressionGroup, falseExpressionDoc]);
 
   return parent.type === 'VariableDeclarationStatement'
     ? indent([softline, document])
@@ -61,6 +83,6 @@ const traditionalTernaries = (path, print) =>
 export const Conditional = {
   print: ({ node, path, print, options }) =>
     options.experimentalTernaries
-      ? experimentalTernaries(node, path, print)
+      ? experimentalTernaries(node, path, print, options)
       : traditionalTernaries(path, print)
 };
