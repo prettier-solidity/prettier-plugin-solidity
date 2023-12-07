@@ -62,7 +62,6 @@ contract FunctionCalls {
 
         Voter airbnb = Voter({ weight: 2, voted: true });
     }
-
     function verify(
         ForwardRequest calldata req,
         bytes calldata signature
@@ -215,7 +214,6 @@ contract FunctionCalls {
 
         Voter airbnb = Voter({weight: 2, voted: true});
     }
-
     function verify(
         ForwardRequest calldata req,
         bytes calldata signature

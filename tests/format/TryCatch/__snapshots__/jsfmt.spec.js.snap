@@ -120,7 +120,6 @@ interface DataFeed {
 contract FeedConsumer {
     DataFeed feed;
     uint errorCount;
-
     function rate(address token) public returns (uint value, bool success) {
         // Permanently disable the mechanism if there are
         // more than 10 errors.
