@@ -36,11 +36,8 @@ const override = (node, path, print) => {
   ];
 };
 
-const body = (node, path, print) => {
-  if (!node.body) return ';';
-  if (node.isVirtual) return group([' ', path.call(print, 'body')]); // TODO: review why this has to be a group since it doesn't affect the tests
-  return [' ', path.call(print, 'body')];
-};
+const body = (node, path, print) =>
+  node.body ? [' ', path.call(print, 'body')] : ';';
 
 export const ModifierDefinition = {
   print: ({ node, path, print }) => [
