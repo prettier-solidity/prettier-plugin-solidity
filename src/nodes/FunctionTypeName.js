@@ -28,8 +28,8 @@ export const FunctionTypeName = {
     'function(',
     printSeparatedList(path.map(print, 'parameterTypes')),
     ')',
-    indent(
-      group([
+    group(
+      indent([
         visibility(node),
         stateMutability(node),
         returnTypes(node, path, print)

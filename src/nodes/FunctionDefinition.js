@@ -98,8 +98,8 @@ export const FunctionDefinition = {
       '(',
       parameters('parameters', node, path, print, options),
       ')',
-      indent(
-        group([
+      group(
+        indent([
           // TODO: sort comments for modifiers and return parameters
           printComments(node, path, options),
           visibility(node),
