@@ -46,6 +46,14 @@ contract Conditional {
             makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
         : silent();
 
+        // if we need to add spaces to the falseExpression to fill a tab, we indent it as well:
+        string storage indentationInFalseExpression =
+         isLoudReallyReallyReallyReallyLoud() ?
+            makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
+        : someReallyLargeExpression
+            .thatWouldCauseALineBreak()
+            .willCauseAnIndentButNotParens();
+
         // unless the consequent is short (less than ten characters long):
         string storage shortSoCase =
         isLoudReallyReallyReallyReallyLoud() ? silent() : (

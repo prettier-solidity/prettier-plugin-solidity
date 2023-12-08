@@ -52,7 +52,7 @@ const experimentalTernaries = (node, path, print, options) => {
     ':',
     falseExpressionIsNested
       ? [' ', falseExpression]
-      : ifBreak([fillTab, falseExpression], [' ', falseExpression], {
+      : ifBreak([fillTab, indent(falseExpression)], [' ', falseExpression], {
           // We only add `fillTab` if we are sure the trueExpression is indented
           groupId: conditionAndTrueExpressionGroup.id
         })
