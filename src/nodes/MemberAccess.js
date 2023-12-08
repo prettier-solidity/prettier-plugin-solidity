@@ -102,7 +102,7 @@ const processChain = (chain) => {
 
   // We wrap the expression in a label in case there is an IndexAccess or
   // a FunctionCall following this MemberAccess.
-  return label('MemberAccessChain', group([firstExpression, restOfChain]));
+  return label('MemberAccessChain', [firstExpression, restOfChain]);
 };
 
 export const MemberAccess = {
