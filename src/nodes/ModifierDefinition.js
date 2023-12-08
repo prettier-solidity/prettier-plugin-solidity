@@ -38,7 +38,7 @@ const override = (node, path, print) => {
 
 const body = (node, path, print) => {
   if (!node.body) return ';';
-  if (node.isVirtual) return group([' ', path.call(print, 'body')]);
+  if (node.isVirtual) return group([' ', path.call(print, 'body')]); // TODO: review why this has to be a group since it doesn't affect the tests
   return [' ', path.call(print, 'body')];
 };
 
