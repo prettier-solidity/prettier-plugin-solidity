@@ -11,9 +11,10 @@ const contents = (node, path, print) =>
     : printSeparatedList(path.map(print, 'components'));
 
 export const TupleExpression = {
-  print: ({ node, path, print }) => {
-    const [openingBracket, closingBracket] = node.isArray ? '[]' : '()';
-
-    return group([openingBracket, contents(node, path, print), closingBracket]);
-  }
+  print: ({ node, path, print }) =>
+    group([
+      node.isArray ? '[' : '(',
+      contents(node, path, print),
+      node.isArray ? ']' : ')'
+    ])
 };
