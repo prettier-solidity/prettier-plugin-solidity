@@ -9,7 +9,8 @@ export const EnumDefinition = {
     node.name,
     ' {',
     printSeparatedList(path.map(print, 'members'), {
-      firstSeparator: hardline
+      firstSeparator: hardline,
+      grouped: false
     }),
     '}'
   ]

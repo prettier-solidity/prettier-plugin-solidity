@@ -12,7 +12,8 @@ export const StructDefinition = {
       ? printSeparatedList(path.map(print, 'members'), {
           firstSeparator: hardline,
           separator: [';', hardline],
-          lastSeparator: [';', hardline]
+          lastSeparator: [';', hardline],
+          grouped: false
         })
       : '',
     '}'
