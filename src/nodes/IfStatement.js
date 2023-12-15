@@ -11,10 +11,9 @@ const printTrueBody = (node, path, print) => {
     return [' ', path.call(print, 'trueBody')];
   }
 
-  const ifWithinIf = node.trueBody.type === 'IfStatement';
-  return group(
-    indent([ifWithinIf ? hardline : line, path.call(print, 'trueBody')])
-  );
+  return group(indent([line, path.call(print, 'trueBody')]), {
+    shouldBreak: node.trueBody.type === 'IfStatement' // `if` within `if`
+  });
 };
 
 const printFalseBody = (node, path, print) =>
@@ -24,10 +23,10 @@ const printFalseBody = (node, path, print) =>
 
 const printElse = (node, path, print, commentsBetweenIfAndElse) => {
   if (node.falseBody) {
-    const elseOnSameLine =
-      node.trueBody.type === 'Block' && commentsBetweenIfAndElse.length === 0;
     return [
-      elseOnSameLine ? ' ' : hardline,
+      node.trueBody.type !== 'Block' || commentsBetweenIfAndElse.length > 0 // `else` on new line
+        ? hardline
+        : ' ',
       'else',
       printFalseBody(node, path, print)
     ];
