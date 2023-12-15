@@ -4,7 +4,7 @@ import { printSeparatedList } from '../common/printer-helpers.js';
 const { group, hardline, indent, line } = doc.builders;
 
 const modifierParameters = (node, path, print) => {
-  if (node.parameters && node.parameters.length > 0) {
+  if (node.parameters?.length > 0) {
     return [
       '(',
       printSeparatedList(path.map(print, 'parameters'), {

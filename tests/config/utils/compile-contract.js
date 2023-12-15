@@ -30,7 +30,7 @@ async function compileContract(filename, content) {
   const output = JSON.parse(solc.compile(JSON.stringify(input)));
 
   // We throw if the contract doesn't compile.
-  if (output.errors && output.errors.length > 0) {
+  if (output.errors?.length > 0) {
     throw output.errors[0].formattedMessage;
   }
 

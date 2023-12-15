@@ -13,7 +13,7 @@ let groupIndex = 0;
 export const VariableDeclarationStatement = {
   print: ({ node, path, print }) => {
     const startsWithVar =
-      node.variables.filter((x) => x && x.typeName).length === 0;
+      node.variables.filter((x) => x?.typeName).length === 0;
 
     const declarationDoc = group(
       [

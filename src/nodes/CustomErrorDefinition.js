@@ -1,7 +1,7 @@
 import { printSeparatedList } from '../common/printer-helpers.js';
 
 const parameters = (node, path, print) =>
-  node.parameters && node.parameters.length > 0
+  node.parameters?.length > 0
     ? printSeparatedList(path.map(print, 'parameters'))
     : '';
 

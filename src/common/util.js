@@ -40,9 +40,7 @@ export function printString(rawContent, options) {
 
 export function hasNodeIgnoreComment(node) {
   return (
-    node &&
-    node.comments &&
-    node.comments.length > 0 &&
+    node?.comments?.length > 0 &&
     node.comments.some((comment) => comment.value.trim() === 'prettier-ignore')
   );
 }

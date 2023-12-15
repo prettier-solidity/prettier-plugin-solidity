@@ -4,7 +4,7 @@ function getRange(index, node) {
   if (node.range) {
     return node.range[index];
   }
-  if (node.expression && node.expression.range) {
+  if (node.expression?.range) {
     return node.expression.range[index];
   }
   return null;

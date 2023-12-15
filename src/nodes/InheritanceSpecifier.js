@@ -1,7 +1,7 @@
 import { printSeparatedList } from '../common/printer-helpers.js';
 
 const printArguments = (node, path, print) =>
-  node.arguments && node.arguments.length
+  node.arguments?.length
     ? ['(', printSeparatedList(path.map(print, 'arguments')), ')']
     : '';
 
