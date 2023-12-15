@@ -1,10 +1,11 @@
 import { doc } from 'prettier';
 import {
   printComments,
-  printPreservingEmptyLines
+  printPreservingEmptyLines,
+  printSeparatedItem
 } from '../common/printer-helpers.js';
 
-const { hardline, indent } = doc.builders;
+const { hardline } = doc.builders;
 
 export const Block = {
   print: ({ node, options, path, print }) =>
@@ -13,12 +14,13 @@ export const Block = {
       ? '{}'
       : [
           '{',
-          indent([
-            hardline,
-            printPreservingEmptyLines(path, 'statements', options, print),
-            printComments(node, path, options)
-          ]),
-          hardline,
+          printSeparatedItem(
+            [
+              printPreservingEmptyLines(path, 'statements', options, print),
+              printComments(node, path, options)
+            ],
+            { firstSeparator: hardline, grouped: false }
+          ),
           '}'
         ]
 };
