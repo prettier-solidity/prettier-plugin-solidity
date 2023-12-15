@@ -8,7 +8,7 @@ export const NameValueList = {
     printSeparatedList(
       path
         .map(print, 'arguments')
-        .map((argument, index) => [node.names[index], ': ', argument]),
+        .map((argument, index) => [`${node.names[index]}: `, argument]),
       {
         firstSeparator: options.bracketSpacing ? line : softline
       }

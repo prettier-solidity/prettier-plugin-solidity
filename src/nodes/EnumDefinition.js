@@ -5,9 +5,7 @@ const { hardline } = doc.builders;
 
 export const EnumDefinition = {
   print: ({ node, path, print }) => [
-    'enum ',
-    node.name,
-    ' {',
+    `enum ${node.name} {`,
     printSeparatedList(path.map(print, 'members'), {
       firstSeparator: hardline,
       grouped: false

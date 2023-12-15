@@ -20,7 +20,7 @@ export const ExpressionStatement = {
     }
 
     parts.push(path.call(print, 'expression'));
-    parts.push(node.omitSemicolon ? '' : ';');
+    parts.push(node.omitSemicolon ? [] : ';');
 
     return parts;
   }

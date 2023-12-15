@@ -8,9 +8,7 @@ const { line } = doc.builders;
 
 export const AssemblyFunctionDefinition = {
   print: ({ node, path, print }) => [
-    'function ',
-    node.name,
-    '(',
+    `function ${node.name}(`,
     printSeparatedList(path.map(print, 'arguments')),
     ')',
     node.returnArguments.length === 0

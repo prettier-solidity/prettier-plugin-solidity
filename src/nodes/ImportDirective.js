@@ -13,7 +13,7 @@ export const ImportDirective = {
 
     if (node.unitAlias) {
       // import "./Foo.sol" as Foo;
-      document = [importPath, ' as ', node.unitAlias];
+      document = `${importPath} as ${node.unitAlias}`;
     } else if (node.symbolAliases) {
       // import { Foo, Bar as Qux } from "./Foo.sol";
       const compiler = coerce(options.compiler);
@@ -38,8 +38,7 @@ export const ImportDirective = {
       document = [
         '{',
         printSeparatedList(symbolAliases, { firstSeparator, separator }),
-        '} from ',
-        importPath
+        `} from ${importPath}`
       ];
     } else {
       // import "./Foo.sol";

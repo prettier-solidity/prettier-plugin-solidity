@@ -4,8 +4,9 @@ import { printSeparatedList } from '../common/printer-helpers.js';
 
 export const InlineAssemblyStatement = {
   print: ({ node, path, print, options }) => [
-    'assembly ',
-    node.language ? `${printString(node.language, options)} ` : '',
+    `assembly ${
+      node.language ? `${printString(node.language, options)} ` : ''
+    }`,
     node.flags?.length > 0
       ? [
           '(',

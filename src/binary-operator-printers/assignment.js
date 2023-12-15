@@ -19,8 +19,7 @@ export const assignment = {
     ].includes(op),
   print: (node, path, print) => [
     path.call(print, 'left'),
-    ' ',
-    node.operator,
+    ` ${node.operator}`,
     node.right.type === 'BinaryOperation'
       ? group(indent([line, path.call(print, 'right')]))
       : [' ', path.call(print, 'right')]

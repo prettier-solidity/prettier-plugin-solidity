@@ -7,9 +7,7 @@ const parameters = (node, path, print) =>
 
 export const CustomErrorDefinition = {
   print: ({ node, path, print }) => [
-    'error ',
-    node.name,
-    '(',
+    `error ${node.name}(`,
     parameters(node, path, print),
     ');'
   ]

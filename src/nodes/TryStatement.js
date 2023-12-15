@@ -11,30 +11,19 @@ const returnParameters = (node, path, print) =>
     ? [
         'returns (',
         printSeparatedList(path.map(print, 'returnParameters')),
-        ')'
+        ') '
       ]
     : '';
 
 export const TryStatement = {
-  print: ({ node, path, print }) => {
-    let parts = [
-      'try',
-      printSeparatedItem(path.call(print, 'expression'), {
-        firstSeparator: line
-      })
-    ];
-
-    const formattedReturnParameters = returnParameters(node, path, print);
-    if (formattedReturnParameters) {
-      parts = parts.concat([formattedReturnParameters, ' ']);
-    }
-
-    parts = parts.concat([
-      path.call(print, 'body'),
-      ' ',
-      join(' ', path.map(print, 'catchClauses'))
-    ]);
-
-    return parts;
-  }
+  print: ({ node, path, print }) => [
+    'try',
+    printSeparatedItem(path.call(print, 'expression'), {
+      firstSeparator: line
+    }),
+    returnParameters(node, path, print),
+    path.call(print, 'body'),
+    ' ',
+    join(' ', path.map(print, 'catchClauses'))
+  ]
 };

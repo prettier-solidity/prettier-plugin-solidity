@@ -3,8 +3,7 @@ import { printSeparatedList } from '../common/printer-helpers.js';
 const parameters = (node, path, print) =>
   node.parameters
     ? [
-        node.kind || '',
-        '(',
+        `${node.kind || ''}(`,
         printSeparatedList(path.map(print, 'parameters')),
         ') '
       ]

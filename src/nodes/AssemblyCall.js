@@ -6,8 +6,7 @@ export const AssemblyCall = {
     options.originalText.charAt(options.locEnd(node)) !== ')'
       ? node.functionName
       : [
-          node.functionName,
-          '(',
+          `${node.functionName}(`,
           printSeparatedList(path.map(print, 'arguments')),
           ')'
         ]

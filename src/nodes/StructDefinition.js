@@ -5,9 +5,7 @@ const { hardline } = doc.builders;
 
 export const StructDefinition = {
   print: ({ node, path, print }) => [
-    'struct ',
-    node.name,
-    ' {',
+    `struct ${node.name} {`,
     node.members.length > 0
       ? printSeparatedList(path.map(print, 'members'), {
           firstSeparator: hardline,

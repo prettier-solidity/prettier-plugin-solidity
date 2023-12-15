@@ -40,8 +40,7 @@ const body = (node, path, print) =>
 
 export const ModifierDefinition = {
   print: ({ node, path, print }) => [
-    'modifier ',
-    node.name,
+    `modifier ${node.name}`,
     modifierParameters(node, path, print),
     group(indent([virtual(node), override(node, path, print)])),
     body(node, path, print)

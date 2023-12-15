@@ -20,7 +20,7 @@ const inheritance = (node, path, print) =>
 
 const body = (node, path, options, print) => {
   const comments = printComments(node, path, options);
-  return node.subNodes.length > 0 || comments?.length
+  return node.subNodes.length > 0 || comments.length
     ? printSeparatedItem(
         [printPreservingEmptyLines(path, 'subNodes', options, print), comments],
         { firstSeparator: hardline, grouped: false }
@@ -31,9 +31,7 @@ const body = (node, path, options, print) => {
 export const ContractDefinition = {
   print: ({ node, options, path, print }) => [
     group([
-      node.kind === 'abstract' ? 'abstract contract' : node.kind,
-      ' ',
-      node.name,
+      node.kind + (node.kind === 'abstract' ? ' contract ' : ' ') + node.name,
       inheritance(node, path, print),
       '{'
     ]),
