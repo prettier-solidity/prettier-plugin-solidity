@@ -37,35 +37,27 @@ export const printComments = (node, path, options, filter = () => true) => {
 };
 
 export function printPreservingEmptyLines(path, key, options, print) {
-  const parts = [];
-  path.each((childPath, index) => {
+  return path.map((childPath, index) => {
     const node = childPath.getValue();
-    const nodeType = node.type;
 
-    if (
-      // Avoid adding a hardline at the beginning of the document.
-      parts.length !== 0 &&
+    return [
+      // Only attempt to prepend an empty line if `node` is not the first item
+      index > 0 &&
       // LabelDefinition adds a dedented line so we don't have to prepend a
       // hardline.
-      nodeType !== 'LabelDefinition'
-    ) {
-      parts.push(hardline);
-    }
-
-    parts.push(print(childPath));
-
-    // Only attempt to append an empty line if `node` is not the last item
-    if (
+      node.type !== 'LabelDefinition'
+        ? hardline
+        : '',
+      print(childPath),
+      // Only attempt to append an empty line if `node` is not the last item
       !isLast(childPath, key, index) &&
+      // Append an empty line if the original text already had an one after the
+      // current `node`
       isNextLineEmpty(options.originalText, options.locEnd(node) + 1)
-    ) {
-      // Append an empty line if the original text already had an one after
-      // the current `node`
-      parts.push(hardline);
-    }
+        ? hardline
+        : ''
+    ];
   }, key);
-
-  return parts;
 }
 
 // This function will add an indentation to the `item` and separate it from the
@@ -77,10 +69,10 @@ export const printSeparatedItem = (
     lastSeparator = firstSeparator,
     grouped = true
   } = {}
-) => {
-  const document = [indent([firstSeparator, item]), lastSeparator];
-  return grouped ? group(document) : document;
-};
+) =>
+  grouped
+    ? group([indent([firstSeparator, item]), lastSeparator])
+    : [indent([firstSeparator, item]), lastSeparator];
 
 // This function will add an indentation to the `list` and separate it from the
 // rest of the `doc` in most cases by a `softline`.
