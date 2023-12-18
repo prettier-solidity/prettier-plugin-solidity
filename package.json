@@ -112,7 +112,7 @@
   "dependencies": {
     "@solidity-parser/parser": "^0.16.2",
     "semver": "^7.5.4",
-    "solidity-comments-extractor": "^0.0.7"
+    "solidity-comments-extractor": "^0.0.8"
   },
   "peerDependencies": {
     "prettier": ">=2.3.0"
