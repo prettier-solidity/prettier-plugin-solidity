@@ -1,5 +1,6 @@
 const CATEGORY_GLOBAL = 'Global';
 const CATEGORY_COMMON = 'Common';
+const CATEGORY_JAVASCRIPT = 'JavaScript';
 const CATEGORY_SOLIDITY = 'Solidity';
 
 const options = {
@@ -39,6 +40,15 @@ const options = {
     type: 'boolean',
     default: false,
     description: 'Use single quotes instead of double quotes.'
+  },
+  experimentalTernaries: {
+    category: CATEGORY_JAVASCRIPT,
+    type: 'boolean',
+    default: false,
+    description:
+      'Use curious ternaries, with the question mark after the condition.',
+    oppositeDescription:
+      'Default behavior of ternaries; keep question marks on the same line as the consequent.'
   },
   compiler: {
     category: CATEGORY_SOLIDITY,

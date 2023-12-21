@@ -16,13 +16,10 @@ export default {
     filename: 'test.cjs',
     path: path.resolve(__dirname, 'dist'),
     globalObject: `
-      typeof globalThis !== "undefined"
-        ? globalThis
-        : typeof global !== "undefined"
-        ? global
-        : typeof self !== "undefined"
-        ? self
-        : this || {}
+      typeof globalThis !== "undefined" ? globalThis
+      : typeof global !== "undefined" ? global
+      : typeof self !== "undefined" ? self
+      : this || {}
     `,
     library: {
       export: 'default',
