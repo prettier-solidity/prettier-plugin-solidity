@@ -31,7 +31,9 @@ const body = (node, path, options, print) => {
 export const ContractDefinition = {
   print: ({ node, options, path, print }) => [
     group([
-      node.kind + (node.kind === 'abstract' ? ' contract ' : ' ') + node.name,
+      `${node.kind}${node.kind === 'abstract' ? ' contract ' : ' '}${
+        node.name
+      }`,
       inheritance(node, path, print),
       '{'
     ]),
