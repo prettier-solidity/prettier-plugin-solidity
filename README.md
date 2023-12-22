@@ -208,6 +208,8 @@ You might have a multi-version project, where different files are compiled with 
 
 ### Experimental Ternaries
 
+_Added in v1.3.0_
+
 Mimicking prettier's [new ternary formatting](https://prettier.io/blog/2023/11/13/curious-ternaries) for the community to try.
 
 Valid options:

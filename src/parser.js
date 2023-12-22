@@ -14,32 +14,6 @@ const tryHug = (node, operators) => {
   return node;
 };
 
-// The parser wrongly groups nested Conditionals in the falseExpression
-// in the following way:
-//
-// (a ? b : c) ? d : e;
-//
-// By reorganizing the group we have more flexibility when printing:
-//
-// a ? b : (c ? d : e);
-//
-// this is closer to the executed code and prints the same output.
-const rearrangeConditional = (ctx) => {
-  while (ctx.condition.type === 'Conditional') {
-    const falseExpression = {
-      type: 'Conditional',
-      condition: ctx.condition.falseExpression,
-      trueExpression: ctx.trueExpression,
-      falseExpression: ctx.falseExpression
-    };
-    rearrangeConditional(falseExpression);
-
-    ctx.falseExpression = falseExpression;
-    ctx.trueExpression = ctx.condition.trueExpression;
-    ctx.condition = ctx.condition.condition;
-  }
-};
-
 function parse(text, _parsers, options = _parsers) {
   const compiler = coerce(options.compiler);
   const parsed = parser.parse(text, { loc: true, range: true });
@@ -87,7 +61,6 @@ function parse(text, _parsers, options = _parsers) {
       ctx.value = options.singleQuote ? `hex'${value}'` : `hex"${value}"`;
     },
     Conditional(ctx) {
-      rearrangeConditional(ctx);
       // We can remove parentheses only because we are sure that the
       // `condition` must be a single `bool` value.
       while (
@@ -116,34 +89,34 @@ function parse(text, _parsers, options = _parsers) {
           ctx.left = tryHug(ctx.left, ['*', '/', '%']);
           break;
         case '**':
-          // If the compiler has not been given as an option using we leave a**b**c.
+          // If the compiler has not been given as an option using we leave
+          // a**b**c.
           if (!compiler) break;
 
-          if (satisfies(compiler, '<0.8.0')) {
-            // If the compiler is less than 0.8.0 then a**b**c is formatted as
-            // (a**b)**c.
-            ctx.left = tryHug(ctx.left, ['**']);
+          if (satisfies(compiler, '>=0.8.0')) {
+            // If the compiler is greater than or equal to 0.8.0 then a**b**c
+            // is formatted as a**(b**c).
+            ctx.right = tryHug(ctx.right, ['**']);
             break;
           }
           if (
-            ctx.left.type === 'BinaryOperation' &&
-            ctx.left.operator === '**'
+            ctx.right.type === 'BinaryOperation' &&
+            ctx.right.operator === '**'
           ) {
-            // the parser still organizes the a**b**c as (a**b)**c so we need
-            // to restructure it.
-            ctx.right = {
+            // the parser organizes the a**b**c as a**(b**c) so we need to
+            // restructure it.
+            const left = {
+              type: 'BinaryOperation',
+              operator: '**',
+              left: ctx.left,
+              right: ctx.right.left
+            };
+            ctx.left = {
               type: 'TupleExpression',
-              components: [
-                {
-                  type: 'BinaryOperation',
-                  operator: '**',
-                  left: ctx.left.right,
-                  right: ctx.right
-                }
-              ],
+              components: [left],
               isArray: false
             };
-            ctx.left = ctx.left.left;
+            ctx.right = ctx.right.right;
           }
           break;
         case '<<':
