@@ -25,7 +25,7 @@ const unstableTests = new Map(
       ? fixture
       : [fixture];
     return [path.join(__dirname, "../format/", file), isUnstable];
-  })
+  }),
 );
 
 // Here we add files that will not have the same AST after being formatted.
@@ -35,7 +35,7 @@ const unstableAstTests = new Map(
       ? fixture
       : [fixture];
     return [path.join(__dirname, "../format/", file), isAstUnstable];
-  })
+  }),
 );
 
 const testsWithAstChanges = new Map(
@@ -59,7 +59,7 @@ const testsWithAstChanges = new Map(
       ? fixture
       : [fixture];
     return [path.join(__dirname, "../format/", file), compareBytecode];
-  })
+  }),
 );
 
 const isUnstable = (filename, options) => {
@@ -109,7 +109,7 @@ const shouldThrowOnFormat = (filename, options) => {
 
 const isTestDirectory = (dirname, name) =>
   (dirname + path.sep).startsWith(
-    path.join(__dirname, "../format", name) + path.sep
+    path.join(__dirname, "../format", name) + path.sep,
   );
 
 function runSpec(fixtures, parsers, options) {
@@ -121,7 +121,7 @@ function runSpec(fixtures, parsers, options) {
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
     dirname,
-    "misc/parser-inference"
+    "misc/parser-inference",
   );
 
   // `IS_ERROR_TESTS` mean to watch errors like:
@@ -197,7 +197,7 @@ function runSpec(fixtures, parsers, options) {
       };
       const shouldThrowOnMainParserFormat = shouldThrowOnFormat(
         name,
-        formatOptions
+        formatOptions,
       );
 
       let mainParserFormatResult;
@@ -266,13 +266,13 @@ async function runTest({
 
   // Make sure output has consistent EOL
   expect(formatResult.eolVisualizedOutput).toEqual(
-    visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor))
+    visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor)),
   );
 
   // The result is assert to equals to `output`
   if (typeof output === "string") {
     expect(formatResult.eolVisualizedOutput).toEqual(
-      visualizeEndOfLine(output)
+      visualizeEndOfLine(output),
     );
     return;
   }
@@ -283,7 +283,7 @@ async function runTest({
       parsers,
       formatOptions,
       CURSOR_PLACEHOLDER,
-    })
+    }),
   ).toMatchSnapshot();
 
   if (!FULL_TEST) {
@@ -299,7 +299,7 @@ async function runTest({
     const { eolVisualizedOutput: firstOutput, output } = formatResult;
     const { eolVisualizedOutput: secondOutput } = await format(
       output,
-      formatOptions
+      formatOptions,
     );
     if (isUnstableTest) {
       // To keep eye on failed tests, this assert never supposed to pass,
@@ -327,14 +327,14 @@ async function runTest({
     for (const eol of ["\r\n", "\r"]) {
       const { eolVisualizedOutput: output } = await format(
         code.replace(/\n/g, eol),
-        formatOptions
+        formatOptions,
       );
       // Only if `endOfLine: "auto"` the result will be different
       const expected =
         formatOptions.endOfLine === "auto"
           ? visualizeEndOfLine(
               // All `code` use `LF`, so the `eol` of result is always `LF`
-              formatResult.outputWithCursor.replace(/\n/g, eol)
+              formatResult.outputWithCursor.replace(/\n/g, eol),
             )
           : formatResult.eolVisualizedOutput;
       expect(output).toEqual(expected);
@@ -344,7 +344,7 @@ async function runTest({
   if (code.charAt(0) !== BOM) {
     const { eolVisualizedOutput: output } = await format(
       BOM + code,
-      formatOptions
+      formatOptions,
     );
     const expected = BOM + formatResult.eolVisualizedOutput;
     expect(output).toEqual(expected);
@@ -427,14 +427,14 @@ const insertCursor = (text, cursorOffset) =>
 async function format(originalText, originalOptions) {
   const { text: input, options } = replacePlaceholders(
     originalText,
-    originalOptions
+    originalOptions,
   );
   const inputWithCursor = insertCursor(input, options.cursorOffset);
   const prettier = await getPrettier();
 
   const { formatted: output, cursorOffset } = await prettier.formatWithCursor(
     input,
-    options
+    options,
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);

@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { printSeparatedList } from '../common/printer-helpers.js';
+import { printSeparatedList } from '../common/printer-helpers.ts';
 
 const { line, softline } = doc.builders;
 
@@ -12,7 +12,7 @@ export const UsingForDeclaration = {
           printSeparatedList(
             node.functions.map((functionName, i) =>
               node.operators[i]
-                ? [functionName, ' as ', node.operators[i]]
+                ? `${functionName} as ${node.operators[i]}`
                 : functionName
             ),
             {

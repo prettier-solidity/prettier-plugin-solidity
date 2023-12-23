@@ -1,4 +1,4 @@
-import { printSeparatedList } from '../common/printer-helpers.js';
+import { printSeparatedList } from '../common/printer-helpers.ts';
 
 const parameters = (node, path, print) =>
   node.parameters?.length > 0
@@ -7,9 +7,7 @@ const parameters = (node, path, print) =>
 
 export const CustomErrorDefinition = {
   print: ({ node, path, print }) => [
-    'error ',
-    node.name,
-    '(',
+    `error ${node.name}(`,
     parameters(node, path, print),
     ');'
   ]
