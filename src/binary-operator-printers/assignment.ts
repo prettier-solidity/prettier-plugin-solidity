@@ -1,8 +1,9 @@
 import { doc } from 'prettier';
+import type { BinaryOperationPrinter } from './types';
 
 const { group, line, indent } = doc.builders;
 
-export const assignment = {
+export const assignment: BinaryOperationPrinter = {
   operators: [
     '=',
     '|=',

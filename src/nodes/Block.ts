@@ -1,12 +1,13 @@
 import { doc } from 'prettier';
 import {
   printComments,
-  printPreservingEmptyLines
+  printPreservingEmptyLines,
+  printSeparatedItem
 } from '../common/printer-helpers.js';
 import type { Block as IBlock } from '@solidity-parser/parser/src/ast-types';
 import type { NodePrinter } from './types';
 
-const { hardline, indent } = doc.builders;
+const { hardline } = doc.builders;
 
 export const Block: NodePrinter<IBlock> = {
   print: ({ node, options, path, print }) =>
@@ -15,12 +16,13 @@ export const Block: NodePrinter<IBlock> = {
       ? '{}'
       : [
           '{',
-          indent([
-            hardline,
-            printPreservingEmptyLines(path, 'statements', options, print),
-            printComments(node, path, options)
-          ]),
-          hardline,
+          printSeparatedItem(
+            [
+              printPreservingEmptyLines(path, 'statements', options, print),
+              printComments(node, path, options)
+            ],
+            { firstSeparator: hardline, grouped: false }
+          ),
           '}'
         ]
 };

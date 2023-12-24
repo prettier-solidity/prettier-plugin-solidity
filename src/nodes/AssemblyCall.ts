@@ -9,8 +9,7 @@ export const AssemblyCall: NodePrinter<IAssemblyCall> = {
     options.originalText.charAt(locEnd(node)) !== ')'
       ? node.functionName
       : [
-          node.functionName,
-          '(',
+          `${node.functionName}(`,
           printSeparatedList(path.map(print, 'arguments')),
           ')'
         ]

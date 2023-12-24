@@ -1,8 +1,9 @@
 import { doc } from 'prettier';
+import type { BinaryOperationPrinter } from './types';
 
 const { group, indent, line } = doc.builders;
 
-export const exponentiation = {
+export const exponentiation: BinaryOperationPrinter = {
   operators: ['**'],
   print: ({ node, path, print }) => {
     const right = [` ${node.operator}`, line, path.call(print, 'right')];

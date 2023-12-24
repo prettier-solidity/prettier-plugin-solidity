@@ -1,4 +1,4 @@
-import genericPrint from '../../src/printer.js';
+import genericPrint from '../../src/printer.ts';
 
 test('given an unknown operator then the BinaryOperation print function should throw', () => {
   const mockPath = { node: { type: 'BinaryOperation', operator: '?' } };

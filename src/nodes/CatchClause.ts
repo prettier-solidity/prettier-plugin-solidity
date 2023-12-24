@@ -10,8 +10,7 @@ const parameters = (
 ): Doc =>
   node.parameters
     ? [
-        node.kind || '',
-        '(',
+        `${node.kind || ''}(`,
         printSeparatedList(path.map(print, 'parameters')),
         ') '
       ]

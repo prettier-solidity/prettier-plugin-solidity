@@ -1,9 +1,11 @@
 import { doc } from 'prettier';
-import { printSeparatedList } from '../common/printer-helpers.ts';
+import { printSeparatedList } from '../common/printer-helpers.js';
+import type { UsingForDeclaration as IUsingForDeclaration } from '@solidity-parser/parser/src/ast-types';
+import type { NodePrinter } from './types';
 
 const { line, softline } = doc.builders;
 
-export const UsingForDeclaration = {
+export const UsingForDeclaration: NodePrinter<IUsingForDeclaration> = {
   print: ({ node, path, print, options }) => [
     'using ',
     node.functions.length
@@ -19,7 +21,7 @@ export const UsingForDeclaration = {
           ),
           '}'
         ]
-      : node.libraryName,
+      : node.libraryName!,
     ' for ',
     node.typeName ? path.call(print, 'typeName') : '*',
     node.isGlobal ? ' global;' : ';'

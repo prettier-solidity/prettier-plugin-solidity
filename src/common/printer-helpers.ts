@@ -53,35 +53,27 @@ export function printPreservingEmptyLines(
   options: ParserOptions,
   print: (path: AstPath) => Doc
 ): Doc[] {
-  const parts: Doc[] = [];
-  path.each((childPath, index) => {
+  return path.map((childPath, index) => {
     const node = getNode(childPath) as ASTNode;
-    const nodeType = node.type;
 
-    if (
-      // Avoid adding a hardline at the beginning of the document.
-      parts.length !== 0 &&
+    return [
+      // Only attempt to prepend an empty line if `node` is not the first item
+      index > 0 &&
       // LabelDefinition adds a dedented line so we don't have to prepend a
       // hardline.
-      nodeType !== 'LabelDefinition'
-    ) {
-      parts.push(hardline);
-    }
-
-    parts.push(print(childPath));
-
-    // Only attempt to append an empty line if `node` is not the last item
-    if (
+      node.type !== 'LabelDefinition'
+        ? hardline
+        : '',
+      print(childPath),
+      // Only attempt to append an empty line if `node` is not the last item
       !isLast(childPath, key, index) &&
+      // Append an empty line if the original text already had an one after the
+      // current `node`
       isNextLineEmpty(options.originalText, locEnd(node) + 1)
-    ) {
-      // Append an empty line if the original text already had an one after
-      // the current `node`
-      parts.push(hardline);
-    }
+        ? hardline
+        : ''
+    ];
   }, key);
-
-  return parts;
 }
 
 // This function will add an indentation to the `item` and separate it from the

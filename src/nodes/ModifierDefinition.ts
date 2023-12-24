@@ -1,9 +1,16 @@
 import { doc } from 'prettier';
-import { printSeparatedList } from '../common/printer-helpers.ts';
+import { printSeparatedList } from '../common/printer-helpers.js';
+import type { ModifierDefinition as IModifierDefinition } from '@solidity-parser/parser/src/ast-types';
+import type { AstPath, Doc } from 'prettier';
+import type { NodePrinter } from './types';
 
 const { group, hardline, indent, line } = doc.builders;
 
-const modifierParameters = (node, path, print) => {
+const modifierParameters = (
+  node: IModifierDefinition,
+  path: AstPath,
+  print: (path: AstPath) => Doc
+): Doc => {
   if (node.parameters && node.parameters.length > 0) {
     // To keep consistency any list of parameters will split if it's longer than 2.
     // For more information see:
@@ -22,9 +29,14 @@ const modifierParameters = (node, path, print) => {
   return '()';
 };
 
-const virtual = (node) => (node.isVirtual ? [line, 'virtual'] : '');
+const virtual = (node: IModifierDefinition): Doc =>
+  node.isVirtual ? [line, 'virtual'] : '';
 
-const override = (node, path, print) => {
+const override = (
+  node: IModifierDefinition,
+  path: AstPath,
+  print: (path: AstPath) => Doc
+): Doc => {
   if (!node.override) return '';
   return [
     line,
@@ -35,10 +47,13 @@ const override = (node, path, print) => {
   ];
 };
 
-const body = (node, path, print) =>
-  node.body ? [' ', path.call(print, 'body')] : ';';
+const body = (
+  node: IModifierDefinition,
+  path: AstPath,
+  print: (path: AstPath) => Doc
+): Doc => (node.body ? [' ', path.call(print, 'body')] : ';');
 
-export const ModifierDefinition = {
+export const ModifierDefinition: NodePrinter<IModifierDefinition> = {
   print: ({ node, path, print }) => [
     `modifier ${node.name}`,
     modifierParameters(node, path, print),
