@@ -6,7 +6,7 @@ const { line, softline } = doc.builders;
 export const UsingForDeclaration = {
   print: ({ node, path, print, options }) => [
     'using ',
-    node.functions?.length
+    node.functions.length
       ? [
           '{',
           printSeparatedList(
@@ -15,9 +15,7 @@ export const UsingForDeclaration = {
                 ? `${functionName} as ${node.operators[i]}`
                 : functionName
             ),
-            {
-              firstSeparator: options.bracketSpacing ? line : softline
-            }
+            { firstSeparator: options.bracketSpacing ? line : softline }
           ),
           '}'
         ]

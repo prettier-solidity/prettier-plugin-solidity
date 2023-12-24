@@ -189,7 +189,7 @@ function runSpec(fixtures, parsers, options) {
       const formatOptions = {
         plugins: TEST_STANDALONE
           ? []
-          : [path.join(__dirname, "../../src/index.js")],
+          : [path.join(__dirname, "../../src/index.ts")],
         printWidth: 80,
         ...options,
         filepath: filename,

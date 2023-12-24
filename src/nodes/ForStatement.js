@@ -3,15 +3,6 @@ import { printSeparatedList } from '../common/printer-helpers.ts';
 
 const { group, indent, line } = doc.builders;
 
-const initExpression = (node, path, print) =>
-  node.initExpression ? path.call(print, 'initExpression') : '';
-
-const conditionExpression = (node, path, print) =>
-  node.conditionExpression ? path.call(print, 'conditionExpression') : '';
-
-const loopExpression = (node, path, print) =>
-  node.loopExpression.expression ? path.call(print, 'loopExpression') : '';
-
 const printBody = (node, path, print) =>
   node.body.type === 'Block'
     ? [' ', path.call(print, 'body')]
@@ -21,15 +12,13 @@ export const ForStatement = {
   print: ({ node, path, print }) => [
     'for (',
     printSeparatedList(
-      [
-        initExpression(node, path, print),
-        conditionExpression(node, path, print),
-        loopExpression(node, path, print)
-      ],
+      ['initExpression', 'conditionExpression', 'loopExpression'].map(
+        (expression) => path.call(print, expression)
+      ),
       {
         separator:
-          node.initExpression ||
-          node.conditionExpression ||
+          node.initExpression ??
+          node.conditionExpression ??
           node.loopExpression.expression
             ? [';', line]
             : ';'

@@ -4,7 +4,7 @@ import { printSeparatedList } from '../common/printer-helpers.ts';
 const { group, hardline, indent, line } = doc.builders;
 
 const modifierParameters = (node, path, print) => {
-  if (node.parameters?.length > 0) {
+  if (node.parameters && node.parameters.length > 0) {
     // To keep consistency any list of parameters will split if it's longer than 2.
     // For more information see:
     // https://github.com/prettier-solidity/prettier-plugin-solidity/issues/256
@@ -26,12 +26,12 @@ const virtual = (node) => (node.isVirtual ? [line, 'virtual'] : '');
 
 const override = (node, path, print) => {
   if (!node.override) return '';
-  if (node.override.length === 0) return [line, 'override'];
   return [
     line,
-    'override(',
-    printSeparatedList(path.map(print, 'override')),
-    ')'
+    'override',
+    node.override.length === 0
+      ? ''
+      : ['(', printSeparatedList(path.map(print, 'override')), ')']
   ];
 };
 

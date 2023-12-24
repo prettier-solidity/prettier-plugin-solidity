@@ -1,6 +1,6 @@
 import { arithmetic } from './arithmetic.js';
 
 export const bit = {
-  match: (op) => ['&', '|', '^'].includes(op),
+  operators: ['&', '|', '^'],
   print: arithmetic.print
 };

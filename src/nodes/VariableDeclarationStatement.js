@@ -23,16 +23,14 @@ export const VariableDeclarationStatement = {
           node.variables.length > 1 || startsWithVar
         )
       ],
-      { id: `VariableDeclarationStatement.variables-${groupIndex}` }
+      { id: Symbol(`VariableDeclarationStatement.variables-${groupIndex}`) }
     );
     groupIndex += 1;
     const initialValueDoc = initialValue(node, path, print);
 
     return group([
       declarationDoc,
-      indentIfBreak(initialValueDoc, {
-        groupId: declarationDoc.id
-      }),
+      indentIfBreak(initialValueDoc, { groupId: declarationDoc.id }),
       node.omitSemicolon ? '' : ';'
     ]);
   }

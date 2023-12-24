@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { getNode } from '../common/backward-compatibility.js';
 import { comparison } from './comparison.js';
 
 const { group, line, indent } = doc.builders;
@@ -7,7 +8,7 @@ const groupIfNecessaryBuilder = (path) => (document) => {
   const parentNode = path.getParentNode();
   if (
     parentNode.type === 'BinaryOperation' &&
-    !comparison.match(parentNode.operator)
+    !comparison.operators.includes(parentNode.operator)
   ) {
     return document;
   }
@@ -15,24 +16,25 @@ const groupIfNecessaryBuilder = (path) => (document) => {
 };
 
 const indentIfNecessaryBuilder = (path) => (document) => {
-  let node = path.getNode();
+  let node = getNode(path);
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
-    if (parentNode.type === 'ReturnStatement') return document;
+    if (parentNode.type === 'ReturnStatement') break;
     if (
       parentNode.type !== 'BinaryOperation' ||
-      comparison.match(parentNode.operator)
+      comparison.operators.includes(parentNode.operator)
     ) {
       return indent(document);
     }
-    if (node === parentNode.right) return document;
+    if (node === parentNode.right) break;
     node = parentNode;
   }
+  return document;
 };
 
 export const arithmetic = {
-  match: (op) => ['+', '-', '*', '/', '%'].includes(op),
-  print: (node, path, print) => {
+  operators: ['+', '-', '*', '/', '%'],
+  print: ({ node, path, print }) => {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 

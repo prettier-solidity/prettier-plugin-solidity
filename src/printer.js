@@ -1,6 +1,9 @@
 import * as nodes from './nodes/index.js';
+import { getNode } from './common/backward-compatibility.js';
 import {
   hasNodeIgnoreComment,
+  locEnd,
+  locStart,
   prettierVersionSatisfies
 } from './common/util.ts';
 import ignoreComments from './comments/ignore.js';
@@ -17,11 +20,11 @@ function prettierVersionCheck() {
   checked = true;
 }
 
-function genericPrint(path, options, print) {
+export default function genericPrint(path, options, print) {
   prettierVersionCheck();
 
-  const node = path.getValue();
-  if (node === null) {
+  const node = getNode(path);
+  if (node === null || node === undefined) {
     return '';
   }
 
@@ -32,13 +35,8 @@ function genericPrint(path, options, print) {
   if (hasNodeIgnoreComment(node)) {
     ignoreComments(path);
 
-    return options.originalText.slice(
-      options.locStart(node),
-      options.locEnd(node) + 1
-    );
+    return options.originalText.slice(locStart(node), locEnd(node) + 1);
   }
 
   return nodes[node.type].print({ node, options, path, print });
 }
-
-export default genericPrint;

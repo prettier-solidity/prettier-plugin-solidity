@@ -1,2 +1,2 @@
-export * from './handler.js';
+export * from './handler.ts';
 export * from './printer.ts';

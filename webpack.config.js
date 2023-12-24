@@ -9,7 +9,7 @@ export default (webpackEnv) => {
   const isEnvProduction = Boolean(webpackEnv.production);
 
   return {
-    entry: './src/index.js',
+    entry: './src/index.ts',
 
     // Avoid bundling Prettier
     externals: {

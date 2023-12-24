@@ -3,6 +3,10 @@ import { printSeparatedList } from '../common/printer-helpers.ts';
 
 const { group, indent, line } = doc.builders;
 
+function isStateVariableDeclarationVariable(node) {
+  return node.override !== undefined && node.isImmutable !== undefined;
+}
+
 const indexed = (node) => (node.isIndexed ? ' indexed' : '');
 
 const visibility = (node) =>
@@ -17,16 +21,19 @@ const storageLocation = (node) =>
     ? [line, node.storageLocation]
     : '';
 
-const immutable = (node) => (node.isImmutable ? ' immutable' : '');
+const immutable = (node) =>
+  isStateVariableDeclarationVariable(node) && node.isImmutable
+    ? ' immutable'
+    : '';
 
 const override = (node, path, print) => {
-  if (!node.override) return '';
-  if (node.override.length === 0) return [line, 'override'];
+  if (!isStateVariableDeclarationVariable(node) || !node.override) return '';
   return [
     line,
-    'override(',
-    printSeparatedList(path.map(print, 'override')),
-    ')'
+    'override',
+    node.override.length === 0
+      ? ''
+      : ['(', printSeparatedList(path.map(print, 'override')), ')']
   ];
 };
 

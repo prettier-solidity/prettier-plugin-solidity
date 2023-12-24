@@ -2,16 +2,25 @@ import {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment
-} from '../prettier-comments/language-js/comments.ts';
-import handlers from './handlers/index.ts';
+} from '../prettier-comments/language-js/comments.js';
+import handlers from './handlers/index.js';
+import type {
+  ASTNode,
+  BlockComment,
+  Comment,
+  Location,
+  Position,
+  SourceUnit
+} from '@solidity-parser/parser/src/ast-types';
+import type { ParserOptions } from 'prettier';
 
 export function solidityHandleOwnLineComment(
-  comment,
-  text,
-  options,
-  ast,
-  isLastComment
-) {
+  comment: Comment,
+  text: string,
+  options: ParserOptions,
+  ast: SourceUnit,
+  isLastComment: boolean
+): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;
   const handlerArguments = {
     text,
@@ -31,12 +40,12 @@ export function solidityHandleOwnLineComment(
 }
 
 export function solidityHandleEndOfLineComment(
-  comment,
-  text,
-  options,
-  ast,
-  isLastComment
-) {
+  comment: Comment,
+  text: string,
+  options: ParserOptions,
+  ast: SourceUnit,
+  isLastComment: boolean
+): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;
   const handlerArguments = {
     text,
@@ -56,12 +65,12 @@ export function solidityHandleEndOfLineComment(
 }
 
 export function solidityHandleRemainingComment(
-  comment,
-  text,
-  options,
-  ast,
-  isLastComment
-) {
+  comment: Comment,
+  text: string,
+  options: ParserOptions,
+  ast: SourceUnit,
+  isLastComment: boolean
+): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;
   const handlerArguments = {
     text,
@@ -80,15 +89,21 @@ export function solidityHandleRemainingComment(
   return false;
 }
 
-export function isBlockComment(comment) {
+export function isBlockComment(
+  comment: ASTNode | Comment
+): comment is BlockComment {
   return comment.type === 'BlockComment';
 }
 
-function isNodeOrComment(node) {
-  return node.type !== undefined;
+function isNodeOrComment(
+  node: ASTNode | Comment | Location | Position
+): node is ASTNode | Comment {
+  return (node as ASTNode | Comment).type !== undefined;
 }
 
-export function canAttachComment(node) {
+export function canAttachComment(
+  node: ASTNode | Comment | Location | Position
+): boolean {
   return (
     isNodeOrComment(node) &&
     !isBlockComment(node) &&

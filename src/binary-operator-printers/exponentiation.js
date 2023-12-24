@@ -3,9 +3,9 @@ import { doc } from 'prettier';
 const { group, indent, line } = doc.builders;
 
 export const exponentiation = {
-  match: (op) => op === '**',
-  print: (node, path, print) => {
-    const right = [' ', node.operator, line, path.call(print, 'right')];
+  operators: ['**'],
+  print: ({ node, path, print }) => {
+    const right = [` ${node.operator}`, line, path.call(print, 'right')];
     // If it's a single binary operation, avoid having a small right
     // operand like - 1 on its own line
     const shouldGroup =

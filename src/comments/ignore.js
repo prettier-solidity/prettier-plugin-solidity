@@ -1,9 +1,12 @@
-function ignoreComments(path) {
-  const node = path.getValue();
+import { getNode } from '../common/backward-compatibility.js';
+
+export default function ignoreComments(path) {
+  const node = getNode(path);
   // We ignore anything that is not an object
-  if (node === null || typeof node !== 'object') return;
+  if (node === null || node === undefined || typeof node !== 'object') return;
 
   const keys = Object.keys(node);
+  let childNode;
   keys.forEach((key) => {
     switch (key) {
       // We ignore `loc` and `range` since these are added by the parser
@@ -13,14 +16,15 @@ function ignoreComments(path) {
       // The key `comments` will contain every comment for this node
       case 'comments':
         path.each((commentPath) => {
-          const comment = commentPath.getValue();
+          const comment = getNode(commentPath);
           comment.printed = true;
         }, 'comments');
         break;
       default:
         // If the value for that key is an Array or an Object we go deeper.
-        if (typeof node[key] === 'object') {
-          if (Array.isArray(node[key])) {
+        childNode = node[key];
+        if (typeof childNode === 'object') {
+          if (Array.isArray(childNode)) {
             path.each(ignoreComments, key);
             return;
           }
@@ -29,5 +33,3 @@ function ignoreComments(path) {
     }
   });
 }
-
-export default ignoreComments;
