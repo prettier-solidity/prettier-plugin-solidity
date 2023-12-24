@@ -1895,13 +1895,13 @@ contract Conditional {
 
         // multiline conditions and consequents/alternates:
         string
-            storage multilineConditionsConsequentsAndAlternates = isAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)
+            storage multilineConditionsConsequentsAndAlternates = (isAnAdorableKittyCat() &&
+                (someReallyLongCondition || moreInThisLongCondition))
                 ? someReallyLargeExpression
                     .thatWouldCauseALineBreak()
                     .willCauseAnIndentButNotParens()
-                : isNotAnAdorableKittyCat() &&
-                    (someReallyLongCondition || moreInThisLongCondition)
+                : (isNotAnAdorableKittyCat() &&
+                    (someReallyLongCondition || moreInThisLongCondition))
                     ? bark()
                     : shortCondition()
                         ? shortConsequent()
@@ -1910,13 +1910,13 @@ contract Conditional {
                             .willCauseAnIndentButNotParens();
 
         // Assignment also groups and indents as Variable Declaration:
-        assignment = isAnAdorableKittyCat() &&
-            (someReallyLongCondition || moreInThisLongCondition)
+        assignment = (isAnAdorableKittyCat() &&
+            (someReallyLongCondition || moreInThisLongCondition))
             ? someReallyLargeExpression
                 .thatWouldCauseALineBreak()
                 .willCauseAnIndentButNotParens()
-            : isNotAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)
+            : (isNotAnAdorableKittyCat() &&
+                (someReallyLongCondition || moreInThisLongCondition))
                 ? bark()
                 : shortCondition()
                     ? shortConsequent()
@@ -1931,32 +1931,33 @@ contract Conditional {
                 ? "two"
                 : x == 3
                     ? "three"
-                    : x == 5 &&
+                    : (x == 5 &&
                         y == 7 &&
                         someOtherThing
                             .thatIsSoLong
-                            .thatItBreaksTheTestCondition()
+                            .thatItBreaksTheTestCondition())
                         ? "four"
                         : x == 6
                             ? "six"
                             : "idk";
 
         // long conditional, short consequent/alternate, not chained - do indent after ?
-        string storage longConditional = bifornCringerMoshedPerplexSawder ==
+        string storage longConditional = (bifornCringerMoshedPerplexSawder ==
             2 / askTrovenaBeenaDependsRowans &&
             glimseGlyphsHazardNoopsTieTie >=
-            averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
+            averredBathersBoxroomBuggyNurl()
+                .anodyneCondosMalateOverateRetinol())
             ? "foo"
             : "bar";
 
         // long conditional, short consequent/alternate, chained
         // (break on short consequents iff in chained ternary and its conditional broke)
         string
-            storage longConditionalChained = bifornCringerMoshedPerplexSawder ==
+            storage longConditionalChained = (bifornCringerMoshedPerplexSawder ==
                 2 / askTrovenaBeenaDependsRowans &&
                 glimseGlyphsHazardNoopsTieTie >=
                 averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol()
+                    .anodyneCondosMalateOverateRetinol())
                 ? "foo"
                 : anotherCondition
                     ? "bar"
@@ -1977,7 +1978,7 @@ contract Conditional {
         );
 
         // Conditional as a condition
-        (foo ? 1 : bar) ? 3 : 4;
+        (((foo ? 1 : bar))) ? 3 : 4;
         (
             isCat()
                 ? meow()

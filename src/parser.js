@@ -61,15 +61,19 @@ function parse(text, _parsers, options = _parsers) {
       ctx.value = options.singleQuote ? `hex'${value}'` : `hex"${value}"`;
     },
     Conditional(ctx) {
-      // We can remove parentheses only because we are sure that the
-      // `condition` must be a single `bool` value.
-      while (
-        ctx.condition.type === 'TupleExpression' &&
-        !ctx.condition.isArray &&
-        ctx.condition.components.length === 1 &&
-        ctx.condition.components[0].type !== 'Conditional'
-      ) {
-        [ctx.condition] = ctx.condition.components;
+      // TODO: while the behaviour is not stable, it should be behind the
+      // experimentalTernaries flag.
+      if (options.experimentalTernaries) {
+        // We can remove parentheses only because we are sure that the
+        // `condition` must be a single `bool` value.
+        while (
+          ctx.condition.type === 'TupleExpression' &&
+          !ctx.condition.isArray &&
+          ctx.condition.components.length === 1 &&
+          ctx.condition.components[0].type !== 'Conditional'
+        ) {
+          [ctx.condition] = ctx.condition.components;
+        }
       }
     },
     BinaryOperation(ctx) {
