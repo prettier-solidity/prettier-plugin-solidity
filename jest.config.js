@@ -1,11 +1,13 @@
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
-const testMatch = [
-  '<rootDir>/tests/format/**/jsfmt.spec.js',
-  '<rootDir>/tests/unit/**/*.test.js'
-];
+const testMatch = ['<rootDir>/tests/format/**/jsfmt.spec.js'];
 
 if (TEST_STANDALONE) {
-  testMatch.push('<rootDir>/tests/integration/**/*.test.js');
+  testMatch.push(
+    '<rootDir>/tests/integration/**/*.test.js',
+    '<rootDir>/tests/unit/prettier-version/**/*.test.js'
+  );
+} else {
+  testMatch.push('<rootDir>/tests/unit/**/*.test.js');
 }
 
 export default {

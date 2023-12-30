@@ -1,7 +1,7 @@
 function getPrettierInternal() {
   const entry = process.env.TEST_STANDALONE
     ? new URL("./require-standalone.cjs", import.meta.url)
-    : new URL("./require-prettier.cjs", import.meta.url);
+    : "prettier";
 
   return import(entry).then((module) => module.default);
 }

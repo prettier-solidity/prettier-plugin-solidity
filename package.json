@@ -26,7 +26,7 @@
     "prettier": "prettier './*.{ts,js,cjs,json,md,yml}' '{src,tests}/**/*.{ts,js,cjs}'",
     "test": "NODE_OPTIONS=\"--loader=ts-node/esm --loader=esmock\" jest",
     "test:all": "cross-env FULL_TEST=1 NODE_OPTIONS=\"--loader=ts-node/esm --loader=esmock\" c8 jest",
-    "test:standalone": "cross-env NODE_OPTIONS=\"--loader=ts-node/esm\" TEST_STANDALONE=1 FULL_TEST=1 jest"
+    "test:standalone": "cross-env TEST_STANDALONE=1 FULL_TEST=1 jest"
   },
   "files": [
     "src",
