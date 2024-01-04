@@ -27,16 +27,15 @@ export function solidityHandleOwnLineComment(
     precedingNode,
     enclosingNode,
     followingNode,
-    comment
+    comment,
+    ast,
+    isLastComment
   };
 
-  if (
+  return (
     handlers.some((handler) => handler(handlerArguments)) ||
-    handleOwnLineComment(comment, text, ast, isLastComment)
-  ) {
-    return true;
-  }
-  return false;
+    handleOwnLineComment.some((handler) => handler(handlerArguments))
+  );
 }
 
 export function solidityHandleEndOfLineComment(
@@ -52,16 +51,14 @@ export function solidityHandleEndOfLineComment(
     precedingNode,
     enclosingNode,
     followingNode,
-    comment
+    comment,
+    ast,
+    isLastComment
   };
-
-  if (
+  return (
     handlers.some((handler) => handler(handlerArguments)) ||
-    handleEndOfLineComment(comment, text, ast, isLastComment)
-  ) {
-    return true;
-  }
-  return false;
+    handleEndOfLineComment.some((handler) => handler(handlerArguments))
+  );
 }
 
 export function solidityHandleRemainingComment(
@@ -77,16 +74,15 @@ export function solidityHandleRemainingComment(
     precedingNode,
     enclosingNode,
     followingNode,
-    comment
+    comment,
+    ast,
+    isLastComment
   };
 
-  if (
+  return (
     handlers.some((handler) => handler(handlerArguments)) ||
-    handleRemainingComment(comment, text, ast, isLastComment)
-  ) {
-    return true;
-  }
-  return false;
+    handleRemainingComment.some((handler) => handler(handlerArguments))
+  );
 }
 
 export function isBlockComment(

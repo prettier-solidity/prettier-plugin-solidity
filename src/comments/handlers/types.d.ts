@@ -1,4 +1,8 @@
-import type { ASTNode, Comment } from '@solidity-parser/parser/src/ast-types';
+import type {
+  ASTNode,
+  Comment,
+  SourceUnit
+} from '@solidity-parser/parser/src/ast-types';
 
 interface HandlerArguments {
   text: string;
@@ -6,4 +10,6 @@ interface HandlerArguments {
   enclosingNode?: ASTNode;
   followingNode?: ASTNode;
   comment: Comment;
+  ast: SourceUnit;
+  isLastComment: boolean;
 }

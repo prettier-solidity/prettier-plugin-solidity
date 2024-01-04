@@ -163,6 +163,8 @@ contract Comments13 {
         // comment 12
       ) // comment 13
       {
+      while(true){ break/** comment 14 */; }
+      while (true) { continue/** comment 15 */; }
   }
 }
 =====================================output=====================================
@@ -330,8 +332,62 @@ contract Comments13 {
             param1 // comment 11
             // comment 12
         ) // comment 13
-    {}
+    {
+        while (true) {
+            break; /** comment 14 */
+        }
+        while (true) {
+            continue; /** comment 15 */
+        }
+    }
 }
+
+================================================================================
+`;
+
+exports[`OnlyComments.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Comment 1
+
+/* Comment 2 */
+/* Comment 2.1 *//* Comment 2.2 */// Comment 2.3
+
+/* 
+* Comment 3
+*/
+
+/* 
+* Comment 3.1
+*//* 
+* Comment 3.2
+*//* 
+* Comment 3.3
+*/
+
+// Comment 4
+=====================================output=====================================
+// Comment 1
+
+/* Comment 2 */
+/* Comment 2.1 */ /* Comment 2.2 */ // Comment 2.3
+
+/*
+ * Comment 3
+ */
+
+/*
+ * Comment 3.1
+ */ /*
+ * Comment 3.2
+ */ /*
+ * Comment 3.3
+ */
+
+// Comment 4
 
 ================================================================================
 `;

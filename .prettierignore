@@ -3,4 +3,3 @@ dist/**/*.js
 tests/format/**/*.sol
 tests/format/Markdown/Markdown.md
 tests/format/RespectDefaultOptions/respect-default-options.js
-src/prettier-comments/**/*.ts

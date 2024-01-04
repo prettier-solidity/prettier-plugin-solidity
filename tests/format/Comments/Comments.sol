@@ -155,5 +155,7 @@ contract Comments13 {
         // comment 12
       ) // comment 13
       {
+      while(true){ break/** comment 14 */; }
+      while (true) { continue/** comment 15 */; }
   }
 }
