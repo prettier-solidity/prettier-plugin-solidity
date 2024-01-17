@@ -1,4 +1,3 @@
-import extractComments from 'solidity-comments-extractor';
 // https://prettier.io/docs/en/plugins.html#parsers
 import parser from '@solidity-parser/parser';
 import coerce from 'semver/functions/coerce.js';
@@ -16,8 +15,7 @@ const tryHug = (node, operators) => {
 
 function parse(text, _parsers, options = _parsers) {
   const compiler = coerce(options.compiler);
-  const parsed = parser.parse(text, { loc: true, range: true });
-  parsed.comments = extractComments(text);
+  const parsed = parser.parse(text, { loc: true, range: true, comments: true });
 
   parser.visit(parsed, {
     PragmaDirective(ctx) {

@@ -96,7 +96,6 @@
     "eslint-plugin-import": "^2.28.1",
     "esm-utils": "^4.1.2",
     "esmock": "^2.3.8",
-    "exports-loader": "^5.0.0",
     "jest": "^29.6.3",
     "jest-light-runner": "^0.6.0",
     "jest-snapshot-serializer-ansi": "^2.1.0",
@@ -110,9 +109,8 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@solidity-parser/parser": "^0.17.0",
-    "semver": "^7.5.4",
-    "solidity-comments-extractor": "^0.0.8"
+    "@solidity-parser/parser": "^0.18.0",
+    "semver": "^7.5.4"
   },
   "peerDependencies": {
     "prettier": ">=2.3.0"
