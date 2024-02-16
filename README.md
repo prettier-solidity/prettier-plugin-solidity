@@ -401,6 +401,7 @@ These are some of the projects using Prettier Solidity:
 - [The Sandbox](https://www.sandbox.game/en/)
 - [UMA](https://umaproject.org/)
 - [Uniswap](https://uniswap.org)
+- [Zora](https://zora.co)
 
 ## License
 
