@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { printString } from '../common/util.js';
+import { printString } from '../common/util.ts';
 
 const { join, line } = doc.builders;
 

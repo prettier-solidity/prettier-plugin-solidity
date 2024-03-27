@@ -16,7 +16,7 @@ const initialValue = (node, path, print) => {
 
 export const StateVariableDeclaration = {
   print: ({ node, path, print }) => [
-    ...path.map(print, 'variables'),
+    path.map(print, 'variables'),
     initialValue(node, path, print),
     ';'
   ]

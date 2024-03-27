@@ -1,4 +1,4 @@
-import { printSeparatedList } from '../common/printer-helpers.js';
+import { printSeparatedList } from '../common/printer-helpers.ts';
 
 const parameters = (node, path, print) =>
   node.parameters?.length > 0
@@ -7,12 +7,8 @@ const parameters = (node, path, print) =>
 
 export const EventDefinition = {
   print: ({ node, path, print }) => [
-    'event ',
-    node.name,
-    '(',
+    `event ${node.name}(`,
     parameters(node, path, print),
-    ')',
-    node.isAnonymous ? ' anonymous' : '',
-    ';'
+    `)${node.isAnonymous ? ' anonymous' : ''};`
   ]
 };

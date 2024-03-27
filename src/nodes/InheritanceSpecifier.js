@@ -1,4 +1,4 @@
-import { printSeparatedList } from '../common/printer-helpers.js';
+import { printSeparatedList } from '../common/printer-helpers.ts';
 
 const printArguments = (node, path, print) =>
   node.arguments?.length

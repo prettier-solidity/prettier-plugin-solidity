@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import {
   printComments,
   printSeparatedItem
-} from '../common/printer-helpers.js';
+} from '../common/printer-helpers.ts';
 
 const { group, hardline, indent, line } = doc.builders;
 

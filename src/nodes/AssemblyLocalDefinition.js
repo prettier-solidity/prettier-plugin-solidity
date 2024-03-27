@@ -1,20 +1,12 @@
 import { doc } from 'prettier';
-import { printSeparatedList } from '../common/printer-helpers.js';
+import { printSeparatedList } from '../common/printer-helpers.ts';
 
 const { line } = doc.builders;
 
 export const AssemblyLocalDefinition = {
-  print: ({ node, path, print }) => {
-    const parts = [
-      'let',
-      printSeparatedList(path.map(print, 'names'), { firstSeparator: line })
-    ];
-
-    if (node.expression !== null) {
-      parts.push(':= ');
-      parts.push(path.call(print, 'expression'));
-    }
-
-    return parts;
-  }
+  print: ({ node, path, print }) => [
+    'let',
+    printSeparatedList(path.map(print, 'names'), { firstSeparator: line }),
+    node.expression ? [':= ', path.call(print, 'expression')] : ''
+  ]
 };
