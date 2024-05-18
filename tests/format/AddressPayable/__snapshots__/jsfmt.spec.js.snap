@@ -34,3 +34,27 @@ contract AddressPayable {
 
 ================================================================================
 `;
+
+exports[`AddressPayable.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+pragma solidity ^0.5.2;
+
+contract AddressPayable {
+  using Address for address payable;
+  address payable[] hello;
+  function sendSomeEth(address payable to, address payable[] memory world) public payable {
+    address payable target = to;
+    target.transfer(msg.value);
+  }
+}
+
+=====================================output=====================================
+pragma solidity ^0.5.2;
+ContractDefinition
+
+================================================================================
+`;
