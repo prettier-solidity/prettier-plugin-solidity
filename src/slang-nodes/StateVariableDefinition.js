@@ -1,0 +1,12 @@
+export const StateVariableDefinition = {
+  parse: ({ ast, options, parse }) => ({
+    kind: ast.cst.kind,
+    typeName: parse(ast.typeName, options, parse),
+    attributes: parse(ast.attributes, options, parse),
+    name: ast.name.text,
+    value: ast.value ? parse(ast.value, options, parse) : undefined,
+    semicolon: ast.semicolon.text
+  }),
+  // TODO: implement print
+  print: () => ['StateVariableDefinition']
+};

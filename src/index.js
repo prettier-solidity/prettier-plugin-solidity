@@ -4,6 +4,8 @@ import loc from './loc.js';
 import options from './options.js';
 import parse from './parser.js';
 import print from './printer.js';
+import slangParse from './slangParser.js';
+import slangPrint from './slangPrinter.js';
 
 // https://prettier.io/docs/en/plugins.html#languages
 // https://github.com/ikatyang/linguist-languages/blob/master/data/Solidity.json
@@ -16,15 +18,21 @@ const languages = [
     aceMode: 'text',
     tmScope: 'source.solidity',
     extensions: ['.sol'],
-    parsers: ['solidity-parse'],
+    parsers: ['solidity-parse', 'solidity-slang-parser'],
     vscodeLanguageIds: ['solidity']
   }
 ];
 
 // https://prettier.io/docs/en/plugins.html#parsers
 const parser = { astFormat: 'solidity-ast', parse, ...loc };
+const slangParser = {
+  astFormat: 'solidity-slang-ast',
+  parse: slangParse,
+  ...loc
+};
 const parsers = {
-  'solidity-parse': parser
+  'solidity-parse': parser,
+  'solidity-slang-parse': slangParser
 };
 
 const canAttachComment = (node) =>
@@ -42,6 +50,18 @@ const printers = {
     isBlockComment: comments.isBlockComment,
     massageAstNode,
     print,
+    printComment: comments.printComment
+  },
+  'solidity-slang-ast': {
+    canAttachComment,
+    handleComments: {
+      ownLine: comments.solidityHandleOwnLineComment,
+      endOfLine: comments.solidityHandleEndOfLineComment,
+      remaining: comments.solidityHandleRemainingComment
+    },
+    isBlockComment: comments.isBlockComment,
+    massageAstNode,
+    print: slangPrint,
     printComment: comments.printComment
   }
 };
