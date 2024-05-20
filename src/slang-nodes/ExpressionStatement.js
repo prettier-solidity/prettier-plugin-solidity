@@ -4,6 +4,8 @@ export const ExpressionStatement = {
     expression: parse(ast.expression, options, parse),
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: ExpressionStatement']
+  print: ({ node, path, print }) => [
+    path.call(print, 'expression'),
+    node.semicolon
+  ]
 };

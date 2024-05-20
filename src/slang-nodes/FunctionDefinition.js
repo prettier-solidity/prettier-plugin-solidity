@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { dedent, group, indent, line } = doc.builders;
+
 export const FunctionDefinition = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -8,6 +12,20 @@ export const FunctionDefinition = {
     returns: ast.returns ? parse(ast.returns, options, parse) : undefined,
     body: parse(ast.body, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: FunctionDefinition']
+  print: ({ node, path, print }) => [
+    group([
+      node.functionKeyword,
+      ' ',
+      path.call(print, 'name'),
+      path.call(print, 'parameters'),
+      indent(
+        group([
+          path.call(print, 'attributes'),
+          node.returns ? path.call(print, 'returns') : '',
+          dedent(line)
+        ])
+      )
+    ]),
+    path.call(print, 'body')
+  ]
 };

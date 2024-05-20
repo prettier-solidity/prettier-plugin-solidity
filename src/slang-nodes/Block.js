@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { hardline, indent } = doc.builders;
+
 export const Block = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -5,6 +9,10 @@ export const Block = {
     statements: parse(ast.statements, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: Block']
+  print: ({ node, path, print }) => [
+    node.openBrace,
+    indent([hardline, path.call(print, 'statements')]),
+    hardline,
+    node.closeBrace
+  ]
 };

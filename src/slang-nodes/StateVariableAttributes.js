@@ -3,6 +3,6 @@ export const StateVariableAttributes = {
     kind: ast.cst.kind,
     items: ast.items.map((item) => parse(item, options, parse))
   }),
-  // TODO: implement print
-  print: () => ['TODO: StateVariableAttributes']
+  print: ({ node, path, print }) =>
+    node.items.length ? path.call(print, 'items') : ''
 };

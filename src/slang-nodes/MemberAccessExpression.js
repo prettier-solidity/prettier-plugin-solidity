@@ -5,6 +5,9 @@ export const MemberAccessExpression = {
     period: ast.period.text,
     member: parse(ast.member, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: MemberAccessExpression']
+  print: ({ node, path, print }) => [
+    path.call(print, 'operand'),
+    node.period,
+    path.call(print, 'member')
+  ]
 };

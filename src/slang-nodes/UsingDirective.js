@@ -8,6 +8,15 @@ export const UsingDirective = {
     globalKeyword: ast.globalKeyword?.text,
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: UsingDirective']
+  print: ({ node, path, print }) => [
+    node.usingKeyword,
+    ' ',
+    path.call(print, 'clause'),
+    ' ',
+    node.forKeyword,
+    ' ',
+    path.call(print, 'target'),
+    node.globalKeyword ? node.globalKeyword : '',
+    node.semicolon
+  ]
 };

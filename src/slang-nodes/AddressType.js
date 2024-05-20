@@ -4,6 +4,8 @@ export const AddressType = {
     addressKeyword: ast.addressKeyword.text,
     payableKeyword: ast.payableKeyword?.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: AddressType']
+  print: ({ node }) => [
+    node.addressKeyword,
+    node.payableKeyword ? ` ${node.payableKeyword}` : ''
+  ]
 };

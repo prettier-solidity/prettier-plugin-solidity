@@ -4,6 +4,8 @@ export const VariableDeclarationValue = {
     equal: ast.equal.text,
     expression: parse(ast.expression, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: VariableDeclarationValue']
+  print: ({ node, path, print }) => [
+    ` ${node.equal} `,
+    path.call(print, 'expression')
+  ]
 };

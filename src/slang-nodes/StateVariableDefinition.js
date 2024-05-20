@@ -7,6 +7,12 @@ export const StateVariableDefinition = {
     value: ast.value ? parse(ast.value, options, parse) : undefined,
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: StateVariableDefinition']
+  print: ({ node, path, print }) => [
+    path.call(print, 'typeName'),
+    path.call(print, 'attributes'),
+    ' ',
+    node.name,
+    node.value ? path.call(print, 'value') : '',
+    node.semicolon
+  ]
 };
