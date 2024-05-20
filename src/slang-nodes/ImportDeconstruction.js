@@ -8,5 +8,5 @@ export const ImportDeconstruction = {
     path: parse(ast.path, options, parse)
   }),
   // TODO: implement print
-  print: () => ['ImportDeconstruction']
+  print: () => ['TODO: ImportDeconstruction']
 };

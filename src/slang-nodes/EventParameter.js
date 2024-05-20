@@ -6,5 +6,5 @@ export const EventParameter = {
     name: ast.name?.text
   }),
   // TODO: implement print
-  print: () => ['EventParameter']
+  print: () => ['TODO: EventParameter']
 };

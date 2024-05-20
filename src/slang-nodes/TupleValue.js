@@ -6,5 +6,5 @@ export const TupleValue = {
       : undefined
   }),
   // TODO: implement print
-  print: () => ['TupleValue']
+  print: () => ['TODO: TupleValue']
 };

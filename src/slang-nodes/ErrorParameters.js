@@ -5,5 +5,5 @@ export const ErrorParameters = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['ErrorParameters']
+  print: () => ['TODO: ErrorParameters']
 };

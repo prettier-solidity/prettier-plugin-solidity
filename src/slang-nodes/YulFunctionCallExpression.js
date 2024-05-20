@@ -7,5 +7,5 @@ export const YulFunctionCallExpression = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['YulFunctionCallExpression']
+  print: () => ['TODO: YulFunctionCallExpression']
 };

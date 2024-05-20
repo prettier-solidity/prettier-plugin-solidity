@@ -8,5 +8,5 @@ export const StateVariableDefinition = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['StateVariableDefinition']
+  print: () => ['TODO: StateVariableDefinition']
 };

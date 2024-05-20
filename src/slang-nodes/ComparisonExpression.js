@@ -6,5 +6,5 @@ export const ComparisonExpression = {
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
   // TODO: implement print
-  print: () => ['ComparisonExpression']
+  print: () => ['TODO: ComparisonExpression']
 };

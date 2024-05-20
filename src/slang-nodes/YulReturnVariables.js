@@ -5,5 +5,5 @@ export const YulReturnVariables = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['YulReturnVariables']
+  print: () => ['TODO: YulReturnVariables']
 };

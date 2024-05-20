@@ -5,5 +5,5 @@ export const VariableDeclarationValue = {
     expression: parse(ast.expression, options, parse)
   }),
   // TODO: implement print
-  print: () => ['VariableDeclarationValue']
+  print: () => ['TODO: VariableDeclarationValue']
 };

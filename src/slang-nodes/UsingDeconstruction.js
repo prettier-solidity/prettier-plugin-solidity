@@ -6,5 +6,5 @@ export const UsingDeconstruction = {
     closeBrace: ast.closeBrace.text
   }),
   // TODO: implement print
-  print: () => ['UsingDeconstruction']
+  print: () => ['TODO: UsingDeconstruction']
 };

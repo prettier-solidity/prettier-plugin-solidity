@@ -7,5 +7,5 @@ export const NamedImport = {
     path: parse(ast.path, options, parse)
   }),
   // TODO: implement print
-  print: () => ['NamedImport']
+  print: () => ['TODO: NamedImport']
 };

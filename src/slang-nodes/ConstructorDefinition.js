@@ -7,5 +7,5 @@ export const ConstructorDefinition = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['ConstructorDefinition']
+  print: () => ['TODO: ConstructorDefinition']
 };

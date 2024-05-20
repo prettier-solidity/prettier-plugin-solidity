@@ -5,5 +5,5 @@ export const InterfaceMembers = {
     types: parse(ast.types, options, parse)
   }),
   // TODO: implement print
-  print: () => ['InterfaceMembers']
+  print: () => ['TODO: InterfaceMembers']
 };

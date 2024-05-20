@@ -5,5 +5,5 @@ export const IndexAccessEnd = {
     end: ast.end ? parse(ast.end, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['IndexAccessEnd']
+  print: () => ['TODO: IndexAccessEnd']
 };

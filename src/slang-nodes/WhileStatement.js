@@ -8,5 +8,5 @@ export const WhileStatement = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['WhileStatement']
+  print: () => ['TODO: WhileStatement']
 };

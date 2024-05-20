@@ -6,5 +6,5 @@ export const YulAssignmentStatement = {
     expression: parse(ast.expression, options, parse)
   }),
   // TODO: implement print
-  print: () => ['YulAssignmentStatement']
+  print: () => ['TODO: YulAssignmentStatement']
 };

@@ -8,5 +8,5 @@ export const FallbackFunctionDefinition = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['FallbackFunctionDefinition']
+  print: () => ['TODO: FallbackFunctionDefinition']
 };

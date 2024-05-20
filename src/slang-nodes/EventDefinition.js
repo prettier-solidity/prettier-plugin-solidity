@@ -8,5 +8,5 @@ export const EventDefinition = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['EventDefinition']
+  print: () => ['TODO: EventDefinition']
 };

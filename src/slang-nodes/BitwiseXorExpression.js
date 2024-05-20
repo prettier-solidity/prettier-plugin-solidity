@@ -6,5 +6,5 @@ export const BitwiseXorExpression = {
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
   // TODO: implement print
-  print: () => ['BitwiseXorExpression']
+  print: () => ['TODO: BitwiseXorExpression']
 };

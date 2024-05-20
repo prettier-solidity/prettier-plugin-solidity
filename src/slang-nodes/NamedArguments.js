@@ -5,5 +5,5 @@ export const NamedArguments = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['NamedArguments']
+  print: () => ['TODO: NamedArguments']
 };

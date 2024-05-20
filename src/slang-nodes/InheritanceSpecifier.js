@@ -5,5 +5,5 @@ export const InheritanceSpecifier = {
     types: parse(ast.types, options, parse)
   }),
   // TODO: implement print
-  print: () => ['InheritanceSpecifier']
+  print: () => ['TODO: InheritanceSpecifier']
 };

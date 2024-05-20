@@ -7,5 +7,5 @@ export const ReceiveFunctionDefinition = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['ReceiveFunctionDefinition']
+  print: () => ['TODO: ReceiveFunctionDefinition']
 };

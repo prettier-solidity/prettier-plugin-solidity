@@ -7,5 +7,5 @@ export const FunctionType = {
     returns: ast.returns ? parse(ast.returns, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['FunctionType']
+  print: () => ['TODO: FunctionType']
 };

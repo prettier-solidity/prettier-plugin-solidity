@@ -4,5 +4,5 @@ export const TupleDeconstructionElement = {
     member: ast.member ? parse(ast.member, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['TupleDeconstructionElement']
+  print: () => ['TODO: TupleDeconstructionElement']
 };

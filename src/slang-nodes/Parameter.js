@@ -8,5 +8,5 @@ export const Parameter = {
     name: ast.name?.text
   }),
   // TODO: implement print
-  print: () => ['Parameter']
+  print: () => ['TODO: Parameter']
 };

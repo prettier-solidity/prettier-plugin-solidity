@@ -8,5 +8,5 @@ export const IndexAccessExpression = {
     closeBracket: ast.closeBracket.text
   }),
   // TODO: implement print
-  print: () => ['IndexAccessExpression']
+  print: () => ['TODO: IndexAccessExpression']
 };

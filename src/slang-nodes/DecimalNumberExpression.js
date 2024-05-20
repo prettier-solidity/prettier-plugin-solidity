@@ -5,5 +5,5 @@ export const DecimalNumberExpression = {
     unit: ast.unit ? parse(ast.unit, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['DecimalNumberExpression']
+  print: () => ['TODO: DecimalNumberExpression']
 };

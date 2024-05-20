@@ -6,5 +6,5 @@ export const YulBlock = {
     closeBrace: ast.closeBrace.text
   }),
   // TODO: implement print
-  print: () => ['YulBlock']
+  print: () => ['TODO: YulBlock']
 };

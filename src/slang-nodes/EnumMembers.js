@@ -5,5 +5,5 @@ export const EnumMembers = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['EnumMembers']
+  print: () => ['TODO: EnumMembers']
 };

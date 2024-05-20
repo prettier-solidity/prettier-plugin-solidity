@@ -4,5 +4,5 @@ export const FunctionAttributes = {
     items: ast.items.map((item) => parse(item, options, parse))
   }),
   // TODO: implement print
-  print: () => ['FunctionAttributes']
+  print: () => ['TODO: FunctionAttributes']
 };

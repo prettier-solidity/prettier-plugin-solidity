@@ -5,5 +5,5 @@ export const HexNumberExpression = {
     unit: ast.unit ? parse(ast.unit, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['HexNumberExpression']
+  print: () => ['TODO: HexNumberExpression']
 };

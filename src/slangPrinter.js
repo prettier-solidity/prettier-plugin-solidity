@@ -1,4 +1,4 @@
-import * as nodes from './slang/index.js';
+import * as nodes from './slang-nodes/index.js';
 import {
   hasNodeIgnoreComment,
   prettierVersionSatisfies

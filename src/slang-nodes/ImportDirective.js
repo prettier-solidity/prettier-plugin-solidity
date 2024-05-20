@@ -6,5 +6,5 @@ export const ImportDirective = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['ImportDirective']
+  print: () => ['TODO: ImportDirective']
 };

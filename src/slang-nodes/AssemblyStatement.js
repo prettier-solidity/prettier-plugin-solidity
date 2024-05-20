@@ -7,5 +7,5 @@ export const AssemblyStatement = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['AssemblyStatement']
+  print: () => ['TODO: AssemblyStatement']
 };

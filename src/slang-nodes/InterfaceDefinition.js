@@ -11,5 +11,5 @@ export const InterfaceDefinition = {
     closeBrace: ast.closeBrace.text
   }),
   // TODO: implement print
-  print: () => ['InterfaceDefinition']
+  print: () => ['TODO: InterfaceDefinition']
 };

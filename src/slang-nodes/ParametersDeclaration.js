@@ -6,5 +6,5 @@ export const ParametersDeclaration = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['ParametersDeclaration']
+  print: () => ['TODO: ParametersDeclaration']
 };

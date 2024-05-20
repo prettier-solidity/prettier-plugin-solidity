@@ -4,5 +4,5 @@ export const FallbackFunctionAttributes = {
     items: ast.items.map((item) => parse(item, options, parse))
   }),
   // TODO: implement print
-  print: () => ['FallbackFunctionAttributes']
+  print: () => ['TODO: FallbackFunctionAttributes']
 };

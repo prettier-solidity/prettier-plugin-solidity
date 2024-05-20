@@ -6,5 +6,5 @@ export const YulVariableDeclarationStatement = {
     value: ast.value ? parse(ast.value, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['YulVariableDeclarationStatement']
+  print: () => ['TODO: YulVariableDeclarationStatement']
 };

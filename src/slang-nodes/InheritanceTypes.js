@@ -5,5 +5,5 @@ export const InheritanceTypes = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['InheritanceTypes']
+  print: () => ['TODO: InheritanceTypes']
 };

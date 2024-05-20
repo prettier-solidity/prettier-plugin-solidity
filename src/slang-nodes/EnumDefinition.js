@@ -8,5 +8,5 @@ export const EnumDefinition = {
     closeBrace: ast.closeBrace.text
   }),
   // TODO: implement print
-  print: () => ['EmitStatement']
+  print: () => ['TODO: EmitStatement']
 };

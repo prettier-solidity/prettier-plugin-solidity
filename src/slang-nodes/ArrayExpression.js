@@ -6,5 +6,5 @@ export const ArrayExpression = {
     closeBracket: ast.closeBracket.text
   }),
   // TODO: implement print
-  print: () => ['ArrayExpression']
+  print: () => ['TODO: ArrayExpression']
 };

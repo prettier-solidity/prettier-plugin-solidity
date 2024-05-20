@@ -5,5 +5,5 @@ export const YulDefaultCase = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['YulDefaultCase']
+  print: () => ['TODO: YulDefaultCase']
 };

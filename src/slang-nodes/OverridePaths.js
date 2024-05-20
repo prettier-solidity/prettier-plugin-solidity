@@ -5,5 +5,5 @@ export const OverridePaths = {
     separators: ast.separators.map((separator) => separator)
   }),
   // TODO: implement print
-  print: () => ['OverridePaths']
+  print: () => ['TODO: OverridePaths']
 };

@@ -6,5 +6,5 @@ export const EventParametersDeclaration = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['EventParametersDeclaration']
+  print: () => ['TODO: EventParametersDeclaration']
 };

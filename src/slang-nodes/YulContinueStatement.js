@@ -4,5 +4,5 @@ export const YulContinueStatement = {
     continueKeyword: ast.continueKeyword.text
   }),
   // TODO: implement print
-  print: () => ['YulContinueStatement']
+  print: () => ['TODO: YulContinueStatement']
 };

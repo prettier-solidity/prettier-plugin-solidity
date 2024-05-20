@@ -7,5 +7,5 @@ export const RevertStatement = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['RevertStatement']
+  print: () => ['TODO: RevertStatement']
 };

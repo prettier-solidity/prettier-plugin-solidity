@@ -8,5 +8,5 @@ export const UserDefinedValueTypeDefinition = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['UserDefinedValueTypeDefinition']
+  print: () => ['TODO: UserDefinedValueTypeDefinition']
 };

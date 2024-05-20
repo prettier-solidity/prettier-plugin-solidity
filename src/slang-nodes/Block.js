@@ -6,5 +6,5 @@ export const Block = {
     closeBrace: ast.closeBrace.text
   }),
   // TODO: implement print
-  print: () => ['Block']
+  print: () => ['TODO: Block']
 };
