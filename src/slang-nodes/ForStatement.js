@@ -10,5 +10,5 @@ export const ForStatement = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['ForStatement']
+  print: () => ['TODO: ForStatement']
 };

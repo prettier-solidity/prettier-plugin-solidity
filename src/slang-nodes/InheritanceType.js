@@ -5,5 +5,5 @@ export const InheritanceType = {
     arguments: ast.arguments ? parse(ast.arguments, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['InheritanceType']
+  print: () => ['TODO: InheritanceType']
 };

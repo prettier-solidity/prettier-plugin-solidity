@@ -5,5 +5,5 @@ export const YulLabel = {
     colon: ast.colon.text
   }),
   // TODO: implement print
-  print: () => ['YulLabel']
+  print: () => ['TODO: YulLabel']
 };

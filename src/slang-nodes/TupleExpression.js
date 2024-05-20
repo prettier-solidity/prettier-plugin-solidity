@@ -6,5 +6,5 @@ export const TupleExpression = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['TupleExpression']
+  print: () => ['TODO: TupleExpression']
 };

@@ -5,5 +5,5 @@ export const ModifierInvocation = {
     arguments: ast.arguments ? parse(ast.arguments, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['ModifierInvocation']
+  print: () => ['TODO: ModifierInvocation']
 };

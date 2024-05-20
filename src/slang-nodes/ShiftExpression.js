@@ -6,5 +6,5 @@ export const ShiftExpression = {
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
   // TODO: implement print
-  print: () => ['ShiftExpression']
+  print: () => ['TODO: ShiftExpression']
 };

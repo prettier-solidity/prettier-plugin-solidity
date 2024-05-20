@@ -6,5 +6,5 @@ export const AssignmentExpression = {
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
   // TODO: implement print
-  print: () => ['AssignmentExpression']
+  print: () => ['TODO: AssignmentExpression']
 };

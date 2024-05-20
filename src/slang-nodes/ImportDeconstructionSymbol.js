@@ -5,5 +5,5 @@ export const ImportDeconstructionSymbol = {
     alias: ast.alias ? parse(ast.alias, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['ImportDeconstructionSymbol']
+  print: () => ['TODO: ImportDeconstructionSymbol']
 };

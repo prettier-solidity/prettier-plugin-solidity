@@ -6,5 +6,5 @@ export const AndExpression = {
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
   // TODO: implement print
-  print: () => ['AndExpression']
+  print: () => ['TODO: AndExpression']
 };

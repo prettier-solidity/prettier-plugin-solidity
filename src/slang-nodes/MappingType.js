@@ -9,5 +9,5 @@ export const MappingType = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['MappingType']
+  print: () => ['TODO: MappingType']
 };

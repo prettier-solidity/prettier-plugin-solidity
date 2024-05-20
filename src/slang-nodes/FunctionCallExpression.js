@@ -5,5 +5,5 @@ export const FunctionCallExpression = {
     arguments: parse(ast.arguments, options, parse)
   }),
   // TODO: implement print
-  print: () => ['FunctionCallExpression']
+  print: () => ['TODO: FunctionCallExpression']
 };

@@ -6,5 +6,5 @@ export const NamedArgumentGroup = {
     closeBrace: ast.closeBrace.text
   }),
   // TODO: implement print
-  print: () => ['NamedArgumentGroup']
+  print: () => ['TODO: NamedArgumentGroup']
 };

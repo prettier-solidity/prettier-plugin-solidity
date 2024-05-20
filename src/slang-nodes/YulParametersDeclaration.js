@@ -6,5 +6,5 @@ export const YulParametersDeclaration = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['YulParametersDeclaration']
+  print: () => ['TODO: YulParametersDeclaration']
 };

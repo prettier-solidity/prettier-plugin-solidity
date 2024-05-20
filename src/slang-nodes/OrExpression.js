@@ -6,5 +6,5 @@ export const OrExpression = {
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
   // TODO: implement print
-  print: () => ['OrExpression']
+  print: () => ['TODO: OrExpression']
 };

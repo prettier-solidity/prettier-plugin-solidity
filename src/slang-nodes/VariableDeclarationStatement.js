@@ -10,5 +10,5 @@ export const VariableDeclarationStatement = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['TypedTupleMember']
+  print: () => ['TODO: TypedTupleMember']
 };

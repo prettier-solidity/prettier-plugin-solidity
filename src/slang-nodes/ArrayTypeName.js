@@ -7,5 +7,5 @@ export const ArrayTypeName = {
     closeBracket: ast.closeBracket.text
   }),
   // TODO: implement print
-  print: () => ['ArrayTypeName']
+  print: () => ['TODO: ArrayTypeName']
 };

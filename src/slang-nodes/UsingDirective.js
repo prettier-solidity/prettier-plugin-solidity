@@ -9,5 +9,5 @@ export const UsingDirective = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['UsingDirective']
+  print: () => ['TODO: UsingDirective']
 };

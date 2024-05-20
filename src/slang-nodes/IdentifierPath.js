@@ -5,5 +5,5 @@ export const IdentifierPath = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['IdentifierPath']
+  print: () => ['TODO: IdentifierPath']
 };

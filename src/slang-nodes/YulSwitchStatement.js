@@ -6,5 +6,5 @@ export const YulSwitchStatement = {
     cases: parse(ast.cases, options, parse)
   }),
   // TODO: implement print
-  print: () => ['YulSwitchStatement']
+  print: () => ['TODO: YulSwitchStatement']
 };

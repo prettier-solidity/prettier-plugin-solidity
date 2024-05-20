@@ -4,5 +4,5 @@ export const CatchClauses = {
     items: ast.items.map((item) => parse(item, options, parse))
   }),
   // TODO: implement print
-  print: () => ['CatchClauses']
+  print: () => ['TODO: CatchClauses']
 };

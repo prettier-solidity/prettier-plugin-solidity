@@ -6,5 +6,5 @@ export const PositionalArgumentsDeclaration = {
     closeParen: ast.closeParen.TokenNode
   }),
   // TODO: implement print
-  print: () => ['PositionalArgumentsDeclaration']
+  print: () => ['TODO: PositionalArgumentsDeclaration']
 };

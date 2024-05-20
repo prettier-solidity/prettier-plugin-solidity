@@ -6,5 +6,5 @@ export const MemberAccessExpression = {
     member: parse(ast.member, options, parse)
   }),
   // TODO: implement print
-  print: () => ['MemberAccessExpression']
+  print: () => ['TODO: MemberAccessExpression']
 };

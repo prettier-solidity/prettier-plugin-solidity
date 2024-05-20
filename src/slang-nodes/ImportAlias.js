@@ -5,5 +5,5 @@ export const ImportAlias = {
     identifier: ast.identifier.text
   }),
   // TODO: implement print
-  print: () => ['ImportAlias']
+  print: () => ['TODO: ImportAlias']
 };

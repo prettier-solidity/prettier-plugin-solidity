@@ -6,5 +6,5 @@ export const NamedArgument = {
     value: parse(ast.value, options, parse)
   }),
   // TODO: implement print
-  print: () => ['NamedArgument']
+  print: () => ['TODO: NamedArgument']
 };

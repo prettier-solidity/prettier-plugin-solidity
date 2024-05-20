@@ -5,5 +5,5 @@ export const TupleValues = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['TupleValues']
+  print: () => ['TODO: TupleValues']
 };

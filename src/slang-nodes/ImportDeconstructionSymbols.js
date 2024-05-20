@@ -5,5 +5,5 @@ export const ImportDeconstructionSymbols = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['ImportDeconstructionSymbols']
+  print: () => ['TODO: ImportDeconstructionSymbols']
 };

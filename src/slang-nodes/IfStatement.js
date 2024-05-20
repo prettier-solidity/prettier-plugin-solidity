@@ -11,5 +11,5 @@ export const IfStatement = {
       : undefined
   }),
   // TODO: implement print
-  print: () => ['IfStatement']
+  print: () => ['TODO: IfStatement']
 };

@@ -8,5 +8,5 @@ export const StructDefinition = {
     closeBrace: ast.closeBrace.text
   }),
   // TODO: implement print
-  print: () => ['StructDefinition']
+  print: () => ['TODO: StructDefinition']
 };

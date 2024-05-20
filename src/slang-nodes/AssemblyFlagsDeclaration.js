@@ -6,5 +6,5 @@ export const AssemblyFlagsDeclaration = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['AssemblyFlagsDeclaration']
+  print: () => ['TODO: AssemblyFlagsDeclaration']
 };

@@ -4,5 +4,5 @@ export const ReceiveFunctionAttributes = {
     items: ast.items.map((item) => parse(item, options, parse))
   }),
   // TODO: implement print
-  print: () => ['ReceiveFunctionAttributes']
+  print: () => ['TODO: ReceiveFunctionAttributes']
 };

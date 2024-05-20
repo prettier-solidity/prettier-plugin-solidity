@@ -5,5 +5,5 @@ export const PostfixExpression = {
     operator: ast.operator.text
   }),
   // TODO: implement print
-  print: () => ['PostfixExpression']
+  print: () => ['TODO: PostfixExpression']
 };

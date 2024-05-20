@@ -5,5 +5,5 @@ export const ReturnsDeclaration = {
     variables: parse(ast.variables, options, parse)
   }),
   // TODO: implement print
-  print: () => ['ReturnsDeclaration']
+  print: () => ['TODO: ReturnsDeclaration']
 };

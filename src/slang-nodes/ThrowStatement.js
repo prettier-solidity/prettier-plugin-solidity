@@ -5,5 +5,5 @@ export const ThrowStatement = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['ThrowStatement']
+  print: () => ['TODO: ThrowStatement']
 };

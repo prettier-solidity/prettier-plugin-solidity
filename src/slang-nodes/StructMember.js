@@ -6,5 +6,5 @@ export const StructMember = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['StructMember']
+  print: () => ['TODO: StructMember']
 };

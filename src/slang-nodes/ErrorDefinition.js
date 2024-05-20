@@ -7,5 +7,5 @@ export const ErrorDefinition = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['ErrorDefinition']
+  print: () => ['TODO: ErrorDefinition']
 };

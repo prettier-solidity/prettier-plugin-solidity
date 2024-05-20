@@ -5,5 +5,5 @@ export const UsingDeconstructionSymbols = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['UsingDeconstructionSymbols']
+  print: () => ['TODO: UsingDeconstructionSymbols']
 };

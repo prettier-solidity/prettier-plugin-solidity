@@ -5,5 +5,5 @@ export const ExpressionStatement = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['ExpressionStatement']
+  print: () => ['TODO: ExpressionStatement']
 };

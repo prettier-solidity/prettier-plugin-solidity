@@ -7,5 +7,5 @@ export const UnnamedFunctionDefinition = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['UnnamedFunctionDefinition']
+  print: () => ['TODO: UnnamedFunctionDefinition']
 };

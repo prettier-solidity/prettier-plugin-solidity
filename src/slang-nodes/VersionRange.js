@@ -6,5 +6,5 @@ export const VersionRange = {
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
   // TODO: implement print
-  print: () => ['VersionRange']
+  print: () => ['TODO: VersionRange']
 };

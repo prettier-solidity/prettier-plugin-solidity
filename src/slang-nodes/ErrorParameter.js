@@ -5,5 +5,5 @@ export const ErrorParameter = {
     name: ast.name?.text
   }),
   // TODO: implement print
-  print: () => ['ErrorParameter']
+  print: () => ['TODO: ErrorParameter']
 };

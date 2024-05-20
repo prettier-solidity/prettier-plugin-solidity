@@ -5,5 +5,5 @@ export const YulArguments = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['YulArguments']
+  print: () => ['TODO: YulArguments']
 };

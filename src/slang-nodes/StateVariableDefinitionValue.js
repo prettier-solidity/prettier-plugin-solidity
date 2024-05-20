@@ -5,5 +5,5 @@ export const StateVariableDefinitionValue = {
     value: parse(ast.value, options, parse)
   }),
   // TODO: implement print
-  print: () => ['StateVariableDefinitionValue']
+  print: () => ['TODO: StateVariableDefinitionValue']
 };

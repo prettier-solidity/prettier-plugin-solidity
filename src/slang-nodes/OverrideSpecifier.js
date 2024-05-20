@@ -7,5 +7,5 @@ export const OverrideSpecifier = {
       : undefined
   }),
   // TODO: implement print
-  print: () => ['OverrideSpecifier']
+  print: () => ['TODO: OverrideSpecifier']
 };

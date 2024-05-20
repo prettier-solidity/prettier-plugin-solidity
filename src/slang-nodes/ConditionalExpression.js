@@ -8,5 +8,5 @@ export const ConditionalExpression = {
     falseExpression: parse(ast.falseExpression, options, parse)
   }),
   // TODO: implement print
-  print: () => ['ConditionalExpression']
+  print: () => ['TODO: ConditionalExpression']
 };

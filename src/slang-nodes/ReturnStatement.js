@@ -8,5 +8,5 @@ export const ReturnStatement = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['ReturnStatement']
+  print: () => ['TODO: ReturnStatement']
 };

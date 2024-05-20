@@ -5,5 +5,5 @@ export const EventParameters = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['EventParameters']
+  print: () => ['TODO: EventParameters']
 };

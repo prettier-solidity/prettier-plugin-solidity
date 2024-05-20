@@ -5,5 +5,5 @@ export const NewExpression = {
     typeName: parse(ast.typeName, options, parse)
   }),
   // TODO: implement print
-  print: () => ['NewExpression']
+  print: () => ['TODO: NewExpression']
 };

@@ -5,5 +5,5 @@ export const AssemblyFlags = {
     separators: ast.separators.maps((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['AssemblyFlags']
+  print: () => ['TODO: AssemblyFlags']
 };

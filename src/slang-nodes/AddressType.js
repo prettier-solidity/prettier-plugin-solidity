@@ -5,5 +5,5 @@ export const AddressType = {
     payableKeyword: ast.payableKeyword?.text
   }),
   // TODO: implement print
-  print: () => ['AddressType']
+  print: () => ['TODO: AddressType']
 };

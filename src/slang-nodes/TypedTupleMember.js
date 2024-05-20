@@ -8,5 +8,5 @@ export const TypedTupleMember = {
     name: ast.name.text
   }),
   // TODO: implement print
-  print: () => ['TypedTupleMember']
+  print: () => ['TODO: TypedTupleMember']
 };

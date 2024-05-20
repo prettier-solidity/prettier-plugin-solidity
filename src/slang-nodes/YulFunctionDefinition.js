@@ -8,5 +8,5 @@ export const YulFunctionDefinition = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['YulFunctionDefinition']
+  print: () => ['TODO: YulFunctionDefinition']
 };
