@@ -4,6 +4,8 @@ export const IdentifierPath = {
     items: ast.items.map((item) => item.text),
     separators: ast.separators.map((separator) => separator.text)
   }),
-  // TODO: implement print
-  print: () => ['TODO: IdentifierPath']
+  print: ({ node }) =>
+    node.items.map((item, index) =>
+      index === 0 ? item : [node.separator[index - 1], item]
+    )
 };

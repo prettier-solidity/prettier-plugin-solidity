@@ -4,6 +4,5 @@ export const PositionalArguments = {
     items: ast.items.map((item) => parse(item, options, parse)),
     separators: ast.separators.map((separator) => separator.text)
   }),
-  // TODO: implement print
-  print: () => ['TODO: PositionalArguments']
+  print: ({ path, print }) => path.map(print, 'items')
 };

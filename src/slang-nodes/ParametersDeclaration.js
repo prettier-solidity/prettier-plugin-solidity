@@ -5,6 +5,9 @@ export const ParametersDeclaration = {
     parameters: parse(ast.parameters, options, parse),
     closeParen: ast.closeParen.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: ParametersDeclaration']
+  print: ({ node, path, print }) => [
+    node.openParen,
+    path.call(print, 'parameters'),
+    node.closeParen
+  ]
 };

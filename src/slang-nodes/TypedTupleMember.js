@@ -7,6 +7,9 @@ export const TypedTupleMember = {
       : undefined,
     name: ast.name.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: TypedTupleMember']
+  print: ({ node, path, print }) => [
+    path.call(print, 'typeName'),
+    node.storageLocation ? path.call(print, 'storageLocation') : '',
+    node.name
+  ]
 };
