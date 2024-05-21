@@ -6,6 +6,6 @@ export const IdentifierPath = {
   }),
   print: ({ node }) =>
     node.items.map((item, index) =>
-      index === 0 ? item : [node.separator[index - 1], item]
+      index === 0 ? item : [node.separators[index - 1], item]
     )
 };

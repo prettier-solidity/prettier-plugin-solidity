@@ -5,6 +5,6 @@ export const TupleValue = {
       ? parse(ast.expression, options, parse)
       : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: TupleValue']
+  print: ({ node, path, print }) =>
+    node.expression ? path.call(print, 'expression') : ''
 };

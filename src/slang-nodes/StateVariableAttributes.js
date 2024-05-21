@@ -4,5 +4,5 @@ export const StateVariableAttributes = {
     items: ast.items.map((item) => parse(item, options, parse))
   }),
   print: ({ node, path, print }) =>
-    node.items.length ? path.call(print, 'items') : ''
+    node.items.length ? path.map(print, 'items') : ''
 };

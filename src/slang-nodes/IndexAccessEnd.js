@@ -4,6 +4,8 @@ export const IndexAccessEnd = {
     colon: ast.colon.text,
     end: ast.end ? parse(ast.end, options, parse) : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: IndexAccessEnd']
+  print: ({ node, path, print }) => [
+    node.colon,
+    node.end ? path.call(print, 'end') : ''
+  ]
 };

@@ -5,6 +5,9 @@ export const TupleExpression = {
     items: parse(ast.items, options, parse),
     closeParen: ast.closeParen.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: TupleExpression']
+  print: ({ node, path, print }) => [
+    node.openParen,
+    path.call(print, 'items'),
+    node.closeParen
+  ]
 };
