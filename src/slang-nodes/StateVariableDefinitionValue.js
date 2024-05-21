@@ -4,6 +4,10 @@ export const StateVariableDefinitionValue = {
     equal: ast.equal.text,
     value: parse(ast.value, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: StateVariableDefinitionValue']
+  print: ({ node, path, print }) => [
+    ' ',
+    node.equal,
+    ' ',
+    path.call(print, 'value')
+  ]
 };

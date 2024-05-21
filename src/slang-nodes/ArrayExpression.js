@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { group } = doc.builders;
+
 export const ArrayExpression = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -5,6 +9,6 @@ export const ArrayExpression = {
     items: parse(ast.items, options, parse),
     closeBracket: ast.closeBracket.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: ArrayExpression']
+  print: ({ node, path, print }) =>
+    group([node.openBracket, path.call(print, 'items'), node.closeBracket])
 };

@@ -7,6 +7,11 @@ export const IndexAccessExpression = {
     end: ast.end ? parse(ast.end, options, parse) : undefined,
     closeBracket: ast.closeBracket.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: IndexAccessExpression']
+  print: ({ node, path, print }) => [
+    path.call(print, 'operand'),
+    node.openBracket,
+    node.start ? path.call(print, 'start') : '',
+    node.end ? path.call(print, 'end') : '',
+    node.closeBracket
+  ]
 };

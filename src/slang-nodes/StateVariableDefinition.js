@@ -9,6 +9,7 @@ export const StateVariableDefinition = {
   }),
   print: ({ node, path, print }) => [
     path.call(print, 'typeName'),
+    ' ',
     path.call(print, 'attributes'),
     ' ',
     node.name,
