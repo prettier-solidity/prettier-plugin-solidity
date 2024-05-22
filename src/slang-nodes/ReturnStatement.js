@@ -7,6 +7,9 @@ export const ReturnStatement = {
       : undefined,
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: ReturnStatement']
+  print: ({ node, path, print }) => [
+    node.returnKeyword,
+    node.expression ? ` ${path.call(print, 'expression')}` : '',
+    node.semicolon
+  ]
 };

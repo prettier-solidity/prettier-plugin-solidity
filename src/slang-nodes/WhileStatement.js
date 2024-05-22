@@ -7,6 +7,11 @@ export const WhileStatement = {
     closeParen: ast.closeParen.text,
     body: parse(ast.body, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: WhileStatement']
+  print: ({ node, path, print }) => [
+    node.whileKeyword,
+    node.openParen,
+    path.call(print, 'condition'),
+    node.closeParen,
+    path.call(print, 'body')
+  ]
 };

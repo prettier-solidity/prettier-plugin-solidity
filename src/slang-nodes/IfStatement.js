@@ -10,6 +10,12 @@ export const IfStatement = {
       ? parse(ast.elseBranch, options, parse)
       : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: IfStatement']
+  print: ({ node, path, print }) => [
+    node.ifKeyword,
+    node.openParen,
+    path.call(print, 'condition'),
+    node.closeParen,
+    path.call(print, 'body'),
+    node.elseBranch ? path.call(print, 'elseBranch') : ''
+  ]
 };
