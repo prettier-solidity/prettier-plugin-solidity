@@ -10,6 +10,6 @@ export const Parameter = {
   print: ({ node, path, print }) => [
     path.call(print, 'typeName'),
     node.storageLocation ? ` ${path.call(print, 'storageLocation')} ` : ' ',
-    node.name
+    node.name ? node.name : ''
   ]
 };

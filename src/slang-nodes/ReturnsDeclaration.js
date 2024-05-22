@@ -1,9 +1,11 @@
 export const ReturnsDeclaration = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
-    returnsKeyword: ast.returnsKeyword,
+    returnsKeyword: ast.returnsKeyword.text,
     variables: parse(ast.variables, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: ReturnsDeclaration']
+  print: ({ node, path, print }) => [
+    node.returnsKeyword,
+    path.call(print, 'variables')
+  ]
 };

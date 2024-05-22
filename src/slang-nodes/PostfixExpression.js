@@ -4,6 +4,5 @@ export const PostfixExpression = {
     operand: parse(ast.operand, options, parse),
     operator: ast.operator.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: PostfixExpression']
+  print: ({ node, path, print }) => [path.call(print, 'operand'), node.operator]
 };
