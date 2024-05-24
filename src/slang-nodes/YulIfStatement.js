@@ -5,6 +5,11 @@ export const YulIfStatement = {
     condition: parse(ast.condition, options, parse),
     body: parse(ast.body, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulIfStatement']
+  print: ({ node, path, print }) => [
+    node.ifKeyword,
+    ' ',
+    path.call(print, 'condition'),
+    ' ',
+    path.call(print, 'body')
+  ]
 };

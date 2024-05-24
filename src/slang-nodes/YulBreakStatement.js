@@ -3,6 +3,5 @@ export const YulBreakStatement = {
     kind: ast.cst.kind,
     breakKeyword: ast.breakKeyword.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulBreakStatement']
+  print: ({node}) => node.breakKeyword
 };

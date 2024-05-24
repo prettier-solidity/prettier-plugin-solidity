@@ -7,6 +7,12 @@ export const YulFunctionDefinition = {
     returns: ast.returns ? parse(ast.returns, options, parse) : undefined,
     body: parse(ast.body, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulFunctionDefinition']
+  print: ({ node, path, print }) => [
+    node.functionKeyword,
+    ' ',
+    node.name,
+    path.call(print, 'parameters'),
+    node.returns ? path.call(print, 'returns') : ' ',
+    path.call(print, 'body')
+  ]
 };

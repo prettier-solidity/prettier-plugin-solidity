@@ -3,6 +3,5 @@ export const YulContinueStatement = {
     kind: ast.cst.kind,
     continueKeyword: ast.continueKeyword.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulContinueStatement']
+  print: ({node}) => node.continueKeyword
 };
