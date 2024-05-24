@@ -5,6 +5,9 @@ export const AssemblyFlagsDeclaration = {
     flags: parse(ast.flags, options, parse),
     closeParen: ast.closeParen.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: AssemblyFlagsDeclaration']
+  print: ({ node, path, print }) => [
+    node.openParen,
+    path.call(print, 'flags'),
+    node.closeParen
+  ]
 };

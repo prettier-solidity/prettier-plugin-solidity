@@ -10,7 +10,7 @@ export const YulBlock = {
     statements: parse(ast.statements, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  print: ({ node, path, print, options }) => [
+  print: ({ node, print }) => [
     node.openBrace,
     printSeparatedItem(print.call(print, 'statements'), {
       firstSeparator: hardline,

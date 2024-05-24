@@ -7,6 +7,15 @@ export const YulForStatement = {
     iterator: parse(ast.iterator, options, parse),
     body: parse(ast.body, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulForStatement']
+  print: ({ node, path, print }) => [
+    node.forKeyword,
+    ' ',
+    path.call(print, 'initialization'),
+    ' ',
+    path.call(print, 'condition'),
+    ' ',
+    path.call(print, 'iterator'),
+    ' ',
+    path.call(print, 'body')
+  ]
 };

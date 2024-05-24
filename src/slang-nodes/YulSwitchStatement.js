@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { hardline } = doc.builders;
+
 export const YulSwitchStatement = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -5,6 +9,11 @@ export const YulSwitchStatement = {
     expression: parse(ast.expression, options, parse),
     cases: parse(ast.cases, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulSwitchStatement']
+  print: ({ node, path, print }) => [
+    node.switchKeyword,
+    ' ',
+    path.call(print, 'expression'),
+    hardline,
+    path.call(print, 'cases')
+  ]
 };

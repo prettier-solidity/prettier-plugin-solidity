@@ -5,6 +5,11 @@ export const YulValueCase = {
     value: parse(ast.value, options, parse),
     body: parse(ast.body, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulValueCase']
+  print: ({ node, path, print }) => [
+    node.caseKeyword,
+    ' ',
+    path.call(print, 'value'),
+    ' ',
+    path.call(print, 'body')
+  ]
 };
