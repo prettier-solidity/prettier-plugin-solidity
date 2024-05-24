@@ -6,6 +6,11 @@ export const AssemblyStatement = {
     flags: ast.flags ? parse(ast.flags, options, parse) : undefined,
     body: parse(ast.body, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: AssemblyStatement']
+  print: ({ node, path, print }) => [
+    node.assemblyKeyword,
+    ' ',
+    node.label ? path.call(print, 'label') : '',
+    node.flags ? path.call(print, 'flags') : '',
+    path.call(print, 'body')
+  ]
 };

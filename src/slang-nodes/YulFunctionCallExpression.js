@@ -6,6 +6,10 @@ export const YulFunctionCallExpression = {
     arguments: parse(ast.arguments, options, parse),
     closeParen: ast.closeParen.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulFunctionCallExpression']
+  print: ({ node, path, print }) => [
+    path.call(print, 'operand'),
+    node.openParen,
+    path.call(print, 'arguments'),
+    node.closeParen
+  ]
 };

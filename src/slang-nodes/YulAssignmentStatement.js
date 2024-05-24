@@ -5,6 +5,11 @@ export const YulAssignmentStatement = {
     assignment: parse(ast.assignment, options, parse),
     expression: parse(ast.expression, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulAssignmentStatement']
+  print: ({ path, print }) => [
+    path.call(print, 'names'),
+    ' ',
+    path.call(print, 'assignment'),
+    ' ',
+    path.call(print, 'expression')
+  ]
 };
