@@ -4,6 +4,9 @@ export const YulVariableDeclarationValue = {
     assignment: parse(ast.assignment, options, parse),
     expression: parse(ast.expression, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulVariableDeclarationValue']
+  print: ({ path, print }) => [
+    path.call(print, 'assignment'),
+    ' ',
+    path.call(print, 'expression')
+  ]
 };

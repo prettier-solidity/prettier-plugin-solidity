@@ -1,3 +1,8 @@
+import { doc } from 'prettier';
+import { printSeparatedItem } from '../common/printer-helpers.js';
+
+const { hardline } = doc.builders;
+
 export const YulBlock = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -5,6 +10,12 @@ export const YulBlock = {
     statements: parse(ast.statements, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulBlock']
+  print: ({ node, path, print, options }) => [
+    node.openBrace,
+    printSeparatedItem(print.call(print, 'statements'), {
+      firstSeparator: hardline,
+      grouped: false
+    }),
+    node.closeBrace
+  ]
 };

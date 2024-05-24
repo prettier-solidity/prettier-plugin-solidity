@@ -40,14 +40,15 @@ export function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
   path.each((childPath, index) => {
     const node = childPath.getValue();
-    const nodeType = node.type;
+    const nodeType = node.type || node.kind;
 
     if (
       // Avoid adding a hardline at the beginning of the document.
       parts.length !== 0 &&
       // LabelDefinition adds a dedented line so we don't have to prepend a
       // hardline.
-      nodeType !== 'LabelDefinition'
+      nodeType !== 'LabelDefinition' &&
+      (nodeType !== 'YulStatement' || node.variant.kind !== 'YulLabel')
     ) {
       parts.push(hardline);
     }

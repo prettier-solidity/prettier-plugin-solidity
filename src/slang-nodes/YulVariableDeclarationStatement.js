@@ -5,6 +5,11 @@ export const YulVariableDeclarationStatement = {
     names: ast.names.text,
     value: ast.value ? parse(ast.value, options, parse) : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulVariableDeclarationStatement']
+  print: ({ node, path, print }) => [
+    node.letKeyword,
+    ' ',
+    node.names,
+    ' ',
+    node.value ? path.call(print, 'value') : ''
+  ]
 };
