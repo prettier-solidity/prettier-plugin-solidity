@@ -21,6 +21,7 @@ export const FunctionDefinition = {
       indent(
         group([
           path.call(print, 'attributes'),
+          line,
           node.returns ? path.call(print, 'returns') : '',
           dedent(line)
         ])

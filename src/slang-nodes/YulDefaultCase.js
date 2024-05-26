@@ -4,6 +4,8 @@ export const YulDefaultCase = {
     defaultKeyword: ast.defaultKeyword.text,
     body: parse(ast.body, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: YulDefaultCase']
+  print: ({ node, path, print }) => [
+    `${node.defaultKeyword} `,
+    path.call(print, 'body')
+  ]
 };
