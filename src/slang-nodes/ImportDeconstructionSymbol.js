@@ -4,6 +4,8 @@ export const ImportDeconstructionSymbol = {
     name: ast.name.text,
     alias: ast.alias ? parse(ast.alias, options, parse) : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: ImportDeconstructionSymbol']
+  print: ({ node, path, print }) => [
+    node.name,
+    node.alias ? path.call(print, 'alias') : ''
+  ]
 };

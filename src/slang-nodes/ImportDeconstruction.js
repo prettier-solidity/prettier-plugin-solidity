@@ -7,6 +7,10 @@ export const ImportDeconstruction = {
     fromKeyword: ast.fromKeyword.text,
     path: parse(ast.path, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: ImportDeconstruction']
+  print: ({ node, path, print }) => [
+    node.openBrace,
+    path.call(print, 'symbols'),
+    `${node.closeBrace} ${node.fromKeyword} `,
+    path.call(print, 'path')
+  ]
 };

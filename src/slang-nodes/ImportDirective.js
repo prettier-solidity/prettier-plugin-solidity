@@ -5,6 +5,9 @@ export const ImportDirective = {
     clause: parse(ast.clause, options, parse),
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: ImportDirective']
+  print: ({ node, path, print }) => [
+    `${node.importKeyword} `,
+    path.call(print, 'clause'),
+    node.semicolon
+  ]
 };
