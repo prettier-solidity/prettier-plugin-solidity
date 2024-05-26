@@ -4,6 +4,5 @@ export const ImportAlias = {
     asKeyword: ast.asKeyword.text,
     identifier: ast.identifier.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: ImportAlias']
+  print: ({ node }) => ` ${node.asKeyword} ${node.identifier}`
 };
