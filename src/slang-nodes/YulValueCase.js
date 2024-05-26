@@ -6,8 +6,7 @@ export const YulValueCase = {
     body: parse(ast.body, options, parse)
   }),
   print: ({ node, path, print }) => [
-    node.caseKeyword,
-    ' ',
+    `${node.caseKeyword} `,
     path.call(print, 'value'),
     ' ',
     path.call(print, 'body')

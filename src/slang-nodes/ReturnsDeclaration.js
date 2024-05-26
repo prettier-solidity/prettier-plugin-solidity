@@ -5,7 +5,7 @@ export const ReturnsDeclaration = {
     variables: parse(ast.variables, options, parse)
   }),
   print: ({ node, path, print }) => [
-    node.returnsKeyword,
+    `${node.returnsKeyword} `,
     path.call(print, 'variables')
   ]
 };
