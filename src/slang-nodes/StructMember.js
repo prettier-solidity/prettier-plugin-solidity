@@ -5,6 +5,8 @@ export const StructMember = {
     name: ast.name.text,
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: StructMember']
+  print: ({ node, path, print }) => [
+    path.call(print, 'typeName'),
+    ` ${node.name}${node.semicolon}`
+  ]
 };

@@ -1,9 +1,11 @@
+import { printSeparatedList } from '../common/printer-helpers.js';
+
 export const EventParameters = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
-    items: ast.items.map((item) => parse(item.text, options, parse)),
+    items: ast.items.map((item) => parse(item, options, parse)),
     separators: ast.separators.map((separator) => separator.text)
   }),
-  // TODO: implement print
-  print: () => ['TODO: EventParameters']
+  print: ({ node, path, print }) =>
+    node.items?.length > 0 ? printSeparatedList(path.map(print, 'items')) : ''
 };

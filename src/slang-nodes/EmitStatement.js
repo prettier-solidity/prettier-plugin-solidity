@@ -6,6 +6,10 @@ export const EmitStatement = {
     arguments: parse(ast.arguments, options, parse),
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: EmitStatement']
+  print: ({ node, path, print }) => [
+    `${node.emitKeyword} `,
+    path.call(print, 'event'),
+    path.call(print, 'arguments'),
+    node.semicolon
+  ]
 };

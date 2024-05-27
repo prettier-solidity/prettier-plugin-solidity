@@ -7,6 +7,10 @@ export const EventDefinition = {
     anonymousKeyword: ast.anonymousKeyword?.text,
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: EventDefinition']
+  print: ({ node, path, print }) => [
+    `${node.eventKeyword} ${node.name}`,
+    path.call(print, 'parameters'),
+    node.anonymousKeyword ? ` ${node.anonymousKeyword}` : '',
+    node.semicolon
+  ]
 };

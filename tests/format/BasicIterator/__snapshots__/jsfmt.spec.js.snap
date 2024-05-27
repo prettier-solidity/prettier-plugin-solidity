@@ -54,8 +54,8 @@ contract BasicIterator {
 
 =====================================output=====================================
 contract BasicIterator {
-    address  creator;
-    uint8[10]  integers;
+    address creator;
+    uint8[10] integers;
     function BasicIterator() {
         creator = msg.sender;
         uint8 x = 0;

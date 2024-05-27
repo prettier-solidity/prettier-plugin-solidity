@@ -5,6 +5,9 @@ export const EventParameter = {
     indexedKeyword: ast.indexedKeyword?.text,
     name: ast.name?.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: EventParameter']
+  print: ({ node, path, print }) => [
+    path.call(print, 'typeName'),
+    node.indexedKeyword ? ` ${node.indexedKeyword}` : '',
+    node.name ? ` ${node.name}` : ''
+  ]
 };

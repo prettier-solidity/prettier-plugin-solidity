@@ -5,6 +5,9 @@ export const EventParametersDeclaration = {
     parameters: parse(ast.parameters, options, parse),
     closeParen: ast.closeParen.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: EventParametersDeclaration']
+  print: ({ node, path, print }) => [
+    node.openParen,
+    path.call(print, 'parameters'),
+    node.closeParen
+  ]
 };
