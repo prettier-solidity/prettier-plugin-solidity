@@ -9,7 +9,7 @@ export const ReturnStatement = {
   }),
   print: ({ node, path, print }) => [
     node.returnKeyword,
-    node.expression ? ` ${path.call(print, 'expression')}` : '',
+    node.expression ? [' ', path.call(print, 'expression')] : '',
     node.semicolon
   ]
 };

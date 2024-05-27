@@ -7,6 +7,9 @@ export const StructDefinition = {
     members: parse(ast.members, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: StructDefinition']
+  print: ({ node, path, print }) => [
+    `${node.structKeyword} ${node.name} ${node.openBrace}`,
+    path.call(print, 'members'),
+    node.closeBrace
+  ]
 };

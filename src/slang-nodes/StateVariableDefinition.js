@@ -9,10 +9,8 @@ export const StateVariableDefinition = {
   }),
   print: ({ node, path, print }) => [
     path.call(print, 'typeName'),
-    ' ',
     path.call(print, 'attributes'),
-    ' ',
-    node.name,
+    ` ${node.name}`,
     node.value ? path.call(print, 'value') : '',
     node.semicolon
   ]

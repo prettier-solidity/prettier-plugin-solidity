@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.7.0 <=0.8.5;
+// TODO: uncomment once NomicFoundation addresses Semver notations
+// https://github.com/NomicFoundation/slang/issues/986
+// pragma solidity >=0.7.0 <=0.8.5;
 
 contract BreakingChangesV080 {
     /**
