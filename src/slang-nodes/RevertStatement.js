@@ -6,6 +6,10 @@ export const RevertStatement = {
     arguments: parse(ast.arguments, options, parse),
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: RevertStatement']
+  print: ({ node, path, print }) => [
+    `${node.revertKeyword} `,
+    node.error ? path.call(print, 'error') : '',
+    path.call(print, 'arguments'),
+    node.semicolon
+  ]
 };

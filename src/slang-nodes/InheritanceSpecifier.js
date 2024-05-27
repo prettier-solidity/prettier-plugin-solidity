@@ -4,6 +4,8 @@ export const InheritanceSpecifier = {
     isKeyword: ast.isKeyword.text,
     types: parse(ast.types, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: InheritanceSpecifier']
+  print: ({ node, path, print }) => [
+    ` ${node.isKeyword}`,
+    path.call(print, 'types')
+  ]
 };

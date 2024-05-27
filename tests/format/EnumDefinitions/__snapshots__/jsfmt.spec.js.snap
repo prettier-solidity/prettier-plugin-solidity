@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EnumDefinitions.sol - {"bracketSpacing":true} format 1`] = `
+exports[`EnumDefinitions.sol format 1`] = `
 ====================================options=====================================
-bracketSpacing: true
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -36,9 +35,9 @@ contract EnumDefinitions {
 ================================================================================
 `;
 
-exports[`EnumDefinitions.sol format 1`] = `
+exports[`EnumDefinitions.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-parse"]
+parsers: ["solidity-slang-parse"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

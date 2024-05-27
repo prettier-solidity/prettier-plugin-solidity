@@ -4,6 +4,8 @@ export const InheritanceType = {
     typeName: parse(ast.typeName, options, parse),
     arguments: ast.arguments ? parse(ast.arguments, options, parse) : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: InheritanceType']
+  print: ({ node, path, print }) => [
+    path.call(print, 'typeName'),
+    node.arguments ? path.call(print, 'arguments') : ''
+  ]
 };

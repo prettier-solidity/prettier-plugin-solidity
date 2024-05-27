@@ -20,3 +20,24 @@ contract ContractDefinition is
 
 ================================================================================
 `;
+
+exports[`ContractDefinitions.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+contract ContractDefinition is Contract1, Contract2, Contract3, Contract4, Contract5 {
+}
+
+=====================================output=====================================
+contract ContractDefinition is
+    Contract1,
+    Contract2,
+    Contract3,
+    Contract4,
+    Contract5
+{}
+
+================================================================================
+`;
