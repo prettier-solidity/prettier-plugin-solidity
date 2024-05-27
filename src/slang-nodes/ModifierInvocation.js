@@ -4,6 +4,8 @@ export const ModifierInvocation = {
     name: parse(ast.name, options, parse),
     arguments: ast.arguments ? parse(ast.arguments, options, parse) : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: ModifierInvocation']
+  print: ({ node, path, print }) => [
+    path.call(print, 'name'),
+    node.arguments ? path.call(print, 'arguments') : ''
+  ]
 };

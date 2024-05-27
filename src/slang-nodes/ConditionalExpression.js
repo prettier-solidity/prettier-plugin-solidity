@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { group, indent, line } = doc.builders;
+
 export const ConditionalExpression = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -7,6 +11,16 @@ export const ConditionalExpression = {
     colon: ast.colon.text,
     falseExpression: parse(ast.falseExpression, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: ConditionalExpression']
+  print: ({ node, path, print }) =>
+    group([
+      path.call(print, 'operand'),
+      indent([
+        line,
+        `${node.questionMark} `,
+        path.call(print, 'trueExpression'),
+        line,
+        `${node.colon} `,
+        path.call(print, 'falseExpression')
+      ])
+    ])
 };

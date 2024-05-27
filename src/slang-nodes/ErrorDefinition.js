@@ -6,6 +6,9 @@ export const ErrorDefinition = {
     members: parse(ast.members, options, parse),
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: ErrorDefinition']
+  print: ({ node, path, print }) => [
+    `${node.errorKeyword} ${node.name}`,
+    path.call(print, 'members'),
+    node.semicolon
+  ]
 };

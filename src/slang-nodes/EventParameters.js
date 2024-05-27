@@ -7,5 +7,5 @@ export const EventParameters = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   print: ({ node, path, print }) =>
-    node.items?.length > 0 ? printSeparatedList(path.map(print, 'items')) : ''
+    node.items.length > 0 ? printSeparatedList(path.map(print, 'items')) : ''
 };

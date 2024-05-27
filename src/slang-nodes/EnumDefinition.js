@@ -7,6 +7,9 @@ export const EnumDefinition = {
     members: parse(ast.members, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: EmitStatement']
+  print: ({ node, path, print }) => [
+    `${node.enumKeyword} ${node.name} ${node.openBrace}`,
+    path.call(print, 'members'),
+    node.closeBrace
+  ]
 };

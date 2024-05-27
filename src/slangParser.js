@@ -12,8 +12,8 @@ function genericParse(ast, options, parseFunction) {
 
 function parse(text, _parsers, options = _parsers) {
   const compiler = coerce(options.compiler);
- 
-  const language = new Language( compiler?.version || '0.8.0');
+
+  const language = new Language(compiler?.version || '0.8.25');
   const parsed = new SourceUnit(
     language.parse(RuleKind.SourceUnit, text).tree()
   );

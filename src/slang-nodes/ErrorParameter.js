@@ -4,6 +4,8 @@ export const ErrorParameter = {
     typeName: parse(ast.typeName, options, parse),
     name: ast.name?.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: ErrorParameter']
+  print: ({ node, path, print }) => [
+    path.call(print, 'typeName'),
+    node.name ? ` ${node.name}` : ''
+  ]
 };
