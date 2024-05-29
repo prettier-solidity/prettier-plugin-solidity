@@ -10,5 +10,7 @@ export const TupleDeconstructionStatement = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['TODO: TupleDeconstructionStatement']
+  print: ({ node, path, print, options }) => [
+    'TODO: TupleDeconstructionStatement'
+  ]
 };

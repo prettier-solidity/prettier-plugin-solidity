@@ -4,5 +4,5 @@ export const YulLeaveStatement = {
     leaveKeyword: ast.leaveKeyword.text
   }),
   // TODO: implement print
-  print: () => ['TODO: YulLeaveStatement']
+  print: ({ node, path, print, options }) => ['TODO: YulLeaveStatement']
 };

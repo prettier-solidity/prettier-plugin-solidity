@@ -8,5 +8,5 @@ export const TryStatement = {
     catchClauses: parse(ast.catchClauses, options, parse)
   }),
   // TODO: implement print
-  print: () => ['TODO: TryStatement']
+  print: ({ node, path, print, options }) => ['TODO: TryStatement']
 };

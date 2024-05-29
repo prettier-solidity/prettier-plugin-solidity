@@ -4,5 +4,7 @@ export const TupleDeconstructionElement = {
     member: ast.member ? parse(ast.member, options, parse) : undefined
   }),
   // TODO: implement print
-  print: () => ['TODO: TupleDeconstructionElement']
+  print: ({ node, path, print, options }) => [
+    'TODO: TupleDeconstructionElement'
+  ]
 };

@@ -6,5 +6,5 @@ export const OverridePathsDeclaration = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['TODO: OverridePathsDeclaration']
+  print: ({ node, path, print, options }) => ['TODO: OverridePathsDeclaration']
 };

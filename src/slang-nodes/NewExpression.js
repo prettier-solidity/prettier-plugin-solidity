@@ -4,6 +4,8 @@ export const NewExpression = {
     newKeyword: ast.newKeyword.text,
     typeName: parse(ast.typeName, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: NewExpression']
+  print: ({ node, path, print }) => [
+    `${node.newKeyword} `,
+    path.call(print, 'typeName')
+  ]
 };

@@ -5,5 +5,5 @@ export const BreakStatement = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['TODO: BreakStatement']
+  print: ({ node, path, print, options }) => ['TODO: BreakStatement']
 };

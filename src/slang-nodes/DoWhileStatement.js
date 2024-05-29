@@ -10,5 +10,5 @@ export const DoWhileStatement = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['TODO: DoWhileStatement']
+  print: ({ node, path, print, options }) => ['TODO: DoWhileStatement']
 };

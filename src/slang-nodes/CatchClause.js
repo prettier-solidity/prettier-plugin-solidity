@@ -6,5 +6,5 @@ export const CatchClause = {
     body: parse(ast.body, options, parse)
   }),
   // TODO: implement print
-  print: () => ['TODO: CatchClause']
+  print: ({ node, path, print, options }) => ['TODO: CatchClause']
 };

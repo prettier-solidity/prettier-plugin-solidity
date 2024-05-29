@@ -5,5 +5,7 @@ export const TupleDeconstructionElements = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   // TODO: implement print
-  print: () => ['TODO: TupleDeconstructionElements']
+  print: ({ node, path, print, options }) => [
+    'TODO: TupleDeconstructionElements'
+  ]
 };

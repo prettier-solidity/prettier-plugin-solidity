@@ -4,5 +4,5 @@ export const UnicodeStringLiterals = {
     items: ast.items.map((item) => parse(item, options, parse))
   }),
   // TODO: implement print
-  print: () => ['TODO: UnicodeStringLiterals']
+  print: ({ node, path, print, options }) => ['TODO: UnicodeStringLiterals']
 };

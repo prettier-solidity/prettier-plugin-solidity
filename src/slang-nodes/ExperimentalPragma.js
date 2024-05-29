@@ -5,5 +5,5 @@ export const ExperimentalPragma = {
     feature: ast.feature
   }),
   // TODO: implement print
-  print: () => ['TODO: ExperimentalPragma']
+  print: ({ node, path, print, options }) => ['TODO: ExperimentalPragma']
 };

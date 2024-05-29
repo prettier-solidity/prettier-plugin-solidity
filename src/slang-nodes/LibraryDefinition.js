@@ -8,5 +8,5 @@ export const LibraryDefinition = {
     closeBrace: ast.closeBrace.text
   }),
   // TODO: implement print
-  print: () => ['TODO: LibraryDefinition']
+  print: ({ node, path, print, options }) => ['TODO: LibraryDefinition']
 };

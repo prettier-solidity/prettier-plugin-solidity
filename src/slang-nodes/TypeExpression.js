@@ -7,5 +7,5 @@ export const TypeExpression = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['TODO: TypeExpression']
+  print: ({ node, path, print, options }) => ['TODO: TypeExpression']
 };
