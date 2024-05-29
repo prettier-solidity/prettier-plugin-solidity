@@ -1,7 +1,3 @@
-import { doc } from 'prettier';
-
-const { hardline, indent } = doc.builders;
-
 export const Block = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -11,8 +7,7 @@ export const Block = {
   }),
   print: ({ node, path, print }) => [
     node.openBrace,
-    indent([hardline, path.call(print, 'statements')]),
-    hardline,
+    path.call(print, 'statements'),
     node.closeBrace
   ]
 };

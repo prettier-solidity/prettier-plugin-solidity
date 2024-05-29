@@ -6,6 +6,8 @@ export const OverrideSpecifier = {
       ? parse(ast.overridden, options, parse)
       : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: OverrideSpecifier']
+  print: ({ node, path, print }) => [
+    node.overrideKeyword,
+    node.overridden ? path.call(print, 'overridden') : ''
+  ]
 };

@@ -1,8 +1,12 @@
+import { doc } from 'prettier';
+
+const { line } = doc.builders;
+
 export const FallbackFunctionAttributes = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
     items: ast.items.map((item) => parse(item, options, parse))
   }),
-  // TODO: implement print
-  print: () => ['TODO: FallbackFunctionAttributes']
+  print: ({ path, print }) =>
+    path.map(print, 'items').map((item) => [line, item])
 };

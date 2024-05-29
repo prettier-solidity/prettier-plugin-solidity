@@ -5,6 +5,9 @@ export const MultiplicativeExpression = {
     operator: ast.operator.text,
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: MultiplicativeExpression']
+  print: ({ node, path, print }) => [
+    path.call(print, 'leftOperand'),
+    ` ${node.operator} `,
+    path.call(print, 'rightOperand')
+  ]
 };

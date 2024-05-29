@@ -5,6 +5,11 @@ export const AndExpression = {
     operator: ast.operator.text,
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: AndExpression']
+  print: ({ node, path, print }) => [
+    path.call(print, 'leftOperand'),
+    ' ',
+    node.operator,
+    ' ',
+    path.call(print, 'rightOperand')
+  ]
 };
