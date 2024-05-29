@@ -9,8 +9,12 @@ export const TupleDeconstructionStatement = {
     expression: parse(ast.expression, options, parse),
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => [
-    'TODO: TupleDeconstructionStatement'
+  print: ({ node, path, print }) => [
+    node.varKeyword ? node.varKeyword : '',
+    node.openParen,
+    path.call(print, 'elements'),
+    `${node.closeParen} ${node.equal} `,
+    path.call(print, 'expression'),
+    node.semicolon
   ]
 };

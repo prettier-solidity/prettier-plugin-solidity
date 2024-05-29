@@ -7,8 +7,9 @@ export const UserDefinedValueTypeDefinition = {
     valueType: parse(ast.valueType, options, parse),
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => [
-    'TODO: UserDefinedValueTypeDefinition'
+  print: ({ node, path, print }) => [
+    `${node.typeKeyword} ${node.name} ${node.isKeyword} `,
+    path.call(print, 'valueType'),
+    node.semicolon
   ]
 };
