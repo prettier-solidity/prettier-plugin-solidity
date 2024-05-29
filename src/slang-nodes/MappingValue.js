@@ -4,6 +4,8 @@ export const MappingValue = {
     typeName: parse(ast.typeName, options, parse),
     name: ast.name?.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: MappingValue']
+  print: ({ node, path, print }) => [
+    path.call(print, 'typeName'),
+    node.name ? ` ${node.name}` : ''
+  ]
 };

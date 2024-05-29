@@ -4,6 +4,9 @@ export const CatchClauseError = {
     name: ast.name?.text,
     parameters: parse(ast.parameters, options, parse)
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: CatchClauseError']
+  print: ({ node, path, print }) => [
+    node.name ? node.name : '',
+    path.call(print, 'parameters'),
+    ' '
+  ]
 };

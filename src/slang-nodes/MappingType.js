@@ -8,6 +8,11 @@ export const MappingType = {
     valueType: parse(ast.valueType, options, parse),
     closeParen: ast.closeParen.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: MappingType']
+  print: ({ node, path, print }) => [
+    `${node.mappingKeyword}${node.openParen}`,
+    path.call(print, 'keyType'),
+    ` ${node.equalGreaterThan} `,
+    path.call(print, 'valueType'),
+    node.closeParen
+  ]
 };

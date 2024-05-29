@@ -5,6 +5,9 @@ export const NamedArgumentGroup = {
     arguments: parse(ast.arguments, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: NamedArgumentGroup']
+  print: ({ node, path, print }) => [
+    node.openBrace,
+    path.call(print, 'arguments'),
+    node.closeBrace
+  ]
 };

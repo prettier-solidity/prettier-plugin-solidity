@@ -1,8 +1,11 @@
+import { doc } from 'prettier';
+
+const { group, join, line } = doc.builders;
+
 export const UnicodeStringLiterals = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
     items: ast.items.map((item) => parse(item, options, parse))
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: UnicodeStringLiterals']
+  print: ({ path, print }) => group(join(line, path.map(print, 'items')))
 };

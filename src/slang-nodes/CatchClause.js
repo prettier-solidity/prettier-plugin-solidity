@@ -5,6 +5,9 @@ export const CatchClause = {
     error: ast.error ? parse(ast.error, options, parse) : undefined,
     body: parse(ast.body, options, parse)
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: CatchClause']
+  print: ({ node, path, print }) => [
+    node.catchKeyword,
+    node.error ? [' ', path.call(print, 'error')] : '',
+    path.call(print, 'body')
+  ]
 };

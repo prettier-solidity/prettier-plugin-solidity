@@ -1,7 +1,9 @@
 export const UnicodeStringLiteral = {
-  parse: ({ ast }) => ({
+  parse: ({ ast, options }) => ({
     kind: ast.cst.kind,
-    variant: ast.variant.text
+    variant: options.singleQuote
+      ? `unicode'${ast.variant.text.slice(8, -1)}'`
+      : `unicode"${ast.variant.text.slice(8, -1)}"`
   }),
   print: ({ node }) => node.variant
 };
