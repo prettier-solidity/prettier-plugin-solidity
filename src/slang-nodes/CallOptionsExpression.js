@@ -6,6 +6,10 @@ export const CallOptionsExpression = {
     options: parse(ast.options, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: CallOptionsExpression']
+  print: ({ node, path, print }) => [
+    path.call(print, 'operand'),
+    node.openBrace,
+    path.call(print, 'options'),
+    node.closeBrace
+  ]
 };

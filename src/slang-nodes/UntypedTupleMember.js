@@ -7,5 +7,7 @@ export const UntypedTupleMember = {
     name: ast.name.text
   }),
   // TODO: implement print
-  print: () => ['TODO: UntypedTupleMemberUntypedTupleMember']
+  print: ({ node, path, print, options }) => [
+    'TODO: UntypedTupleMemberUntypedTupleMember'
+  ]
 };

@@ -5,5 +5,5 @@ export const ContinueStatement = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['TODO: ContinueStatement']
+  print: ({ node, path, print, options }) => ['TODO: ContinueStatement']
 };

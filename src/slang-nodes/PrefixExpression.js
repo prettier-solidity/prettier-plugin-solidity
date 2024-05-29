@@ -5,5 +5,5 @@ export const PrefixExpression = {
     operand: parse(ast.operand, options, parse)
   }),
   // TODO: implement print
-  print: () => ['TODO: PrefixExpression']
+  print: ({ node, path, print, options }) => ['TODO: PrefixExpression']
 };

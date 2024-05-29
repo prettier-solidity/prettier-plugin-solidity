@@ -5,5 +5,5 @@ export const YulColonAndEqual = {
     equal: ast.equal.text
   }),
   // TODO: implement print
-  print: () => ['TODO: YulColonAndEqual']
+  print: ({ node, path, print, options }) => ['TODO: YulColonAndEqual']
 };

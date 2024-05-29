@@ -9,5 +9,5 @@ export const ConstantDefinition = {
     semicolon: ast.semicolon.text
   }),
   // TODO: implement print
-  print: () => ['TODO: ConstantDefinition']
+  print: ({ node, path, print, options }) => ['TODO: ConstantDefinition']
 };

@@ -5,5 +5,5 @@ export const ABICoderPragma = {
     version: ast.version.text
   }),
   // TODO: implement print
-  print: () => ['TODO: ABICoderPragma']
+  print: ({ node, path, print, options }) => ['TODO: ABICoderPragma']
 };

@@ -5,5 +5,5 @@ export const UncheckedBlock = {
     block: parse(ast.block, options, parse)
   }),
   // TODO: implement print
-  print: () => ['TODO: UncheckedBlock']
+  print: ({ node, path, print, options }) => ['TODO: UncheckedBlock']
 };

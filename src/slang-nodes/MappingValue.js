@@ -5,5 +5,5 @@ export const MappingValue = {
     name: ast.name?.text
   }),
   // TODO: implement print
-  print: () => ['TODO: MappingValue']
+  print: ({ node, path, print, options }) => ['TODO: MappingValue']
 };

@@ -6,5 +6,5 @@ export const NamedArgumentsDeclaration = {
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print
-  print: () => ['TODO: NamedArgumentsDeclaration']
+  print: ({ node, path, print, options }) => ['TODO: NamedArgumentsDeclaration']
 };

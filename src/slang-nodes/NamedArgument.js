@@ -5,6 +5,8 @@ export const NamedArgument = {
     colon: ast.colon.text,
     value: parse(ast.value, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: NamedArgument']
+  print: ({ node, path, print }) => [
+    `${node.name}${node.colon} `,
+    path.call(print, 'value')
+  ]
 };

@@ -37,3 +37,39 @@ contract NumberLiteral {
 
 ================================================================================
 `;
+
+exports[`NumberLiteral.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.25;
+
+contract NumberLiteral {
+  function numbers()public {
+  2 ether;
+  5 days;
+  2.3e5;
+  1000000e-2;
+    .1;
+  1_000_000;
+  }
+}
+
+=====================================output=====================================
+pragma solidity 0.8.25;
+contract NumberLiteral {
+    function numbers() public {
+        2 ether;
+        5 days;
+        2.3e5;
+        1000000e-2;
+        .1;
+        1_000_000;
+    }
+}
+
+================================================================================
+`;

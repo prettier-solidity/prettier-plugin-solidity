@@ -6,6 +6,6 @@ export const DecimalNumberExpression = {
   }),
   print: ({ node, path, print }) => [
     node.literal,
-    node.unit ? path.call(print, 'unit') : ''
+    node.unit ? [' ', path.call(print, 'unit')] : ''
   ]
 };

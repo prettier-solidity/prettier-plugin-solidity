@@ -5,5 +5,5 @@ export const CatchClauseError = {
     parameters: parse(ast.parameters, options, parse)
   }),
   // TODO: implement print
-  print: () => ['TODO: CatchClauseError']
+  print: ({ node, path, print, options }) => ['TODO: CatchClauseError']
 };

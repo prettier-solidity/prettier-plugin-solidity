@@ -5,5 +5,5 @@ export const UsingAlias = {
     operator: parse(ast.operator, options, parse)
   }),
   // TODO: implement print
-  print: () => ['TODO: UsingAlias']
+  print: ({ node, path, print, options }) => ['TODO: UsingAlias']
 };
