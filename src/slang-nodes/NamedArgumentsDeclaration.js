@@ -5,6 +5,9 @@ export const NamedArgumentsDeclaration = {
     arguments: ast.arguments ? parse(ast.arguments, options, parse) : undefined,
     closeParen: ast.closeParen.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: NamedArgumentsDeclaration']
+  print: ({ node, path, print }) => [
+    node.openParen,
+    node.arguments ? path.call(print, 'arguments') : '',
+    node.closeParen
+  ]
 };

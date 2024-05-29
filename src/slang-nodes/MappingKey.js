@@ -4,6 +4,8 @@ export const MappingKey = {
     keyType: parse(ast.keyType, options, parse),
     name: ast.name?.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: MappingKey']
+  print: ({ node, path, print }) => [
+    path.call(print, 'keyType'),
+    node.name ? ` ${node.name}` : ''
+  ]
 };
