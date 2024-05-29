@@ -55,3 +55,55 @@ contract HexLiteral {
 
 ================================================================================
 `;
+
+exports[`HexLiteral.sol - {"compiler":"0.8.25","singleQuote":false} format 1`] = `
+====================================options=====================================
+compiler: "0.8.25"
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.25;
+
+contract HexLiteral {
+  bytes8 hex1 = hex'DeadBeef';
+  bytes8 hex2 = hex"DeadBeef";
+}
+
+=====================================output=====================================
+pragma solidity 0.8.25;
+contract HexLiteral {
+    bytes8 hex1 = hex"DeadBeef";
+    bytes8 hex2 = hex"DeadBeef";
+}
+
+================================================================================
+`;
+
+exports[`HexLiteral.sol - {"compiler":"0.8.25","singleQuote":true} format 1`] = `
+====================================options=====================================
+compiler: "0.8.25"
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.25;
+
+contract HexLiteral {
+  bytes8 hex1 = hex'DeadBeef';
+  bytes8 hex2 = hex"DeadBeef";
+}
+
+=====================================output=====================================
+pragma solidity 0.8.25;
+contract HexLiteral {
+    bytes8 hex1 = hex'DeadBeef';
+    bytes8 hex2 = hex'DeadBeef';
+}
+
+================================================================================
+`;

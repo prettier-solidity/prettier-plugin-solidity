@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { group, line } = doc.builders;
+
 export const InterfaceDefinition = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -10,6 +14,13 @@ export const InterfaceDefinition = {
     members: parse(ast.members, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: InterfaceDefinition']
+  print: ({ node, path, print }) => [
+    group([
+      `${node.interfaceKeyword} ${node.name}`,
+      node.inheritance ? path.call(print, 'inheritance') : line,
+      node.openBrace
+    ]),
+    path.call(print, 'members'),
+    node.closeBrace
+  ]
 };
