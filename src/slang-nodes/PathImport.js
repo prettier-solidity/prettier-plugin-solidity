@@ -4,6 +4,8 @@ export const PathImport = {
     path: parse(ast.path, options, parse),
     alias: ast.alias ? parse(ast.alias, options, parse) : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: PathImport']
+  print: ({ node, path, print }) => [
+    path.call(print, 'path'),
+    node.alias ? path.call(print, 'alias') : ''
+  ]
 };

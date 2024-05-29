@@ -16,7 +16,7 @@ export const UsingDirective = {
     node.forKeyword,
     ' ',
     path.call(print, 'target'),
-    node.globalKeyword ? node.globalKeyword : '',
+    node.globalKeyword ? ` ${node.globalKeyword}` : '',
     node.semicolon
   ]
 };
