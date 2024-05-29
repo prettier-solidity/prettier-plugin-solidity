@@ -4,6 +4,8 @@ export const HexNumberExpression = {
     literal: ast.literal.text,
     unit: ast.unit ? parse(ast.unit, options, parse) : undefined
   }),
-  // TODO: implement print
-  print: () => ['TODO: HexNumberExpression']
+  print: ({ node, path, print }) => [
+    node.literal,
+    node.unit ? path.call(print, 'unit') : ''
+  ]
 };

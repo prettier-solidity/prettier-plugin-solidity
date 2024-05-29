@@ -6,6 +6,10 @@ export const NamedImport = {
     fromKeyword: ast.fromKeyword.text,
     path: parse(ast.path, options, parse)
   }),
-  // TODO: implement print
-  print: () => ['TODO: NamedImport']
+  print: ({ node, path, print }) => [
+    node.asterisk,
+    path.call(print, 'alias'),
+    ` ${node.fromKeyword} `,
+    path.call(print, 'path')
+  ]
 };

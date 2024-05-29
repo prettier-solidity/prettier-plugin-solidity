@@ -5,6 +5,9 @@ export const UsingDeconstruction = {
     symbols: parse(ast.symbols, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  // TODO: implement print
-  print: () => ['TODO: UsingDeconstruction']
+  print: ({ node, path, print }) => [
+    node.openBrace,
+    path.call(print, 'symbols'),
+    node.closeBrace
+  ]
 };
