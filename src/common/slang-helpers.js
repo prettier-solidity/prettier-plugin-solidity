@@ -10,7 +10,7 @@ export const printFunction = (functionName, node, path, print) => [
       group([
         path.call(print, 'attributes'),
         node.returns ? [line, path.call(print, 'returns')] : '',
-        dedent(line)
+        node.body.variant !== ';' ? dedent(line) : ''
       ])
     )
   ]),
