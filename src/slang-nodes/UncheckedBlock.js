@@ -4,6 +4,8 @@ export const UncheckedBlock = {
     uncheckedKeyword: ast.uncheckedKeyword.text,
     block: parse(ast.block, options, parse)
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: UncheckedBlock']
+  print: ({ node, path, print }) => [
+    `${node.uncheckedKeyword} `,
+    path.call(print, 'block')
+  ]
 };

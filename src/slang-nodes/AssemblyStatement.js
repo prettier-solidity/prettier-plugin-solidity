@@ -9,7 +9,8 @@ export const AssemblyStatement = {
   print: ({ node, path, print }) => [
     node.assemblyKeyword,
     node.label ? [' ', path.call(print, 'label')] : '',
-    node.flags ? [' ', path.call(print, 'flags'), ' '] : ' ',
+    node.flags ? [' ', path.call(print, 'flags')] : '',
+    ' ',
     path.call(print, 'body')
   ]
 };
