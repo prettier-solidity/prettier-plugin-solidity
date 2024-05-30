@@ -1,7 +1,9 @@
+import { printString } from '../common/util.js';
+
 export const StringLiteral = {
-  parse: ({ ast }) => ({
+  parse: ({ ast, options }) => ({
     kind: ast.cst.kind,
-    variant: ast.variant.text
+    variant: printString(ast.variant.text.slice(1, -1), options)
   }),
   print: ({ node }) => node.variant
 };
