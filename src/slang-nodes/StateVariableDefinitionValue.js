@@ -1,13 +1,15 @@
+import { doc } from 'prettier';
+
+const { group, indent, line } = doc.builders;
+
 export const StateVariableDefinitionValue = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
     equal: ast.equal.text,
     value: parse(ast.value, options, parse)
   }),
-  print: ({ node, path, print }) => [
-    ' ',
-    node.equal,
-    ' ',
-    path.call(print, 'value')
-  ]
+  print: ({ node, path, print }) =>
+    node.value.variant.kind === 'ArrayExpression'
+      ? [` ${node.equal} `, path.call(print, 'value')]
+      : group([` ${node.equal}`, indent([line, path.call(print, 'value')])])
 };
