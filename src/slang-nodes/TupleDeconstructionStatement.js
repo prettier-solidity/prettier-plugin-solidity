@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { group, indent, line } = doc.builders;
+
 export const TupleDeconstructionStatement = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -13,8 +17,11 @@ export const TupleDeconstructionStatement = {
     node.varKeyword ? node.varKeyword : '',
     node.openParen,
     path.call(print, 'elements'),
-    `${node.closeParen} ${node.equal} `,
-    path.call(print, 'expression'),
-    node.semicolon
+    node.expression.variant.kind === 'TupleExpression'
+      ? [`${node.closeParen} ${node.equal} `, path.call(print, 'expression')]
+      : group([
+          `${node.closeParen} ${node.equal}`,
+          indent([line, path.call(print, 'expression'), node.semicolon])
+        ])
   ]
 };
