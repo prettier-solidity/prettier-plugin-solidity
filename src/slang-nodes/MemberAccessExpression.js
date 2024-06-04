@@ -4,19 +4,16 @@ import { isLabel } from '../common/util.js';
 const { group, indent, label, softline } = doc.builders;
 
 const isEndOfChain = (node, path) => {
-  let i = 0;
-  let currentNode = node;
-  let parentNode = path.getParentNode(i);
-  while (
-    parentNode &&
+  for (
+    let i = 0, currentNode = node, grandparentNode = path.getNode(i + 2);
     [
-      'Expression',
       'FunctionCallExpression',
       'IndexAccessExpression',
       'MemberAccessExpression'
-    ].includes(parentNode.kind)
+    ].includes(grandparentNode.kind);
+    i += 2, currentNode = grandparentNode, grandparentNode = path.getNode(i + 2)
   ) {
-    switch (parentNode.kind) {
+    switch (grandparentNode.kind) {
       case 'MemberAccessExpression':
         // If direct ParentNode is a MemberAccess we are not at the end of the
         // chain.
@@ -26,23 +23,19 @@ const isEndOfChain = (node, path) => {
         // If direct ParentNode is an IndexAccess and currentNode is not the
         // operand then it must be the start or the end in which case it is the
         // end of the chain.
-        if (currentNode !== parentNode.operand) return true;
+        if (currentNode !== grandparentNode.operand.variant) return true;
         break;
 
       case 'FunctionCallExpression':
         // If direct ParentNode is a FunctionCall and currentNode is not the
         // operand then it must be and argument in which case it is the end
         // of the chain.
-        if (currentNode !== parentNode.operand) return true;
+        if (currentNode !== grandparentNode.operand.variant) return true;
         break;
 
       default:
         break;
     }
-
-    i += 1;
-    currentNode = parentNode;
-    parentNode = path.getParentNode(i);
   }
   return true;
 };
@@ -97,14 +90,15 @@ const processChain = (chain) => {
   const firstSeparatorIndex = chain.findIndex(
     (element) => isLabel(element) && element.label === 'separator'
   );
-  // The doc[] before the first separator
-  const firstExpression = chain.slice(0, firstSeparatorIndex);
-  // The doc[] containing the rest of the chain
-  const restOfChain = group(indent(chain.slice(firstSeparatorIndex)));
 
   // We wrap the expression in a label in case there is an IndexAccess or
   // a FunctionCall following this MemberAccess.
-  return label('MemberAccessChain', group([firstExpression, restOfChain]));
+  return label('MemberAccessChain', [
+    // The doc[] before the first separator
+    chain.slice(0, firstSeparatorIndex),
+    // The doc[] containing the rest of the chain
+    group(indent(chain.slice(firstSeparatorIndex)))
+  ]);
 };
 
 export const MemberAccessExpression = {

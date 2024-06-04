@@ -18,7 +18,7 @@ export const FunctionCallExpression = {
     // arguments accordingly.
     if (isLabel(operandDoc) && operandDoc.label === 'MemberAccessChain') {
       operandDoc = group(operandDoc.contents, {
-        id: `FunctionCall.expression-${groupIndex}`
+        id: `FunctionCallExpression.operand-${groupIndex}`
       });
 
       groupIndex += 1;
@@ -31,6 +31,6 @@ export const FunctionCallExpression = {
       return label('MemberAccessChain', [operandDoc, argumentsDoc]);
     }
 
-    return [operandDoc, argumentsDoc];
+    return [operandDoc, argumentsDoc].flat();
   }
 };

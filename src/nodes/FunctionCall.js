@@ -55,6 +55,6 @@ export const FunctionCall = {
       return label('MemberAccessChain', [expressionDoc, '(', argumentsDoc]);
     }
 
-    return [expressionDoc, '(', argumentsDoc];
+    return [expressionDoc, '(', argumentsDoc].flat();
   }
 };
