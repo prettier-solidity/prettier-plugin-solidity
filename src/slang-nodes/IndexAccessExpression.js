@@ -30,7 +30,7 @@ export const IndexAccessExpression = {
     // arguments accordingly.
     if (isLabel(operandDoc) && operandDoc.label === 'MemberAccessChain') {
       operandDoc = group(operandDoc.contents, {
-        id: `IndexAccess.base-${groupIndex}`
+        id: `IndexAccessExpression.operand-${groupIndex}`
       });
 
       groupIndex += 1;
@@ -43,6 +43,6 @@ export const IndexAccessExpression = {
       return label('MemberAccessChain', [operandDoc, indexDoc]);
     }
 
-    return [operandDoc, indexDoc];
+    return [operandDoc, indexDoc].flat();
   }
 };

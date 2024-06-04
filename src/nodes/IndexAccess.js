@@ -29,6 +29,6 @@ export const IndexAccess = {
       return label('MemberAccessChain', [baseDoc, '[', indexDoc]);
     }
 
-    return [baseDoc, '[', indexDoc];
+    return [baseDoc, '[', indexDoc].flat();
   }
 };
