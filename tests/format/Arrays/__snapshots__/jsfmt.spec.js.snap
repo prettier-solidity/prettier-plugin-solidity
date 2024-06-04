@@ -104,8 +104,10 @@ contract Arrays {
         bytes32("removePermissionFromGroup")
     ];
     function a() {
-        Outcome.OutcomeItem[] memory outcomeFrom =
-            abi.decode(fromPart.outcome, (Outcome.OutcomeItem[]));
+        Outcome.OutcomeItem[] memory outcomeFrom = abi.decode(
+            fromPart.outcome,
+            (Outcome.OutcomeItem[])
+        );
     }
 }
 contract ArraySlices {

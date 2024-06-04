@@ -36,7 +36,7 @@ const experimentalTernaries = (node, path, print, options) => {
 
   const conditionAndTrueExpressionGroup = group(
     [operandDoc, trueExpressionDoc],
-    { id: `Conditional.trueExpressionDoc-${groupIndex}` }
+    { id: Symbol(`Slang.ConditionalExpression.trueExpression-${groupIndex}`) }
   );
 
   groupIndex += 1;
