@@ -1,3 +1,5 @@
+import { logicalOperationPrint } from '../common/slang-helpers.js';
+
 export const OrExpression = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -5,6 +7,5 @@ export const OrExpression = {
     operator: ast.operator.text,
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: OrExpression']
+  print: logicalOperationPrint
 };

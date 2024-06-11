@@ -1,3 +1,8 @@
+import { doc } from 'prettier';
+import { rightOperandPrint } from '../common/slang-helpers.js';
+
+const { group, indent } = doc.builders;
+
 export const ExponentiationExpression = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -5,9 +10,10 @@ export const ExponentiationExpression = {
     operator: ast.operator.text,
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'leftOperand'),
-    node.operator,
-    path.call(print, 'rightOperand')
-  ]
+  print: ({ node, path, print }) =>
+    group([
+      path.call(print, 'leftOperand'),
+      ` ${node.operator}`,
+      indent(rightOperandPrint(node, path, print))
+    ])
 };
