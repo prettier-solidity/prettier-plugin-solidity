@@ -1,3 +1,8 @@
+import { doc } from 'prettier';
+import { binaryOperationKinds } from '../common/slang-helpers.js';
+
+const { group, indent, line } = doc.builders;
+
 export const AssignmentExpression = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -7,7 +12,9 @@ export const AssignmentExpression = {
   }),
   print: ({ node, path, print }) => [
     path.call(print, 'leftOperand'),
-    ` ${node.operator} `,
-    path.call(print, 'rightOperand')
+    ` ${node.operator}`,
+    binaryOperationKinds.includes(node.rightOperand.variant.kind)
+      ? group(indent([line, path.call(print, 'rightOperand')]))
+      : [' ', path.call(print, 'rightOperand')]
   ]
 };

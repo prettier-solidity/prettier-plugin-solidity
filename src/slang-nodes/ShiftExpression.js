@@ -1,3 +1,5 @@
+import { binaryOperationPrint } from '../common/slang-helpers.js';
+
 export const ShiftExpression = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -5,6 +7,5 @@ export const ShiftExpression = {
     operator: ast.operator.text,
     rightOperand: parse(ast.rightOperand, options, parse)
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: ShiftExpression']
+  print: binaryOperationPrint
 };
