@@ -2,8 +2,8 @@ import {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment
-} from '../prettier-comments/language-js/comments.js';
-import handlers from './handlers/index.js';
+} from '../prettier-comments/language-js/comments.ts';
+import handlers from './handlers/index.ts';
 
 export function solidityHandleOwnLineComment(
   comment,
@@ -18,13 +18,12 @@ export function solidityHandleOwnLineComment(
     precedingNode,
     enclosingNode,
     followingNode,
-    comment,
-    options
+    comment
   };
 
   if (
     handlers.some((handler) => handler(handlerArguments)) ||
-    handleOwnLineComment(comment, text, options, ast, isLastComment)
+    handleOwnLineComment(comment, text, ast, isLastComment)
   ) {
     return true;
   }
@@ -44,13 +43,12 @@ export function solidityHandleEndOfLineComment(
     precedingNode,
     enclosingNode,
     followingNode,
-    comment,
-    options
+    comment
   };
 
   if (
     handlers.some((handler) => handler(handlerArguments)) ||
-    handleEndOfLineComment(comment, text, options, ast, isLastComment)
+    handleEndOfLineComment(comment, text, ast, isLastComment)
   ) {
     return true;
   }
@@ -70,13 +68,12 @@ export function solidityHandleRemainingComment(
     precedingNode,
     enclosingNode,
     followingNode,
-    comment,
-    options
+    comment
   };
 
   if (
     handlers.some((handler) => handler(handlerArguments)) ||
-    handleRemainingComment(comment, text, options, ast, isLastComment)
+    handleRemainingComment(comment, text, ast, isLastComment)
   ) {
     return true;
   }
@@ -85,4 +82,16 @@ export function solidityHandleRemainingComment(
 
 export function isBlockComment(comment) {
   return comment.type === 'BlockComment';
+}
+
+function isNodeOrComment(node) {
+  return node.type !== undefined;
+}
+
+export function canAttachComment(node) {
+  return (
+    isNodeOrComment(node) &&
+    !isBlockComment(node) &&
+    node.type !== 'LineComment'
+  );
 }

@@ -1,5 +1,5 @@
-import * as binaryOperatorPrinters from '../../../src/binary-operator-printers/index.js';
+import * as printers from '../../../src/binary-operator-printers/index.js';
 
 test('binary operators printers to match snapshot', () => {
-  expect(Object.keys(binaryOperatorPrinters)).toMatchSnapshot();
+  expect(Object.keys(printers)).toMatchSnapshot();
 });

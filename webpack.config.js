@@ -27,6 +27,22 @@ export default (webpackEnv) => {
     bail: isEnvProduction,
     devtool: 'source-map',
 
+    resolve: {
+      extensions: ['.ts', '.js'],
+      extensionAlias: {
+        '.js': ['.js', '.ts']
+      }
+    },
+
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          use: 'ts-loader',
+          exclude: /node_modules/
+        }
+      ]
+    },
     optimization: {
       minimize: isEnvProduction
     },

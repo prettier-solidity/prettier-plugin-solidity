@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { printSeparatedList } from '../common/printer-helpers.js';
+import { printSeparatedList } from '../common/printer-helpers.ts';
 
 const { group, indent, line } = doc.builders;
 

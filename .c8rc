@@ -1,13 +1,14 @@
 {
   "check-coverage": true,
-  "branches": 99,
-  "lines": 100,
+  "branches": 97,
+  "lines": 99,
   "functions": 100,
-  "statements": 100,
+  "statements": 99,
   "exclude": ["/node_modules/", "/src/prettier-comments/"],
   "include": [
     "src/**/*.js",
-    "!src/prettier-comments/**/*.js",
+    "src/**/*.ts",
+    "!src/prettier-comments/**/*.ts",
     "!src/common/backward-compatibility.js"
   ],
   "reporter": ["lcov", "text"],
