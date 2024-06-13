@@ -2,7 +2,7 @@ export const VariableDeclarationType = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
     variant:
-      ast.variant.type === 'Token'
+      ast.variant.type === 'Terminal'
         ? ast.variant.text
         : parse(ast.variant, options, parse)
   }),

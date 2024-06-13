@@ -209,5 +209,6 @@ export * from './YulSwitchCase.js';
 export * from './YulSwitchCases.js';
 export * from './YulSwitchStatement.js';
 export * from './YulValueCase.js';
+export * from './YulVariableAssignmentStatement.js';
 export * from './YulVariableDeclarationStatement.js';
 export * from './YulVariableDeclarationValue.js';
