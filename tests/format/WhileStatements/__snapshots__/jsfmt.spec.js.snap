@@ -169,12 +169,10 @@ contract WhileStatements {
         while(a < 400){
             a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(LONG_VARIABLE);
         }
-        while(a < veryLongVariableName.add(LONG_VARIABLE).add(
-            LONG_VARIABLE
-        ) * 500)a++;
-        while(a < veryLongVariableName.add(LONG_VARIABLE).add(
-            LONG_VARIABLE
-        ) * 600){
+        while(a <
+        veryLongVariableName.add(LONG_VARIABLE).add(LONG_VARIABLE) * 500)a++;
+        while(a <
+        veryLongVariableName.add(LONG_VARIABLE).add(LONG_VARIABLE) * 600){
             a++;
         }
     }

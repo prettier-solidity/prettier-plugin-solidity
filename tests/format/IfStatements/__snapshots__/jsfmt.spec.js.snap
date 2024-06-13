@@ -948,40 +948,40 @@ contract IfStatements {
             return false;
         }
         if (
-            veryComplicatedComputation(variable1, variable2) == (
-                400 + 500
-            ) * 1000
+            veryComplicatedComputation(variable1, variable2) ==
+            (400 + 500) *
+            1000
         ) {
             return true;
         }
         if (simpleIf) {
             return true;
         } else if (
-            veryComplicatedComputation(variable3, variable4) == (
-                400 + 500
-            ) * 1000
+            veryComplicatedComputation(variable3, variable4) ==
+            (400 + 500) *
+            1000
         ) {
             return (true, false);
         } else return false;
         if (
-            veryComplicatedComputation(variable1, variable2) == (
-                400 + 500
-            ) * 1000
+            veryComplicatedComputation(variable1, variable2) ==
+            (400 + 500) *
+            1000
         ) {
             return true;
         } else if (simpleElseIf) {
             return (true, false);
         } else return false;
         if (
-            veryComplicatedComputation(variable1, variable2) == (
-                400 + 500
-            ) * 1000
+            veryComplicatedComputation(variable1, variable2) ==
+            (400 + 500) *
+            1000
         ) {
             return true;
         } else if (
-            veryComplicatedComputation(variable3, variable4) == (
-                400 + 500
-            ) * 1000
+            veryComplicatedComputation(variable3, variable4) ==
+            (400 + 500) *
+            1000
         ) {
             return (true, false);
         } else return false;

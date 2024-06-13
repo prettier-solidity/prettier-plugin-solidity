@@ -146,7 +146,7 @@ contract BreakingChangesV080 {
 
 =====================================output=====================================
 contract BreakingChangesV080 {
-    uint a = 1**2**3;
+    uint a = 1 ** 2 ** 3;
     bytes1 public c;
     byte public g;
     struct S {

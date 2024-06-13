@@ -8,8 +8,8 @@ export const ContractDefinition = {
     abstractKeyword: ast.abstractKeyword?.text,
     contractKeyword: ast.contractKeyword.text,
     name: ast.name.text,
-    inheritance: ast.inheritence
-      ? parse(ast.inheritence, options, parse)
+    inheritance: ast.inheritance
+      ? parse(ast.inheritance, options, parse)
       : undefined,
     openBrace: ast.openBrace.text,
     members: parse(ast.members, options, parse),
