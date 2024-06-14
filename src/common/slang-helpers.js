@@ -10,11 +10,11 @@ export const printFunction = (functionName, node, path, print) => [
       group([
         path.call(print, 'attributes'),
         node.returns ? [line, path.call(print, 'returns')] : '',
-        node.body.variant !== ';' ? dedent(line) : ''
+        node.body?.variant !== ';' ? dedent(line) : ''
       ])
     )
   ]),
-  path.call(print, 'body')
+  node.body ? path.call(print, 'body') : ''
 ];
 
 export const binaryOperationKinds = [

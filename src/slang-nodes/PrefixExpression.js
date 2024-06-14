@@ -4,6 +4,5 @@ export const PrefixExpression = {
     operator: ast.operator.text,
     operand: parse(ast.operand, options, parse)
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: PrefixExpression']
+  print: ({ node, path, print }) => [node.operator, path.call(print, 'operand')]
 };

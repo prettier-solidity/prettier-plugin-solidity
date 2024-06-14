@@ -46,6 +46,7 @@ export * from './EventDefinition.js';
 export * from './EventParameter.js';
 export * from './EventParameters.js';
 export * from './EventParametersDeclaration.js';
+export * from './ExperimentalFeature.js';
 export * from './ExperimentalPragma.js';
 export * from './ExponentiationExpression.js';
 export * from './Expression.js';

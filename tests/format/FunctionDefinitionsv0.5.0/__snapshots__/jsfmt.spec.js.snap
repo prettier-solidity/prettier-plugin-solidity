@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultFunctionDefinitions.sol - {"compiler":"0.5.0"} format 1`] = `
+====================================options=====================================
+compiler: "0.5.0"
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+contract FunctionDefinitions {
+  function () external {}
+  function () external payable {}
+}
+
+=====================================output=====================================
+contract FunctionDefinitions {
+    function() external {}
+    function() external payable {}
+}
+
+================================================================================
+`;
+
+exports[`DefaultFunctionDefinitions.sol format 1`] = `
+====================================options=====================================
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+contract FunctionDefinitions {
+  function () external {}
+  function () external payable {}
+}
+
+=====================================output=====================================
+contract FunctionDefinitions {
+    function() external {}
+    function() external payable {}
+}
+
+================================================================================
+`;

@@ -1,9 +1,11 @@
 export const ExperimentalPragma = {
-  parse: ({ ast }) => ({
+  parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
     experimentalKeyword: ast.experimentalKeyword.text,
-    feature: ast.feature
+    feature: parse(ast.feature, options, parse)
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: ExperimentalPragma']
+  print: ({ node, path, print }) => [
+    `${node.experimentalKeyword} `,
+    path.call(print, 'feature')
+  ]
 };

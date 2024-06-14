@@ -1,3 +1,5 @@
+import { printFunction } from '../common/slang-helpers.js';
+
 export const FunctionType = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -6,6 +8,6 @@ export const FunctionType = {
     attributes: parse(ast.attributes, options, parse),
     returns: ast.returns ? parse(ast.returns, options, parse) : undefined
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: FunctionType']
+  print: ({ node, path, print }) =>
+    printFunction(`${node.functionKeyword} `, node, path, print)
 };
