@@ -7,8 +7,8 @@ export const InterfaceDefinition = {
     kind: ast.cst.kind,
     interfaceKeyword: ast.interfaceKeyword.text,
     name: ast.name.text,
-    inheritence: ast.inheritence
-      ? parse(ast.inheritence, options, parse)
+    inheritance: ast.inheritence
+      ? parse(ast.inheritance, options, parse)
       : undefined,
     openBrace: ast.openBrace.text,
     members: parse(ast.members, options, parse),

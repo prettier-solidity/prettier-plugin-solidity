@@ -55,7 +55,7 @@ contract StringLiteral {
 
 =====================================output=====================================
 contract StringLiteral {
-    bytes32 publicconstant PERMIT_TYPEHASH =
+    bytes32 public constant PERMIT_TYPEHASH =
         keccak256(
             "Permit("
             "address owner,"

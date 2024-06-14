@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DefaultFunctionDefinitions.sol - {"compiler":"0.5.0"} format 1`] = `
+exports[`FunctionDefinitions.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
 parsers: ["solidity-slang-parse"]
@@ -21,7 +21,7 @@ contract FunctionDefinitions {
 ================================================================================
 `;
 
-exports[`DefaultFunctionDefinitions.sol format 1`] = `
+exports[`FunctionDefinitions.sol format 1`] = `
 ====================================options=====================================
 parsers: ["solidity-parse"]
 printWidth: 80
