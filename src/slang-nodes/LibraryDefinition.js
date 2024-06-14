@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { group, line } = doc.builders;
+
 export const LibraryDefinition = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
@@ -7,6 +11,9 @@ export const LibraryDefinition = {
     members: parse(ast.members, options, parse),
     closeBrace: ast.closeBrace.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: LibraryDefinition']
+  print: ({ node, path, print }) => [
+    group([`${node.libraryKeyword} ${node.name}`, line, node.openBrace]),
+    path.call(print, 'members'),
+    node.closeBrace
+  ]
 };

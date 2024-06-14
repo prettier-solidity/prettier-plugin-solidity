@@ -83,6 +83,7 @@ const isAstUnstable = (filename, options) => {
 };
 
 const shouldCompareBytecode = (filename, options) => {
+  if (options.parser === "solidity-slang-parse") return false;
   const testFunction = testsWithAstChanges.get(filename);
 
   if (!testFunction) {

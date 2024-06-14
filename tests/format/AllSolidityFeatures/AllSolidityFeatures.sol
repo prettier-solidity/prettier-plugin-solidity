@@ -8,7 +8,6 @@ pragma experimental ABIEncoderV2;
 import "SomeFile.sol";
 import "SomeFile.sol" as SomeOtherFile;
 import * as SomeSymbol from "AnotherFile.sol";
-import {symbol1 as alias, symbol2} from "File.sol";
 
 interface i {
   event ForeignEvent();

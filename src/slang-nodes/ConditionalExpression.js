@@ -87,14 +87,27 @@ const traditionalTernaries = (node, path, print) =>
   ]);
 
 export const ConditionalExpression = {
-  parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
-    operand: parse(ast.operand, options, parse),
-    questionMark: ast.questionMark.text,
-    trueExpression: parse(ast.trueExpression, options, parse),
-    colon: ast.colon.text,
-    falseExpression: parse(ast.falseExpression, options, parse)
-  }),
+  parse: ({ ast, options, parse }) => {
+    let operand = parse(ast.operand, options, parse);
+
+    while (
+      operand.variant.kind === 'TupleExpression' &&
+      operand.variant.items.items.length === 1 &&
+      operand.variant.items.items[0].expression.variant.kind !==
+        'ConditionalExpression'
+    ) {
+      operand = operand.variant.items.items[0].expression;
+    }
+
+    return {
+      kind: ast.cst.kind,
+      operand,
+      questionMark: ast.questionMark.text,
+      trueExpression: parse(ast.trueExpression, options, parse),
+      colon: ast.colon.text,
+      falseExpression: parse(ast.falseExpression, options, parse)
+    };
+  },
   print: ({ node, path, print, options }) =>
     options.experimentalTernaries
       ? experimentalTernaries(node, path, print, options)

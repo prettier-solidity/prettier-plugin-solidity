@@ -900,7 +900,7 @@ contract Conditional {
     : definition.defaults
    : row[field]
   );
-  (((foo ? 1 : bar))) ? 3 : 4;
+  (foo ? 1 : bar) ? 3 : 4;
   (
    isCat() ? meow()
    : isDog() ? bark()
@@ -1870,7 +1870,7 @@ contract Conditional {
 				:	definition.defaults
 			:	row[field]
 		);
-		(((foo ? 1 : bar))) ? 3 : 4;
+		(foo ? 1 : bar) ? 3 : 4;
 		(
 			isCat() ? meow()
 			: isDog() ? bark()
@@ -2838,7 +2838,7 @@ contract Conditional {
                 :   definition.defaults
             :   row[field]
         );
-        (((foo ? 1 : bar))) ? 3 : 4;
+        (foo ? 1 : bar) ? 3 : 4;
         (
             isCat() ? meow()
             : isDog() ? bark()
@@ -3753,34 +3753,26 @@ contract Conditional {
                 : someReallyLargeExpression
                     .thatWouldCauseALineBreak()
                     .willCauseAnIndentButNotParens();
-        string storage multilineConditionsConsequentsAndAlternates = (
-            isAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)
-        )
+        string storage multilineConditionsConsequentsAndAlternates = isAnAdorableKittyCat() &&
+            (someReallyLongCondition || moreInThisLongCondition)
             ? someReallyLargeExpression
                 .thatWouldCauseALineBreak()
                 .willCauseAnIndentButNotParens()
-            : (
-                isNotAnAdorableKittyCat() &&
-                    (someReallyLongCondition || moreInThisLongCondition)
-            )
+            : isNotAnAdorableKittyCat() &&
+                (someReallyLongCondition || moreInThisLongCondition)
                 ? bark()
                 : shortCondition()
                     ? shortConsequent()
                     : someReallyLargeExpression
                         .thatWouldCauseALineBreak()
                         .willCauseAnIndentButNotParens();
-        assignment = (
-            isAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)
-        )
+        assignment = isAnAdorableKittyCat() &&
+            (someReallyLongCondition || moreInThisLongCondition)
             ? someReallyLargeExpression
                 .thatWouldCauseALineBreak()
                 .willCauseAnIndentButNotParens()
-            : (
-                isNotAnAdorableKittyCat() &&
-                    (someReallyLongCondition || moreInThisLongCondition)
-            )
+            : isNotAnAdorableKittyCat() &&
+                (someReallyLongCondition || moreInThisLongCondition)
                 ? bark()
                 : shortCondition()
                     ? shortConsequent()
@@ -3793,35 +3785,27 @@ contract Conditional {
                 ? "two"
                 : x == 3
                     ? "three"
-                    : (
-                        x == 5 &&
-                            y == 7 &&
-                            someOtherThing
-                                .thatIsSoLong
-                                .thatItBreaksTheTestCondition()
-                    )
+                    : x == 5 &&
+                        y == 7 &&
+                        someOtherThing
+                            .thatIsSoLong
+                            .thatItBreaksTheTestCondition()
                         ? "four"
                         : x == 6
                             ? "six"
                             : "idk";
-        string storage longConditional = (
-            bifornCringerMoshedPerplexSawder ==
-                2 /
-                askTrovenaBeenaDependsRowans &&
-                glimseGlyphsHazardNoopsTieTie >=
-                averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol()
-        )
+        string storage longConditional = bifornCringerMoshedPerplexSawder ==
+            2 /
+            askTrovenaBeenaDependsRowans &&
+            glimseGlyphsHazardNoopsTieTie >=
+            averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
             ? "foo"
             : "bar";
-        string storage longConditionalChained = (
-            bifornCringerMoshedPerplexSawder ==
-                2 /
-                askTrovenaBeenaDependsRowans &&
-                glimseGlyphsHazardNoopsTieTie >=
-                averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol()
-        )
+        string storage longConditionalChained = bifornCringerMoshedPerplexSawder ==
+            2 /
+            askTrovenaBeenaDependsRowans &&
+            glimseGlyphsHazardNoopsTieTie >=
+            averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
             ? "foo"
             : anotherCondition
                 ? "bar"
@@ -3838,7 +3822,7 @@ contract Conditional {
                     : definition.defaults
                 : row[field]
         );
-        (((foo ? 1 : bar))) ? 3 : 4;
+        (foo ? 1 : bar) ? 3 : 4;
         (
             isCat()
                 ? meow()
