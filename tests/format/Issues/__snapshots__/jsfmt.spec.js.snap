@@ -38,9 +38,70 @@ contract Example {
 ================================================================================
 `;
 
+exports[`Issue205.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+contract Example {
+    using SafeMath for uint256;
+    
+    struct BalanceState {
+        uint256 balance;
+    }
+
+    mapping(address => mapping(address => BalanceState)) private balanceStates;
+    function example(address token, uint amount) public {
+        balanceStates[msg.sender][token].balance = balanceStates[msg.sender][token].balance.sub(amount);
+    }
+}
+
+=====================================output=====================================
+contract Example {
+    using SafeMath for uint256;
+    struct BalanceState {
+        uint256 balance;
+    }
+    mapping(address => mapping(address => BalanceState)) private balanceStates;
+    function example(address token, uint amount) public {
+        balanceStates[msg.sender][token].balance = balanceStates[msg.sender][
+            token
+        ].balance.sub(amount);
+    }
+}
+
+================================================================================
+`;
+
 exports[`Issue289.sol format 1`] = `
 ====================================options=====================================
 parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+contract Issue289 {
+  function f() {
+	address[] storage proposalValidators
+ = ethProposals[_blockNumber][_proposalId].proposalValidators;
+  }
+}
+
+=====================================output=====================================
+contract Issue289 {
+    function f() {
+        address[] storage proposalValidators = ethProposals[_blockNumber][
+            _proposalId
+        ].proposalValidators;
+    }
+}
+
+================================================================================
+`;
+
+exports[`Issue289.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -99,6 +160,36 @@ contract Bug {
 ================================================================================
 `;
 
+exports[`Issue355.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+pragma solidity 0.6.12;
+
+contract Bug {
+  // This is a comment
+  uint public hello;
+
+  // Another comment
+  uint public bigNum = 100_000;
+
+  // This will disappear
+  uint public magic;
+}
+
+=====================================output=====================================
+pragma solidity 0.6.12;
+contract Bug {
+    uint public hello;
+    uint public bigNum = 100_000;
+    uint public magic;
+}
+
+================================================================================
+`;
+
 exports[`Issue385.sol format 1`] = `
 ====================================options=====================================
 parsers: ["solidity-parse"]
@@ -129,6 +220,46 @@ contract Issue385 {
         {} catch Error(string memory error) {
             error.revertWithInfo("BService.delegatecall.assign:");
         } catch {
+            revert("BService.delegatecall.assign:undefined");
+        }
+    }
+}
+
+================================================================================
+`;
+
+exports[`Issue385.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+contract Issue385 {
+  function emptyTryCatch() {
+            try
+                IService(_THIS_SERVICE).server().assign{value: msg.value}(
+                    taskReceipt
+                )
+             {} catch Error(string memory error) {
+                error.revertWithInfo("BService.delegatecall.assign:");
+            } catch {
+                revert("BService.delegatecall.assign:undefined");
+            }
+  }
+}
+
+=====================================output=====================================
+contract Issue385 {
+    function emptyTryCatch() {
+        try
+            IService(_THIS_SERVICE).server().assign{value: msg.value}(
+                taskReceipt
+            )
+        {} catch Error(
+            string memory error
+        ) {
+            error.revertWithInfo("BService.delegatecall.assign:");
+        } catch{
             revert("BService.delegatecall.assign:undefined");
         }
     }
@@ -170,9 +301,55 @@ contract Issue564 {
 ================================================================================
 `;
 
+exports[`Issue564.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+contract Issue564 {
+    function isAuthorized(
+        bytes32 serviceId,
+        address client
+    ) external view override returns (bool) {
+        WhitelistStatus storage whitelistStatus = serviceIdToClientToWhitelistStatus[serviceId][client];
+        return true;
+    }
+}
+
+=====================================output=====================================
+contract Issue564 {
+    function isAuthorized(
+        bytes32 serviceId,
+        address client
+    ) external view override returns (bool) {
+        WhitelistStatus storage whitelistStatus = serviceIdToClientToWhitelistStatus[
+            serviceId
+        ][client];
+        return true;
+    }
+}
+
+================================================================================
+`;
+
 exports[`Issue799.sol format 1`] = `
 ====================================options=====================================
 parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+struct EmptyStruct {}
+
+=====================================output=====================================
+struct EmptyStruct {}
+
+================================================================================
+`;
+
+exports[`Issue799.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -207,6 +384,31 @@ pragma solidity ^0.8.0;
 //about the contract
 contract ContractWithLeadingComment {}
 
+contract ContractWithoutComments {}
+
+================================================================================
+`;
+
+exports[`Issue843.sol format 2`] = `
+====================================options=====================================
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+pragma solidity ^0.8.0;
+
+//about the contract
+contract ContractWithLeadingComment {
+
+}
+
+contract ContractWithoutComments {
+
+}
+
+=====================================output=====================================
+pragma solidity ^0.8.0;
+contract ContractWithLeadingComment {}
 contract ContractWithoutComments {}
 
 ================================================================================

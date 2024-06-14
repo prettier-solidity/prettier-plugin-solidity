@@ -27,7 +27,7 @@ interface FunctionInterfaces {
   function modifierOrderIncorrect04() override modifier1 payable external modifier2 returns(uint);
 }
 
-interface FunctionInterfaces {
+abstract contract FunctionInterfaces {
   function functionDefinition0();
   function functionDefinition1();
   function functionDefinition2();
@@ -42,11 +42,14 @@ interface FunctionInterfaces {
 }
 
 contract FunctionDefinitions {
-  function () external {}
   fallback () external {}
-  function () external payable {}
   fallback () external payable {}
+  fallback() external payable virtual {}
+  fallback(bytes calldata _input) external {}
+
   receive () external payable {}
+  receive() external payable virtual {}
+
   function noParamsNoModifiersNoReturns() {
     a = 1;
   }
@@ -125,7 +128,4 @@ contract FunctionDefinitions {
   function modifierOrderIncorrect04() override modifier1 payable external modifier2 returns(uint) {
     a = 1;
   }
-  fallback() external payable virtual {}
-  fallback(bytes calldata _input) external {}
-  receive() external payable virtual {}
 }

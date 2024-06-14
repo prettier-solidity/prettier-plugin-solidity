@@ -4,6 +4,5 @@ export const ABICoderPragma = {
     abicoderKeyword: ast.abicoderKeyword.text,
     version: ast.version.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: ABICoderPragma']
+  print: ({ node }) => `${node.abicoderKeyword} ${node.version}`
 };
