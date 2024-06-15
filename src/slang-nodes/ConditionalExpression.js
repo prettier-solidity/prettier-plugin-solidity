@@ -90,13 +90,19 @@ export const ConditionalExpression = {
   parse: ({ ast, options, parse }) => {
     let operand = parse(ast.operand, options, parse);
 
-    while (
-      operand.variant.kind === 'TupleExpression' &&
-      operand.variant.items.items.length === 1 &&
-      operand.variant.items.items[0].expression.variant.kind !==
-        'ConditionalExpression'
-    ) {
-      operand = operand.variant.items.items[0].expression;
+    // TODO: while the behaviour is not stable, it should be behind the
+    // experimentalTernaries flag.
+    if (options.experimentalTernaries) {
+      // We can remove parentheses only because we are sure that the
+      // `condition` must be a single `bool` value.
+      while (
+        operand.variant.kind === 'TupleExpression' &&
+        operand.variant.items.items.length === 1 &&
+        operand.variant.items.items[0].expression.variant.kind !==
+          'ConditionalExpression'
+      ) {
+        operand = operand.variant.items.items[0].expression;
+      }
     }
 
     return {

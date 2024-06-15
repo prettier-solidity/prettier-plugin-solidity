@@ -1,7 +1,7 @@
 pragma solidity ^0.5.2;
 
 contract PrettierIgnore {
-    function() public payable {
+    fallback() external payable {
         matrix(
             1, 0, 0,
             0, 1, 0,
@@ -20,7 +20,7 @@ contract PrettierIgnore {
 // prettier-ignore
 contract Example {
 // Test comment
-    function() public payable {        
+    fallback() external payable {        
         // This should be marked as printed
         // Everything inside is also ignored
         matrix(

@@ -149,3 +149,24 @@ export const logicalOperationPrint = binaryOperationPrintBuilder(
   logicalGroupRulesBuilder,
   logicalIndentRulesBuilder
 );
+
+export const tryHug = (node, operators) => {
+  if (
+    binaryOperationKinds.includes(node.variant.kind) &&
+    operators.includes(node.variant.operator)
+  )
+    return {
+      kind: 'Expression',
+      variant: {
+        kind: 'TupleExpression',
+        openParen: '(',
+        items: {
+          kind: 'TupleValues',
+          items: [node],
+          separators: []
+        },
+        closeParen: ')'
+      }
+    };
+  return node;
+};
