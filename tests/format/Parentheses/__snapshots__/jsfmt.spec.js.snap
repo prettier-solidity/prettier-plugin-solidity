@@ -333,7 +333,7 @@ contract AddNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a + b % c;
+        return a + (b % c);
     }
     function addExp(
         uint256 a,
@@ -347,35 +347,35 @@ contract AddNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a + b << c;
+        return (a + b) << c;
     }
     function addShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a + b >> c;
+        return (a + b) >> c;
     }
     function addBitAnd(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a + b & c;
+        return (a + b) & c;
     }
     function addBitOr(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a + b | c;
+        return (a + b) | c;
     }
     function addBitXor(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a + b ^ c;
+        return (a + b) ^ c;
     }
 }
 
@@ -687,28 +687,28 @@ contract BitAndNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & b + c;
+        return a & (b + c);
     }
     function bitAndSub(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & b - c;
+        return a & (b - c);
     }
     function bitAndMul(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & b * c;
+        return a & (b * c);
     }
     function bitAndDiv(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & b / c;
+        return a & (b / c);
     }
     function bitAndMod(
         uint256 a,
@@ -722,21 +722,21 @@ contract BitAndNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & b ** c;
+        return a & (b ** c);
     }
     function bitAndShiftL(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & b << c;
+        return a & (b << c);
     }
     function bitAndShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & b >> c;
+        return a & (b >> c);
     }
     function bitAndBitAnd(
         uint256 a,
@@ -750,14 +750,14 @@ contract BitAndNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & b | c;
+        return (a & b) | c;
     }
     function bitAndBitXor(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a & b ^ c;
+        return (a & b) ^ c;
     }
 }
 
@@ -1069,28 +1069,28 @@ contract BitOrNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | b + c;
+        return a | (b + c);
     }
     function bitOrSub(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | b - c;
+        return a | (b - c);
     }
     function bitOrMul(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | b * c;
+        return a | (b * c);
     }
     function bitOrDiv(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | b / c;
+        return a | (b / c);
     }
     function bitOrMod(
         uint256 a,
@@ -1104,28 +1104,28 @@ contract BitOrNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | b ** c;
+        return a | (b ** c);
     }
     function bitOrShiftL(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | b << c;
+        return a | (b << c);
     }
     function bitOrShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | b >> c;
+        return a | (b >> c);
     }
     function bitOrBitAnd(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | b & c;
+        return a | (b & c);
     }
     function bitOrBitOr(
         uint256 a,
@@ -1139,7 +1139,7 @@ contract BitOrNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a | b ^ c;
+        return a | (b ^ c);
     }
 }
 
@@ -1451,28 +1451,28 @@ contract BitXorNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ b + c;
+        return a ^ (b + c);
     }
     function bitXorSub(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ b - c;
+        return a ^ (b - c);
     }
     function bitXorMul(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ b * c;
+        return a ^ (b * c);
     }
     function bitXorDiv(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ b / c;
+        return a ^ (b / c);
     }
     function bitXorMod(
         uint256 a,
@@ -1486,35 +1486,35 @@ contract BitXorNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ b ** c;
+        return a ^ (b ** c);
     }
     function bitXorShiftL(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ b << c;
+        return a ^ (b << c);
     }
     function bitXorShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ b >> c;
+        return a ^ (b >> c);
     }
     function bitXorBitAnd(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ b & c;
+        return a ^ (b & c);
     }
     function bitXorBitOr(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ^ b | c;
+        return (a ^ b) | c;
     }
     function bitXorBitXor(
         uint256 a,
@@ -1847,7 +1847,7 @@ contract DivNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a / b * c;
+        return (a / b) * c;
     }
     function divDiv(
         uint256 a,
@@ -1861,7 +1861,7 @@ contract DivNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a / b % c;
+        return (a / b) % c;
     }
     function divExp(
         uint256 a,
@@ -1875,35 +1875,35 @@ contract DivNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a / b << c;
+        return (a / b) << c;
     }
     function divShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a / b >> c;
+        return (a / b) >> c;
     }
     function divBitAnd(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a / b & c;
+        return (a / b) & c;
     }
     function divBitOr(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a / b | c;
+        return (a / b) | c;
     }
     function divBitXor(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a / b ^ c;
+        return (a / b) ^ c;
     }
 }
 
@@ -2250,42 +2250,42 @@ contract ExpNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ** b ** c;
+        return a ** (b ** c);
     }
     function expShiftL(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ** b << c;
+        return (a ** b) << c;
     }
     function expShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ** b >> c;
+        return (a ** b) >> c;
     }
     function expBitAnd(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ** b & c;
+        return (a ** b) & c;
     }
     function expBitOr(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ** b | c;
+        return (a ** b) | c;
     }
     function expBitXor(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a ** b ^ c;
+        return (a ** b) ^ c;
     }
 }
 
@@ -2380,10 +2380,10 @@ contract LogicNoParentheses {
         return a || b || c;
     }
     function orAnd(bool a, bool b, bool c) public pure returns (bool) {
-        return a || b && c;
+        return a || (b && c);
     }
     function andOr(bool a, bool b, bool c) public pure returns (bool) {
-        return a && b || c;
+        return (a && b) || c;
     }
     function andAnd(bool a, bool b, bool c) public pure returns (bool) {
         return a && b && c;
@@ -2698,35 +2698,35 @@ contract ModNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a % b + c;
+        return (a % b) + c;
     }
     function modSub(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a % b - c;
+        return (a % b) - c;
     }
     function modMul(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a % b * c;
+        return (a % b) * c;
     }
     function modDiv(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a % b / c;
+        return (a % b) / c;
     }
     function modMod(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a % b % c;
+        return (a % b) % c;
     }
     function modExp(
         uint256 a,
@@ -3101,14 +3101,14 @@ contract MulNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a * b / c;
+        return (a * b) / c;
     }
     function mulMod(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a * b % c;
+        return (a * b) % c;
     }
     function mulExp(
         uint256 a,
@@ -3122,35 +3122,35 @@ contract MulNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a * b << c;
+        return (a * b) << c;
     }
     function mulShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a * b >> c;
+        return (a * b) >> c;
     }
     function mulBitAnd(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a * b & c;
+        return (a * b) & c;
     }
     function mulBitOr(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a * b | c;
+        return (a * b) | c;
     }
     function mulBitXor(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a * b ^ c;
+        return (a * b) ^ c;
     }
 }
 
@@ -3462,28 +3462,28 @@ contract ShiftLNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b + c;
+        return a << (b + c);
     }
     function shiftLSub(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b - c;
+        return a << (b - c);
     }
     function shiftLMul(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b * c;
+        return a << (b * c);
     }
     function shiftLDiv(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b / c;
+        return a << (b / c);
     }
     function shiftLMod(
         uint256 a,
@@ -3497,42 +3497,42 @@ contract ShiftLNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b ** c;
+        return a << (b ** c);
     }
     function shiftLShiftL(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b << c;
+        return (a << b) << c;
     }
     function shiftLShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b >> c;
+        return (a << b) >> c;
     }
     function shiftLBitAnd(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b & c;
+        return (a << b) & c;
     }
     function shiftLBitOr(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b | c;
+        return (a << b) | c;
     }
     function shiftLBitXor(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a << b ^ c;
+        return (a << b) ^ c;
     }
 }
 
@@ -3844,28 +3844,28 @@ contract ShiftRNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b + c;
+        return a >> (b + c);
     }
     function shiftRSub(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b - c;
+        return a >> (b - c);
     }
     function shiftRMul(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b * c;
+        return a >> (b * c);
     }
     function shiftRDiv(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b / c;
+        return a >> (b / c);
     }
     function shiftRMod(
         uint256 a,
@@ -3879,42 +3879,42 @@ contract ShiftRNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b ** c;
+        return a >> (b ** c);
     }
     function shiftRShiftL(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b << c;
+        return (a >> b) << c;
     }
     function shiftRShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b >> c;
+        return (a >> b) >> c;
     }
     function shiftRBitAnd(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b & c;
+        return (a >> b) & c;
     }
     function shiftRBitOr(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b | c;
+        return (a >> b) | c;
     }
     function shiftRBitXor(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a >> b ^ c;
+        return (a >> b) ^ c;
     }
 }
 
@@ -4254,7 +4254,7 @@ contract SubNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a - b % c;
+        return a - (b % c);
     }
     function subExp(
         uint256 a,
@@ -4268,36 +4268,224 @@ contract SubNoParentheses {
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a - b << c;
+        return (a - b) << c;
     }
     function subShiftR(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a - b >> c;
+        return (a - b) >> c;
     }
     function subBitAnd(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a - b & c;
+        return (a - b) & c;
     }
     function subBitOr(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a - b | c;
+        return (a - b) | c;
     }
     function subBitXor(
         uint256 a,
         uint256 b,
         uint256 c
     ) public pure returns (uint256) {
-        return a - b ^ c;
+        return (a - b) ^ c;
     }
+}
+
+================================================================================
+`;
+
+exports[`a.js - {"compiler":"0.8.6"} format 1`] = `
+====================================options=====================================
+compiler: "0.8.6"
+parsers: ["solidity-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function addAdd(a, b, c) {
+  return a + b + c;
+}
+
+function addSub(a, b, c) {
+  return a + b - c;
+}
+
+function addMul(a, b, c) {
+  return a + b * c;
+}
+
+function addDiv(a, b, c) {
+  return a + b / c;
+}
+
+function addMod(a, b, c) {
+  return a + (b % c);
+}
+
+function addExp(a, b, c) {
+  return a + b ** c;
+}
+
+function addShiftL(a, b, c) {
+  return (a + b) << c;
+}
+
+function addShiftR(a, b, c) {
+  return (a + b) >> c;
+}
+
+function addBitAnd(a, b, c) {
+  return (a + b) & c;
+}
+
+function addBitOr(a, b, c) {
+  return (a + b) | c;
+}
+
+function addBitXor(a, b, c) {
+  return (a + b) ^ c;
+}
+
+=====================================output=====================================
+function addAdd(a, b, c) {
+    return a + b + c;
+}
+
+function addSub(a, b, c) {
+    return a + b - c;
+}
+
+function addMul(a, b, c) {
+    return a + b * c;
+}
+
+function addDiv(a, b, c) {
+    return a + b / c;
+}
+
+function addMod(a, b, c) {
+    return a + (b % c);
+}
+
+function addExp(a, b, c) {
+    return a + b ** c;
+}
+
+function addShiftL(a, b, c) {
+    return (a + b) << c;
+}
+
+function addShiftR(a, b, c) {
+    return (a + b) >> c;
+}
+
+function addBitAnd(a, b, c) {
+    return (a + b) & c;
+}
+
+function addBitOr(a, b, c) {
+    return (a + b) | c;
+}
+
+function addBitXor(a, b, c) {
+    return (a + b) ^ c;
+}
+
+================================================================================
+`;
+
+exports[`a.js - {"compiler":"0.8.6"} format 2`] = `
+====================================options=====================================
+compiler: "0.8.6"
+parsers: ["solidity-slang-parse"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function addAdd(a, b, c) {
+  return a + b + c;
+}
+
+function addSub(a, b, c) {
+  return a + b - c;
+}
+
+function addMul(a, b, c) {
+  return a + b * c;
+}
+
+function addDiv(a, b, c) {
+  return a + b / c;
+}
+
+function addMod(a, b, c) {
+  return a + (b % c);
+}
+
+function addExp(a, b, c) {
+  return a + b ** c;
+}
+
+function addShiftL(a, b, c) {
+  return (a + b) << c;
+}
+
+function addShiftR(a, b, c) {
+  return (a + b) >> c;
+}
+
+function addBitAnd(a, b, c) {
+  return (a + b) & c;
+}
+
+function addBitOr(a, b, c) {
+  return (a + b) | c;
+}
+
+function addBitXor(a, b, c) {
+  return (a + b) ^ c;
+}
+
+=====================================output=====================================
+function addAdd(a, b, c) {
+    return a + b + c;
+}
+function addSub(a, b, c) {
+    return a + b - c;
+}
+function addMul(a, b, c) {
+    return a + b * c;
+}
+function addDiv(a, b, c) {
+    return a + b / c;
+}
+function addMod(a, b, c) {
+    return a + (b % c);
+}
+function addExp(a, b, c) {
+    return a + b ** c;
+}
+function addShiftL(a, b, c) {
+    return (a + b) << c;
+}
+function addShiftR(a, b, c) {
+    return (a + b) >> c;
+}
+function addBitAnd(a, b, c) {
+    return (a + b) & c;
+}
+function addBitOr(a, b, c) {
+    return (a + b) | c;
+}
+function addBitXor(a, b, c) {
+    return (a + b) ^ c;
 }
 
 ================================================================================

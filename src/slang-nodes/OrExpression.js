@@ -1,11 +1,11 @@
-import { logicalOperationPrint } from '../common/slang-helpers.js';
+import { logicalOperationPrint, tryHug } from '../common/slang-helpers.js';
 
 export const OrExpression = {
   parse: ({ ast, options, parse }) => ({
     kind: ast.cst.kind,
-    leftOperand: parse(ast.leftOperand, options, parse),
+    leftOperand: tryHug(parse(ast.leftOperand, options, parse), ['&&']),
     operator: ast.operator.text,
-    rightOperand: parse(ast.rightOperand, options, parse)
+    rightOperand: tryHug(parse(ast.rightOperand, options, parse), ['&&'])
   }),
   print: logicalOperationPrint
 };
