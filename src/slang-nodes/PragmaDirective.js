@@ -1,6 +1,5 @@
 export const PragmaDirective = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     pragmaKeyword: ast.pragmaKeyword.text,
     pragma: parse(ast.pragma, options, parse),
     semicolon: ast.semicolon.text

@@ -2,7 +2,6 @@ import { printFunction } from '../common/slang-helpers.js';
 
 export const FallbackFunctionDefinition = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     fallbackKeyword: ast.fallbackKeyword.text,
     parameters: parse(ast.parameters, options, parse),
     attributes: parse(ast.attributes, options, parse),

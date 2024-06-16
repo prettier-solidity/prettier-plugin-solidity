@@ -7,7 +7,15 @@ import coerce from 'semver/functions/coerce.js';
 import * as parsers from './slang-nodes/index.js';
 
 function genericParse(ast, options, parseFunction) {
-  return parsers[ast.cst.kind].parse({ ast, options, parse: parseFunction });
+  const data = parsers[ast.cst.kind].parse({
+    ast,
+    options,
+    parse: parseFunction
+  });
+
+  data.kind = ast.cst.kind;
+
+  return data;
 }
 
 function parse(text, _parsers, options = _parsers) {

@@ -1,6 +1,5 @@
 export const StructDefinition = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     structKeyword: ast.structKeyword.text,
     name: ast.name.text,
     openBrace: ast.openBrace.text,

@@ -1,6 +1,5 @@
 export const EventDefinition = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     eventKeyword: ast.eventKeyword.text,
     name: ast.name.text,
     parameters: parse(ast.parameters, options, parse),

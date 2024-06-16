@@ -2,7 +2,6 @@ import { printFunction } from '../common/slang-helpers.js';
 
 export const FunctionDefinition = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     functionKeyword: ast.functionKeyword.text,
     name: parse(ast.name, options, parse),
     parameters: parse(ast.parameters, options, parse),

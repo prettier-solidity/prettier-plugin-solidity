@@ -1,6 +1,5 @@
 export const ElementaryType = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     variant:
       ast.variant.type === 'Terminal'
         ? ast.variant.text

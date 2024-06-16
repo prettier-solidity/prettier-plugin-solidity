@@ -1,6 +1,5 @@
 export const YulForStatement = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     forKeyword: ast.forKeyword.text,
     initialization: parse(ast.initialization, options, parse),
     condition: parse(ast.condition, options, parse),

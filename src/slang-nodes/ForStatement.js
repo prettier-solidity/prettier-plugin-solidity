@@ -5,7 +5,6 @@ const { group, indent, line } = doc.builders;
 
 export const ForStatement = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     forKeyword: ast.forKeyword.text,
     openParen: ast.openParen.text,
     initialization: parse(ast.initialization, options, parse),

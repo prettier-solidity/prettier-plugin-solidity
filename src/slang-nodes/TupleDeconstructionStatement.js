@@ -4,7 +4,6 @@ const { group, indent, line } = doc.builders;
 
 export const TupleDeconstructionStatement = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     varKeyword: ast.varKeyword?.text,
     openParen: ast.openParen.text,
     elements: parse(ast.elements, options, parse),

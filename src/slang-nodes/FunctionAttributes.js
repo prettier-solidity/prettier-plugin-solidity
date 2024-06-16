@@ -4,7 +4,6 @@ const { line } = doc.builders;
 
 export const FunctionAttributes = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     items: ast.items.map((item) => parse(item, options, parse))
   }),
   print: ({ path, print }) =>

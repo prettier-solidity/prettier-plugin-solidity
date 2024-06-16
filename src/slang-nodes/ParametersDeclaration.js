@@ -1,6 +1,5 @@
 export const ParametersDeclaration = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     openParen: ast.openParen.text,
     parameters: parse(ast.parameters, options, parse),
     closeParen: ast.closeParen.text
