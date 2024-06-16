@@ -3,5 +3,5 @@ export const YulContinueStatement = {
     kind: ast.cst.kind,
     continueKeyword: ast.continueKeyword.text
   }),
-  print: ({node}) => node.continueKeyword
+  print: ({ node }) => node.continueKeyword
 };

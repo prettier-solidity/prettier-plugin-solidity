@@ -3,6 +3,7 @@ using Lib for
     uint global;
 using { f} for uint;
 using {f } for uint global;
+using {f as +} for uint global;
 using { a, very,     long, and, complex,     Function, list, with, long, names }     for
     uint;
 using { a, very,

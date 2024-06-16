@@ -4,6 +4,5 @@ export const ContinueStatement = {
     continueKeyword: ast.continueKeyword.text,
     semicolon: ast.semicolon.text
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: ContinueStatement']
+  print: ({ node }) => `${node.continueKeyword}${node.semicolon}`
 };
