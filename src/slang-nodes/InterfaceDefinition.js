@@ -4,7 +4,6 @@ const { group, line } = doc.builders;
 
 export const InterfaceDefinition = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     interfaceKeyword: ast.interfaceKeyword.text,
     name: ast.name.text,
     inheritance: ast.inheritence

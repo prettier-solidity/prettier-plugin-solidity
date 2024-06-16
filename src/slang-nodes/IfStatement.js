@@ -12,7 +12,6 @@ const printBody = (bodyVariantKind, path, print) =>
 
 export const IfStatement = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     ifKeyword: ast.ifKeyword.text,
     openParen: ast.openParen.text,
     condition: parse(ast.condition, options, parse),

@@ -8,7 +8,6 @@ const { hardline } = doc.builders;
 
 export const LibraryMembers = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     items: ast.items.map((item) => parse(item, options, parse))
   }),
   print: ({ node, path, print, options }) =>

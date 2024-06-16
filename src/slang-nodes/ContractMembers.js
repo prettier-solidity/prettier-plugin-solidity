@@ -8,7 +8,6 @@ const { hardline } = doc.builders;
 
 export const ContractMembers = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     items: ast.items.map((item) => parse(item, options, parse))
   }),
   print: ({ node, options, path, print }) =>

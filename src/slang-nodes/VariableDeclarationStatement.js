@@ -1,6 +1,5 @@
 export const VariableDeclarationStatement = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     variableType: parse(ast.variableType, options, parse),
     storageLocation: ast.storageLocation
       ? parse(ast.storageLocation, options, parse)

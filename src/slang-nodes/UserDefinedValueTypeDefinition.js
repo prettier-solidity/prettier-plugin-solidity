@@ -1,6 +1,5 @@
 export const UserDefinedValueTypeDefinition = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     typeKeyword: ast.typeKeyword.text,
     name: ast.name.text,
     isKeyword: ast.isKeyword.text,

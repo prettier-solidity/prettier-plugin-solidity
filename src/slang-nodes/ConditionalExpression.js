@@ -106,7 +106,6 @@ export const ConditionalExpression = {
     }
 
     return {
-      kind: ast.cst.kind,
       operand,
       questionMark: ast.questionMark.text,
       trueExpression: parse(ast.trueExpression, options, parse),

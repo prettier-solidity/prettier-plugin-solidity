@@ -19,7 +19,6 @@ export const ExponentiationExpression = {
       }
     }
     return {
-      kind: ast.cst.kind,
       leftOperand,
       operator: ast.operator.text,
       rightOperand

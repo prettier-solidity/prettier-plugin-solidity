@@ -1,6 +1,5 @@
 export const VersionPragma = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     solidityKeyword: ast.solidityKeyword.text,
     sets: parse(ast.sets, options, parse)
   }),

@@ -4,7 +4,6 @@ const { group, line } = doc.builders;
 
 export const LibraryDefinition = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     libraryKeyword: ast.libraryKeyword.text,
     name: ast.name.text,
     openBrace: ast.openBrace.text,

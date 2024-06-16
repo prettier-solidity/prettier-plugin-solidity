@@ -1,6 +1,5 @@
 export const MappingType = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     mappingKeyword: ast.mappingKeyword.text,
     openParen: ast.openParen.text,
     keyType: parse(ast.keyType, options, parse),

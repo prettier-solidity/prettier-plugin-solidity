@@ -4,7 +4,6 @@ const { group, line } = doc.builders;
 
 export const ContractDefinition = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     abstractKeyword: ast.abstractKeyword?.text,
     contractKeyword: ast.contractKeyword.text,
     name: ast.name.text,

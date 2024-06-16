@@ -20,7 +20,6 @@ export const MultiplicativeExpression = {
     }
 
     return {
-      kind: ast.cst.kind,
       leftOperand,
       operator,
       rightOperand: parse(ast.rightOperand, options, parse)

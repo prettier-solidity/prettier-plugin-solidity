@@ -5,7 +5,6 @@ const { line, softline } = doc.builders;
 
 export const UsingDeconstructionSymbols = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     items: ast.items.map((item) => parse(item, options, parse)),
     separators: ast.separators.map((separator) => separator.text)
   }),

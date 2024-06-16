@@ -10,7 +10,6 @@ const printBody = (node, path, print) =>
 
 export const DoWhileStatement = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     doKeyword: ast.doKeyword.text,
     body: parse(ast.body, options, parse),
     whileKeyword: ast.whileKeyword.text,

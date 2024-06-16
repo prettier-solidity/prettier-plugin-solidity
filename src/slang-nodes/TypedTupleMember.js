@@ -1,6 +1,5 @@
 export const TypedTupleMember = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     typeName: parse(ast.typeName, options, parse),
     storageLocation: ast.storageLocation
       ? parse(ast.storageLocation, options, parse)

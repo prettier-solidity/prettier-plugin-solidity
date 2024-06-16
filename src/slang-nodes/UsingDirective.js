@@ -1,6 +1,5 @@
 export const UsingDirective = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     usingKeyword: ast.usingKeyword.text,
     clause: parse(ast.clause, options, parse),
     forKeyword: ast.forKeyword.text,

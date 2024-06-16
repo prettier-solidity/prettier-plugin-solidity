@@ -2,7 +2,6 @@ import { binaryOperationPrint, tryHug } from '../common/slang-helpers.js';
 
 export const BitwiseXorExpression = {
   parse: ({ ast, options, parse }) => ({
-    kind: ast.cst.kind,
     leftOperand: tryHug(parse(ast.leftOperand, options, parse), [
       '+',
       '-',
