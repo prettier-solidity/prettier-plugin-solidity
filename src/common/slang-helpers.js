@@ -162,7 +162,7 @@ export const tryHug = (node, operators) => {
         openParen: '(',
         items: {
           kind: 'TupleValues',
-          items: [node],
+          items: [{ kind: 'TupleValue', expression: node }],
           separators: []
         },
         closeParen: ')'

@@ -4,6 +4,8 @@ export const UsingAlias = {
     asKeyword: ast.asKeyword.text,
     operator: parse(ast.operator, options, parse)
   }),
-  // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: UsingAlias']
+  print: ({ node, path, print }) => [
+    ` ${node.asKeyword} `,
+    path.call(print, 'operator')
+  ]
 };

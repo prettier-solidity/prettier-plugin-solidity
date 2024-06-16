@@ -3,5 +3,5 @@ export const YulBreakStatement = {
     kind: ast.cst.kind,
     breakKeyword: ast.breakKeyword.text
   }),
-  print: ({node}) => node.breakKeyword
+  print: ({ node }) => node.breakKeyword
 };
