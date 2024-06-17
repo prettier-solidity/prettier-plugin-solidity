@@ -4,7 +4,7 @@ import { printSeparatedList } from '../common/printer-helpers.js';
 const { hardline } = doc.builders;
 
 export const EnumMembers = {
-  parse: ({ node, offsets, ast }) => ({
+  parse: ({ node, ast }) => ({
     ...node,
     items: ast.items.map((item) => item.text),
     separators: ast.separators.map((separator) => separator.text)

@@ -4,7 +4,7 @@ import { printSeparatedList } from '../common/printer-helpers.js';
 const { line } = doc.builders;
 
 export const YulReturnVariables = {
-  parse: ({ node, offsets, ast }) => ({
+  parse: ({ node, ast }) => ({
     ...node,
     items: ast.items.map((item) => item.text),
     separators: ast.separators.map((separator) => separator.text)

@@ -1,5 +1,5 @@
 export const AddressType = {
-  parse: ({ node, offsets, ast }) => ({
+  parse: ({ node, ast }) => ({
     ...node,
     addressKeyword: ast.addressKeyword.text,
     payableKeyword: ast.payableKeyword?.text
