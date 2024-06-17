@@ -4,10 +4,12 @@ import { isLabel } from '../common/util.js';
 const { group, indentIfBreak, label } = doc.builders;
 
 let groupIndex = 0;
+
 export const FunctionCallExpression = {
-  parse: ({ ast, options, parse }) => ({
-    operand: parse(ast.operand, options, parse),
-    arguments: parse(ast.arguments, options, parse)
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    operand: parse(ast.operand, options, parse, offsets),
+    arguments: parse(ast.arguments, options, parse, offsets)
   }),
   print: ({ path, print }) => {
     let operandDoc = path.call(print, 'operand');

@@ -4,12 +4,14 @@ import { isLabel } from '../common/util.js';
 const { group, indent, indentIfBreak, label, softline } = doc.builders;
 
 let groupIndex = 0;
+
 export const IndexAccessExpression = {
-  parse: ({ ast, options, parse }) => ({
-    operand: parse(ast.operand, options, parse),
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    operand: parse(ast.operand, options, parse, offsets),
     openBracket: ast.openBracket.text,
-    start: ast.start ? parse(ast.start, options, parse) : undefined,
-    end: ast.end ? parse(ast.end, options, parse) : undefined,
+    start: ast.start ? parse(ast.start, options, parse, offsets) : undefined,
+    end: ast.end ? parse(ast.end, options, parse, offsets) : undefined,
     closeBracket: ast.closeBracket.text
   }),
   print: ({ node, path, print }) => {

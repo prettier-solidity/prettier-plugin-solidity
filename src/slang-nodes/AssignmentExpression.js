@@ -4,10 +4,11 @@ import { binaryOperationKinds } from '../common/slang-helpers.js';
 const { group, indent, line } = doc.builders;
 
 export const AssignmentExpression = {
-  parse: ({ ast, options, parse }) => ({
-    leftOperand: parse(ast.leftOperand, options, parse),
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    leftOperand: parse(ast.leftOperand, options, parse, offsets),
     operator: ast.operator.text,
-    rightOperand: parse(ast.rightOperand, options, parse)
+    rightOperand: parse(ast.rightOperand, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
     path.call(print, 'leftOperand'),

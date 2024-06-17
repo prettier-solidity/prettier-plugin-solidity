@@ -4,8 +4,9 @@ import { printSeparatedList } from '../common/printer-helpers.js';
 const { hardline } = doc.builders;
 
 export const StructMembers = {
-  parse: ({ ast, options, parse }) => ({
-    items: ast.items.map((item) => parse(item, options, parse))
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    items: ast.items.map((item) => parse(item, options, parse, offsets))
   }),
   print: ({ node, path, print }) =>
     node.items.length > 0

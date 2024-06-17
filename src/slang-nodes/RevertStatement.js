@@ -1,8 +1,9 @@
 export const RevertStatement = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     revertKeyword: ast.revertKeyword.text,
-    error: ast.error ? parse(ast.error, options, parse) : undefined,
-    arguments: parse(ast.arguments, options, parse),
+    error: ast.error ? parse(ast.error, options, parse, offsets) : undefined,
+    arguments: parse(ast.arguments, options, parse, offsets),
     semicolon: ast.semicolon.text
   }),
   print: ({ node, path, print }) => [

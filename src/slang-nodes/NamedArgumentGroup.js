@@ -1,7 +1,8 @@
 export const NamedArgumentGroup = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     openBrace: ast.openBrace.text,
-    arguments: parse(ast.arguments, options, parse),
+    arguments: parse(ast.arguments, options, parse, offsets),
     closeBrace: ast.closeBrace.text
   }),
   print: ({ node, path, print }) => [

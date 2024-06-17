@@ -3,9 +3,10 @@ import { doc } from 'prettier';
 const { group, indent, line } = doc.builders;
 
 export const StateVariableDefinitionValue = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     equal: ast.equal.text,
-    value: parse(ast.value, options, parse)
+    value: parse(ast.value, options, parse, offsets)
   }),
   print: ({ node, path, print }) =>
     node.value.variant.kind === 'ArrayExpression'

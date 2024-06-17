@@ -76,6 +76,7 @@ contract ModifierInvocations is ModifierDefinitions {
 
 =====================================output=====================================
 pragma solidity 0.8.26;
+
 contract ModifierDefinitions {
     modifier emptyParams {
         _;
@@ -84,8 +85,10 @@ contract ModifierDefinitions {
         _;
     }
 }
+
 contract ModifierInvocations is ModifierDefinitions {
     constructor() emptyParams noParams() ModifierDefinitions() {}
+
     function test() public emptyParams noParams() {}
 }
 

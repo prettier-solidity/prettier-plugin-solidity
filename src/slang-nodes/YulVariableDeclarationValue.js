@@ -1,7 +1,8 @@
 export const YulVariableDeclarationValue = {
-  parse: ({ ast, options, parse }) => ({
-    assignment: parse(ast.assignment, options, parse),
-    expression: parse(ast.expression, options, parse)
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    assignment: parse(ast.assignment, options, parse, offsets),
+    expression: parse(ast.expression, options, parse, offsets)
   }),
   print: ({ path, print }) => [
     path.call(print, 'assignment'),

@@ -769,6 +769,7 @@ contract Assembly {
             }
         }
     }
+
     function caseAssembly() {
         assembly {
             switch value
@@ -780,6 +781,7 @@ contract Assembly {
             }
         }
     }
+
     function forAssembly() {
         assembly {
             for {
@@ -791,11 +793,13 @@ contract Assembly {
             }
         }
     }
+
     function callWithComments() {
         assembly {
             f(1,2,3)
         }
     }
+
     function assemblyFunctionNoParameters() {
         assembly {
             function getAnswer() -> answer {
@@ -803,6 +807,7 @@ contract Assembly {
             }
         }
     }
+
     function assemblyFunctionOneParameter() {
         assembly {
             function inc(x) -> result {
@@ -810,6 +815,7 @@ contract Assembly {
             }
         }
     }
+
     function assemblyFunctionThreeParameters() {
         assembly {
             function sum(a, b, c) -> result {
@@ -817,6 +823,7 @@ contract Assembly {
             }
         }
     }
+
     function assemblyFunctionLongParameters() {
         assembly {
             function sum(
@@ -830,6 +837,7 @@ contract Assembly {
             }
         }
     }
+
     function assemblyFunctionLongReturnParameters() {
         assembly {
             function sum(a, b, c, d, e)
@@ -848,6 +856,7 @@ contract Assembly {
             }
         }
     }
+
     function assemblyFunctionLongParametersAndReturnParameters() {
         assembly {
             function sum(
@@ -873,11 +882,13 @@ contract Assembly {
             }
         }
     }
+
     function assemblyNoParameterCalls() {
         assembly {
             call(gas(),to,value,inputData,inputDataSize,0,0)
         }
     }
+
     function assemblyLabels() {
         assembly {
             let n := calldataload(4)
@@ -885,12 +896,14 @@ contract Assembly {
             let b := a
             loop
         }
+
         assembly {
             let x := 8
             jump(two)
             one
         }
     }
+
     function assemblyFunctionNoReturn() {
         assembly {
             function $somefn(somearg) {
@@ -898,22 +911,26 @@ contract Assembly {
             }
         }
     }
+
     function letWithoutValue() {
         assembly {
             let result
         }
     }
+
     function memberAccess() {
         assembly {
             ds.slot := position
             offset := x.offset
         }
     }
+
     function commentsInAssemblyBlock() {
         assembly {
 
         }
     }
+
     function withBreak() {
         assembly {
             for {
@@ -925,6 +942,7 @@ contract Assembly {
             }
         }
     }
+
     function memorySafe() {
         assembly ("memory-safe") {
 
@@ -933,6 +951,7 @@ contract Assembly {
 
         }
     }
+
     function continueAndBreak(uint256 x) public pure returns (uint a, uint b) {
         assembly {
             for {
@@ -947,11 +966,13 @@ contract Assembly {
                 if eq(i,15) {
                     break
                 }
+
                 b := i
             }
         }
     }
 }
+
 contract BooleanLiteralsInAssembly {
     function f() {
         uint a;
@@ -961,6 +982,7 @@ contract BooleanLiteralsInAssembly {
         }
     }
 }
+
 contract MultipleAssemblyAssignement {
     function foo() public pure {
         assembly {
@@ -968,10 +990,12 @@ contract MultipleAssemblyAssignement {
                 a := 1
                 b := 2
             }
+
             let i
         }
     }
 }
+
 contract AssemblyStackAssignment {
     function f() public {
         assembly {

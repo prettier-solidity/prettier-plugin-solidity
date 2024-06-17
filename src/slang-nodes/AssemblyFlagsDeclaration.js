@@ -1,7 +1,8 @@
 export const AssemblyFlagsDeclaration = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     openParen: ast.openParen.text,
-    flags: parse(ast.flags, options, parse),
+    flags: parse(ast.flags, options, parse, offsets),
     closeParen: ast.closeParen.text
   }),
   print: ({ node, path, print }) => [

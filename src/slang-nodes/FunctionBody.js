@@ -1,9 +1,10 @@
 export const FunctionBody = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     variant:
       ast.variant.type === 'Terminal'
         ? ast.variant.text
-        : parse(ast.variant, options, parse)
+        : parse(ast.variant, options, parse, offsets)
   }),
   print: ({ node, path, print }) =>
     typeof node.variant === 'string'

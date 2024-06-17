@@ -114,6 +114,7 @@ contract Conditional {
 
 =====================================output=====================================
 pragma solidity ^0.4.24;
+
 contract Conditional {
     function foo() {
         address contextAddress = longAddress_ == address(0)
@@ -143,6 +144,7 @@ contract Conditional {
             )
             : false;
     }
+
     function bar() {
         uint a = true ? 0 : 1;
     }

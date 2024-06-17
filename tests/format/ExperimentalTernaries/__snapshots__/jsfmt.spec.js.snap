@@ -770,6 +770,7 @@ string storage typeofExampleFlipped =
 
 =====================================output=====================================
 pragma solidity ^0.4.24;
+
 contract Conditional {
  function blogPostExample() {
   string storage animalName = pet.canBark() ?
@@ -778,10 +779,12 @@ contract Conditional {
    : "dog"
   : pet.canMeow() ? "cat"
   : "probably a bunny";
+
   string storage animalName = pet.isScary() ? "wolf"
   : pet.canBark() ? "dog"
   : pet.canMeow() ? "cat"
   : "probably a bunny";
+
   string storage animalName = pet.canSqueak() ? "mouse"
   : pet.canBark() ?
    pet.isScary() ?
@@ -791,14 +794,18 @@ contract Conditional {
   : pet.canSqueak() ? "mouse"
   : "probably a bunny";
  }
+
  function examples1() {
   string storage short = isLoud() ? makeNoise() : silent();
+
   string storage lessShort = isLoudReallyLoud() ?
    makeNoiseReallyLoudly.omgSoLoud()
   : silent();
+
   string storage andIndented = isLoudReallyReallyReallyReallyLoud() ?
    makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
   : silent();
+
   string storage indentationInFalseExpression = (
    isLoudReallyReallyReallyReallyLoud()
   ) ?
@@ -806,24 +813,29 @@ contract Conditional {
   : someReallyLargeExpression
     .thatWouldCauseALineBreak()
     .willCauseAnIndentButNotParens();
+
   string storage shortSoCase = isLoudReallyReallyReallyReallyLoud() ?
    silent()
   : (makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud());
+
   string storage chainedShort = isCat() ? meow()
   : isDog() ? bark()
   : silent();
+
   string storage chainedWithLongConsequent = isCat() ?
    someReallyLargeExpression
     .thatWouldCauseALineBreak()
     .willCauseAnIndentButNotParens()
   : isDog() ? bark()
   : silent();
+
   string storage chainedWithTernaryConsequent = isCat() ?
    aNestedCondition ?
     theResult()
    : theAlternate()
   : isDog() ? bark()
   : silent();
+
   string storage consequentAndTerminalAlternateBreak = isCat() ?
    someReallyLargeExpression
     .thatWouldCauseALineBreak()
@@ -832,64 +844,70 @@ contract Conditional {
   : someReallyLargeExpression
    .thatWouldCauseALineBreak()
    .willCauseAnIndentButNotParens();
+
   string storage multilineConditionsConsequentsAndAlternates = (
    isAnAdorableKittyCat() &&
-    (someReallyLongCondition || moreInThisLongCondition)
+   (someReallyLongCondition || moreInThisLongCondition)
   ) ?
    someReallyLargeExpression
     .thatWouldCauseALineBreak()
     .willCauseAnIndentButNotParens()
   : (
    isNotAnAdorableKittyCat() &&
-    (someReallyLongCondition || moreInThisLongCondition)
+   (someReallyLongCondition || moreInThisLongCondition)
   ) ?
    bark()
   : shortCondition() ? shortConsequent()
   : someReallyLargeExpression
    .thatWouldCauseALineBreak()
    .willCauseAnIndentButNotParens();
+
   assignment = (
    isAnAdorableKittyCat() &&
-    (someReallyLongCondition || moreInThisLongCondition)
+   (someReallyLongCondition || moreInThisLongCondition)
   ) ?
    someReallyLargeExpression
     .thatWouldCauseALineBreak()
     .willCauseAnIndentButNotParens()
   : (
    isNotAnAdorableKittyCat() &&
-    (someReallyLongCondition || moreInThisLongCondition)
+   (someReallyLongCondition || moreInThisLongCondition)
   ) ?
    bark()
   : shortCondition() ? shortConsequent()
   : someReallyLargeExpression
    .thatWouldCauseALineBreak()
    .willCauseAnIndentButNotParens();
+
   string storage mostlyShort = x == 1 ? "one"
   : x == 2 ? "two"
   : x == 3 ? "three"
   : (
    x == 5 &&
-    y == 7 &&
-    someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
+   y == 7 &&
+   someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
   ) ?
    "four"
   : x == 6 ? "six"
   : "idk";
+
   string storage longConditional = (
    bifornCringerMoshedPerplexSawder == 2 / askTrovenaBeenaDependsRowans &&
-    glimseGlyphsHazardNoopsTieTie >=
-    averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
+   glimseGlyphsHazardNoopsTieTie >=
+   averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
   ) ?
    "foo"
   : "bar";
+
   string storage longConditionalChained = (
    bifornCringerMoshedPerplexSawder == 2 / askTrovenaBeenaDependsRowans &&
-    glimseGlyphsHazardNoopsTieTie >=
-    averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
+   glimseGlyphsHazardNoopsTieTie >=
+   averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
   ) ?
    "foo"
   : anotherCondition ? "bar"
   : "baz";
+
   definition.encode(
    row[field] != "undefined" ? row[field]
    : definition.defaults != "undefined" ? definition.defaults
@@ -900,6 +918,7 @@ contract Conditional {
     : definition.defaults
    : row[field]
   );
+
   (foo ? 1 : bar) ? 3 : 4;
   (
    isCat() ? meow()
@@ -908,23 +927,27 @@ contract Conditional {
   ) ?
    1
   : 2;
+
   if (short) {
    return foo ? 1 : 2;
   }
   return row[aVeryLongFieldName] != "undefined" ? row[aVeryLongFieldName]
   : "null";
  }
+
  function examples2() {
   string storage message = i % 3 == 0 && i % 5 == 0 ? "fizzbuzz"
   : i % 3 == 0 ? "fizz"
   : i % 5 == 0 ? "buzz"
   : String(i);
+
   string storage paymentMessageShort = state == "success" ?
    "Payment completed successfully"
   : state == "processing" ? "Payment processing"
   : state == "invalid_cvc" ? "There was an issue with your CVC number"
   : state == "invalid_expiry" ? "Expiry must be sometime in the past."
   : "There was an issue with the payment.  Please contact support.";
+
   string storage paymentMessageWithABreak = state == "success" ?
    "Payment completed successfully"
   : state == "processing" ? "Payment processing"
@@ -932,6 +955,7 @@ contract Conditional {
    "There was an issue with your CVC number, and you need to take a prompt action on it."
   : state == "invalid_expiry" ? "Expiry must be sometime in the past."
   : "There was an issue with the payment.  Please contact support.";
+
   string storage typeofExample = definition.encode ?
    definition.encode(
     row[field] != "undefined" ? row[field]
@@ -941,6 +965,7 @@ contract Conditional {
   : row[field] != "undefined" ? row[field]
   : definition.defaults != "undefined" ? definition.defaults
   : "null";
+
   string storage typeofExampleFlipped = definition.encode ?
    definition.encode(
     row[field] == "undefined" ?
@@ -1734,6 +1759,7 @@ string storage typeofExampleFlipped =
 
 =====================================output=====================================
 pragma solidity ^0.4.24;
+
 contract Conditional {
 	function blogPostExample() {
 		string storage animalName = pet.canBark() ?
@@ -1742,10 +1768,12 @@ contract Conditional {
 			:	"dog"
 		: pet.canMeow() ? "cat"
 		: "probably a bunny";
+
 		string storage animalName = pet.isScary() ? "wolf"
 		: pet.canBark() ? "dog"
 		: pet.canMeow() ? "cat"
 		: "probably a bunny";
+
 		string storage animalName = pet.canSqueak() ? "mouse"
 		: pet.canBark() ?
 			pet.isScary() ?
@@ -1755,14 +1783,18 @@ contract Conditional {
 		: pet.canSqueak() ? "mouse"
 		: "probably a bunny";
 	}
+
 	function examples1() {
 		string storage short = isLoud() ? makeNoise() : silent();
+
 		string storage lessShort = isLoudReallyLoud() ?
 			makeNoiseReallyLoudly.omgSoLoud()
 		:	silent();
+
 		string storage andIndented = isLoudReallyReallyReallyReallyLoud() ?
 			makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
 		:	silent();
+
 		string storage indentationInFalseExpression = (
 			isLoudReallyReallyReallyReallyLoud()
 		) ?
@@ -1770,24 +1802,29 @@ contract Conditional {
 		:	someReallyLargeExpression
 				.thatWouldCauseALineBreak()
 				.willCauseAnIndentButNotParens();
+
 		string storage shortSoCase = isLoudReallyReallyReallyReallyLoud() ?
 			silent()
 		: (makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud());
+
 		string storage chainedShort = isCat() ? meow()
 		: isDog() ? bark()
 		: silent();
+
 		string storage chainedWithLongConsequent = isCat() ?
 			someReallyLargeExpression
 				.thatWouldCauseALineBreak()
 				.willCauseAnIndentButNotParens()
 		: isDog() ? bark()
 		: silent();
+
 		string storage chainedWithTernaryConsequent = isCat() ?
 			aNestedCondition ?
 				theResult()
 			:	theAlternate()
 		: isDog() ? bark()
 		: silent();
+
 		string storage consequentAndTerminalAlternateBreak = isCat() ?
 			someReallyLargeExpression
 				.thatWouldCauseALineBreak()
@@ -1796,70 +1833,74 @@ contract Conditional {
 		: someReallyLargeExpression
 			.thatWouldCauseALineBreak()
 			.willCauseAnIndentButNotParens();
+
 		string storage multilineConditionsConsequentsAndAlternates = (
 			isAnAdorableKittyCat() &&
-				(someReallyLongCondition || moreInThisLongCondition)
+			(someReallyLongCondition || moreInThisLongCondition)
 		) ?
 			someReallyLargeExpression
 				.thatWouldCauseALineBreak()
 				.willCauseAnIndentButNotParens()
 		: (
 			isNotAnAdorableKittyCat() &&
-				(someReallyLongCondition || moreInThisLongCondition)
+			(someReallyLongCondition || moreInThisLongCondition)
 		) ?
 			bark()
 		: shortCondition() ? shortConsequent()
 		: someReallyLargeExpression
 			.thatWouldCauseALineBreak()
 			.willCauseAnIndentButNotParens();
+
 		assignment = (
 			isAnAdorableKittyCat() &&
-				(someReallyLongCondition || moreInThisLongCondition)
+			(someReallyLongCondition || moreInThisLongCondition)
 		) ?
 			someReallyLargeExpression
 				.thatWouldCauseALineBreak()
 				.willCauseAnIndentButNotParens()
 		: (
 			isNotAnAdorableKittyCat() &&
-				(someReallyLongCondition || moreInThisLongCondition)
+			(someReallyLongCondition || moreInThisLongCondition)
 		) ?
 			bark()
 		: shortCondition() ? shortConsequent()
 		: someReallyLargeExpression
 			.thatWouldCauseALineBreak()
 			.willCauseAnIndentButNotParens();
+
 		string storage mostlyShort = x == 1 ? "one"
 		: x == 2 ? "two"
 		: x == 3 ? "three"
 		: (
 			x == 5 &&
-				y == 7 &&
-				someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
+			y == 7 &&
+			someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
 		) ?
 			"four"
 		: x == 6 ? "six"
 		: "idk";
+
 		string storage longConditional = (
 			bifornCringerMoshedPerplexSawder ==
 				2 /
 				askTrovenaBeenaDependsRowans &&
-				glimseGlyphsHazardNoopsTieTie >=
-				averredBathersBoxroomBuggyNurl()
-					.anodyneCondosMalateOverateRetinol()
+			glimseGlyphsHazardNoopsTieTie >=
+			averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
 		) ?
 			"foo"
 		:	"bar";
+
 		string storage longConditionalChained = (
 			bifornCringerMoshedPerplexSawder ==
 				2 /
 				askTrovenaBeenaDependsRowans &&
-				glimseGlyphsHazardNoopsTieTie >=
-				averredBathersBoxroomBuggyNurl()
-					.anodyneCondosMalateOverateRetinol()
+			glimseGlyphsHazardNoopsTieTie >=
+			averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
 		) ?
 			"foo"
 		: anotherCondition ? "bar"
 		: "baz";
+
 		definition.encode(
 			row[field] != "undefined" ? row[field]
 			: definition.defaults != "undefined" ? definition.defaults
@@ -1870,6 +1911,7 @@ contract Conditional {
 				:	definition.defaults
 			:	row[field]
 		);
+
 		(foo ? 1 : bar) ? 3 : 4;
 		(
 			isCat() ? meow()
@@ -1878,23 +1920,27 @@ contract Conditional {
 		) ?
 			1
 		:	2;
+
 		if (short) {
 			return foo ? 1 : 2;
 		}
 		return row[aVeryLongFieldName] != "undefined" ? row[aVeryLongFieldName]
 		: "null";
 	}
+
 	function examples2() {
 		string storage message = i % 3 == 0 && i % 5 == 0 ? "fizzbuzz"
 		: i % 3 == 0 ? "fizz"
 		: i % 5 == 0 ? "buzz"
 		: String(i);
+
 		string storage paymentMessageShort = state == "success" ?
 			"Payment completed successfully"
 		: state == "processing" ? "Payment processing"
 		: state == "invalid_cvc" ? "There was an issue with your CVC number"
 		: state == "invalid_expiry" ? "Expiry must be sometime in the past."
 		: "There was an issue with the payment.  Please contact support.";
+
 		string storage paymentMessageWithABreak = state == "success" ?
 			"Payment completed successfully"
 		: state == "processing" ? "Payment processing"
@@ -1902,6 +1948,7 @@ contract Conditional {
 			"There was an issue with your CVC number, and you need to take a prompt action on it."
 		: state == "invalid_expiry" ? "Expiry must be sometime in the past."
 		: "There was an issue with the payment.  Please contact support.";
+
 		string storage typeofExample = definition.encode ?
 			definition.encode(
 				row[field] != "undefined" ? row[field]
@@ -1911,6 +1958,7 @@ contract Conditional {
 		: row[field] != "undefined" ? row[field]
 		: definition.defaults != "undefined" ? definition.defaults
 		: "null";
+
 		string storage typeofExampleFlipped = definition.encode ?
 			definition.encode(
 				row[field] == "undefined" ?
@@ -2702,6 +2750,7 @@ string storage typeofExampleFlipped =
 
 =====================================output=====================================
 pragma solidity ^0.4.24;
+
 contract Conditional {
     function blogPostExample() {
         string storage animalName = pet.canBark() ?
@@ -2710,10 +2759,12 @@ contract Conditional {
             :   "dog"
         : pet.canMeow() ? "cat"
         : "probably a bunny";
+
         string storage animalName = pet.isScary() ? "wolf"
         : pet.canBark() ? "dog"
         : pet.canMeow() ? "cat"
         : "probably a bunny";
+
         string storage animalName = pet.canSqueak() ? "mouse"
         : pet.canBark() ?
             pet.isScary() ?
@@ -2723,14 +2774,18 @@ contract Conditional {
         : pet.canSqueak() ? "mouse"
         : "probably a bunny";
     }
+
     function examples1() {
         string storage short = isLoud() ? makeNoise() : silent();
+
         string storage lessShort = isLoudReallyLoud() ?
             makeNoiseReallyLoudly.omgSoLoud()
         :   silent();
+
         string storage andIndented = isLoudReallyReallyReallyReallyLoud() ?
             makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
         :   silent();
+
         string storage indentationInFalseExpression = (
             isLoudReallyReallyReallyReallyLoud()
         ) ?
@@ -2738,24 +2793,29 @@ contract Conditional {
         :   someReallyLargeExpression
                 .thatWouldCauseALineBreak()
                 .willCauseAnIndentButNotParens();
+
         string storage shortSoCase = isLoudReallyReallyReallyReallyLoud() ?
             silent()
         : (makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud());
+
         string storage chainedShort = isCat() ? meow()
         : isDog() ? bark()
         : silent();
+
         string storage chainedWithLongConsequent = isCat() ?
             someReallyLargeExpression
                 .thatWouldCauseALineBreak()
                 .willCauseAnIndentButNotParens()
         : isDog() ? bark()
         : silent();
+
         string storage chainedWithTernaryConsequent = isCat() ?
             aNestedCondition ?
                 theResult()
             :   theAlternate()
         : isDog() ? bark()
         : silent();
+
         string storage consequentAndTerminalAlternateBreak = isCat() ?
             someReallyLargeExpression
                 .thatWouldCauseALineBreak()
@@ -2764,70 +2824,74 @@ contract Conditional {
         : someReallyLargeExpression
             .thatWouldCauseALineBreak()
             .willCauseAnIndentButNotParens();
+
         string storage multilineConditionsConsequentsAndAlternates = (
             isAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)
+            (someReallyLongCondition || moreInThisLongCondition)
         ) ?
             someReallyLargeExpression
                 .thatWouldCauseALineBreak()
                 .willCauseAnIndentButNotParens()
         : (
             isNotAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)
+            (someReallyLongCondition || moreInThisLongCondition)
         ) ?
             bark()
         : shortCondition() ? shortConsequent()
         : someReallyLargeExpression
             .thatWouldCauseALineBreak()
             .willCauseAnIndentButNotParens();
+
         assignment = (
             isAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)
+            (someReallyLongCondition || moreInThisLongCondition)
         ) ?
             someReallyLargeExpression
                 .thatWouldCauseALineBreak()
                 .willCauseAnIndentButNotParens()
         : (
             isNotAnAdorableKittyCat() &&
-                (someReallyLongCondition || moreInThisLongCondition)
+            (someReallyLongCondition || moreInThisLongCondition)
         ) ?
             bark()
         : shortCondition() ? shortConsequent()
         : someReallyLargeExpression
             .thatWouldCauseALineBreak()
             .willCauseAnIndentButNotParens();
+
         string storage mostlyShort = x == 1 ? "one"
         : x == 2 ? "two"
         : x == 3 ? "three"
         : (
             x == 5 &&
-                y == 7 &&
-                someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
+            y == 7 &&
+            someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
         ) ?
             "four"
         : x == 6 ? "six"
         : "idk";
+
         string storage longConditional = (
             bifornCringerMoshedPerplexSawder ==
                 2 /
                 askTrovenaBeenaDependsRowans &&
-                glimseGlyphsHazardNoopsTieTie >=
-                averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol()
+            glimseGlyphsHazardNoopsTieTie >=
+            averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
         ) ?
             "foo"
         :   "bar";
+
         string storage longConditionalChained = (
             bifornCringerMoshedPerplexSawder ==
                 2 /
                 askTrovenaBeenaDependsRowans &&
-                glimseGlyphsHazardNoopsTieTie >=
-                averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol()
+            glimseGlyphsHazardNoopsTieTie >=
+            averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
         ) ?
             "foo"
         : anotherCondition ? "bar"
         : "baz";
+
         definition.encode(
             row[field] != "undefined" ? row[field]
             : definition.defaults != "undefined" ? definition.defaults
@@ -2838,6 +2902,7 @@ contract Conditional {
                 :   definition.defaults
             :   row[field]
         );
+
         (foo ? 1 : bar) ? 3 : 4;
         (
             isCat() ? meow()
@@ -2846,23 +2911,27 @@ contract Conditional {
         ) ?
             1
         :   2;
+
         if (short) {
             return foo ? 1 : 2;
         }
         return row[aVeryLongFieldName] != "undefined" ? row[aVeryLongFieldName]
         : "null";
     }
+
     function examples2() {
         string storage message = i % 3 == 0 && i % 5 == 0 ? "fizzbuzz"
         : i % 3 == 0 ? "fizz"
         : i % 5 == 0 ? "buzz"
         : String(i);
+
         string storage paymentMessageShort = state == "success" ?
             "Payment completed successfully"
         : state == "processing" ? "Payment processing"
         : state == "invalid_cvc" ? "There was an issue with your CVC number"
         : state == "invalid_expiry" ? "Expiry must be sometime in the past."
         : "There was an issue with the payment.  Please contact support.";
+
         string storage paymentMessageWithABreak = state == "success" ?
             "Payment completed successfully"
         : state == "processing" ? "Payment processing"
@@ -2870,6 +2939,7 @@ contract Conditional {
             "There was an issue with your CVC number, and you need to take a prompt action on it."
         : state == "invalid_expiry" ? "Expiry must be sometime in the past."
         : "There was an issue with the payment.  Please contact support.";
+
         string storage typeofExample = definition.encode ?
             definition.encode(
                 row[field] != "undefined" ? row[field]
@@ -2879,6 +2949,7 @@ contract Conditional {
         : row[field] != "undefined" ? row[field]
         : definition.defaults != "undefined" ? definition.defaults
         : "null";
+
         string storage typeofExampleFlipped = definition.encode ?
             definition.encode(
                 row[field] == "undefined" ?
@@ -3681,6 +3752,7 @@ string storage typeofExampleFlipped =
 
 =====================================output=====================================
 pragma solidity ^0.4.24;
+
 contract Conditional {
     function blogPostExample() {
         string storage animalName = pet.canBark()
@@ -3690,6 +3762,7 @@ contract Conditional {
             : pet.canMeow()
                 ? "cat"
                 : "probably a bunny";
+
         string storage animalName = pet.isScary()
             ? "wolf"
             : pet.canBark()
@@ -3697,6 +3770,7 @@ contract Conditional {
                 : pet.canMeow()
                     ? "cat"
                     : "probably a bunny";
+
         string storage animalName = pet.canSqueak()
             ? "mouse"
             : pet.canBark()
@@ -3709,27 +3783,34 @@ contract Conditional {
                         ? "mouse"
                         : "probably a bunny";
     }
+
     function examples1() {
         string storage short = isLoud() ? makeNoise() : silent();
+
         string storage lessShort = isLoudReallyLoud()
             ? makeNoiseReallyLoudly.omgSoLoud()
             : silent();
+
         string storage andIndented = isLoudReallyReallyReallyReallyLoud()
             ? makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
             : silent();
+
         string storage indentationInFalseExpression = isLoudReallyReallyReallyReallyLoud()
             ? makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
             : someReallyLargeExpression
                 .thatWouldCauseALineBreak()
                 .willCauseAnIndentButNotParens();
+
         string storage shortSoCase = isLoudReallyReallyReallyReallyLoud()
             ? silent()
             : (makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud());
+
         string storage chainedShort = isCat()
             ? meow()
             : isDog()
                 ? bark()
                 : silent();
+
         string storage chainedWithLongConsequent = isCat()
             ? someReallyLargeExpression
                 .thatWouldCauseALineBreak()
@@ -3737,6 +3818,7 @@ contract Conditional {
             : isDog()
                 ? bark()
                 : silent();
+
         string storage chainedWithTernaryConsequent = isCat()
             ? aNestedCondition
                 ? theResult()
@@ -3744,6 +3826,7 @@ contract Conditional {
             : isDog()
                 ? bark()
                 : silent();
+
         string storage consequentAndTerminalAlternateBreak = isCat()
             ? someReallyLargeExpression
                 .thatWouldCauseALineBreak()
@@ -3753,6 +3836,7 @@ contract Conditional {
                 : someReallyLargeExpression
                     .thatWouldCauseALineBreak()
                     .willCauseAnIndentButNotParens();
+
         string storage multilineConditionsConsequentsAndAlternates = (
             isAnAdorableKittyCat() &&
                 (someReallyLongCondition || moreInThisLongCondition)
@@ -3770,6 +3854,7 @@ contract Conditional {
                     : someReallyLargeExpression
                         .thatWouldCauseALineBreak()
                         .willCauseAnIndentButNotParens();
+
         assignment = (
             isAnAdorableKittyCat() &&
                 (someReallyLongCondition || moreInThisLongCondition)
@@ -3787,6 +3872,7 @@ contract Conditional {
                     : someReallyLargeExpression
                         .thatWouldCauseALineBreak()
                         .willCauseAnIndentButNotParens();
+
         string storage mostlyShort = x == 1
             ? "one"
             : x == 2
@@ -3804,6 +3890,7 @@ contract Conditional {
                         : x == 6
                             ? "six"
                             : "idk";
+
         string storage longConditional = (
             bifornCringerMoshedPerplexSawder ==
                 2 /
@@ -3814,6 +3901,7 @@ contract Conditional {
         )
             ? "foo"
             : "bar";
+
         string storage longConditionalChained = (
             bifornCringerMoshedPerplexSawder ==
                 2 /
@@ -3826,6 +3914,7 @@ contract Conditional {
             : anotherCondition
                 ? "bar"
                 : "baz";
+
         definition.encode(
             row[field] != "undefined"
                 ? row[field]
@@ -3838,6 +3927,7 @@ contract Conditional {
                     : definition.defaults
                 : row[field]
         );
+
         (((foo ? 1 : bar))) ? 3 : 4;
         (
             isCat()
@@ -3848,6 +3938,7 @@ contract Conditional {
         )
             ? 1
             : 2;
+
         if (short) {
             return foo ? 1 : 2;
         }
@@ -3855,6 +3946,7 @@ contract Conditional {
             ? row[aVeryLongFieldName]
             : "null";
     }
+
     function examples2() {
         string storage message = i % 3 == 0 && i % 5 == 0
             ? "fizzbuzz"
@@ -3863,6 +3955,7 @@ contract Conditional {
                 : i % 5 == 0
                     ? "buzz"
                     : String(i);
+
         string storage paymentMessageShort = state == "success"
             ? "Payment completed successfully"
             : state == "processing"
@@ -3872,6 +3965,7 @@ contract Conditional {
                     : state == "invalid_expiry"
                         ? "Expiry must be sometime in the past."
                         : "There was an issue with the payment.  Please contact support.";
+
         string storage paymentMessageWithABreak = state == "success"
             ? "Payment completed successfully"
             : state == "processing"
@@ -3881,6 +3975,7 @@ contract Conditional {
                     : state == "invalid_expiry"
                         ? "Expiry must be sometime in the past."
                         : "There was an issue with the payment.  Please contact support.";
+
         string storage typeofExample = definition.encode
             ? definition.encode(
                 row[field] != "undefined"
@@ -3894,6 +3989,7 @@ contract Conditional {
                 : definition.defaults != "undefined"
                     ? definition.defaults
                     : "null";
+
         string storage typeofExampleFlipped = definition.encode
             ? definition.encode(
                 row[field] == "undefined"

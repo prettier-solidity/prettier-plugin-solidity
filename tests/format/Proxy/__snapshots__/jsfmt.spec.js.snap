@@ -62,16 +62,22 @@ contract Proxy {
 
 =====================================output=====================================
 pragma solidity ^0.4.24;
+
 contract Proxy {
     function _implementation() internal view returns (address);
+
     function _fallback() internal {
         _delegate(_implementation());
     }
+
     function _delegate(address implementation) internal {
         assembly {
             calldatacopy(0,0,calldatasize)
+
             let result := delegatecall(gas,implementation,0,calldatasize,0,0)
+
             returndatacopy(0,0,returndatasize)
+
             switch result
             case 0 {
                 revert(0,returndatasize)
@@ -81,6 +87,7 @@ contract Proxy {
             }
         }
     }
+
     function() public payable {
         _fallback();
     }

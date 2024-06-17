@@ -60,6 +60,7 @@ contract NumberLiteral {
 
 =====================================output=====================================
 pragma solidity 0.8.26;
+
 contract NumberLiteral {
     function numbers() public {
         2 ether;

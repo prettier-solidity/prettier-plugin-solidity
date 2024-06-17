@@ -200,11 +200,14 @@ contract SplittableCommodity is MintableCommodity {
 
 =====================================output=====================================
 pragma solidity ^0.4.24;
+
 import "./MintableCommodity.sol";
 import "../participant/ISupplier.sol";
 import "../../node_modules/zeppelin-solidity/contracts//math/SafeMath.sol";
+
 contract SplittableCommodity is MintableCommodity {
     using SafeMath for uint256;
+
     event Split(
         address indexed to,
         uint256 amount,
@@ -212,6 +215,7 @@ contract SplittableCommodity is MintableCommodity {
         address indexed operator,
         bytes operatorData
     );
+
     function split(
         uint _tokenId,
         address _to,
@@ -227,7 +231,9 @@ contract SplittableCommodity is MintableCommodity {
                 ISupplier(supplierProxy).isAllowed(this, "IMintableCommodity"),
             "Splitting can only be done when both the ISplittableCommodity interface is enabled and is called by a supplier or the FifoCrcMarket is used."
         );
+
         commodities[_tokenId].value = commodities[_tokenId].value.sub(_amount);
+
         CommodityLib.Commodity memory _commodity = CommodityLib.Commodity({
             category: uint64(1),
             timeRegistered: uint64(now),
@@ -241,6 +247,7 @@ contract SplittableCommodity is MintableCommodity {
             newCRCId <= 18446744073709551616,
             "You can only split a commodity if it is within a valid index range"
         );
+
         if (
             msg.sender ==
             IContractRegistry(contractRegistry).getLatestProxyAddr(
@@ -251,7 +258,9 @@ contract SplittableCommodity is MintableCommodity {
         } else {
             _transfer(msg.sender, _to, newCRCId);
         }
+
         callRecipient(msg.sender, 0x0, _to, newCRCId, "", "", false);
+
         emit Split(_to, _amount, uint64(newCRCId), msg.sender, "");
     }
 }

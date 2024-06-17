@@ -1,7 +1,10 @@
 export const ModifierInvocation = {
-  parse: ({ ast, options, parse }) => ({
-    name: parse(ast.name, options, parse),
-    arguments: ast.arguments ? parse(ast.arguments, options, parse) : undefined
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    name: parse(ast.name, options, parse, offsets),
+    arguments: ast.arguments
+      ? parse(ast.arguments, options, parse, offsets)
+      : undefined
   }),
   print: ({ node, path, print }) => [
     path.call(print, 'name'),

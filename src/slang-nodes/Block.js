@@ -1,7 +1,8 @@
 export const Block = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     openBrace: ast.openBrace.text,
-    statements: parse(ast.statements, options, parse),
+    statements: parse(ast.statements, options, parse, offsets),
     closeBrace: ast.closeBrace.text
   }),
   print: ({ node, path, print }) => [

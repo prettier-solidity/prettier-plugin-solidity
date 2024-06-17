@@ -335,9 +335,11 @@ contract FeedConsumer {
 
 =====================================output=====================================
 pragma solidity ^0.6.0;
+
 interface DataFeed {
     function getData(address token) external returns (uint value);
 }
+
 contract FeedConsumer {
     DataFeed feed;
     uint errorCount;
@@ -359,6 +361,7 @@ contract FeedConsumer {
             return (0, false);
         }
     }
+
     function rate2(address token) public returns (uint value, bool success) {
         require(errorCount < 10);
         try feed.getData(token) returns (
@@ -385,6 +388,7 @@ contract FeedConsumer {
             return (0, false);
         }
     }
+
     function rate3(address token) public returns (uint value, bool success) {
         require(errorCount < 10);
         try feed.getData(token) {
@@ -399,6 +403,7 @@ contract FeedConsumer {
             return (0, false);
         }
     }
+
     function rate4(address token) public returns (uint value, bool success) {
         require(errorCount < 10);
         try feed.getData(token) returns (

@@ -1162,6 +1162,7 @@ interface FunctionInterfaces {
             uint
         );
 }
+
 abstract contract FunctionInterfaces {
     function functionDefinition0();
     function functionDefinition1();
@@ -1174,13 +1175,16 @@ abstract contract FunctionInterfaces {
     function functionDefinition8();
     function functionDefinition9();
 }
+
 contract FunctionDefinitions {
     fallback() external {}
     fallback() external payable {}
     fallback() external payable virtual {}
     fallback(bytes calldata _input) external {}
+
     receive() external payable {}
     receive() external payable virtual {}
+
     function noParamsNoModifiersNoReturns() {
         a = 1;
     }

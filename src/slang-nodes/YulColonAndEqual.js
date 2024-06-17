@@ -1,5 +1,6 @@
 export const YulColonAndEqual = {
-  parse: ({ ast }) => ({
+  parse: ({ node, offsets, ast }) => ({
+    ...node,
     colon: ast.colon.text,
     equal: ast.equal.text
   }),

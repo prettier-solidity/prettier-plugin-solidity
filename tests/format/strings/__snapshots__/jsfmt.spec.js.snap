@@ -2283,11 +2283,13 @@ library strings {
 
 =====================================output=====================================
 pragma solidity ^0.4.14;
+
 library strings {
     struct slice {
         uint _len;
         uint _ptr;
     }
+
     function memcpy(uint dest, uint src, uint len) private pure {
         for (; len >= 32; len -= 32) {
             assembly {
@@ -2296,6 +2298,7 @@ library strings {
             dest += 32;
             src += 32;
         }
+
         uint mask = 256 ** (32 - len) - 1;
         assembly {
             let srcpart := and(mload(src),not(mask))
@@ -2303,6 +2306,7 @@ library strings {
             mstore(dest,or(destpart,srcpart))
         }
     }
+
     function toSlice(string memory self) internal pure returns (slice memory) {
         uint ptr;
         assembly {
@@ -2310,6 +2314,7 @@ library strings {
         }
         return slice(bytes(self).length, ptr);
     }
+
     function len(bytes32 self) internal pure returns (uint) {
         uint ret;
         if (self == 0) return 0;
@@ -2334,6 +2339,7 @@ library strings {
         }
         return 32 - ret;
     }
+
     function toSliceB32(bytes32 self) internal pure returns (slice memory ret) {
         assembly {
             let ptr := mload(0x40)
@@ -2343,18 +2349,22 @@ library strings {
         }
         ret._len = len(self);
     }
+
     function copy(slice memory self) internal pure returns (slice memory) {
         return slice(self._len, self._ptr);
     }
+
     function toString(slice memory self) internal pure returns (string memory) {
         string memory ret = new string(self._len);
         uint retptr;
         assembly {
             retptr := add(ret,32)
         }
+
         memcpy(retptr, self._ptr, self._len);
         return ret;
     }
+
     function len(slice memory self) internal pure returns (uint l) {
         uint ptr = self._ptr - 31;
         uint end = ptr + self._len;
@@ -2378,15 +2388,18 @@ library strings {
             }
         }
     }
+
     function empty(slice memory self) internal pure returns (bool) {
         return self._len == 0;
     }
+
     function compare(
         slice memory self,
         slice memory other
     ) internal pure returns (int) {
         uint shortest = self._len;
         if (other._len < self._len) shortest = other._len;
+
         uint selfptr = self._ptr;
         uint otherptr = other._ptr;
         for (uint idx = 0; idx < shortest; idx += 32) {
@@ -2409,21 +2422,25 @@ library strings {
         }
         return int(self._len) - int(other._len);
     }
+
     function equals(
         slice memory self,
         slice memory other
     ) internal pure returns (bool) {
         return compare(self, other) == 0;
     }
+
     function nextRune(
         slice memory self,
         slice memory rune
     ) internal pure returns (slice memory) {
         rune._ptr = self._ptr;
+
         if (self._len == 0) {
             rune._len = 0;
             return rune;
         }
+
         uint l;
         uint b;
         assembly {
@@ -2438,29 +2455,35 @@ library strings {
         } else {
             l = 4;
         }
+
         if (l > self._len) {
             rune._len = self._len;
             self._ptr += self._len;
             self._len = 0;
             return rune;
         }
+
         self._ptr += l;
         self._len -= l;
         rune._len = l;
         return rune;
     }
+
     function nextRune(
         slice memory self
     ) internal pure returns (slice memory ret) {
         nextRune(self, ret);
     }
+
     function ord(slice memory self) internal pure returns (uint ret) {
         if (self._len == 0) {
             return 0;
         }
+
         uint word;
         uint length;
         uint divisor = 2 ** 248;
+
         assembly {
             word := mload(mload(add(self,32)))
         }
@@ -2478,9 +2501,11 @@ library strings {
             ret = b & 0x07;
             length = 4;
         }
+
         if (length > self._len) {
             return 0;
         }
+
         for (uint i = 1; i < length; i++) {
             divisor = divisor / 256;
             b = (word / divisor) & 0xFF;
@@ -2489,13 +2514,16 @@ library strings {
             }
             ret = (ret * 64) | (b & 0x3F);
         }
+
         return ret;
     }
+
     function keccak(slice memory self) internal pure returns (bytes32 ret) {
         assembly {
             ret := keccak256(mload(add(self,32)),mload(self))
         }
     }
+
     function startsWith(
         slice memory self,
         slice memory needle
@@ -2503,9 +2531,11 @@ library strings {
         if (self._len < needle._len) {
             return false;
         }
+
         if (self._ptr == needle._ptr) {
             return true;
         }
+
         bool equal;
         assembly {
             let length := mload(needle)
@@ -2515,6 +2545,7 @@ library strings {
         }
         return equal;
     }
+
     function beyond(
         slice memory self,
         slice memory needle
@@ -2522,6 +2553,7 @@ library strings {
         if (self._len < needle._len) {
             return self;
         }
+
         bool equal = true;
         if (self._ptr != needle._ptr) {
             assembly {
@@ -2531,12 +2563,15 @@ library strings {
                 equal := eq(keccak256(selfptr,length),keccak256(needleptr,length))
             }
         }
+
         if (equal) {
             self._len -= needle._len;
             self._ptr += needle._len;
         }
+
         return self;
     }
+
     function endsWith(
         slice memory self,
         slice memory needle
@@ -2544,18 +2579,23 @@ library strings {
         if (self._len < needle._len) {
             return false;
         }
+
         uint selfptr = self._ptr + self._len - needle._len;
+
         if (selfptr == needle._ptr) {
             return true;
         }
+
         bool equal;
         assembly {
             let length := mload(needle)
             let needleptr := mload(add(needle,0x20))
             equal := eq(keccak256(selfptr,length),keccak256(needleptr,length))
         }
+
         return equal;
     }
+
     function until(
         slice memory self,
         slice memory needle
@@ -2563,6 +2603,7 @@ library strings {
         if (self._len < needle._len) {
             return self;
         }
+
         uint selfptr = self._ptr + self._len - needle._len;
         bool equal = true;
         if (selfptr != needle._ptr) {
@@ -2572,11 +2613,14 @@ library strings {
                 equal := eq(keccak256(selfptr,length),keccak256(needleptr,length))
             }
         }
+
         if (equal) {
             self._len -= needle._len;
         }
+
         return self;
     }
+
     function findPtr(
         uint selflen,
         uint selfptr,
@@ -2585,18 +2629,22 @@ library strings {
     ) private pure returns (uint) {
         uint ptr = selfptr;
         uint idx;
+
         if (needlelen <= selflen) {
             if (needlelen <= 32) {
                 bytes32 mask = bytes32(~(2 ** (8 * (32 - needlelen)) - 1));
+
                 bytes32 needledata;
                 assembly {
                     needledata := and(mload(needleptr),mask)
                 }
+
                 uint end = selfptr + selflen - needlelen;
                 bytes32 ptrdata;
                 assembly {
                     ptrdata := and(mload(ptr),mask)
                 }
+
                 while(ptrdata != needledata){
                     if (ptr >= end) return selfptr + selflen;
                     ptr++;
@@ -2610,6 +2658,7 @@ library strings {
                 assembly {
                     hash := keccak256(needleptr,needlelen)
                 }
+
                 for (idx = 0; idx <= selflen - needlelen; idx++) {
                     bytes32 testHash;
                     assembly {
@@ -2622,6 +2671,7 @@ library strings {
         }
         return selfptr + selflen;
     }
+
     function rfindPtr(
         uint selflen,
         uint selfptr,
@@ -2629,18 +2679,22 @@ library strings {
         uint needleptr
     ) private pure returns (uint) {
         uint ptr;
+
         if (needlelen <= selflen) {
             if (needlelen <= 32) {
                 bytes32 mask = bytes32(~(2 ** (8 * (32 - needlelen)) - 1));
+
                 bytes32 needledata;
                 assembly {
                     needledata := and(mload(needleptr),mask)
                 }
+
                 ptr = selfptr + selflen - needlelen;
                 bytes32 ptrdata;
                 assembly {
                     ptrdata := and(mload(ptr),mask)
                 }
+
                 while(ptrdata != needledata){
                     if (ptr <= selfptr) return selfptr;
                     ptr--;
@@ -2667,6 +2721,7 @@ library strings {
         }
         return selfptr;
     }
+
     function find(
         slice memory self,
         slice memory needle
@@ -2676,6 +2731,7 @@ library strings {
         self._ptr = ptr;
         return self;
     }
+
     function rfind(
         slice memory self,
         slice memory needle
@@ -2684,6 +2740,7 @@ library strings {
         self._len = ptr - self._ptr;
         return self;
     }
+
     function split(
         slice memory self,
         slice memory needle,
@@ -2700,12 +2757,14 @@ library strings {
         }
         return token;
     }
+
     function split(
         slice memory self,
         slice memory needle
     ) internal pure returns (slice memory token) {
         split(self, needle, token);
     }
+
     function rsplit(
         slice memory self,
         slice memory needle,
@@ -2721,12 +2780,14 @@ library strings {
         }
         return token;
     }
+
     function rsplit(
         slice memory self,
         slice memory needle
     ) internal pure returns (slice memory token) {
         rsplit(self, needle, token);
     }
+
     function count(
         slice memory self,
         slice memory needle
@@ -2745,6 +2806,7 @@ library strings {
                 needle._len;
         }
     }
+
     function contains(
         slice memory self,
         slice memory needle
@@ -2752,6 +2814,7 @@ library strings {
         return rfindPtr(self._len, self._ptr, needle._len, needle._ptr) !=
         self._ptr;
     }
+
     function concat(
         slice memory self,
         slice memory other
@@ -2765,20 +2828,24 @@ library strings {
         memcpy(retptr + self._len, other._ptr, other._len);
         return ret;
     }
+
     function join(
         slice memory self,
         slice[] memory parts
     ) internal pure returns (string memory) {
         if (parts.length == 0) return "";
+
         uint length = self._len * (parts.length - 1);
         for (uint i = 0; i < parts.length; i++) {
             length += parts[i]._len;
         }
+
         string memory ret = new string(length);
         uint retptr;
         assembly {
             retptr := add(ret,32)
         }
+
         for (i = 0; i < parts.length; i++) {
             memcpy(retptr, parts[i]._ptr, parts[i]._len);
             retptr += parts[i]._len;
@@ -2787,6 +2854,7 @@ library strings {
                 retptr += self._len;
             }
         }
+
         return ret;
     }
 }

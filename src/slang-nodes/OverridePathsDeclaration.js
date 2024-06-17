@@ -1,7 +1,8 @@
 export const OverridePathsDeclaration = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     openParen: ast.openParen.text,
-    paths: parse(ast.paths, options, parse),
+    paths: parse(ast.paths, options, parse, offsets),
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print

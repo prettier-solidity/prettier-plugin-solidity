@@ -1,7 +1,8 @@
 export const UncheckedBlock = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     uncheckedKeyword: ast.uncheckedKeyword.text,
-    block: parse(ast.block, options, parse)
+    block: parse(ast.block, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
     `${node.uncheckedKeyword} `,

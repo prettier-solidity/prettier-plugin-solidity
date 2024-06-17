@@ -168,10 +168,13 @@ contract Comments13 {
 }
 =====================================output=====================================
 pragma solidity ^0.4.24;
+
 contract Comments1 {
     IEIP712DomainSeparator private EIP712domainSeparator;
     bytes32 private _CACHED_DOMAIN_SEPARATOR;
+
     function() {}
+
     function hello()
         public
         modifier1
@@ -182,7 +185,9 @@ contract Comments1 {
         modifier6
     {}
 }
+
 contract Comments2 {}
+
 contract Comments3 is
     Interface1,
     Interface2,
@@ -193,6 +198,7 @@ contract Comments3 is
 {
     function someFunction() {}
 }
+
 contract Comments4 is
     Interface1,
     Interface2,
@@ -201,7 +207,9 @@ contract Comments4 is
     Interface5,
     Interface6
 {}
+
 contract Comments5 {}
+
 contract Comments6 is
     Interface1,
     Interface2,
@@ -210,36 +218,45 @@ contract Comments6 is
     Interface5,
     Interface6
 {}
+
 contract Comments7 {
     function someFunction(uint a, uint b, uint c) {
         someFunction(a, b, c);
     }
 }
+
 contract Comments8 {
     function someFunction() {
         if (something) {} else {}
     }
 }
+
 contract Comments8 {
     function someFunction() {
         if (something) {} else {}
     }
 }
+
 contract Comments9 {
     function someFunction() {
         if (something) f();
         else {}
     }
 }
+
 interface Comments10 {
     function someFunction() external;
+
     function someOtherFunction() external;
 }
+
 contract Comments11 {
     string a = "\\\\";
     string b = "\\\\";
+
     function f() public {}
 }
+
 contract Comments12 {
     function f() public {
         purchaseData[0] = DomainPurchaseData({
@@ -250,6 +267,7 @@ contract Comments12 {
         });
     }
 }
+
 contract Comments13 {
     function commentInModifierInvocation()
         external

@@ -1,5 +1,6 @@
 export const IdentifierPath = {
-  parse: ({ ast }) => ({
+  parse: ({ node, offsets, ast }) => ({
+    ...node,
     items: ast.items.map((item) => item.text),
     separators: ast.separators.map((separator) => separator.text)
   }),

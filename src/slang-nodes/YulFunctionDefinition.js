@@ -1,10 +1,13 @@
 export const YulFunctionDefinition = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     functionKeyword: ast.functionKeyword.text,
     name: ast.name.text,
-    parameters: parse(ast.parameters, options, parse),
-    returns: ast.returns ? parse(ast.returns, options, parse) : undefined,
-    body: parse(ast.body, options, parse)
+    parameters: parse(ast.parameters, options, parse, offsets),
+    returns: ast.returns
+      ? parse(ast.returns, options, parse, offsets)
+      : undefined,
+    body: parse(ast.body, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
     node.functionKeyword,

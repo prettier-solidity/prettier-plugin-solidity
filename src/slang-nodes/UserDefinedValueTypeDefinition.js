@@ -1,9 +1,10 @@
 export const UserDefinedValueTypeDefinition = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     typeKeyword: ast.typeKeyword.text,
     name: ast.name.text,
     isKeyword: ast.isKeyword.text,
-    valueType: parse(ast.valueType, options, parse),
+    valueType: parse(ast.valueType, options, parse, offsets),
     semicolon: ast.semicolon.text
   }),
   print: ({ node, path, print }) => [

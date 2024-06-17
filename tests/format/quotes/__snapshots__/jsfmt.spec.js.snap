@@ -92,6 +92,7 @@ contract Foo {
 =====================================output=====================================
 import "someContract.sol";
 import "someOtherContract.sol";
+
 contract Foo {
     string foo1 = "foo";
     string foo2 = "foo";
@@ -209,6 +210,7 @@ contract Foo {
 =====================================output=====================================
 import 'someContract.sol';
 import 'someOtherContract.sol';
+
 contract Foo {
     string foo1 = 'foo';
     string foo2 = 'foo';

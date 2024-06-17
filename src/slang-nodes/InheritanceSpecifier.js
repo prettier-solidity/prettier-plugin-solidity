@@ -1,7 +1,8 @@
 export const InheritanceSpecifier = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     isKeyword: ast.isKeyword.text,
-    types: parse(ast.types, options, parse)
+    types: parse(ast.types, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
     ` ${node.isKeyword}`,

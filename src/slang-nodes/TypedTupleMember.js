@@ -1,8 +1,9 @@
 export const TypedTupleMember = {
-  parse: ({ ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse),
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    typeName: parse(ast.typeName, options, parse, offsets),
     storageLocation: ast.storageLocation
-      ? parse(ast.storageLocation, options, parse)
+      ? parse(ast.storageLocation, options, parse, offsets)
       : undefined,
     name: ast.name.text
   }),

@@ -56,6 +56,7 @@ contract BasicIterator {
 contract BasicIterator {
     address creator;
     uint8[10] integers;
+
     function BasicIterator() {
         creator = msg.sender;
         uint8 x = 0;
@@ -64,6 +65,7 @@ contract BasicIterator {
             x++;
         }
     }
+
     function getSum() constant returns (uint) {
         uint8 sum = 0;
         uint8 x = 0;
@@ -73,6 +75,7 @@ contract BasicIterator {
         }
         return sum;
     }
+
     function kill() {
         if (msg.sender == creator) {
             suicide(creator);

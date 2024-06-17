@@ -1,7 +1,8 @@
 export const TupleExpression = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     openParen: ast.openParen.text,
-    items: parse(ast.items, options, parse),
+    items: parse(ast.items, options, parse, offsets),
     closeParen: ast.closeParen.text
   }),
   print: ({ node, path, print }) => [

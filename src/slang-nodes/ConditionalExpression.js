@@ -87,8 +87,8 @@ const traditionalTernaries = (node, path, print) =>
   ]);
 
 export const ConditionalExpression = {
-  parse: ({ ast, options, parse }) => {
-    let operand = parse(ast.operand, options, parse);
+  parse: ({ node, offsets, ast, options, parse }) => {
+    let operand = parse(ast.operand, options, parse, offsets);
 
     // TODO: while the behaviour is not stable, it should be behind the
     // experimentalTernaries flag.
@@ -106,11 +106,12 @@ export const ConditionalExpression = {
     }
 
     return {
+      ...node,
       operand,
       questionMark: ast.questionMark.text,
-      trueExpression: parse(ast.trueExpression, options, parse),
+      trueExpression: parse(ast.trueExpression, options, parse, offsets),
       colon: ast.colon.text,
-      falseExpression: parse(ast.falseExpression, options, parse)
+      falseExpression: parse(ast.falseExpression, options, parse, offsets)
     };
   },
   print: ({ node, path, print, options }) =>

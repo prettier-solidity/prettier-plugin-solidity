@@ -134,12 +134,15 @@ contract Example {
 
 =====================================output=====================================
 pragma solidity ^0.5.2;
+
 contract PrettierIgnore {
     fallback() external payable {
         matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
+
         matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);
     }
 }
+
 contract Example {
     fallback() external payable {
         matrix(1, 0, 0, 0, 1, 0, 0, 0, 1);

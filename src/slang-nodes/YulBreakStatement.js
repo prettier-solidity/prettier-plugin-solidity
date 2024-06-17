@@ -1,5 +1,6 @@
 export const YulBreakStatement = {
-  parse: ({ ast }) => ({
+  parse: ({ node, offsets, ast }) => ({
+    ...node,
     breakKeyword: ast.breakKeyword.text
   }),
   print: ({ node }) => node.breakKeyword
