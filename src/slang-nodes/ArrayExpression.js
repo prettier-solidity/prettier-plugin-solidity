@@ -3,9 +3,10 @@ import { doc } from 'prettier';
 const { group } = doc.builders;
 
 export const ArrayExpression = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     openBracket: ast.openBracket.text,
-    items: parse(ast.items, options, parse),
+    items: parse(ast.items, options, parse, offsets),
     closeBracket: ast.closeBracket.text
   }),
   print: ({ node, path, print }) =>

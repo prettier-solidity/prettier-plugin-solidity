@@ -28,7 +28,8 @@ const parser = { astFormat: 'solidity-ast', parse, ...loc };
 const slangParser = {
   astFormat: 'solidity-slang-ast',
   parse: slangParse,
-  ...loc
+  locStart: (node) => node.loc.start,
+  locEnd: (node) => node.loc.end
 };
 const parsers = {
   'solidity-parse': parser,

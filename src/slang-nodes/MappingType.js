@@ -1,10 +1,11 @@
 export const MappingType = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     mappingKeyword: ast.mappingKeyword.text,
     openParen: ast.openParen.text,
-    keyType: parse(ast.keyType, options, parse),
+    keyType: parse(ast.keyType, options, parse, offsets),
     equalGreaterThan: ast.equalGreaterThan.text,
-    valueType: parse(ast.valueType, options, parse),
+    valueType: parse(ast.valueType, options, parse, offsets),
     closeParen: ast.closeParen.text
   }),
   print: ({ node, path, print }) => [

@@ -1,5 +1,6 @@
 export const YulLeaveStatement = {
-  parse: ({ ast }) => ({
+  parse: ({ node, offsets, ast }) => ({
+    ...node,
     leaveKeyword: ast.leaveKeyword.text
   }),
   // TODO: implement print

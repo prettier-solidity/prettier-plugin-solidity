@@ -1,9 +1,10 @@
 export const StateVariableDefinition = {
-  parse: ({ ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse),
-    attributes: parse(ast.attributes, options, parse),
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    typeName: parse(ast.typeName, options, parse, offsets),
+    attributes: parse(ast.attributes, options, parse, offsets),
     name: ast.name.text,
-    value: ast.value ? parse(ast.value, options, parse) : undefined,
+    value: ast.value ? parse(ast.value, options, parse, offsets) : undefined,
     semicolon: ast.semicolon.text
   }),
   print: ({ node, path, print }) => [

@@ -1,8 +1,9 @@
 export const YulFunctionCallExpression = {
-  parse: ({ ast, options, parse }) => ({
-    operand: parse(ast.operand, options, parse),
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    operand: parse(ast.operand, options, parse, offsets),
     openParen: ast.openParen.text,
-    arguments: parse(ast.arguments, options, parse),
+    arguments: parse(ast.arguments, options, parse, offsets),
     closeParen: ast.closeParen.text
   }),
   print: ({ node, path, print }) => [

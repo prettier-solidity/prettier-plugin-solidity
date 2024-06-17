@@ -1,9 +1,10 @@
 export const UsingDirective = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     usingKeyword: ast.usingKeyword.text,
-    clause: parse(ast.clause, options, parse),
+    clause: parse(ast.clause, options, parse, offsets),
     forKeyword: ast.forKeyword.text,
-    target: parse(ast.target, options, parse),
+    target: parse(ast.target, options, parse, offsets),
     globalKeyword: ast.globalKeyword?.text,
     semicolon: ast.semicolon.text
   }),

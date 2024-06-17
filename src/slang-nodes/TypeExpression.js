@@ -1,8 +1,9 @@
 export const TypeExpression = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     typeKeyword: ast.typeKeyword.text,
     openParen: ast.openParen.text,
-    typeName: parse(ast.typeName, options, parse),
+    typeName: parse(ast.typeName, options, parse, offsets),
     closeParen: ast.closeParen.text
   }),
   // TODO: implement print

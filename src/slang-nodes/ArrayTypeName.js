@@ -1,8 +1,9 @@
 export const ArrayTypeName = {
-  parse: ({ ast, options, parse }) => ({
-    operand: parse(ast.operand, options, parse),
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    operand: parse(ast.operand, options, parse, offsets),
     openBracket: ast.openBracket.text,
-    index: ast.index ? parse(ast.index, options, parse) : undefined,
+    index: ast.index ? parse(ast.index, options, parse, offsets) : undefined,
     closeBracket: ast.closeBracket.text
   }),
   print: ({ node, path, print }) => [

@@ -117,6 +117,7 @@ contract MemberAccessIsEndOfChainCases {
 
 =====================================output=====================================
 pragma solidity ^0.5.0;
+
 contract MemberAccess {
     function() {
         int256 amount = SafeCast
@@ -208,8 +209,10 @@ contract MemberAccess {
         );
     }
 }
+
 contract MemberAccessIsEndOfChainCases {
     uint a = b.c;
+
     function() modifierCase(b.c) {
         a(b.c);
         a[b.c];

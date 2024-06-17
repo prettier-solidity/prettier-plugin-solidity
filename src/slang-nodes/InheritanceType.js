@@ -1,7 +1,10 @@
 export const InheritanceType = {
-  parse: ({ ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse),
-    arguments: ast.arguments ? parse(ast.arguments, options, parse) : undefined
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    typeName: parse(ast.typeName, options, parse, offsets),
+    arguments: ast.arguments
+      ? parse(ast.arguments, options, parse, offsets)
+      : undefined
   }),
   print: ({ node, path, print }) => [
     path.call(print, 'typeName'),

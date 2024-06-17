@@ -1,5 +1,6 @@
 export const NumberUnit = {
-  parse: ({ ast }) => ({
+  parse: ({ node, offsets, ast }) => ({
+    ...node,
     variant: ast.variant.text
   }),
   print: ({ node }) => node.variant

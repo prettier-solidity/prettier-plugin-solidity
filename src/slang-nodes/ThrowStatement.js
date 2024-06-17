@@ -1,5 +1,6 @@
 export const ThrowStatement = {
-  parse: ({ ast }) => ({
+  parse: ({ node, offsets, ast }) => ({
+    ...node,
     throwKeyword: ast.throwKeyword.text,
     semicolon: ast.semicolon.text
   }),

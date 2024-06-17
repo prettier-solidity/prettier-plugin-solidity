@@ -6,10 +6,10 @@ import { rightOperandPrint, tryHug } from '../common/slang-helpers.js';
 const { group, indent } = doc.builders;
 
 export const ExponentiationExpression = {
-  parse: ({ ast, options, parse }) => {
+  parse: ({ node, offsets, ast, options, parse }) => {
     const compiler = coerce(options.compiler);
-    let leftOperand = parse(ast.leftOperand, options, parse);
-    let rightOperand = parse(ast.rightOperand, options, parse);
+    let leftOperand = parse(ast.leftOperand, options, parse, offsets);
+    let rightOperand = parse(ast.rightOperand, options, parse, offsets);
 
     if (compiler) {
       if (satisfies(compiler, '>=0.8.0')) {
@@ -19,6 +19,7 @@ export const ExponentiationExpression = {
       }
     }
     return {
+      ...node,
       leftOperand,
       operator: ast.operator.text,
       rightOperand

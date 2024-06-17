@@ -1,8 +1,8 @@
 import { binaryOperationPrint, tryHug } from '../common/slang-helpers.js';
 
 export const MultiplicativeExpression = {
-  parse: ({ ast, options, parse }) => {
-    let leftOperand = parse(ast.leftOperand, options, parse);
+  parse: ({ node, offsets, ast, options, parse }) => {
+    let leftOperand = parse(ast.leftOperand, options, parse, offsets);
     const operator = ast.operator.text;
 
     switch (operator) {
@@ -20,9 +20,10 @@ export const MultiplicativeExpression = {
     }
 
     return {
+      ...node,
       leftOperand,
       operator,
-      rightOperand: parse(ast.rightOperand, options, parse)
+      rightOperand: parse(ast.rightOperand, options, parse, offsets)
     };
   },
   print: binaryOperationPrint

@@ -1,8 +1,9 @@
 export const YulIfStatement = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     ifKeyword: ast.ifKeyword.text,
-    condition: parse(ast.condition, options, parse),
-    body: parse(ast.body, options, parse)
+    condition: parse(ast.condition, options, parse, offsets),
+    body: parse(ast.body, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
     node.ifKeyword,

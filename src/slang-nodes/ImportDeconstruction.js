@@ -1,10 +1,11 @@
 export const ImportDeconstruction = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     openBrace: ast.openBrace.text,
-    symbols: parse(ast.symbols, options, parse),
+    symbols: parse(ast.symbols, options, parse, offsets),
     closeBrace: ast.closeBrace.text,
     fromKeyword: ast.fromKeyword.text,
-    path: parse(ast.path, options, parse)
+    path: parse(ast.path, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
     node.openBrace,

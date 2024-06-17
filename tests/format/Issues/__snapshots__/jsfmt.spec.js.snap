@@ -60,9 +60,11 @@ contract Example {
 =====================================output=====================================
 contract Example {
     using SafeMath for uint256;
+
     struct BalanceState {
         uint256 balance;
     }
+
     mapping(address => mapping(address => BalanceState)) private balanceStates;
     function example(address token, uint amount) public {
         balanceStates[msg.sender][token].balance = balanceStates[msg.sender][
@@ -181,9 +183,12 @@ contract Bug {
 
 =====================================output=====================================
 pragma solidity 0.6.12;
+
 contract Bug {
     uint public hello;
+
     uint public bigNum = 100_000;
+
     uint public magic;
 }
 
@@ -408,7 +413,9 @@ contract ContractWithoutComments {
 
 =====================================output=====================================
 pragma solidity ^0.8.0;
+
 contract ContractWithLeadingComment {}
+
 contract ContractWithoutComments {}
 
 ================================================================================

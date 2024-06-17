@@ -88,6 +88,7 @@ contract ArraySlices {
 
 =====================================output=====================================
 pragma solidity ^0.5.2;
+
 contract Arrays {
     bytes32[] public permissions = [
         bytes32("addPartner"),
@@ -103,6 +104,7 @@ contract Arrays {
         bytes32("addPermissionToGroup"),
         bytes32("removePermissionFromGroup")
     ];
+
     function a() {
         Outcome.OutcomeItem[] memory outcomeFrom = abi.decode(
             fromPart.outcome,
@@ -110,6 +112,7 @@ contract Arrays {
         );
     }
 }
+
 contract ArraySlices {
     function f(bytes calldata x) public {
         bytes memory a1 = abi.decode(x[:], (bytes));

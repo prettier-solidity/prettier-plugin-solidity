@@ -1,14 +1,13 @@
 import { doc } from 'prettier';
-import {
-  printPreservingEmptyLines,
-  printSeparatedItem
-} from '../common/printer-helpers.js';
+import { printSeparatedItem } from '../common/printer-helpers.js';
+import { printPreservingEmptyLines } from '../common/slang-helpers.js';
 
 const { hardline } = doc.builders;
 
 export const Statements = {
-  parse: ({ ast, options, parse }) => ({
-    items: ast.items.map((item) => parse(item, options, parse))
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    items: ast.items.map((item) => parse(item, options, parse, offsets))
   }),
   print: ({ node, path, options, print }) =>
     node.items.length > 0

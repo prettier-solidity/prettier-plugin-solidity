@@ -223,13 +223,17 @@ contract IndexOf {
 =====================================output=====================================
 contract IndexOf {
     address creator;
+
     function IndexOf() {
         creator = msg.sender;
     }
+
     int whatwastheval = -10;
+
     function indexOf(string _a, string _b) returns (int) {
         bytes memory a = bytes(_a);
         bytes memory b = bytes(_b);
+
         if (a.length < 1 || b.length < 1 || (b.length > a.length)) {
             whatwastheval = -1;
             return -1;

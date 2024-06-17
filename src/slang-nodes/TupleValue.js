@@ -1,7 +1,8 @@
 export const TupleValue = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     expression: ast.expression
-      ? parse(ast.expression, options, parse)
+      ? parse(ast.expression, options, parse, offsets)
       : undefined
   }),
   print: ({ node, path, print }) =>

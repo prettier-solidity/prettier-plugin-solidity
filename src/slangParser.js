@@ -6,16 +6,61 @@ import { SourceUnit } from '@nomicfoundation/slang/ast/index.js';
 import coerce from 'semver/functions/coerce.js';
 import * as parsers from './slang-nodes/index.js';
 
-function genericParse(ast, options, parseFunction) {
-  const data = parsers[ast.cst.kind].parse({
+const commentKinds = [
+  'MultiLineComment',
+  'MultiLineNatSpecComment',
+  'SingleLineComment',
+  'SingleLineNatSpecComment'
+];
+
+const getCommentsAndOffsets = (ast, nodeOffset) => {
+  const children = ast.cst.children();
+  let offset = nodeOffset;
+  return children.reduce(
+    (commentsAndOffsets, child) => {
+      if (child.type === 'Nonterminal') {
+        commentsAndOffsets.offsets.push(offset);
+      }
+      if (child.type === 'Terminal' && commentKinds.includes(child.kind)) {
+        commentsAndOffsets.comments.push({
+          value: child.text,
+          loc: {
+            start: offset,
+            end: offset + child.textLength.utf8 - 1
+          }
+        });
+      }
+      offset += child.textLength.utf8;
+      return commentsAndOffsets;
+    },
+    { comments: [], offsets: [] }
+  );
+};
+
+function genericParse(ast, options, parseFunction, parentOffsets = [0]) {
+  const offset = parentOffsets.shift();
+  const { comments, offsets } = getCommentsAndOffsets(ast, offset);
+  // console.log(comments);
+  // console.log(offsets);
+
+  let node = {
+    kind: ast.cst.kind,
+    loc: {
+      start: offset,
+      end: offset + ast.cst.textLength.utf8 - 1
+    }
+    // comments
+  };
+
+  node = parsers[ast.cst.kind].parse({
+    node,
+    offsets,
     ast,
     options,
     parse: parseFunction
   });
 
-  data.kind = ast.cst.kind;
-
-  return data;
+  return node;
 }
 
 function parse(text, _parsers, options = _parsers) {

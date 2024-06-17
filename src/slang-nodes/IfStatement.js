@@ -11,14 +11,15 @@ const printBody = (bodyVariantKind, path, print) =>
       });
 
 export const IfStatement = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     ifKeyword: ast.ifKeyword.text,
     openParen: ast.openParen.text,
-    condition: parse(ast.condition, options, parse),
+    condition: parse(ast.condition, options, parse, offsets),
     closeParen: ast.closeParen.text,
-    body: parse(ast.body, options, parse),
+    body: parse(ast.body, options, parse, offsets),
     elseBranch: ast.elseBranch
-      ? parse(ast.elseBranch, options, parse)
+      ? parse(ast.elseBranch, options, parse, offsets)
       : undefined
   }),
   print: ({ node, path, print }) => {

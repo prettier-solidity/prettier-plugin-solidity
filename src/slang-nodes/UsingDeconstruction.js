@@ -1,7 +1,8 @@
 export const UsingDeconstruction = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     openBrace: ast.openBrace.text,
-    symbols: parse(ast.symbols, options, parse),
+    symbols: parse(ast.symbols, options, parse, offsets),
     closeBrace: ast.closeBrace.text
   }),
   print: ({ node, path, print }) => [

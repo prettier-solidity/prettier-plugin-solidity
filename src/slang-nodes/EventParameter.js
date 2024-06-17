@@ -1,6 +1,7 @@
 export const EventParameter = {
-  parse: ({ ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse),
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
+    typeName: parse(ast.typeName, options, parse, offsets),
     indexedKeyword: ast.indexedKeyword?.text,
     name: ast.name?.text
   }),

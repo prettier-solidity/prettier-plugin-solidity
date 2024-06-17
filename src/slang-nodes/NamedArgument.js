@@ -1,8 +1,9 @@
 export const NamedArgument = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     name: ast.name.text,
     colon: ast.colon.text,
-    value: parse(ast.value, options, parse)
+    value: parse(ast.value, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
     `${node.name}${node.colon} `,

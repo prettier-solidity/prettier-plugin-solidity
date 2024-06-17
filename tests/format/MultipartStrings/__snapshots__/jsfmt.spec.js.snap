@@ -65,6 +65,7 @@ contract MultipartStrings {
     bytes b4 =
         hex"beeeeeeeeeeeeeeeeeeeeeef"
         hex"c0000000000ffeeeeeeeeeeeeeeeeeee";
+
     string s1 = "foo";
     string s2 =
         "foo"

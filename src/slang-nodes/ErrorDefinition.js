@@ -1,8 +1,9 @@
 export const ErrorDefinition = {
-  parse: ({ ast, options, parse }) => ({
+  parse: ({ node, offsets, ast, options, parse }) => ({
+    ...node,
     errorKeyword: ast.errorKeyword.text,
     name: ast.name.text,
-    members: parse(ast.members, options, parse),
+    members: parse(ast.members, options, parse, offsets),
     semicolon: ast.semicolon.text
   }),
   print: ({ node, path, print }) => [

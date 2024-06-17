@@ -280,6 +280,7 @@ contract ArithmeticOperators {
         ) + c;
     }
 }
+
 contract ArithmeticOperators {
     function someFunction() {
         a ** b;
@@ -365,6 +366,7 @@ contract ArithmeticOperators {
         ) ** c;
     }
 }
+
 contract ShiftOperators {
     function someFunction() {
         a << b;
@@ -394,6 +396,7 @@ contract ShiftOperators {
         veryVeryVeryVeryVeryLongVariableCalledB;
     }
 }
+
 contract BitOperators {
     function someFunction() {
         a & b;
@@ -426,6 +429,7 @@ contract BitOperators {
         veryVeryVeryVeryVeryLongVariableCalledB;
     }
 }
+
 contract ComparisonOperators {
     function someFunction() {
         a < b;
@@ -507,6 +511,7 @@ contract ComparisonOperators {
         ) == c;
     }
 }
+
 contract AssignmentOperators {
     function someFunction() {
         a = veryVeryVeryVeryVeryLongVariableCalledA;
@@ -555,6 +560,7 @@ contract AssignmentOperators {
             veryVeryVeryVeryVeryLongFunctionCalledB(c);
     }
 }
+
 contract LogicalOperators {
     function someFunction() {
         a && b;
@@ -1482,6 +1488,7 @@ contract Parentheses {
 
 =====================================output=====================================
 pragma solidity 0.5.8;
+
 contract Parentheses {
     function() {
         a + b + c;
