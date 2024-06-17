@@ -1,7 +1,7 @@
 import { printString } from '../common/util.js';
 
 export const StringLiteral = {
-  parse: ({ node, offsets, ast, options }) => ({
+  parse: ({ node, ast, options }) => ({
     ...node,
     variant: printString(ast.variant.text.slice(1, -1), options)
   }),

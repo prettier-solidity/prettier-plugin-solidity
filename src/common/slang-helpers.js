@@ -26,7 +26,7 @@ export function printPreservingEmptyLines(path, key, options, print) {
       // Only attempt to prepend an empty line if `node` is not the first item
       index > 0 &&
       // YulLabel adds a dedented line so we don't have to prepend a hardline.
-      node.variant.kind !== 'YulLabel'
+      (node.kind !== 'YulStatement' || node.variant.kind !== 'YulLabel')
         ? hardline
         : '',
       print(childPath),
@@ -181,12 +181,17 @@ export const tryHug = (node, operators) => {
   )
     return {
       kind: 'Expression',
+      loc: { ...node.loc },
       variant: {
         kind: 'TupleExpression',
+        loc: { ...node.loc },
         openParen: '(',
         items: {
           kind: 'TupleValues',
-          items: [{ kind: 'TupleValue', expression: node }],
+          loc: { ...node.loc },
+          items: [
+            { kind: 'TupleValue', loc: { ...node.loc }, expression: node }
+          ],
           separators: []
         },
         closeParen: ')'

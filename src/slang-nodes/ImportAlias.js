@@ -1,5 +1,5 @@
 export const ImportAlias = {
-  parse: ({ node, offsets, ast }) => ({
+  parse: ({ node, ast }) => ({
     ...node,
     asKeyword: ast.asKeyword.text,
     identifier: ast.identifier.text

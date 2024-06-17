@@ -3,7 +3,7 @@ import { doc } from 'prettier';
 const { dedent, line } = doc.builders;
 
 export const YulLabel = {
-  parse: ({ node, offsets, ast }) => ({
+  parse: ({ node, ast }) => ({
     ...node,
     label: ast.label.text,
     colon: ast.colon.text

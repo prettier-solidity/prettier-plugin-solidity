@@ -1,5 +1,5 @@
 export const StorageLocation = {
-  parse: ({ node, offsets, ast }) => ({
+  parse: ({ node, ast }) => ({
     ...node,
     variant: ast.variant.text
   }),

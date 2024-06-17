@@ -1,5 +1,5 @@
 export const VersionSpecifiers = {
-  parse: ({ node, offsets, ast }) => ({
+  parse: ({ node, ast }) => ({
     ...node,
     items: ast.items.map((item) => item.text),
     separators: ast.separators.map((separator) => separator.text)
