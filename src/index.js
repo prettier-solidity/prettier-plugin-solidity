@@ -6,6 +6,8 @@ import parse from './parser.js';
 import print from './printer.js';
 import slangParse from './slangParser.js';
 import slangPrint from './slangPrinter.js';
+import { isComment, isBlockComment } from './common/slang-helpers.js';
+import { printComment } from './slangCommentPrinter.js';
 
 // https://prettier.io/docs/en/plugins.html#languages
 // https://github.com/ikatyang/linguist-languages/blob/master/data/Solidity.json
@@ -39,6 +41,8 @@ const parsers = {
 const canAttachComment = (node) =>
   node.type && node.type !== 'BlockComment' && node.type !== 'LineComment';
 
+const slangCanAttachComment = (node) => node.kind && !isComment(node);
+
 // https://prettier.io/docs/en/plugins.html#printers
 const printers = {
   'solidity-ast': {
@@ -54,16 +58,16 @@ const printers = {
     printComment: comments.printComment
   },
   'solidity-slang-ast': {
-    canAttachComment,
+    slangCanAttachComment,
     handleComments: {
       ownLine: comments.solidityHandleOwnLineComment,
       endOfLine: comments.solidityHandleEndOfLineComment,
       remaining: comments.solidityHandleRemainingComment
     },
-    isBlockComment: comments.isBlockComment,
+    isBlockComment,
     massageAstNode,
     print: slangPrint,
-    printComment: comments.printComment
+    printComment
   }
 };
 

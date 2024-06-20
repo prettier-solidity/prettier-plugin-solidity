@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { binaryOperationKinds } from '../common/slang-helpers.js';
+import { isBinaryOperation } from '../common/slang-helpers.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -13,7 +13,7 @@ export const AssignmentExpression = {
   print: ({ node, path, print }) => [
     path.call(print, 'leftOperand'),
     ` ${node.operator}`,
-    binaryOperationKinds.includes(node.rightOperand.variant.kind)
+    isBinaryOperation(node.rightOperand.variant)
       ? group(indent([line, path.call(print, 'rightOperand')]))
       : [' ', path.call(print, 'rightOperand')]
   ]
