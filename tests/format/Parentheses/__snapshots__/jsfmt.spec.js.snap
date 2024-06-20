@@ -200,7 +200,7 @@ contract AddNoParentheses {
 exports[`AddNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -593,7 +593,7 @@ contract BitAndNoParentheses {
 exports[`BitAndNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -986,7 +986,7 @@ contract BitOrNoParentheses {
 exports[`BitOrNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1379,7 +1379,7 @@ contract BitXorNoParentheses {
 exports[`BitXorNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1772,7 +1772,7 @@ contract DivNoParentheses {
 exports[`DivNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2165,7 +2165,7 @@ contract ExpNoParentheses {
 exports[`ExpNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2414,7 +2414,7 @@ contract LogicNoParentheses {
 exports[`LogicNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2663,7 +2663,7 @@ contract ModNoParentheses {
 exports[`ModNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -3056,7 +3056,7 @@ contract MulNoParentheses {
 exports[`MulNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -3449,7 +3449,7 @@ contract ShiftLNoParentheses {
 exports[`ShiftLNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -3842,7 +3842,7 @@ contract ShiftRNoParentheses {
 exports[`ShiftRNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4235,7 +4235,7 @@ contract SubNoParentheses {
 exports[`SubNoParentheses.sol - {"compiler":"0.8.6"} format 2`] = `
 ====================================options=====================================
 compiler: "0.8.6"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

@@ -9,6 +9,9 @@ import slangPrint from './slangPrinter.js';
 import { isComment, isBlockComment } from './common/slang-helpers.js';
 import { printComment } from './slangCommentPrinter.js';
 
+const parserName = 'slang';
+const astFormat = 'slang-ast';
+
 // https://prettier.io/docs/en/plugins.html#languages
 // https://github.com/ikatyang/linguist-languages/blob/master/data/Solidity.json
 const languages = [
@@ -20,7 +23,7 @@ const languages = [
     aceMode: 'text',
     tmScope: 'source.solidity',
     extensions: ['.sol'],
-    parsers: ['solidity-parse', 'solidity-slang-parser'],
+    parsers: ['solidity-parse', parserName],
     vscodeLanguageIds: ['solidity']
   }
 ];
@@ -28,14 +31,14 @@ const languages = [
 // https://prettier.io/docs/en/plugins.html#parsers
 const parser = { astFormat: 'solidity-ast', parse, ...loc };
 const slangParser = {
-  astFormat: 'solidity-slang-ast',
+  astFormat,
   parse: slangParse,
   locStart: (node) => node.loc.start,
   locEnd: (node) => node.loc.end
 };
 const parsers = {
   'solidity-parse': parser,
-  'solidity-slang-parse': slangParser
+  [parserName]: slangParser
 };
 
 const canAttachComment = (node) =>
@@ -57,8 +60,8 @@ const printers = {
     print,
     printComment: comments.printComment
   },
-  'solidity-slang-ast': {
-    slangCanAttachComment,
+  [astFormat]: {
+    canAttachComment: slangCanAttachComment,
     handleComments: {
       ownLine: comments.solidityHandleOwnLineComment,
       endOfLine: comments.solidityHandleEndOfLineComment,

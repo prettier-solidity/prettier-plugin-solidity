@@ -9,15 +9,15 @@ run_spec(import.meta, ['solidity-parse'], {
   useTabs: true
 });
 
-run_spec(import.meta, ['solidity-slang-parse']);
-run_spec(import.meta, ['solidity-slang-parse'], {
+run_spec(import.meta, ['slang']);
+run_spec(import.meta, ['slang'], {
   experimentalTernaries: true
 });
-run_spec(import.meta, ['solidity-slang-parse'], {
+run_spec(import.meta, ['slang'], {
   experimentalTernaries: true,
   tabWidth: 1
 });
-run_spec(import.meta, ['solidity-slang-parse'], {
+run_spec(import.meta, ['slang'], {
   experimentalTernaries: true,
   useTabs: true
 });

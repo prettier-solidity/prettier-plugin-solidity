@@ -24,7 +24,7 @@ contract LongInheritanceSpecifier is
 
 exports[`InheritanceSpecifier.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

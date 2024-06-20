@@ -3,7 +3,7 @@
 exports[`HexLiteral.sol - {"compiler":"0.8.25","singleQuote":false} format 1`] = `
 ====================================options=====================================
 compiler: "0.8.25"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
 singleQuote: false
                                                                                 | printWidth
@@ -30,7 +30,7 @@ contract HexLiteral {
 exports[`HexLiteral.sol - {"compiler":"0.8.25","singleQuote":true} format 1`] = `
 ====================================options=====================================
 compiler: "0.8.25"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth

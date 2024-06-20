@@ -40,7 +40,7 @@ contract Example {
 
 exports[`Issue205.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -103,7 +103,7 @@ contract Issue289 {
 
 exports[`Issue289.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -164,7 +164,7 @@ contract Bug {
 
 exports[`Issue355.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -235,7 +235,7 @@ contract Issue385 {
 
 exports[`Issue385.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -308,7 +308,7 @@ contract Issue564 {
 
 exports[`Issue564.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -354,7 +354,7 @@ struct EmptyStruct {}
 
 exports[`Issue799.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -396,7 +396,7 @@ contract ContractWithoutComments {}
 
 exports[`Issue843.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

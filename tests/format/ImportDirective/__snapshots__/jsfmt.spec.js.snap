@@ -4,7 +4,7 @@ exports[`ImportDirectives.sol - {"bracketSpacing":true,"compiler":"0.4.26"} form
 ====================================options=====================================
 bracketSpacing: true
 compiler: "0.4.26"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -50,7 +50,7 @@ import { symbol1 as alias1, symbol2 as alias2, symbol3 as alias3, symbol4 } from
 exports[`ImportDirectives.sol - {"compiler":"0.4.26"} format 1`] = `
 ====================================options=====================================
 compiler: "0.4.26"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
