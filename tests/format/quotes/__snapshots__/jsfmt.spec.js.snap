@@ -61,7 +61,7 @@ contract Foo {
 
 exports[`Quotes.sol - {"singleQuote":false} format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
 singleQuote: false
                                                                                 | printWidth
@@ -179,7 +179,7 @@ contract Foo {
 
 exports[`Quotes.sol - {"singleQuote":true} format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth

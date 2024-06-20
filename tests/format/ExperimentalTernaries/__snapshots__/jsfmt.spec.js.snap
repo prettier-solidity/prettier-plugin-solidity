@@ -513,7 +513,7 @@ contract Conditional {
 exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true,"tabWidth":1} format 2`] = `
 ====================================options=====================================
 experimentalTernaries: true
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
 tabWidth: 1
                                                                                 | printWidth
@@ -1502,7 +1502,7 @@ contract Conditional {
 exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true,"useTabs":true} format 2`] = `
 ====================================options=====================================
 experimentalTernaries: true
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
 useTabs: true
                                                                                 | printWidth
@@ -2494,7 +2494,7 @@ contract Conditional {
 exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true} format 2`] = `
 ====================================options=====================================
 experimentalTernaries: true
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -3496,7 +3496,7 @@ contract Conditional {
 
 exports[`ExperimentalTernaries.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

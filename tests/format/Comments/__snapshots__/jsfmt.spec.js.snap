@@ -3,7 +3,7 @@
 exports[`Comments.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

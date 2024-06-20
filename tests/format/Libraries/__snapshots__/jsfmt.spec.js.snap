@@ -56,7 +56,7 @@ using {
 exports[`Libraries.sol - {"bracketSpacing":true} format 2`] = `
 ====================================options=====================================
 bracketSpacing: true
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -149,7 +149,7 @@ using {
 
 exports[`Libraries.sol format 2`] = `
 ====================================options=====================================
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

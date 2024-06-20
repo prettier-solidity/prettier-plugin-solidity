@@ -3,7 +3,7 @@
 exports[`BlankLines.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -92,7 +92,7 @@ contract A {
 exports[`ControlStructures.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -313,7 +313,7 @@ contract ControlStructures {
 exports[`FunctionDeclaration.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -893,7 +893,7 @@ contract X is B, C, D {
 exports[`Mappings.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -952,7 +952,7 @@ contract Mappings {
 exports[`MaximumLineLength.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1263,7 +1263,7 @@ contract EventDefinitionsAndEventEmitters {
 exports[`OtherRecommendations.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1387,7 +1387,7 @@ contract OtherRecommendations {
 exports[`VariableDeclarations.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1434,7 +1434,7 @@ contract VariableDeclarations {
 exports[`WhitespaceInExpressions.sol - {"compiler":"0.5.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.5.0"
-parsers: ["solidity-slang-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
