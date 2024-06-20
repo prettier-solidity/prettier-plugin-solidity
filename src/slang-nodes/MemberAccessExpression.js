@@ -1,16 +1,19 @@
 import { doc } from 'prettier';
 import { isLabel } from '../common/util.js';
+import { createKindCheckFunction } from '../common/slang-helpers.js';
 
 const { group, indent, label, softline } = doc.builders;
+
+const isChainableExpression = createKindCheckFunction([
+  'FunctionCallExpression',
+  'IndexAccessExpression',
+  'MemberAccessExpression'
+]);
 
 const isEndOfChain = (node, path) => {
   for (
     let i = 0, currentNode = node, grandparentNode = path.getNode(i + 2);
-    [
-      'FunctionCallExpression',
-      'IndexAccessExpression',
-      'MemberAccessExpression'
-    ].includes(grandparentNode.kind);
+    isChainableExpression(grandparentNode);
     i += 2, currentNode = grandparentNode, grandparentNode = path.getNode(i + 2)
   ) {
     switch (grandparentNode.kind) {

@@ -1,5 +1,9 @@
 import { binaryOperationPrint, tryHug } from '../common/slang-helpers.js';
 
+const multiplicationHuggableOperators = new Set(['/', '%']);
+const divisionHuggableOperators = new Set(['*', '%']);
+const moduloHuggableOperators = new Set(['*', '/', '%']);
+
 export const MultiplicativeExpression = {
   parse: ({ node, offsets, ast, options, parse }) => {
     let leftOperand = parse(ast.leftOperand, options, parse, offsets);
@@ -7,13 +11,13 @@ export const MultiplicativeExpression = {
 
     switch (operator) {
       case '*':
-        leftOperand = tryHug(leftOperand, ['/', '%']);
+        leftOperand = tryHug(leftOperand, multiplicationHuggableOperators);
         break;
       case '/':
-        leftOperand = tryHug(leftOperand, ['*', '%']);
+        leftOperand = tryHug(leftOperand, divisionHuggableOperators);
         break;
       case '%':
-        leftOperand = tryHug(leftOperand, ['*', '/', '%']);
+        leftOperand = tryHug(leftOperand, moduloHuggableOperators);
         break;
       default:
         break;
