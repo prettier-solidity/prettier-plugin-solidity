@@ -5,13 +5,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SourceUnit } from '@nomicfoundation/slang/ast/index.js';
 import coerce from 'semver/functions/coerce.js';
 import * as parsers from './slang-nodes/index.js';
-
-const commentKinds = [
-  'MultiLineComment',
-  'MultiLineNatSpecComment',
-  'SingleLineComment',
-  'SingleLineNatSpecComment'
-];
+import { isComment } from './common/slang-helpers.js';
 
 const getCommentsAndOffsets = (ast, nodeOffset) => {
   const children = ast.cst.children();
@@ -21,8 +15,9 @@ const getCommentsAndOffsets = (ast, nodeOffset) => {
       if (child.type === 'Nonterminal') {
         commentsAndOffsets.offsets.push(offset);
       }
-      if (child.type === 'Terminal' && commentKinds.includes(child.kind)) {
+      if (child.type === 'Terminal' && isComment(child)) {
         commentsAndOffsets.comments.push({
+          kind: child.kind,
           value: child.text,
           loc: {
             start: offset,
