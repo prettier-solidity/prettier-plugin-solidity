@@ -3,7 +3,7 @@ import { isLast, isNextLineEmpty } from './backward-compatibility.js';
 
 const { dedent, group, hardline, indent, line } = doc.builders;
 
-function createKindCheckFunction(kindsArray) {
+export function createKindCheckFunction(kindsArray) {
   const kinds = new Set(kindsArray);
   return (node) => kinds.has(node?.kind);
 }
