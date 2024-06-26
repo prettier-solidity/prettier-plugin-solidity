@@ -27,19 +27,6 @@ function printIndentableBlockComment(comment) {
 
 export function printComment(commentPath) {
   const comment = commentPath.node;
-  const { comments } = commentPath.getParentNode();
-
-  // TODO: Prettier creates duplicates, research why this happens
-  if (
-    comments.some(
-      (c) =>
-        c.printed &&
-        c.loc.start === comment.loc.start &&
-        c.loc.end === comment.loc.end
-    )
-  ) {
-    return '';
-  }
 
   if (isLineComment(comment)) {
     return comment.value.trimEnd();

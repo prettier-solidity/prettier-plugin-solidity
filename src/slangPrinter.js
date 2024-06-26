@@ -30,6 +30,31 @@ function genericPrint(path, options, print) {
     throw new Error(`Unknown type: ${JSON.stringify(nodeType)}`);
   }
 
+  // For some reason, prettier is duplicating comments when attaching them.
+  // This just removes the duplicated comments
+  // TODO: research why is this happening and report it to the prettier team
+  // and remove this once it's fixed.
+  if (node.comments) {
+    let i;
+    for (i = 0; i < node.comments.length; i += 1) {
+      node.comments[i].printed = true;
+    }
+
+    node.comments = node.comments.filter(
+      (comment, index) =>
+        index ===
+        node.comments.findIndex(
+          (commentCheck) =>
+            commentCheck.loc.start === comment.loc.start &&
+            commentCheck.loc.end === comment.loc.end
+        )
+    );
+
+    for (i = 0; i < node.comments.length; i += 1) {
+      node.comments[i].printed = false;
+    }
+  }
+
   if (hasNodeIgnoreComment(node)) {
     ignoreComments(path);
 
