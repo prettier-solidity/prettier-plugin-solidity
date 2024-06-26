@@ -34,38 +34,3 @@ contract EnumDefinitions {
 
 ================================================================================
 `;
-
-exports[`EnumDefinitions.sol format 2`] = `
-====================================options=====================================
-parsers: ["slang"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-contract EnumDefinitions {
-    enum ActionChoices { GoLeft, GoRight, GoStraight, SitStill }
-    enum States { State1, State2, State3, State4, State5, State6, State7, State8, State9 }
-}
-
-=====================================output=====================================
-contract EnumDefinitions {
-    enum ActionChoices {
-        GoLeft,
-        GoRight,
-        GoStraight,
-        SitStill
-    }
-    enum States {
-        State1,
-        State2,
-        State3,
-        State4,
-        State5,
-        State6,
-        State7,
-        State8,
-        State9
-    }
-}
-
-================================================================================
-`;
