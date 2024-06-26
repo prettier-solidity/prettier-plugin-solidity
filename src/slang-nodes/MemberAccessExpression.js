@@ -105,8 +105,7 @@ const processChain = (chain) => {
 };
 
 export const MemberAccessExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     operand: parse(ast.operand, options, parse, offsets),
     period: ast.period.text,
     member: parse(ast.member, options, parse, offsets)

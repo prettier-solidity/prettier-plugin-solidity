@@ -1,6 +1,5 @@
 export const UsingDeconstructionSymbol = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     name: parse(ast.name, options, parse, offsets),
     alias: ast.alias ? parse(ast.alias, options, parse, offsets) : undefined
   }),

@@ -103,8 +103,6 @@ const binaryIndentRulesBuilder = (path) => (document) => {
   return document;
 };
 
-const comparisonGroupRulesBuilder = () => (document) => group(document);
-
 const isStatementWithComparisonOperationWithoutIndentation =
   createKindCheckFunction([
     'ReturnStatement',
@@ -162,7 +160,7 @@ export const rightOperandPrint = (node, path, print) => {
   return shouldGroup ? group(rightOperand) : rightOperand;
 };
 
-const binaryOperationPrintBuilder =
+export const binaryOperationPrintBuilder =
   (groupRulesBuilder, indentRulesBuilder) =>
   ({ node, path, print, options }) => {
     const groupRules = groupRulesBuilder(path);
@@ -181,7 +179,7 @@ export const binaryOperationPrint = binaryOperationPrintBuilder(
 );
 
 export const comparisonOperationPrint = binaryOperationPrintBuilder(
-  comparisonGroupRulesBuilder,
+  () => (document) => group(document), // always group
   comparisonIndentRulesBuilder
 );
 
@@ -190,28 +188,28 @@ export const logicalOperationPrint = binaryOperationPrintBuilder(
   logicalIndentRulesBuilder
 );
 
-export const tryHug = (node, huggableOperators) => {
-  if (
-    isBinaryOperation(node.variant) &&
-    huggableOperators.has(node.variant.operator)
-  )
-    return {
-      kind: 'Expression',
-      loc: { ...node.loc },
-      variant: {
-        kind: 'TupleExpression',
+export function createHugFunction(huggableOperators) {
+  const operators = new Set(huggableOperators);
+  return (node) => {
+    if (isBinaryOperation(node.variant) && operators.has(node.variant.operator))
+      return {
+        kind: 'Expression',
         loc: { ...node.loc },
-        openParen: '(',
-        items: {
-          kind: 'TupleValues',
+        variant: {
+          kind: 'TupleExpression',
           loc: { ...node.loc },
-          items: [
-            { kind: 'TupleValue', loc: { ...node.loc }, expression: node }
-          ],
-          separators: []
-        },
-        closeParen: ')'
-      }
-    };
-  return node;
-};
+          openParen: '(',
+          items: {
+            kind: 'TupleValues',
+            loc: { ...node.loc },
+            items: [
+              { kind: 'TupleValue', loc: { ...node.loc }, expression: node }
+            ],
+            separators: []
+          },
+          closeParen: ')'
+        }
+      };
+    return node;
+  };
+}

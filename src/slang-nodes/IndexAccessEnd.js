@@ -1,6 +1,5 @@
 export const IndexAccessEnd = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     colon: ast.colon.text,
     end: ast.end ? parse(ast.end, options, parse, offsets) : undefined
   }),

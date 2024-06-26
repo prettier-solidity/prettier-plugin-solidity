@@ -1,8 +1,7 @@
 import { printFunction } from '../common/slang-helpers.js';
 
 export const ReceiveFunctionDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     receiveKeyword: ast.receiveKeyword.text,
     parameters: parse(ast.parameters, options, parse, offsets),
     attributes: parse(ast.attributes, options, parse, offsets),

@@ -1,6 +1,5 @@
 export const CallOptionsExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     operand: parse(ast.operand, options, parse, offsets),
     openBrace: ast.openBrace.text,
     options: parse(ast.options, options, parse, offsets),

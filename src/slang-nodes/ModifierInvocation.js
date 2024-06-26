@@ -1,6 +1,5 @@
 export const ModifierInvocation = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     name: parse(ast.name, options, parse, offsets),
     arguments: ast.arguments
       ? parse(ast.arguments, options, parse, offsets)

@@ -1,6 +1,5 @@
 export const DecimalNumberExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     literal: ast.literal.text,
     unit: ast.unit ? parse(ast.unit, options, parse, offsets) : undefined
   }),

@@ -1,6 +1,5 @@
 export const VariableDeclarationStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     variableType: parse(ast.variableType, options, parse, offsets),
     storageLocation: ast.storageLocation
       ? parse(ast.storageLocation, options, parse, offsets)

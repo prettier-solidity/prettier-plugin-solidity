@@ -6,8 +6,7 @@ const { group, indentIfBreak, label } = doc.builders;
 let groupIndex = 0;
 
 export const FunctionCallExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     operand: parse(ast.operand, options, parse, offsets),
     arguments: parse(ast.arguments, options, parse, offsets)
   }),

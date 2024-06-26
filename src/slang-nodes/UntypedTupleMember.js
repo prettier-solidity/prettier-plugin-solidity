@@ -1,6 +1,5 @@
 export const UntypedTupleMember = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     storageLocation: ast.storageLocation
       ? parse(ast.storageLocation, options, parse, offsets)
       : undefined,

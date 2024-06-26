@@ -1,6 +1,5 @@
 export const CatchClause = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     catchKeyword: ast.catchKeyword.text,
     error: ast.error ? parse(ast.error, options, parse, offsets) : undefined,
     body: parse(ast.body, options, parse, offsets)

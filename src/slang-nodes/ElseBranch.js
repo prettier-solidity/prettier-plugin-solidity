@@ -8,8 +8,7 @@ const printBody = (bodyVariantKind, path, print) =>
     : group(indent([line, path.call(print, 'body')]));
 
 export const ElseBranch = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     elseKeyword: ast.elseKeyword.text,
     body: parse(ast.body, options, parse, offsets)
   }),

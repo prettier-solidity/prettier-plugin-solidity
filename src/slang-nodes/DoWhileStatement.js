@@ -9,8 +9,7 @@ const printBody = (node, path, print) =>
     : group([indent([line, path.call(print, 'body')]), line]);
 
 export const DoWhileStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     doKeyword: ast.doKeyword.text,
     body: parse(ast.body, options, parse, offsets),
     whileKeyword: ast.whileKeyword.text,

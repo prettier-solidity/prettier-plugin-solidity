@@ -1,6 +1,5 @@
 export const StateVariableAttributes = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     items: ast.items.map((item) => parse(item, options, parse, offsets))
   }),
   print: ({ node, path, print }) =>

@@ -1,6 +1,5 @@
 export const YulDefaultCase = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     defaultKeyword: ast.defaultKeyword.text,
     body: parse(ast.body, options, parse, offsets)
   }),

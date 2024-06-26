@@ -1,8 +1,7 @@
 import { printString } from '../common/util.js';
 
 export const UnicodeStringLiteral = {
-  parse: ({ node, ast, options }) => ({
-    ...node,
+  parse: ({ ast, options }) => ({
     variant: `unicode${printString(ast.variant.text.slice(8, -1), options)}`
   }),
   print: ({ node }) => node.variant

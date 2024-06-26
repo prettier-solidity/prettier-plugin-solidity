@@ -1,6 +1,5 @@
 export const ErrorDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     errorKeyword: ast.errorKeyword.text,
     name: ast.name.text,
     members: parse(ast.members, options, parse, offsets),

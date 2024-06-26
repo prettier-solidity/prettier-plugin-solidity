@@ -1,6 +1,5 @@
 export const YulFunctionDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     functionKeyword: ast.functionKeyword.text,
     name: ast.name.text,
     parameters: parse(ast.parameters, options, parse, offsets),

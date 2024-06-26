@@ -1,6 +1,5 @@
 export const YulVariableDeclarationStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     letKeyword: ast.letKeyword.text,
     names: ast.names.text,
     value: ast.value ? parse(ast.value, options, parse, offsets) : undefined

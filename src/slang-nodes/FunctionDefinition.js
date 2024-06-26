@@ -1,8 +1,7 @@
 import { printFunction } from '../common/slang-helpers.js';
 
 export const FunctionDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     functionKeyword: ast.functionKeyword.text,
     name: parse(ast.name, options, parse, offsets),
     parameters: parse(ast.parameters, options, parse, offsets),

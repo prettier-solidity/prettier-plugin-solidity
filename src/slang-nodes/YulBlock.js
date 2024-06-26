@@ -4,8 +4,7 @@ import { printSeparatedItem } from '../common/printer-helpers.js';
 const { hardline } = doc.builders;
 
 export const YulBlock = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     openBrace: ast.openBrace.text,
     statements: parse(ast.statements, options, parse, offsets),
     closeBrace: ast.closeBrace.text

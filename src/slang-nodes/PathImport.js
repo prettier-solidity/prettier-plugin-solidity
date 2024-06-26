@@ -1,6 +1,5 @@
 export const PathImport = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     path: parse(ast.path, options, parse, offsets),
     alias: ast.alias ? parse(ast.alias, options, parse, offsets) : undefined
   }),

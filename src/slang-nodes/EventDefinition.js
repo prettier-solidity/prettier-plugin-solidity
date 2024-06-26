@@ -1,6 +1,5 @@
 export const EventDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     eventKeyword: ast.eventKeyword.text,
     name: ast.name.text,
     parameters: parse(ast.parameters, options, parse, offsets),

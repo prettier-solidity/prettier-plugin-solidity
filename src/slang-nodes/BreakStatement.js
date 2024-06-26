@@ -1,6 +1,5 @@
 export const BreakStatement = {
-  parse: ({ node, ast }) => ({
-    ...node,
+  parse: ({ ast }) => ({
     breakKeyword: ast.breakKeyword.text,
     semicolon: ast.semicolon.text
   }),

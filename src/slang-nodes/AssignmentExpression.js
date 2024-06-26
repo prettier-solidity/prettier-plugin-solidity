@@ -4,8 +4,7 @@ import { isBinaryOperation } from '../common/slang-helpers.js';
 const { group, indent, line } = doc.builders;
 
 export const AssignmentExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     leftOperand: parse(ast.leftOperand, options, parse, offsets),
     operator: ast.operator.text,
     rightOperand: parse(ast.rightOperand, options, parse, offsets)

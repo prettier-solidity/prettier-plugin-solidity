@@ -7,53 +7,50 @@ import coerce from 'semver/functions/coerce.js';
 import * as parsers from './slang-nodes/index.js';
 import { isComment } from './common/slang-helpers.js';
 
-const getCommentsAndOffsets = (ast, nodeOffset) => {
-  const children = ast.cst.children();
+const comments = [];
+const getOffsets = (ast, nodeOffset) => {
   let offset = nodeOffset;
-  return children.reduce(
-    (commentsAndOffsets, child) => {
-      if (child.type === 'Nonterminal') {
-        commentsAndOffsets.offsets.push(offset);
-      }
-      if (child.type === 'Terminal' && isComment(child)) {
-        commentsAndOffsets.comments.push({
-          kind: child.kind,
-          value: child.text,
-          loc: {
-            start: offset,
-            end: offset + child.textLength.utf8 - 1
-          }
-        });
-      }
-      offset += child.textLength.utf8;
-      return commentsAndOffsets;
-    },
-    { comments: [], offsets: [] }
-  );
+
+  return ast.cst.children().reduce((offsetsArray, child) => {
+    if (child.type === 'Nonterminal') {
+      offsetsArray.push(offset);
+    }
+    if (child.type === 'Terminal' && isComment(child)) {
+      // TODO: avoid collecting comments as a side effect of the functionality
+      // for retrieving offsets
+      comments.push({
+        kind: child.kind,
+        value: child.text,
+        loc: {
+          start: offset,
+          end: offset + child.textLength.utf8
+        }
+      });
+    }
+
+    offset += child.textLength.utf8;
+    return offsetsArray;
+  }, []);
 };
 
 function genericParse(ast, options, parseFunction, parentOffsets = [0]) {
   const offset = parentOffsets.shift();
-  const { comments, offsets } = getCommentsAndOffsets(ast, offset);
-  // console.log(comments);
-  // console.log(offsets);
+  const offsets = getOffsets(ast, offset);
 
-  let node = {
-    kind: ast.cst.kind,
-    loc: {
-      start: offset,
-      end: offset + ast.cst.textLength.utf8 - 1
-    }
-    // comments
-  };
-
-  node = parsers[ast.cst.kind].parse({
-    node,
+  const node = parsers[ast.cst.kind].parse({
     offsets,
     ast,
     options,
     parse: parseFunction
   });
+
+  node.kind = ast.cst.kind;
+  node.loc = {
+    start: offset,
+    end: offset + ast.cst.textLength.utf8
+  };
+
+  if (node.kind === 'SourceUnit') node.comments = comments;
 
   return node;
 }

@@ -1,6 +1,5 @@
 export const ABICoderPragma = {
-  parse: ({ node, ast }) => ({
-    ...node,
+  parse: ({ ast }) => ({
     abicoderKeyword: ast.abicoderKeyword.text,
     version: ast.version.text
   }),

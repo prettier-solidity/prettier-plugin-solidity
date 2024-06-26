@@ -1,6 +1,5 @@
 export const YulIfStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     ifKeyword: ast.ifKeyword.text,
     condition: parse(ast.condition, options, parse, offsets),
     body: parse(ast.body, options, parse, offsets)
