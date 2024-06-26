@@ -31,31 +31,3 @@ contract ModifierDefinitions {
 
 ================================================================================
 `;
-
-exports[`ModifierDefinitions.sol format 2`] = `
-====================================options=====================================
-parsers: ["slang"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-contract ModifierDefinitions {
-  modifier noParams() {}
-  modifier oneParam(uint a) {}
-  modifier twoParams(uint a,uint b) {}
-  modifier threeParams(uint a,uint b   ,uint c) {}
-  modifier test() virtual;
-  modifier test() virtual {}
-}
-
-=====================================output=====================================
-contract ModifierDefinitions {
-    modifier noParams() {}
-    modifier oneParam(uint a) {}
-    modifier twoParams(uint a, uint b) {}
-    modifier threeParams(uint a, uint b, uint c) {}
-    modifier test() virtual;
-    modifier test() virtual {}
-}
-
-================================================================================
-`;
