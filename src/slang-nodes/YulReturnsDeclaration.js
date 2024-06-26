@@ -4,8 +4,7 @@ import { printSeparatedItem } from '../common/printer-helpers.js';
 const { line } = doc.builders;
 
 export const YulReturnsDeclaration = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     minusGreaterThan: ast.minusGreaterThan.text,
     variables: parse(ast.variables, options, parse, offsets)
   }),

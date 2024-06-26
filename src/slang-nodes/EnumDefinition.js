@@ -1,6 +1,5 @@
 export const EnumDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     enumKeyword: ast.enumKeyword.text,
     name: ast.name.text,
     openBrace: ast.openBrace.text,

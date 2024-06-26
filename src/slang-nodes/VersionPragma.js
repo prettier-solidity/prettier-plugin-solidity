@@ -1,6 +1,5 @@
 export const VersionPragma = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     solidityKeyword: ast.solidityKeyword.text,
     sets: parse(ast.sets, options, parse, offsets)
   }),

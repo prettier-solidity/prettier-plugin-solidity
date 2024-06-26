@@ -1,6 +1,5 @@
 export const PrefixExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     operator: ast.operator.text,
     operand: parse(ast.operand, options, parse, offsets)
   }),

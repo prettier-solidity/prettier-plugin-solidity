@@ -3,8 +3,7 @@ import { doc } from 'prettier';
 const { group, indent, line } = doc.builders;
 
 export const TupleDeconstructionStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     varKeyword: ast.varKeyword?.text,
     openParen: ast.openParen.text,
     elements: parse(ast.elements, options, parse, offsets),

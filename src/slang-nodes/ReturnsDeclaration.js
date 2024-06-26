@@ -1,6 +1,5 @@
 export const ReturnsDeclaration = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     returnsKeyword: ast.returnsKeyword.text,
     variables: parse(ast.variables, options, parse, offsets)
   }),

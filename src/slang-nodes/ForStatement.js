@@ -4,8 +4,7 @@ import { printSeparatedList } from '../common/printer-helpers.js';
 const { group, indent, line } = doc.builders;
 
 export const ForStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     forKeyword: ast.forKeyword.text,
     openParen: ast.openParen.text,
     initialization: parse(ast.initialization, options, parse, offsets),

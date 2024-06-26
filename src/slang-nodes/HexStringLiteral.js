@@ -1,8 +1,7 @@
 import { printString } from '../common/util.js';
 
 export const HexStringLiteral = {
-  parse: ({ node, ast, options }) => ({
-    ...node,
+  parse: ({ ast, options }) => ({
     variant: `hex${printString(ast.variant.text.slice(4, -1), options)}`
   }),
   print: ({ node }) => node.variant

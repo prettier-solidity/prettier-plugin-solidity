@@ -1,6 +1,5 @@
 export const AssemblyStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     assemblyKeyword: ast.assemblyKeyword.text,
     label: ast.label ? parse(ast.label, options, parse, offsets) : undefined,
     flags: ast.flags ? parse(ast.flags, options, parse, offsets) : undefined,

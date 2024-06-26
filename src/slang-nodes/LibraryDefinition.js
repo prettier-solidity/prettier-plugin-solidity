@@ -3,8 +3,7 @@ import { doc } from 'prettier';
 const { group, line } = doc.builders;
 
 export const LibraryDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     libraryKeyword: ast.libraryKeyword.text,
     name: ast.name.text,
     openBrace: ast.openBrace.text,

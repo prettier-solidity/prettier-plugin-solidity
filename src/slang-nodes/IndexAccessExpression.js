@@ -6,8 +6,7 @@ const { group, indent, indentIfBreak, label, softline } = doc.builders;
 let groupIndex = 0;
 
 export const IndexAccessExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     operand: parse(ast.operand, options, parse, offsets),
     openBracket: ast.openBracket.text,
     start: ast.start ? parse(ast.start, options, parse, offsets) : undefined,

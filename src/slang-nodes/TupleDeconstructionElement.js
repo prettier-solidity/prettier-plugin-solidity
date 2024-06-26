@@ -1,6 +1,5 @@
 export const TupleDeconstructionElement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     member: ast.member ? parse(ast.member, options, parse, offsets) : undefined
   }),
   print: ({ node, path, print }) =>

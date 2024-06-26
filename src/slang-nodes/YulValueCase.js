@@ -1,6 +1,5 @@
 export const YulValueCase = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     caseKeyword: ast.caseKeyword.text,
     value: parse(ast.value, options, parse, offsets),
     body: parse(ast.body, options, parse, offsets)

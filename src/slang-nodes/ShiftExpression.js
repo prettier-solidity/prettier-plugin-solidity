@@ -1,6 +1,9 @@
-import { binaryOperationPrint, tryHug } from '../common/slang-helpers.js';
+import {
+  binaryOperationPrint,
+  createHugFunction
+} from '../common/slang-helpers.js';
 
-const leftOperandHuggableOperators = new Set([
+const tryToHugLeftOperand = createHugFunction([
   '+',
   '-',
   '*',
@@ -9,19 +12,16 @@ const leftOperandHuggableOperators = new Set([
   '<<',
   '>>'
 ]);
-const rightOperandHuggableOperators = new Set(['+', '-', '*', '/', '**']);
+const tryToHugRightOperand = createHugFunction(['+', '-', '*', '/', '**']);
 
 export const ShiftExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
-    leftOperand: tryHug(
-      parse(ast.leftOperand, options, parse, offsets),
-      leftOperandHuggableOperators
+  parse: ({ offsets, ast, options, parse }) => ({
+    leftOperand: tryToHugLeftOperand(
+      parse(ast.leftOperand, options, parse, offsets)
     ),
     operator: ast.operator.text,
-    rightOperand: tryHug(
-      parse(ast.rightOperand, options, parse, offsets),
-      rightOperandHuggableOperators
+    rightOperand: tryToHugRightOperand(
+      parse(ast.rightOperand, options, parse, offsets)
     )
   }),
   print: binaryOperationPrint

@@ -1,6 +1,5 @@
 export const ExperimentalPragma = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     experimentalKeyword: ast.experimentalKeyword.text,
     feature: parse(ast.feature, options, parse, offsets)
   }),

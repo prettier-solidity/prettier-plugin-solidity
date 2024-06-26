@@ -1,6 +1,5 @@
 export const NamedArgumentsDeclaration = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     openParen: ast.openParen.text,
     arguments: ast.arguments
       ? parse(ast.arguments, options, parse, offsets)

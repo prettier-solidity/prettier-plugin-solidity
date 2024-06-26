@@ -1,6 +1,5 @@
 export const ExpressionStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     expression: parse(ast.expression, options, parse, offsets),
     semicolon: ast.semicolon.text
   }),

@@ -3,8 +3,7 @@ import { doc } from 'prettier';
 const { line } = doc.builders;
 
 export const SourceUnit = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     members: parse(ast.members, options, parse, offsets)
   }),
   print: ({ options, path, print }) => [

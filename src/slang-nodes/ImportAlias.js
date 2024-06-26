@@ -1,6 +1,5 @@
 export const ImportAlias = {
-  parse: ({ node, ast }) => ({
-    ...node,
+  parse: ({ ast }) => ({
     asKeyword: ast.asKeyword.text,
     identifier: ast.identifier.text
   }),

@@ -1,6 +1,5 @@
 export const WhileStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     whileKeyword: ast.whileKeyword.text,
     openParen: ast.openParen.text,
     condition: parse(ast.condition, options, parse, offsets),

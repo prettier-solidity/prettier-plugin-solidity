@@ -3,8 +3,7 @@ import { doc } from 'prettier';
 const { group, line } = doc.builders;
 
 export const ContractDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     abstractKeyword: ast.abstractKeyword?.text,
     contractKeyword: ast.contractKeyword.text,
     name: ast.name.text,

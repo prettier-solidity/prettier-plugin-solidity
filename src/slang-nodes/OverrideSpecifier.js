@@ -1,6 +1,5 @@
 export const OverrideSpecifier = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     overrideKeyword: ast.overrideKeyword.text,
     overridden: ast.overridden
       ? parse(ast.overridden, options, parse, offsets)

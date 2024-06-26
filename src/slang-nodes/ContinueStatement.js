@@ -1,6 +1,5 @@
 export const ContinueStatement = {
-  parse: ({ node, ast }) => ({
-    ...node,
+  parse: ({ ast }) => ({
     continueKeyword: ast.continueKeyword.text,
     semicolon: ast.semicolon.text
   }),

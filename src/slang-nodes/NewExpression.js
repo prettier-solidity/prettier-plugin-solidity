@@ -1,6 +1,5 @@
 export const NewExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     newKeyword: ast.newKeyword.text,
     typeName: parse(ast.typeName, options, parse, offsets)
   }),

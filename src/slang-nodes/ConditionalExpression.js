@@ -87,7 +87,7 @@ const traditionalTernaries = (node, path, print) =>
   ]);
 
 export const ConditionalExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => {
+  parse: ({ offsets, ast, options, parse }) => {
     let operand = parse(ast.operand, options, parse, offsets);
 
     // TODO: while the behaviour is not stable, it should be behind the
@@ -106,7 +106,6 @@ export const ConditionalExpression = {
     }
 
     return {
-      ...node,
       operand,
       questionMark: ast.questionMark.text,
       trueExpression: parse(ast.trueExpression, options, parse, offsets),

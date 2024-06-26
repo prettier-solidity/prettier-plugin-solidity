@@ -1,6 +1,5 @@
 export const YulContinueStatement = {
-  parse: ({ node, ast }) => ({
-    ...node,
+  parse: ({ ast }) => ({
     continueKeyword: ast.continueKeyword.text
   }),
   print: ({ node }) => node.continueKeyword

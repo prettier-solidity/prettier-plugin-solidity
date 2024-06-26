@@ -1,6 +1,5 @@
 export const EmitStatement = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     emitKeyword: ast.emitKeyword.text,
     event: parse(ast.event, options, parse, offsets),
     arguments: parse(ast.arguments, options, parse, offsets),

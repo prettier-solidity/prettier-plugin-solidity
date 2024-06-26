@@ -1,6 +1,5 @@
 export const MappingValue = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     typeName: parse(ast.typeName, options, parse, offsets),
     name: ast.name?.text
   }),

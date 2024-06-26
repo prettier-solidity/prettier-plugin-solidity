@@ -1,8 +1,7 @@
 import { printFunction } from '../common/slang-helpers.js';
 
 export const ModifierDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     modifierKeyword: ast.modifierKeyword.text,
     name: ast.name.text,
     parameters: ast.parameters

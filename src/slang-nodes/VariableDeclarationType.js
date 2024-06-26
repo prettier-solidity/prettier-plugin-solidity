@@ -1,6 +1,5 @@
 export const VariableDeclarationType = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     variant:
       ast.variant.type === 'Terminal'
         ? ast.variant.text

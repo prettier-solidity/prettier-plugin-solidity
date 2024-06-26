@@ -1,6 +1,5 @@
 export const TypeExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     typeKeyword: ast.typeKeyword.text,
     openParen: ast.openParen.text,
     typeName: parse(ast.typeName, options, parse, offsets),

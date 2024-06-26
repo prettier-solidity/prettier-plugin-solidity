@@ -1,6 +1,5 @@
 export const YulParametersDeclaration = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     openParen: ast.openParen.text,
     parameters: parse(ast.parameters, options, parse, offsets),
     closeParen: ast.closeParen.text

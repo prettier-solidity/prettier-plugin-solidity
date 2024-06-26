@@ -1,6 +1,5 @@
 export const MappingKey = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     keyType: parse(ast.keyType, options, parse, offsets),
     name: ast.name?.text
   }),

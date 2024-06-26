@@ -1,6 +1,5 @@
 export const UsingOperator = {
-  parse: ({ node, ast }) => ({
-    ...node,
+  parse: ({ ast }) => ({
     variant: ast.variant.text
   }),
   print: ({ node }) => node.variant

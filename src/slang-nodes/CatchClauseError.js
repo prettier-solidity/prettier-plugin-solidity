@@ -1,6 +1,5 @@
 export const CatchClauseError = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     name: ast.name?.text,
     parameters: parse(ast.parameters, options, parse, offsets)
   }),

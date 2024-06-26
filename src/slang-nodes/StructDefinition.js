@@ -1,6 +1,5 @@
 export const StructDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     structKeyword: ast.structKeyword.text,
     name: ast.name.text,
     openBrace: ast.openBrace.text,

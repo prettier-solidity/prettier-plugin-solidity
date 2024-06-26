@@ -1,6 +1,5 @@
 export const PositionalArgumentsDeclaration = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     openParen: ast.openParen.text,
     arguments: parse(ast.arguments, options, parse, offsets),
     closeParen: ast.closeParen.text

@@ -5,8 +5,7 @@ import { printPreservingEmptyLines } from '../common/slang-helpers.js';
 const { hardline } = doc.builders;
 
 export const InterfaceMembers = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     items: ast.items.map((item) => parse(item, options, parse, offsets))
   }),
   print: ({ node, options, path, print }) =>

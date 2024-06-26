@@ -1,6 +1,5 @@
 export const VariableDeclarationValue = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     equal: ast.equal.text,
     expression: parse(ast.expression, options, parse, offsets)
   }),

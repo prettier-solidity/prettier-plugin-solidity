@@ -1,6 +1,5 @@
 export const UsingAlias = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     asKeyword: ast.asKeyword.text,
     operator: parse(ast.operator, options, parse, offsets)
   }),

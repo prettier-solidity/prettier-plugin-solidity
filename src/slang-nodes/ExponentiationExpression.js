@@ -1,36 +1,36 @@
 import { doc } from 'prettier';
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
-import { rightOperandPrint, tryHug } from '../common/slang-helpers.js';
+import {
+  binaryOperationPrintBuilder,
+  createHugFunction
+} from '../common/slang-helpers.js';
 
 const { group, indent } = doc.builders;
 
-const huggableOperators = new Set(['**']);
+const tryToHug = createHugFunction(['**']);
 
 export const ExponentiationExpression = {
-  parse: ({ node, offsets, ast, options, parse }) => {
+  parse: ({ offsets, ast, options, parse }) => {
     const compiler = coerce(options.compiler);
     let leftOperand = parse(ast.leftOperand, options, parse, offsets);
     let rightOperand = parse(ast.rightOperand, options, parse, offsets);
 
     if (compiler) {
       if (satisfies(compiler, '>=0.8.0')) {
-        rightOperand = tryHug(rightOperand, huggableOperators);
+        rightOperand = tryToHug(rightOperand);
       } else {
-        leftOperand = tryHug(leftOperand, huggableOperators);
+        leftOperand = tryToHug(leftOperand);
       }
     }
     return {
-      ...node,
       leftOperand,
       operator: ast.operator.text,
       rightOperand
     };
   },
-  print: ({ node, path, print }) =>
-    group([
-      path.call(print, 'leftOperand'),
-      ` ${node.operator}`,
-      indent(rightOperandPrint(node, path, print))
-    ])
+  print: binaryOperationPrintBuilder(
+    () => (document) => group(document), // always group
+    () => (document) => indent(document) // always indent
+  )
 };

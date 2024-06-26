@@ -3,8 +3,7 @@ import { doc } from 'prettier';
 const { group, indent, line } = doc.builders;
 
 export const StateVariableDefinitionValue = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     equal: ast.equal.text,
     value: parse(ast.value, options, parse, offsets)
   }),

@@ -1,6 +1,5 @@
 export const UsingDeconstruction = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     openBrace: ast.openBrace.text,
     symbols: parse(ast.symbols, options, parse, offsets),
     closeBrace: ast.closeBrace.text

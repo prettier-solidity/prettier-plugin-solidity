@@ -1,8 +1,7 @@
 import { printFunction } from '../common/slang-helpers.js';
 
 export const ConstructorDefinition = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     constructorKeyword: ast.constructorKeyword.text,
     parameters: parse(ast.parameters, options, parse, offsets),
     attributes: parse(ast.attributes, options, parse, offsets),

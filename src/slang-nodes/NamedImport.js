@@ -1,6 +1,5 @@
 export const NamedImport = {
-  parse: ({ node, offsets, ast, options, parse }) => ({
-    ...node,
+  parse: ({ offsets, ast, options, parse }) => ({
     asterisk: ast.asterisk.text,
     alias: parse(ast.alias, options, parse, offsets),
     fromKeyword: ast.fromKeyword.text,
