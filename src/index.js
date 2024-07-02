@@ -1,4 +1,5 @@
 import * as comments from './comments/index.js';
+import * as slangComments from './slang-comments/index.js';
 import massageAstNode from './clean.js';
 import loc from './loc.js';
 import options from './options.js';
@@ -7,7 +8,6 @@ import print from './printer.js';
 import slangParse from './slangParser.js';
 import slangPrint from './slangPrinter.js';
 import { isComment, isBlockComment } from './common/slang-helpers.js';
-import { printComment } from './slangCommentPrinter.js';
 
 const parserName = 'slang';
 const astFormat = 'slang-ast';
@@ -63,14 +63,14 @@ const printers = {
   [astFormat]: {
     canAttachComment: slangCanAttachComment,
     handleComments: {
-      ownLine: comments.solidityHandleOwnLineComment,
-      endOfLine: comments.solidityHandleEndOfLineComment,
-      remaining: comments.solidityHandleRemainingComment
+      ownLine: slangComments.slangHandleOwnLineComment,
+      endOfLine: slangComments.slangHandleEndOfLineComment,
+      remaining: slangComments.slangHandleRemainingComment
     },
     isBlockComment,
     massageAstNode,
     print: slangPrint,
-    printComment
+    printComment: slangComments.printComment
   }
 };
 
