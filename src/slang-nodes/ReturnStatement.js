@@ -1,3 +1,18 @@
+import { doc } from 'prettier';
+
+const { group, indent, line } = doc.builders;
+
+const expression = (node, path, print, options) => {
+  if (node.expression) {
+    return node.expression.variant.kind === 'TupleExpression' ||
+      (options.experimentalTernaries &&
+        node.expression.type === 'ConditionalExpression')
+      ? [' ', path.call(print, 'expression')]
+      : group(indent([line, path.call(print, 'expression')]));
+  }
+  return '';
+};
+
 export const ReturnStatement = {
   parse: ({ offsets, ast, options, parse }) => ({
     returnKeyword: ast.returnKeyword.text,
@@ -6,9 +21,9 @@ export const ReturnStatement = {
       : undefined,
     semicolon: ast.semicolon.text
   }),
-  print: ({ node, path, print }) => [
+  print: ({ node, path, print, options }) => [
     node.returnKeyword,
-    node.expression ? [' ', path.call(print, 'expression')] : '',
+    expression(node, path, print, options),
     node.semicolon
   ]
 };

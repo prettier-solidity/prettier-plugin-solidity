@@ -38,6 +38,23 @@ const unstableAstTests = new Map(
   })
 );
 
+const testsWithSlang = new Map(
+  [
+    "AddressPayable/AddressPayable.sol",
+    "Arrays/Arrays.sol",
+    "Assembly/Assembly.sol",
+    // "AssemblyV0.4.26/Assembly.sol",
+    "BasicIterator/BasicIterator.sol",
+    "BinaryOperators/BinaryOperators.sol",
+    "BinaryOperators/Parentheses.sol",
+  ].map((fixture) => {
+    const [file, testSlang = () => true] = Array.isArray(fixture)
+      ? fixture
+      : [fixture];
+    return [path.join(__dirname, "../format/", file), testSlang];
+  })
+);
+
 const testsWithAstChanges = new Map(
   [
     "Parentheses/AddNoParentheses.sol",
@@ -82,8 +99,17 @@ const isAstUnstable = (filename, options) => {
   return testFunction(options);
 };
 
+const shouldTestSlang = (filename, options) => {
+  const testFunction = testsWithSlang.get(filename);
+
+  if (!testFunction) {
+    return false;
+  }
+
+  return testFunction(options);
+};
+
 const shouldCompareBytecode = (filename, options) => {
-  if (options.parser === "slang") return false;
   const testFunction = testsWithAstChanges.get(filename);
 
   if (!testFunction) {
@@ -349,6 +375,23 @@ async function runTest({
     );
     const expected = BOM + formatResult.eolVisualizedOutput;
     expect(output).toEqual(expected);
+  }
+
+  if (shouldTestSlang(filename, formatOptions)) {
+    const { input, output } = formatResult;
+    const prettier = await getPrettier();
+    const slangOutput = await prettier.format(input, {
+      ...formatOptions,
+      parser: "slang",
+    });
+
+    // const slangOutput2 = await prettier.format(output, {
+    //   ...formatOptions,
+    //   parser: "slang",
+    // });
+
+    expect(slangOutput).toEqual(output);
+    // expect(slangOutput2).toEqual(output);
   }
 
   if (shouldCompareBytecode(filename, formatOptions)) {

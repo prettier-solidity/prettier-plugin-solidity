@@ -97,7 +97,8 @@ const binaryIndentRulesBuilder = (path) => (document) => {
     if (grandparentNode.kind === 'ReturnStatement') break;
     if (
       !isBinaryOperation(grandparentNode) ||
-      grandparentNode.kind === 'ComparisonExpression'
+      grandparentNode.kind === 'ComparisonExpression' ||
+      grandparentNode.kind === 'EqualityExpression'
     ) {
       return indent(document);
     }
@@ -108,17 +109,16 @@ const binaryIndentRulesBuilder = (path) => (document) => {
 };
 
 const isStatementWithComparisonOperationWithoutIndentation =
-  createKindCheckFunction([
-    'ReturnStatement',
-    'IfStatement',
-    'ForStatement',
-    'WhileStatement'
-  ]);
+  createKindCheckFunction(['ReturnStatement', 'IfStatement', 'WhileStatement']);
 
 const comparisonIndentRulesBuilder = (path) => (document) => {
   let node = path.getNode();
   for (let i = 2; ; i += 2) {
     const grandparentNode = path.getNode(i);
+    if (grandparentNode.kind === 'ExpressionStatement') {
+      if (path.getNode(i + 1).kind === 'ForStatementCondition') break;
+      else return indent(document);
+    }
     if (isStatementWithComparisonOperationWithoutIndentation(grandparentNode))
       break;
     if (!isBinaryOperation(grandparentNode)) return indent(document);
