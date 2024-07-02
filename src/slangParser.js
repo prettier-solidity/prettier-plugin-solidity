@@ -8,58 +8,63 @@ import * as parsers from './slang-nodes/index.js';
 import { isComment } from './common/slang-helpers.js';
 
 const comments = [];
-const getOffsets = (ast, initialOffset) => {
+const getOffsets = (children, initialOffset) => {
   let offset = initialOffset;
-  let isLeadingTrivia = true;
-  let currentOffset = offset;
 
-  const offsets = ast.cst.children().reduce((offsetsArray, child) => {
+  const offsets = children.reduce((offsetsArray, child) => {
     if (child.type === 'Nonterminal') {
-      // The node's content starts when we find the first non-terminal,
-      // non-comment, non-whitespace token.
-      if (isLeadingTrivia) {
-        isLeadingTrivia = false;
-        currentOffset = offset;
-      }
-
       offsetsArray.push(offset);
     }
-    if (child.type === 'Terminal') {
-      if (isComment(child)) {
-        // TODO: avoid collecting comments as a side effect of the functionality
-        // for retrieving offsets
-        comments.push({
-          kind: child.kind,
-          value: child.text,
-          loc: {
-            start: offset,
-            end: offset + child.textLength.utf8
-          }
-        });
-      }
-      if (
-        !isComment(child) &&
-        child.kind !== 'EndOfLine' &&
-        child.kind !== 'Whitespace'
-      ) {
-        // The content of the node started if we find a non-comment,
-        // non-whitespace token.
-        if (isLeadingTrivia) {
-          isLeadingTrivia = false;
-          currentOffset = offset;
+    if (child.type === 'Terminal' && isComment(child)) {
+      // TODO: avoid collecting comments as a side effect of the functionality
+      // for retrieving offsets
+      comments.push({
+        kind: child.kind,
+        value: child.text,
+        loc: {
+          start: offset,
+          end: offset + child.textLength.utf8
         }
-      }
+      });
     }
 
     offset += child.textLength.utf8;
     return offsetsArray;
   }, []);
-  return { currentOffset, offsets };
+  return offsets;
 };
 
+const getLeadingOffset = (children) => {
+  let offset = 0;
+  for (let i = 0; i < children.length; i += 1) {
+    const child = children[i];
+    if (child.type === 'Nonterminal') {
+      // The node's content starts when we find the first non-terminal,
+      // non-comment, non-whitespace token.
+      return offset;
+    }
+    if (
+      child.type === 'Terminal' &&
+      !isComment(child) &&
+      child.kind !== 'EndOfLine' &&
+      child.kind !== 'Whitespace'
+    ) {
+      // The content of the node started if we find a non-comment,
+      // non-whitespace token.
+      return offset;
+    }
+    offset += child.textLength.utf8;
+  }
+  return offset;
+};
+const getTrailingOffset = (children) => getLeadingOffset(children.reverse());
+
 function genericParse(ast, options, parseFunction, parentOffsets = [0]) {
-  const initialOffset = parentOffsets.shift();
-  const { currentOffset, offsets } = getOffsets(ast, initialOffset);
+  const offset = parentOffsets.shift();
+  const children = ast.cst.children();
+  const offsets = getOffsets(children, offset);
+  const leadingOffset = getLeadingOffset(children);
+  const trailingOffset = getTrailingOffset(children);
 
   const node = parsers[ast.cst.kind].parse({
     offsets,
@@ -71,8 +76,8 @@ function genericParse(ast, options, parseFunction, parentOffsets = [0]) {
   node.kind = ast.cst.kind;
   node.loc = {
     // We ignore the leading trivia and assume the node starts after it
-    start: currentOffset,
-    end: initialOffset + ast.cst.textLength.utf8
+    start: offset + leadingOffset,
+    end: offset + ast.cst.textLength.utf8 - trailingOffset
   };
 
   if (node.kind === 'SourceUnit') {
