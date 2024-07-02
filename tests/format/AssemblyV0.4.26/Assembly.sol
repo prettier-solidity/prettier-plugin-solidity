@@ -34,3 +34,24 @@ assembly{
 }
 }
 }
+
+contract MultipleAssemblyAssignement {
+    function foo() public pure {
+        assembly {
+            function bar() -> a, b {
+                a := 1
+                b := 2
+            }
+
+            let i, j := bar()
+        }
+    }
+}
+
+contract AssemblyStackAssignment {
+  function f() public {
+    assembly {
+      4 =: y
+    }
+  }
+}
