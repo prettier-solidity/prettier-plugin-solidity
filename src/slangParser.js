@@ -81,7 +81,7 @@ function genericParse(ast, options, parseFunction, parentOffsets = [0]) {
   };
 
   if (node.kind === 'SourceUnit') {
-    node.comments = comments;
+    node.comments = comments.splice(0);
   }
 
   return node;
