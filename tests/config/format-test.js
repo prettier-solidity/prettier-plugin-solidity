@@ -47,6 +47,11 @@ const testsWithSlang = new Map(
     "BasicIterator/BasicIterator.sol",
     "BinaryOperators/BinaryOperators.sol",
     "BinaryOperators/Parentheses.sol",
+    "BreakingChangesV0.7.4/BreakingChangesV0.7.4.sol",
+    [
+      "BreakingChangesV0.8.0/BreakingChangesV0.8.0.sol",
+      (options) => options.compiler === "0.7.0",
+    ],
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
       ? fixture
