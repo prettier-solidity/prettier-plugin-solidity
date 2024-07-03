@@ -221,15 +221,17 @@ export function createHugFunction(huggableOperators) {
 export const locStart = (node) => node.loc.start;
 export const locEnd = (node) => node.loc.end;
 
-export const printComments = (node, path, options) => {
+export const printComments = (node, path, options, filter = () => true) => {
   if (!node.comments) return [];
   const document = join(
     line,
     path
       .map((commentPath) => {
         const comment = commentPath.getValue();
-
-        if (comment.printed) {
+        if (comment.trailing || comment.leading || comment.printed) {
+          return null;
+        }
+        if (!filter(comment)) {
           return null;
         }
         comment.printed = true;

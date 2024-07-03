@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { group } = doc.builders;
+
 export const ReturnsDeclaration = {
   parse: ({ offsets, ast, options, parse }) => ({
     returnsKeyword: ast.returnsKeyword.text,
@@ -5,6 +9,6 @@ export const ReturnsDeclaration = {
   }),
   print: ({ node, path, print }) => [
     `${node.returnsKeyword} `,
-    path.call(print, 'variables')
+    group(path.call(print, 'variables'))
   ]
 };
