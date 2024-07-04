@@ -52,6 +52,8 @@ const testsWithSlang = new Map(
       "BreakingChangesV0.8.0/BreakingChangesV0.8.0.sol",
       (options) => options.compiler === "0.7.0",
     ],
+    "Comments/Comments.sol",
+    "Conditional/Conditional.sol",
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
       ? fixture
