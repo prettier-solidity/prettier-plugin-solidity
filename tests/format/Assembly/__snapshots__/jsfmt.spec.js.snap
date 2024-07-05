@@ -328,9 +328,7 @@ contract Assembly {
 
     function assemblyFunctionNoReturn() {
         assembly {
-            function $somefn(somearg) {
-
-            }
+            function $somefn(somearg) {}
         }
     }
 
@@ -356,23 +354,15 @@ contract Assembly {
 
     function withBreak() {
         assembly {
-            for {
-
-            } 1 {
-
-            } {
+            for {} 1 {} {
                 break
             }
         }
     }
 
     function memorySafe() {
-        assembly ("memory-safe") {
-
-        }
-        assembly "evmasm" ("memory-safe") {
-
-        }
+        assembly ("memory-safe") {}
+        assembly "evmasm" ("memory-safe") {}
     }
 
     function continueAndBreak(uint256 x) public pure returns (uint a, uint b) {

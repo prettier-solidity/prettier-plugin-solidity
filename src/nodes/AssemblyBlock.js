@@ -8,15 +8,19 @@ import {
 const { hardline } = doc.builders;
 
 export const AssemblyBlock = {
-  print: ({ node, options, path, print }) => [
-    '{',
-    printSeparatedItem(
-      [
-        printPreservingEmptyLines(path, 'operations', options, print),
-        printComments(node, path, options)
-      ],
-      { firstSeparator: hardline, grouped: false }
-    ),
-    '}'
-  ]
+  print: ({ node, options, path, print }) =>
+    // if block is empty, just return the pair of braces
+    node.operations.length === 0 && !node.comments
+      ? '{}'
+      : [
+          '{',
+          printSeparatedItem(
+            [
+              printPreservingEmptyLines(path, 'operations', options, print),
+              printComments(node, path, options)
+            ],
+            { firstSeparator: hardline, grouped: false }
+          ),
+          '}'
+        ]
 };
