@@ -4,7 +4,7 @@ import { locEnd } from '../../common/slang-helpers.js';
 
 const { addTrailingComment } = util;
 
-export default function handleWhileComments({
+export default function handleWhileStatementComments({
   text,
   precedingNode,
   enclosingNode,

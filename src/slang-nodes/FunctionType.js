@@ -10,5 +10,5 @@ export const FunctionType = {
       : undefined
   }),
   print: ({ node, path, print }) =>
-    printFunction(`${node.functionKeyword} `, node, path, print)
+    printFunction(node.functionKeyword, node, path, print)
 };
