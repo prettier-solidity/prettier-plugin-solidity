@@ -1,6 +1,6 @@
 import { util } from 'prettier';
 
-const { addDanglingComment, addLeadingComment } = util;
+const { addDanglingComment, addLeadingComment, addTrailingComment } = util;
 
 export default function handleBlockComments({
   precedingNode,
@@ -12,16 +12,24 @@ export default function handleBlockComments({
     return false;
   }
 
-  if (
-    precedingNode?.kind === 'Statements' &&
-    precedingNode.items.length === 0
-  ) {
-    addDanglingComment(precedingNode, comment);
+  if (precedingNode?.kind === 'Statements') {
+    if (precedingNode.items.length === 0) {
+      addDanglingComment(precedingNode, comment);
+    } else {
+      addTrailingComment(
+        precedingNode.items[precedingNode.items.length - 1],
+        comment
+      );
+    }
     return true;
   }
 
-  if (followingNode?.kind === 'Statements' && followingNode.items.length > 0) {
-    addLeadingComment(followingNode.items[0], comment);
+  if (followingNode?.kind === 'Statements') {
+    if (followingNode.items.length === 0) {
+      addDanglingComment(followingNode, comment);
+    } else {
+      addLeadingComment(followingNode.items[0], comment);
+    }
     return true;
   }
 

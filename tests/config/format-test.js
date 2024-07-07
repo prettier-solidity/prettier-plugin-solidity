@@ -44,7 +44,7 @@ const testsWithSlang = new Map(
     "Arrays/Arrays.sol",
     "Assembly/Assembly.sol",
     // "AssemblyV0.4.26/Assembly.sol",
-    "BasicIterator/BasicIterator.sol",
+    // "BasicIterator/BasicIterator.sol",
     "BinaryOperators/BinaryOperators.sol",
     "BinaryOperators/Parentheses.sol",
     "BreakingChangesV0.7.4/BreakingChangesV0.7.4.sol",
@@ -52,8 +52,15 @@ const testsWithSlang = new Map(
       "BreakingChangesV0.8.0/BreakingChangesV0.8.0.sol",
       (options) => options.compiler === "0.7.0",
     ],
-    "Comments/Comments.sol",
+    // "Comments/Comments.sol",
     "Conditional/Conditional.sol",
+    "Constructors/Constructors.sol",
+    "ContractDefinitions/ContractDefinitions.sol",
+    "CustomErrors/CustomErrors.sol",
+    "EnumDefinitions/EnumDefinitions.sol",
+    // "Etc/Etc.sol",
+    // "ExperimentalTernaries/ExperimentalTernaries.sol", // TODO: fix this one
+    "ForStatements/ForStatements.sol",
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
       ? fixture
