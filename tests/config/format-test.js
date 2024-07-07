@@ -61,6 +61,7 @@ const testsWithSlang = new Map(
     // "Etc/Etc.sol",
     // "ExperimentalTernaries/ExperimentalTernaries.sol", // TODO: fix this one
     "ForStatements/ForStatements.sol",
+    "FunctionCalls/FunctionCalls.sol",
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
       ? fixture
