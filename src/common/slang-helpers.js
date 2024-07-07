@@ -64,6 +64,41 @@ export const printFunction = (functionName, node, path, print) => [
   node.body ? path.call(print, 'body') : ''
 ];
 
+const visibilityKeyWords = ['external', 'internal', 'public', 'private'];
+const mutabilityKeyWords = ['pure', 'constant', 'payable', 'view'];
+
+export const sortFunctionAttributes = (a, b) => {
+  const aIsString = typeof a.variant === 'string';
+  const bIsString = typeof b.variant === 'string';
+
+  if (aIsString && !bIsString) return -1;
+  if (bIsString && !aIsString) return 1;
+
+  // Both are strings
+  if (aIsString && bIsString) {
+    // Visibility First
+    if (visibilityKeyWords.includes(a.variant)) return -1;
+    if (visibilityKeyWords.includes(b.variant)) return 1;
+    // State Mutability Second
+    if (mutabilityKeyWords.includes(a.variant)) return -1;
+    if (mutabilityKeyWords.includes(b.variant)) return 1;
+    // Virtual keyword last
+  } else {
+    // Both are objects
+    if (
+      a.variant.kind === 'OverrideSpecifier' &&
+      b.variant.kind === 'ModifierInvocation'
+    )
+      return -1;
+    if (
+      b.variant.kind === 'OverrideSpecifier' &&
+      a.variant.kind === 'ModifierInvocation'
+    )
+      return 1;
+  }
+  return 0;
+};
+
 export const isBinaryOperation = createKindCheckFunction([
   'AdditiveExpression',
   'MultiplicativeExpression',
