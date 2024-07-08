@@ -9,7 +9,5 @@ export const EnumMembers = {
     separators: ast.separators.map((separator) => separator.text)
   }),
   print: ({ node }) =>
-    printSeparatedList(node.items, {
-      firstSeparator: hardline
-    })
+    printSeparatedList(node.items, { firstSeparator: hardline })
 };

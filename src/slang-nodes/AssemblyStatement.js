@@ -6,10 +6,9 @@ export const AssemblyStatement = {
     body: parse(ast.body, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
-    node.assemblyKeyword,
-    node.label ? [' ', path.call(print, 'label')] : '',
-    node.flags ? [' ', path.call(print, 'flags')] : '',
-    ' ',
+    `${node.assemblyKeyword} `,
+    node.label ? [path.call(print, 'label'), ' '] : '',
+    node.flags ? [path.call(print, 'flags'), ' '] : '',
     path.call(print, 'body')
   ]
 };

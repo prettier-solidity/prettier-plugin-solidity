@@ -4,8 +4,7 @@ export const VersionPragma = {
     sets: parse(ast.sets, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
-    node.solidityKeyword,
-    ' ',
+    `${node.solidityKeyword} `,
     path.call(print, 'sets')
   ]
 };

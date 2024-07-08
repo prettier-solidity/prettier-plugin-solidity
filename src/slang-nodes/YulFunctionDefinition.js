@@ -9,9 +9,7 @@ export const YulFunctionDefinition = {
     body: parse(ast.body, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
-    node.functionKeyword,
-    ' ',
-    node.name,
+    `${node.functionKeyword} ${node.name}`,
     path.call(print, 'parameters'),
     node.returns ? path.call(print, 'returns') : ' ',
     path.call(print, 'body')

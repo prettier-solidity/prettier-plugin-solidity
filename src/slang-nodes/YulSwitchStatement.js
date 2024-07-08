@@ -9,8 +9,7 @@ export const YulSwitchStatement = {
     cases: parse(ast.cases, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
-    node.switchKeyword,
-    ' ',
+    `${node.switchKeyword} `,
     path.call(print, 'expression'),
     hardline,
     path.call(print, 'cases')

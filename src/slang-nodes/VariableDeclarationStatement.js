@@ -10,8 +10,8 @@ export const VariableDeclarationStatement = {
   }),
   print: ({ node, path, print }) => [
     path.call(print, 'variableType'),
-    node.storageLocation ? ` ${path.call(print, 'storageLocation')} ` : ' ',
-    node.name,
+    node.storageLocation ? [' ', path.call(print, 'storageLocation')] : '',
+    ` ${node.name}`,
     node.value ? path.call(print, 'value') : '',
     node.semicolon
   ]
