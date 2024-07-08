@@ -1,11 +1,11 @@
 import { doc } from 'prettier';
 import { printString } from '../common/util.js';
 
-const { join, line } = doc.builders;
+const { join, hardline } = doc.builders;
 
 export const HexLiteral = {
   print: ({ node, options }) => {
     const list = node.parts.map((part) => `hex${printString(part, options)}`);
-    return join(line, list);
+    return join(hardline, list);
   }
 };

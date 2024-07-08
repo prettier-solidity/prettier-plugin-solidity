@@ -99,6 +99,18 @@ export const sortFunctionAttributes = (a, b) => {
   return 0;
 };
 
+export function hasNodeIgnoreComment(node) {
+  return (
+    node?.comments &&
+    node.comments.some(
+      (comment) =>
+        comment.value
+          .slice(2, isBlockComment(comment) ? -2 : undefined)
+          .trim() === 'prettier-ignore'
+    )
+  );
+}
+
 export const isBinaryOperation = createKindCheckFunction([
   'AdditiveExpression',
   'MultiplicativeExpression',

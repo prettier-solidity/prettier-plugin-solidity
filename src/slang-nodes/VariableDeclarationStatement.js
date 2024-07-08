@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { group, indent } = doc.builders;
+
 export const VariableDeclarationStatement = {
   parse: ({ offsets, ast, options, parse }) => ({
     variableType: parse(ast.variableType, options, parse, offsets),
@@ -9,9 +13,13 @@ export const VariableDeclarationStatement = {
     semicolon: ast.semicolon.text
   }),
   print: ({ node, path, print }) => [
-    path.call(print, 'variableType'),
-    node.storageLocation ? [' ', path.call(print, 'storageLocation')] : '',
-    ` ${node.name}`,
+    group([
+      path.call(print, 'variableType'),
+      indent([
+        node.storageLocation ? [' ', path.call(print, 'storageLocation')] : '',
+        ` ${node.name}`
+      ])
+    ]),
     node.value ? path.call(print, 'value') : '',
     node.semicolon
   ]

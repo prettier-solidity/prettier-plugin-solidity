@@ -7,6 +7,6 @@ export const VersionExpressionSets = {
     path
       .map(print, 'items')
       .map((item, index) =>
-        index === 0 ? item : [node.separators[index - 1], item]
+        index === 0 ? item : [` ${node.separators[index - 1]} `, item]
       )
 };

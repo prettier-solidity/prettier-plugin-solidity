@@ -1,3 +1,7 @@
+import { doc } from 'prettier';
+
+const { group } = doc.builders;
+
 export const CatchClauseError = {
   parse: ({ offsets, ast, options, parse }) => ({
     name: ast.name?.text,
@@ -5,7 +9,7 @@ export const CatchClauseError = {
   }),
   print: ({ node, path, print }) => [
     node.name ? node.name : '',
-    path.call(print, 'parameters'),
+    group(path.call(print, 'parameters')),
     ' '
   ]
 };

@@ -1,8 +1,8 @@
 import * as nodes from './slang-nodes/index.js';
 import {
-  hasNodeIgnoreComment,
   prettierVersionSatisfies
 } from './common/util.js';
+import { hasNodeIgnoreComment } from './common/slang-helpers.js';
 import ignoreComments from './comments/ignore.js';
 
 let checked = false;
@@ -60,7 +60,7 @@ function genericPrint(path, options, print) {
 
     return options.originalText.slice(
       options.locStart(node),
-      options.locEnd(node) + 1
+      options.locEnd(node)
     );
   }
 

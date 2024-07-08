@@ -5,8 +5,8 @@ export const CatchClause = {
     body: parse(ast.body, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
-    node.catchKeyword,
-    node.error ? [' ', path.call(print, 'error')] : '',
+    `${node.catchKeyword} `,
+    node.error ? path.call(print, 'error') : '',
     path.call(print, 'body')
   ]
 };
