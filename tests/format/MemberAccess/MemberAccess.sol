@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
 contract MemberAccess {
-    function() {
+    function foo() {
         int256 amount = SafeCast.toInt256(10**(18 - underlyingAssetDecimals)).neg();
         longNameAmount = SafeCast.toInt256(10**(18 - underlyingAssetDecimals)).neg();
         a.b.c.d;
@@ -69,7 +69,7 @@ contract MemberAccessIsEndOfChainCases {
     // break if is an ReturnStatement
     uint a = b.c;
 
-    function() modifierCase(b.c) {
+    function foo() modifierCase(b.c) {
         // break if is an argument of a FunctionCall
         a(b.c);
         // break if is an index of an IndexAccess
