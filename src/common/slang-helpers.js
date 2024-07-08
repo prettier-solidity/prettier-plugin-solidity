@@ -84,7 +84,7 @@ export const sortFunctionAttributes = (a, b) => {
     if (mutabilityKeyWords.includes(b.variant)) return 1;
     // Virtual keyword last
   } else {
-    // Both are objects
+    // Both are nodes
     if (
       a.variant.kind === 'OverrideSpecifier' &&
       b.variant.kind === 'ModifierInvocation'
@@ -118,7 +118,8 @@ const binaryGroupRulesBuilder = (path) => (document) => {
   const grandparentNode = path.getNode(2);
   if (
     isBinaryOperation(grandparentNode) &&
-    grandparentNode.kind !== 'ComparisonExpression'
+    grandparentNode.kind !== 'ComparisonExpression' &&
+    grandparentNode.kind !== 'EqualityExpression'
   ) {
     return document;
   }
