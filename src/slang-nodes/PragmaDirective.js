@@ -5,8 +5,7 @@ export const PragmaDirective = {
     semicolon: ast.semicolon.text
   }),
   print: ({ node, path, print }) => [
-    node.pragmaKeyword,
-    ' ',
+    `${node.pragmaKeyword} `,
     path.call(print, 'pragma'),
     node.semicolon
   ]

@@ -7,5 +7,5 @@ export const YulLabel = {
     label: ast.label.text,
     colon: ast.colon.text
   }),
-  print: ({ node }) => [dedent(line), node.label, node.colon]
+  print: ({ node }) => [dedent(line), `${node.label}${node.colon}`]
 };

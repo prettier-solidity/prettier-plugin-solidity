@@ -8,14 +8,10 @@ export const UsingDirective = {
     semicolon: ast.semicolon.text
   }),
   print: ({ node, path, print }) => [
-    node.usingKeyword,
-    ' ',
+    `${node.usingKeyword} `,
     path.call(print, 'clause'),
-    ' ',
-    node.forKeyword,
-    ' ',
+    ` ${node.forKeyword} `,
     path.call(print, 'target'),
-    node.globalKeyword ? ` ${node.globalKeyword}` : '',
-    node.semicolon
+    `${node.globalKeyword ? ` ${node.globalKeyword}` : ''}${node.semicolon}`
   ]
 };

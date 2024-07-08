@@ -16,8 +16,7 @@ export const ContractDefinition = {
   }),
   print: ({ node, path, print }) => [
     group([
-      node.abstractKeyword ? `${node.abstractKeyword} ` : '',
-      `${node.contractKeyword} ${node.name}`,
+      `${node.abstractKeyword ? `${node.abstractKeyword} ` : ''}${node.contractKeyword} ${node.name}`,
       node.inheritance ? [' ', path.call(print, 'inheritance')] : line,
       node.openBrace
     ]),

@@ -7,8 +7,7 @@ export const YulForStatement = {
     body: parse(ast.body, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
-    node.forKeyword,
-    ' ',
+    `${node.forKeyword} `,
     path.call(print, 'initialization'),
     ' ',
     path.call(print, 'condition'),

@@ -5,8 +5,7 @@ export const YulIfStatement = {
     body: parse(ast.body, options, parse, offsets)
   }),
   print: ({ node, path, print }) => [
-    node.ifKeyword,
-    ' ',
+    `${node.ifKeyword} `,
     path.call(print, 'condition'),
     ' ',
     path.call(print, 'body')
