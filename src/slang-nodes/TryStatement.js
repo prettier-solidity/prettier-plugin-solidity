@@ -18,7 +18,7 @@ export const TryStatement = {
     printSeparatedItem(path.call(print, 'expression'), {
       firstSeparator: line
     }),
-    node.returns ? path.call(print, 'returns') : '',
+    node.returns ? [path.call(print, 'returns'), ' '] : '',
     path.call(print, 'body'),
     ' ',
     path.call(print, 'catchClauses')

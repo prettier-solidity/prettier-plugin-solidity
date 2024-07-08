@@ -66,6 +66,62 @@ const testsWithSlang = new Map(
     "FunctionDefinitionsv0.5.0/FunctionDefinitions.sol",
     "HexLiteral/HexLiteral.sol",
     "IfStatements/IfStatements.sol",
+    "Immutable/Immutable.sol",
+    // "ImportDirective/ImportDirectives.sol",
+    "Inbox/Inbox.sol",
+    // "IndexOf/IndexOf.sol",
+    "IndexRangeAccess/IndexRangeAccess.sol",
+    "InheritanceSpecifier/InheritanceSpecifier.sol",
+    "Issues/Issue205.sol",
+    "Issues/Issue289.sol",
+    "Issues/Issue355.sol",
+    "Issues/Issue385.sol",
+    // "Issues/Issue564.sol",
+    "Issues/Issue799.sol",
+    "Issues/Issue843.sol",
+    "Libraries/Libraries.sol",
+    // "MemberAccess/MemberAccess.sol",
+    "ModifierDefinitions/ModifierDefinitions.sol",
+    // "ModifierInvocations/ModifierInvocations.sol",
+    "MultipartStrings/MultipartStrings.sol",
+    "NameValueExpression/NameValueExpression.sol",
+    "NumberLiteral/NumberLiteral.sol",
+    "Ownable/Ownable.sol",
+    "Parentheses/AddNoParentheses.sol",
+    "Parentheses/BitAndNoParentheses.sol",
+    "Parentheses/BitOrNoParentheses.sol",
+    "Parentheses/BitXorNoParentheses.sol",
+    "Parentheses/DivNoParentheses.sol",
+    "Parentheses/ExpNoParentheses.sol",
+    "Parentheses/LogicNoParentheses.sol",
+    "Parentheses/ModNoParentheses.sol",
+    "Parentheses/MulNoParentheses.sol",
+    "Parentheses/ShiftLNoParentheses.sol",
+    "Parentheses/ShiftRNoParentheses.sol",
+    "Parentheses/SubNoParentheses.sol",
+    "Pragma/Pragma.sol",
+    // "PrettierIgnore/PrettierIgnore.sol",
+    "Proxy/Proxy.sol",
+    "quotes/Quotes.sol",
+    "SampleCrowdsale/SampleCrowdsale.sol",
+    "SimpleAuction/SimpleAuction.sol",
+    "SimpleStorage/SimpleStorage.sol",
+    "SplittableCommodity/SplittableCommodity.sol",
+    "StateVariableDeclarations/StateVariableDeclarations.sol",
+    "StringLiteral/StringLiteral.sol",
+    "strings/strings.sol",
+    "StyleGuide/BlankLines.sol",
+    "StyleGuide/ControlStructures.sol",
+    "StyleGuide/FunctionDeclaration.sol",
+    "StyleGuide/Mappings.sol",
+    "StyleGuide/MaximumLineLength.sol",
+    "StyleGuide/OtherRecommendations.sol",
+    "StyleGuide/VariableDeclarations.sol",
+    "StyleGuide/WhitespaceInExpressions.sol",
+    "TryCatch/TryCatch.sol",
+    "Tupples/Tupples.sol",
+    "TypeDefinition/TypeDefinition.sol",
+    "WhileStatements/WhileStatements.sol",
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
       ? fixture
@@ -332,6 +388,22 @@ async function runTest({
     })
   ).toMatchSnapshot();
 
+  if (shouldTestSlang(filename, formatOptions)) {
+    const { input, output } = formatResult;
+    const slangOptions = {
+      ...formatOptions,
+      parser: "slang",
+    };
+    console.log(filename);
+    const prettier = await getPrettier();
+    const slangOutput = await prettier.format(input, slangOptions);
+
+    // const slangOutput2 = await prettier.format(output, slangOptions);
+
+    expect(slangOutput).toEqual(output);
+    // expect(slangOutput2).toEqual(output);
+  }
+
   if (!FULL_TEST) {
     return;
   }
@@ -394,23 +466,6 @@ async function runTest({
     );
     const expected = BOM + formatResult.eolVisualizedOutput;
     expect(output).toEqual(expected);
-  }
-
-  if (shouldTestSlang(filename, formatOptions)) {
-    const { input, output } = formatResult;
-    const prettier = await getPrettier();
-    const slangOutput = await prettier.format(input, {
-      ...formatOptions,
-      parser: "slang",
-    });
-
-    // const slangOutput2 = await prettier.format(output, {
-    //   ...formatOptions,
-    //   parser: "slang",
-    // });
-
-    expect(slangOutput).toEqual(output);
-    // expect(slangOutput2).toEqual(output);
   }
 
   if (shouldCompareBytecode(filename, formatOptions)) {
