@@ -2,7 +2,7 @@
 
 exports[`HexLiteral.sol - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
-parsers: ["solidity-parse"]
+parsers: ["slang"]
 printWidth: 80
 singleQuote: false
                                                                                 | printWidth
@@ -29,7 +29,7 @@ contract HexLiteral {
 
 exports[`HexLiteral.sol - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["solidity-parse"]
+parsers: ["slang"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth

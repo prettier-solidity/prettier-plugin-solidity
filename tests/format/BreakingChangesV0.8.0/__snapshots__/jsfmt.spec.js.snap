@@ -3,7 +3,7 @@
 exports[`BreakingChangesV0.8.0.sol - {"compiler":"0.7.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.7.0"
-parsers: ["solidity-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
