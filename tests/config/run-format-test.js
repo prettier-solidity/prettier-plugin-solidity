@@ -49,7 +49,6 @@ const testsWithSlang = new Map(
     // "Etc/Etc.sol", // TODO: Fix solidity-parser function type
     // "ExperimentalTernaries/ExperimentalTernaries.sol", // TODO: fix this one
     // "FunctionDefinitions/FunctionDefinitions.sol", // TODO: remove () safely in modifiers without arguments
-    // "ImportDirective/ImportDirectives.sol", // TODO: separate tests for slang and solidity-parser
     // "IndexOf/IndexOf.sol", // TODO: Finish comments and file level functions
     "Issues/Issue205.sol",
     "Issues/Issue289.sol",
