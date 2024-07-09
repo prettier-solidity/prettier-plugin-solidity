@@ -2,7 +2,7 @@
 
 exports[`Assembly.sol format 1`] = `
 ====================================options=====================================
-parsers: ["solidity-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

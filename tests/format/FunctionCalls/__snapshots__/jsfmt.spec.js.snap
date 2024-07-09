@@ -3,7 +3,7 @@
 exports[`FunctionCalls.sol - {"bracketSpacing":true} format 1`] = `
 ====================================options=====================================
 bracketSpacing: true
-parsers: ["solidity-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -155,7 +155,7 @@ contract FunctionCalls {
 
 exports[`FunctionCalls.sol format 1`] = `
 ====================================options=====================================
-parsers: ["solidity-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
