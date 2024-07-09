@@ -35,7 +35,7 @@ module.exports = {
         };
         prettier.formatWithCursor($$$input, options);
       `,
-      { $$$input: input, $$$options: options, ...sandbox }
+      { $$$input: input, $$$options: options, ...sandbox },
     );
   },
 
@@ -57,7 +57,7 @@ module.exports = {
           $$$options: options,
           $$$devOptions: devOptions,
           ...sandbox,
-        }
+        },
       );
     },
   },
