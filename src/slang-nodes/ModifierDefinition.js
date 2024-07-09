@@ -6,7 +6,18 @@ export const ModifierDefinition = {
     name: ast.name.text,
     parameters: ast.parameters
       ? parse(ast.parameters, options, parse, offsets)
-      : undefined,
+      : {
+          kind: 'ParametersDeclaration',
+          loc: { start: offsets[0], end: offsets[0] },
+          openParen: '(',
+          parameters: {
+            kind: 'Parameters',
+            loc: { start: offsets[0], end: offsets[0] },
+            items: [],
+            separators: []
+          },
+          closeParen: ')'
+        },
     attributes: parse(ast.attributes, options, parse, offsets),
     body: parse(ast.body, options, parse, offsets)
   }),

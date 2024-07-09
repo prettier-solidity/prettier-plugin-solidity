@@ -41,23 +41,23 @@ const unstableAstTests = new Map(
 const testsWithSlang = new Map(
   [
     // "AllSolidityFeatures/AllSolidityFeatures.sol",
-    // "AssemblyV0.4.26/Assembly.sol",
-    // "BasicIterator/BasicIterator.sol",
-    // "Comments/Comments.sol",
-    // "Etc/Etc.sol",
+    // "AssemblyV0.4.26/Assembly.sol", // TODO: Report to Nomic Foundation?
+    // "BasicIterator/BasicIterator.sol", // TODO: Fix solidity-parser comments
+    // "Comments/Comments.sol", // TODO: finish Comments
+    // "Etc/Etc.sol", // TODO: Fix solidity-parser function type
     // "ExperimentalTernaries/ExperimentalTernaries.sol", // TODO: fix this one
-    // "FunctionDefinitions/FunctionDefinitions.sol",
-    // "ImportDirective/ImportDirectives.sol",
-    // "IndexOf/IndexOf.sol",
+    // "FunctionDefinitions/FunctionDefinitions.sol", // TODO: remove () safely in modifiers without arguments
+    // "ImportDirective/ImportDirectives.sol", // TODO: separate tests for slang and solidity-parser
+    // "IndexOf/IndexOf.sol", // TODO: Finish comments and file level functions
     "Issues/Issue205.sol",
     "Issues/Issue289.sol",
     "Issues/Issue355.sol",
     "Issues/Issue385.sol",
-    // "Issues/Issue564.sol",
+    // "Issues/Issue564.sol", // TODO: solve indentation in variable declaration
     "Issues/Issue799.sol",
     "Issues/Issue843.sol",
-    // "MemberAccess/MemberAccess.sol",
-    // "ModifierInvocations/ModifierInvocations.sol",
+    // "MemberAccess/MemberAccess.sol", // TODO: Comments should be redone
+    "ModifierInvocations/ModifierInvocations.sol",
     // "PrettierIgnore/PrettierIgnore.sol",
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
