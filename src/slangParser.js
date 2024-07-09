@@ -16,8 +16,10 @@ const getOffsets = (children, initialOffset) => {
       offsetsArray.push(offset);
     }
     if (child.type === 'Terminal' && isComment(child)) {
-      // TODO: avoid collecting comments as a side effect of the functionality
-      // for retrieving offsets
+      // Since the fetching the comments and calculating offsets are both done
+      // as we iterate over the children and the comment also depends on the
+      // offset, it's hard to separate these responsibilities into different
+      // functions.
       comments.push({
         kind: child.kind,
         value: child.text,
@@ -80,10 +82,6 @@ function genericParse(ast, options, parseFunction, parentOffsets = [0]) {
     end: offset + ast.cst.textLength.utf8 - trailingOffset
   };
 
-  if (node.kind === 'SourceUnit') {
-    node.comments = comments.splice(0);
-  }
-
   return node;
 }
 
@@ -91,11 +89,13 @@ function parse(text, _parsers, options = _parsers) {
   const compiler = coerce(options.compiler);
 
   const language = new Language(compiler?.version || '0.8.25');
-  const parsed = new SourceUnit(
+  const ast = new SourceUnit(
     language.parse(NonterminalKind.SourceUnit, text).tree()
   );
 
-  return genericParse(parsed, options, genericParse);
+  const parsed = genericParse(ast, options, genericParse);
+  parsed.comments = comments.splice(0);
+  return parsed;
 }
 
 export default parse;
