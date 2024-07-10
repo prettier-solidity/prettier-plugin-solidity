@@ -42,7 +42,7 @@ export function printPreservingEmptyLines(path, key, options, print) {
       !isLast(childPath, key, index) &&
       // Append an empty line if the original text already had an one after the
       // current `node`
-      isNextLineEmpty(options.originalText, options.locEnd(node) - 1)
+      isNextLineEmpty(options.originalText, options.locEnd(node))
         ? hardline
         : ''
     ];
