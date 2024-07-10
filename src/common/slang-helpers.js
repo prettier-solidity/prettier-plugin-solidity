@@ -126,13 +126,22 @@ export const isBinaryOperation = createKindCheckFunction([
   'ShiftExpression'
 ]);
 
+export const isBinaryOperationWithoutComparison = createKindCheckFunction([
+  'AdditiveExpression',
+  'MultiplicativeExpression',
+  'ExponentiationExpression',
+  'AssignmentExpression',
+  'BitwiseAndExpression',
+  'BitwiseOrExpression',
+  'BitwiseXorExpression',
+  'AndExpression',
+  'OrExpression',
+  'ShiftExpression'
+]);
+
 const binaryGroupRulesBuilder = (path) => (document) => {
   const grandparentNode = path.getNode(2);
-  if (
-    isBinaryOperation(grandparentNode) &&
-    grandparentNode.kind !== 'ComparisonExpression' &&
-    grandparentNode.kind !== 'EqualityExpression'
-  ) {
+  if (isBinaryOperationWithoutComparison(grandparentNode)) {
     return document;
   }
   return group(document);
@@ -143,11 +152,7 @@ const binaryIndentRulesBuilder = (path) => (document) => {
   for (let i = 2; ; i += 2) {
     const grandparentNode = path.getNode(i);
     if (grandparentNode.kind === 'ReturnStatement') break;
-    if (
-      !isBinaryOperation(grandparentNode) ||
-      grandparentNode.kind === 'ComparisonExpression' ||
-      grandparentNode.kind === 'EqualityExpression'
-    ) {
+    if (!isBinaryOperationWithoutComparison(grandparentNode)) {
       return indent(document);
     }
     if (node === grandparentNode.rightOperand.variant) break;
@@ -156,8 +161,11 @@ const binaryIndentRulesBuilder = (path) => (document) => {
   return document;
 };
 
-const isStatementWithComparisonOperationWithoutIndentation =
-  createKindCheckFunction(['ReturnStatement', 'IfStatement', 'WhileStatement']);
+const isStatementWithoutIndentedOperation = createKindCheckFunction([
+  'ReturnStatement',
+  'IfStatement',
+  'WhileStatement'
+]);
 
 const comparisonIndentRulesBuilder = (path) => (document) => {
   let node = path.getNode();
@@ -167,8 +175,7 @@ const comparisonIndentRulesBuilder = (path) => (document) => {
       if (path.getNode(i + 1).kind === 'ForStatementCondition') break;
       else return indent(document);
     }
-    if (isStatementWithComparisonOperationWithoutIndentation(grandparentNode))
-      break;
+    if (isStatementWithoutIndentedOperation(grandparentNode)) break;
     if (!isBinaryOperation(grandparentNode)) return indent(document);
     if (node === grandparentNode.rightOperand.variant) break;
     node = grandparentNode;
@@ -179,23 +186,20 @@ const comparisonIndentRulesBuilder = (path) => (document) => {
 const logicalGroupRulesBuilder = (path) => (document) =>
   isBinaryOperation(path.getNode(2)) ? document : group(document);
 
-const isStatementWithLogicalOperationWithoutIndentation =
-  createKindCheckFunction(['ReturnStatement', 'IfStatement', 'WhileStatement']);
-
 const logicalIndentRulesBuilder = (path, options) => (document) => {
   let node = path.getNode();
   for (let i = 2; ; i += 2) {
-    const parentNode = path.getNode(i);
-    if (isStatementWithLogicalOperationWithoutIndentation(parentNode)) break;
+    const grandparentNode = path.getNode(i);
+    if (isStatementWithoutIndentedOperation(grandparentNode)) break;
     if (
       options.experimentalTernaries &&
-      parentNode.kind === 'ConditionalExpression' &&
-      parentNode.operand.variant === node
+      grandparentNode.kind === 'ConditionalExpression' &&
+      grandparentNode.operand.variant === node
     )
       break;
-    if (!isBinaryOperation(parentNode)) return indent(document);
-    if (node === parentNode.rightOperand.variant) break;
-    node = parentNode;
+    if (!isBinaryOperation(grandparentNode)) return indent(document);
+    if (node === grandparentNode.rightOperand.variant) break;
+    node = grandparentNode;
   }
   return document;
 };
