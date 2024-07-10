@@ -46,17 +46,10 @@ const testsWithSlang = new Map(
     // "AssemblyV0.4.26/Assembly.sol", // TODO: Report to Nomic Foundation?
     // "BasicIterator/BasicIterator.sol", // TODO: Fix solidity-parser comments
     // "Comments/Comments.sol", // TODO: finish Comments
-    // "Etc/Etc.sol", // TODO: Fix solidity-parser function type
+    // "Etc/Etc.sol", // TODO: Comments for if Statements
     // "ExperimentalTernaries/ExperimentalTernaries.sol", // TODO: fix this one
     // "FunctionDefinitions/FunctionDefinitions.sol", // TODO: remove () safely in modifiers without arguments
     // "IndexOf/IndexOf.sol", // TODO: Finish comments and file level functions
-    "Issues/Issue205.sol",
-    "Issues/Issue289.sol",
-    "Issues/Issue355.sol",
-    "Issues/Issue385.sol",
-    // "Issues/Issue564.sol", // TODO: solve indentation in variable declaration
-    "Issues/Issue799.sol",
-    "Issues/Issue843.sol",
     // "ModifierInvocations/ModifierInvocations.sol",
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
