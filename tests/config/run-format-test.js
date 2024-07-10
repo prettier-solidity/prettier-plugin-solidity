@@ -57,9 +57,7 @@ const testsWithSlang = new Map(
     // "Issues/Issue564.sol", // TODO: solve indentation in variable declaration
     "Issues/Issue799.sol",
     "Issues/Issue843.sol",
-    // "MemberAccess/MemberAccess.sol", // TODO: Comments should be redone
     // "ModifierInvocations/ModifierInvocations.sol",
-    // "PrettierIgnore/PrettierIgnore.sol",
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
       ? fixture

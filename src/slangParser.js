@@ -65,8 +65,6 @@ function genericParse(ast, options, parseFunction, parentOffsets = [0]) {
   const offset = parentOffsets.shift();
   const children = ast.cst.children();
   const offsets = getOffsets(children, offset);
-  const leadingOffset = getLeadingOffset(children);
-  const trailingOffset = getTrailingOffset(children);
 
   const node = parsers[ast.cst.kind].parse({
     offsets,
@@ -75,11 +73,57 @@ function genericParse(ast, options, parseFunction, parentOffsets = [0]) {
     parse: parseFunction
   });
 
+  /**
+   * Leading and trailing Comments are considered by the parser as part of the
+   * innermost possible node. For example if there is a comment just before a
+   * variable assignment, the parser will consider the comment belongs to the
+   * variable name instead of the whole statement.
+   *
+   * This behaviour creates erratic outcomes when the new line of a
+   * SingleLineComment can trigger a group break or a prettier-ignore will
+   * apply to a subset of the intended nodes.
+   *
+   * ```Solidity
+   * // prettier-ignore
+   * matrix = [
+   *   0, 1, 2,
+   *   3, 4, 5,
+   *   6, 7, 8
+   * ];
+   * ```
+   */
+  let leadingOffset = getLeadingOffset(children);
+  let trailingOffset = getTrailingOffset(children);
+  const startWithTrivia = offset;
+  const endWithTrivia = offset + ast.cst.textLength.utf8;
+
+  if (leadingOffset === 0 || trailingOffset === 0) {
+    const childrenKeys = Object.keys(node);
+
+    for (let i = 0; i < childrenKeys.length; i += 1) {
+      const childLoc = node[childrenKeys[i]]?.loc;
+
+      if (childLoc) {
+        if (
+          leadingOffset === 0 &&
+          childLoc.startWithTrivia === startWithTrivia
+        ) {
+          leadingOffset = childLoc.start - startWithTrivia;
+        }
+
+        if (trailingOffset === 0 && childLoc.endWithTrivia === endWithTrivia) {
+          trailingOffset = endWithTrivia - childLoc.end;
+        }
+      }
+    }
+  }
+
   node.kind = ast.cst.kind;
   node.loc = {
-    // We ignore the leading trivia and assume the node starts after it
-    start: offset + leadingOffset,
-    end: offset + ast.cst.textLength.utf8 - trailingOffset
+    startWithTrivia,
+    start: startWithTrivia + leadingOffset,
+    endWithTrivia,
+    end: endWithTrivia - trailingOffset
   };
 
   return node;
