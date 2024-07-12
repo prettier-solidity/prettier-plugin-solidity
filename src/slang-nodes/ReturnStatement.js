@@ -6,7 +6,7 @@ const expression = (node, path, print, options) => {
   if (node.expression) {
     return node.expression.variant.kind === 'TupleExpression' ||
       (options.experimentalTernaries &&
-        node.expression.type === 'ConditionalExpression')
+        node.expression.variant.kind === 'ConditionalExpression')
       ? [' ', path.call(print, 'expression')]
       : group(indent([line, path.call(print, 'expression')]));
   }

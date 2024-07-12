@@ -1,10 +1,10 @@
-runFormatTest(import.meta, ['solidity-parse']);
-runFormatTest(import.meta, ['solidity-parse'], { experimentalTernaries: true });
-runFormatTest(import.meta, ['solidity-parse'], {
+runFormatTest(import.meta, ['slang']);
+runFormatTest(import.meta, ['slang'], { experimentalTernaries: true });
+runFormatTest(import.meta, ['slang'], {
   experimentalTernaries: true,
   tabWidth: 1
 });
-runFormatTest(import.meta, ['solidity-parse'], {
+runFormatTest(import.meta, ['slang'], {
   experimentalTernaries: true,
   useTabs: true
 });

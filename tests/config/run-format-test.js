@@ -47,7 +47,6 @@ const testsWithSlang = new Map(
     // "BasicIterator/BasicIterator.sol", // TODO: Fix solidity-parser comments
     // "Comments/Comments.sol", // TODO: finish Comments
     // "Etc/Etc.sol", // TODO: Comments for if Statements
-    // "ExperimentalTernaries/ExperimentalTernaries.sol", // TODO: fix this one
     // "FunctionDefinitions/FunctionDefinitions.sol", // TODO: remove () safely in modifiers without arguments
     // "IndexOf/IndexOf.sol", // TODO: Finish comments and file level functions
     // "ModifierInvocations/ModifierInvocations.sol",

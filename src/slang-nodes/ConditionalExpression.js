@@ -2,7 +2,7 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 
-const { group, hardline, ifBreak, indent, line } = doc.builders;
+const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
 let groupIndex = 0;
 const experimentalTernaries = (node, path, print, options) => {
@@ -52,23 +52,22 @@ const experimentalTernaries = (node, path, print, options) => {
   }
 
   const falseExpression = path.call(print, 'falseExpression');
-  return group([
-    conditionAndTrueExpressionGroup,
-    [
-      falseExpressionIsTuple
-        ? ifBreak(line, ' ', { groupId: conditionAndTrueExpressionGroup.id })
-        : isNested
-          ? hardline
-          : line,
-      node.colon,
-      falseExpressionInSameLine
-        ? [' ', falseExpression]
-        : ifBreak([fillTab, indent(falseExpression)], [' ', falseExpression], {
-            // We only add `fillTab` if we are sure the trueExpression is indented
-            groupId: conditionAndTrueExpressionGroup.id
-          })
-    ]
-  ]);
+  const falseExpressionDoc = [
+    isNested ? hardline : line,
+    node.colon,
+    falseExpressionInSameLine
+      ? [' ', falseExpression]
+      : ifBreak([fillTab, indent(falseExpression)], [' ', falseExpression], {
+          // We only add `fillTab` if we are sure the trueExpression is indented
+          groupId: conditionAndTrueExpressionGroup.id
+        })
+  ];
+
+  const document = group([conditionAndTrueExpressionGroup, falseExpressionDoc]);
+
+  return grandparent.kind === 'VariableDeclarationValue'
+    ? group(indent([softline, document]))
+    : document;
 };
 
 const traditionalTernaries = (node, path, print) =>
@@ -95,6 +94,7 @@ export const ConditionalExpression = {
     if (options.experimentalTernaries) {
       // We can remove parentheses only because we are sure that the
       // `condition` must be a single `bool` value.
+      const operandLoc = operand.loc;
       while (
         operand.variant.kind === 'TupleExpression' &&
         operand.variant.items.items.length === 1 &&
@@ -103,6 +103,7 @@ export const ConditionalExpression = {
       ) {
         operand = operand.variant.items.items[0].expression;
       }
+      operand.loc = operandLoc;
     }
 
     return {
