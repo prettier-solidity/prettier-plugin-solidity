@@ -23,7 +23,7 @@ export class BitwiseXorExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     return binaryOperationPrint({ node: this, path, print, options });
   }
 }

@@ -30,7 +30,7 @@ export class TupleDeconstructionStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       this.varKeyword ? this.varKeyword : '',
       this.openParen,

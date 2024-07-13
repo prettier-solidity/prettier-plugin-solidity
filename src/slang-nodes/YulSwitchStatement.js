@@ -18,7 +18,7 @@ export class YulSwitchStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.switchKeyword} `,
       path.call(print, 'expression'),

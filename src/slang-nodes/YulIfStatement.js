@@ -15,7 +15,7 @@ export class YulIfStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.ifKeyword} `,
       path.call(print, 'condition'),

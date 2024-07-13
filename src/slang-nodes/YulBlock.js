@@ -15,7 +15,7 @@ export class YulBlock extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ print }) {
-    return [this.openBrace, print.call(print, 'statements'), this.closeBrace];
+  print(path, print) {
+    return [this.openBrace, path.call(print, 'statements'), this.closeBrace];
   }
 }

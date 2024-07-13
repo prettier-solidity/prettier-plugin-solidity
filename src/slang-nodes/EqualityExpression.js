@@ -16,7 +16,7 @@ export class EqualityExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     return comparisonOperationPrint({ node: this, path, print, options });
   }
 }

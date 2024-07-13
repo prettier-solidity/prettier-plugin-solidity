@@ -14,7 +14,7 @@ export class UnicodeStringLiterals extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return join(hardline, path.map(print, 'items'));
   }
 }

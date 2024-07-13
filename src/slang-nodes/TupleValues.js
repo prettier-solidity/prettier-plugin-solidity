@@ -23,7 +23,7 @@ export class TupleValues extends SlangNode {
     }
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return this.items.length === 1 &&
       isBinaryOperation(this.items[0].expression.variant)
       ? path.map(print, 'items')

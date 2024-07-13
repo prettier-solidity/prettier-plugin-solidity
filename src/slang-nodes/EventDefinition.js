@@ -21,7 +21,7 @@ export class EventDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.eventKeyword} ${this.name}`,
       path.call(print, 'parameters'),

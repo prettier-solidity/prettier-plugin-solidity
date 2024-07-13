@@ -11,7 +11,7 @@ export class TupleDeconstructionElement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return this.member ? path.call(print, 'member') : '';
   }
 }

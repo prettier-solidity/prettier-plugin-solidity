@@ -27,7 +27,7 @@ export class TryStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       this.tryKeyword,
       printSeparatedItem(path.call(print, 'expression'), {

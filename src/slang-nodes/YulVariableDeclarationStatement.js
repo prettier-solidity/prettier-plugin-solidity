@@ -17,7 +17,7 @@ export class YulVariableDeclarationStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.letKeyword} ${this.names} `,
       this.value ? path.call(print, 'value') : ''

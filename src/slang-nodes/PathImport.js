@@ -14,7 +14,7 @@ export class PathImport extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       path.call(print, 'path'),
       this.alias ? path.call(print, 'alias') : ''

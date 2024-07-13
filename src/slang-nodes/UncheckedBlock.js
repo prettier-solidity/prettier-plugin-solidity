@@ -12,7 +12,7 @@ export class UncheckedBlock extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [`${this.uncheckedKeyword} `, path.call(print, 'block')];
   }
 }

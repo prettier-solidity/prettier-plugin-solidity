@@ -18,7 +18,7 @@ export class ArrayExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return group([
       this.openBracket,
       path.call(print, 'items'),

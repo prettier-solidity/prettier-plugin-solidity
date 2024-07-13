@@ -19,7 +19,7 @@ export class ConstructorDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return printFunction(this.constructorKeyword, this, path, print);
   }
 }

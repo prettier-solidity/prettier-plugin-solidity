@@ -37,7 +37,7 @@ export class ForStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     const initialization = path.call(print, 'initialization');
     const condition = path.call(print, 'condition');
     const iterator = this.iterator ? path.call(print, 'iterator') : '';

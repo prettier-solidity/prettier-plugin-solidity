@@ -12,7 +12,7 @@ export class MappingKey extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [path.call(print, 'keyType'), this.name ? ` ${this.name}` : ''];
   }
 }

@@ -30,7 +30,7 @@ export class VariableDeclarationStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     const declarationDoc = group(
       [
         path.call(print, 'variableType'),

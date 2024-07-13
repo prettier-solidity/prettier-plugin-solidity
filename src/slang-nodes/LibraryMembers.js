@@ -16,7 +16,7 @@ export class LibraryMembers extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     return this.items.length > 0
       ? printSeparatedItem(
           printPreservingEmptyLines(path, 'items', options, print),

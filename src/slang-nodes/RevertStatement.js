@@ -20,7 +20,7 @@ export class RevertStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.revertKeyword} `,
       this.error ? path.call(print, 'error') : '',

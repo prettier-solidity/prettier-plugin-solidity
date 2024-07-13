@@ -14,7 +14,7 @@ export class ImportDeconstructionSymbol extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.name, this.alias ? path.call(print, 'alias') : ''];
   }
 }

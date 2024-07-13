@@ -31,7 +31,7 @@ export class IndexAccessExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     let operandDoc = path.call(print, 'operand');
     let indexDoc = group([
       this.openBracket,

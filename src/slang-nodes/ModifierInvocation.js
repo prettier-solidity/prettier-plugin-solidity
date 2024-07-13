@@ -26,7 +26,7 @@ export class ModifierInvocation extends SlangNode {
     }
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       path.call(print, 'name'),
       this.arguments ? path.call(print, 'arguments') : ''

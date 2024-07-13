@@ -37,7 +37,7 @@ export class IfStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     const bodyVariantKind = this.body.variant.kind;
 
     return [

@@ -133,7 +133,7 @@ export class ConditionalExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     return options.experimentalTernaries
       ? experimentalTernaries(this, path, print, options)
       : traditionalTernaries(this, path, print);

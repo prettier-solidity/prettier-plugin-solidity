@@ -27,7 +27,7 @@ export class FunctionDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return printFunction(
       [`${this.functionKeyword} `, path.call(print, 'name')],
       this,

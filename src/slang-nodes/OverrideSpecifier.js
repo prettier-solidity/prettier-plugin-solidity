@@ -14,7 +14,7 @@ export class OverrideSpecifier extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       this.overrideKeyword,
       this.overridden ? path.call(print, 'overridden') : ''

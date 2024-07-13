@@ -21,7 +21,7 @@ export class ImportDeconstruction extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       this.openBrace,
       path.call(print, 'symbols'),

@@ -15,7 +15,7 @@ export class ReceiveFunctionAttributes extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return path.map(print, 'items').map((item) => [line, item]);
   }
 }

@@ -24,7 +24,7 @@ export class LibraryDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       group([`${this.libraryKeyword} ${this.name}`, line, this.openBrace]),
       path.call(print, 'members'),

@@ -14,7 +14,7 @@ export class UsingDeconstructionSymbol extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       path.call(print, 'name'),
       this.alias ? path.call(print, 'alias') : ''

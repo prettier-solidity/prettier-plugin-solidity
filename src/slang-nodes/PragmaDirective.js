@@ -16,7 +16,7 @@ export class PragmaDirective extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.pragmaKeyword} `,
       path.call(print, 'pragma'),

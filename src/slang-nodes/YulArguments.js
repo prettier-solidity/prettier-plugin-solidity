@@ -15,7 +15,7 @@ export class YulArguments extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return printSeparatedList(path.map(print, 'items'));
   }
 }

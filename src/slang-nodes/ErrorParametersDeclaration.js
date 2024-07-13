@@ -15,7 +15,7 @@ export class ErrorParametersDeclaration extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.openParen, path.call(print, 'parameters'), this.closeParen];
   }
 }

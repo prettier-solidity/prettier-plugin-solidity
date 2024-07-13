@@ -17,7 +17,7 @@ export class NamedArgumentsDeclaration extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       this.openParen,
       this.arguments ? path.call(print, 'arguments') : '',

@@ -26,7 +26,7 @@ export class Parameters extends SlangNode {
     }
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     if (this.items.length > 0) {
       return printSeparatedList(path.map(print, 'items'), { grouped: false });
     }

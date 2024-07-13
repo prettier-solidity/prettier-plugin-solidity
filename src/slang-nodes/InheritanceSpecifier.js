@@ -12,7 +12,7 @@ export class InheritanceSpecifier extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.isKeyword, path.call(print, 'types')];
   }
 }

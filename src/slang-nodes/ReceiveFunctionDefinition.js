@@ -19,7 +19,7 @@ export class ReceiveFunctionDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return printFunction(this.receiveKeyword, this, path, print);
   }
 }

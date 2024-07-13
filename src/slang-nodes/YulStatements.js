@@ -19,7 +19,7 @@ export class YulStatements extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     return this.items.length === 0 &&
       (!this.comments || this.comments.length === 0)
       ? ''

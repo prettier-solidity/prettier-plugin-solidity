@@ -20,7 +20,7 @@ export class ImportDeconstructionSymbols extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     const compiler = coerce(options.compiler);
     let firstSeparator;
     let separator;

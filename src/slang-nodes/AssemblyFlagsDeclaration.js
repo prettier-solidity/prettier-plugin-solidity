@@ -15,7 +15,7 @@ export class AssemblyFlagsDeclaration extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.openParen, path.call(print, 'flags'), this.closeParen];
   }
 }

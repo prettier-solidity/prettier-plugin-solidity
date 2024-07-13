@@ -40,7 +40,7 @@ function genericPrint(path, options, print) {
   }
   let ret;
   try {
-    ret = node.print({ options, path, print });
+    ret = node.print(path, print, options);
     if (typeof ret === 'undefined') {
       console.log(nodeType);
     }

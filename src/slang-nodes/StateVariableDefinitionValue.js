@@ -15,7 +15,7 @@ export class StateVariableDefinitionValue extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return this.value.variant.kind === 'ArrayExpression'
       ? [` ${this.equal} `, path.call(print, 'value')]
       : group([` ${this.equal}`, indent([line, path.call(print, 'value')])]);
