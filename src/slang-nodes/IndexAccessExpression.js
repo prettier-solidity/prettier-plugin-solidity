@@ -1,29 +1,47 @@
 import { doc } from 'prettier';
 import { isLabel } from '../common/util.js';
+import { SlangNode } from './SlangNode.js';
 
 const { group, indent, indentIfBreak, label, softline } = doc.builders;
 
 let groupIndex = 0;
 
-export const IndexAccessExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    operand: parse(ast.operand, options, parse, offsets),
-    openBracket: ast.openBracket.text,
-    start: ast.start ? parse(ast.start, options, parse, offsets) : undefined,
-    end: ast.end ? parse(ast.end, options, parse, offsets) : undefined,
-    closeBracket: ast.closeBracket.text
-  }),
-  print: ({ node, path, print }) => {
+export class IndexAccessExpression extends SlangNode {
+  operand;
+
+  openBracket;
+
+  start;
+
+  end;
+
+  closeBracket;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.operand = parse(ast.operand, parse, this.nextChildOffset);
+    this.openBracket = ast.openBracket.text;
+    this.start = ast.start
+      ? parse(ast.start, parse, this.nextChildOffset)
+      : undefined;
+    this.end = ast.end
+      ? parse(ast.end, parse, this.nextChildOffset)
+      : undefined;
+    this.closeBracket = ast.closeBracket.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
     let operandDoc = path.call(print, 'operand');
     let indexDoc = group([
-      node.openBracket,
+      this.openBracket,
       indent([
         softline,
-        node.start ? path.call(print, 'start') : '',
-        node.end ? path.call(print, 'end') : ''
+        this.start ? path.call(print, 'start') : '',
+        this.end ? path.call(print, 'end') : ''
       ]),
       softline,
-      node.closeBracket
+      this.closeBracket
     ]);
 
     // If we are at the end of a MemberAccessChain we should indent the
@@ -45,4 +63,4 @@ export const IndexAccessExpression = {
 
     return [operandDoc, indexDoc].flat();
   }
-};
+}

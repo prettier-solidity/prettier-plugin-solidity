@@ -1,7 +1,6 @@
-import {
-  binaryOperationPrint,
-  createHugFunction
-} from '../common/slang-helpers.js';
+import { binaryOperationPrint } from '../common/slang-helpers.js';
+import { createHugFunction } from '../slang-utils/create-hug-function.js';
+import { SlangNode } from './SlangNode.js';
 
 const tryToHugLeftOperand = createHugFunction([
   '+',
@@ -14,15 +13,26 @@ const tryToHugLeftOperand = createHugFunction([
 ]);
 const tryToHugRightOperand = createHugFunction(['+', '-', '*', '/', '**']);
 
-export const ShiftExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    leftOperand: tryToHugLeftOperand(
-      parse(ast.leftOperand, options, parse, offsets)
-    ),
-    operator: ast.operator.text,
-    rightOperand: tryToHugRightOperand(
-      parse(ast.rightOperand, options, parse, offsets)
-    )
-  }),
-  print: binaryOperationPrint
-};
+export class ShiftExpression extends SlangNode {
+  leftOperand;
+
+  operator;
+
+  rightOperand;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.leftOperand = tryToHugLeftOperand(
+      parse(ast.leftOperand, parse, this.nextChildOffset)
+    );
+    this.operator = ast.operator.text;
+    this.rightOperand = tryToHugRightOperand(
+      parse(ast.rightOperand, parse, this.nextChildOffset)
+    );
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print, options }) {
+    return binaryOperationPrint({ node: this, path, print, options });
+  }
+}

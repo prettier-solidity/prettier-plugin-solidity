@@ -1,37 +1,59 @@
 import { doc } from 'prettier';
 import { printSeparatedList } from '../common/printer-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
 const { group, indent, line } = doc.builders;
 
-export const ForStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    forKeyword: ast.forKeyword.text,
-    openParen: ast.openParen.text,
-    initialization: parse(ast.initialization, options, parse, offsets),
-    condition: parse(ast.condition, options, parse, offsets),
-    iterator: ast.iterator
-      ? parse(ast.iterator, options, parse, offsets)
-      : undefined,
-    closeParen: ast.closeParen.text,
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => {
+export class ForStatement extends SlangNode {
+  forKeyword;
+
+  openParen;
+
+  initialization;
+
+  condition;
+
+  iterator;
+
+  closeParen;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.forKeyword = ast.forKeyword.text;
+    this.openParen = ast.openParen.text;
+    this.initialization = parse(
+      ast.initialization,
+      parse,
+      this.nextChildOffset
+    );
+    this.condition = parse(ast.condition, parse, this.nextChildOffset);
+    this.iterator = ast.iterator
+      ? parse(ast.iterator, parse, this.nextChildOffset)
+      : undefined;
+    this.closeParen = ast.closeParen.text;
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
     const initialization = path.call(print, 'initialization');
     const condition = path.call(print, 'condition');
-    const iterator = node.iterator ? path.call(print, 'iterator') : '';
+    const iterator = this.iterator ? path.call(print, 'iterator') : '';
 
     return [
-      `${node.forKeyword} ${node.openParen}`,
+      `${this.forKeyword} ${this.openParen}`,
       printSeparatedList([initialization, condition, iterator], {
         separator:
           initialization !== ';' || condition !== ';' || iterator !== ''
             ? line
             : ''
       }),
-      node.closeParen,
-      node.body.variant.kind === 'Block'
+      this.closeParen,
+      this.body.variant.kind === 'Block'
         ? [' ', path.call(print, 'body')]
         : group(indent([line, path.call(print, 'body')]))
     ];
   }
-};
+}

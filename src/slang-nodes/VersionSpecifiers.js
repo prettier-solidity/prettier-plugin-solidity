@@ -1,10 +1,20 @@
-export const VersionSpecifiers = {
-  parse: ({ ast }) => ({
-    items: ast.items.map((item) => item.text),
-    separators: ast.separators.map((separator) => separator.text)
-  }),
-  print: ({ node }) =>
-    node.items.map((item, index) =>
-      index === 0 ? item : [node.separators[index - 1], item]
-    )
-};
+import { SlangNode } from './SlangNode.js';
+
+export class VersionSpecifiers extends SlangNode {
+  items;
+
+  separators;
+
+  constructor({ ast, offset }) {
+    super(ast, offset);
+    this.items = ast.items.map((item) => item.text);
+    this.separators = ast.separators.map((separator) => separator.text);
+    this.initiateLoc(ast);
+  }
+
+  print() {
+    return this.items.map((item, index) =>
+      index === 0 ? item : [this.separators[index - 1], item]
+    );
+  }
+}

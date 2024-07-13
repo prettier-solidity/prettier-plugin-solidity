@@ -1,14 +1,29 @@
-export const CallOptionsExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    operand: parse(ast.operand, options, parse, offsets),
-    openBrace: ast.openBrace.text,
-    options: parse(ast.options, options, parse, offsets),
-    closeBrace: ast.closeBrace.text
-  }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'operand'),
-    node.openBrace,
-    path.call(print, 'options'),
-    node.closeBrace
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class CallOptionsExpression extends SlangNode {
+  operand;
+
+  openBrace;
+
+  options;
+
+  closeBrace;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.operand = parse(ast.operand, parse, this.nextChildOffset);
+    this.openBrace = ast.openBrace.text;
+    this.options = parse(ast.options, parse, this.nextChildOffset);
+    this.closeBrace = ast.closeBrace.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      path.call(print, 'operand'),
+      this.openBrace,
+      path.call(print, 'options'),
+      this.closeBrace
+    ];
+  }
+}

@@ -1,11 +1,26 @@
-export const YulVariableDeclarationStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    letKeyword: ast.letKeyword.text,
-    names: ast.names.text,
-    value: ast.value ? parse(ast.value, options, parse, offsets) : undefined
-  }),
-  print: ({ node, path, print }) => [
-    `${node.letKeyword} ${node.names} `,
-    node.value ? path.call(print, 'value') : ''
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class YulVariableDeclarationStatement extends SlangNode {
+  letKeyword;
+
+  names;
+
+  value;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.letKeyword = ast.letKeyword.text;
+    this.names = ast.names.text;
+    this.value = ast.value
+      ? parse(ast.value, parse, this.nextChildOffset)
+      : undefined;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.letKeyword} ${this.names} `,
+      this.value ? path.call(print, 'value') : ''
+    ];
+  }
+}

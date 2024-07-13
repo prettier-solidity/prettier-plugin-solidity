@@ -1,13 +1,26 @@
-export const YulIfStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    ifKeyword: ast.ifKeyword.text,
-    condition: parse(ast.condition, options, parse, offsets),
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.ifKeyword} `,
-    path.call(print, 'condition'),
-    ' ',
-    path.call(print, 'body')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class YulIfStatement extends SlangNode {
+  ifKeyword;
+
+  condition;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.ifKeyword = ast.ifKeyword.text;
+    this.condition = parse(ast.condition, parse, this.nextChildOffset);
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.ifKeyword} `,
+      path.call(print, 'condition'),
+      ' ',
+      path.call(print, 'body')
+    ];
+  }
+}

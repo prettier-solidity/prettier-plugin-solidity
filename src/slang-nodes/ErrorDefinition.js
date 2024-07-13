@@ -1,13 +1,28 @@
-export const ErrorDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    errorKeyword: ast.errorKeyword.text,
-    name: ast.name.text,
-    members: parse(ast.members, options, parse, offsets),
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    `${node.errorKeyword} ${node.name}`,
-    path.call(print, 'members'),
-    node.semicolon
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class ErrorDefinition extends SlangNode {
+  errorKeyword;
+
+  name;
+
+  members;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.errorKeyword = ast.errorKeyword.text;
+    this.name = ast.name.text;
+    this.members = parse(ast.members, parse, this.nextChildOffset);
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.errorKeyword} ${this.name}`,
+      path.call(print, 'members'),
+      this.semicolon
+    ];
+  }
+}

@@ -1,10 +1,18 @@
-export const ExpressionStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    expression: parse(ast.expression, options, parse, offsets),
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'expression'),
-    node.semicolon
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class ExpressionStatement extends SlangNode {
+  expression;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.expression = parse(ast.expression, parse, this.nextChildOffset);
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [path.call(print, 'expression'), this.semicolon];
+  }
+}

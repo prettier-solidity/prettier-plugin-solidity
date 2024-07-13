@@ -1,10 +1,23 @@
 import { printSeparatedList } from '../common/printer-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
-export const ErrorParameters = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    items: ast.items.map((item) => parse(item, options, parse, offsets)),
-    separators: ast.separators.map((separator) => separator.text)
-  }),
-  print: ({ node, path, print }) =>
-    node.items.length > 0 ? printSeparatedList(path.map(print, 'items')) : ''
-};
+export class ErrorParameters extends SlangNode {
+  items;
+
+  separators;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.items = ast.items.map((item) =>
+      parse(item, parse, this.nextChildOffset)
+    );
+    this.separators = ast.separators.map((separator) => separator.text);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return this.items.length > 0
+      ? printSeparatedList(path.map(print, 'items'))
+      : '';
+  }
+}

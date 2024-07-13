@@ -1,12 +1,21 @@
-export const YulBlock = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    openBrace: ast.openBrace.text,
-    statements: parse(ast.statements, options, parse, offsets),
-    closeBrace: ast.closeBrace.text
-  }),
-  print: ({ node, print }) => [
-    node.openBrace,
-    print.call(print, 'statements'),
-    node.closeBrace
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class YulBlock extends SlangNode {
+  openBrace;
+
+  statements;
+
+  closeBrace;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.openBrace = ast.openBrace.text;
+    this.statements = parse(ast.statements, parse, this.nextChildOffset);
+    this.closeBrace = ast.closeBrace.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ print }) {
+    return [this.openBrace, print.call(print, 'statements'), this.closeBrace];
+  }
+}

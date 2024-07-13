@@ -1,10 +1,18 @@
-export const UncheckedBlock = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    uncheckedKeyword: ast.uncheckedKeyword.text,
-    block: parse(ast.block, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.uncheckedKeyword} `,
-    path.call(print, 'block')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class UncheckedBlock extends SlangNode {
+  uncheckedKeyword;
+
+  block;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.uncheckedKeyword = ast.uncheckedKeyword.text;
+    this.block = parse(ast.block, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [`${this.uncheckedKeyword} `, path.call(print, 'block')];
+  }
+}

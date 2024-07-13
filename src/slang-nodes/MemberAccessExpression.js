@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import { isLabel } from '../common/util.js';
 import { createKindCheckFunction } from '../common/slang-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
 const { group, indent, label, softline } = doc.builders;
 
@@ -104,13 +105,22 @@ const processChain = (chain) => {
   ]);
 };
 
-export const MemberAccessExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    operand: parse(ast.operand, options, parse, offsets),
-    period: ast.period.text,
-    member: parse(ast.member, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => {
+export class MemberAccessExpression extends SlangNode {
+  operand;
+
+  period;
+
+  member;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.operand = parse(ast.operand, parse, this.nextChildOffset);
+    this.period = ast.period.text;
+    this.member = parse(ast.member, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
     let operandDoc = path.call(print, 'operand');
     if (Array.isArray(operandDoc)) {
       operandDoc = operandDoc.flat();
@@ -118,10 +128,10 @@ export const MemberAccessExpression = {
 
     const document = [
       operandDoc,
-      label('separator', [softline, node.period]),
+      label('separator', [softline, this.period]),
       path.call(print, 'member')
     ].flat();
 
-    return isEndOfChain(node, path) ? processChain(document) : document;
+    return isEndOfChain(this, path) ? processChain(document) : document;
   }
-};
+}

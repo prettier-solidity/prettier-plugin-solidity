@@ -1,15 +1,30 @@
 import { printFunction } from '../common/slang-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
-export const FallbackFunctionDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    fallbackKeyword: ast.fallbackKeyword.text,
-    parameters: parse(ast.parameters, options, parse, offsets),
-    attributes: parse(ast.attributes, options, parse, offsets),
-    returns: ast.returns
-      ? parse(ast.returns, options, parse, offsets)
-      : undefined,
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) =>
-    printFunction(node.fallbackKeyword, node, path, print)
-};
+export class FallbackFunctionDefinition extends SlangNode {
+  fallbackKeyword;
+
+  parameters;
+
+  attributes;
+
+  returns;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.fallbackKeyword = ast.fallbackKeyword.text;
+    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
+    this.returns = ast.returns
+      ? parse(ast.returns, parse, this.nextChildOffset)
+      : undefined;
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return printFunction(this.fallbackKeyword, this, path, print);
+  }
+}

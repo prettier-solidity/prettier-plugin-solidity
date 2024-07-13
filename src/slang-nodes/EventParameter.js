@@ -1,12 +1,25 @@
-export const EventParameter = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse, offsets),
-    indexedKeyword: ast.indexedKeyword?.text,
-    name: ast.name?.text
-  }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'typeName'),
-    node.indexedKeyword ? ` ${node.indexedKeyword}` : '',
-    node.name ? ` ${node.name}` : ''
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class EventParameter extends SlangNode {
+  typeName;
+
+  indexedKeyword;
+
+  name;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.indexedKeyword = ast.indexedKeyword?.text;
+    this.name = ast.name?.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      path.call(print, 'typeName'),
+      this.indexedKeyword ? ` ${this.indexedKeyword}` : '',
+      this.name ? ` ${this.name}` : ''
+    ];
+  }
+}

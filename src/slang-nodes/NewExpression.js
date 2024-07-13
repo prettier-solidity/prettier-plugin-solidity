@@ -1,10 +1,18 @@
-export const NewExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    newKeyword: ast.newKeyword.text,
-    typeName: parse(ast.typeName, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.newKeyword} `,
-    path.call(print, 'typeName')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class NewExpression extends SlangNode {
+  newKeyword;
+
+  typeName;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.newKeyword = ast.newKeyword.text;
+    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [`${this.newKeyword} `, path.call(print, 'typeName')];
+  }
+}

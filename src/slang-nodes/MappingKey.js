@@ -1,10 +1,18 @@
-export const MappingKey = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    keyType: parse(ast.keyType, options, parse, offsets),
-    name: ast.name?.text
-  }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'keyType'),
-    node.name ? ` ${node.name}` : ''
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class MappingKey extends SlangNode {
+  keyType;
+
+  name;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.keyType = parse(ast.keyType, parse, this.nextChildOffset);
+    this.name = ast.name?.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [path.call(print, 'keyType'), this.name ? ` ${this.name}` : ''];
+  }
+}

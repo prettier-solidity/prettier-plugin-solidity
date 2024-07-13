@@ -1,7 +1,18 @@
-export const PostfixExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    operand: parse(ast.operand, options, parse, offsets),
-    operator: ast.operator.text
-  }),
-  print: ({ node, path, print }) => [path.call(print, 'operand'), node.operator]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class PostfixExpression extends SlangNode {
+  operand;
+
+  operator;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.operand = parse(ast.operand, parse, this.nextChildOffset);
+    this.operator = ast.operator.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [path.call(print, 'operand'), this.operator];
+  }
+}

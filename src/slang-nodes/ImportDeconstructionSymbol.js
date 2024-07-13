@@ -1,10 +1,20 @@
-export const ImportDeconstructionSymbol = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    name: ast.name.text,
-    alias: ast.alias ? parse(ast.alias, options, parse, offsets) : undefined
-  }),
-  print: ({ node, path, print }) => [
-    node.name,
-    node.alias ? path.call(print, 'alias') : ''
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class ImportDeconstructionSymbol extends SlangNode {
+  name;
+
+  alias;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.name = ast.name.text;
+    this.alias = ast.alias
+      ? parse(ast.alias, parse, this.nextChildOffset)
+      : undefined;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.name, this.alias ? path.call(print, 'alias') : ''];
+  }
+}

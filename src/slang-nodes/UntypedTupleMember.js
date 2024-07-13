@@ -1,12 +1,21 @@
-export const UntypedTupleMember = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    storageLocation: ast.storageLocation
-      ? parse(ast.storageLocation, options, parse, offsets)
-      : undefined,
-    name: ast.name.text
-  }),
+import { SlangNode } from './SlangNode.js';
+
+export class UntypedTupleMember extends SlangNode {
+  storageLocation;
+
+  name;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.storageLocation = ast.storageLocation
+      ? parse(ast.storageLocation, parse, this.nextChildOffset)
+      : undefined;
+    this.name = ast.name.text;
+    this.initiateLoc(ast);
+  }
+
   // TODO: implement print
-  print: ({ node, path, print, options }) => [
-    'TODO: UntypedTupleMemberUntypedTupleMember'
-  ]
-};
+  print({ path, print, options }) {
+    return ['TODO: UntypedTupleMemberUntypedTupleMember'];
+  }
+}

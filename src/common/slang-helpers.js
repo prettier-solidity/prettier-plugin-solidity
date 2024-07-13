@@ -244,32 +244,6 @@ export const logicalOperationPrint = binaryOperationPrintBuilder(
   logicalIndentRulesBuilder
 );
 
-export function createHugFunction(huggableOperators) {
-  const operators = new Set(huggableOperators);
-  return (node) => {
-    if (isBinaryOperation(node.variant) && operators.has(node.variant.operator))
-      return {
-        kind: 'Expression',
-        loc: { ...node.loc },
-        variant: {
-          kind: 'TupleExpression',
-          loc: { ...node.loc },
-          openParen: '(',
-          items: {
-            kind: 'TupleValues',
-            loc: { ...node.loc },
-            items: [
-              { kind: 'TupleValue', loc: { ...node.loc }, expression: node }
-            ],
-            separators: []
-          },
-          closeParen: ')'
-        }
-      };
-    return node;
-  };
-}
-
 export const locStart = (node) => node.loc.start;
 export const locEnd = (node) => node.loc.end;
 

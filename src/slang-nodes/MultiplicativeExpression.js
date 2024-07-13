@@ -1,36 +1,42 @@
-import {
-  binaryOperationPrint,
-  createHugFunction
-} from '../common/slang-helpers.js';
+import { binaryOperationPrint } from '../common/slang-helpers.js';
+import { createHugFunction } from '../slang-utils/create-hug-function.js';
+import { SlangNode } from './SlangNode.js';
 
 const multiplicationTryToHug = createHugFunction(['/', '%']);
 const divisionTryToHug = createHugFunction(['*', '%']);
 const moduloTryToHug = createHugFunction(['*', '/', '%']);
 
-export const MultiplicativeExpression = {
-  parse: ({ offsets, ast, options, parse }) => {
-    let leftOperand = parse(ast.leftOperand, options, parse, offsets);
-    const operator = ast.operator.text;
+export class MultiplicativeExpression extends SlangNode {
+  leftOperand;
 
-    switch (operator) {
+  operator;
+
+  rightOperand;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.leftOperand = parse(ast.leftOperand, parse, this.nextChildOffset);
+    this.operator = ast.operator.text;
+
+    switch (this.operator) {
       case '*':
-        leftOperand = multiplicationTryToHug(leftOperand);
+        this.leftOperand = multiplicationTryToHug(this.leftOperand);
         break;
       case '/':
-        leftOperand = divisionTryToHug(leftOperand);
+        this.leftOperand = divisionTryToHug(this.leftOperand);
         break;
       case '%':
-        leftOperand = moduloTryToHug(leftOperand);
+        this.leftOperand = moduloTryToHug(this.leftOperand);
         break;
       default:
         break;
     }
 
-    return {
-      leftOperand,
-      operator,
-      rightOperand: parse(ast.rightOperand, options, parse, offsets)
-    };
-  },
-  print: binaryOperationPrint
-};
+    this.rightOperand = parse(ast.rightOperand, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print, options }) {
+    return binaryOperationPrint({ node: this, path, print, options });
+  }
+}

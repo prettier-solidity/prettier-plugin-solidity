@@ -1,12 +1,21 @@
-export const AssemblyFlagsDeclaration = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    openParen: ast.openParen.text,
-    flags: parse(ast.flags, options, parse, offsets),
-    closeParen: ast.closeParen.text
-  }),
-  print: ({ node, path, print }) => [
-    node.openParen,
-    path.call(print, 'flags'),
-    node.closeParen
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class AssemblyFlagsDeclaration extends SlangNode {
+  openParen;
+
+  flags;
+
+  closeParen;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.openParen = ast.openParen.text;
+    this.flags = parse(ast.flags, parse, this.nextChildOffset);
+    this.closeParen = ast.closeParen.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.openParen, path.call(print, 'flags'), this.closeParen];
+  }
+}

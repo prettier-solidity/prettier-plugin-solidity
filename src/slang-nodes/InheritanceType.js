@@ -1,12 +1,23 @@
-export const InheritanceType = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse, offsets),
-    arguments: ast.arguments
-      ? parse(ast.arguments, options, parse, offsets)
-      : undefined
-  }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'typeName'),
-    node.arguments ? path.call(print, 'arguments') : ''
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class InheritanceType extends SlangNode {
+  typeName;
+
+  arguments;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.arguments = ast.arguments
+      ? parse(ast.arguments, parse, this.nextChildOffset)
+      : undefined;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      path.call(print, 'typeName'),
+      this.arguments ? path.call(print, 'arguments') : ''
+    ];
+  }
+}

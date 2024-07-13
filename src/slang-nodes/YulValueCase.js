@@ -1,13 +1,26 @@
-export const YulValueCase = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    caseKeyword: ast.caseKeyword.text,
-    value: parse(ast.value, options, parse, offsets),
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.caseKeyword} `,
-    path.call(print, 'value'),
-    ' ',
-    path.call(print, 'body')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class YulValueCase extends SlangNode {
+  caseKeyword;
+
+  value;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.caseKeyword = ast.caseKeyword.text;
+    this.value = parse(ast.value, parse, this.nextChildOffset);
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.caseKeyword} `,
+      path.call(print, 'value'),
+      ' ',
+      path.call(print, 'body')
+    ];
+  }
+}

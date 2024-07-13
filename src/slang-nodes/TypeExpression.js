@@ -1,10 +1,25 @@
-export const TypeExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    typeKeyword: ast.typeKeyword.text,
-    openParen: ast.openParen.text,
-    typeName: parse(ast.typeName, options, parse, offsets),
-    closeParen: ast.closeParen.text
-  }),
+import { SlangNode } from './SlangNode.js';
+
+export class TypeExpression extends SlangNode {
+  typeKeyword;
+
+  openParen;
+
+  typeName;
+
+  closeParen;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.typeKeyword = ast.typeKeyword.text;
+    this.openParen = ast.openParen.text;
+    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.closeParen = ast.closeParen.text;
+    this.initiateLoc(ast);
+  }
+
   // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: TypeExpression']
-};
+  print({ path, print, options }) {
+    return ['TODO: TypeExpression'];
+  }
+}

@@ -1,12 +1,21 @@
-export const EventParametersDeclaration = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    openParen: ast.openParen.text,
-    parameters: parse(ast.parameters, options, parse, offsets),
-    closeParen: ast.closeParen.text
-  }),
-  print: ({ node, path, print }) => [
-    node.openParen,
-    path.call(print, 'parameters'),
-    node.closeParen
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class EventParametersDeclaration extends SlangNode {
+  openParen;
+
+  parameters;
+
+  closeParen;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.openParen = ast.openParen.text;
+    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.closeParen = ast.closeParen.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.openParen, path.call(print, 'parameters'), this.closeParen];
+  }
+}

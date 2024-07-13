@@ -1,17 +1,36 @@
-export const UsingDirective = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    usingKeyword: ast.usingKeyword.text,
-    clause: parse(ast.clause, options, parse, offsets),
-    forKeyword: ast.forKeyword.text,
-    target: parse(ast.target, options, parse, offsets),
-    globalKeyword: ast.globalKeyword?.text,
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    `${node.usingKeyword} `,
-    path.call(print, 'clause'),
-    ` ${node.forKeyword} `,
-    path.call(print, 'target'),
-    `${node.globalKeyword ? ` ${node.globalKeyword}` : ''}${node.semicolon}`
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class UsingDirective extends SlangNode {
+  usingKeyword;
+
+  clause;
+
+  forKeyword;
+
+  target;
+
+  globalKeyword;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.usingKeyword = ast.usingKeyword.text;
+    this.clause = parse(ast.clause, parse, this.nextChildOffset);
+    this.forKeyword = ast.forKeyword.text;
+    this.target = parse(ast.target, parse, this.nextChildOffset);
+    this.globalKeyword = ast.globalKeyword?.text;
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.usingKeyword} `,
+      path.call(print, 'clause'),
+      ` ${this.forKeyword} `,
+      path.call(print, 'target'),
+      `${this.globalKeyword ? ` ${this.globalKeyword}` : ''}${this.semicolon}`
+    ];
+  }
+}

@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { SlangNode } from './SlangNode.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -7,13 +8,19 @@ const printBody = (bodyVariantKind, path, print) =>
     ? [' ', path.call(print, 'body')]
     : group(indent([line, path.call(print, 'body')]));
 
-export const ElseBranch = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    elseKeyword: ast.elseKeyword.text,
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    node.elseKeyword,
-    printBody(node.body.variant.kind, path, print)
-  ]
-};
+export class ElseBranch extends SlangNode {
+  elseKeyword;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.elseKeyword = ast.elseKeyword.text;
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.elseKeyword, printBody(this.body.variant.kind, path, print)];
+  }
+}

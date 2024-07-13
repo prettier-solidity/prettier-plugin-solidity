@@ -1,13 +1,28 @@
 import { doc } from 'prettier';
+import { SlangNode } from './SlangNode.js';
 
 const { group } = doc.builders;
 
-export const ArrayExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    openBracket: ast.openBracket.text,
-    items: parse(ast.items, options, parse, offsets),
-    closeBracket: ast.closeBracket.text
-  }),
-  print: ({ node, path, print }) =>
-    group([node.openBracket, path.call(print, 'items'), node.closeBracket])
-};
+export class ArrayExpression extends SlangNode {
+  openBracket;
+
+  items;
+
+  closeBracket;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.openBracket = ast.openBracket.text;
+    this.items = parse(ast.items, parse, this.nextChildOffset);
+    this.closeBracket = ast.closeBracket.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return group([
+      this.openBracket,
+      path.call(print, 'items'),
+      this.closeBracket
+    ]);
+  }
+}

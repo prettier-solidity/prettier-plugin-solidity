@@ -1,10 +1,20 @@
-export const IndexAccessEnd = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    colon: ast.colon.text,
-    end: ast.end ? parse(ast.end, options, parse, offsets) : undefined
-  }),
-  print: ({ node, path, print }) => [
-    node.colon,
-    node.end ? path.call(print, 'end') : ''
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class IndexAccessEnd extends SlangNode {
+  colon;
+
+  end;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.colon = ast.colon.text;
+    this.end = ast.end
+      ? parse(ast.end, parse, this.nextChildOffset)
+      : undefined;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.colon, this.end ? path.call(print, 'end') : ''];
+  }
+}

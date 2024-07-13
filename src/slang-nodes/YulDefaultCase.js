@@ -1,10 +1,18 @@
-export const YulDefaultCase = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    defaultKeyword: ast.defaultKeyword.text,
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.defaultKeyword} `,
-    path.call(print, 'body')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class YulDefaultCase extends SlangNode {
+  defaultKeyword;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.defaultKeyword = ast.defaultKeyword.text;
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [`${this.defaultKeyword} `, path.call(print, 'body')];
+  }
+}

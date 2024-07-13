@@ -1,15 +1,32 @@
-export const EventDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    eventKeyword: ast.eventKeyword.text,
-    name: ast.name.text,
-    parameters: parse(ast.parameters, options, parse, offsets),
-    anonymousKeyword: ast.anonymousKeyword?.text,
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    `${node.eventKeyword} ${node.name}`,
-    path.call(print, 'parameters'),
-    node.anonymousKeyword ? ` ${node.anonymousKeyword}` : '',
-    node.semicolon
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class EventDefinition extends SlangNode {
+  eventKeyword;
+
+  name;
+
+  parameters;
+
+  anonymousKeyword;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.eventKeyword = ast.eventKeyword.text;
+    this.name = ast.name.text;
+    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.anonymousKeyword = ast.anonymousKeyword?.text;
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.eventKeyword} ${this.name}`,
+      path.call(print, 'parameters'),
+      this.anonymousKeyword ? ` ${this.anonymousKeyword}` : '',
+      this.semicolon
+    ];
+  }
+}

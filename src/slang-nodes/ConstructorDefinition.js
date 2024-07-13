@@ -1,12 +1,25 @@
 import { printFunction } from '../common/slang-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
-export const ConstructorDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    constructorKeyword: ast.constructorKeyword.text,
-    parameters: parse(ast.parameters, options, parse, offsets),
-    attributes: parse(ast.attributes, options, parse, offsets),
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) =>
-    printFunction(node.constructorKeyword, node, path, print)
-};
+export class ConstructorDefinition extends SlangNode {
+  constructorKeyword;
+
+  parameters;
+
+  attributes;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.constructorKeyword = ast.constructorKeyword.text;
+    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return printFunction(this.constructorKeyword, this, path, print);
+  }
+}

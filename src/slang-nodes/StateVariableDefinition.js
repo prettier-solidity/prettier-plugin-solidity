@@ -1,16 +1,35 @@
-export const StateVariableDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse, offsets),
-    attributes: parse(ast.attributes, options, parse, offsets),
-    name: ast.name.text,
-    value: ast.value ? parse(ast.value, options, parse, offsets) : undefined,
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'typeName'),
-    path.call(print, 'attributes'),
-    ` ${node.name}`,
-    node.value ? path.call(print, 'value') : '',
-    node.semicolon
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class StateVariableDefinition extends SlangNode {
+  typeName;
+
+  attributes;
+
+  name;
+
+  value;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
+    this.name = ast.name.text;
+    this.value = ast.value
+      ? parse(ast.value, parse, this.nextChildOffset)
+      : undefined;
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      path.call(print, 'typeName'),
+      path.call(print, 'attributes'),
+      ` ${this.name}`,
+      this.value ? path.call(print, 'value') : '',
+      this.semicolon
+    ];
+  }
+}

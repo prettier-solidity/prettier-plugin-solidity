@@ -1,8 +1,19 @@
-export const ThrowStatement = {
-  parse: ({ ast }) => ({
-    throwKeyword: ast.throwKeyword.text,
-    semicolon: ast.semicolon.text
-  }),
+import { SlangNode } from './SlangNode.js';
+
+export class ThrowStatement extends SlangNode {
+  throwKeyword;
+
+  semicolon;
+
+  constructor({ ast, offset }) {
+    super(ast, offset);
+    this.throwKeyword = ast.throwKeyword.text;
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
   // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: ThrowStatement']
-};
+  print({ path, print, options }) {
+    return ['TODO: ThrowStatement'];
+  }
+}

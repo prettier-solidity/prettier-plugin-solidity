@@ -1,12 +1,27 @@
-export const CatchClause = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    catchKeyword: ast.catchKeyword.text,
-    error: ast.error ? parse(ast.error, options, parse, offsets) : undefined,
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.catchKeyword} `,
-    node.error ? path.call(print, 'error') : '',
-    path.call(print, 'body')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class CatchClause extends SlangNode {
+  catchKeyword;
+
+  error;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.catchKeyword = ast.catchKeyword.text;
+    this.error = ast.error
+      ? parse(ast.error, parse, this.nextChildOffset)
+      : undefined;
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.catchKeyword} `,
+      this.error ? path.call(print, 'error') : '',
+      path.call(print, 'body')
+    ];
+  }
+}

@@ -1,14 +1,21 @@
 import { doc } from 'prettier';
 import { sortFunctionAttributes } from '../common/slang-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
 const { line } = doc.builders;
 
-export const ReceiveFunctionAttributes = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    items: ast.items
-      .map((item) => parse(item, options, parse, offsets))
-      .sort(sortFunctionAttributes)
-  }),
-  print: ({ path, print }) =>
-    path.map(print, 'items').map((item) => [line, item])
-};
+export class ReceiveFunctionAttributes extends SlangNode {
+  items;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.items = ast.items
+      .map((item) => parse(item, parse, this.nextChildOffset))
+      .sort(sortFunctionAttributes);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return path.map(print, 'items').map((item) => [line, item]);
+  }
+}

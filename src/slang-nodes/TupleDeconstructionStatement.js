@@ -1,26 +1,46 @@
 import { doc } from 'prettier';
+import { SlangNode } from './SlangNode.js';
 
 const { group, indent, line } = doc.builders;
 
-export const TupleDeconstructionStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    varKeyword: ast.varKeyword?.text,
-    openParen: ast.openParen.text,
-    elements: parse(ast.elements, options, parse, offsets),
-    closeParen: ast.closeParen.text,
-    equal: ast.equal.text,
-    expression: parse(ast.expression, options, parse, offsets),
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    node.varKeyword ? node.varKeyword : '',
-    node.openParen,
-    path.call(print, 'elements'),
-    node.expression.variant.kind === 'TupleExpression'
-      ? [`${node.closeParen} ${node.equal} `, path.call(print, 'expression')]
-      : group([
-          `${node.closeParen} ${node.equal}`,
-          indent([line, path.call(print, 'expression'), node.semicolon])
-        ])
-  ]
-};
+export class TupleDeconstructionStatement extends SlangNode {
+  varKeyword;
+
+  openParen;
+
+  elements;
+
+  closeParen;
+
+  equal;
+
+  expression;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.varKeyword = ast.varKeyword?.text;
+    this.openParen = ast.openParen.text;
+    this.elements = parse(ast.elements, parse, this.nextChildOffset);
+    this.closeParen = ast.closeParen.text;
+    this.equal = ast.equal.text;
+    this.expression = parse(ast.expression, parse, this.nextChildOffset);
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      this.varKeyword ? this.varKeyword : '',
+      this.openParen,
+      path.call(print, 'elements'),
+      this.expression.variant.kind === 'TupleExpression'
+        ? [`${this.closeParen} ${this.equal} `, path.call(print, 'expression')]
+        : group([
+            `${this.closeParen} ${this.equal}`,
+            indent([line, path.call(print, 'expression'), this.semicolon])
+          ])
+    ];
+  }
+}

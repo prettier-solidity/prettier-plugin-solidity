@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { SlangNode } from './SlangNode.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -13,17 +14,28 @@ const expression = (node, path, print, options) => {
   return '';
 };
 
-export const ReturnStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    returnKeyword: ast.returnKeyword.text,
-    expression: ast.expression
-      ? parse(ast.expression, options, parse, offsets)
-      : undefined,
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print, options }) => [
-    node.returnKeyword,
-    expression(node, path, print, options),
-    node.semicolon
-  ]
-};
+export class ReturnStatement extends SlangNode {
+  returnKeyword;
+
+  expression;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.returnKeyword = ast.returnKeyword.text;
+    this.expression = ast.expression
+      ? parse(ast.expression, parse, this.nextChildOffset)
+      : undefined;
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print, options }) {
+    return [
+      this.returnKeyword,
+      expression(this, path, print, options),
+      this.semicolon
+    ];
+  }
+}
