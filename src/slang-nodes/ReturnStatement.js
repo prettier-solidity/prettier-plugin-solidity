@@ -21,7 +21,7 @@ export class ReturnStatement extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.returnKeyword = ast.returnKeyword.text;
     this.expression = ast.expression

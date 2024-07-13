@@ -7,7 +7,7 @@ export class YulBlock extends SlangNode {
 
   closeBrace;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.openBrace = ast.openBrace.text;
     this.statements = parse(ast.statements, parse, this.nextChildOffset);

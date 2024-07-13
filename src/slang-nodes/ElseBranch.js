@@ -13,7 +13,7 @@ export class ElseBranch extends SlangNode {
 
   body;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.elseKeyword = ast.elseKeyword.text;
     this.body = parse(ast.body, parse, this.nextChildOffset);

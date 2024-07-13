@@ -8,15 +8,10 @@ export class PragmaDirective extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.pragmaKeyword = ast.pragmaKeyword.text;
-    this.pragma = new Pragma({
-      ast: ast.pragma,
-      parse,
-      offset: this.nextChildOffset,
-      options
-    });
+    this.pragma = new Pragma(ast.pragma, this.nextChildOffset, parse, options);
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

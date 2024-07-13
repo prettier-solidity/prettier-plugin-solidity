@@ -9,7 +9,7 @@ export class NamedArguments extends SlangNode {
 
   separators;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.items = ast.items.map((item) =>
       parse(item, parse, this.nextChildOffset)

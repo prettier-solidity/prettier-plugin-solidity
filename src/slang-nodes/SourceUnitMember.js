@@ -32,14 +32,14 @@ const variants = {
 export class SourceUnitMember extends SlangNode {
   variant;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
-    this.variant = new variants[ast.variant.cst.kind]({
-      ast: ast.variant,
+    this.variant = new variants[ast.variant.cst.kind](
+      ast.variant,
+      this.nextChildOffset,
       parse,
-      offset: this.nextChildOffset,
       options
-    });
+    );
     this.initiateLoc(ast);
   }
 

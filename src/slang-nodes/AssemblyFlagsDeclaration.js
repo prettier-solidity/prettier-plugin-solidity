@@ -7,7 +7,7 @@ export class AssemblyFlagsDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.openParen = ast.openParen.text;
     this.flags = parse(ast.flags, parse, this.nextChildOffset);

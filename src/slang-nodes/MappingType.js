@@ -13,7 +13,7 @@ export class MappingType extends SlangNode {
 
   closeParen;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.mappingKeyword = ast.mappingKeyword.text;
     this.openParen = ast.openParen.text;

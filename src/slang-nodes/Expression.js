@@ -3,18 +3,18 @@ import { SlangNode } from './SlangNode.js';
 export class Expression extends SlangNode {
   variant;
 
-  constructor({ ast, parse, offset, options, kind, loc, variant }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
-    if (ast) {
+    if (offset) {
       this.variant =
         ast.variant.type === 'Terminal'
           ? ast.variant.text
           : parse(ast.variant, parse, this.nextChildOffset);
       this.initiateLoc(ast);
     } else {
-      this.kind = kind;
-      this.loc = loc;
-      this.variant = variant;
+      this.kind = ast.kind;
+      this.loc = ast.loc;
+      this.variant = ast.variant;
     }
   }
 

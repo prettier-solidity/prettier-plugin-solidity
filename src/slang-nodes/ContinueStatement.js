@@ -5,7 +5,7 @@ export class ContinueStatement extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, offset }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.continueKeyword = ast.continueKeyword.text;
     this.semicolon = ast.semicolon.text;

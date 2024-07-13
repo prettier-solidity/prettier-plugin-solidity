@@ -10,7 +10,7 @@ export class YulSwitchStatement extends SlangNode {
 
   cases;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.switchKeyword = ast.switchKeyword.text;
     this.expression = parse(ast.expression, parse, this.nextChildOffset);

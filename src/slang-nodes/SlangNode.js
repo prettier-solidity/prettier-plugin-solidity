@@ -70,7 +70,7 @@ export class SlangNode {
   comments = [];
 
   constructor(ast, offset) {
-    if (!ast) return;
+    if (typeof offset === 'undefined') return;
     const children = ast.cst.children();
     this.kind = ast.cst.kind;
     this.loc.childrenOffsets = getOffsets(children, offset);

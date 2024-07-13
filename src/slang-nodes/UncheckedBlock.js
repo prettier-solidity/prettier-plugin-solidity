@@ -5,7 +5,7 @@ export class UncheckedBlock extends SlangNode {
 
   block;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.uncheckedKeyword = ast.uncheckedKeyword.text;
     this.block = parse(ast.block, parse, this.nextChildOffset);

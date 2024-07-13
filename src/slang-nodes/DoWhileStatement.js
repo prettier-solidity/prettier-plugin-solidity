@@ -24,7 +24,7 @@ export class DoWhileStatement extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.doKeyword = ast.doKeyword.text;
     this.body = parse(ast.body, parse, this.nextChildOffset);

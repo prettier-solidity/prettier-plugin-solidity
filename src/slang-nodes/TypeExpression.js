@@ -9,7 +9,7 @@ export class TypeExpression extends SlangNode {
 
   closeParen;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.typeKeyword = ast.typeKeyword.text;
     this.openParen = ast.openParen.text;

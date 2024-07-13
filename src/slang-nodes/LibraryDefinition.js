@@ -14,7 +14,7 @@ export class LibraryDefinition extends SlangNode {
 
   closeBrace;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.libraryKeyword = ast.libraryKeyword.text;
     this.name = ast.name.text;

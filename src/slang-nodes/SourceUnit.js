@@ -7,14 +7,14 @@ const { line } = doc.builders;
 export class SourceUnit extends SlangNode {
   members;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
-    this.members = new SourceUnitMembers({
-      ast: ast.members,
+    this.members = new SourceUnitMembers(
+      ast.members,
+      this.nextChildOffset,
       parse,
-      offset: this.nextChildOffset,
       options
-    });
+    );
     this.initiateLoc(ast);
   }
 

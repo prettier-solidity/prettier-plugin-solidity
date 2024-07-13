@@ -9,7 +9,7 @@ export class NamedImport extends SlangNode {
 
   path;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.asterisk = ast.asterisk.text;
     this.alias = parse(ast.alias, parse, this.nextChildOffset);

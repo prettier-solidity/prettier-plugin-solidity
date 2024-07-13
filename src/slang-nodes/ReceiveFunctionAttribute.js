@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class ReceiveFunctionAttribute extends SlangNode {
   variant;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.variant =
       ast.variant.type === 'Terminal'

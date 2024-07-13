@@ -7,7 +7,7 @@ const { hardline } = doc.builders;
 export class StructMembers extends SlangNode {
   items;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.items = ast.items.map((item) =>
       parse(item, parse, this.nextChildOffset)

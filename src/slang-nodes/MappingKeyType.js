@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class MappingKeyType extends SlangNode {
   variant;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.variant = parse(ast.variant, parse, this.nextChildOffset);
     this.initiateLoc(ast);

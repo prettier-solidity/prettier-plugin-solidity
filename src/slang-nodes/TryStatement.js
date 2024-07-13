@@ -15,7 +15,7 @@ export class TryStatement extends SlangNode {
 
   catchClauses;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.tryKeyword = ast.tryKeyword.text;
     this.expression = parse(ast.expression, parse, this.nextChildOffset);

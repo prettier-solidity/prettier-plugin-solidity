@@ -13,7 +13,7 @@ export class UsingDirective extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.usingKeyword = ast.usingKeyword.text;
     this.clause = parse(ast.clause, parse, this.nextChildOffset);

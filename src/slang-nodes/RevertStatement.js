@@ -9,7 +9,7 @@ export class RevertStatement extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.revertKeyword = ast.revertKeyword.text;
     this.error = ast.error

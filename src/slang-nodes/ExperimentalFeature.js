@@ -4,16 +4,12 @@ import { StringLiteral } from './StringLiteral.js';
 export class ExperimentalFeature extends SlangNode {
   variant;
 
-  constructor({ ast, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.variant =
       ast.variant.type === 'Terminal'
         ? ast.variant.text
-        : new StringLiteral({
-            ast: ast.variant,
-            offset: this.nextChildOffset,
-            options
-          });
+        : new StringLiteral(ast.variant, this.nextChildOffset, options);
     this.initiateLoc(ast);
   }
 

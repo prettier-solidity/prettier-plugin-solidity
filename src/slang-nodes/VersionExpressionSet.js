@@ -6,7 +6,7 @@ const { join } = doc.builders;
 export class VersionExpressionSet extends SlangNode {
   items;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.items = ast.items.map((item) =>
       parse(item, parse, this.nextChildOffset)

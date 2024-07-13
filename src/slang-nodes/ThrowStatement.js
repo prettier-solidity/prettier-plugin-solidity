@@ -5,7 +5,7 @@ export class ThrowStatement extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, offset }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.throwKeyword = ast.throwKeyword.text;
     this.semicolon = ast.semicolon.text;
