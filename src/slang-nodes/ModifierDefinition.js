@@ -14,7 +14,7 @@ export class ModifierDefinition extends SlangNode {
 
   body;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.modifierKeyword = ast.modifierKeyword.text;
     this.name = ast.name.text;

@@ -6,14 +6,14 @@ export class ExperimentalPragma extends SlangNode {
 
   feature;
 
-  constructor({ ast, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.experimentalKeyword = ast.experimentalKeyword.text;
-    this.feature = new ExperimentalFeature({
-      ast: ast.feature,
-      offset: this.nextChildOffset,
+    this.feature = new ExperimentalFeature(
+      ast.feature,
+      this.nextChildOffset,
       options
-    });
+    );
     this.initiateLoc(ast);
   }
 

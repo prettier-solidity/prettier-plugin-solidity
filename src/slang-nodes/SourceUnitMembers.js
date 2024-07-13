@@ -5,16 +5,10 @@ import { SourceUnitMember } from './SourceUnitMember.js';
 export class SourceUnitMembers extends SlangNode {
   items;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.items = ast.items.map(
-      (item) =>
-        new SourceUnitMember({
-          ast: item,
-          parse,
-          offset: this.nextChildOffset,
-          options
-        })
+      (item) => new SourceUnitMember(item, this.nextChildOffset, parse, options)
     );
     this.initiateLoc(ast);
   }

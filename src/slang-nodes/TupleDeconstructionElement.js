@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class TupleDeconstructionElement extends SlangNode {
   member;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.member = ast.member
       ? parse(ast.member, parse, this.nextChildOffset)

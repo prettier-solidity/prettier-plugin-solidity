@@ -7,7 +7,7 @@ export class YulVariableAssignmentStatement extends SlangNode {
 
   expression;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.names = parse(ast.names, parse, this.nextChildOffset);
     this.assignment = parse(ast.assignment, parse, this.nextChildOffset);

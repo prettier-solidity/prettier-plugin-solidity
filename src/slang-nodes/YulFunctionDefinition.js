@@ -11,7 +11,7 @@ export class YulFunctionDefinition extends SlangNode {
 
   body;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.functionKeyword = ast.functionKeyword.text;
     this.name = ast.name.text;

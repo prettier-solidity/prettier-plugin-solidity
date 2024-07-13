@@ -7,19 +7,19 @@ export class TupleValues extends SlangNode {
 
   separators;
 
-  constructor({ ast, parse, offset, kind, loc, items, separators }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
-    if (ast) {
+    if (offset) {
       this.items = ast.items.map((item) =>
         parse(item, parse, this.nextChildOffset)
       );
       this.separators = ast.separators.map((separator) => separator.text);
       this.initiateLoc(ast);
     } else {
-      this.kind = kind;
-      this.loc = loc;
-      this.items = items;
-      this.separators = separators;
+      this.kind = ast.kind;
+      this.loc = ast.loc;
+      this.items = ast.items;
+      this.separators = ast.separators;
     }
   }
 

@@ -7,7 +7,7 @@ export class YulIfStatement extends SlangNode {
 
   body;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.ifKeyword = ast.ifKeyword.text;
     this.condition = parse(ast.condition, parse, this.nextChildOffset);

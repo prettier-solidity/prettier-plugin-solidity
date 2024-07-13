@@ -13,7 +13,7 @@ export class ConstantDefinition extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
     this.constantKeyword = ast.constantKeyword.text;

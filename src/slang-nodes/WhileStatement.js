@@ -20,7 +20,7 @@ export class WhileStatement extends SlangNode {
 
   body;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.whileKeyword = ast.whileKeyword.text;
     this.openParen = ast.openParen.text;

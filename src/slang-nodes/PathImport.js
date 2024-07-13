@@ -5,7 +5,7 @@ export class PathImport extends SlangNode {
 
   alias;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.path = parse(ast.path, parse, this.nextChildOffset);
     this.alias = ast.alias

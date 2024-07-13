@@ -11,7 +11,7 @@ export class ImportDeconstruction extends SlangNode {
 
   path;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.openBrace = ast.openBrace.text;
     this.symbols = parse(ast.symbols, parse, this.nextChildOffset);

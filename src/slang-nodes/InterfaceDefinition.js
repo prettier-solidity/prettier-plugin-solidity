@@ -16,7 +16,7 @@ export class InterfaceDefinition extends SlangNode {
 
   closeBrace;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.interfaceKeyword = ast.interfaceKeyword.text;
     this.name = ast.name.text;

@@ -7,7 +7,7 @@ export class NamedArgument extends SlangNode {
 
   value;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.name = ast.name.text;
     this.colon = ast.colon.text;

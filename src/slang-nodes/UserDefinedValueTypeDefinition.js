@@ -11,7 +11,7 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.typeKeyword = ast.typeKeyword.text;
     this.name = ast.name.text;

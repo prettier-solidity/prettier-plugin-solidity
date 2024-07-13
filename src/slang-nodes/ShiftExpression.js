@@ -20,7 +20,7 @@ export class ShiftExpression extends SlangNode {
 
   rightOperand;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.leftOperand = tryToHugLeftOperand(
       parse(ast.leftOperand, parse, this.nextChildOffset)

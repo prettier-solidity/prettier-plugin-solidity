@@ -5,7 +5,7 @@ export class YulColonAndEqual extends SlangNode {
 
   equal;
 
-  constructor({ ast, offset }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.colon = ast.colon.text;
     this.equal = ast.equal.text;

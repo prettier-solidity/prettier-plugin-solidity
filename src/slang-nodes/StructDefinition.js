@@ -11,7 +11,7 @@ export class StructDefinition extends SlangNode {
 
   closeBrace;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.structKeyword = ast.structKeyword.text;
     this.name = ast.name.text;

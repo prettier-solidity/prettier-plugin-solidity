@@ -5,7 +5,7 @@ export class VariableDeclarationValue extends SlangNode {
 
   expression;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.equal = ast.equal.text;
     this.expression = parse(ast.expression, parse, this.nextChildOffset);

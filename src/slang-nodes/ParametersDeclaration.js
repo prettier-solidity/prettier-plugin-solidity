@@ -7,28 +7,19 @@ export class ParametersDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor({
-    ast,
-    parse,
-    offset,
-    kind,
-    loc,
-    openParen,
-    parameters,
-    closeParen
-  }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
-    if (ast) {
+    if (offset) {
       this.openParen = ast.openParen.text;
       this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
       this.closeParen = ast.closeParen.text;
       this.initiateLoc(ast);
     } else {
-      this.kind = kind;
-      this.loc = loc;
-      this.openParen = openParen;
-      this.parameters = parameters;
-      this.closeParen = closeParen;
+      this.kind = ast.kind;
+      this.loc = ast.loc;
+      this.openParen = ast.openParen;
+      this.parameters = ast.parameters;
+      this.closeParen = ast.closeParen;
     }
   }
 

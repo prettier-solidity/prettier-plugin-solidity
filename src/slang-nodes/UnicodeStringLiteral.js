@@ -4,7 +4,7 @@ import { SlangNode } from './SlangNode.js';
 export class UnicodeStringLiteral extends SlangNode {
   variant;
 
-  constructor({ ast, options, offset }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.variant = `unicode${printString(ast.variant.text.slice(8, -1), options)}`;
     this.initiateLoc(ast);

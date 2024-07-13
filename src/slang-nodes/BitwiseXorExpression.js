@@ -11,7 +11,7 @@ export class BitwiseXorExpression extends SlangNode {
 
   rightOperand;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.leftOperand = tryToHug(
       parse(ast.leftOperand, parse, this.nextChildOffset)

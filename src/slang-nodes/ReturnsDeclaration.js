@@ -8,7 +8,7 @@ export class ReturnsDeclaration extends SlangNode {
 
   variables;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.returnsKeyword = ast.returnsKeyword.text;
     this.variables = parse(ast.variables, parse, this.nextChildOffset);

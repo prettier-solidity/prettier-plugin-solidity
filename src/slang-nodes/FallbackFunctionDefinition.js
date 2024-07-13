@@ -12,7 +12,7 @@ export class FallbackFunctionDefinition extends SlangNode {
 
   body;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.fallbackKeyword = ast.fallbackKeyword.text;
     this.parameters = parse(ast.parameters, parse, this.nextChildOffset);

@@ -7,7 +7,7 @@ export class PositionalArgumentsDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.openParen = ast.openParen.text;
     this.arguments = parse(ast.arguments, parse, this.nextChildOffset);

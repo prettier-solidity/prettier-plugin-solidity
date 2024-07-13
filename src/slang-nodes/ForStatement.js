@@ -19,7 +19,7 @@ export class ForStatement extends SlangNode {
 
   body;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.forKeyword = ast.forKeyword.text;
     this.openParen = ast.openParen.text;

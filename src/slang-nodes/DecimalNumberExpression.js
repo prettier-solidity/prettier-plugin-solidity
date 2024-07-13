@@ -5,7 +5,7 @@ export class DecimalNumberExpression extends SlangNode {
 
   unit;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.literal = ast.literal.text;
     this.unit = ast.unit

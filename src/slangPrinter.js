@@ -45,7 +45,7 @@ function genericPrint(path, options, print) {
       console.log(nodeType);
     }
   } catch (error) {
-    throw new Error(`${JSON.stringify(node)} ${error}\n`);
+    throw new Error(`${JSON.stringify(nodeType)} ${error}\n`);
   }
   return ret;
 }

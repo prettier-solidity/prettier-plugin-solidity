@@ -11,7 +11,7 @@ export class FunctionCallExpression extends SlangNode {
 
   arguments;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.operand = parse(ast.operand, parse, this.nextChildOffset);
     this.arguments = parse(ast.arguments, parse, this.nextChildOffset);

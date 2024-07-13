@@ -11,7 +11,7 @@ export class YulForStatement extends SlangNode {
 
   body;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.forKeyword = ast.forKeyword.text;
     this.initialization = parse(

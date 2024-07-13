@@ -7,7 +7,7 @@ export class ImportDirective extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, parse, offset, options }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.importKeyword = ast.importKeyword.text;
     this.clause = parse(ast.clause, parse, this.nextChildOffset);

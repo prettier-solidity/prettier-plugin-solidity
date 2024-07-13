@@ -5,7 +5,7 @@ export class BreakStatement extends SlangNode {
 
   semicolon;
 
-  constructor({ ast, offset }) {
+  constructor(ast, offset, parse, options) {
     super(ast, offset);
     this.breakKeyword = ast.breakKeyword.text;
     this.semicolon = ast.semicolon.text;
