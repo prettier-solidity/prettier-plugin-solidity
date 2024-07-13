@@ -14,7 +14,7 @@ export class IndexAccessEnd extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.colon, this.end ? path.call(print, 'end') : ''];
   }
 }

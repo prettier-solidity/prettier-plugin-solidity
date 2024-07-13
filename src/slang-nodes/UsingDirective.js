@@ -24,7 +24,7 @@ export class UsingDirective extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.usingKeyword} `,
       path.call(print, 'clause'),

@@ -14,7 +14,7 @@ export class HexNumberExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.literal, this.unit ? [' ', path.call(print, 'unit')] : ''];
   }
 }

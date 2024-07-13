@@ -12,7 +12,7 @@ export class VersionPragma extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [`${this.solidityKeyword} `, path.call(print, 'sets')];
   }
 }

@@ -44,7 +44,7 @@ export class ModifierDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return printFunction(
       `${this.modifierKeyword} ${this.name}`,
       this,

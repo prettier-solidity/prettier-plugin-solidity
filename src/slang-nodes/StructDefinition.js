@@ -21,7 +21,7 @@ export class StructDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.structKeyword} ${this.name} ${this.openBrace}`,
       path.call(print, 'members'),

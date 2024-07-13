@@ -120,7 +120,7 @@ export class MemberAccessExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     let operandDoc = path.call(print, 'operand');
     if (Array.isArray(operandDoc)) {
       operandDoc = operandDoc.flat();

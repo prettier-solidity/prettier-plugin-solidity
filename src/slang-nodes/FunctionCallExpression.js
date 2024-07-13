@@ -18,7 +18,7 @@ export class FunctionCallExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     let operandDoc = path.call(print, 'operand');
     let argumentsDoc = path.call(print, 'arguments');
 

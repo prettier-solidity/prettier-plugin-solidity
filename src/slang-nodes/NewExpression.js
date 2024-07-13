@@ -12,7 +12,7 @@ export class NewExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [`${this.newKeyword} `, path.call(print, 'typeName')];
   }
 }

@@ -15,7 +15,7 @@ export class YulValueCase extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.caseKeyword} `,
       path.call(print, 'value'),

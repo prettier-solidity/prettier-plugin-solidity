@@ -11,7 +11,7 @@ export class StateVariableAttributes extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return this.items.length
       ? path.map(print, 'items').map((item) => [' ', item])
       : '';

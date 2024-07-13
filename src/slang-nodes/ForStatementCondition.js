@@ -12,7 +12,7 @@ export class ForStatementCondition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

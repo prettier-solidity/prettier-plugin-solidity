@@ -19,7 +19,7 @@ export class Statements extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, options, print }) {
+  print(path, print, options) {
     return this.items.length === 0 &&
       (!this.comments || this.comments.length === 0)
       ? ''

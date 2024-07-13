@@ -21,7 +21,7 @@ export class EnumDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.enumKeyword} ${this.name} ${this.openBrace}`,
       path.call(print, 'members'),

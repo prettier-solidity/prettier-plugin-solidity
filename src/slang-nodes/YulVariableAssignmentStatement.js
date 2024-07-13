@@ -15,7 +15,7 @@ export class YulVariableAssignmentStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       path.call(print, 'names'),
       ' ',

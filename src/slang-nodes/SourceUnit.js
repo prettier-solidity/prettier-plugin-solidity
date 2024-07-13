@@ -18,7 +18,7 @@ export class SourceUnit extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ options, path, print }) {
+  print(path, print, options) {
     return [path.call(print, 'members'), options.parentParser ? '' : line];
   }
 }

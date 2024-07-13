@@ -13,7 +13,7 @@ export class ThrowStatement extends SlangNode {
   }
 
   // TODO: implement print
-  print({ path, print, options }) {
+  print(path, print, options) {
     return ['TODO: ThrowStatement'];
   }
 }

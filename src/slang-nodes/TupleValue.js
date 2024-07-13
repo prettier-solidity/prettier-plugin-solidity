@@ -17,7 +17,7 @@ export class TupleValue extends SlangNode {
     }
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return this.expression ? path.call(print, 'expression') : '';
   }
 }

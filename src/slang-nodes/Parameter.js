@@ -20,7 +20,7 @@ export class Parameter extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return group([
       path.call(print, 'typeName'),
       this.storageLocation ? ` ${path.call(print, 'storageLocation')}` : '',

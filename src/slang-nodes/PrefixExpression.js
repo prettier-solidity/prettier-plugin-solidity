@@ -12,7 +12,7 @@ export class PrefixExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.operator, path.call(print, 'operand')];
   }
 }

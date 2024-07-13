@@ -16,7 +16,7 @@ export class YulReturnsDeclaration extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return printSeparatedItem(
       [this.minusGreaterThan, path.call(print, 'variables')],
       {

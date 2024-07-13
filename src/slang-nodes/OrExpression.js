@@ -23,7 +23,7 @@ export class OrExpression extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     return logicalOperationPrint({ node: this, path, print, options });
   }
 }

@@ -17,7 +17,7 @@ export class ExperimentalPragma extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [`${this.experimentalKeyword} `, path.call(print, 'feature')];
   }
 }

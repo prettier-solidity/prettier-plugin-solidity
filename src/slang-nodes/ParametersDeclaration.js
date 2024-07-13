@@ -23,7 +23,7 @@ export class ParametersDeclaration extends SlangNode {
     }
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.openParen, path.call(print, 'parameters'), this.closeParen];
   }
 }

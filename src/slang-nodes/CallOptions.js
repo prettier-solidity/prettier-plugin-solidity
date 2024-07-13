@@ -18,7 +18,7 @@ export class CallOptions extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     return printSeparatedList(path.map(print, 'items'), {
       firstSeparator: options.bracketSpacing ? line : softline
     });

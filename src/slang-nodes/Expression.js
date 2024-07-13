@@ -18,7 +18,7 @@ export class Expression extends SlangNode {
     }
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

@@ -23,7 +23,7 @@ export class TupleExpression extends SlangNode {
     }
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.openParen, path.call(print, 'items'), this.closeParen];
   }
 }

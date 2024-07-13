@@ -13,7 +13,7 @@ export class SourceUnitMembers extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, options, print }) {
+  print(path, print, options) {
     return printPreservingEmptyLines(path, 'items', options, print);
   }
 }

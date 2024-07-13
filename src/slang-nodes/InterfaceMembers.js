@@ -16,7 +16,7 @@ export class InterfaceMembers extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ options, path, print }) {
+  print(path, print, options) {
     return this.items.length > 0
       ? printSeparatedItem(
           printPreservingEmptyLines(path, 'items', options, print),

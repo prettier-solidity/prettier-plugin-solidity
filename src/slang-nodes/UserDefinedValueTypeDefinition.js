@@ -21,7 +21,7 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.typeKeyword} ${this.name} ${this.isKeyword} `,
       path.call(print, 'valueType'),

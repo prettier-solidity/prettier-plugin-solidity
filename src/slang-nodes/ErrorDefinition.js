@@ -18,7 +18,7 @@ export class ErrorDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.errorKeyword} ${this.name}`,
       path.call(print, 'members'),

@@ -18,7 +18,7 @@ export class NamedImport extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       this.asterisk,
       path.call(print, 'alias'),

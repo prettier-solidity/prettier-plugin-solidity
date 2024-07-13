@@ -24,7 +24,7 @@ export class MappingType extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.mappingKeyword}${this.openParen}`,
       path.call(print, 'keyType'),

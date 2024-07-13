@@ -22,7 +22,7 @@ export class AssemblyStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.assemblyKeyword} `,
       this.label ? [path.call(print, 'label'), ' '] : '',

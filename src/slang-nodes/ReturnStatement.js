@@ -31,7 +31,7 @@ export class ReturnStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     return [
       this.returnKeyword,
       expression(this, path, print, options),

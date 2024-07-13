@@ -19,7 +19,7 @@ export class ContractMembers extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ options, path, print }) {
+  print(path, print, options) {
     return this.items.length === 0 &&
       (!this.comments || this.comments.length === 0)
       ? ''

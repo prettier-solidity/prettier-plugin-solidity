@@ -29,7 +29,7 @@ export class InterfaceDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       group([
         `${this.interfaceKeyword} ${this.name}`,

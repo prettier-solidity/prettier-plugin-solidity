@@ -17,7 +17,7 @@ export class CatchClause extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.catchKeyword} `,
       this.error ? path.call(print, 'error') : '',

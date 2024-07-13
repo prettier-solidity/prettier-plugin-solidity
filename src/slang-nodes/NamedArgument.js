@@ -15,7 +15,7 @@ export class NamedArgument extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [`${this.name}${this.colon} `, path.call(print, 'value')];
   }
 }

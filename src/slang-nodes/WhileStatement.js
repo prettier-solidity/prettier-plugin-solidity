@@ -30,7 +30,7 @@ export class WhileStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.whileKeyword} ${this.openParen}`,
       printSeparatedItem(path.call(print, 'condition')),

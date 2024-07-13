@@ -24,7 +24,7 @@ export class FallbackFunctionDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return printFunction(this.fallbackKeyword, this, path, print);
   }
 }

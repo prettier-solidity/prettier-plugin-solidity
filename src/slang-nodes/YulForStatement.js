@@ -25,7 +25,7 @@ export class YulForStatement extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.forKeyword} `,
       path.call(print, 'initialization'),

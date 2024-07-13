@@ -23,7 +23,7 @@ export class YulFunctionDefinition extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [
       `${this.functionKeyword} ${this.name}`,
       path.call(print, 'parameters'),

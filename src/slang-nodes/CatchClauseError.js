@@ -15,7 +15,7 @@ export class CatchClauseError extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  print({ path, print }) {
+  print(path, print) {
     return [this.name, group(path.call(print, 'parameters')), ' '];
   }
 }

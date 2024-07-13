@@ -95,7 +95,7 @@ export class ExponentiationExpression extends SlangNode {
     }
   }
 
-  print({ path, print, options }) {
+  print(path, print, options) {
     return exponentiationExpressionPrint({ node: this, path, print, options });
   }
 }
