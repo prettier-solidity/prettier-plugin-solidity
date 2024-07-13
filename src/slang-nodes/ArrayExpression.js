@@ -10,7 +10,7 @@ export class ArrayExpression extends SlangNode {
 
   closeBracket;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.openBracket = ast.openBracket.text;
     this.items = parse(ast.items, parse, this.nextChildOffset);

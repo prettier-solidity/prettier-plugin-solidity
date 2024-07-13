@@ -5,7 +5,7 @@ export class PostfixExpression extends SlangNode {
 
   operator;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.operand = parse(ast.operand, parse, this.nextChildOffset);
     this.operator = ast.operator.text;

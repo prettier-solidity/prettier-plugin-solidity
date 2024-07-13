@@ -10,7 +10,7 @@ export class FunctionType extends SlangNode {
 
   returns;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.functionKeyword = ast.functionKeyword.text;
     this.parameters = parse(ast.parameters, parse, this.nextChildOffset);

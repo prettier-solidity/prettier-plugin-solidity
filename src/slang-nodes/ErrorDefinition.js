@@ -9,7 +9,7 @@ export class ErrorDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.errorKeyword = ast.errorKeyword.text;
     this.name = ast.name.text;

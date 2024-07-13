@@ -11,7 +11,7 @@ export class StateVariableDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
     this.attributes = parse(ast.attributes, parse, this.nextChildOffset);

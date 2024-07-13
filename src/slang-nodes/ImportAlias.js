@@ -5,7 +5,7 @@ export class ImportAlias extends SlangNode {
 
   identifier;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset) {
     super(ast, offset);
     this.asKeyword = ast.asKeyword.text;
     this.identifier = ast.identifier.text;

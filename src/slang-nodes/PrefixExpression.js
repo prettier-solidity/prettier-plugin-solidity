@@ -5,7 +5,7 @@ export class PrefixExpression extends SlangNode {
 
   operand;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.operator = ast.operator.text;
     this.operand = parse(ast.operand, parse, this.nextChildOffset);

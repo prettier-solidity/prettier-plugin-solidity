@@ -5,7 +5,7 @@ export class IndexAccessEnd extends SlangNode {
 
   end;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.colon = ast.colon.text;
     this.end = ast.end

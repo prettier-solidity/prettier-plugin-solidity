@@ -5,7 +5,7 @@ export class UsingDeconstructionSymbol extends SlangNode {
 
   alias;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.name = parse(ast.name, parse, this.nextChildOffset);
     this.alias = ast.alias

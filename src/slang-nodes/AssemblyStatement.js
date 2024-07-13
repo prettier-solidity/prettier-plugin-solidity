@@ -9,7 +9,7 @@ export class AssemblyStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.assemblyKeyword = ast.assemblyKeyword.text;
     this.label = ast.label

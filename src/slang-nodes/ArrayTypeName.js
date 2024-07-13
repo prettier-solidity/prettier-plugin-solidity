@@ -9,7 +9,7 @@ export class ArrayTypeName extends SlangNode {
 
   closeBracket;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.operand = parse(ast.operand, parse, this.nextChildOffset);
     this.openBracket = ast.openBracket.text;

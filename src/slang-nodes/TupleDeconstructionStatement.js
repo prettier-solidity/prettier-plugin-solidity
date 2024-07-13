@@ -18,7 +18,7 @@ export class TupleDeconstructionStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.varKeyword = ast.varKeyword?.text;
     this.openParen = ast.openParen.text;

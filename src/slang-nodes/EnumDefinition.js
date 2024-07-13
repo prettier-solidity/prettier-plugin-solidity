@@ -11,7 +11,7 @@ export class EnumDefinition extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.enumKeyword = ast.enumKeyword.text;
     this.name = ast.name.text;

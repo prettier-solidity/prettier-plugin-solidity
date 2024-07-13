@@ -5,7 +5,7 @@ export class YulVariableDeclarationValue extends SlangNode {
 
   expression;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.assignment = parse(ast.assignment, parse, this.nextChildOffset);
     this.expression = parse(ast.expression, parse, this.nextChildOffset);

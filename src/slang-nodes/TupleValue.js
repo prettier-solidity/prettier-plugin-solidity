@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class TupleValue extends SlangNode {
   expression;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     if (offset) {
       this.expression = ast.expression

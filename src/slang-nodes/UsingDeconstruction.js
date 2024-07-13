@@ -7,7 +7,7 @@ export class UsingDeconstruction extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.openBrace = ast.openBrace.text;
     this.symbols = parse(ast.symbols, parse, this.nextChildOffset);

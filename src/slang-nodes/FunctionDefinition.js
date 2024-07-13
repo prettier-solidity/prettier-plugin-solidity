@@ -14,7 +14,7 @@ export class FunctionDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.functionKeyword = ast.functionKeyword.text;
     this.name = parse(ast.name, parse, this.nextChildOffset);

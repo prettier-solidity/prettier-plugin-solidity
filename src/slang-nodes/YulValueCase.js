@@ -7,7 +7,7 @@ export class YulValueCase extends SlangNode {
 
   body;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.caseKeyword = ast.caseKeyword.text;
     this.value = parse(ast.value, parse, this.nextChildOffset);

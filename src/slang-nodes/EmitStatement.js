@@ -9,7 +9,7 @@ export class EmitStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.emitKeyword = ast.emitKeyword.text;
     this.event = parse(ast.event, parse, this.nextChildOffset);

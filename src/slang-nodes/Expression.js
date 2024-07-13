@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class Expression extends SlangNode {
   variant;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     if (offset) {
       this.variant =

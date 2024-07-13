@@ -18,7 +18,7 @@ export class ContractDefinition extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.abstractKeyword = ast.abstractKeyword?.text;
     this.contractKeyword = ast.contractKeyword.text;

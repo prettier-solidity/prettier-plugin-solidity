@@ -7,7 +7,7 @@ export class NamedArgumentGroup extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.openBrace = ast.openBrace.text;
     this.arguments = parse(ast.arguments, parse, this.nextChildOffset);

@@ -7,7 +7,7 @@ export class YulLabel extends SlangNode {
 
   colon;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset) {
     super(ast, offset);
     this.label = ast.label.text;
     this.colon = ast.colon.text;

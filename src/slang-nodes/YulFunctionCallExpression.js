@@ -9,7 +9,7 @@ export class YulFunctionCallExpression extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.operand = parse(ast.operand, parse, this.nextChildOffset);
     this.openParen = ast.openParen.text;

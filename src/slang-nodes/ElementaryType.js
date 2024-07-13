@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class ElementaryType extends SlangNode {
   variant;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.variant =
       ast.variant.type === 'Terminal'

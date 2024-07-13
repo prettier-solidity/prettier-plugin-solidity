@@ -8,7 +8,7 @@ export class CatchClauseError extends SlangNode {
 
   parameters;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.name = ast.name?.text ?? '';
     this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
