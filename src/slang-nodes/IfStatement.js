@@ -1,5 +1,6 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
 const { group, hardline, indent, line } = doc.builders;
 
@@ -10,26 +11,41 @@ const printBody = (bodyVariantKind, path, print) =>
         shouldBreak: bodyVariantKind === 'IfStatement' // `if` within `if`
       });
 
-export const IfStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    ifKeyword: ast.ifKeyword.text,
-    openParen: ast.openParen.text,
-    condition: parse(ast.condition, options, parse, offsets),
-    closeParen: ast.closeParen.text,
-    body: parse(ast.body, options, parse, offsets),
-    elseBranch: ast.elseBranch
-      ? parse(ast.elseBranch, options, parse, offsets)
-      : undefined
-  }),
-  print: ({ node, path, print }) => {
-    const bodyVariantKind = node.body.variant.kind;
+export class IfStatement extends SlangNode {
+  ifKeyword;
+
+  openParen;
+
+  condition;
+
+  closeParen;
+
+  body;
+
+  elseBranch;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.ifKeyword = ast.ifKeyword.text;
+    this.openParen = ast.openParen.text;
+    this.condition = parse(ast.condition, parse, this.nextChildOffset);
+    this.closeParen = ast.closeParen.text;
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.elseBranch = ast.elseBranch
+      ? parse(ast.elseBranch, parse, this.nextChildOffset)
+      : undefined;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    const bodyVariantKind = this.body.variant.kind;
 
     return [
-      `${node.ifKeyword} ${node.openParen}`,
+      `${this.ifKeyword} ${this.openParen}`,
       printSeparatedItem(path.call(print, 'condition')),
-      node.closeParen,
+      this.closeParen,
       printBody(bodyVariantKind, path, print),
-      node.elseBranch
+      this.elseBranch
         ? [
             bodyVariantKind !== 'Block'
               ? hardline // else on a new line if body is not a block
@@ -39,4 +55,4 @@ export const IfStatement = {
         : ''
     ];
   }
-};
+}

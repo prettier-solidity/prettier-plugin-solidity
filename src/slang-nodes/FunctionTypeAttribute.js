@@ -1,6 +1,15 @@
-export const FunctionTypeAttribute = {
-  parse: ({ ast }) => ({
-    variant: ast.variant.text
-  }),
-  print: ({ node }) => node.variant
-};
+import { SlangNode } from './SlangNode.js';
+
+export class FunctionTypeAttribute extends SlangNode {
+  variant;
+
+  constructor({ ast, offset }) {
+    super(ast, offset);
+    this.variant = ast.variant.text;
+    this.initiateLoc(ast);
+  }
+
+  print() {
+    return this.variant;
+  }
+}

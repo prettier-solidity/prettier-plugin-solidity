@@ -1,21 +1,38 @@
 import { printFunction } from '../common/slang-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
-export const FunctionDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    functionKeyword: ast.functionKeyword.text,
-    name: parse(ast.name, options, parse, offsets),
-    parameters: parse(ast.parameters, options, parse, offsets),
-    attributes: parse(ast.attributes, options, parse, offsets),
-    returns: ast.returns
-      ? parse(ast.returns, options, parse, offsets)
-      : undefined,
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) =>
-    printFunction(
-      [`${node.functionKeyword} `, path.call(print, 'name')],
-      node,
+export class FunctionDefinition extends SlangNode {
+  functionKeyword;
+
+  name;
+
+  parameters;
+
+  attributes;
+
+  returns;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.functionKeyword = ast.functionKeyword.text;
+    this.name = parse(ast.name, parse, this.nextChildOffset);
+    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
+    this.returns = ast.returns
+      ? parse(ast.returns, parse, this.nextChildOffset)
+      : undefined;
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return printFunction(
+      [`${this.functionKeyword} `, path.call(print, 'name')],
+      this,
       path,
       print
-    )
-};
+    );
+  }
+}

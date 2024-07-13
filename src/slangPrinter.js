@@ -38,8 +38,16 @@ function genericPrint(path, options, print) {
       options.locEnd(node)
     );
   }
-
-  return nodes[nodeType].print({ node, options, path, print });
+  let ret;
+  try {
+    ret = node.print({ options, path, print });
+    if (typeof ret === 'undefined') {
+      console.log(nodeType);
+    }
+  } catch (error) {
+    throw new Error(`${JSON.stringify(node)} ${error}\n`);
+  }
+  return ret;
 }
 
 export default genericPrint;

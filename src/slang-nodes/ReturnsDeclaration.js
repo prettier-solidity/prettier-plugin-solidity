@@ -1,14 +1,21 @@
 import { doc } from 'prettier';
+import { SlangNode } from './SlangNode.js';
 
 const { group } = doc.builders;
 
-export const ReturnsDeclaration = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    returnsKeyword: ast.returnsKeyword.text,
-    variables: parse(ast.variables, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.returnsKeyword} `,
-    group(path.call(print, 'variables'))
-  ]
-};
+export class ReturnsDeclaration extends SlangNode {
+  returnsKeyword;
+
+  variables;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.returnsKeyword = ast.returnsKeyword.text;
+    this.variables = parse(ast.variables, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [`${this.returnsKeyword} `, group(path.call(print, 'variables'))];
+  }
+}

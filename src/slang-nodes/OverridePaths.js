@@ -1,8 +1,21 @@
-export const OverridePaths = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    items: ast.items.map((item) => parse(item, options, parse, offsets)),
-    separators: ast.separators.map((separator) => separator)
-  }),
+import { SlangNode } from './SlangNode.js';
+
+export class OverridePaths extends SlangNode {
+  items;
+
+  separators;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.items = ast.items.map((item) =>
+      parse(item, parse, this.nextChildOffset)
+    );
+    this.separators = ast.separators.map((separator) => separator);
+    this.initiateLoc(ast);
+  }
+
   // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: OverridePaths']
-};
+  print({ path, print, options }) {
+    return ['TODO: OverridePaths'];
+  }
+}

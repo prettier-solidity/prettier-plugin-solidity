@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
@@ -85,37 +86,56 @@ const traditionalTernaries = (node, path, print) =>
     ])
   ]);
 
-export const ConditionalExpression = {
-  parse: ({ offsets, ast, options, parse }) => {
-    let operand = parse(ast.operand, options, parse, offsets);
+export class ConditionalExpression extends SlangNode {
+  operand;
+
+  questionMark;
+
+  trueExpression;
+
+  colon;
+
+  falseExpression;
+
+  constructor({ ast, options, parse, offset }) {
+    super(ast, offset);
+    this.operand = parse(ast.operand, parse, this.nextChildOffset);
 
     // TODO: while the behaviour is not stable, it should be behind the
     // experimentalTernaries flag.
     if (options.experimentalTernaries) {
       // We can remove parentheses only because we are sure that the
       // `condition` must be a single `bool` value.
-      const operandLoc = operand.loc;
+      const operandLoc = this.operand.loc;
       while (
-        operand.variant.kind === 'TupleExpression' &&
-        operand.variant.items.items.length === 1 &&
-        operand.variant.items.items[0].expression.variant.kind !==
+        this.operand.variant.kind === 'TupleExpression' &&
+        this.operand.variant.items.items.length === 1 &&
+        this.operand.variant.items.items[0].expression.variant.kind !==
           'ConditionalExpression'
       ) {
-        operand = operand.variant.items.items[0].expression;
+        this.operand = this.operand.variant.items.items[0].expression;
       }
-      operand.loc = operandLoc;
+      this.operand.loc = operandLoc;
     }
 
-    return {
-      operand,
-      questionMark: ast.questionMark.text,
-      trueExpression: parse(ast.trueExpression, options, parse, offsets),
-      colon: ast.colon.text,
-      falseExpression: parse(ast.falseExpression, options, parse, offsets)
-    };
-  },
-  print: ({ node, path, print, options }) =>
-    options.experimentalTernaries
-      ? experimentalTernaries(node, path, print, options)
-      : traditionalTernaries(node, path, print)
-};
+    this.questionMark = ast.questionMark.text;
+    this.trueExpression = parse(
+      ast.trueExpression,
+      parse,
+      this.nextChildOffset
+    );
+    this.colon = ast.colon.text;
+    this.falseExpression = parse(
+      ast.falseExpression,
+      parse,
+      this.nextChildOffset
+    );
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print, options }) {
+    return options.experimentalTernaries
+      ? experimentalTernaries(this, path, print, options)
+      : traditionalTernaries(this, path, print);
+  }
+}

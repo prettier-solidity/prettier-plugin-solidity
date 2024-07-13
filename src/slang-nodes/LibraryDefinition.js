@@ -1,18 +1,34 @@
 import { doc } from 'prettier';
+import { SlangNode } from './SlangNode.js';
 
 const { group, line } = doc.builders;
 
-export const LibraryDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    libraryKeyword: ast.libraryKeyword.text,
-    name: ast.name.text,
-    openBrace: ast.openBrace.text,
-    members: parse(ast.members, options, parse, offsets),
-    closeBrace: ast.closeBrace.text
-  }),
-  print: ({ node, path, print }) => [
-    group([`${node.libraryKeyword} ${node.name}`, line, node.openBrace]),
-    path.call(print, 'members'),
-    node.closeBrace
-  ]
-};
+export class LibraryDefinition extends SlangNode {
+  libraryKeyword;
+
+  name;
+
+  openBrace;
+
+  members;
+
+  closeBrace;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.libraryKeyword = ast.libraryKeyword.text;
+    this.name = ast.name.text;
+    this.openBrace = ast.openBrace.text;
+    this.members = parse(ast.members, parse, this.nextChildOffset);
+    this.closeBrace = ast.closeBrace.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      group([`${this.libraryKeyword} ${this.name}`, line, this.openBrace]),
+      path.call(print, 'members'),
+      this.closeBrace
+    ];
+  }
+}

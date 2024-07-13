@@ -1,14 +1,31 @@
-export const UserDefinedValueTypeDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    typeKeyword: ast.typeKeyword.text,
-    name: ast.name.text,
-    isKeyword: ast.isKeyword.text,
-    valueType: parse(ast.valueType, options, parse, offsets),
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    `${node.typeKeyword} ${node.name} ${node.isKeyword} `,
-    path.call(print, 'valueType'),
-    node.semicolon
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class UserDefinedValueTypeDefinition extends SlangNode {
+  typeKeyword;
+
+  name;
+
+  isKeyword;
+
+  valueType;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.typeKeyword = ast.typeKeyword.text;
+    this.name = ast.name.text;
+    this.isKeyword = ast.isKeyword.text;
+    this.valueType = parse(ast.valueType, parse, this.nextChildOffset);
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.typeKeyword} ${this.name} ${this.isKeyword} `,
+      path.call(print, 'valueType'),
+      this.semicolon
+    ];
+  }
+}

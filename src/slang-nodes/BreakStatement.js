@@ -1,7 +1,18 @@
-export const BreakStatement = {
-  parse: ({ ast }) => ({
-    breakKeyword: ast.breakKeyword.text,
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node }) => `${node.breakKeyword}${node.semicolon}`
-};
+import { SlangNode } from './SlangNode.js';
+
+export class BreakStatement extends SlangNode {
+  breakKeyword;
+
+  semicolon;
+
+  constructor({ ast, offset }) {
+    super(ast, offset);
+    this.breakKeyword = ast.breakKeyword.text;
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print() {
+    return `${this.breakKeyword}${this.semicolon}`;
+  }
+}

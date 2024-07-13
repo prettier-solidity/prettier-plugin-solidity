@@ -1,10 +1,22 @@
-export const ErrorParameter = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse, offsets),
-    name: ast.name?.text
-  }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'typeName'),
-    node.name ? ` ${node.name}` : ''
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class ErrorParameter extends SlangNode {
+  errorKeyword;
+
+  name;
+
+  members;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.name = ast.name?.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [path.call(print, 'typeName'), this.name ? ` ${this.name}` : ''];
+  }
+}

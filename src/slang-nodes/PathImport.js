@@ -1,10 +1,23 @@
-export const PathImport = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    path: parse(ast.path, options, parse, offsets),
-    alias: ast.alias ? parse(ast.alias, options, parse, offsets) : undefined
-  }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'path'),
-    node.alias ? path.call(print, 'alias') : ''
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class PathImport extends SlangNode {
+  path;
+
+  alias;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.path = parse(ast.path, parse, this.nextChildOffset);
+    this.alias = ast.alias
+      ? parse(ast.alias, parse, this.nextChildOffset)
+      : undefined;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      path.call(print, 'path'),
+      this.alias ? path.call(print, 'alias') : ''
+    ];
+  }
+}

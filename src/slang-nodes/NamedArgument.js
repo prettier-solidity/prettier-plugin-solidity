@@ -1,11 +1,21 @@
-export const NamedArgument = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    name: ast.name.text,
-    colon: ast.colon.text,
-    value: parse(ast.value, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.name}${node.colon} `,
-    path.call(print, 'value')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class NamedArgument extends SlangNode {
+  name;
+
+  colon;
+
+  value;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.name = ast.name.text;
+    this.colon = ast.colon.text;
+    this.value = parse(ast.value, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [`${this.name}${this.colon} `, path.call(print, 'value')];
+  }
+}

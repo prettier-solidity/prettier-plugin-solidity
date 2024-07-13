@@ -1,14 +1,27 @@
 import { printFunction } from '../common/slang-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
-export const FunctionType = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    functionKeyword: ast.functionKeyword.text,
-    parameters: parse(ast.parameters, options, parse, offsets),
-    attributes: parse(ast.attributes, options, parse, offsets),
-    returns: ast.returns
-      ? parse(ast.returns, options, parse, offsets)
-      : undefined
-  }),
-  print: ({ node, path, print }) =>
-    printFunction(node.functionKeyword, node, path, print)
-};
+export class FunctionType extends SlangNode {
+  functionKeyword;
+
+  parameters;
+
+  attributes;
+
+  returns;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.functionKeyword = ast.functionKeyword.text;
+    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
+    this.returns = ast.returns
+      ? parse(ast.returns, parse, this.nextChildOffset)
+      : undefined;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return printFunction(this.functionKeyword, this, path, print);
+  }
+}

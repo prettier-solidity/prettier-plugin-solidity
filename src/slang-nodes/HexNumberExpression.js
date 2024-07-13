@@ -1,10 +1,20 @@
-export const HexNumberExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    literal: ast.literal.text,
-    unit: ast.unit ? parse(ast.unit, options, parse, offsets) : undefined
-  }),
-  print: ({ node, path, print }) => [
-    node.literal,
-    node.unit ? [' ', path.call(print, 'unit')] : ''
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class HexNumberExpression extends SlangNode {
+  literal;
+
+  unit;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.literal = ast.literal.text;
+    this.unit = ast.unit
+      ? parse(ast.unit, parse, this.nextChildOffset)
+      : undefined;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.literal, this.unit ? [' ', path.call(print, 'unit')] : ''];
+  }
+}

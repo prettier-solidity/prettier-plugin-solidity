@@ -1,10 +1,22 @@
 import { comparisonOperationPrint } from '../common/slang-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
-export const EqualityExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    leftOperand: parse(ast.leftOperand, options, parse, offsets),
-    operator: ast.operator.text,
-    rightOperand: parse(ast.rightOperand, options, parse, offsets)
-  }),
-  print: comparisonOperationPrint
-};
+export class EqualityExpression extends SlangNode {
+  leftOperand;
+
+  operator;
+
+  rightOperand;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.leftOperand = parse(ast.leftOperand, parse, this.nextChildOffset);
+    this.operator = ast.operator.text;
+    this.rightOperand = parse(ast.rightOperand, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print, options }) {
+    return comparisonOperationPrint({ node: this, path, print, options });
+  }
+}

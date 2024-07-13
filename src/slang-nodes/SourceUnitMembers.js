@@ -1,9 +1,25 @@
 import { printPreservingEmptyLines } from '../common/slang-helpers.js';
+import { SlangNode } from './SlangNode.js';
+import { SourceUnitMember } from './SourceUnitMember.js';
 
-export const SourceUnitMembers = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    items: ast.items.map((item) => parse(item, options, parse, offsets))
-  }),
-  print: ({ path, options, print }) =>
-    printPreservingEmptyLines(path, 'items', options, print)
-};
+export class SourceUnitMembers extends SlangNode {
+  items;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.items = ast.items.map(
+      (item) =>
+        new SourceUnitMember({
+          ast: item,
+          parse,
+          offset: this.nextChildOffset,
+          options
+        })
+    );
+    this.initiateLoc(ast);
+  }
+
+  print({ path, options, print }) {
+    return printPreservingEmptyLines(path, 'items', options, print);
+  }
+}

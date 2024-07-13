@@ -1,25 +1,43 @@
 import { doc } from 'prettier';
+import { SlangNode } from './SlangNode.js';
 
 const { group, line } = doc.builders;
 
-export const InterfaceDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    interfaceKeyword: ast.interfaceKeyword.text,
-    name: ast.name.text,
-    inheritance: ast.inheritence
-      ? parse(ast.inheritance, options, parse, offsets)
-      : undefined,
-    openBrace: ast.openBrace.text,
-    members: parse(ast.members, options, parse, offsets),
-    closeBrace: ast.closeBrace.text
-  }),
-  print: ({ node, path, print }) => [
-    group([
-      `${node.interfaceKeyword} ${node.name}`,
-      node.inheritance ? path.call(print, 'inheritance') : line,
-      node.openBrace
-    ]),
-    path.call(print, 'members'),
-    node.closeBrace
-  ]
-};
+export class InterfaceDefinition extends SlangNode {
+  interfaceKeyword;
+
+  name;
+
+  inheritance;
+
+  openBrace;
+
+  members;
+
+  closeBrace;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.interfaceKeyword = ast.interfaceKeyword.text;
+    this.name = ast.name.text;
+    this.inheritance = ast.inheritence
+      ? parse(ast.inheritance, parse, this.nextChildOffset)
+      : undefined;
+    this.openBrace = ast.openBrace.text;
+    this.members = parse(ast.members, parse, this.nextChildOffset);
+    this.closeBrace = ast.closeBrace.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      group([
+        `${this.interfaceKeyword} ${this.name}`,
+        this.inheritance ? path.call(print, 'inheritance') : line,
+        this.openBrace
+      ]),
+      path.call(print, 'members'),
+      this.closeBrace
+    ];
+  }
+}

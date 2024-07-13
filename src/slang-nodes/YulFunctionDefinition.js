@@ -1,17 +1,34 @@
-export const YulFunctionDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    functionKeyword: ast.functionKeyword.text,
-    name: ast.name.text,
-    parameters: parse(ast.parameters, options, parse, offsets),
-    returns: ast.returns
-      ? parse(ast.returns, options, parse, offsets)
-      : undefined,
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.functionKeyword} ${node.name}`,
-    path.call(print, 'parameters'),
-    node.returns ? path.call(print, 'returns') : ' ',
-    path.call(print, 'body')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class YulFunctionDefinition extends SlangNode {
+  functionKeyword;
+
+  name;
+
+  parameters;
+
+  returns;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.functionKeyword = ast.functionKeyword.text;
+    this.name = ast.name.text;
+    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.returns = ast.returns
+      ? parse(ast.returns, parse, this.nextChildOffset)
+      : undefined;
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.functionKeyword} ${this.name}`,
+      path.call(print, 'parameters'),
+      this.returns ? path.call(print, 'returns') : ' ',
+      path.call(print, 'body')
+    ];
+  }
+}

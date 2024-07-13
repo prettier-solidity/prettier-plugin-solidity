@@ -1,11 +1,21 @@
-export const StructMember = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse, offsets),
-    name: ast.name.text,
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    path.call(print, 'typeName'),
-    ` ${node.name}${node.semicolon}`
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class StructMember extends SlangNode {
+  typeName;
+
+  name;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.name = ast.name.text;
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [path.call(print, 'typeName'), ` ${this.name}${this.semicolon}`];
+  }
+}

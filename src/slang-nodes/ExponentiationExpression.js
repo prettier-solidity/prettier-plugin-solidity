@@ -1,80 +1,111 @@
 import { doc } from 'prettier';
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
-import {
-  binaryOperationPrintBuilder,
-  createHugFunction
-} from '../common/slang-helpers.js';
+import { binaryOperationPrintBuilder } from '../common/slang-helpers.js';
+import { createHugFunction } from '../slang-utils/create-hug-function.js';
+import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
+import { TupleExpression } from './TupleExpression.js';
+import { TupleValues } from './TupleValues.js';
+import { TupleValue } from './TupleValue.js';
 
 const { group, indent } = doc.builders;
 
 const tryToHug = createHugFunction(['**']);
 
-export const ExponentiationExpression = {
-  parse: ({ offsets, ast, options, parse }) => {
-    const compiler = coerce(options.compiler);
-    let leftOperand = parse(ast.leftOperand, options, parse, offsets);
-    let rightOperand = parse(ast.rightOperand, options, parse, offsets);
+const exponentiationExpressionPrint = binaryOperationPrintBuilder(
+  () => (document) => group(document), // always group
+  () => (document) => indent(document) // always indent
+);
 
-    if (compiler) {
-      if (satisfies(compiler, '>=0.8.0')) {
-        rightOperand = tryToHug(rightOperand);
-      } else {
-        // Currently the parser considers exponentiation as having left
-        // association from 0.6.0.
-        // in reality solidity fixed this from 0.8.0.
-        // TODO: remove this once the parser has fixed this.
-        // https://github.com/NomicFoundation/slang/issues/1031
-        if (rightOperand.variant.kind === 'ExponentiationExpression') {
-          const leftLoc = {
-            start: leftOperand.loc.start,
-            end: rightOperand.variant.leftOperand.loc.end
-          };
-          leftOperand = {
-            kind: 'Expression',
-            loc: { ...leftLoc },
-            variant: {
-              kind: 'TupleExpression',
+export class ExponentiationExpression extends SlangNode {
+  leftOperand;
+
+  operator;
+
+  rightOperand;
+
+  constructor({
+    ast,
+    options,
+    parse,
+    offset,
+    kind,
+    loc,
+    leftOperand,
+    operator,
+    rightOperand
+  }) {
+    super(ast, offset);
+    if (ast) {
+      const compiler = coerce(options.compiler);
+      this.leftOperand = parse(ast.leftOperand, parse, this.nextChildOffset);
+      this.rightOperand = parse(ast.rightOperand, parse, this.nextChildOffset);
+
+      if (compiler) {
+        if (satisfies(compiler, '>=0.8.0')) {
+          this.rightOperand = tryToHug(this.rightOperand);
+        } else {
+          // Currently the parser considers exponentiation as having left
+          // association from 0.6.0.
+          // in reality solidity fixed this from 0.8.0.
+          // TODO: remove this once the parser has fixed this.
+          // https://github.com/NomicFoundation/slang/issues/1031
+          if (this.rightOperand.variant.kind === 'ExponentiationExpression') {
+            const leftLoc = {
+              start: this.leftOperand.loc.start,
+              end: this.rightOperand.variant.leftOperand.loc.end
+            };
+            this.leftOperand = new Expression({
+              kind: 'Expression',
               loc: { ...leftLoc },
-              openParen: '(',
-              items: {
-                kind: 'TupleValues',
+              variant: new TupleExpression({
+                kind: 'TupleExpression',
                 loc: { ...leftLoc },
-                items: [
-                  {
-                    kind: 'TupleValue',
-                    loc: { ...leftLoc },
-                    expression: {
-                      kind: 'Expression',
+                openParen: '(',
+                items: new TupleValues({
+                  kind: 'TupleValues',
+                  loc: { ...leftLoc },
+                  items: [
+                    new TupleValue({
+                      kind: 'TupleValue',
                       loc: { ...leftLoc },
-                      variant: {
-                        kind: 'ExponentiationExpression',
+                      expression: new Expression({
+                        kind: 'Expression',
                         loc: { ...leftLoc },
-                        leftOperand,
-                        operator: '**',
-                        rightOperand: rightOperand.variant.leftOperand
-                      }
-                    }
-                  }
-                ],
-                separators: []
-              },
-              closeParen: ')'
-            }
-          };
-          rightOperand = rightOperand.variant.rightOperand;
+                        variant: new ExponentiationExpression({
+                          kind: 'ExponentiationExpression',
+                          loc: { ...leftLoc },
+                          leftOperand: this.leftOperand,
+                          operator: '**',
+                          rightOperand: this.rightOperand.variant.leftOperand
+                        })
+                      })
+                    })
+                  ],
+                  separators: []
+                }),
+                closeParen: ')'
+              })
+            });
+            this.rightOperand = this.rightOperand.variant.rightOperand;
+          }
+          this.leftOperand = tryToHug(this.leftOperand);
         }
-        leftOperand = tryToHug(leftOperand);
       }
+
+      this.operator = ast.operator.text;
+      this.initiateLoc(ast);
+    } else {
+      this.kind = kind;
+      this.loc = loc;
+      this.leftOperand = leftOperand;
+      this.operator = operator;
+      this.rightOperand = rightOperand;
     }
-    return {
-      leftOperand,
-      operator: ast.operator.text,
-      rightOperand
-    };
-  },
-  print: binaryOperationPrintBuilder(
-    () => (document) => group(document), // always group
-    () => (document) => indent(document) // always indent
-  )
-};
+  }
+
+  print({ path, print, options }) {
+    return exponentiationExpressionPrint({ node: this, path, print, options });
+  }
+}

@@ -1,7 +1,18 @@
-export const PrefixExpression = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    operator: ast.operator.text,
-    operand: parse(ast.operand, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [node.operator, path.call(print, 'operand')]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class PrefixExpression extends SlangNode {
+  operator;
+
+  operand;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.operator = ast.operator.text;
+    this.operand = parse(ast.operand, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.operator, path.call(print, 'operand')];
+  }
+}

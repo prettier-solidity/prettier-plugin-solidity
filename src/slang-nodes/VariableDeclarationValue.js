@@ -1,10 +1,18 @@
-export const VariableDeclarationValue = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    equal: ast.equal.text,
-    expression: parse(ast.expression, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    ` ${node.equal} `,
-    path.call(print, 'expression')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class VariableDeclarationValue extends SlangNode {
+  equal;
+
+  expression;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.equal = ast.equal.text;
+    this.expression = parse(ast.expression, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [` ${this.equal} `, path.call(print, 'expression')];
+  }
+}

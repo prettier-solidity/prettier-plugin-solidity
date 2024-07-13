@@ -1,14 +1,27 @@
-export const NamedArgumentsDeclaration = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    openParen: ast.openParen.text,
-    arguments: ast.arguments
-      ? parse(ast.arguments, options, parse, offsets)
-      : undefined,
-    closeParen: ast.closeParen.text
-  }),
-  print: ({ node, path, print }) => [
-    node.openParen,
-    node.arguments ? path.call(print, 'arguments') : '',
-    node.closeParen
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class NamedArgumentsDeclaration extends SlangNode {
+  openParen;
+
+  arguments;
+
+  closeParen;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.openParen = ast.openParen.text;
+    this.arguments = ast.arguments
+      ? parse(ast.arguments, parse, this.nextChildOffset)
+      : undefined;
+    this.closeParen = ast.closeParen.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      this.openParen,
+      this.arguments ? path.call(print, 'arguments') : '',
+      this.closeParen
+    ];
+  }
+}

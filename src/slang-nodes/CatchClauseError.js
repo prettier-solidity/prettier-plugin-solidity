@@ -1,15 +1,21 @@
 import { doc } from 'prettier';
+import { SlangNode } from './SlangNode.js';
 
 const { group } = doc.builders;
 
-export const CatchClauseError = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    name: ast.name?.text,
-    parameters: parse(ast.parameters, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    node.name ? node.name : '',
-    group(path.call(print, 'parameters')),
-    ' '
-  ]
-};
+export class CatchClauseError extends SlangNode {
+  name;
+
+  parameters;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.name = ast.name?.text ?? '';
+    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.name, group(path.call(print, 'parameters')), ' '];
+  }
+}

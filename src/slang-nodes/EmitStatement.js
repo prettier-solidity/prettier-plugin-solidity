@@ -1,14 +1,29 @@
-export const EmitStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    emitKeyword: ast.emitKeyword.text,
-    event: parse(ast.event, options, parse, offsets),
-    arguments: parse(ast.arguments, options, parse, offsets),
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    `${node.emitKeyword} `,
-    path.call(print, 'event'),
-    path.call(print, 'arguments'),
-    node.semicolon
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class EmitStatement extends SlangNode {
+  emitKeyword;
+
+  event;
+
+  arguments;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.emitKeyword = ast.emitKeyword.text;
+    this.event = parse(ast.event, parse, this.nextChildOffset);
+    this.arguments = parse(ast.arguments, parse, this.nextChildOffset);
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.emitKeyword} `,
+      path.call(print, 'event'),
+      path.call(print, 'arguments'),
+      this.semicolon
+    ];
+  }
+}

@@ -1,26 +1,46 @@
 import { doc } from 'prettier';
+import { SlangNode } from './SlangNode.js';
 
 const { group, line } = doc.builders;
 
-export const ContractDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    abstractKeyword: ast.abstractKeyword?.text,
-    contractKeyword: ast.contractKeyword.text,
-    name: ast.name.text,
-    inheritance: ast.inheritance
-      ? parse(ast.inheritance, options, parse, offsets)
-      : undefined,
-    openBrace: ast.openBrace.text,
-    members: parse(ast.members, options, parse, offsets),
-    closeBrace: ast.closeBrace.text
-  }),
-  print: ({ node, path, print }) => [
-    group([
-      `${node.abstractKeyword ? `${node.abstractKeyword} ` : ''}${node.contractKeyword} ${node.name}`,
-      node.inheritance ? [' ', path.call(print, 'inheritance')] : line,
-      node.openBrace
-    ]),
-    path.call(print, 'members'),
-    node.closeBrace
-  ]
-};
+export class ContractDefinition extends SlangNode {
+  abstractKeyword;
+
+  contractKeyword;
+
+  name;
+
+  inheritance;
+
+  openBrace;
+
+  members;
+
+  closeBrace;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.abstractKeyword = ast.abstractKeyword?.text;
+    this.contractKeyword = ast.contractKeyword.text;
+    this.name = ast.name.text;
+    this.inheritance = ast.inheritance
+      ? parse(ast.inheritance, parse, this.nextChildOffset)
+      : undefined;
+    this.openBrace = ast.openBrace.text;
+    this.members = parse(ast.members, parse, this.nextChildOffset);
+    this.closeBrace = ast.closeBrace.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      group([
+        `${this.abstractKeyword ? `${this.abstractKeyword} ` : ''}${this.contractKeyword} ${this.name}`,
+        this.inheritance ? [' ', path.call(print, 'inheritance')] : line,
+        this.openBrace
+      ]),
+      path.call(print, 'members'),
+      this.closeBrace
+    ];
+  }
+}

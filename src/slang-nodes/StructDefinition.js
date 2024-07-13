@@ -1,14 +1,31 @@
-export const StructDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    structKeyword: ast.structKeyword.text,
-    name: ast.name.text,
-    openBrace: ast.openBrace.text,
-    members: parse(ast.members, options, parse, offsets),
-    closeBrace: ast.closeBrace.text
-  }),
-  print: ({ node, path, print }) => [
-    `${node.structKeyword} ${node.name} ${node.openBrace}`,
-    path.call(print, 'members'),
-    node.closeBrace
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class StructDefinition extends SlangNode {
+  structKeyword;
+
+  name;
+
+  openBrace;
+
+  members;
+
+  closeBrace;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.structKeyword = ast.structKeyword.text;
+    this.name = ast.name.text;
+    this.openBrace = ast.openBrace.text;
+    this.members = parse(ast.members, parse, this.nextChildOffset);
+    this.closeBrace = ast.closeBrace.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.structKeyword} ${this.name} ${this.openBrace}`,
+      path.call(print, 'members'),
+      this.closeBrace
+    ];
+  }
+}

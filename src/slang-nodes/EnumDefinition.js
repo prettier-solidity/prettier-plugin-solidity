@@ -1,14 +1,31 @@
-export const EnumDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    enumKeyword: ast.enumKeyword.text,
-    name: ast.name.text,
-    openBrace: ast.openBrace.text,
-    members: parse(ast.members, options, parse, offsets),
-    closeBrace: ast.closeBrace.text
-  }),
-  print: ({ node, path, print }) => [
-    `${node.enumKeyword} ${node.name} ${node.openBrace}`,
-    path.call(print, 'members'),
-    node.closeBrace
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class EnumDefinition extends SlangNode {
+  enumKeyword;
+
+  name;
+
+  openBrace;
+
+  members;
+
+  closeBrace;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.enumKeyword = ast.enumKeyword.text;
+    this.name = ast.name.text;
+    this.openBrace = ast.openBrace.text;
+    this.members = parse(ast.members, parse, this.nextChildOffset);
+    this.closeBrace = ast.closeBrace.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.enumKeyword} ${this.name} ${this.openBrace}`,
+      path.call(print, 'members'),
+      this.closeBrace
+    ];
+  }
+}

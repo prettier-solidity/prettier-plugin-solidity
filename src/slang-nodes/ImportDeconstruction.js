@@ -1,15 +1,32 @@
-export const ImportDeconstruction = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    openBrace: ast.openBrace.text,
-    symbols: parse(ast.symbols, options, parse, offsets),
-    closeBrace: ast.closeBrace.text,
-    fromKeyword: ast.fromKeyword.text,
-    path: parse(ast.path, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    node.openBrace,
-    path.call(print, 'symbols'),
-    `${node.closeBrace} ${node.fromKeyword} `,
-    path.call(print, 'path')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class ImportDeconstruction extends SlangNode {
+  openBrace;
+
+  symbols;
+
+  closeBrace;
+
+  fromKeyword;
+
+  path;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.openBrace = ast.openBrace.text;
+    this.symbols = parse(ast.symbols, parse, this.nextChildOffset);
+    this.closeBrace = ast.closeBrace.text;
+    this.fromKeyword = ast.fromKeyword.text;
+    this.path = parse(ast.path, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      this.openBrace,
+      path.call(print, 'symbols'),
+      `${this.closeBrace} ${this.fromKeyword} `,
+      path.call(print, 'path')
+    ];
+  }
+}

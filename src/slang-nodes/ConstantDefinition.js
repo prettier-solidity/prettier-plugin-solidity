@@ -1,12 +1,31 @@
-export const ConstantDefinition = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    typeName: parse(ast.typeName, options, parse, offsets),
-    constantKeyword: ast.constantKeyword.text,
-    name: ast.name.text,
-    equal: ast.equal.text,
-    value: parse(ast.value, options, parse, offsets),
-    semicolon: ast.semicolon.text
-  }),
+import { SlangNode } from './SlangNode.js';
+
+export class ConstantDefinition extends SlangNode {
+  typeName;
+
+  constantKeyword;
+
+  name;
+
+  equal;
+
+  value;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.constantKeyword = ast.constantKeyword.text;
+    this.name = ast.name.text;
+    this.equal = ast.equal.text;
+    this.value = parse(ast.value, parse, this.nextChildOffset);
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
   // TODO: implement print
-  print: ({ node, path, print, options }) => ['TODO: ConstantDefinition']
-};
+  print({ path, print, options }) {
+    return ['TODO: ConstantDefinition'];
+  }
+}

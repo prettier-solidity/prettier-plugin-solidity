@@ -1,11 +1,22 @@
-export const YulVariableDeclarationValue = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    assignment: parse(ast.assignment, options, parse, offsets),
-    expression: parse(ast.expression, options, parse, offsets)
-  }),
-  print: ({ path, print }) => [
-    path.call(print, 'assignment'),
-    ' ',
-    path.call(print, 'expression')
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class YulVariableDeclarationValue extends SlangNode {
+  assignment;
+
+  expression;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.assignment = parse(ast.assignment, parse, this.nextChildOffset);
+    this.expression = parse(ast.expression, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      path.call(print, 'assignment'),
+      ' ',
+      path.call(print, 'expression')
+    ];
+  }
+}

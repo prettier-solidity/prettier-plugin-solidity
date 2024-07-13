@@ -1,12 +1,25 @@
-export const ImportDirective = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    importKeyword: ast.importKeyword.text,
-    clause: parse(ast.clause, options, parse, offsets),
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    `${node.importKeyword} `,
-    path.call(print, 'clause'),
-    node.semicolon
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class ImportDirective extends SlangNode {
+  importKeyword;
+
+  clause;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.importKeyword = ast.importKeyword.text;
+    this.clause = parse(ast.clause, parse, this.nextChildOffset);
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.importKeyword} `,
+      path.call(print, 'clause'),
+      this.semicolon
+    ];
+  }
+}

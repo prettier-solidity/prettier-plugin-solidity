@@ -1,14 +1,31 @@
-export const RevertStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    revertKeyword: ast.revertKeyword.text,
-    error: ast.error ? parse(ast.error, options, parse, offsets) : undefined,
-    arguments: parse(ast.arguments, options, parse, offsets),
-    semicolon: ast.semicolon.text
-  }),
-  print: ({ node, path, print }) => [
-    `${node.revertKeyword} `,
-    node.error ? path.call(print, 'error') : '',
-    path.call(print, 'arguments'),
-    node.semicolon
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class RevertStatement extends SlangNode {
+  revertKeyword;
+
+  error;
+
+  arguments;
+
+  semicolon;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.revertKeyword = ast.revertKeyword.text;
+    this.error = ast.error
+      ? parse(ast.error, parse, this.nextChildOffset)
+      : undefined;
+    this.arguments = parse(ast.arguments, parse, this.nextChildOffset);
+    this.semicolon = ast.semicolon.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.revertKeyword} `,
+      this.error ? path.call(print, 'error') : '',
+      path.call(print, 'arguments'),
+      this.semicolon
+    ];
+  }
+}

@@ -1,12 +1,21 @@
-export const NamedArgumentGroup = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    openBrace: ast.openBrace.text,
-    arguments: parse(ast.arguments, options, parse, offsets),
-    closeBrace: ast.closeBrace.text
-  }),
-  print: ({ node, path, print }) => [
-    node.openBrace,
-    path.call(print, 'arguments'),
-    node.closeBrace
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class NamedArgumentGroup extends SlangNode {
+  openBrace;
+
+  arguments;
+
+  closeBrace;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.openBrace = ast.openBrace.text;
+    this.arguments = parse(ast.arguments, parse, this.nextChildOffset);
+    this.closeBrace = ast.closeBrace.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.openBrace, path.call(print, 'arguments'), this.closeBrace];
+  }
+}

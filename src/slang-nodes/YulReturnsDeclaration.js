@@ -1,15 +1,27 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
 const { line } = doc.builders;
 
-export const YulReturnsDeclaration = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    minusGreaterThan: ast.minusGreaterThan.text,
-    variables: parse(ast.variables, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) =>
-    printSeparatedItem([node.minusGreaterThan, path.call(print, 'variables')], {
-      firstSeparator: line
-    })
-};
+export class YulReturnsDeclaration extends SlangNode {
+  minusGreaterThan;
+
+  variables;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.minusGreaterThan = ast.minusGreaterThan.text;
+    this.variables = parse(ast.variables, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return printSeparatedItem(
+      [this.minusGreaterThan, path.call(print, 'variables')],
+      {
+        firstSeparator: line
+      }
+    );
+  }
+}

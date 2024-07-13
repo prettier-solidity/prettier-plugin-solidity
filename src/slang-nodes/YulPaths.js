@@ -1,12 +1,24 @@
-export const YulPaths = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    items: ast.items.map((item) => parse(item, options, parse, offsets)),
-    separators: ast.separators.map((separator) => separator.text)
-  }),
-  print: ({ node, path, print }) =>
-    path
+import { SlangNode } from './SlangNode.js';
+
+export class YulPaths extends SlangNode {
+  items;
+
+  separators;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.items = ast.items.map((item) =>
+      parse(item, parse, this.nextChildOffset)
+    );
+    this.separators = ast.separators.map((separator) => separator.text);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return path
       .map(print, 'items')
       .map((item, index) =>
-        index === 0 ? item : [node.separators[index - 1], item]
-      )
-};
+        index === 0 ? item : [this.separators[index - 1], item]
+      );
+  }
+}

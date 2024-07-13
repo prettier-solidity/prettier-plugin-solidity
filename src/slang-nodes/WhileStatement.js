@@ -1,5 +1,6 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
+import { SlangNode } from './SlangNode.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -8,18 +9,33 @@ const body = (node, path, print) =>
     ? [' ', path.call(print, 'body')]
     : group(indent([line, path.call(print, 'body')]));
 
-export const WhileStatement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    whileKeyword: ast.whileKeyword.text,
-    openParen: ast.openParen.text,
-    condition: parse(ast.condition, options, parse, offsets),
-    closeParen: ast.closeParen.text,
-    body: parse(ast.body, options, parse, offsets)
-  }),
-  print: ({ node, path, print }) => [
-    `${node.whileKeyword} ${node.openParen}`,
-    printSeparatedItem(path.call(print, 'condition')),
-    node.closeParen,
-    body(node, path, print)
-  ]
-};
+export class WhileStatement extends SlangNode {
+  whileKeyword;
+
+  openParen;
+
+  condition;
+
+  closeParen;
+
+  body;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.whileKeyword = ast.whileKeyword.text;
+    this.openParen = ast.openParen.text;
+    this.condition = parse(ast.condition, parse, this.nextChildOffset);
+    this.closeParen = ast.closeParen.text;
+    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [
+      `${this.whileKeyword} ${this.openParen}`,
+      printSeparatedItem(path.call(print, 'condition')),
+      this.closeParen,
+      body(this, path, print)
+    ];
+  }
+}

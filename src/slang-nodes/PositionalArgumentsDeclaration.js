@@ -1,12 +1,21 @@
-export const PositionalArgumentsDeclaration = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    openParen: ast.openParen.text,
-    arguments: parse(ast.arguments, options, parse, offsets),
-    closeParen: ast.closeParen.text
-  }),
-  print: ({ node, path, print }) => [
-    node.openParen,
-    path.call(print, 'arguments'),
-    node.closeParen
-  ]
-};
+import { SlangNode } from './SlangNode.js';
+
+export class PositionalArgumentsDeclaration extends SlangNode {
+  openParen;
+
+  arguments;
+
+  closeParen;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.openParen = ast.openParen.text;
+    this.arguments = parse(ast.arguments, parse, this.nextChildOffset);
+    this.closeParen = ast.closeParen.text;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return [this.openParen, path.call(print, 'arguments'), this.closeParen];
+  }
+}

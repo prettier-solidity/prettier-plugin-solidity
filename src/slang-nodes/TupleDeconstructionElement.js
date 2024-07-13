@@ -1,7 +1,17 @@
-export const TupleDeconstructionElement = {
-  parse: ({ offsets, ast, options, parse }) => ({
-    member: ast.member ? parse(ast.member, options, parse, offsets) : undefined
-  }),
-  print: ({ node, path, print }) =>
-    node.member ? path.call(print, 'member') : ''
-};
+import { SlangNode } from './SlangNode.js';
+
+export class TupleDeconstructionElement extends SlangNode {
+  member;
+
+  constructor({ ast, parse, offset, options }) {
+    super(ast, offset);
+    this.member = ast.member
+      ? parse(ast.member, parse, this.nextChildOffset)
+      : undefined;
+    this.initiateLoc(ast);
+  }
+
+  print({ path, print }) {
+    return this.member ? path.call(print, 'member') : '';
+  }
+}
