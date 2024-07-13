@@ -7,7 +7,7 @@ export class ParametersDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     if (offset) {
       this.openParen = ast.openParen.text;

@@ -7,7 +7,7 @@ export class ErrorParametersDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.openParen = ast.openParen.text;
     this.parameters = parse(ast.parameters, parse, this.nextChildOffset);

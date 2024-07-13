@@ -5,7 +5,7 @@ export class OverrideSpecifier extends SlangNode {
 
   overridden;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.overrideKeyword = ast.overrideKeyword.text;
     this.overridden = ast.overridden

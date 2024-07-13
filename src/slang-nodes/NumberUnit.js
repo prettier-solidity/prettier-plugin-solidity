@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class NumberUnit extends SlangNode {
   variant;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset) {
     super(ast, offset);
     this.variant = ast.variant.text;
     this.initiateLoc(ast);

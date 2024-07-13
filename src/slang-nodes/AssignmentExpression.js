@@ -11,7 +11,7 @@ export class AssignmentExpression extends SlangNode {
 
   rightOperand;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.leftOperand = parse(ast.leftOperand, parse, this.nextChildOffset);
     this.operator = ast.operator.text;

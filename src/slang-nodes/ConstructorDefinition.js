@@ -10,7 +10,7 @@ export class ConstructorDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.constructorKeyword = ast.constructorKeyword.text;
     this.parameters = parse(ast.parameters, parse, this.nextChildOffset);

@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class StateVariableAttributes extends SlangNode {
   items;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.items = ast.items.map((item) =>
       parse(item, parse, this.nextChildOffset)

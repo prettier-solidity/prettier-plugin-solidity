@@ -6,7 +6,7 @@ export class ModifierInvocation extends SlangNode {
 
   arguments;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.name = parse(ast.name, parse, this.nextChildOffset);
     this.arguments = ast.arguments

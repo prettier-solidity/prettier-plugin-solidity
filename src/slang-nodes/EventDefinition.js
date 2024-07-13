@@ -11,7 +11,7 @@ export class EventDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.eventKeyword = ast.eventKeyword.text;
     this.name = ast.name.text;

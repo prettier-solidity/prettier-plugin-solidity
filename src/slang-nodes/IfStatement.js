@@ -24,7 +24,7 @@ export class IfStatement extends SlangNode {
 
   elseBranch;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.ifKeyword = ast.ifKeyword.text;
     this.openParen = ast.openParen.text;

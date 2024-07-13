@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class ImportClause extends SlangNode {
   variant;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.variant = parse(ast.variant, parse, this.nextChildOffset);
     this.initiateLoc(ast);

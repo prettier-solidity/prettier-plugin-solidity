@@ -5,7 +5,7 @@ export class ExpressionStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.expression = parse(ast.expression, parse, this.nextChildOffset);
     this.semicolon = ast.semicolon.text;

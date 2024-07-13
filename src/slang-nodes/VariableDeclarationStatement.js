@@ -16,7 +16,7 @@ export class VariableDeclarationStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.variableType = parse(ast.variableType, parse, this.nextChildOffset);
     this.storageLocation = ast.storageLocation

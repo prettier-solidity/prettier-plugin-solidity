@@ -9,7 +9,7 @@ import * as parsers from './slang-nodes/index.js';
 const genericParseBuilder =
   (options) =>
   (ast, parseFunction, offset = 0) =>
-    new parsers[ast.cst.kind](ast, offset, parseFunction, options);
+    new parsers[ast.cst.kind](ast, offset, options, parseFunction);
 
 function parse(text, _parsers, options = _parsers) {
   const compiler = coerce(options.compiler);

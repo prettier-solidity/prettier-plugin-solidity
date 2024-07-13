@@ -8,13 +8,13 @@ const variants = { ABICoderPragma, ExperimentalPragma, VersionPragma };
 export class Pragma extends SlangNode {
   variant;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.variant = new variants[ast.variant.cst.kind](
       ast.variant,
       this.nextChildOffset,
-      parse,
-      options
+      options,
+      parse
     );
     this.initiateLoc(ast);
   }

@@ -7,7 +7,7 @@ export class NamedArgumentsDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, parse, options) {
+  constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.openParen = ast.openParen.text;
     this.arguments = ast.arguments
