@@ -21,7 +21,17 @@ export class FallbackFunctionDefinition extends SlangNode {
       ? parse(ast.returns, parse, this.nextChildOffset)
       : undefined;
     this.body = parse(ast.body, parse, this.nextChildOffset);
+
+    this.cleanModifierInvocationArguments();
     this.initiateLoc(ast);
+  }
+
+  cleanModifierInvocationArguments() {
+    this.attributes.items.forEach((attribute) => {
+      if (attribute.variant.kind === 'ModifierInvocation') {
+        attribute.variant.cleanModifierInvocationArguments();
+      }
+    });
   }
 
   print(path, print) {

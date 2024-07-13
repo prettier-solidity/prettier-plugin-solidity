@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FunctionDefinitions.sol format 1`] = `
+exports[`FunctionDefinitions.sol - {"compiler":"0.8.0"} format 1`] = `
 ====================================options=====================================
-parsers: ["solidity-parse"]
+compiler: "0.8.0"
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
