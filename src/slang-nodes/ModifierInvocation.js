@@ -2,12 +2,15 @@ import { isComment } from '../common/slang-helpers.js';
 import { SlangNode } from './SlangNode.js';
 
 export class ModifierInvocation extends SlangNode {
+  #ast;
+
   name;
 
   arguments;
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
+    this.#ast = ast;
     this.name = parse(ast.name, parse, this.nextChildOffset);
     this.arguments = ast.arguments
       ? parse(ast.arguments, parse, this.nextChildOffset)
@@ -15,12 +18,14 @@ export class ModifierInvocation extends SlangNode {
     this.initiateLoc(ast);
   }
 
-  removeInvocationArguments() {
+  cleanModifierInvocationArguments() {
     if (
       this.arguments &&
       this.arguments.variant.kind === 'PositionalArgumentsDeclaration' &&
       this.arguments.variant.arguments.items.length === 0 && // no arguments
-      !ast.arguments.variant.cst.children().some((child) => isComment(child)) // no comments
+      !this.#ast.arguments.variant.cst
+        .children()
+        .some((child) => isComment(child)) // no comments
     ) {
       this.arguments = undefined;
     }

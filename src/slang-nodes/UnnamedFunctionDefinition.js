@@ -16,7 +16,17 @@ export class UnnamedFunctionDefinition extends SlangNode {
     this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
     this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
     this.body = parse(ast.body, parse, this.nextChildOffset);
+
+    this.cleanModifierInvocationArguments();
     this.initiateLoc(ast);
+  }
+
+  cleanModifierInvocationArguments() {
+    this.attributes.items.forEach((attribute) => {
+      if (attribute.variant.kind === 'ModifierInvocation') {
+        attribute.variant.cleanModifierInvocationArguments();
+      }
+    });
   }
 
   print(path, print) {
