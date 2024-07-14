@@ -11,9 +11,7 @@ export class YulVariableDeclarationStatement extends SlangNode {
     super(ast, offset);
     this.letKeyword = ast.letKeyword.text;
     this.names = ast.names.text;
-    this.value = ast.value
-      ? parse(ast.value, parse, this.nextChildOffset)
-      : undefined;
+    this.value = ast.value ? parse(ast.value, this.nextChildOffset) : undefined;
     this.initiateLoc(ast);
   }
 

@@ -8,7 +8,7 @@ export class YulDefaultCase extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.defaultKeyword = ast.defaultKeyword.text;
-    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

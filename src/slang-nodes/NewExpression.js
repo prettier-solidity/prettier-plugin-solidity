@@ -8,7 +8,7 @@ export class NewExpression extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.newKeyword = ast.newKeyword.text;
-    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.typeName = parse(ast.typeName, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

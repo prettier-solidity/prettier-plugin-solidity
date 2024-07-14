@@ -1,6 +1,5 @@
 import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
-import { SourceUnitMembers } from './SourceUnitMembers.js';
 
 const { line } = doc.builders;
 
@@ -9,12 +8,7 @@ export class SourceUnit extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.members = new SourceUnitMembers(
-      ast.members,
-      this.nextChildOffset,
-      options,
-      parse
-    );
+    this.members = parse(ast.members, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

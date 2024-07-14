@@ -9,7 +9,7 @@ export class EventParameter extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.typeName = parse(ast.typeName, this.nextChildOffset);
     this.indexedKeyword = ast.indexedKeyword?.text;
     this.name = ast.name?.text;
     this.initiateLoc(ast);

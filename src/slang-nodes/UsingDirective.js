@@ -16,9 +16,9 @@ export class UsingDirective extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.usingKeyword = ast.usingKeyword.text;
-    this.clause = parse(ast.clause, parse, this.nextChildOffset);
+    this.clause = parse(ast.clause, this.nextChildOffset);
     this.forKeyword = ast.forKeyword.text;
-    this.target = parse(ast.target, parse, this.nextChildOffset);
+    this.target = parse(ast.target, this.nextChildOffset);
     this.globalKeyword = ast.globalKeyword?.text;
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);

@@ -1,5 +1,4 @@
 import { SlangNode } from './SlangNode.js';
-import { StringLiteral } from './StringLiteral.js';
 
 export class ExperimentalFeature extends SlangNode {
   variant;
@@ -9,7 +8,7 @@ export class ExperimentalFeature extends SlangNode {
     this.variant =
       ast.variant.type === 'Terminal'
         ? ast.variant.text
-        : new StringLiteral(ast.variant, this.nextChildOffset, options, parse);
+        : parse(ast.variant, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

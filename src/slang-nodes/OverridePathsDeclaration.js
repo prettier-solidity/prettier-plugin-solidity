@@ -10,7 +10,7 @@ export class OverridePathsDeclaration extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.openParen = ast.openParen.text;
-    this.paths = parse(ast.paths, parse, this.nextChildOffset);
+    this.paths = parse(ast.paths, this.nextChildOffset);
     this.closeParen = ast.closeParen.text;
     this.initiateLoc(ast);
   }

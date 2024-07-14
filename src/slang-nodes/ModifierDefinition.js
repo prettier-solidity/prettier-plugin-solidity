@@ -18,29 +18,30 @@ export class ModifierDefinition extends SlangNode {
     super(ast, offset);
     this.modifierKeyword = ast.modifierKeyword.text;
     this.name = ast.name.text;
-    const parametersOffset = this.nextChildOffset;
-    this.parameters = ast.parameters
-      ? parse(ast.parameters, parse, parametersOffset)
-      : new ParametersDeclaration({
-          kind: 'ParametersDeclaration',
-          loc: {
-            start: parametersOffset,
-            end: parametersOffset
-          },
-          openParen: '(',
-          parameters: new Parameters({
-            kind: 'Parameters',
-            loc: {
-              start: parametersOffset,
-              end: parametersOffset
-            },
-            items: [],
-            separators: []
-          }),
-          closeParen: ')'
-        });
-    this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
-    this.body = parse(ast.body, parse, this.nextChildOffset);
+    if (ast.parameters) {
+      this.parameters = parse(ast.parameters, this.nextChildOffset);
+    } else {
+      const parametersLoc = {
+        startWithTrivia: this.loc.childrenOffsets[0],
+        start: this.loc.childrenOffsets[0],
+        endWithTrivia: this.loc.childrenOffsets[0],
+        end: this.loc.childrenOffsets[0]
+      };
+      this.parameters = new ParametersDeclaration({
+        kind: 'ParametersDeclaration',
+        loc: { ...parametersLoc },
+        openParen: '(',
+        parameters: new Parameters({
+          kind: 'Parameters',
+          loc: { ...parametersLoc },
+          items: [],
+          separators: []
+        }),
+        closeParen: ')'
+      });
+    }
+    this.attributes = parse(ast.attributes, this.nextChildOffset);
+    this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

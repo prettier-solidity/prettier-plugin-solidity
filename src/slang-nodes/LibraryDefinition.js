@@ -19,7 +19,7 @@ export class LibraryDefinition extends SlangNode {
     this.libraryKeyword = ast.libraryKeyword.text;
     this.name = ast.name.text;
     this.openBrace = ast.openBrace.text;
-    this.members = parse(ast.members, parse, this.nextChildOffset);
+    this.members = parse(ast.members, this.nextChildOffset);
     this.closeBrace = ast.closeBrace.text;
     this.initiateLoc(ast);
   }

@@ -8,7 +8,7 @@ export class UsingAlias extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.asKeyword = ast.asKeyword.text;
-    this.operator = parse(ast.operator, parse, this.nextChildOffset);
+    this.operator = parse(ast.operator, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

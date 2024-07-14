@@ -23,17 +23,13 @@ export class ForStatement extends SlangNode {
     super(ast, offset);
     this.forKeyword = ast.forKeyword.text;
     this.openParen = ast.openParen.text;
-    this.initialization = parse(
-      ast.initialization,
-      parse,
-      this.nextChildOffset
-    );
-    this.condition = parse(ast.condition, parse, this.nextChildOffset);
+    this.initialization = parse(ast.initialization, this.nextChildOffset);
+    this.condition = parse(ast.condition, this.nextChildOffset);
     this.iterator = ast.iterator
-      ? parse(ast.iterator, parse, this.nextChildOffset)
+      ? parse(ast.iterator, this.nextChildOffset)
       : undefined;
     this.closeParen = ast.closeParen.text;
-    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

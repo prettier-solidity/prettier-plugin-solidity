@@ -13,9 +13,9 @@ export class ConstructorDefinition extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.constructorKeyword = ast.constructorKeyword.text;
-    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
-    this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
-    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.parameters = parse(ast.parameters, this.nextChildOffset);
+    this.attributes = parse(ast.attributes, this.nextChildOffset);
+    this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

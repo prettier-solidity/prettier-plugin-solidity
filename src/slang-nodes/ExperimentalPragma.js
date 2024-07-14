@@ -1,5 +1,4 @@
 import { SlangNode } from './SlangNode.js';
-import { ExperimentalFeature } from './ExperimentalFeature.js';
 
 export class ExperimentalPragma extends SlangNode {
   experimentalKeyword;
@@ -9,12 +8,7 @@ export class ExperimentalPragma extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.experimentalKeyword = ast.experimentalKeyword.text;
-    this.feature = new ExperimentalFeature(
-      ast.feature,
-      this.nextChildOffset,
-      options,
-      parse
-    );
+    this.feature = parse(ast.feature, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

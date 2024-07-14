@@ -26,10 +26,10 @@ export class ContractDefinition extends SlangNode {
     this.contractKeyword = ast.contractKeyword.text;
     this.name = ast.name.text;
     this.inheritance = ast.inheritance
-      ? parse(ast.inheritance, parse, this.nextChildOffset)
+      ? parse(ast.inheritance, this.nextChildOffset)
       : undefined;
     this.openBrace = ast.openBrace.text;
-    this.members = parse(ast.members, parse, this.nextChildOffset);
+    this.members = parse(ast.members, this.nextChildOffset);
     this.closeBrace = ast.closeBrace.text;
 
     this.cleanModifierInvocationArguments(options);

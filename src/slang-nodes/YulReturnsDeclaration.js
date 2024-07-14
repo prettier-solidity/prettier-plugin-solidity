@@ -12,7 +12,7 @@ export class YulReturnsDeclaration extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.minusGreaterThan = ast.minusGreaterThan.text;
-    this.variables = parse(ast.variables, parse, this.nextChildOffset);
+    this.variables = parse(ast.variables, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

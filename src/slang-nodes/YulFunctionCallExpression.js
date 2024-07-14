@@ -11,9 +11,9 @@ export class YulFunctionCallExpression extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.operand = parse(ast.operand, parse, this.nextChildOffset);
+    this.operand = parse(ast.operand, this.nextChildOffset);
     this.openParen = ast.openParen.text;
-    this.arguments = parse(ast.arguments, parse, this.nextChildOffset);
+    this.arguments = parse(ast.arguments, this.nextChildOffset);
     this.closeParen = ast.closeParen.text;
     this.initiateLoc(ast);
   }

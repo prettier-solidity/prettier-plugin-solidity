@@ -8,7 +8,7 @@ export class UntypedTupleMember extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.storageLocation = ast.storageLocation
-      ? parse(ast.storageLocation, parse, this.nextChildOffset)
+      ? parse(ast.storageLocation, this.nextChildOffset)
       : undefined;
     this.name = ast.name.text;
     this.initiateLoc(ast);

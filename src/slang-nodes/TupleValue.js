@@ -7,7 +7,7 @@ export class TupleValue extends SlangNode {
     super(ast, offset);
     if (offset) {
       this.expression = ast.expression
-        ? parse(ast.expression, parse, this.nextChildOffset)
+        ? parse(ast.expression, this.nextChildOffset)
         : undefined;
       this.initiateLoc(ast);
     } else {

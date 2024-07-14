@@ -8,7 +8,7 @@ export class VersionPragma extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.solidityKeyword = ast.solidityKeyword.text;
-    this.sets = parse(ast.sets, parse, this.nextChildOffset);
+    this.sets = parse(ast.sets, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

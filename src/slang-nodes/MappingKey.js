@@ -7,7 +7,7 @@ export class MappingKey extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.keyType = parse(ast.keyType, parse, this.nextChildOffset);
+    this.keyType = parse(ast.keyType, this.nextChildOffset);
     this.name = ast.name?.text;
     this.initiateLoc(ast);
   }

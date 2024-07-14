@@ -10,8 +10,8 @@ export class YulValueCase extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.caseKeyword = ast.caseKeyword.text;
-    this.value = parse(ast.value, parse, this.nextChildOffset);
-    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.value = parse(ast.value, this.nextChildOffset);
+    this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

@@ -13,7 +13,7 @@ export class TypeExpression extends SlangNode {
     super(ast, offset);
     this.typeKeyword = ast.typeKeyword.text;
     this.openParen = ast.openParen.text;
-    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.typeName = parse(ast.typeName, this.nextChildOffset);
     this.closeParen = ast.closeParen.text;
     this.initiateLoc(ast);
   }

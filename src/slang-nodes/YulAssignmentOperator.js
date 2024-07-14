@@ -8,7 +8,7 @@ export class YulAssignmentOperator extends SlangNode {
     this.variant =
       ast.variant.type === 'Terminal'
         ? ast.variant.text
-        : parse(ast.variant, parse, this.nextChildOffset);
+        : parse(ast.variant, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

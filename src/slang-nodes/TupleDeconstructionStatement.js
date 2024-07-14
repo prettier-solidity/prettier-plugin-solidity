@@ -22,10 +22,10 @@ export class TupleDeconstructionStatement extends SlangNode {
     super(ast, offset);
     this.varKeyword = ast.varKeyword?.text;
     this.openParen = ast.openParen.text;
-    this.elements = parse(ast.elements, parse, this.nextChildOffset);
+    this.elements = parse(ast.elements, this.nextChildOffset);
     this.closeParen = ast.closeParen.text;
     this.equal = ast.equal.text;
-    this.expression = parse(ast.expression, parse, this.nextChildOffset);
+    this.expression = parse(ast.expression, this.nextChildOffset);
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

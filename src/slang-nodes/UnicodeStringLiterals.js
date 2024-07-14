@@ -8,9 +8,7 @@ export class UnicodeStringLiterals extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.items = ast.items.map((item) =>
-      parse(item, parse, this.nextChildOffset)
-    );
+    this.items = ast.items.map((item) => parse(item, this.nextChildOffset));
     this.initiateLoc(ast);
   }
 

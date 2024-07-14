@@ -6,10 +6,11 @@ import { SourceUnit } from '@nomicfoundation/slang/ast/index.js';
 import coerce from 'semver/functions/coerce.js';
 import * as parsers from './slang-nodes/index.js';
 
-const genericParseBuilder =
-  (options) =>
-  (ast, parseFunction, offset = 0) =>
-    new parsers[ast.cst.kind](ast, offset, options, parseFunction);
+function genericParseBuilder(options) {
+  return function genericParse(ast, offset = 0) {
+    return new parsers[ast.cst.kind](ast, offset, options, genericParse);
+  };
+}
 
 function parse(text, _parsers, options = _parsers) {
   const compiler = coerce(options.compiler);
@@ -20,7 +21,7 @@ function parse(text, _parsers, options = _parsers) {
   );
 
   const genericParse = genericParseBuilder(options);
-  const parsed = genericParse(ast, genericParse);
+  const parsed = genericParse(ast);
 
   parsed.collectComments();
 

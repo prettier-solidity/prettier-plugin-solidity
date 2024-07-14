@@ -11,7 +11,7 @@ export class CatchClauseError extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.name = ast.name?.text ?? '';
-    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.parameters = parse(ast.parameters, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

@@ -13,9 +13,9 @@ export class UnnamedFunctionDefinition extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.functionKeyword = ast.functionKeyword.text;
-    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
-    this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
-    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.parameters = parse(ast.parameters, this.nextChildOffset);
+    this.attributes = parse(ast.attributes, this.nextChildOffset);
+    this.body = parse(ast.body, this.nextChildOffset);
 
     this.cleanModifierInvocationArguments();
     this.initiateLoc(ast);

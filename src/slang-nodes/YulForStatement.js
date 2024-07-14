@@ -14,14 +14,10 @@ export class YulForStatement extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.forKeyword = ast.forKeyword.text;
-    this.initialization = parse(
-      ast.initialization,
-      parse,
-      this.nextChildOffset
-    );
-    this.condition = parse(ast.condition, parse, this.nextChildOffset);
-    this.iterator = parse(ast.iterator, parse, this.nextChildOffset);
-    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.initialization = parse(ast.initialization, this.nextChildOffset);
+    this.condition = parse(ast.condition, this.nextChildOffset);
+    this.iterator = parse(ast.iterator, this.nextChildOffset);
+    this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

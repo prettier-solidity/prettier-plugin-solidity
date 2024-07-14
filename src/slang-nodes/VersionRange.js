@@ -9,9 +9,9 @@ export class VersionRange extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.leftOperand = parse(ast.leftOperand, parse, this.nextChildOffset);
+    this.leftOperand = parse(ast.leftOperand, this.nextChildOffset);
     this.operator = ast.operator.text;
-    this.rightOperand = parse(ast.rightOperand, parse, this.nextChildOffset);
+    this.rightOperand = parse(ast.rightOperand, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 
