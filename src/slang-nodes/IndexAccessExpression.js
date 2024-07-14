@@ -4,8 +4,6 @@ import { SlangNode } from './SlangNode.js';
 
 const { group, indent, indentIfBreak, label, softline } = doc.builders;
 
-let groupIndex = 0;
-
 export class IndexAccessExpression extends SlangNode {
   operand;
 
@@ -44,10 +42,8 @@ export class IndexAccessExpression extends SlangNode {
     // arguments accordingly.
     if (isLabel(operandDoc) && operandDoc.label === 'MemberAccessChain') {
       operandDoc = group(operandDoc.contents, {
-        id: `IndexAccessExpression.operand-${groupIndex}`
+        id: Symbol('IndexAccessExpression.operand')
       });
-
-      groupIndex += 1;
 
       indexDoc = indentIfBreak(indexDoc, {
         groupId: operandDoc.id

@@ -2,7 +2,6 @@ import { doc } from 'prettier';
 
 const { group, indent, indentIfBreak, label, softline } = doc.builders;
 
-let groupIndex = 0;
 export const IndexAccess = {
   print: ({ path, print }) => {
     let baseDoc = path.call(print, 'base');
@@ -16,10 +15,8 @@ export const IndexAccess = {
     // arguments accordingly.
     if (baseDoc.label === 'MemberAccessChain') {
       baseDoc = group(baseDoc.contents, {
-        id: `IndexAccess.base-${groupIndex}`
+        id: Symbol('IndexAccess.base')
       });
-
-      groupIndex += 1;
 
       indexDoc = indentIfBreak(indexDoc, {
         groupId: baseDoc.id

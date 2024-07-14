@@ -5,7 +5,6 @@ import { SlangNode } from './SlangNode.js';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
-let groupIndex = 0;
 const experimentalTernaries = (node, path, print, options) => {
   const grandparent = path.getNode(2);
   const isNested = grandparent.kind === 'ConditionalExpression';
@@ -37,10 +36,8 @@ const experimentalTernaries = (node, path, print, options) => {
 
   const conditionAndTrueExpressionGroup = group(
     [operandDoc, trueExpressionDoc],
-    { id: Symbol(`Slang.ConditionalExpression.trueExpression-${groupIndex}`) }
+    { id: Symbol('Slang.ConditionalExpression.trueExpression') }
   );
-
-  groupIndex += 1;
 
   // For the odd case of `tabWidth` of 1 or 0 we initiate `fillTab` as a single
   // space.
