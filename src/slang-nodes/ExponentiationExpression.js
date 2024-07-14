@@ -43,7 +43,10 @@ export class ExponentiationExpression extends SlangNode {
           // https://github.com/NomicFoundation/slang/issues/1031
           if (this.rightOperand.variant.kind === 'ExponentiationExpression') {
             const leftLoc = {
+              startWithTrivia: this.leftOperand.loc.startWithTrivia,
               start: this.leftOperand.loc.start,
+              endWithTrivia:
+                this.rightOperand.variant.leftOperand.loc.endWithTrivia,
               end: this.rightOperand.variant.leftOperand.loc.end
             };
             this.leftOperand = new Expression({

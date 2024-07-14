@@ -7,21 +7,31 @@ import { TupleValue } from '../slang-nodes/TupleValue.js';
 export function createHugFunction(huggableOperators) {
   const operators = new Set(huggableOperators);
   return (node) => {
-    if (isBinaryOperation(node.variant) && operators.has(node.variant.operator))
+    if (
+      isBinaryOperation(node.variant) &&
+      operators.has(node.variant.operator)
+    ) {
+      const loc = {
+        startWithTrivia: node.loc.startWithTrivia,
+        start: node.loc.start,
+        endWithTrivia: node.loc.endWithTrivia,
+        end: node.loc.end
+      };
+
       return new Expression({
         kind: 'Expression',
-        loc: { ...node.loc },
+        loc: { ...loc },
         variant: new TupleExpression({
           kind: 'TupleExpression',
-          loc: { ...node.loc },
+          loc: { ...loc },
           openParen: '(',
           items: new TupleValues({
             kind: 'TupleValues',
-            loc: { ...node.loc },
+            loc: { ...loc },
             items: [
               new TupleValue({
                 kind: 'TupleValue',
-                loc: { ...node.loc },
+                loc: { ...loc },
                 expression: node
               })
             ],
@@ -30,6 +40,8 @@ export function createHugFunction(huggableOperators) {
           closeParen: ')'
         })
       });
+    }
+
     return node;
   };
 }
