@@ -15,7 +15,7 @@ export class MultiplicativeExpression extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.parseChildrenNodes(ast, parse);
+    this.initialize(ast, parse);
 
     switch (this.operator) {
       case '*':
@@ -31,7 +31,7 @@ export class MultiplicativeExpression extends SlangNode {
         break;
     }
 
-    this.initializeLoc(ast);
+    this.finalize(ast);
   }
 
   print(path, print, options) {

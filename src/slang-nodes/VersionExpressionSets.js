@@ -7,8 +7,8 @@ export class VersionExpressionSets extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.parseChildrenNodes(ast, parse);
-    this.initializeLoc(ast);
+    this.initialize(ast, parse);
+    this.finalize(ast);
   }
 
   print(path, print) {

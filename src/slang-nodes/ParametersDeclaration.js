@@ -10,8 +10,8 @@ export class ParametersDeclaration extends SlangNode {
   constructor(ast, offset, parse) {
     super(ast, offset);
     if (offset) {
-      this.parseChildrenNodes(ast, parse);
-      this.initializeLoc(ast);
+      this.initialize(ast, parse);
+      this.finalize(ast);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

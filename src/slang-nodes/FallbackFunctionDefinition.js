@@ -14,9 +14,9 @@ export class FallbackFunctionDefinition extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.parseChildrenNodes(ast, parse);
+    this.initialize(ast, parse);
     this.cleanModifierInvocationArguments();
-    this.initializeLoc(ast);
+    this.finalize(ast);
   }
 
   cleanModifierInvocationArguments() {

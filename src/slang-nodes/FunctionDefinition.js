@@ -18,7 +18,7 @@ export class FunctionDefinition extends SlangNode {
 
   constructor(ast, offset, parse, options) {
     super(ast, offset);
-    this.parseChildrenNodes(ast, parse);
+    this.initialize(ast, parse);
 
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
@@ -27,7 +27,7 @@ export class FunctionDefinition extends SlangNode {
       this.cleanModifierInvocationArguments();
     }
 
-    this.initializeLoc(ast);
+    this.finalize(ast);
   }
 
   cleanModifierInvocationArguments() {

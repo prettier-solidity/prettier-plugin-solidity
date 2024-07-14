@@ -2,6 +2,7 @@ import { printFunction } from '../common/slang-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { Parameters } from './Parameters.js';
+import { Loc } from '../slang-utils/loc.js';
 
 export class ModifierDefinition extends SlangNode {
   modifierKeyword;
@@ -16,28 +17,26 @@ export class ModifierDefinition extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.parseChildrenNodes(ast, parse);
+    this.initialize(ast, parse);
     if (typeof this.parameters === 'undefined') {
       const parametersLoc = {
         startWithTrivia: this.attributes.loc.startWithTrivia,
-        start: this.attributes.loc.startWithTrivia,
-        endWithTrivia: this.attributes.loc.startWithTrivia,
-        end: this.attributes.loc.startWithTrivia
+        endWithTrivia: this.attributes.loc.startWithTrivia
       };
       this.parameters = new ParametersDeclaration({
         kind: 'ParametersDeclaration',
-        loc: { ...parametersLoc },
+        loc: new Loc(parametersLoc),
         openParen: '(',
         parameters: new Parameters({
           kind: 'Parameters',
-          loc: { ...parametersLoc },
+          loc: new Loc(parametersLoc),
           items: [],
           separators: []
         }),
         closeParen: ')'
       });
     }
-    this.initializeLoc(ast);
+    this.finalize(ast);
   }
 
   print(path, print) {

@@ -9,9 +9,9 @@ export class ModifierAttributes extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.parseChildrenNodes(ast, parse);
+    this.initialize(ast, parse);
     this.items = this.items.sort(sortFunctionAttributes);
-    this.initializeLoc(ast);
+    this.finalize(ast);
   }
 
   print(path, print) {
