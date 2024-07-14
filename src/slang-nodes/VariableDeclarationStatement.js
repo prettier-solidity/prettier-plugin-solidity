@@ -3,8 +3,6 @@ import { SlangNode } from './SlangNode.js';
 
 const { group, indent, indentIfBreak, line } = doc.builders;
 
-let groupIndex = 0;
-
 export class VariableDeclarationStatement extends SlangNode {
   variableType;
 
@@ -39,9 +37,8 @@ export class VariableDeclarationStatement extends SlangNode {
           ` ${this.name}`
         ])
       ],
-      { id: `VariableDeclarationStatement.variables-${groupIndex}` }
+      { id: 'VariableDeclarationStatement.variables' }
     );
-    groupIndex += 1;
 
     return [
       declarationDoc,

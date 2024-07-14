@@ -4,8 +4,6 @@ import { SlangNode } from './SlangNode.js';
 
 const { group, indentIfBreak, label } = doc.builders;
 
-let groupIndex = 0;
-
 export class FunctionCallExpression extends SlangNode {
   operand;
 
@@ -26,10 +24,8 @@ export class FunctionCallExpression extends SlangNode {
     // arguments accordingly.
     if (isLabel(operandDoc) && operandDoc.label === 'MemberAccessChain') {
       operandDoc = group(operandDoc.contents, {
-        id: `FunctionCallExpression.operand-${groupIndex}`
+        id: Symbol('FunctionCallExpression.operand')
       });
-
-      groupIndex += 1;
 
       argumentsDoc = indentIfBreak(argumentsDoc, {
         groupId: operandDoc.id
