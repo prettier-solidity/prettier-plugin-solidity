@@ -6,7 +6,7 @@ export class TupleDeconstructionElement extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.member = ast.member
-      ? parse(ast.member, parse, this.nextChildOffset)
+      ? parse(ast.member, this.nextChildOffset)
       : undefined;
     this.initiateLoc(ast);
   }

@@ -9,7 +9,7 @@ export class OverrideSpecifier extends SlangNode {
     super(ast, offset);
     this.overrideKeyword = ast.overrideKeyword.text;
     this.overridden = ast.overridden
-      ? parse(ast.overridden, parse, this.nextChildOffset)
+      ? parse(ast.overridden, this.nextChildOffset)
       : undefined;
     this.initiateLoc(ast);
   }

@@ -12,8 +12,8 @@ export class EmitStatement extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.emitKeyword = ast.emitKeyword.text;
-    this.event = parse(ast.event, parse, this.nextChildOffset);
-    this.arguments = parse(ast.arguments, parse, this.nextChildOffset);
+    this.event = parse(ast.event, this.nextChildOffset);
+    this.arguments = parse(ast.arguments, this.nextChildOffset);
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

@@ -10,7 +10,7 @@ export class Block extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.openBrace = ast.openBrace.text;
-    this.statements = parse(ast.statements, parse, this.nextChildOffset);
+    this.statements = parse(ast.statements, this.nextChildOffset);
     this.closeBrace = ast.closeBrace.text;
     this.initiateLoc(ast);
   }

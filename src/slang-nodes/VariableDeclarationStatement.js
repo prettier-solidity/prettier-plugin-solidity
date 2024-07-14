@@ -18,14 +18,12 @@ export class VariableDeclarationStatement extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.variableType = parse(ast.variableType, parse, this.nextChildOffset);
+    this.variableType = parse(ast.variableType, this.nextChildOffset);
     this.storageLocation = ast.storageLocation
-      ? parse(ast.storageLocation, parse, this.nextChildOffset)
+      ? parse(ast.storageLocation, this.nextChildOffset)
       : undefined;
     this.name = ast.name.text;
-    this.value = ast.value
-      ? parse(ast.value, parse, this.nextChildOffset)
-      : undefined;
+    this.value = ast.value ? parse(ast.value, this.nextChildOffset) : undefined;
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

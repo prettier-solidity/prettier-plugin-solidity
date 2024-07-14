@@ -16,7 +16,7 @@ export class ElseBranch extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.elseKeyword = ast.elseKeyword.text;
-    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

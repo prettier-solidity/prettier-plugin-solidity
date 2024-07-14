@@ -11,9 +11,9 @@ export class CallOptionsExpression extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.operand = parse(ast.operand, parse, this.nextChildOffset);
+    this.operand = parse(ast.operand, this.nextChildOffset);
     this.openBrace = ast.openBrace.text;
-    this.options = parse(ast.options, parse, this.nextChildOffset);
+    this.options = parse(ast.options, this.nextChildOffset);
     this.closeBrace = ast.closeBrace.text;
     this.initiateLoc(ast);
   }

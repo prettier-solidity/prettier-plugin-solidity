@@ -11,7 +11,7 @@ export class NamedArgument extends SlangNode {
     super(ast, offset);
     this.name = ast.name.text;
     this.colon = ast.colon.text;
-    this.value = parse(ast.value, parse, this.nextChildOffset);
+    this.value = parse(ast.value, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

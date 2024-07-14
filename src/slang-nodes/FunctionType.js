@@ -13,10 +13,10 @@ export class FunctionType extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.functionKeyword = ast.functionKeyword.text;
-    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
-    this.attributes = parse(ast.attributes, parse, this.nextChildOffset);
+    this.parameters = parse(ast.parameters, this.nextChildOffset);
+    this.attributes = parse(ast.attributes, this.nextChildOffset);
     this.returns = ast.returns
-      ? parse(ast.returns, parse, this.nextChildOffset)
+      ? parse(ast.returns, this.nextChildOffset)
       : undefined;
     this.initiateLoc(ast);
   }

@@ -10,7 +10,7 @@ export class ConstructorAttributes extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.items = ast.items
-      .map((item) => parse(item, parse, this.nextChildOffset))
+      .map((item) => parse(item, this.nextChildOffset))
       .sort(sortFunctionAttributes);
     this.initiateLoc(ast);
   }

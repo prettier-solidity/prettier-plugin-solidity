@@ -13,7 +13,7 @@ export class ArrayExpression extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.openBracket = ast.openBracket.text;
-    this.items = parse(ast.items, parse, this.nextChildOffset);
+    this.items = parse(ast.items, this.nextChildOffset);
     this.closeBracket = ast.closeBracket.text;
     this.initiateLoc(ast);
   }

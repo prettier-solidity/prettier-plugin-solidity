@@ -15,11 +15,11 @@ export class ConstantDefinition extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.typeName = parse(ast.typeName, parse, this.nextChildOffset);
+    this.typeName = parse(ast.typeName, this.nextChildOffset);
     this.constantKeyword = ast.constantKeyword.text;
     this.name = ast.name.text;
     this.equal = ast.equal.text;
-    this.value = parse(ast.value, parse, this.nextChildOffset);
+    this.value = parse(ast.value, this.nextChildOffset);
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

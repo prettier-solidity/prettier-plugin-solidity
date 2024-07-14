@@ -9,9 +9,9 @@ export class YulAssignmentStatement extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.names = parse(ast.names, parse, this.nextChildOffset);
-    this.assignment = parse(ast.assignment, parse, this.nextChildOffset);
-    this.expression = parse(ast.expression, parse, this.nextChildOffset);
+    this.names = parse(ast.names, this.nextChildOffset);
+    this.assignment = parse(ast.assignment, this.nextChildOffset);
+    this.expression = parse(ast.expression, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

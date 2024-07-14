@@ -29,8 +29,8 @@ export class ExponentiationExpression extends SlangNode {
     super(ast, offset);
     if (offset) {
       const compiler = coerce(options.compiler);
-      this.leftOperand = parse(ast.leftOperand, parse, this.nextChildOffset);
-      this.rightOperand = parse(ast.rightOperand, parse, this.nextChildOffset);
+      this.leftOperand = parse(ast.leftOperand, this.nextChildOffset);
+      this.rightOperand = parse(ast.rightOperand, this.nextChildOffset);
 
       if (compiler) {
         if (satisfies(compiler, '>=0.8.0')) {

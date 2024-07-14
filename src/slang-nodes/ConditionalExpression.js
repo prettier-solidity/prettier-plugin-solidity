@@ -99,7 +99,7 @@ export class ConditionalExpression extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.operand = parse(ast.operand, parse, this.nextChildOffset);
+    this.operand = parse(ast.operand, this.nextChildOffset);
 
     // TODO: while the behaviour is not stable, it should be behind the
     // experimentalTernaries flag.
@@ -119,17 +119,9 @@ export class ConditionalExpression extends SlangNode {
     }
 
     this.questionMark = ast.questionMark.text;
-    this.trueExpression = parse(
-      ast.trueExpression,
-      parse,
-      this.nextChildOffset
-    );
+    this.trueExpression = parse(ast.trueExpression, this.nextChildOffset);
     this.colon = ast.colon.text;
-    this.falseExpression = parse(
-      ast.falseExpression,
-      parse,
-      this.nextChildOffset
-    );
+    this.falseExpression = parse(ast.falseExpression, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

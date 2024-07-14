@@ -16,7 +16,7 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
     this.typeKeyword = ast.typeKeyword.text;
     this.name = ast.name.text;
     this.isKeyword = ast.isKeyword.text;
-    this.valueType = parse(ast.valueType, parse, this.nextChildOffset);
+    this.valueType = parse(ast.valueType, this.nextChildOffset);
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

@@ -7,7 +7,7 @@ export class ExpressionStatement extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.expression = parse(ast.expression, parse, this.nextChildOffset);
+    this.expression = parse(ast.expression, this.nextChildOffset);
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

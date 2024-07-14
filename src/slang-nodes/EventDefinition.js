@@ -15,7 +15,7 @@ export class EventDefinition extends SlangNode {
     super(ast, offset);
     this.eventKeyword = ast.eventKeyword.text;
     this.name = ast.name.text;
-    this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+    this.parameters = parse(ast.parameters, this.nextChildOffset);
     this.anonymousKeyword = ast.anonymousKeyword?.text;
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);

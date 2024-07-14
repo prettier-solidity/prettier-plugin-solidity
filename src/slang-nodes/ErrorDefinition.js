@@ -13,7 +13,7 @@ export class ErrorDefinition extends SlangNode {
     super(ast, offset);
     this.errorKeyword = ast.errorKeyword.text;
     this.name = ast.name.text;
-    this.members = parse(ast.members, parse, this.nextChildOffset);
+    this.members = parse(ast.members, this.nextChildOffset);
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

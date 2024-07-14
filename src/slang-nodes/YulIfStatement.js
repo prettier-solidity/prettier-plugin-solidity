@@ -10,8 +10,8 @@ export class YulIfStatement extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.ifKeyword = ast.ifKeyword.text;
-    this.condition = parse(ast.condition, parse, this.nextChildOffset);
-    this.body = parse(ast.body, parse, this.nextChildOffset);
+    this.condition = parse(ast.condition, this.nextChildOffset);
+    this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

@@ -8,7 +8,7 @@ export class InheritanceSpecifier extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.isKeyword = ast.isKeyword.text;
-    this.types = parse(ast.types, parse, this.nextChildOffset);
+    this.types = parse(ast.types, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 

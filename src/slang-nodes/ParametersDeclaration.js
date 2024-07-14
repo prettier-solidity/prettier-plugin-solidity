@@ -11,7 +11,7 @@ export class ParametersDeclaration extends SlangNode {
     super(ast, offset);
     if (offset) {
       this.openParen = ast.openParen.text;
-      this.parameters = parse(ast.parameters, parse, this.nextChildOffset);
+      this.parameters = parse(ast.parameters, this.nextChildOffset);
       this.closeParen = ast.closeParen.text;
       this.initiateLoc(ast);
     } else {
