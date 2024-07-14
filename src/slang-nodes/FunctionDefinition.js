@@ -22,9 +22,9 @@ export class FunctionDefinition extends SlangNode {
     this.name = parse(ast.name, this.nextChildOffset);
     this.parameters = parse(ast.parameters, this.nextChildOffset);
     this.attributes = parse(ast.attributes, this.nextChildOffset);
-    this.returns = ast.returns
-      ? parse(ast.returns, this.nextChildOffset)
-      : undefined;
+    if (ast.returns) {
+      this.returns = parse(ast.returns, this.nextChildOffset);
+    }
     this.body = parse(ast.body, this.nextChildOffset);
 
     // Older versions of Solidity defined a constructor as a function having

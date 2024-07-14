@@ -19,8 +19,12 @@ export class IndexAccessExpression extends SlangNode {
     super(ast, offset);
     this.operand = parse(ast.operand, this.nextChildOffset);
     this.openBracket = ast.openBracket.text;
-    this.start = ast.start ? parse(ast.start, this.nextChildOffset) : undefined;
-    this.end = ast.end ? parse(ast.end, this.nextChildOffset) : undefined;
+    if (ast.start) {
+      this.start = parse(ast.start, this.nextChildOffset);
+    }
+    if (ast.end) {
+      this.end = parse(ast.end, this.nextChildOffset);
+    }
     this.closeBracket = ast.closeBracket.text;
     this.initiateLoc(ast);
   }

@@ -8,7 +8,9 @@ export class UsingDeconstructionSymbol extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.name = parse(ast.name, this.nextChildOffset);
-    this.alias = ast.alias ? parse(ast.alias, this.nextChildOffset) : undefined;
+    if (ast.alias) {
+      this.alias = parse(ast.alias, this.nextChildOffset);
+    }
     this.initiateLoc(ast);
   }
 

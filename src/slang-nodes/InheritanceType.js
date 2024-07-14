@@ -8,9 +8,9 @@ export class InheritanceType extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.typeName = parse(ast.typeName, this.nextChildOffset);
-    this.arguments = ast.arguments
-      ? parse(ast.arguments, this.nextChildOffset)
-      : undefined;
+    if (ast.arguments) {
+      this.arguments = parse(ast.arguments, this.nextChildOffset);
+    }
     this.initiateLoc(ast);
   }
 

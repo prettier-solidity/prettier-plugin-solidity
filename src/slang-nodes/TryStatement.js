@@ -19,9 +19,9 @@ export class TryStatement extends SlangNode {
     super(ast, offset);
     this.tryKeyword = ast.tryKeyword.text;
     this.expression = parse(ast.expression, this.nextChildOffset);
-    this.returns = ast.returns
-      ? parse(ast.returns, this.nextChildOffset)
-      : undefined;
+    if (ast.returns) {
+      this.returns = parse(ast.returns, this.nextChildOffset);
+    }
     this.body = parse(ast.body, this.nextChildOffset);
     this.catchClauses = parse(ast.catchClauses, this.nextChildOffset);
     this.initiateLoc(ast);

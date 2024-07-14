@@ -8,7 +8,9 @@ export class IndexAccessEnd extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.colon = ast.colon.text;
-    this.end = ast.end ? parse(ast.end, this.nextChildOffset) : undefined;
+    if (ast.end) {
+      this.end = parse(ast.end, this.nextChildOffset);
+    }
     this.initiateLoc(ast);
   }
 

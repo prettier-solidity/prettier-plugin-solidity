@@ -12,7 +12,9 @@ export class RevertStatement extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.revertKeyword = ast.revertKeyword.text;
-    this.error = ast.error ? parse(ast.error, this.nextChildOffset) : undefined;
+    if (ast.error) {
+      this.error = parse(ast.error, this.nextChildOffset);
+    }
     this.arguments = parse(ast.arguments, this.nextChildOffset);
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);

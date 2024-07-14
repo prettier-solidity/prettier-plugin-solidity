@@ -24,9 +24,9 @@ export class ReturnStatement extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.returnKeyword = ast.returnKeyword.text;
-    this.expression = ast.expression
-      ? parse(ast.expression, this.nextChildOffset)
-      : undefined;
+    if (ast.expression) {
+      this.expression = parse(ast.expression, this.nextChildOffset);
+    }
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

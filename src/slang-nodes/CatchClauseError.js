@@ -10,12 +10,12 @@ export class CatchClauseError extends SlangNode {
 
   constructor(ast, offset, options, parse) {
     super(ast, offset);
-    this.name = ast.name?.text ?? '';
+    this.name = ast.name?.text;
     this.parameters = parse(ast.parameters, this.nextChildOffset);
     this.initiateLoc(ast);
   }
 
   print(path, print) {
-    return [this.name, group(path.call(print, 'parameters')), ' '];
+    return [`${this.name ?? ''}`, group(path.call(print, 'parameters')), ' '];
   }
 }
