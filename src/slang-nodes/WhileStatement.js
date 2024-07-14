@@ -4,11 +4,6 @@ import { SlangNode } from './SlangNode.js';
 
 const { group, indent, line } = doc.builders;
 
-const body = (node, path, print) =>
-  node.body.variant.kind === 'Block'
-    ? [' ', path.call(print, 'body')]
-    : group(indent([line, path.call(print, 'body')]));
-
 export class WhileStatement extends SlangNode {
   whileKeyword;
 
@@ -31,7 +26,9 @@ export class WhileStatement extends SlangNode {
       `${this.whileKeyword} ${this.openParen}`,
       printSeparatedItem(path.call(print, 'condition')),
       this.closeParen,
-      body(this, path, print)
+      this.body.variant.kind === 'Block'
+        ? [' ', path.call(print, 'body')]
+        : group(indent([line, path.call(print, 'body')]))
     ];
   }
 }

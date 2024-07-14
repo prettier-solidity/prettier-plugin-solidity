@@ -1,13 +1,10 @@
 import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
+import { createKindCheckFunction } from '../common/slang-helpers.js';
 
 const { group, indent, line } = doc.builders;
 
-const printBody = (bodyVariantKind, path, print) =>
-  bodyVariantKind === 'Block' || bodyVariantKind === 'IfStatement'
-    ? [' ', path.call(print, 'body')]
-    : group(indent([line, path.call(print, 'body')]));
-
+const isIfStatementOrBlock = createKindCheckFunction(['Block', 'IfStatement']);
 export class ElseBranch extends SlangNode {
   elseKeyword;
 
@@ -20,6 +17,11 @@ export class ElseBranch extends SlangNode {
   }
 
   print(path, print) {
-    return [this.elseKeyword, printBody(this.body.variant.kind, path, print)];
+    return [
+      this.elseKeyword,
+      isIfStatementOrBlock(this.body.variant)
+        ? [' ', path.call(print, 'body')]
+        : group(indent([line, path.call(print, 'body')]))
+    ];
   }
 }
