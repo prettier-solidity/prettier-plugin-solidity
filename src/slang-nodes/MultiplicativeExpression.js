@@ -15,7 +15,6 @@ export class MultiplicativeExpression extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.initializeChildrenKeys();
     this.parseChildrenNodes(ast, parse);
 
     switch (this.operator) {

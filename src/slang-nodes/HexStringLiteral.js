@@ -6,7 +6,6 @@ export class HexStringLiteral extends SlangNode {
 
   constructor(ast, offset, parse, options) {
     super(ast, offset);
-    this.initializeChildrenKeys();
     this.parseChildrenNodes(ast, parse);
     this.variant = `hex${printString(this.variant.slice(4, -1), options)}`;
     this.initializeLoc(ast);

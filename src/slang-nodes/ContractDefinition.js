@@ -22,7 +22,6 @@ export class ContractDefinition extends SlangNode {
 
   constructor(ast, offset, parse, options) {
     super(ast, offset);
-    this.initializeChildrenKeys();
     this.parseChildrenNodes(ast, parse);
     this.cleanModifierInvocationArguments(options);
     this.initializeLoc(ast);

@@ -96,7 +96,6 @@ export class ConditionalExpression extends SlangNode {
 
   constructor(ast, offset, parse, options) {
     super(ast, offset);
-    this.initializeChildrenKeys();
     this.parseChildrenNodes(ast, parse);
 
     // TODO: while the behaviour is not stable, it should be behind the
