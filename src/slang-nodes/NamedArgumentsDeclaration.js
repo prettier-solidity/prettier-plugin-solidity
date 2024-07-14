@@ -10,9 +10,9 @@ export class NamedArgumentsDeclaration extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.openParen = ast.openParen.text;
-    this.arguments = ast.arguments
-      ? parse(ast.arguments, this.nextChildOffset)
-      : undefined;
+    if (ast.arguments) {
+      this.arguments = parse(ast.arguments, this.nextChildOffset);
+    }
     this.closeParen = ast.closeParen.text;
     this.initiateLoc(ast);
   }

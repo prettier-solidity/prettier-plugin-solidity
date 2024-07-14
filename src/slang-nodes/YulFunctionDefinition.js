@@ -16,9 +16,9 @@ export class YulFunctionDefinition extends SlangNode {
     this.functionKeyword = ast.functionKeyword.text;
     this.name = ast.name.text;
     this.parameters = parse(ast.parameters, this.nextChildOffset);
-    this.returns = ast.returns
-      ? parse(ast.returns, this.nextChildOffset)
-      : undefined;
+    if (ast.returns) {
+      this.returns = parse(ast.returns, this.nextChildOffset);
+    }
     this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }

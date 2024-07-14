@@ -13,7 +13,9 @@ export class ArrayTypeName extends SlangNode {
     super(ast, offset);
     this.operand = parse(ast.operand, this.nextChildOffset);
     this.openBracket = ast.openBracket.text;
-    this.index = ast.index ? parse(ast.index, this.nextChildOffset) : undefined;
+    if (ast.index) {
+      this.index = parse(ast.index, this.nextChildOffset);
+    }
     this.closeBracket = ast.closeBracket.text;
     this.initiateLoc(ast);
   }

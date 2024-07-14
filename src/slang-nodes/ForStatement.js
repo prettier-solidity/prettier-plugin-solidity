@@ -25,9 +25,9 @@ export class ForStatement extends SlangNode {
     this.openParen = ast.openParen.text;
     this.initialization = parse(ast.initialization, this.nextChildOffset);
     this.condition = parse(ast.condition, this.nextChildOffset);
-    this.iterator = ast.iterator
-      ? parse(ast.iterator, this.nextChildOffset)
-      : undefined;
+    if (ast.iterator) {
+      this.iterator = parse(ast.iterator, this.nextChildOffset);
+    }
     this.closeParen = ast.closeParen.text;
     this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);

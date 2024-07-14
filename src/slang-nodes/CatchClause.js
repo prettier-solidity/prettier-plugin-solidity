@@ -10,7 +10,9 @@ export class CatchClause extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.catchKeyword = ast.catchKeyword.text;
-    this.error = ast.error ? parse(ast.error, this.nextChildOffset) : undefined;
+    if (ast.error) {
+      this.error = parse(ast.error, this.nextChildOffset);
+    }
     this.body = parse(ast.body, this.nextChildOffset);
     this.initiateLoc(ast);
   }

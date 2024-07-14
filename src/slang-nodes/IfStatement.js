@@ -31,9 +31,9 @@ export class IfStatement extends SlangNode {
     this.condition = parse(ast.condition, this.nextChildOffset);
     this.closeParen = ast.closeParen.text;
     this.body = parse(ast.body, this.nextChildOffset);
-    this.elseBranch = ast.elseBranch
-      ? parse(ast.elseBranch, this.nextChildOffset)
-      : undefined;
+    if (ast.elseBranch) {
+      this.elseBranch = parse(ast.elseBranch, this.nextChildOffset);
+    }
     this.initiateLoc(ast);
   }
 

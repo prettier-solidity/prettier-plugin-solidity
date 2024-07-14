@@ -20,9 +20,9 @@ export class InterfaceDefinition extends SlangNode {
     super(ast, offset);
     this.interfaceKeyword = ast.interfaceKeyword.text;
     this.name = ast.name.text;
-    this.inheritance = ast.inheritence
-      ? parse(ast.inheritance, this.nextChildOffset)
-      : undefined;
+    if (ast.inheritence) {
+      this.inheritance = parse(ast.inheritance, this.nextChildOffset);
+    }
     this.openBrace = ast.openBrace.text;
     this.members = parse(ast.members, this.nextChildOffset);
     this.closeBrace = ast.closeBrace.text;

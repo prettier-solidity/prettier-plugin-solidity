@@ -8,7 +8,9 @@ export class DecimalNumberExpression extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     this.literal = ast.literal.text;
-    this.unit = ast.unit ? parse(ast.unit, this.nextChildOffset) : undefined;
+    if (ast.unit) {
+      this.unit = parse(ast.unit, this.nextChildOffset);
+    }
     this.initiateLoc(ast);
   }
 

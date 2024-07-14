@@ -16,7 +16,9 @@ export class StateVariableDefinition extends SlangNode {
     this.typeName = parse(ast.typeName, this.nextChildOffset);
     this.attributes = parse(ast.attributes, this.nextChildOffset);
     this.name = ast.name.text;
-    this.value = ast.value ? parse(ast.value, this.nextChildOffset) : undefined;
+    if (ast.value) {
+      this.value = parse(ast.value, this.nextChildOffset);
+    }
     this.semicolon = ast.semicolon.text;
     this.initiateLoc(ast);
   }

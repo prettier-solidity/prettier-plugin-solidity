@@ -6,9 +6,9 @@ export class TupleValue extends SlangNode {
   constructor(ast, offset, options, parse) {
     super(ast, offset);
     if (offset) {
-      this.expression = ast.expression
-        ? parse(ast.expression, this.nextChildOffset)
-        : undefined;
+      if (ast.expression) {
+        this.expression = parse(ast.expression, this.nextChildOffset);
+      }
       this.initiateLoc(ast);
     } else {
       this.kind = ast.kind;
