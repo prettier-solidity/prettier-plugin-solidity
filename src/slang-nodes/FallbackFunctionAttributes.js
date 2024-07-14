@@ -9,7 +9,6 @@ export class FallbackFunctionAttributes extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.initializeChildrenKeys();
     this.parseChildrenNodes(ast, parse);
     this.items = this.items.sort(sortFunctionAttributes);
     this.initializeLoc(ast);

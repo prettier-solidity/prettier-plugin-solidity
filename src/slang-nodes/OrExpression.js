@@ -13,7 +13,6 @@ export class OrExpression extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.initializeChildrenKeys();
     this.parseChildrenNodes(ast, parse);
     this.leftOperand = tryToHug(this.leftOperand);
     this.rightOperand = tryToHug(this.rightOperand);

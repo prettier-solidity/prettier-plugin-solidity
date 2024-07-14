@@ -16,7 +16,6 @@ export class ModifierDefinition extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.initializeChildrenKeys();
     this.parseChildrenNodes(ast, parse);
     if (typeof this.parameters === 'undefined') {
       const parametersLoc = {
