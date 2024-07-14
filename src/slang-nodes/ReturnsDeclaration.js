@@ -8,11 +8,11 @@ export class ReturnsDeclaration extends SlangNode {
 
   variables;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.returnsKeyword = ast.returnsKeyword.text;
-    this.variables = parse(ast.variables, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

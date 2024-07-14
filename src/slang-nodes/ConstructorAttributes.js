@@ -7,12 +7,12 @@ const { line } = doc.builders;
 export class ConstructorAttributes extends SlangNode {
   items;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.items = ast.items
-      .map((item) => parse(item, this.nextChildOffset))
-      .sort(sortFunctionAttributes);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.items = this.items.sort(sortFunctionAttributes);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

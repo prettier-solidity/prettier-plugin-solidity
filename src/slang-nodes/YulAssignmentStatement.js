@@ -7,12 +7,11 @@ export class YulAssignmentStatement extends SlangNode {
 
   expression;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.names = parse(ast.names, this.nextChildOffset);
-    this.assignment = parse(ast.assignment, this.nextChildOffset);
-    this.expression = parse(ast.expression, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

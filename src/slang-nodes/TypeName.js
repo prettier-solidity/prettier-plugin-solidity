@@ -3,10 +3,11 @@ import { SlangNode } from './SlangNode.js';
 export class TypeName extends SlangNode {
   variant;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.variant = parse(ast.variant, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

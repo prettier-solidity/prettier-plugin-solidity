@@ -5,11 +5,11 @@ export class OverridePaths extends SlangNode {
 
   separators;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.items = ast.items.map((item) => parse(item, this.nextChildOffset));
-    this.separators = ast.separators.map((separator) => separator);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   // TODO: implement print

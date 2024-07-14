@@ -57,6 +57,8 @@ const getLeadingOffset = (children) => {
 const getTrailingOffset = (children) => getLeadingOffset(children.reverse());
 
 export class SlangNode {
+  #childrenKeys;
+
   kind;
 
   loc = {
@@ -78,6 +80,28 @@ export class SlangNode {
     this.loc.endWithTrivia = offset + ast.cst.textLength.utf8;
   }
 
+  initializeChildrenKeys() {
+    this.#childrenKeys = Object.keys(this).slice(3);
+  }
+
+  parseChildrenNodes(ast, parse) {
+    const getValue = (astChild) =>
+      astChild.type === 'Terminal'
+        ? astChild.text
+        : parse(astChild, this.nextChildOffset);
+
+    this.#childrenKeys.forEach((childNodeName) => {
+      const astChild = ast[childNodeName];
+      if (astChild) {
+        if (Array.isArray(astChild)) {
+          this[childNodeName] = astChild.map(getValue);
+        } else {
+          this[childNodeName] = getValue(astChild);
+        }
+      }
+    });
+  }
+
   /**
    * Leading and trailing Comments are considered by the parser as part of the
    * innermost possible node. For example if there is a comment just before a
@@ -97,16 +121,14 @@ export class SlangNode {
    * ];
    * ```
    */
-  initiateLoc(ast) {
+  initializeLoc(ast) {
     const children = ast.cst.children();
     let leadingOffset = getLeadingOffset(children);
     let trailingOffset = getTrailingOffset(children);
 
     if (leadingOffset === 0 || trailingOffset === 0) {
-      const childrenKeys = Object.keys(this);
-
-      for (let i = 0; i < childrenKeys.length; i += 1) {
-        const childLoc = this[childrenKeys[i]]?.loc;
+      for (let i = 0; i < this.#childrenKeys.length; i += 1) {
+        const childLoc = this[this.#childrenKeys[i]]?.loc;
 
         if (childLoc) {
           if (

@@ -15,16 +15,11 @@ export class TryStatement extends SlangNode {
 
   catchClauses;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.tryKeyword = ast.tryKeyword.text;
-    this.expression = parse(ast.expression, this.nextChildOffset);
-    if (ast.returns) {
-      this.returns = parse(ast.returns, this.nextChildOffset);
-    }
-    this.body = parse(ast.body, this.nextChildOffset);
-    this.catchClauses = parse(ast.catchClauses, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

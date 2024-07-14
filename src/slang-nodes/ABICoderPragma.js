@@ -5,11 +5,11 @@ export class ABICoderPragma extends SlangNode {
 
   version;
 
-  constructor(ast, offset) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.abicoderKeyword = ast.abicoderKeyword.text;
-    this.version = ast.version.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print() {

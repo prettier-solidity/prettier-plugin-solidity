@@ -11,14 +11,11 @@ export class EnumDefinition extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.enumKeyword = ast.enumKeyword.text;
-    this.name = ast.name.text;
-    this.openBrace = ast.openBrace.text;
-    this.members = parse(ast.members, this.nextChildOffset);
-    this.closeBrace = ast.closeBrace.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

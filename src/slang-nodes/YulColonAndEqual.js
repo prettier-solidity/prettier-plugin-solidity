@@ -5,11 +5,11 @@ export class YulColonAndEqual extends SlangNode {
 
   equal;
 
-  constructor(ast, offset) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.colon = ast.colon.text;
-    this.equal = ast.equal.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   // TODO: implement print

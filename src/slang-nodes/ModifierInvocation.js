@@ -8,14 +8,12 @@ export class ModifierInvocation extends SlangNode {
 
   arguments;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
     this.#ast = ast;
-    this.name = parse(ast.name, this.nextChildOffset);
-    if (ast.arguments) {
-      this.arguments = parse(ast.arguments, this.nextChildOffset);
-    }
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   cleanModifierInvocationArguments() {

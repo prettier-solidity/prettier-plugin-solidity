@@ -5,11 +5,11 @@ export class VersionPragma extends SlangNode {
 
   sets;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.solidityKeyword = ast.solidityKeyword.text;
-    this.sets = parse(ast.sets, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

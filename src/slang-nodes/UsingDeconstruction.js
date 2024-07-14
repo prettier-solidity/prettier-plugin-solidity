@@ -7,12 +7,11 @@ export class UsingDeconstruction extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.openBrace = ast.openBrace.text;
-    this.symbols = parse(ast.symbols, this.nextChildOffset);
-    this.closeBrace = ast.closeBrace.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

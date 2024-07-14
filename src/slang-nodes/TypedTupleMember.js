@@ -7,14 +7,11 @@ export class TypedTupleMember extends SlangNode {
 
   name;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.typeName = parse(ast.typeName, this.nextChildOffset);
-    if (ast.storageLocation) {
-      this.storageLocation = parse(ast.storageLocation, this.nextChildOffset);
-    }
-    this.name = ast.name.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

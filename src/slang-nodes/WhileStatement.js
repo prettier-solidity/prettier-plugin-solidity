@@ -20,14 +20,11 @@ export class WhileStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.whileKeyword = ast.whileKeyword.text;
-    this.openParen = ast.openParen.text;
-    this.condition = parse(ast.condition, this.nextChildOffset);
-    this.closeParen = ast.closeParen.text;
-    this.body = parse(ast.body, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

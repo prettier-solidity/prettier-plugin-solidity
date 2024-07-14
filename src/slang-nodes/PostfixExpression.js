@@ -5,11 +5,11 @@ export class PostfixExpression extends SlangNode {
 
   operator;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.operand = parse(ast.operand, this.nextChildOffset);
-    this.operator = ast.operator.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {
