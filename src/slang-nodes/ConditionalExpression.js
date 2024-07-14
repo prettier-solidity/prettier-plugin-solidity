@@ -5,7 +5,7 @@ import { SlangNode } from './SlangNode.js';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
-const experimentalTernaries = (node, path, print, options) => {
+function experimentalTernaries(node, path, print, options) {
   const grandparent = path.getNode(2);
   const isNested = grandparent.kind === 'ConditionalExpression';
   const isNestedAsTrueExpression =
@@ -66,10 +66,10 @@ const experimentalTernaries = (node, path, print, options) => {
   return grandparent.kind === 'VariableDeclarationValue'
     ? group(indent([softline, document]))
     : document;
-};
+}
 
-const traditionalTernaries = (node, path, print) =>
-  group([
+function traditionalTernaries(node, path, print) {
+  return group([
     path.call(print, 'operand'),
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
@@ -82,6 +82,7 @@ const traditionalTernaries = (node, path, print) =>
       path.call(print, 'falseExpression')
     ])
   ]);
+}
 
 export class ConditionalExpression extends SlangNode {
   operand;

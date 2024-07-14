@@ -11,7 +11,7 @@ const isChainableExpression = createKindCheckFunction([
   'MemberAccessExpression'
 ]);
 
-const isEndOfChain = (node, path) => {
+function isEndOfChain(node, path) {
   for (
     let i = 0, currentNode = node, grandparentNode = path.getNode(i + 2);
     isChainableExpression(grandparentNode);
@@ -42,7 +42,7 @@ const isEndOfChain = (node, path) => {
     }
   }
   return true;
-};
+}
 
 /**
  * processChain expects the doc[] of the full chain of MemberAccess.
@@ -90,7 +90,7 @@ const isEndOfChain = (node, path) => {
  * @returns a processed doc[] with the proper grouping and indentation ready to
  * be printed.
  */
-const processChain = (chain) => {
+function processChain(chain) {
   const firstSeparatorIndex = chain.findIndex(
     (element) => isLabel(element) && element.label === 'separator'
   );
@@ -103,7 +103,7 @@ const processChain = (chain) => {
     // The doc[] containing the rest of the chain
     group(indent(chain.slice(firstSeparatorIndex)))
   ]);
-};
+}
 
 export class MemberAccessExpression extends SlangNode {
   operand;

@@ -30,7 +30,7 @@ function getOffsets(children, initialOffset) {
   return offsets;
 }
 
-const getLeadingOffset = (children) => {
+function getLeadingOffset(children) {
   let offset = 0;
   for (let i = 0; i < children.length; i += 1) {
     const child = children[i];
@@ -52,9 +52,11 @@ const getLeadingOffset = (children) => {
     offset += child.textLength.utf8;
   }
   return offset;
-};
+}
 
-const getTrailingOffset = (children) => getLeadingOffset(children.reverse());
+function getTrailingOffset(children) {
+  return getLeadingOffset(children.reverse());
+}
 
 export class SlangNode {
   kind;
@@ -86,14 +88,12 @@ export class SlangNode {
 
     Object.keys(this)
       .slice(3)
-      .forEach((childNodeName) => {
-        const astChild = ast[childNodeName];
+      .forEach((childKey) => {
+        const astChild = ast[childKey];
         if (astChild) {
-          if (Array.isArray(astChild)) {
-            this[childNodeName] = astChild.map(getValue);
-          } else {
-            this[childNodeName] = getValue(astChild);
-          }
+          this[childKey] = Array.isArray(astChild)
+            ? astChild.map(getValue)
+            : getValue(astChild);
         }
       });
   }

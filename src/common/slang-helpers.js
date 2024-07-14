@@ -49,25 +49,27 @@ export function printPreservingEmptyLines(path, key, options, print) {
   }, key);
 }
 
-export const printFunction = (functionName, node, path, print) => [
-  group([
-    functionName,
-    path.call(print, 'parameters'),
-    indent(
-      group([
-        path.call(print, 'attributes'),
-        node.returns ? [line, path.call(print, 'returns')] : '',
-        node.body && node.body.variant !== ';' ? dedent(line) : ''
-      ])
-    )
-  ]),
-  node.body ? path.call(print, 'body') : ''
-];
+export function printFunction(functionName, node, path, print) {
+  return [
+    group([
+      functionName,
+      path.call(print, 'parameters'),
+      indent(
+        group([
+          path.call(print, 'attributes'),
+          node.returns ? [line, path.call(print, 'returns')] : '',
+          node.body && node.body.variant !== ';' ? dedent(line) : ''
+        ])
+      )
+    ]),
+    node.body ? path.call(print, 'body') : ''
+  ];
+}
 
 const visibilityKeyWords = ['external', 'internal', 'public', 'private'];
 const mutabilityKeyWords = ['pure', 'constant', 'payable', 'view'];
 
-export const sortFunctionAttributes = (a, b) => {
+export function sortFunctionAttributes(a, b) {
   const aIsString = typeof a.variant === 'string';
   const bIsString = typeof b.variant === 'string';
 
@@ -97,7 +99,7 @@ export const sortFunctionAttributes = (a, b) => {
       return 1;
   }
   return 0;
-};
+}
 
 export function hasNodeIgnoreComment(node) {
   return (
@@ -204,7 +206,7 @@ const logicalIndentRulesBuilder = (path, options) => (document) => {
   return document;
 };
 
-export const rightOperandPrint = (node, path, print) => {
+export function rightOperandPrint(node, path, print) {
   const rightOperand = [line, path.call(print, 'rightOperand')];
 
   // If it's a single binary operation, avoid having a small right
@@ -214,7 +216,7 @@ export const rightOperandPrint = (node, path, print) => {
     !isBinaryOperation(path.getNode(2));
 
   return shouldGroup ? group(rightOperand) : rightOperand;
-};
+}
 
 export const binaryOperationPrintBuilder =
   (groupRulesBuilder, indentRulesBuilder) =>
@@ -247,7 +249,7 @@ export const logicalOperationPrint = binaryOperationPrintBuilder(
 export const locStart = (node) => node.loc.start;
 export const locEnd = (node) => node.loc.end;
 
-export const printComments = (node, path, options, filter = () => true) => {
+export function printComments(node, path, options, filter = () => true) {
   if (!node.comments) return [];
   const document = join(
     line,
@@ -277,4 +279,4 @@ export const printComments = (node, path, options, filter = () => true) => {
     ? document.parts // Prettier V2
     : document; // Prettier V3
   /* c8 ignore stop */
-};
+}

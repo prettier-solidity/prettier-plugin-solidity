@@ -4,13 +4,6 @@ import { SlangNode } from './SlangNode.js';
 
 const { group, hardline, indent, line } = doc.builders;
 
-const printBody = (bodyVariantKind, path, print) =>
-  bodyVariantKind === 'Block'
-    ? [' ', path.call(print, 'body')]
-    : group(indent([line, path.call(print, 'body')]), {
-        shouldBreak: bodyVariantKind === 'IfStatement' // `if` within `if`
-      });
-
 export class IfStatement extends SlangNode {
   ifKeyword;
 
@@ -31,16 +24,18 @@ export class IfStatement extends SlangNode {
   }
 
   print(path, print) {
-    const bodyVariantKind = this.body.variant.kind;
-
     return [
       `${this.ifKeyword} ${this.openParen}`,
       printSeparatedItem(path.call(print, 'condition')),
       this.closeParen,
-      printBody(bodyVariantKind, path, print),
+      this.body.variant.kind === 'Block'
+        ? [' ', path.call(print, 'body')]
+        : group(indent([line, path.call(print, 'body')]), {
+            shouldBreak: this.body.variant.kind === 'IfStatement' // `if` within `if`
+          }),
       this.elseBranch
         ? [
-            bodyVariantKind !== 'Block'
+            this.body.variant.kind !== 'Block'
               ? hardline // else on a new line if body is not a block
               : ' ',
             path.call(print, 'elseBranch')

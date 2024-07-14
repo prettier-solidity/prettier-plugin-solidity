@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 
 const { group, indent, line } = doc.builders;
 
-const expression = (node, path, print, options) => {
+function expression(node, path, print, options) {
   if (node.expression) {
     return node.expression.variant.kind === 'TupleExpression' ||
       (options.experimentalTernaries &&
@@ -12,7 +12,7 @@ const expression = (node, path, print, options) => {
       : group(indent([line, path.call(print, 'expression')]));
   }
   return '';
-};
+}
 
 export class ReturnStatement extends SlangNode {
   returnKeyword;
