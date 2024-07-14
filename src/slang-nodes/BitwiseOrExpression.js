@@ -23,10 +23,10 @@ export class BitwiseOrExpression extends SlangNode {
 
   constructor(ast, offset, parse) {
     super(ast, offset);
-    this.parseChildrenNodes(ast, parse);
+    this.initialize(ast, parse);
     this.leftOperand = tryToHug(this.leftOperand);
     this.rightOperand = tryToHug(this.rightOperand);
-    this.initializeLoc(ast);
+    this.finalize(ast);
   }
 
   print(path, print, options) {

@@ -8,6 +8,7 @@ import print from './printer.js';
 import slangParse from './slangParser.js';
 import slangPrint from './slangPrinter.js';
 import { isComment, isBlockComment } from './common/slang-helpers.js';
+import { locEnd, locStart } from './slang-utils/loc.js';
 
 const parserName = 'slang';
 const astFormat = 'slang-ast';
@@ -33,8 +34,8 @@ const parser = { astFormat: 'solidity-ast', parse, ...loc };
 const slangParser = {
   astFormat,
   parse: slangParse,
-  locStart: (node) => node.loc.start,
-  locEnd: (node) => node.loc.end
+  locStart,
+  locEnd
 };
 const parsers = {
   'solidity-parse': parser,

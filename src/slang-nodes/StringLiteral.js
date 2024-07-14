@@ -6,9 +6,9 @@ export class StringLiteral extends SlangNode {
 
   constructor(ast, offset, parse, options) {
     super(ast, offset);
-    this.parseChildrenNodes(ast, parse);
+    this.initialize(ast, parse);
     this.variant = printString(this.variant.slice(1, -1), options);
-    this.initializeLoc(ast);
+    this.finalize(ast);
   }
 
   print() {

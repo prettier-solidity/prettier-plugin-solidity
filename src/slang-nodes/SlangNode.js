@@ -1,4 +1,5 @@
 import { isComment } from '../common/slang-helpers.js';
+import { Loc } from '../slang-utils/loc.js';
 
 const comments = [];
 
@@ -17,10 +18,10 @@ function getOffsets(children, initialOffset) {
       comments.push({
         kind: child.kind,
         value: child.text,
-        loc: {
-          start: offset,
-          end: offset + child.textLength.utf8
-        }
+        loc: new Loc({
+          startWithTrivia: offset,
+          endWithTrivia: offset + child.textLength.utf8
+        })
       });
     }
 
@@ -61,13 +62,7 @@ function getTrailingOffset(children) {
 export class SlangNode {
   kind;
 
-  loc = {
-    childrenOffsets: [],
-    startWithTrivia: 0,
-    start: 0,
-    endWithTrivia: 0,
-    end: 0
-  };
+  loc;
 
   comments = [];
 
@@ -75,16 +70,18 @@ export class SlangNode {
     if (typeof offset === 'undefined') return;
     const children = ast.cst.children();
     this.kind = ast.cst.kind;
-    this.loc.childrenOffsets = getOffsets(children, offset);
-    this.loc.startWithTrivia = offset;
-    this.loc.endWithTrivia = offset + ast.cst.textLength.utf8;
+    this.loc = new Loc({
+      startWithTrivia: offset,
+      endWithTrivia: offset + ast.cst.textLength.utf8,
+      childrenOffsets: getOffsets(children, offset)
+    });
   }
 
-  parseChildrenNodes(ast, parse) {
+  initialize(ast, parse) {
     const getValue = (astChild) =>
       astChild.type === 'Terminal'
         ? astChild.text
-        : parse(astChild, this.nextChildOffset);
+        : parse(astChild, this.loc.childrenOffsets.shift());
 
     Object.keys(this)
       .slice(3)
@@ -117,7 +114,7 @@ export class SlangNode {
    * ];
    * ```
    */
-  initializeLoc(ast) {
+  finalize(ast) {
     const children = ast.cst.children();
     let leadingOffset = getLeadingOffset(children);
     let trailingOffset = getTrailingOffset(children);
@@ -146,10 +143,6 @@ export class SlangNode {
     }
     this.loc.start = this.loc.startWithTrivia + leadingOffset;
     this.loc.end = this.loc.endWithTrivia - trailingOffset;
-  }
-
-  get nextChildOffset() {
-    return this.loc.childrenOffsets.shift();
   }
 
   collectComments() {

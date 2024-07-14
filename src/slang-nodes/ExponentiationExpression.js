@@ -3,6 +3,7 @@ import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
 import { binaryOperationPrintBuilder } from '../common/slang-helpers.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
+import { Loc } from '../slang-utils/loc.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { TupleExpression } from './TupleExpression.js';
@@ -28,7 +29,7 @@ export class ExponentiationExpression extends SlangNode {
   constructor(ast, offset, parse, options) {
     super(ast, offset);
     if (offset) {
-      this.parseChildrenNodes(ast, parse);
+      this.initialize(ast, parse);
 
       const compiler = coerce(options.compiler);
       if (compiler) {
@@ -50,24 +51,24 @@ export class ExponentiationExpression extends SlangNode {
             };
             this.leftOperand = new Expression({
               kind: 'Expression',
-              loc: { ...leftLoc },
+              loc: new Loc(leftLoc),
               variant: new TupleExpression({
                 kind: 'TupleExpression',
-                loc: { ...leftLoc },
+                loc: new Loc(leftLoc),
                 openParen: '(',
                 items: new TupleValues({
                   kind: 'TupleValues',
-                  loc: { ...leftLoc },
+                  loc: new Loc(leftLoc),
                   items: [
                     new TupleValue({
                       kind: 'TupleValue',
-                      loc: { ...leftLoc },
+                      loc: new Loc(leftLoc),
                       expression: new Expression({
                         kind: 'Expression',
-                        loc: { ...leftLoc },
+                        loc: new Loc(leftLoc),
                         variant: new ExponentiationExpression({
                           kind: 'ExponentiationExpression',
-                          loc: { ...leftLoc },
+                          loc: new Loc(leftLoc),
                           leftOperand: this.leftOperand,
                           operator: '**',
                           rightOperand: this.rightOperand.variant.leftOperand
@@ -86,7 +87,7 @@ export class ExponentiationExpression extends SlangNode {
         }
       }
 
-      this.initializeLoc(ast);
+      this.finalize(ast);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;
