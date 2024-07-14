@@ -3,10 +3,11 @@ import { SlangNode } from './SlangNode.js';
 export class YulPathComponent extends SlangNode {
   variant;
 
-  constructor(ast, offset) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.variant = ast.variant.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print() {

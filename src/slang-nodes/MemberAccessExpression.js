@@ -112,12 +112,11 @@ export class MemberAccessExpression extends SlangNode {
 
   member;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.operand = parse(ast.operand, this.nextChildOffset);
-    this.period = ast.period.text;
-    this.member = parse(ast.member, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

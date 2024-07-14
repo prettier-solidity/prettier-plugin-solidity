@@ -7,11 +7,11 @@ export class YulLabel extends SlangNode {
 
   colon;
 
-  constructor(ast, offset) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.label = ast.label.text;
-    this.colon = ast.colon.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print() {

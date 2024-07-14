@@ -7,14 +7,11 @@ export class YulVariableDeclarationStatement extends SlangNode {
 
   value;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.letKeyword = ast.letKeyword.text;
-    this.names = ast.names.text;
-    if (ast.value) {
-      this.value = parse(ast.value, this.nextChildOffset);
-    }
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

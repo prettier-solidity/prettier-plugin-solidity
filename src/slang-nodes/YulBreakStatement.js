@@ -3,10 +3,11 @@ import { SlangNode } from './SlangNode.js';
 export class YulBreakStatement extends SlangNode {
   breakKeyword;
 
-  constructor(ast, offset) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.breakKeyword = ast.breakKeyword.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print() {

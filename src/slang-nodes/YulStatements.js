@@ -11,10 +11,11 @@ const { hardline } = doc.builders;
 export class YulStatements extends SlangNode {
   items;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.items = ast.items.map((item) => parse(item, this.nextChildOffset));
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print, options) {

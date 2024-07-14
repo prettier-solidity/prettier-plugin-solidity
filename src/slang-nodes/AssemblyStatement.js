@@ -9,17 +9,11 @@ export class AssemblyStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.assemblyKeyword = ast.assemblyKeyword.text;
-    if (ast.label) {
-      this.label = parse(ast.label, this.nextChildOffset);
-    }
-    if (ast.flags) {
-      this.flags = parse(ast.flags, this.nextChildOffset);
-    }
-    this.body = parse(ast.body, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

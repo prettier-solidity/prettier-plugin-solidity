@@ -7,12 +7,11 @@ export class YulIfStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.ifKeyword = ast.ifKeyword.text;
-    this.condition = parse(ast.condition, this.nextChildOffset);
-    this.body = parse(ast.body, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

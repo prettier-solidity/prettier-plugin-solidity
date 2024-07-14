@@ -5,11 +5,11 @@ export class ImportAlias extends SlangNode {
 
   identifier;
 
-  constructor(ast, offset) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.asKeyword = ast.asKeyword.text;
-    this.identifier = ast.identifier.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print() {

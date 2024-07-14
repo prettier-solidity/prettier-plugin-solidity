@@ -5,11 +5,11 @@ export class AddressType extends SlangNode {
 
   payableKeyword;
 
-  constructor(ast, offset) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.addressKeyword = ast.addressKeyword.text;
-    this.payableKeyword = ast.payableKeyword?.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print() {

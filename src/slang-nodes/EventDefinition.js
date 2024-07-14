@@ -11,14 +11,11 @@ export class EventDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.eventKeyword = ast.eventKeyword.text;
-    this.name = ast.name.text;
-    this.parameters = parse(ast.parameters, this.nextChildOffset);
-    this.anonymousKeyword = ast.anonymousKeyword?.text;
-    this.semicolon = ast.semicolon.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

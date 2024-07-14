@@ -5,11 +5,11 @@ export class BreakStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.breakKeyword = ast.breakKeyword.text;
-    this.semicolon = ast.semicolon.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print() {

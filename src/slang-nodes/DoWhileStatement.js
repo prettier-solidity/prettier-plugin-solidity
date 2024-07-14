@@ -24,16 +24,11 @@ export class DoWhileStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.doKeyword = ast.doKeyword.text;
-    this.body = parse(ast.body, this.nextChildOffset);
-    this.whileKeyword = ast.whileKeyword.text;
-    this.openParen = ast.openParen.text;
-    this.condition = parse(ast.condition, this.nextChildOffset);
-    this.closeParen = ast.closeParen.text;
-    this.semicolon = ast.semicolon.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

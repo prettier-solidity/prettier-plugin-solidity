@@ -3,10 +3,11 @@ import { SlangNode } from './SlangNode.js';
 export class YulContinueStatement extends SlangNode {
   continueKeyword;
 
-  constructor(ast, offset) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.continueKeyword = ast.continueKeyword.text;
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print() {

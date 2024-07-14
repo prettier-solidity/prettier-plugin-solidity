@@ -24,17 +24,11 @@ export class IfStatement extends SlangNode {
 
   elseBranch;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.ifKeyword = ast.ifKeyword.text;
-    this.openParen = ast.openParen.text;
-    this.condition = parse(ast.condition, this.nextChildOffset);
-    this.closeParen = ast.closeParen.text;
-    this.body = parse(ast.body, this.nextChildOffset);
-    if (ast.elseBranch) {
-      this.elseBranch = parse(ast.elseBranch, this.nextChildOffset);
-    }
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

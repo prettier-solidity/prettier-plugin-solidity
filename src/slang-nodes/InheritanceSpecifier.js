@@ -5,11 +5,11 @@ export class InheritanceSpecifier extends SlangNode {
 
   types;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.isKeyword = ast.isKeyword.text;
-    this.types = parse(ast.types, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

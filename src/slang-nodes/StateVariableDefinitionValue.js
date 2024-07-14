@@ -8,11 +8,11 @@ export class StateVariableDefinitionValue extends SlangNode {
 
   value;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.equal = ast.equal.text;
-    this.value = parse(ast.value, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

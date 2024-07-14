@@ -14,18 +14,16 @@ export class ModifierDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.modifierKeyword = ast.modifierKeyword.text;
-    this.name = ast.name.text;
-    if (ast.parameters) {
-      this.parameters = parse(ast.parameters, this.nextChildOffset);
-    } else {
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    if (typeof this.parameters === 'undefined') {
       const parametersLoc = {
-        startWithTrivia: this.loc.childrenOffsets[0],
-        start: this.loc.childrenOffsets[0],
-        endWithTrivia: this.loc.childrenOffsets[0],
-        end: this.loc.childrenOffsets[0]
+        startWithTrivia: this.attributes.loc.startWithTrivia,
+        start: this.attributes.loc.startWithTrivia,
+        endWithTrivia: this.attributes.loc.startWithTrivia,
+        end: this.attributes.loc.startWithTrivia
       };
       this.parameters = new ParametersDeclaration({
         kind: 'ParametersDeclaration',
@@ -40,9 +38,7 @@ export class ModifierDefinition extends SlangNode {
         closeParen: ')'
       });
     }
-    this.attributes = parse(ast.attributes, this.nextChildOffset);
-    this.body = parse(ast.body, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

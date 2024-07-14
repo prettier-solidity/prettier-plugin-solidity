@@ -5,11 +5,11 @@ export class ExperimentalPragma extends SlangNode {
 
   feature;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.experimentalKeyword = ast.experimentalKeyword.text;
-    this.feature = parse(ast.feature, this.nextChildOffset);
-    this.initiateLoc(ast);
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
+    this.initializeLoc(ast);
   }
 
   print(path, print) {

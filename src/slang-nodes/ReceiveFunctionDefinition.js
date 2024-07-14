@@ -10,15 +10,12 @@ export class ReceiveFunctionDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, options, parse) {
+  constructor(ast, offset, parse) {
     super(ast, offset);
-    this.receiveKeyword = ast.receiveKeyword.text;
-    this.parameters = parse(ast.parameters, this.nextChildOffset);
-    this.attributes = parse(ast.attributes, this.nextChildOffset);
-    this.body = parse(ast.body, this.nextChildOffset);
-
+    this.initializeChildrenKeys();
+    this.parseChildrenNodes(ast, parse);
     this.cleanModifierInvocationArguments();
-    this.initiateLoc(ast);
+    this.initializeLoc(ast);
   }
 
   cleanModifierInvocationArguments() {
