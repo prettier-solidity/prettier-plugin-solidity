@@ -5,8 +5,8 @@ export class HexNumberExpression extends SlangNode {
 
   unit;
 
-  constructor(ast, offset, parse) {
-    super(ast, offset);
+  constructor(ast, offset, comments, parse) {
+    super(ast, offset, comments);
     this.initialize(ast, parse);
     this.finalize(ast);
   }

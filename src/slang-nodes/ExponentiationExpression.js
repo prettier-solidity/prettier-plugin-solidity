@@ -26,8 +26,8 @@ export class ExponentiationExpression extends SlangNode {
 
   rightOperand;
 
-  constructor(ast, offset, parse, options) {
-    super(ast, offset);
+  constructor(ast, offset, comments, parse, options) {
+    super(ast, offset, comments);
     if (offset) {
       this.initialize(ast, parse);
 
