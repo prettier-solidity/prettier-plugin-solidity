@@ -13,8 +13,8 @@ export class MultiplicativeExpression extends SlangNode {
 
   rightOperand;
 
-  constructor(ast, offset, parse) {
-    super(ast, offset);
+  constructor(ast, offset, comments, parse) {
+    super(ast, offset, comments);
     this.initialize(ast, parse);
 
     switch (this.operator) {

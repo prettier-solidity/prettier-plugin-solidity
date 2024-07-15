@@ -1,9 +1,7 @@
 import { isComment } from '../slang-utils/is-comment.js';
 import { Loc } from '../slang-utils/loc.js';
 
-const comments = [];
-
-function getOffsets(children, initialOffset) {
+function getOffsets(children, initialOffset, comments) {
   let offset = initialOffset;
 
   const offsets = children.reduce((offsetsArray, child) => {
@@ -66,14 +64,14 @@ export class SlangNode {
 
   comments = [];
 
-  constructor(ast, offset) {
+  constructor(ast, offset, comments) {
     if (typeof offset === 'undefined') return;
     const children = ast.cst.children();
     this.kind = ast.cst.kind;
     this.loc = new Loc({
       startWithTrivia: offset,
       endWithTrivia: offset + ast.cst.textLength.utf8,
-      childrenOffsets: getOffsets(children, offset)
+      childrenOffsets: getOffsets(children, offset, comments)
     });
   }
 
@@ -143,9 +141,5 @@ export class SlangNode {
     }
     this.loc.start = this.loc.startWithTrivia + leadingOffset;
     this.loc.end = this.loc.endWithTrivia - trailingOffset;
-  }
-
-  collectComments() {
-    this.comments = comments.splice(0);
   }
 }

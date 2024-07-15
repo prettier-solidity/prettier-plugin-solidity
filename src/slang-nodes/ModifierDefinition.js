@@ -15,8 +15,8 @@ export class ModifierDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, parse) {
-    super(ast, offset);
+  constructor(ast, offset, comments, parse) {
+    super(ast, offset, comments);
     this.initialize(ast, parse);
     if (typeof this.parameters === 'undefined') {
       const parametersLoc = {

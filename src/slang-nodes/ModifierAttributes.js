@@ -7,8 +7,8 @@ const { line } = doc.builders;
 export class ModifierAttributes extends SlangNode {
   items;
 
-  constructor(ast, offset, parse) {
-    super(ast, offset);
+  constructor(ast, offset, comments, parse) {
+    super(ast, offset, comments);
     this.initialize(ast, parse);
     this.items = this.items.sort(sortFunctionAttributes);
     this.finalize(ast);
