@@ -1,6 +1,6 @@
 import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
-import { createKindCheckFunction } from '../common/slang-helpers.js';
+import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 
 const { group, indent, line } = doc.builders;
 

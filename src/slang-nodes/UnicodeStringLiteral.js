@@ -1,4 +1,4 @@
-import { printString } from '../common/util.js';
+import { printString } from '../slang-printers/print-string.js';
 import { SlangNode } from './SlangNode.js';
 
 export class UnicodeStringLiteral extends SlangNode {

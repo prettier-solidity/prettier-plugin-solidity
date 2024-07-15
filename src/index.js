@@ -7,7 +7,7 @@ import parse from './parser.js';
 import print from './printer.js';
 import slangParse from './slangParser.js';
 import slangPrint from './slangPrinter.js';
-import { isComment, isBlockComment } from './common/slang-helpers.js';
+import { isComment, isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
 const parserName = 'slang';

@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
-import { binaryOperationPrintBuilder } from '../common/slang-helpers.js';
+import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { Loc } from '../slang-utils/loc.js';
 import { SlangNode } from './SlangNode.js';
@@ -14,7 +14,7 @@ const { group, indent } = doc.builders;
 
 const tryToHug = createHugFunction(['**']);
 
-const exponentiationExpressionPrint = binaryOperationPrintBuilder(
+const printExponentiationExpression = createBinaryOperationPrinter(
   () => (document) => group(document), // always group
   () => (document) => indent(document) // always indent
 );
@@ -98,6 +98,6 @@ export class ExponentiationExpression extends SlangNode {
   }
 
   print(path, print, options) {
-    return exponentiationExpressionPrint({ node: this, path, print, options });
+    return printExponentiationExpression({ node: this, path, print, options });
   }
 }

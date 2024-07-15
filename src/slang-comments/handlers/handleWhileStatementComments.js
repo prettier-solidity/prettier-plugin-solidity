@@ -1,6 +1,6 @@
 import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../common/backward-compatibility.js';
-import { locEnd } from '../../common/slang-helpers.js';
+import { locEnd } from '../../slang-utils/loc.js';
 
 const { addTrailingComment } = util;
 

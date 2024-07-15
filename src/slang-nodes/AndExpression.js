@@ -1,4 +1,4 @@
-import { logicalOperationPrint } from '../common/slang-helpers.js';
+import { printLogicalOperation } from '../slang-printers/print-logical-operation.js';
 import { SlangNode } from './SlangNode.js';
 
 export class AndExpression extends SlangNode {
@@ -15,6 +15,6 @@ export class AndExpression extends SlangNode {
   }
 
   print(path, print, options) {
-    return logicalOperationPrint({ node: this, path, print, options });
+    return printLogicalOperation({ node: this, path, print, options });
   }
 }

@@ -1,4 +1,4 @@
-import { printFunction } from '../common/slang-helpers.js';
+import { printFunction } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { Parameters } from './Parameters.js';

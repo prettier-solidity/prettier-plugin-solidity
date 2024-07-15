@@ -1,6 +1,6 @@
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
-import { printFunction } from '../common/slang-helpers.js';
+import { printFunction } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 
 export class FunctionDefinition extends SlangNode {

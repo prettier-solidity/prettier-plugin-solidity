@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { isBinaryOperation } from '../common/slang-helpers.js';
+import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { SlangNode } from './SlangNode.js';
 
 const { group, indent, line } = doc.builders;

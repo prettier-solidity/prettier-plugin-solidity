@@ -1,8 +1,6 @@
 import * as nodes from './slang-nodes/index.js';
-import {
-  prettierVersionSatisfies
-} from './common/util.js';
-import { hasNodeIgnoreComment } from './common/slang-helpers.js';
+import { prettierVersionSatisfies } from './common/util.js';
+import { isBlockComment } from './slang-utils/is-comment.js';
 import ignoreComments from './comments/ignore.js';
 
 let checked = false;
@@ -15,6 +13,18 @@ function prettierVersionCheck() {
     );
   }
   checked = true;
+}
+
+function hasNodeIgnoreComment(node) {
+  return (
+    node?.comments &&
+    node.comments.some(
+      (comment) =>
+        comment.value
+          .slice(2, isBlockComment(comment) ? -2 : undefined)
+          .trim() === 'prettier-ignore'
+    )
+  );
 }
 
 function genericPrint(path, options, print) {

@@ -1,4 +1,4 @@
-import { logicalOperationPrint } from '../common/slang-helpers.js';
+import { printLogicalOperation } from '../slang-printers/print-logical-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { SlangNode } from './SlangNode.js';
 
@@ -20,6 +20,6 @@ export class OrExpression extends SlangNode {
   }
 
   print(path, print, options) {
-    return logicalOperationPrint({ node: this, path, print, options });
+    return printLogicalOperation({ node: this, path, print, options });
   }
 }

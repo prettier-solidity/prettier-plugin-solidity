@@ -8,7 +8,7 @@ import {
 const { group, indent, join, line, softline, hardline } = doc.builders;
 
 export const printComments = (node, path, options, filter = () => true) => {
-  if (!node.comments) return '';
+  if (!node.comments) return [];
   const document = join(
     line,
     path

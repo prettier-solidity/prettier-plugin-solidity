@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { isBlockComment, isLineComment } from '../common/slang-helpers.js';
+import { isBlockComment, isLineComment } from '../slang-utils/is-comment.js';
 
 const { hardline, join, literalline } = doc.builders;
 
