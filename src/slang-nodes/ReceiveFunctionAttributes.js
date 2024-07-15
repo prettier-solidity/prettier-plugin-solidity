@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { sortFunctionAttributes } from '../common/slang-helpers.js';
+import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
 import { SlangNode } from './SlangNode.js';
 
 const { line } = doc.builders;

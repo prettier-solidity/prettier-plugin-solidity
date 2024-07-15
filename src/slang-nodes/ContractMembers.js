@@ -1,9 +1,7 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
-import {
-  printComments,
-  printPreservingEmptyLines
-} from '../common/slang-helpers.js';
+import { printComments } from '../slang-printers/print-comments.js';
+import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
 import { SlangNode } from './SlangNode.js';
 
 const { hardline } = doc.builders;

@@ -1,6 +1,6 @@
 import { doc } from 'prettier';
 import { isLabel } from '../common/util.js';
-import { createKindCheckFunction } from '../common/slang-helpers.js';
+import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { SlangNode } from './SlangNode.js';
 
 const { group, indent, label, softline } = doc.builders;

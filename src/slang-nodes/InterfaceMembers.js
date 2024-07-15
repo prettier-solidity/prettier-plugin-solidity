@@ -1,6 +1,6 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
-import { printPreservingEmptyLines } from '../common/slang-helpers.js';
+import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
 import { SlangNode } from './SlangNode.js';
 
 const { hardline } = doc.builders;

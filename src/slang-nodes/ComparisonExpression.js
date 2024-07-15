@@ -1,4 +1,4 @@
-import { comparisonOperationPrint } from '../common/slang-helpers.js';
+import { printComparisonOperation } from '../slang-printers/print-comparison-operation.js';
 import { SlangNode } from './SlangNode.js';
 
 export class ComparisonExpression extends SlangNode {
@@ -15,6 +15,6 @@ export class ComparisonExpression extends SlangNode {
   }
 
   print(path, print, options) {
-    return comparisonOperationPrint({ node: this, path, print, options });
+    return printComparisonOperation({ node: this, path, print, options });
   }
 }

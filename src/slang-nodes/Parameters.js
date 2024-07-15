@@ -2,7 +2,7 @@ import {
   printSeparatedItem,
   printSeparatedList
 } from '../common/printer-helpers.js';
-import { printComments } from '../common/slang-helpers.js';
+import { printComments } from '../slang-printers/print-comments.js';
 import { SlangNode } from './SlangNode.js';
 
 export class Parameters extends SlangNode {

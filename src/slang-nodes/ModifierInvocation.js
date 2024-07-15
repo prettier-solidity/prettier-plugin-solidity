@@ -1,4 +1,4 @@
-import { isComment } from '../common/slang-helpers.js';
+import { isComment } from '../slang-utils/is-comment.js';
 import { SlangNode } from './SlangNode.js';
 
 export class ModifierInvocation extends SlangNode {

@@ -1,4 +1,4 @@
-import { binaryOperationPrint } from '../common/slang-helpers.js';
+import { printBinaryOperation } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { SlangNode } from './SlangNode.js';
 
@@ -20,6 +20,6 @@ export class BitwiseAndExpression extends SlangNode {
   }
 
   print(path, print, options) {
-    return binaryOperationPrint({ node: this, path, print, options });
+    return printBinaryOperation({ node: this, path, print, options });
   }
 }

@@ -1,8 +1,8 @@
-import { isBinaryOperation } from '../common/slang-helpers.js';
 import { Expression } from '../slang-nodes/Expression.js';
 import { TupleExpression } from '../slang-nodes/TupleExpression.js';
 import { TupleValues } from '../slang-nodes/TupleValues.js';
 import { TupleValue } from '../slang-nodes/TupleValue.js';
+import { isBinaryOperation } from './is-binary-operation.js';
 
 export function createHugFunction(huggableOperators) {
   const operators = new Set(huggableOperators);
