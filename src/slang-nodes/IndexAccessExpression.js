@@ -16,10 +16,8 @@ export class IndexAccessExpression extends SlangNode {
   closeBracket;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.closeBracket = ast.closeBracket.text;
-    this.initialize(ast, parse);
-    this.finalize(ast);
+    super();
+    this.initialize(ast, offset, comments, parse);
   }
 
   print(path, print) {

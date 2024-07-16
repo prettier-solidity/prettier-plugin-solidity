@@ -9,10 +9,10 @@ export class ModifierInvocation extends SlangNode {
   arguments;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
+    super();
+    this.initialize(ast, offset, comments, parse);
+
     this.#ast = ast;
-    this.initialize(ast, parse);
-    this.finalize(ast);
   }
 
   cleanModifierInvocationArguments() {

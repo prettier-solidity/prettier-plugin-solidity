@@ -21,10 +21,10 @@ export class ContractDefinition extends SlangNode {
   closeBrace;
 
   constructor(ast, offset, comments, parse, options) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
+    super();
+    this.initialize(ast, offset, comments, parse);
+
     this.cleanModifierInvocationArguments(options);
-    this.finalize(ast);
   }
 
   cleanModifierInvocationArguments(options) {

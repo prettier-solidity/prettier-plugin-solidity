@@ -5,15 +5,15 @@ import { createKindCheckFunction } from '../slang-utils/create-kind-check-functi
 const { group, indent, line } = doc.builders;
 
 const isIfStatementOrBlock = createKindCheckFunction(['Block', 'IfStatement']);
+
 export class ElseBranch extends SlangNode {
   elseKeyword;
 
   body;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
-    this.finalize(ast);
+    super();
+    this.initialize(ast, offset, comments, parse);
   }
 
   print(path, print) {

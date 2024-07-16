@@ -6,9 +6,8 @@ export class ExpressionStatement extends SlangNode {
   semicolon;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
-    this.finalize(ast);
+    super();
+    this.initialize(ast, offset, comments, parse);
   }
 
   print(path, print) {

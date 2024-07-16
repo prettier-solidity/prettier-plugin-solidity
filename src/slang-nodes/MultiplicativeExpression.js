@@ -14,8 +14,8 @@ export class MultiplicativeExpression extends SlangNode {
   rightOperand;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
+    super();
+    this.initialize(ast, offset, comments, parse);
 
     switch (this.operator) {
       case '*':
@@ -30,8 +30,6 @@ export class MultiplicativeExpression extends SlangNode {
       default:
         break;
     }
-
-    this.finalize(ast);
   }
 
   print(path, print, options) {

@@ -2,7 +2,6 @@ import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { printComments } from '../slang-printers/print-comments.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
-
 import { SlangNode } from './SlangNode.js';
 
 const { hardline } = doc.builders;
@@ -11,9 +10,8 @@ export class Statements extends SlangNode {
   items;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
-    this.finalize(ast);
+    super();
+    this.initialize(ast, offset, comments, parse);
   }
 
   print(path, print, options) {
