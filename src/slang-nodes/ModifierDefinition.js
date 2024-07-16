@@ -2,7 +2,6 @@ import { printFunction } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { Parameters } from './Parameters.js';
-import { Loc } from '../slang-utils/loc.js';
 
 export class ModifierDefinition extends SlangNode {
   modifierKeyword;
@@ -20,17 +19,20 @@ export class ModifierDefinition extends SlangNode {
     this.initialize(ast, offset, comments, parse);
 
     if (typeof this.parameters === 'undefined') {
+      const parametersOffset = this.attributes.loc.startWithTrivia;
       const parametersLoc = {
-        startWithTrivia: this.attributes.loc.startWithTrivia,
-        endWithTrivia: this.attributes.loc.startWithTrivia
+        startWithTrivia: parametersOffset,
+        start: parametersOffset,
+        endWithTrivia: parametersOffset,
+        end: parametersOffset
       };
       this.parameters = new ParametersDeclaration({
         kind: 'ParametersDeclaration',
-        loc: new Loc(parametersLoc),
+        loc: { ...parametersLoc },
         openParen: '(',
         parameters: new Parameters({
           kind: 'Parameters',
-          loc: new Loc(parametersLoc),
+          loc: { ...parametersLoc },
           items: [],
           separators: []
         }),

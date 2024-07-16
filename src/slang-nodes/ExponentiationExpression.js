@@ -3,7 +3,6 @@ import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
 import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
-import { Loc } from '../slang-utils/loc.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { TupleExpression } from './TupleExpression.js';
@@ -51,24 +50,24 @@ export class ExponentiationExpression extends SlangNode {
             };
             this.leftOperand = new Expression({
               kind: 'Expression',
-              loc: new Loc(leftLoc),
+              loc: { ...leftLoc },
               variant: new TupleExpression({
                 kind: 'TupleExpression',
-                loc: new Loc(leftLoc),
+                loc: { ...leftLoc },
                 openParen: '(',
                 items: new TupleValues({
                   kind: 'TupleValues',
-                  loc: new Loc(leftLoc),
+                  loc: { ...leftLoc },
                   items: [
                     new TupleValue({
                       kind: 'TupleValue',
-                      loc: new Loc(leftLoc),
+                      loc: { ...leftLoc },
                       expression: new Expression({
                         kind: 'Expression',
-                        loc: new Loc(leftLoc),
+                        loc: { ...leftLoc },
                         variant: new ExponentiationExpression({
                           kind: 'ExponentiationExpression',
-                          loc: new Loc(leftLoc),
+                          loc: { ...leftLoc },
                           leftOperand: this.leftOperand,
                           operator: '**',
                           rightOperand: this.rightOperand.variant.leftOperand
