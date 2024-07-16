@@ -12,16 +12,20 @@ export class SlangNode {
   comments = [];
 
   initialize(ast, offset, comments, parse) {
-    const children = ast.cst.children();
-
     this.kind = ast.cst.kind;
 
-    const childrenOffsets = getChildrenOffsets(children, offset, comments);
+    // Collect comments and get children offsets.
+    const cstChildren = ast.cst.children();
+    const childrenOffsets = getChildrenOffsets(cstChildren, offset, comments);
 
-    const getValue = (astChild) =>
-      astChild.type === 'Terminal'
+    // populate all children nodes
+    // TODO: before moving to typescript, this should be moved to a fetch
+    // function that returns static typed classes.
+    function getValue(astChild) {
+      return astChild.type === 'Terminal'
         ? astChild.text
         : parse(astChild, childrenOffsets.shift());
+    }
 
     const childrenKeys = Object.keys(this).slice(3);
 
@@ -34,10 +38,11 @@ export class SlangNode {
       }
     });
 
+    // calculate correct loc object
     const startWithTrivia = offset;
     const endWithTrivia = offset + ast.cst.textLength.utf8;
-    let leadingOffset = getLeadingOffset(children);
-    let trailingOffset = getTrailingOffset(children);
+    let leadingOffset = getLeadingOffset(cstChildren);
+    let trailingOffset = getTrailingOffset(cstChildren);
 
     if (leadingOffset === 0 || trailingOffset === 0) {
       for (let i = 0; i < childrenKeys.length; i += 1) {
