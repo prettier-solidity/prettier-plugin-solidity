@@ -16,8 +16,9 @@ export class ModifierDefinition extends SlangNode {
   body;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
+    super();
+    this.initialize(ast, offset, comments, parse);
+
     if (typeof this.parameters === 'undefined') {
       const parametersLoc = {
         startWithTrivia: this.attributes.loc.startWithTrivia,
@@ -36,7 +37,6 @@ export class ModifierDefinition extends SlangNode {
         closeParen: ')'
       });
     }
-    this.finalize(ast);
   }
 
   print(path, print) {

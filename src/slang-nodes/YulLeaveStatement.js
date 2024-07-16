@@ -4,9 +4,8 @@ export class YulLeaveStatement extends SlangNode {
   leaveKeyword;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
-    this.finalize(ast);
+    super();
+    this.initialize(ast, offset, comments, parse);
   }
 
   // TODO: implement print

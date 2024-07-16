@@ -12,11 +12,11 @@ export class AdditiveExpression extends SlangNode {
   rightOperand;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
+    super();
+    this.initialize(ast, offset, comments, parse);
+
     this.leftOperand = tryToHug(this.leftOperand);
     this.rightOperand = tryToHug(this.rightOperand);
-    this.finalize(ast);
   }
 
   print(path, print, options) {

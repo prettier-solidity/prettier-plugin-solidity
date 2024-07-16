@@ -21,11 +21,11 @@ export class ShiftExpression extends SlangNode {
   rightOperand;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
+    super();
+    this.initialize(ast, offset, comments, parse);
+
     this.leftOperand = tryToHugLeftOperand(this.leftOperand);
     this.rightOperand = tryToHugRightOperand(this.rightOperand);
-    this.finalize(ast);
   }
 
   print(path, print, options) {

@@ -27,9 +27,9 @@ export class ExponentiationExpression extends SlangNode {
   rightOperand;
 
   constructor(ast, offset, comments, parse, options) {
-    super(ast, offset, comments);
+    super();
     if (offset) {
-      this.initialize(ast, parse);
+      this.initialize(ast, offset, comments, parse);
 
       const compiler = coerce(options.compiler);
       if (compiler) {
@@ -86,8 +86,6 @@ export class ExponentiationExpression extends SlangNode {
           this.leftOperand = tryToHug(this.leftOperand);
         }
       }
-
-      this.finalize(ast);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

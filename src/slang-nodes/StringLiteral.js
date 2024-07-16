@@ -5,10 +5,10 @@ export class StringLiteral extends SlangNode {
   variant;
 
   constructor(ast, offset, comments, parse, options) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
+    super();
+    this.initialize(ast, offset, comments, parse);
+
     this.variant = printString(this.variant.slice(1, -1), options);
-    this.finalize(ast);
   }
 
   print() {

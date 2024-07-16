@@ -11,10 +11,10 @@ export class ReceiveFunctionDefinition extends SlangNode {
   body;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
+    super();
+    this.initialize(ast, offset, comments, parse);
+
     this.cleanModifierInvocationArguments();
-    this.finalize(ast);
   }
 
   cleanModifierInvocationArguments() {

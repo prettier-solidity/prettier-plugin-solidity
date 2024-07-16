@@ -8,10 +8,10 @@ export class ReceiveFunctionAttributes extends SlangNode {
   items;
 
   constructor(ast, offset, comments, parse) {
-    super(ast, offset, comments);
-    this.initialize(ast, parse);
+    super();
+    this.initialize(ast, offset, comments, parse);
+
     this.items = this.items.sort(sortFunctionAttributes);
-    this.finalize(ast);
   }
 
   print(path, print) {

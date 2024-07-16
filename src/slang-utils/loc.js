@@ -1,6 +1,4 @@
 export class Loc {
-  childrenOffsets = [];
-
   startWithTrivia;
 
   start;
@@ -9,11 +7,7 @@ export class Loc {
 
   end;
 
-  constructor({ startWithTrivia, endWithTrivia, start, end, childrenOffsets }) {
-    if (typeof childrenOffsets !== 'undefined') {
-      this.childrenOffsets = childrenOffsets;
-    }
-
+  constructor({ startWithTrivia, endWithTrivia, start, end }) {
     this.startWithTrivia = startWithTrivia;
     this.endWithTrivia = endWithTrivia;
 
