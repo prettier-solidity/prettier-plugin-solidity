@@ -3,7 +3,6 @@ import { TupleExpression } from '../slang-nodes/TupleExpression.js';
 import { TupleValues } from '../slang-nodes/TupleValues.js';
 import { TupleValue } from '../slang-nodes/TupleValue.js';
 import { isBinaryOperation } from './is-binary-operation.js';
-import { Loc } from './loc.js';
 
 export function createHugFunction(huggableOperators) {
   const operators = new Set(huggableOperators);
@@ -21,18 +20,18 @@ export function createHugFunction(huggableOperators) {
 
       return new Expression({
         kind: 'Expression',
-        loc: new Loc(loc),
+        loc: { ...loc },
         variant: new TupleExpression({
           kind: 'TupleExpression',
-          loc: new Loc(loc),
+          loc: { ...loc },
           openParen: '(',
           items: new TupleValues({
             kind: 'TupleValues',
-            loc: new Loc(loc),
+            loc: { ...loc },
             items: [
               new TupleValue({
                 kind: 'TupleValue',
-                loc: new Loc(loc),
+                loc: { ...loc },
                 expression: node
               })
             ],

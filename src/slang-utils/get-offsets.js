@@ -1,5 +1,4 @@
 import { isComment } from './is-comment.js';
-import { Loc } from './loc.js';
 
 export function getChildrenOffsets(children, initialOffset, comments) {
   let offset = initialOffset;
@@ -16,10 +15,10 @@ export function getChildrenOffsets(children, initialOffset, comments) {
       comments.push({
         kind: child.kind,
         value: child.text,
-        loc: new Loc({
-          startWithTrivia: offset,
-          endWithTrivia: offset + child.textLength.utf8
-        })
+        loc: {
+          start: offset,
+          end: offset + child.textLength.utf8
+        }
       });
     }
 

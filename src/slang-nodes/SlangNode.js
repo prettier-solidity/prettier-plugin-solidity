@@ -1,4 +1,3 @@
-import { Loc } from '../slang-utils/loc.js';
 import {
   getChildrenOffsets,
   getLeadingOffset,
@@ -62,11 +61,11 @@ export class SlangNode {
       }
     }
 
-    this.loc = new Loc({
+    this.loc = {
       startWithTrivia,
       start: startWithTrivia + leadingOffset,
       endWithTrivia,
       end: endWithTrivia - trailingOffset
-    });
+    };
   }
 }
