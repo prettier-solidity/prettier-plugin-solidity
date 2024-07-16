@@ -2,8 +2,6 @@ import { isComment } from '../slang-utils/is-comment.js';
 import { SlangNode } from './SlangNode.js';
 
 export class ModifierInvocation extends SlangNode {
-  #ast;
-
   name;
 
   arguments;
@@ -12,20 +10,16 @@ export class ModifierInvocation extends SlangNode {
     super();
     this.initialize(ast, offset, comments, parse);
 
-    this.#ast = ast;
-  }
-
-  cleanModifierInvocationArguments() {
-    if (
-      this.arguments &&
-      this.arguments.variant.kind === 'PositionalArgumentsDeclaration' &&
-      this.arguments.variant.arguments.items.length === 0 && // no arguments
-      !this.#ast.arguments.variant.cst
-        .children()
-        .some((child) => isComment(child)) // no comments
-    ) {
-      this.arguments = undefined;
-    }
+    this.cleanModifierInvocationArguments = () => {
+      if (
+        this.arguments &&
+        this.arguments.variant.kind === 'PositionalArgumentsDeclaration' &&
+        this.arguments.variant.arguments.items.length === 0 && // no arguments
+        !ast.arguments.variant.cst.children().some((child) => isComment(child)) // no comments
+      ) {
+        this.arguments = undefined;
+      }
+    };
   }
 
   print(path, print) {
