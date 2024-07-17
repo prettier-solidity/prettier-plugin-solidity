@@ -1,6 +1,8 @@
 import { doc } from 'prettier';
 import { isLabel } from '../common/util.js';
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
+import { IndexAccessEnd } from './IndexAccessEnd.js';
 
 const { group, indent, indentIfBreak, label, softline } = doc.builders;
 
@@ -15,9 +17,41 @@ export class IndexAccessExpression extends SlangNode {
 
   closeBracket;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { operand, openBracket, start, end, closeBracket } = ast;
+      this.operand = new Expression(
+        operand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.openBracket = openBracket.text;
+      if (start) {
+        this.start = new Expression(
+          start,
+          childrenOffsets.shift(),
+          comments,
+          parse,
+          options
+        );
+      }
+      if (end) {
+        this.end = new IndexAccessEnd(
+          end,
+          childrenOffsets.shift(),
+          comments,
+          parse,
+          options
+        );
+      }
+      this.closeBracket = closeBracket.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

@@ -1,13 +1,27 @@
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
 
 export class PrefixExpression extends SlangNode {
   operator;
 
   operand;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { operator, operand } = ast;
+      this.operator = operator.text;
+      this.operand = new Expression(
+        operand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

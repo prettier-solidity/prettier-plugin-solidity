@@ -6,7 +6,13 @@ export class UnicodeStringLiteral extends SlangNode {
 
   constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = () => {
+      const { variant } = ast;
+      this.variant = variant.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
 
     this.variant = `unicode${printString(this.variant.slice(8, -1), options)}`;
   }

@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { YulParameters } from './YulParameters.js';
 
 export class YulParametersDeclaration extends SlangNode {
   openParen;
@@ -7,9 +8,23 @@ export class YulParametersDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { openParen, parameters, closeParen } = ast;
+      this.openParen = openParen.text;
+      this.parameters = new YulParameters(
+        parameters,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeParen = closeParen.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { EventParametersDeclaration } from './EventParametersDeclaration.js';
 
 export class EventDefinition extends SlangNode {
   eventKeyword;
@@ -11,9 +12,26 @@ export class EventDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { eventKeyword, name, parameters, anonymousKeyword, semicolon } =
+        ast;
+      this.eventKeyword = eventKeyword.text;
+      this.name = name.text;
+      this.parameters = new EventParametersDeclaration(
+        parameters,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.anonymousKeyword = anonymousKeyword?.text;
+      this.semicolon = semicolon.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

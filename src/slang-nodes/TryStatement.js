@@ -1,6 +1,10 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
+import { ReturnsDeclaration } from './ReturnsDeclaration.js';
+import { Block } from './Block.js';
+import { CatchClauses } from './CatchClauses.js';
 
 const { line } = doc.builders;
 
@@ -15,9 +19,45 @@ export class TryStatement extends SlangNode {
 
   catchClauses;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { tryKeyword, expression, returns, body, catchClauses } = ast;
+      this.tryKeyword = tryKeyword.text;
+      this.expression = new Expression(
+        expression,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      if (returns) {
+        this.returns = new ReturnsDeclaration(
+          returns,
+          childrenOffsets.shift(),
+          comments,
+          parse,
+          options
+        );
+      }
+      this.body = new Block(
+        body,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.catchClauses = new CatchClauses(
+        catchClauses,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

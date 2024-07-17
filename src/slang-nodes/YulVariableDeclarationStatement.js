@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.js';
 
 export class YulVariableDeclarationStatement extends SlangNode {
   letKeyword;
@@ -7,9 +8,25 @@ export class YulVariableDeclarationStatement extends SlangNode {
 
   value;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { letKeyword, names, value } = ast;
+      this.letKeyword = letKeyword.text;
+      this.names = names.text;
+      if (value) {
+        this.value = new YulVariableDeclarationValue(
+          value,
+          childrenOffsets.shift(),
+          comments,
+          parse,
+          options
+        );
+      }
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

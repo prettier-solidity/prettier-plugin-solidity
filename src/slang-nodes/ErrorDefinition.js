@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { ErrorParametersDeclaration } from './ErrorParametersDeclaration.js';
 
 export class ErrorDefinition extends SlangNode {
   errorKeyword;
@@ -9,9 +10,24 @@ export class ErrorDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { errorKeyword, name, members, semicolon } = ast;
+      this.errorKeyword = errorKeyword.text;
+      this.name = name.text;
+      this.members = new ErrorParametersDeclaration(
+        members,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.semicolon = semicolon.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

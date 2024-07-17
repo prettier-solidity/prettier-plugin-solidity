@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { AssemblyFlags } from './AssemblyFlags.js';
 
 export class AssemblyFlagsDeclaration extends SlangNode {
   openParen;
@@ -7,9 +8,23 @@ export class AssemblyFlagsDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { openParen, flags, closeParen } = ast;
+      this.openParen = openParen.text;
+      this.flags = new AssemblyFlags(
+        flags,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeParen = closeParen.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

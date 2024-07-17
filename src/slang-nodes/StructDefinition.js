@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { StructMembers } from './StructMembers.js';
 
 export class StructDefinition extends SlangNode {
   structKeyword;
@@ -11,9 +12,25 @@ export class StructDefinition extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { structKeyword, name, openBrace, members, closeBrace } = ast;
+      this.structKeyword = structKeyword.text;
+      this.name = name.text;
+      this.openBrace = openBrace.text;
+      this.members = new StructMembers(
+        members,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeBrace = closeBrace.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

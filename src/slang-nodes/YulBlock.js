@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { YulStatements } from './YulStatements.js';
 
 export class YulBlock extends SlangNode {
   openBrace;
@@ -7,9 +8,23 @@ export class YulBlock extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { openBrace, statements, closeBrace } = ast;
+      this.openBrace = openBrace.text;
+      this.statements = new YulStatements(
+        statements,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeBrace = closeBrace.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

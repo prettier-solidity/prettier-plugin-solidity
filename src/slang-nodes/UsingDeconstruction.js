@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { UsingDeconstructionSymbols } from './UsingDeconstructionSymbols.js';
 
 export class UsingDeconstruction extends SlangNode {
   openBrace;
@@ -7,9 +8,23 @@ export class UsingDeconstruction extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { openBrace, symbols, closeBrace } = ast;
+      this.openBrace = openBrace.text;
+      this.symbols = new UsingDeconstructionSymbols(
+        symbols,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeBrace = closeBrace.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

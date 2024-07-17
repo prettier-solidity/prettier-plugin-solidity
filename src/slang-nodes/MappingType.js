@@ -1,4 +1,6 @@
 import { SlangNode } from './SlangNode.js';
+import { MappingKey } from './MappingKey.js';
+import { MappingValue } from './MappingValue.js';
 
 export class MappingType extends SlangNode {
   mappingKeyword;
@@ -13,9 +15,39 @@ export class MappingType extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const {
+        mappingKeyword,
+        openParen,
+        keyType,
+        equalGreaterThan,
+        valueType,
+        closeParen
+      } = ast;
+      this.mappingKeyword = mappingKeyword.text;
+      this.openParen = openParen.text;
+      this.keyType = new MappingKey(
+        keyType,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.equalGreaterThan = equalGreaterThan.text;
+      this.valueType = new MappingValue(
+        valueType,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeParen = closeParen.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

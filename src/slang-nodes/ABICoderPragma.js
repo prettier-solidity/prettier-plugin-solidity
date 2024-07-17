@@ -7,7 +7,14 @@ export class ABICoderPragma extends SlangNode {
 
   constructor(ast, offset, comments, parse) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = () => {
+      const { abicoderKeyword, version } = ast;
+      this.abicoderKeyword = abicoderKeyword.text;
+      this.version = version.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print() {

@@ -1,4 +1,6 @@
 import { SlangNode } from './SlangNode.js';
+import { TypeName } from './TypeName.js';
+import { Expression } from './Expression.js';
 
 export class ArrayTypeName extends SlangNode {
   operand;
@@ -9,9 +11,32 @@ export class ArrayTypeName extends SlangNode {
 
   closeBracket;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { operand, openBracket, index, closeBracket } = ast;
+      this.operand = new TypeName(
+        operand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.openBracket = openBracket.text;
+      if (index) {
+        this.index = new Expression(
+          index,
+          childrenOffsets.shift(),
+          comments,
+          parse,
+          options
+        );
+      }
+      this.closeBracket = closeBracket.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

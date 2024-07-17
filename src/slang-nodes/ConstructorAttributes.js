@@ -1,15 +1,31 @@
 import { doc } from 'prettier';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
 import { SlangNode } from './SlangNode.js';
+import { ConstructorAttribute } from './ConstructorAttribute.js';
 
 const { line } = doc.builders;
 
 export class ConstructorAttributes extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { items } = ast;
+      this.items = items.map(
+        (item) =>
+          new ConstructorAttribute(
+            item,
+            childrenOffsets.shift(),
+            comments,
+            parse,
+            options
+          )
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

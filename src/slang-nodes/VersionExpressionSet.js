@@ -1,14 +1,30 @@
 import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
+import { VersionExpression } from './VersionExpression.js';
 
 const { join } = doc.builders;
 
 export class VersionExpressionSet extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { items } = ast;
+      this.items = items.map(
+        (item) =>
+          new VersionExpression(
+            item,
+            childrenOffsets.shift(),
+            comments,
+            parse,
+            options
+          )
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

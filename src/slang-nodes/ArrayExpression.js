@@ -1,5 +1,6 @@
 import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
+import { ArrayValues } from './ArrayValues.js';
 
 const { group } = doc.builders;
 
@@ -10,9 +11,23 @@ export class ArrayExpression extends SlangNode {
 
   closeBracket;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { openBracket, items, closeBracket } = ast;
+      this.openBracket = openBracket.text;
+      this.items = new ArrayValues(
+        items,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeBracket = closeBracket.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

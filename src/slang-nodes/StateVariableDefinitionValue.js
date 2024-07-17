@@ -1,5 +1,6 @@
 import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -8,9 +9,22 @@ export class StateVariableDefinitionValue extends SlangNode {
 
   value;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { equal, value } = ast;
+      this.equal = equal.text;
+      this.value = new Expression(
+        value,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

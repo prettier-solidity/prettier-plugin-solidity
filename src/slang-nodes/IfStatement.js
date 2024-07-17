@@ -1,6 +1,9 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
+import { Statement } from './Statement.js';
+import { ElseBranch } from './ElseBranch.js';
 
 const { group, hardline, indent, line } = doc.builders;
 
@@ -17,9 +20,41 @@ export class IfStatement extends SlangNode {
 
   elseBranch;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { ifKeyword, openParen, condition, closeParen, body, elseBranch } =
+        ast;
+      this.ifKeyword = ifKeyword.text;
+      this.openParen = openParen.text;
+      this.condition = new Expression(
+        condition,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeParen = closeParen.text;
+      this.body = new Statement(
+        body,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      if (elseBranch) {
+        this.elseBranch = new ElseBranch(
+          elseBranch,
+          childrenOffsets.shift(),
+          comments,
+          parse,
+          options
+        );
+      }
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

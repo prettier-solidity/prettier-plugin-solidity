@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { VersionExpression } from './VersionExpression.js';
 
 export class VersionRange extends SlangNode {
   leftOperand;
@@ -7,9 +8,29 @@ export class VersionRange extends SlangNode {
 
   rightOperand;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { leftOperand, operator, rightOperand } = ast;
+      this.leftOperand = new VersionExpression(
+        leftOperand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.operator = operator.text;
+      this.rightOperand = new VersionExpression(
+        rightOperand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   // TODO: implement print

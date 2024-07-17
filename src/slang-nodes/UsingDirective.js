@@ -1,4 +1,6 @@
 import { SlangNode } from './SlangNode.js';
+import { UsingClause } from './UsingClause.js';
+import { UsingTarget } from './UsingTarget.js';
 
 export class UsingDirective extends SlangNode {
   usingKeyword;
@@ -13,9 +15,39 @@ export class UsingDirective extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const {
+        usingKeyword,
+        clause,
+        forKeyword,
+        target,
+        globalKeyword,
+        semicolon
+      } = ast;
+      this.usingKeyword = usingKeyword.text;
+      this.clause = new UsingClause(
+        clause,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.forKeyword = forKeyword.text;
+      this.target = new UsingTarget(
+        target,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.globalKeyword = globalKeyword?.text;
+      this.semicolon = semicolon.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {
