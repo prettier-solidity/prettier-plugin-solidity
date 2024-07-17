@@ -56,7 +56,7 @@ export class ContractDefinition extends SlangNode {
       this.closeBrace = closeBrace.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     this.cleanModifierInvocationArguments(options);
   }

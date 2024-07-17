@@ -11,7 +11,7 @@ export class YulLeaveStatement extends SlangNode {
       this.leaveKeyword = leaveKeyword.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   // TODO: implement print

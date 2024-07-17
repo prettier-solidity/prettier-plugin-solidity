@@ -26,7 +26,7 @@ export class CatchClause extends SlangNode {
       this.body = new Block(body, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print(path, print) {

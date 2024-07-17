@@ -28,7 +28,7 @@ export class VersionRange extends SlangNode {
       );
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   // TODO: implement print

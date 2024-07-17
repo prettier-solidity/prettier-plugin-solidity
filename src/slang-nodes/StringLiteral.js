@@ -12,7 +12,7 @@ export class StringLiteral extends SlangNode {
       this.variant = variant.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     this.variant = printString(this.variant.slice(1, -1), options);
   }

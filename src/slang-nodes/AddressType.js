@@ -14,7 +14,7 @@ export class AddressType extends SlangNode {
       this.payableKeyword = payableKeyword?.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print() {

@@ -12,7 +12,7 @@ export class UnicodeStringLiteral extends SlangNode {
       this.variant = variant.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     this.variant = `unicode${printString(this.variant.slice(8, -1), options)}`;
   }

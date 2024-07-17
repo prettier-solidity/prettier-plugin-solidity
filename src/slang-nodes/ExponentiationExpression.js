@@ -45,7 +45,7 @@ export class ExponentiationExpression extends SlangNode {
         );
       };
 
-      this.initialize(ast, offset, comments, fetch);
+      this.initialize(ast, offset, fetch, comments);
 
       const compiler = coerce(options.compiler);
       if (compiler) {

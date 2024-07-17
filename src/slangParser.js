@@ -15,7 +15,7 @@ function createGenericParse(options, comments) {
 function parse(text, _parsers, options = _parsers) {
   const compiler = coerce(options.compiler);
 
-  const language = new Language(compiler?.version || '0.8.25');
+  const language = new Language(compiler?.version || '0.8.26');
   const ast = new SourceUnit(
     language.parse(NonterminalKind.SourceUnit, text).tree()
   );

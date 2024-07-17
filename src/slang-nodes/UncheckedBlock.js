@@ -15,7 +15,7 @@ export class UncheckedBlock extends SlangNode {
       this.block = new Block(block, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print(path, print) {

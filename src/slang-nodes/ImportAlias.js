@@ -14,7 +14,7 @@ export class ImportAlias extends SlangNode {
       this.identifier = identifier.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print() {

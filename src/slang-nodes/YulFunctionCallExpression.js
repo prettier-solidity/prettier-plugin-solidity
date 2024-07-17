@@ -32,7 +32,7 @@ export class YulFunctionCallExpression extends SlangNode {
       this.closeParen = closeParen.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print(path, print) {

@@ -14,7 +14,7 @@ export class ABICoderPragma extends SlangNode {
       this.version = version.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print() {

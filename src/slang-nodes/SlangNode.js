@@ -11,7 +11,7 @@ export class SlangNode {
 
   comments = [];
 
-  initialize(ast, offset, comments, fetch) {
+  initialize(ast, offset, fetch, comments) {
     this.kind = ast.cst.kind;
 
     // Collect comments and get children offsets.

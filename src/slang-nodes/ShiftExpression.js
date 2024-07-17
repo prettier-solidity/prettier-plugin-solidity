@@ -41,7 +41,7 @@ export class ShiftExpression extends SlangNode {
       );
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     this.leftOperand = tryToHugLeftOperand(this.leftOperand);
     this.rightOperand = tryToHugRightOperand(this.rightOperand);

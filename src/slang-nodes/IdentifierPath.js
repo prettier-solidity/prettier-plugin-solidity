@@ -14,7 +14,7 @@ export class IdentifierPath extends SlangNode {
       this.separators = separators.map((separator) => separator.text);
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print() {

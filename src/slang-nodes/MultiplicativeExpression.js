@@ -34,7 +34,7 @@ export class MultiplicativeExpression extends SlangNode {
       );
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     switch (this.operator) {
       case '*':

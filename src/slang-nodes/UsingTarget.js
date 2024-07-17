@@ -15,7 +15,7 @@ export class UsingTarget extends SlangNode {
           : new TypeName(variant, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print(path, print) {

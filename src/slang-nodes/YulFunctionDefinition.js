@@ -46,7 +46,7 @@ export class YulFunctionDefinition extends SlangNode {
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print(path, print) {

@@ -32,7 +32,7 @@ export class BitwiseXorExpression extends SlangNode {
       );
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     this.leftOperand = tryToHug(this.leftOperand);
     this.rightOperand = tryToHug(this.rightOperand);

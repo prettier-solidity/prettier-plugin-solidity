@@ -12,7 +12,7 @@ export class HexStringLiteral extends SlangNode {
       this.variant = variant.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     this.variant = `hex${printString(this.variant.slice(4, -1), options)}`;
   }

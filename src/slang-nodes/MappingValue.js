@@ -20,7 +20,7 @@ export class MappingValue extends SlangNode {
       this.name = name?.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print(path, print) {

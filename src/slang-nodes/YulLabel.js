@@ -17,7 +17,7 @@ export class YulLabel extends SlangNode {
       this.colon = colon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print() {
