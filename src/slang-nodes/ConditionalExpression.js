@@ -124,7 +124,7 @@ export class ConditionalExpression extends SlangNode {
       );
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     // TODO: while the behaviour is not stable, it should be behind the
     // experimentalTernaries flag.

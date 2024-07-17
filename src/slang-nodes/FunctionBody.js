@@ -15,7 +15,7 @@ export class FunctionBody extends SlangNode {
           : new Block(variant, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print(path, print) {

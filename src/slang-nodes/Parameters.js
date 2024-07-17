@@ -23,7 +23,7 @@ export class Parameters extends SlangNode {
         this.separators = separators.map((separator) => separator.text);
       };
 
-      this.initialize(ast, offset, comments, fetch);
+      this.initialize(ast, offset, fetch, comments);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

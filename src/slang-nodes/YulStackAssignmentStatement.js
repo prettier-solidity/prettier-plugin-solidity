@@ -28,7 +28,7 @@ export class YulStackAssignmentStatement extends SlangNode {
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   // TODO: implement print

@@ -11,7 +11,7 @@ export class YulBreakStatement extends SlangNode {
       this.breakKeyword = breakKeyword.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print() {

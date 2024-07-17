@@ -53,7 +53,7 @@ export class DoWhileStatement extends SlangNode {
       this.semicolon = semicolon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print(path, print) {

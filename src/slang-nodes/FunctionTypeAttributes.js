@@ -24,7 +24,7 @@ export class FunctionTypeAttributes extends SlangNode {
       );
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

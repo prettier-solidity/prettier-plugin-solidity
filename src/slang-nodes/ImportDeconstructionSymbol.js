@@ -18,7 +18,7 @@ export class ImportDeconstructionSymbol extends SlangNode {
           : new ImportAlias(alias, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print(path, print) {

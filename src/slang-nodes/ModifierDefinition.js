@@ -45,7 +45,7 @@ export class ModifierDefinition extends SlangNode {
       );
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
 
     if (typeof this.parameters === 'undefined') {
       const parametersOffset = this.attributes.loc.startWithTrivia;

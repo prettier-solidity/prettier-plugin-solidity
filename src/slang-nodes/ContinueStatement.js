@@ -14,7 +14,7 @@ export class ContinueStatement extends SlangNode {
       this.semicolon = semicolon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print() {

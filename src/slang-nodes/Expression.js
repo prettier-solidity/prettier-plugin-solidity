@@ -76,7 +76,7 @@ export class Expression extends SlangNode {
               );
       };
 
-      this.initialize(ast, offset, comments, fetch);
+      this.initialize(ast, offset, fetch, comments);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

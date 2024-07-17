@@ -11,7 +11,7 @@ export class YulPathComponent extends SlangNode {
       this.variant = variant.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, fetch, comments);
   }
 
   print() {
