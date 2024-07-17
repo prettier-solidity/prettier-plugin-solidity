@@ -6,13 +6,12 @@ export class YulPaths extends SlangNode {
 
   separators;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       items: ast.items.map(
-        (item) =>
-          new YulPath(item, childrenOffsets.shift(), comments, parse, options)
+        (item) => new YulPath(item, childrenOffsets.shift(), comments, options)
       ),
       separators: ast.separators.map((separator) => separator.text)
     });

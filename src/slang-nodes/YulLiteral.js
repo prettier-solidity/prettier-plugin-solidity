@@ -7,7 +7,7 @@ const variants = { HexStringLiteral, StringLiteral };
 export class YulLiteral extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -18,7 +18,6 @@ export class YulLiteral extends SlangNode {
               ast.variant,
               childrenOffsets.shift(),
               comments,
-              parse,
               options
             )
     });

@@ -32,7 +32,7 @@ const variants = {
 export class YulStatement extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -40,7 +40,6 @@ export class YulStatement extends SlangNode {
         ast.variant,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       )
     });

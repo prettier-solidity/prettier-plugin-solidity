@@ -7,19 +7,13 @@ const { hardline, join } = doc.builders;
 export class YulSwitchCases extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       items: ast.items.map(
         (item) =>
-          new YulSwitchCase(
-            item,
-            childrenOffsets.shift(),
-            comments,
-            parse,
-            options
-          )
+          new YulSwitchCase(item, childrenOffsets.shift(), comments, options)
       )
     });
 

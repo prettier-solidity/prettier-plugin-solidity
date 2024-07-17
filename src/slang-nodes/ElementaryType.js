@@ -6,6 +6,7 @@ export class ElementaryType extends SlangNode {
 
   constructor(ast, offset, comments, options) {
     super();
+
     const fetch = (childrenOffsets) => ({
       variant:
         ast.variant.type === 'Terminal'

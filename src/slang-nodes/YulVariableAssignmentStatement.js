@@ -10,7 +10,7 @@ export class YulVariableAssignmentStatement extends SlangNode {
 
   expression;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -18,21 +18,18 @@ export class YulVariableAssignmentStatement extends SlangNode {
         ast.names,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       ),
       assignment: new YulAssignmentOperator(
         ast.assignment,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       ),
       expression: new YulExpression(
         ast.expression,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       )
     });

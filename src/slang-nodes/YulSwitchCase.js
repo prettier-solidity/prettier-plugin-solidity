@@ -6,7 +6,7 @@ const variants = { YulDefaultCase, YulValueCase };
 export class YulSwitchCase extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -14,7 +14,6 @@ export class YulSwitchCase extends SlangNode {
         ast.variant,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       )
     });

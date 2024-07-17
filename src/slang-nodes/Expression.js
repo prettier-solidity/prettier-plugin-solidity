@@ -62,6 +62,7 @@ export class Expression extends SlangNode {
 
   constructor(ast, offset, comments, options) {
     super();
+
     if (offset) {
       const fetch = (childrenOffsets) => ({
         variant:
