@@ -5,7 +5,7 @@ export class BreakStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments) {
     super();
 
     const fetch = () => {
@@ -14,7 +14,7 @@ export class BreakStatement extends SlangNode {
       this.semicolon = semicolon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print() {

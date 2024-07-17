@@ -8,7 +8,7 @@ export class EventParameter extends SlangNode {
 
   name;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -17,14 +17,13 @@ export class EventParameter extends SlangNode {
         typeName,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.indexedKeyword = indexedKeyword?.text;
       this.name = name?.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

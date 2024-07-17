@@ -114,7 +114,7 @@ export class MemberAccessExpression extends SlangNode {
 
   member;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -123,7 +123,6 @@ export class MemberAccessExpression extends SlangNode {
         operand,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.period = period.text;
@@ -131,12 +130,11 @@ export class MemberAccessExpression extends SlangNode {
         member,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

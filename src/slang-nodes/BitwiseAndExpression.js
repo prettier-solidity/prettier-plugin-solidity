@@ -12,7 +12,7 @@ export class BitwiseAndExpression extends SlangNode {
 
   rightOperand;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -21,7 +21,6 @@ export class BitwiseAndExpression extends SlangNode {
         leftOperand,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.operator = operator.text;
@@ -29,12 +28,11 @@ export class BitwiseAndExpression extends SlangNode {
         rightOperand,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
 
     this.leftOperand = tryToHug(this.leftOperand);
     this.rightOperand = tryToHug(this.rightOperand);

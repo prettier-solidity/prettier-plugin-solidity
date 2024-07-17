@@ -7,25 +7,19 @@ export class AssemblyFlags extends SlangNode {
 
   separators;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
       const { items, separators } = ast;
       this.items = items.map(
         (item) =>
-          new StringLiteral(
-            item,
-            childrenOffsets.shift(),
-            comments,
-            parse,
-            options
-          )
+          new StringLiteral(item, childrenOffsets.shift(), comments, options)
       );
       this.separators = separators.map((separator) => separator.text);
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

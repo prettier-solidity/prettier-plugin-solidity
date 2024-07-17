@@ -16,7 +16,7 @@ const variants = {
 export class StringExpression extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
     const fetch = (childrenOffsets) => {
       const { variant } = ast;
@@ -24,12 +24,11 @@ export class StringExpression extends SlangNode {
         variant,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

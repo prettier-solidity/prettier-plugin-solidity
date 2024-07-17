@@ -4,7 +4,7 @@ import { SlangNode } from './SlangNode.js';
 export class HexStringLiteral extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = () => {
@@ -12,7 +12,7 @@ export class HexStringLiteral extends SlangNode {
       this.variant = variant.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
 
     this.variant = `hex${printString(this.variant.slice(4, -1), options)}`;
   }

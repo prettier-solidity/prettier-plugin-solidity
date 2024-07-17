@@ -20,7 +20,7 @@ export class IfStatement extends SlangNode {
 
   elseBranch;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -32,7 +32,6 @@ export class IfStatement extends SlangNode {
         condition,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.closeParen = closeParen.text;
@@ -40,7 +39,6 @@ export class IfStatement extends SlangNode {
         body,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       if (elseBranch) {
@@ -48,13 +46,12 @@ export class IfStatement extends SlangNode {
           elseBranch,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

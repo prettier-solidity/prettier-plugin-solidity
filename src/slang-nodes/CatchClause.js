@@ -9,7 +9,7 @@ export class CatchClause extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -20,20 +20,13 @@ export class CatchClause extends SlangNode {
           error,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
-      this.body = new Block(
-        body,
-        childrenOffsets.shift(),
-        comments,
-        parse,
-        options
-      );
+      this.body = new Block(body, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

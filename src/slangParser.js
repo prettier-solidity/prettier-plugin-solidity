@@ -8,13 +8,7 @@ import * as parsers from './slang-nodes/index.js';
 
 function createGenericParse(options, comments) {
   return function genericParse(ast, offset = 0) {
-    return new parsers[ast.cst.kind](
-      ast,
-      offset,
-      comments,
-      genericParse,
-      options
-    );
+    return new parsers[ast.cst.kind](ast, offset, comments, options);
   };
 }
 

@@ -11,7 +11,7 @@ export class RevertStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -22,7 +22,6 @@ export class RevertStatement extends SlangNode {
           error,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
@@ -30,13 +29,12 @@ export class RevertStatement extends SlangNode {
         ast.arguments,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.semicolon = semicolon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

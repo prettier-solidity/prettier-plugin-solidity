@@ -7,24 +7,18 @@ const { join } = doc.builders;
 export class CatchClauses extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
       const { items } = ast;
       this.items = items.map(
         (item) =>
-          new CatchClause(
-            item,
-            childrenOffsets.shift(),
-            comments,
-            parse,
-            options
-          )
+          new CatchClause(item, childrenOffsets.shift(), comments, options)
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

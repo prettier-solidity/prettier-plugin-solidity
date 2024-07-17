@@ -13,7 +13,7 @@ export class UnnamedFunctionDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -23,26 +23,23 @@ export class UnnamedFunctionDefinition extends SlangNode {
         parameters,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.attributes = new UnnamedFunctionAttributes(
         attributes,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.body = new FunctionBody(
         body,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
 
     this.cleanModifierInvocationArguments();
   }

@@ -25,7 +25,7 @@ export class ExponentiationExpression extends SlangNode {
 
   rightOperand;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
     if (offset) {
       const fetch = (childrenOffsets) => {
@@ -34,7 +34,6 @@ export class ExponentiationExpression extends SlangNode {
           leftOperand,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
         this.operator = operator.text;
@@ -42,12 +41,11 @@ export class ExponentiationExpression extends SlangNode {
           rightOperand,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       };
 
-      this.initialize(ast, offset, comments, fetch, parse);
+      this.initialize(ast, offset, comments, fetch);
 
       const compiler = coerce(options.compiler);
       if (compiler) {

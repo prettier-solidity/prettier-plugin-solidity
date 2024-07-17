@@ -8,7 +8,7 @@ export class TupleExpression extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
     if (offset) {
       const fetch = (childrenOffsets) => {
@@ -18,13 +18,12 @@ export class TupleExpression extends SlangNode {
           items,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
         this.closeParen = closeParen.text;
       };
 
-      this.initialize(ast, offset, comments, fetch, parse);
+      this.initialize(ast, offset, comments, fetch);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

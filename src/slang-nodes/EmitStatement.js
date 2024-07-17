@@ -11,7 +11,7 @@ export class EmitStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -21,20 +21,18 @@ export class EmitStatement extends SlangNode {
         event,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.arguments = new ArgumentsDeclaration(
         ast.arguments,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.semicolon = semicolon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

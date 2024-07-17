@@ -7,7 +7,7 @@ export class PathImport extends SlangNode {
 
   alias;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -16,22 +16,15 @@ export class PathImport extends SlangNode {
         path,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.alias =
         typeof alias === 'undefined'
           ? undefined
-          : new ImportAlias(
-              alias,
-              childrenOffsets.shift(),
-              comments,
-              parse,
-              options
-            );
+          : new ImportAlias(alias, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

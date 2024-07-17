@@ -17,7 +17,7 @@ export class VariableDeclarationStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -26,7 +26,6 @@ export class VariableDeclarationStatement extends SlangNode {
         variableType,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       if (storageLocation) {
@@ -34,7 +33,6 @@ export class VariableDeclarationStatement extends SlangNode {
           storageLocation,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
@@ -44,14 +42,13 @@ export class VariableDeclarationStatement extends SlangNode {
           value,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
       this.semicolon = semicolon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

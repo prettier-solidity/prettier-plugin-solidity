@@ -6,7 +6,7 @@ export class ImportDeconstructionSymbol extends SlangNode {
 
   alias;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -15,16 +15,10 @@ export class ImportDeconstructionSymbol extends SlangNode {
       this.alias =
         typeof alias === 'undefined'
           ? undefined
-          : new ImportAlias(
-              alias,
-              childrenOffsets.shift(),
-              comments,
-              parse,
-              options
-            );
+          : new ImportAlias(alias, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {
