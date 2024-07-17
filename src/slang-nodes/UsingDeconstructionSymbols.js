@@ -10,7 +10,7 @@ export class UsingDeconstructionSymbols extends SlangNode {
 
   separators;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -21,14 +21,13 @@ export class UsingDeconstructionSymbols extends SlangNode {
             item,
             childrenOffsets.shift(),
             comments,
-            parse,
             options
           )
       );
       this.separators = separators.map((separator) => separator.text);
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print, options) {

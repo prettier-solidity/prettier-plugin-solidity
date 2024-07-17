@@ -8,7 +8,7 @@ const { line } = doc.builders;
 export class ReceiveFunctionAttributes extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -19,13 +19,12 @@ export class ReceiveFunctionAttributes extends SlangNode {
             item,
             childrenOffsets.shift(),
             comments,
-            parse,
             options
           )
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

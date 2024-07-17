@@ -8,7 +8,7 @@ export class ModifierInvocation extends SlangNode {
 
   arguments;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -17,7 +17,6 @@ export class ModifierInvocation extends SlangNode {
         name,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       if (ast.arguments) {
@@ -25,13 +24,12 @@ export class ModifierInvocation extends SlangNode {
           ast.arguments,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
 
     this.cleanModifierInvocationArguments = () => {
       if (

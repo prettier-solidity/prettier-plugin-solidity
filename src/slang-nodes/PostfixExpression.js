@@ -6,7 +6,7 @@ export class PostfixExpression extends SlangNode {
 
   operator;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -15,13 +15,12 @@ export class PostfixExpression extends SlangNode {
         operand,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.operator = operator.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

@@ -12,7 +12,7 @@ export class AssemblyStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -23,7 +23,6 @@ export class AssemblyStatement extends SlangNode {
           label,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
@@ -32,7 +31,6 @@ export class AssemblyStatement extends SlangNode {
           flags,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
@@ -40,12 +38,11 @@ export class AssemblyStatement extends SlangNode {
         body,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

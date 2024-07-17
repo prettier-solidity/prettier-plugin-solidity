@@ -5,7 +5,7 @@ export class IdentifierPath extends SlangNode {
 
   separators;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments) {
     super();
 
     const fetch = () => {
@@ -14,7 +14,7 @@ export class IdentifierPath extends SlangNode {
       this.separators = separators.map((separator) => separator.text);
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print() {

@@ -32,7 +32,7 @@ const variants = {
 export class ContractMember extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -41,12 +41,11 @@ export class ContractMember extends SlangNode {
         variant,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

@@ -10,7 +10,7 @@ export class TypeExpression extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -21,13 +21,12 @@ export class TypeExpression extends SlangNode {
         typeName,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.closeParen = closeParen.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   // TODO: implement print

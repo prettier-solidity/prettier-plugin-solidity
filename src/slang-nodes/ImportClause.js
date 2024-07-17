@@ -8,7 +8,7 @@ const variants = { PathImport, NamedImport, ImportDeconstruction };
 export class ImportClause extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -17,12 +17,11 @@ export class ImportClause extends SlangNode {
         variant,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

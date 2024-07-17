@@ -12,7 +12,7 @@ export class EventDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -24,14 +24,13 @@ export class EventDefinition extends SlangNode {
         parameters,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.anonymousKeyword = anonymousKeyword?.text;
       this.semicolon = semicolon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

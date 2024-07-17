@@ -23,7 +23,7 @@ export class ForStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -42,14 +42,12 @@ export class ForStatement extends SlangNode {
         initialization,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.condition = new ForStatementCondition(
         condition,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       if (iterator) {
@@ -57,7 +55,6 @@ export class ForStatement extends SlangNode {
           iterator,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
@@ -66,12 +63,11 @@ export class ForStatement extends SlangNode {
         body,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

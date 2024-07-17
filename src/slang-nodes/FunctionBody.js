@@ -4,7 +4,7 @@ import { Block } from './Block.js';
 export class FunctionBody extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -12,16 +12,10 @@ export class FunctionBody extends SlangNode {
       this.variant =
         variant.type === 'Terminal'
           ? variant.text
-          : new Block(
-              variant,
-              childrenOffsets.shift(),
-              comments,
-              parse,
-              options
-            );
+          : new Block(variant, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

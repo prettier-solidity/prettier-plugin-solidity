@@ -17,7 +17,7 @@ export class IndexAccessExpression extends SlangNode {
 
   closeBracket;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -26,7 +26,6 @@ export class IndexAccessExpression extends SlangNode {
         operand,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.openBracket = openBracket.text;
@@ -35,7 +34,6 @@ export class IndexAccessExpression extends SlangNode {
           start,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
@@ -44,14 +42,13 @@ export class IndexAccessExpression extends SlangNode {
           end,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
       this.closeBracket = closeBracket.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

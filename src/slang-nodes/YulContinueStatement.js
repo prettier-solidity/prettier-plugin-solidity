@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 export class YulContinueStatement extends SlangNode {
   continueKeyword;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments) {
     super();
 
     const fetch = () => {
@@ -11,7 +11,7 @@ export class YulContinueStatement extends SlangNode {
       this.continueKeyword = continueKeyword.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print() {

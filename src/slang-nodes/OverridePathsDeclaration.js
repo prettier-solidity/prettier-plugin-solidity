@@ -8,7 +8,7 @@ export class OverridePathsDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -18,13 +18,12 @@ export class OverridePathsDeclaration extends SlangNode {
         paths,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.closeParen = closeParen.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   // TODO: implement print

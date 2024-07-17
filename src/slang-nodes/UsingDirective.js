@@ -15,7 +15,7 @@ export class UsingDirective extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -32,7 +32,6 @@ export class UsingDirective extends SlangNode {
         clause,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.forKeyword = forKeyword.text;
@@ -40,14 +39,13 @@ export class UsingDirective extends SlangNode {
         target,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.globalKeyword = globalKeyword?.text;
       this.semicolon = semicolon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

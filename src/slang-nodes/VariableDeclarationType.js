@@ -4,7 +4,7 @@ import { TypeName } from './TypeName.js';
 export class VariableDeclarationType extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -12,16 +12,10 @@ export class VariableDeclarationType extends SlangNode {
       this.variant =
         variant.type === 'Terminal'
           ? variant.type
-          : new TypeName(
-              variant,
-              childrenOffsets.shift(),
-              comments,
-              parse,
-              options
-            );
+          : new TypeName(variant, childrenOffsets.shift(), comments, options);
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

@@ -7,7 +7,7 @@ export class InheritanceType extends SlangNode {
 
   arguments;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -16,7 +16,6 @@ export class InheritanceType extends SlangNode {
         typeName,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       if (ast.arguments) {
@@ -24,13 +23,12 @@ export class InheritanceType extends SlangNode {
           ast.arguments,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

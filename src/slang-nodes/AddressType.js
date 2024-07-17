@@ -5,7 +5,7 @@ export class AddressType extends SlangNode {
 
   payableKeyword;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments) {
     super();
 
     const fetch = () => {
@@ -14,7 +14,7 @@ export class AddressType extends SlangNode {
       this.payableKeyword = payableKeyword?.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print() {

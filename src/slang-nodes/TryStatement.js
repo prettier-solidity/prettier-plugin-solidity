@@ -19,7 +19,7 @@ export class TryStatement extends SlangNode {
 
   catchClauses;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -29,7 +29,6 @@ export class TryStatement extends SlangNode {
         expression,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       if (returns) {
@@ -37,27 +36,19 @@ export class TryStatement extends SlangNode {
           returns,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
-      this.body = new Block(
-        body,
-        childrenOffsets.shift(),
-        comments,
-        parse,
-        options
-      );
+      this.body = new Block(body, childrenOffsets.shift(), comments, options);
       this.catchClauses = new CatchClauses(
         catchClauses,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

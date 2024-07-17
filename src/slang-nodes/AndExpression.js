@@ -9,7 +9,7 @@ export class AndExpression extends SlangNode {
 
   rightOperand;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -18,7 +18,6 @@ export class AndExpression extends SlangNode {
         leftOperand,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.operator = operator.text;
@@ -26,12 +25,11 @@ export class AndExpression extends SlangNode {
         rightOperand,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print, options) {

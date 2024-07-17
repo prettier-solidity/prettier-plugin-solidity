@@ -15,7 +15,7 @@ export class MappingType extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -33,7 +33,6 @@ export class MappingType extends SlangNode {
         keyType,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.equalGreaterThan = equalGreaterThan.text;
@@ -41,13 +40,12 @@ export class MappingType extends SlangNode {
         valueType,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.closeParen = closeParen.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print) {

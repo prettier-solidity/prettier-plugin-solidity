@@ -4,7 +4,7 @@ import { Expression } from './Expression.js';
 export class TupleValue extends SlangNode {
   expression;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
     if (offset) {
       const fetch = (childrenOffsets) => {
@@ -14,13 +14,12 @@ export class TupleValue extends SlangNode {
             expression,
             childrenOffsets.shift(),
             comments,
-            parse,
             options
           );
         }
       };
 
-      this.initialize(ast, offset, comments, fetch, parse);
+      this.initialize(ast, offset, comments, fetch);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

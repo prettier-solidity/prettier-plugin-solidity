@@ -16,7 +16,7 @@ export class ModifierDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -28,7 +28,6 @@ export class ModifierDefinition extends SlangNode {
           parameters,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
@@ -36,19 +35,17 @@ export class ModifierDefinition extends SlangNode {
         attributes,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
       this.body = new FunctionBody(
         body,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       );
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
 
     if (typeof this.parameters === 'undefined') {
       const parametersOffset = this.attributes.loc.startWithTrivia;

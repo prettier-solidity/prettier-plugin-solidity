@@ -22,7 +22,7 @@ export class ReturnStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => {
@@ -33,14 +33,13 @@ export class ReturnStatement extends SlangNode {
           expression,
           childrenOffsets.shift(),
           comments,
-          parse,
           options
         );
       }
       this.semicolon = semicolon.text;
     };
 
-    this.initialize(ast, offset, comments, fetch, parse);
+    this.initialize(ast, offset, comments, fetch);
   }
 
   print(path, print, options) {
