@@ -30,7 +30,8 @@ export class SlangNode {
 
     this.fetch();
 
-    Object.keys(children).forEach((childKey) => {
+    const childrenKeys = Object.keys(children);
+    childrenKeys.forEach((childKey) => {
       this[childKey] = children[childKey];
     });
 
@@ -41,8 +42,6 @@ export class SlangNode {
     let trailingOffset = getTrailingOffset(cstChildren);
 
     if (leadingOffset === 0 || trailingOffset === 0) {
-      const childrenKeys = Object.keys(this).slice(3);
-
       for (let i = 0; i < childrenKeys.length; i += 1) {
         const childLoc = this[childrenKeys[i]]?.loc;
 

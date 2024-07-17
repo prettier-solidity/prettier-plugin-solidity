@@ -9,7 +9,7 @@ export class YulIfStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -18,16 +18,9 @@ export class YulIfStatement extends SlangNode {
         ast.condition,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       ),
-      body: new YulBlock(
-        ast.body,
-        childrenOffsets.shift(),
-        comments,
-        parse,
-        options
-      )
+      body: new YulBlock(ast.body, childrenOffsets.shift(), comments, options)
     });
 
     this.initialize(ast, offset, fetch, comments);

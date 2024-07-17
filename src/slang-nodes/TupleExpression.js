@@ -10,6 +10,7 @@ export class TupleExpression extends SlangNode {
 
   constructor(ast, offset, comments, options) {
     super();
+
     if (offset) {
       const fetch = (childrenOffsets) => ({
         openParen: ast.openParen.text,

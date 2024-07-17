@@ -14,7 +14,7 @@ export class YulFunctionDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -24,7 +24,6 @@ export class YulFunctionDefinition extends SlangNode {
         ast.parameters,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       ),
       returns: ast.returns
@@ -32,17 +31,10 @@ export class YulFunctionDefinition extends SlangNode {
             ast.returns,
             childrenOffsets.shift(),
             comments,
-            parse,
             options
           )
         : undefined,
-      body: new YulBlock(
-        ast.body,
-        childrenOffsets.shift(),
-        comments,
-        parse,
-        options
-      )
+      body: new YulBlock(ast.body, childrenOffsets.shift(), comments, options)
     });
 
     this.initialize(ast, offset, fetch, comments);

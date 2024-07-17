@@ -8,7 +8,7 @@ export class YulParametersDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -17,7 +17,6 @@ export class YulParametersDeclaration extends SlangNode {
         ast.parameters,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       ),
       closeParen: ast.closeParen.text

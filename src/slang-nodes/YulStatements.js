@@ -10,19 +10,13 @@ const { hardline } = doc.builders;
 export class YulStatements extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       items: ast.items.map(
         (item) =>
-          new YulStatement(
-            item,
-            childrenOffsets.shift(),
-            comments,
-            parse,
-            options
-          )
+          new YulStatement(item, childrenOffsets.shift(), comments, options)
       )
     });
 

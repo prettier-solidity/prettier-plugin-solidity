@@ -7,7 +7,7 @@ export class YulStackAssignmentStatement extends SlangNode {
 
   expression;
 
-  constructor(ast, offset, comments, parse, options) {
+  constructor(ast, offset, comments, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -15,14 +15,12 @@ export class YulStackAssignmentStatement extends SlangNode {
         ast.assignment,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       ),
       expression: new YulExpression(
         ast.expression,
         childrenOffsets.shift(),
         comments,
-        parse,
         options
       )
     });

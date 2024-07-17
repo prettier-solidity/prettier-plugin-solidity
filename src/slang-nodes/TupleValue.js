@@ -6,6 +6,7 @@ export class TupleValue extends SlangNode {
 
   constructor(ast, offset, comments, options) {
     super();
+
     if (offset) {
       const fetch = (childrenOffsets) => ({
         expression: ast.expression
