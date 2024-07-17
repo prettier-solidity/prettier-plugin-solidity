@@ -23,33 +23,26 @@ export class IfStatement extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { ifKeyword, openParen, condition, closeParen, body, elseBranch } =
-        ast;
-      this.ifKeyword = ifKeyword.text;
-      this.openParen = openParen.text;
-      this.condition = new Expression(
-        condition,
+    const fetch = (childrenOffsets) => ({
+      ifKeyword: ast.ifKeyword.text,
+      openParen: ast.openParen.text,
+      condition: new Expression(
+        ast.condition,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeParen = closeParen.text;
-      this.body = new Statement(
-        body,
-        childrenOffsets.shift(),
-        comments,
-        options
-      );
-      if (elseBranch) {
-        this.elseBranch = new ElseBranch(
-          elseBranch,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-    };
+      ),
+      closeParen: ast.closeParen.text,
+      body: new Statement(ast.body, childrenOffsets.shift(), comments, options),
+      elseBranch: ast.elseBranch
+        ? new ElseBranch(
+            ast.elseBranch,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

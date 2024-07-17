@@ -13,17 +13,16 @@ export class YulReturnsDeclaration extends SlangNode {
   constructor(ast, offset, comments, parse, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { minusGreaterThan, variables } = ast;
-      this.minusGreaterThan = minusGreaterThan.text;
-      this.variables = new YulReturnVariables(
-        variables,
+    const fetch = (childrenOffsets) => ({
+      minusGreaterThan: ast.minusGreaterThan.text,
+      variables: new YulReturnVariables(
+        ast.variables,
         childrenOffsets.shift(),
         comments,
         parse,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

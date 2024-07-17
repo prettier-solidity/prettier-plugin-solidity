@@ -14,23 +14,22 @@ export class YulFunctionCallExpression extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { operand, openParen, closeParen } = ast;
-      this.operand = new YulExpression(
-        operand,
+    const fetch = (childrenOffsets) => ({
+      operand: new YulExpression(
+        ast.operand,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.openParen = openParen.text;
-      this.arguments = new YulArguments(
+      ),
+      openParen: ast.openParen.text,
+      arguments: new YulArguments(
         ast.arguments,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeParen = closeParen.text;
-    };
+      ),
+      closeParen: ast.closeParen.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

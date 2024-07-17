@@ -9,16 +9,15 @@ export class PrefixExpression extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { operator, operand } = ast;
-      this.operator = operator.text;
-      this.operand = new Expression(
-        operand,
+    const fetch = (childrenOffsets) => ({
+      operator: ast.operator.text,
+      operand: new Expression(
+        ast.operand,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

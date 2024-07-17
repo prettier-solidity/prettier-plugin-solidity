@@ -11,17 +11,16 @@ export class PragmaDirective extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { pragmaKeyword, pragma, semicolon } = ast;
-      this.pragmaKeyword = pragmaKeyword.text;
-      this.pragma = new Pragma(
-        pragma,
+    const fetch = (childrenOffsets) => ({
+      pragmaKeyword: ast.pragmaKeyword.text,
+      pragma: new Pragma(
+        ast.pragma,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.semicolon = semicolon.text;
-    };
+      ),
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

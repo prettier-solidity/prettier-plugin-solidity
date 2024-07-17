@@ -11,17 +11,16 @@ export class UsingDeconstruction extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { openBrace, symbols, closeBrace } = ast;
-      this.openBrace = openBrace.text;
-      this.symbols = new UsingDeconstructionSymbols(
-        symbols,
+    const fetch = (childrenOffsets) => ({
+      openBrace: ast.openBrace.text,
+      symbols: new UsingDeconstructionSymbols(
+        ast.symbols,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeBrace = closeBrace.text;
-    };
+      ),
+      closeBrace: ast.closeBrace.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

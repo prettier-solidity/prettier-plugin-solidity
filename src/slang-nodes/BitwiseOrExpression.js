@@ -25,22 +25,21 @@ export class BitwiseOrExpression extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { leftOperand, operator, rightOperand } = ast;
-      this.leftOperand = new Expression(
-        leftOperand,
+    const fetch = (childrenOffsets) => ({
+      leftOperand: new Expression(
+        ast.leftOperand,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.operator = operator.text;
-      this.rightOperand = new Expression(
-        rightOperand,
+      ),
+      operator: ast.operator.text,
+      rightOperand: new Expression(
+        ast.rightOperand,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
 

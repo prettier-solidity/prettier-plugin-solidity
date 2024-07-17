@@ -20,24 +20,18 @@ export class WhileStatement extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { whileKeyword, openParen, condition, closeParen, body } = ast;
-      this.whileKeyword = whileKeyword.text;
-      this.openParen = openParen.text;
-      this.condition = new Expression(
-        condition,
+    const fetch = (childrenOffsets) => ({
+      whileKeyword: ast.whileKeyword.text,
+      openParen: ast.openParen.text,
+      condition: new Expression(
+        ast.condition,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeParen = closeParen.text;
-      this.body = new Statement(
-        body,
-        childrenOffsets.shift(),
-        comments,
-        options
-      );
-    };
+      ),
+      closeParen: ast.closeParen.text,
+      body: new Statement(ast.body, childrenOffsets.shift(), comments, options)
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

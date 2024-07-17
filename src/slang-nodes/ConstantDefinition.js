@@ -18,25 +18,24 @@ export class ConstantDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { typeName, constantKeyword, name, equal, value, semicolon } = ast;
-      this.typeName = new TypeName(
-        typeName,
+    const fetch = (childrenOffsets) => ({
+      typeName: new TypeName(
+        ast.typeName,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.constantKeyword = constantKeyword.text;
-      this.name = name.text;
-      this.equal = equal.text;
-      this.value = new Expression(
-        value,
+      ),
+      constantKeyword: ast.constantKeyword.text,
+      name: ast.name.text,
+      equal: ast.equal.text,
+      value: new Expression(
+        ast.value,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.semicolon = semicolon.text;
-    };
+      ),
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

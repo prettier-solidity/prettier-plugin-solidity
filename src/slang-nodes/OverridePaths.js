@@ -9,14 +9,13 @@ export class OverridePaths extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { items, separators } = ast;
-      this.items = items.map(
+    const fetch = (childrenOffsets) => ({
+      items: ast.items.map(
         (item) =>
           new IdentifierPath(item, childrenOffsets.shift(), comments, options)
-      );
-      this.separators = separators.map((separator) => separator.text);
-    };
+      ),
+      separators: ast.separators.map((separator) => separator.text)
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

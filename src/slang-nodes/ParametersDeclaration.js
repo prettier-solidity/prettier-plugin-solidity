@@ -11,17 +11,16 @@ export class ParametersDeclaration extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
     if (offset) {
-      const fetch = (childrenOffsets) => {
-        const { openParen, parameters, closeParen } = ast;
-        this.openParen = openParen.text;
-        this.parameters = new Parameters(
-          parameters,
+      const fetch = (childrenOffsets) => ({
+        openParen: ast.openParen.text,
+        parameters: new Parameters(
+          ast.parameters,
           childrenOffsets.shift(),
           comments,
           options
-        );
-        this.closeParen = closeParen.text;
-      };
+        ),
+        closeParen: ast.closeParen.text
+      });
 
       this.initialize(ast, offset, fetch, comments);
     } else {

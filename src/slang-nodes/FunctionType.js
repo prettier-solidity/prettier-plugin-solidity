@@ -16,30 +16,29 @@ export class FunctionType extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { functionKeyword, parameters, attributes, returns } = ast;
-      this.functionKeyword = functionKeyword.text;
-      this.parameters = new ParametersDeclaration(
-        parameters,
+    const fetch = (childrenOffsets) => ({
+      functionKeyword: ast.functionKeyword.text,
+      parameters: new ParametersDeclaration(
+        ast.parameters,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.attributes = new FunctionTypeAttributes(
-        attributes,
+      ),
+      attributes: new FunctionTypeAttributes(
+        ast.attributes,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      if (returns) {
-        this.returns = new ReturnsDeclaration(
-          returns,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-    };
+      ),
+      returns: ast.returns
+        ? new ReturnsDeclaration(
+            ast.returns,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

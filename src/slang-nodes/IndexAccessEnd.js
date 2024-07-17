@@ -9,18 +9,12 @@ export class IndexAccessEnd extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { colon, end } = ast;
-      this.colon = colon.text;
-      if (end) {
-        this.end = new Expression(
-          end,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-    };
+    const fetch = (childrenOffsets) => ({
+      colon: ast.colon.text,
+      end: ast.end
+        ? new Expression(ast.end, childrenOffsets.shift(), comments, options)
+        : undefined
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

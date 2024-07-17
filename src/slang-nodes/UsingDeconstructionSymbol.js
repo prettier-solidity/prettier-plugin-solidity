@@ -10,23 +10,17 @@ export class UsingDeconstructionSymbol extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { name, alias } = ast;
-      this.name = new IdentifierPath(
-        name,
+    const fetch = (childrenOffsets) => ({
+      name: new IdentifierPath(
+        ast.name,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      if (alias) {
-        this.alias = new UsingAlias(
-          alias,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-    };
+      ),
+      alias: ast.alias
+        ? new UsingAlias(ast.alias, childrenOffsets.shift(), comments, options)
+        : undefined
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

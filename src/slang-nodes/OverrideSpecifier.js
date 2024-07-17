@@ -9,18 +9,17 @@ export class OverrideSpecifier extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { overrideKeyword, overridden } = ast;
-      this.overrideKeyword = overrideKeyword.text;
-      if (overridden) {
-        this.overridden = new OverridePathsDeclaration(
-          overridden,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-    };
+    const fetch = (childrenOffsets) => ({
+      overrideKeyword: ast.overrideKeyword.text,
+      overridden: ast.overridden
+        ? new OverridePathsDeclaration(
+            ast.overridden,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

@@ -12,16 +12,15 @@ export class CatchClauseError extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { name, parameters } = ast;
-      this.name = name?.text;
-      this.parameters = new ParametersDeclaration(
-        parameters,
+    const fetch = (childrenOffsets) => ({
+      name: ast.name?.text,
+      parameters: new ParametersDeclaration(
+        ast.parameters,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

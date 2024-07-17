@@ -16,28 +16,27 @@ export class ReceiveFunctionDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { receiveKeyword, parameters, attributes, body } = ast;
-      this.receiveKeyword = receiveKeyword.text;
-      this.parameters = new ParametersDeclaration(
-        parameters,
+    const fetch = (childrenOffsets) => ({
+      receiveKeyword: ast.receiveKeyword.text,
+      parameters: new ParametersDeclaration(
+        ast.parameters,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.attributes = new ReceiveFunctionAttributes(
-        attributes,
+      ),
+      attributes: new ReceiveFunctionAttributes(
+        ast.attributes,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.body = new FunctionBody(
-        body,
+      ),
+      body: new FunctionBody(
+        ast.body,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
 

@@ -11,17 +11,16 @@ export class OverridePathsDeclaration extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { openParen, paths, closeParen } = ast;
-      this.openParen = openParen.text;
-      this.paths = new OverridePaths(
-        paths,
+    const fetch = (childrenOffsets) => ({
+      openParen: ast.openParen.text,
+      paths: new OverridePaths(
+        ast.paths,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeParen = closeParen.text;
-    };
+      ),
+      closeParen: ast.closeParen.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

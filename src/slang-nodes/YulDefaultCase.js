@@ -9,16 +9,10 @@ export class YulDefaultCase extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { defaultKeyword, body } = ast;
-      this.defaultKeyword = defaultKeyword.text;
-      this.body = new YulBlock(
-        body,
-        childrenOffsets.shift(),
-        comments,
-        options
-      );
-    };
+    const fetch = (childrenOffsets) => ({
+      defaultKeyword: ast.defaultKeyword.text,
+      body: new YulBlock(ast.body, childrenOffsets.shift(), comments, options)
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

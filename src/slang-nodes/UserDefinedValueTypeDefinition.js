@@ -15,19 +15,18 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { typeKeyword, name, isKeyword, valueType, semicolon } = ast;
-      this.typeKeyword = typeKeyword.text;
-      this.name = name.text;
-      this.isKeyword = isKeyword.text;
-      this.valueType = new ElementaryType(
-        valueType,
+    const fetch = (childrenOffsets) => ({
+      typeKeyword: ast.typeKeyword.text,
+      name: ast.name.text,
+      isKeyword: ast.isKeyword.text,
+      valueType: new ElementaryType(
+        ast.valueType,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.semicolon = semicolon.text;
-    };
+      ),
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

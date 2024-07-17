@@ -11,17 +11,16 @@ export class AssemblyFlagsDeclaration extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { openParen, flags, closeParen } = ast;
-      this.openParen = openParen.text;
-      this.flags = new AssemblyFlags(
-        flags,
+    const fetch = (childrenOffsets) => ({
+      openParen: ast.openParen.text,
+      flags: new AssemblyFlags(
+        ast.flags,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeParen = closeParen.text;
-    };
+      ),
+      closeParen: ast.closeParen.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

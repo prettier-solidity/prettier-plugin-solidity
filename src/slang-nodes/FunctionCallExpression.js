@@ -14,21 +14,20 @@ export class FunctionCallExpression extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { operand } = ast;
-      this.operand = new Expression(
-        operand,
+    const fetch = (childrenOffsets) => ({
+      operand: new Expression(
+        ast.operand,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.arguments = new ArgumentsDeclaration(
+      ),
+      arguments: new ArgumentsDeclaration(
         ast.arguments,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

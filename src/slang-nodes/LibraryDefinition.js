@@ -18,19 +18,18 @@ export class LibraryDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { libraryKeyword, name, openBrace, members, closeBrace } = ast;
-      this.libraryKeyword = libraryKeyword.text;
-      this.name = name.text;
-      this.openBrace = openBrace.text;
-      this.members = new LibraryMembers(
-        members,
+    const fetch = (childrenOffsets) => ({
+      libraryKeyword: ast.libraryKeyword.text,
+      name: ast.name.text,
+      openBrace: ast.openBrace.text,
+      members: new LibraryMembers(
+        ast.members,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeBrace = closeBrace.text;
-    };
+      ),
+      closeBrace: ast.closeBrace.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

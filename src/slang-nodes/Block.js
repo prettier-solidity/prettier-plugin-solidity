@@ -11,17 +11,16 @@ export class Block extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { openBrace, statements, closeBrace } = ast;
-      this.openBrace = openBrace.text;
-      this.statements = new Statements(
-        statements,
+    const fetch = (childrenOffsets) => ({
+      openBrace: ast.openBrace.text,
+      statements: new Statements(
+        ast.statements,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeBrace = closeBrace.text;
-    };
+      ),
+      closeBrace: ast.closeBrace.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

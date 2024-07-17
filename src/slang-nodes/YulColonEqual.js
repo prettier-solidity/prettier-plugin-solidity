@@ -8,11 +8,10 @@ export class YulColonEqual extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { colon, equal } = ast;
-      this.colon = colon.text;
-      this.equal = equal.text;
-    };
+    const fetch = () => ({
+      colon: ast.colon.text,
+      equal: ast.equal.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

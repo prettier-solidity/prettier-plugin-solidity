@@ -12,11 +12,10 @@ export class EnumMembers extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { items, separators } = ast;
-      this.items = items.map((item) => item.text);
-      this.separators = separators.map((separator) => separator.text);
-    };
+    const fetch = () => ({
+      items: ast.items.map((item) => item.text),
+      separators: ast.separators.map((separator) => separator.text)
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

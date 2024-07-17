@@ -10,23 +10,22 @@ export class YulVariableDeclarationValue extends SlangNode {
   constructor(ast, offset, comments, parse, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { assignment, expression } = ast;
-      this.assignment = new YulAssignmentOperator(
-        assignment,
+    const fetch = (childrenOffsets) => ({
+      assignment: new YulAssignmentOperator(
+        ast.assignment,
         childrenOffsets.shift(),
         comments,
         parse,
         options
-      );
-      this.expression = new YulExpression(
-        expression,
+      ),
+      expression: new YulExpression(
+        ast.expression,
         childrenOffsets.shift(),
         comments,
         parse,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

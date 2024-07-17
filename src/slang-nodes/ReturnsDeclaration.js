@@ -12,16 +12,15 @@ export class ReturnsDeclaration extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { returnsKeyword, variables } = ast;
-      this.returnsKeyword = returnsKeyword.text;
-      this.variables = new ParametersDeclaration(
-        variables,
+    const fetch = (childrenOffsets) => ({
+      returnsKeyword: ast.returnsKeyword.text,
+      variables: new ParametersDeclaration(
+        ast.variables,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

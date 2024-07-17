@@ -17,34 +17,33 @@ export class YulFunctionDefinition extends SlangNode {
   constructor(ast, offset, comments, parse, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { functionKeyword, name, parameters, returns, body } = ast;
-      this.functionKeyword = functionKeyword.text;
-      this.name = name.text;
-      this.parameters = new YulParametersDeclaration(
-        parameters,
+    const fetch = (childrenOffsets) => ({
+      functionKeyword: ast.functionKeyword.text,
+      name: ast.name.text,
+      parameters: new YulParametersDeclaration(
+        ast.parameters,
         childrenOffsets.shift(),
         comments,
         parse,
         options
-      );
-      if (returns) {
-        this.returns = new YulReturnsDeclaration(
-          returns,
-          childrenOffsets.shift(),
-          comments,
-          parse,
-          options
-        );
-      }
-      this.body = new YulBlock(
-        body,
+      ),
+      returns: ast.returns
+        ? new YulReturnsDeclaration(
+            ast.returns,
+            childrenOffsets.shift(),
+            comments,
+            parse,
+            options
+          )
+        : undefined,
+      body: new YulBlock(
+        ast.body,
         childrenOffsets.shift(),
         comments,
         parse,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

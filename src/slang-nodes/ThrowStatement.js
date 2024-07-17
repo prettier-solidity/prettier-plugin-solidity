@@ -8,11 +8,10 @@ export class ThrowStatement extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { throwKeyword, semicolon } = ast;
-      this.throwKeyword = throwKeyword.text;
-      this.semicolon = semicolon.text;
-    };
+    const fetch = () => ({
+      throwKeyword: ast.throwKeyword.text,
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

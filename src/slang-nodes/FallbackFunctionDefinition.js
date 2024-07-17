@@ -19,36 +19,35 @@ export class FallbackFunctionDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { fallbackKeyword, parameters, attributes, returns, body } = ast;
-      this.fallbackKeyword = fallbackKeyword.text;
-      this.parameters = new ParametersDeclaration(
-        parameters,
+    const fetch = (childrenOffsets) => ({
+      fallbackKeyword: ast.fallbackKeyword.text,
+      parameters: new ParametersDeclaration(
+        ast.parameters,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.attributes = new FallbackFunctionAttributes(
-        attributes,
+      ),
+      attributes: new FallbackFunctionAttributes(
+        ast.attributes,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      if (returns) {
-        this.returns = new ReturnsDeclaration(
-          returns,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-      this.body = new FunctionBody(
-        body,
+      ),
+      returns: ast.returns
+        ? new ReturnsDeclaration(
+            ast.returns,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined,
+      body: new FunctionBody(
+        ast.body,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
 

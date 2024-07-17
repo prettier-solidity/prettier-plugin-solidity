@@ -8,11 +8,10 @@ export class AddressType extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { addressKeyword, payableKeyword } = ast;
-      this.addressKeyword = addressKeyword.text;
-      this.payableKeyword = payableKeyword?.text;
-    };
+    const fetch = () => ({
+      addressKeyword: ast.addressKeyword.text,
+      payableKeyword: ast.payableKeyword?.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

@@ -11,14 +11,13 @@ export class TupleValues extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
     if (offset) {
-      const fetch = (childrenOffsets) => {
-        const { items, separators } = ast;
-        this.items = items.map(
+      const fetch = (childrenOffsets) => ({
+        items: ast.items.map(
           (item) =>
             new TupleValue(item, childrenOffsets.shift(), comments, options)
-        );
-        this.separators = separators.map((separator) => separator.text);
-      };
+        ),
+        separators: ast.separators.map((separator) => separator.text)
+      });
 
       this.initialize(ast, offset, fetch, comments);
     } else {

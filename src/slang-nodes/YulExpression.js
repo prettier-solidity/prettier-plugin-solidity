@@ -17,15 +17,14 @@ export class YulExpression extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { variant } = ast;
-      this.variant = new variants[variant.cst.kind](
-        variant,
+    const fetch = (childrenOffsets) => ({
+      variant: new variants[ast.variant.cst.kind](
+        ast.variant,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

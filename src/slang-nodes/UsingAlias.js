@@ -9,16 +9,15 @@ export class UsingAlias extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { asKeyword, operator } = ast;
-      this.asKeyword = asKeyword.text;
-      this.operator = new UsingOperator(
-        operator,
+    const fetch = (childrenOffsets) => ({
+      asKeyword: ast.asKeyword.text,
+      operator: new UsingOperator(
+        ast.operator,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

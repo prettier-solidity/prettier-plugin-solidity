@@ -10,9 +10,8 @@ export class YulSwitchCases extends SlangNode {
   constructor(ast, offset, comments, parse, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { items } = ast;
-      this.items = items.map(
+    const fetch = (childrenOffsets) => ({
+      items: ast.items.map(
         (item) =>
           new YulSwitchCase(
             item,
@@ -21,8 +20,8 @@ export class YulSwitchCases extends SlangNode {
             parse,
             options
           )
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

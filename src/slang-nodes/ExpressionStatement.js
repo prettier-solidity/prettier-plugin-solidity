@@ -9,16 +9,15 @@ export class ExpressionStatement extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { expression, semicolon } = ast;
-      this.expression = new Expression(
-        expression,
+    const fetch = (childrenOffsets) => ({
+      expression: new Expression(
+        ast.expression,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.semicolon = semicolon.text;
-    };
+      ),
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

@@ -7,13 +7,12 @@ export class FunctionBody extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { variant } = ast;
-      this.variant =
-        variant.type === 'Terminal'
-          ? variant.text
-          : new Block(variant, childrenOffsets.shift(), comments, options);
-    };
+    const fetch = (childrenOffsets) => ({
+      variant:
+        ast.variant.type === 'Terminal'
+          ? ast.variant.text
+          : new Block(ast.variant, childrenOffsets.shift(), comments, options)
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

@@ -6,10 +6,9 @@ export class YulBreakStatement extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { breakKeyword } = ast;
-      this.breakKeyword = breakKeyword.text;
-    };
+    const fetch = () => ({
+      breakKeyword: ast.breakKeyword.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

@@ -9,16 +9,15 @@ export class InheritanceSpecifier extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { isKeyword, types } = ast;
-      this.isKeyword = isKeyword?.text;
-      this.types = new InheritanceTypes(
-        types,
+    const fetch = (childrenOffsets) => ({
+      isKeyword: ast.isKeyword?.text,
+      types: new InheritanceTypes(
+        ast.types,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

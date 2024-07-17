@@ -15,20 +15,18 @@ export class EventDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { eventKeyword, name, parameters, anonymousKeyword, semicolon } =
-        ast;
-      this.eventKeyword = eventKeyword.text;
-      this.name = name.text;
-      this.parameters = new EventParametersDeclaration(
-        parameters,
+    const fetch = (childrenOffsets) => ({
+      eventKeyword: ast.eventKeyword.text,
+      name: ast.name.text,
+      parameters: new EventParametersDeclaration(
+        ast.parameters,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.anonymousKeyword = anonymousKeyword?.text;
-      this.semicolon = semicolon.text;
-    };
+      ),
+      anonymousKeyword: ast.anonymousKeyword?.text,
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

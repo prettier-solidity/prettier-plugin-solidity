@@ -15,32 +15,26 @@ export class AssemblyStatement extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { assemblyKeyword, label, flags, body } = ast;
-      this.assemblyKeyword = assemblyKeyword.text;
-      if (label) {
-        this.label = new StringLiteral(
-          label,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-      if (flags) {
-        this.flags = new AssemblyFlagsDeclaration(
-          flags,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-      this.body = new YulBlock(
-        body,
-        childrenOffsets.shift(),
-        comments,
-        options
-      );
-    };
+    const fetch = (childrenOffsets) => ({
+      assemblyKeyword: ast.assemblyKeyword.text,
+      label: ast.label
+        ? new StringLiteral(
+            ast.label,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined,
+      flags: ast.flags
+        ? new AssemblyFlagsDeclaration(
+            ast.flags,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined,
+      body: new YulBlock(ast.body, childrenOffsets.shift(), comments, options)
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

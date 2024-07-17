@@ -24,43 +24,41 @@ export class FunctionDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { functionKeyword, name, parameters, attributes, returns, body } =
-        ast;
-      this.functionKeyword = functionKeyword.text;
-      this.name = new FunctionName(
-        name,
+    const fetch = (childrenOffsets) => ({
+      functionKeyword: ast.functionKeyword.text,
+      name: new FunctionName(
+        ast.name,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.parameters = new ParametersDeclaration(
-        parameters,
+      ),
+      parameters: new ParametersDeclaration(
+        ast.parameters,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.attributes = new FunctionAttributes(
-        attributes,
+      ),
+      attributes: new FunctionAttributes(
+        ast.attributes,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      if (returns) {
-        this.returns = new ReturnsDeclaration(
-          returns,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-      this.body = new FunctionBody(
-        body,
+      ),
+      returns: ast.returns
+        ? new ReturnsDeclaration(
+            ast.returns,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined,
+      body: new FunctionBody(
+        ast.body,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
 

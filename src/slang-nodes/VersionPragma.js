@@ -9,16 +9,15 @@ export class VersionPragma extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { solidityKeyword, sets } = ast;
-      this.solidityKeyword = solidityKeyword.text;
-      this.sets = new VersionExpressionSets(
-        sets,
+    const fetch = (childrenOffsets) => ({
+      solidityKeyword: ast.solidityKeyword.text,
+      sets: new VersionExpressionSets(
+        ast.sets,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

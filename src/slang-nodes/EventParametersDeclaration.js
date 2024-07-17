@@ -11,17 +11,16 @@ export class EventParametersDeclaration extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { openParen, parameters, closeParen } = ast;
-      this.openParen = openParen.text;
-      this.parameters = new EventParameters(
-        parameters,
+    const fetch = (childrenOffsets) => ({
+      openParen: ast.openParen.text,
+      parameters: new EventParameters(
+        ast.parameters,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeParen = closeParen.text;
-    };
+      ),
+      closeParen: ast.closeParen.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }
