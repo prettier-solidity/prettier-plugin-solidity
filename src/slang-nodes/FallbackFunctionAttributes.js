@@ -8,22 +8,17 @@ const { line } = doc.builders;
 export class FallbackFunctionAttributes extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       items: ast.items.map(
         (item) =>
-          new FallbackFunctionAttribute(
-            item,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+          new FallbackFunctionAttribute(item, childrenOffsets.shift(), options)
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

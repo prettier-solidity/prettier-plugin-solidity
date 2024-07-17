@@ -6,7 +6,7 @@ export class ExperimentalPragma extends SlangNode {
 
   feature;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -14,12 +14,11 @@ export class ExperimentalPragma extends SlangNode {
       feature: new ExperimentalFeature(
         ast.feature,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

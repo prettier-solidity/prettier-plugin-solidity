@@ -6,17 +6,17 @@ export class DecimalNumberExpression extends SlangNode {
 
   unit;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       literal: ast.literal.text,
       unit: ast.unit
-        ? new NumberUnit(ast.unit, childrenOffsets.shift(), comments, options)
+        ? new NumberUnit(ast.unit, childrenOffsets.shift(), options)
         : undefined
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

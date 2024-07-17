@@ -60,7 +60,7 @@ const variants = {
 export class Expression extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     if (offset) {
@@ -71,12 +71,11 @@ export class Expression extends SlangNode {
             : new variants[ast.variant.cst.kind](
                 ast.variant,
                 childrenOffsets.shift(),
-                comments,
                 options
               )
       });
 
-      this.initialize(ast, offset, fetch, comments);
+      this.initialize(ast, offset, fetch);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

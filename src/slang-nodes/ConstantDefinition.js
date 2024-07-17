@@ -15,29 +15,19 @@ export class ConstantDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
-      typeName: new TypeName(
-        ast.typeName,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      typeName: new TypeName(ast.typeName, childrenOffsets.shift(), options),
       constantKeyword: ast.constantKeyword.text,
       name: ast.name.text,
       equal: ast.equal.text,
-      value: new Expression(
-        ast.value,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      value: new Expression(ast.value, childrenOffsets.shift(), options),
       semicolon: ast.semicolon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   // TODO: implement print

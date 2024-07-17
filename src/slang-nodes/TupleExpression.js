@@ -8,22 +8,17 @@ export class TupleExpression extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     if (offset) {
       const fetch = (childrenOffsets) => ({
         openParen: ast.openParen.text,
-        items: new TupleValues(
-          ast.items,
-          childrenOffsets.shift(),
-          comments,
-          options
-        ),
+        items: new TupleValues(ast.items, childrenOffsets.shift(), options),
         closeParen: ast.closeParen.text
       });
 
-      this.initialize(ast, offset, fetch, comments);
+      this.initialize(ast, offset, fetch);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

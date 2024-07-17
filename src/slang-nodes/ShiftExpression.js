@@ -21,26 +21,24 @@ export class ShiftExpression extends SlangNode {
 
   rightOperand;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       leftOperand: new Expression(
         ast.leftOperand,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       operator: ast.operator.text,
       rightOperand: new Expression(
         ast.rightOperand,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
 
     this.leftOperand = tryToHugLeftOperand(this.leftOperand);
     this.rightOperand = tryToHugRightOperand(this.rightOperand);

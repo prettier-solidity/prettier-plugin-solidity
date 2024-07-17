@@ -8,7 +8,7 @@ export class YulLabel extends SlangNode {
 
   colon;
 
-  constructor(ast, offset, comments) {
+  constructor(ast, offset) {
     super();
 
     const fetch = () => ({
@@ -16,7 +16,7 @@ export class YulLabel extends SlangNode {
       colon: ast.colon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print() {

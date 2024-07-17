@@ -3,14 +3,14 @@ import { SlangNode } from './SlangNode.js';
 export class YulLeaveStatement extends SlangNode {
   leaveKeyword;
 
-  constructor(ast, offset, comments) {
+  constructor(ast, offset) {
     super();
 
     const fetch = () => ({
       leaveKeyword: ast.leaveKeyword.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   // TODO: implement print

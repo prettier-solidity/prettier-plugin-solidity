@@ -6,17 +6,17 @@ export class IndexAccessEnd extends SlangNode {
 
   end;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       colon: ast.colon.text,
       end: ast.end
-        ? new Expression(ast.end, childrenOffsets.shift(), comments, options)
+        ? new Expression(ast.end, childrenOffsets.shift(), options)
         : undefined
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

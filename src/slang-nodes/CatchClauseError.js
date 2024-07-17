@@ -9,7 +9,7 @@ export class CatchClauseError extends SlangNode {
 
   parameters;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -17,12 +17,11 @@ export class CatchClauseError extends SlangNode {
       parameters: new ParametersDeclaration(
         ast.parameters,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

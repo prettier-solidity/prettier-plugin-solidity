@@ -13,7 +13,7 @@ export class ConstructorDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -21,19 +21,17 @@ export class ConstructorDefinition extends SlangNode {
       parameters: new ParametersDeclaration(
         ast.parameters,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       attributes: new ConstructorAttributes(
         ast.attributes,
         childrenOffsets.shift(),
-        comments,
         options
       ),
-      body: new Block(ast.body, childrenOffsets.shift(), comments, options)
+      body: new Block(ast.body, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

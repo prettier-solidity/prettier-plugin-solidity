@@ -6,20 +6,19 @@ export class ExpressionStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       expression: new Expression(
         ast.expression,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       semicolon: ast.semicolon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

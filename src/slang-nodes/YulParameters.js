@@ -6,7 +6,7 @@ export class YulParameters extends SlangNode {
 
   separators;
 
-  constructor(ast, offset, comments) {
+  constructor(ast, offset) {
     super();
 
     const fetch = () => ({
@@ -14,7 +14,7 @@ export class YulParameters extends SlangNode {
       separators: ast.separators.map((separator) => separator.text)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print() {

@@ -6,7 +6,7 @@ export class OverrideSpecifier extends SlangNode {
 
   overridden;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -15,13 +15,12 @@ export class OverrideSpecifier extends SlangNode {
         ? new OverridePathsDeclaration(
             ast.overridden,
             childrenOffsets.shift(),
-            comments,
             options
           )
         : undefined
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

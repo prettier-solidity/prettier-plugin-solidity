@@ -6,7 +6,7 @@ export class UsingAlias extends SlangNode {
 
   operator;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -14,12 +14,11 @@ export class UsingAlias extends SlangNode {
       operator: new UsingOperator(
         ast.operator,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

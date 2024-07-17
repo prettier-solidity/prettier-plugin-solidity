@@ -12,7 +12,7 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -22,13 +22,12 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
       valueType: new ElementaryType(
         ast.valueType,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       semicolon: ast.semicolon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

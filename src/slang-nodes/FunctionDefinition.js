@@ -21,46 +21,29 @@ export class FunctionDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       functionKeyword: ast.functionKeyword.text,
-      name: new FunctionName(
-        ast.name,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      name: new FunctionName(ast.name, childrenOffsets.shift(), options),
       parameters: new ParametersDeclaration(
         ast.parameters,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       attributes: new FunctionAttributes(
         ast.attributes,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       returns: ast.returns
-        ? new ReturnsDeclaration(
-            ast.returns,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+        ? new ReturnsDeclaration(ast.returns, childrenOffsets.shift(), options)
         : undefined,
-      body: new FunctionBody(
-        ast.body,
-        childrenOffsets.shift(),
-        comments,
-        options
-      )
+      body: new FunctionBody(ast.body, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
 
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.

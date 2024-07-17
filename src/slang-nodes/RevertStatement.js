@@ -11,29 +11,23 @@ export class RevertStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       revertKeyword: ast.revertKeyword.text,
       error: ast.error
-        ? new IdentifierPath(
-            ast.error,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+        ? new IdentifierPath(ast.error, childrenOffsets.shift(), options)
         : undefined,
       arguments: new ArgumentsDeclaration(
         ast.arguments,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       semicolon: ast.semicolon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

@@ -7,19 +7,18 @@ const { line } = doc.builders;
 export class SourceUnit extends SlangNode {
   members;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       members: new SourceUnitMembers(
         ast.members,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print, options) {

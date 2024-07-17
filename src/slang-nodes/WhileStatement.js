@@ -17,7 +17,7 @@ export class WhileStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -26,14 +26,13 @@ export class WhileStatement extends SlangNode {
       condition: new Expression(
         ast.condition,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       closeParen: ast.closeParen.text,
-      body: new Statement(ast.body, childrenOffsets.shift(), comments, options)
+      body: new Statement(ast.body, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

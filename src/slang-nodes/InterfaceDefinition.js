@@ -18,7 +18,7 @@ export class InterfaceDefinition extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -28,7 +28,6 @@ export class InterfaceDefinition extends SlangNode {
         ? new InheritanceSpecifier(
             ast.inheritance,
             childrenOffsets.shift(),
-            comments,
             options
           )
         : undefined,
@@ -36,13 +35,12 @@ export class InterfaceDefinition extends SlangNode {
       members: new InterfaceMembers(
         ast.members,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       closeBrace: ast.closeBrace.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

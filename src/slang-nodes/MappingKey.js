@@ -6,20 +6,19 @@ export class MappingKey extends SlangNode {
 
   name;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       keyType: new MappingKeyType(
         ast.keyType,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       name: ast.name?.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

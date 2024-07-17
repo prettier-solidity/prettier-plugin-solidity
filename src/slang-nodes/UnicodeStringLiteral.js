@@ -4,14 +4,14 @@ import { SlangNode } from './SlangNode.js';
 export class UnicodeStringLiteral extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = () => ({
       variant: ast.variant.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
 
     this.variant = `unicode${printString(this.variant.slice(8, -1), options)}`;
   }

@@ -6,7 +6,7 @@ export class VersionPragma extends SlangNode {
 
   sets;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -14,12 +14,11 @@ export class VersionPragma extends SlangNode {
       sets: new VersionExpressionSets(
         ast.sets,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

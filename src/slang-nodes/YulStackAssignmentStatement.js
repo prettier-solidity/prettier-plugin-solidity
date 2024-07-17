@@ -7,25 +7,23 @@ export class YulStackAssignmentStatement extends SlangNode {
 
   expression;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       assignment: new YulAssignmentOperator(
         ast.assignment,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       expression: new YulExpression(
         ast.expression,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   // TODO: implement print

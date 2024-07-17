@@ -9,23 +9,18 @@ export class CatchClause extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       catchKeyword: ast.catchKeyword.text,
       error: ast.error
-        ? new CatchClauseError(
-            ast.error,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+        ? new CatchClauseError(ast.error, childrenOffsets.shift(), options)
         : undefined,
-      body: new Block(ast.body, childrenOffsets.shift(), comments, options)
+      body: new Block(ast.body, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

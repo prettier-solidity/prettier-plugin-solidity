@@ -4,6 +4,8 @@ import {
   getTrailingOffset
 } from '../slang-utils/get-offsets.js';
 
+const isNotStringOrUndefined = (node) =>
+  typeof node !== 'string' && typeof node !== 'undefined';
 export class SlangNode {
   kind;
 
@@ -11,28 +13,47 @@ export class SlangNode {
 
   comments = [];
 
-  initialize(ast, offset, fetch, comments) {
+  initialize(ast, offset, fetch) {
     this.kind = ast.cst.kind;
 
     // Collect comments and get children offsets.
     const cstChildren = ast.cst.children();
-    const childrenOffsets = getChildrenOffsets(cstChildren, offset, comments);
+    const childrenOffsets = getChildrenOffsets(
+      cstChildren,
+      offset,
+      this.comments
+    );
 
     // populate all children nodes
-    let children;
+    let properties;
 
     this.fetch = () => {
-      if (children === undefined) {
-        children = fetch(childrenOffsets);
+      if (properties === undefined) {
+        properties = fetch(childrenOffsets);
       }
-      return children;
+      return properties;
     };
 
     this.fetch();
 
-    const childrenKeys = Object.keys(children);
-    childrenKeys.forEach((childKey) => {
-      this[childKey] = children[childKey];
+    const propertyKeys = Object.keys(properties);
+    const propertyValues = Object.values(properties);
+    propertyKeys.forEach((propertyKey) => {
+      this[propertyKey] = properties[propertyKey];
+    });
+
+    // Collect comments
+    const childrenNodes = propertyValues.reduce((slangNodes, property) => {
+      if (Array.isArray(property)) {
+        slangNodes.push(...property.filter(isNotStringOrUndefined));
+      } else if (isNotStringOrUndefined(property)) {
+        slangNodes.push(property);
+      }
+      return slangNodes;
+    }, []);
+
+    childrenNodes.forEach((child) => {
+      this.comments.push(...child.comments.splice(0));
     });
 
     // calculate correct loc object
@@ -42,8 +63,8 @@ export class SlangNode {
     let trailingOffset = getTrailingOffset(cstChildren);
 
     if (leadingOffset === 0 || trailingOffset === 0) {
-      for (let i = 0; i < childrenKeys.length; i += 1) {
-        const childLoc = this[childrenKeys[i]]?.loc;
+      for (let i = 0; i < propertyKeys.length; i += 1) {
+        const childLoc = this[propertyKeys[i]]?.loc;
 
         if (childLoc) {
           if (

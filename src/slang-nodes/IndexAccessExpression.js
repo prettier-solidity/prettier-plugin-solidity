@@ -17,32 +17,22 @@ export class IndexAccessExpression extends SlangNode {
 
   closeBracket;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
-      operand: new Expression(
-        ast.operand,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      operand: new Expression(ast.operand, childrenOffsets.shift(), options),
       openBracket: ast.openBracket.text,
       start: ast.start
-        ? new Expression(ast.start, childrenOffsets.shift(), comments, options)
+        ? new Expression(ast.start, childrenOffsets.shift(), options)
         : undefined,
       end: ast.end
-        ? new IndexAccessEnd(
-            ast.end,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+        ? new IndexAccessEnd(ast.end, childrenOffsets.shift(), options)
         : undefined,
       closeBracket: ast.closeBracket.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

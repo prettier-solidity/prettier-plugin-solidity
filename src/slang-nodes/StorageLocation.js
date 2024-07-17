@@ -3,14 +3,14 @@ import { SlangNode } from './SlangNode.js';
 export class StorageLocation extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments) {
+  constructor(ast, offset) {
     super();
 
     const fetch = () => ({
       variant: ast.variant.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print() {

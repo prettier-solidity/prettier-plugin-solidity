@@ -7,17 +7,16 @@ const { join, hardline } = doc.builders;
 export class HexStringLiterals extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       items: ast.items.map(
-        (item) =>
-          new HexStringLiteral(item, childrenOffsets.shift(), comments, options)
+        (item) => new HexStringLiteral(item, childrenOffsets.shift(), options)
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

@@ -10,7 +10,7 @@ export class YulReturnsDeclaration extends SlangNode {
 
   variables;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -18,12 +18,11 @@ export class YulReturnsDeclaration extends SlangNode {
       variables: new YulReturnVariables(
         ast.variables,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

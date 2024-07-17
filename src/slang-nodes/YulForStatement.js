@@ -13,7 +13,7 @@ export class YulForStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -21,25 +21,18 @@ export class YulForStatement extends SlangNode {
       initialization: new YulBlock(
         ast.initialization,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       condition: new YulExpression(
         ast.condition,
         childrenOffsets.shift(),
-        comments,
         options
       ),
-      iterator: new YulBlock(
-        ast.iterator,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
-      body: new YulBlock(ast.body, childrenOffsets.shift(), comments, options)
+      iterator: new YulBlock(ast.iterator, childrenOffsets.shift(), options),
+      body: new YulBlock(ast.body, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

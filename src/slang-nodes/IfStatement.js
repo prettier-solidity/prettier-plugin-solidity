@@ -20,7 +20,7 @@ export class IfStatement extends SlangNode {
 
   elseBranch;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -29,22 +29,16 @@ export class IfStatement extends SlangNode {
       condition: new Expression(
         ast.condition,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       closeParen: ast.closeParen.text,
-      body: new Statement(ast.body, childrenOffsets.shift(), comments, options),
+      body: new Statement(ast.body, childrenOffsets.shift(), options),
       elseBranch: ast.elseBranch
-        ? new ElseBranch(
-            ast.elseBranch,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+        ? new ElseBranch(ast.elseBranch, childrenOffsets.shift(), options)
         : undefined
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {
