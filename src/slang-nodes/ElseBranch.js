@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
-import { SlangNode } from './SlangNode.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
+import { SlangNode } from './SlangNode.js';
+import { Statement } from './Statement.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -11,9 +12,22 @@ export class ElseBranch extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { elseKeyword, body } = ast;
+      this.elseKeyword = elseKeyword.text;
+      this.body = new Statement(
+        body,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

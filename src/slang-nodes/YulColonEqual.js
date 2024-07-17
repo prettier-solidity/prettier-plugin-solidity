@@ -1,14 +1,17 @@
 import { SlangNode } from './SlangNode.js';
 
-export class YulLeaveStatement extends SlangNode {
-  leaveKeyword;
+export class YulColonEqual extends SlangNode {
+  colon;
+
+  equal;
 
   constructor(ast, offset, comments, parse) {
     super();
 
     const fetch = () => {
-      const { leaveKeyword } = ast;
-      this.leaveKeyword = leaveKeyword.text;
+      const { colon, equal } = ast;
+      this.colon = colon.text;
+      this.equal = equal.text;
     };
 
     this.initialize(ast, offset, comments, fetch, parse);
@@ -16,6 +19,6 @@ export class YulLeaveStatement extends SlangNode {
 
   // TODO: implement print
   print(path, print, options) {
-    return ['TODO: YulLeaveStatement'];
+    return ['TODO: YulColonEqual'];
   }
 }

@@ -1,6 +1,8 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
+import { Statement } from './Statement.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -15,9 +17,31 @@ export class WhileStatement extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { whileKeyword, openParen, condition, closeParen, body } = ast;
+      this.whileKeyword = whileKeyword.text;
+      this.openParen = openParen.text;
+      this.condition = new Expression(
+        condition,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeParen = closeParen.text;
+      this.body = new Statement(
+        body,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

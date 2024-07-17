@@ -5,7 +5,13 @@ export class YulBuiltInFunction extends SlangNode {
 
   constructor(ast, offset, comments, parse) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = () => {
+      const { variant } = ast;
+      this.variant = variant.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print() {

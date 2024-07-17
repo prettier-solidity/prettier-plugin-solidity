@@ -1,4 +1,6 @@
 import { SlangNode } from './SlangNode.js';
+import { TypeName } from './TypeName.js';
+import { StorageLocation } from './StorageLocation.js';
 
 export class TypedTupleMember extends SlangNode {
   typeName;
@@ -7,9 +9,31 @@ export class TypedTupleMember extends SlangNode {
 
   name;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { typeName, storageLocation, name } = ast;
+      this.typeName = new TypeName(
+        typeName,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      if (storageLocation) {
+        this.storageLocation = new StorageLocation(
+          storageLocation,
+          childrenOffsets.shift(),
+          comments,
+          parse,
+          options
+        );
+      }
+      this.name = name.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

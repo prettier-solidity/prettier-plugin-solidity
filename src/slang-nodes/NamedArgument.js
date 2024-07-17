@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
 
 export class NamedArgument extends SlangNode {
   name;
@@ -7,9 +8,23 @@ export class NamedArgument extends SlangNode {
 
   value;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { name, colon, value } = ast;
+      this.name = name.text;
+      this.colon = colon.text;
+      this.value = new Expression(
+        value,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

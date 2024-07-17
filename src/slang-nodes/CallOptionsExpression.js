@@ -1,4 +1,6 @@
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
+import { CallOptions } from './CallOptions.js';
 
 export class CallOptionsExpression extends SlangNode {
   operand;
@@ -9,9 +11,30 @@ export class CallOptionsExpression extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { operand, openBrace, closeBrace } = ast;
+      this.operand = new Expression(
+        operand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.openBrace = openBrace.text;
+      this.options = new CallOptions(
+        ast.options,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeBrace = closeBrace.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

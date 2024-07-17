@@ -2,6 +2,8 @@ import { doc } from 'prettier';
 import { isLabel } from '../common/util.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
+import { MemberAccess } from './MemberAccess.js';
 
 const { group, indent, label, softline } = doc.builders;
 
@@ -112,9 +114,29 @@ export class MemberAccessExpression extends SlangNode {
 
   member;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { operand, period, member } = ast;
+      this.operand = new Expression(
+        operand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.period = period.text;
+      this.member = new MemberAccess(
+        member,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

@@ -1,11 +1,30 @@
 import { SlangNode } from './SlangNode.js';
+import { ModifierInvocation } from './ModifierInvocation.js';
+import { OverrideSpecifier } from './OverrideSpecifier.js';
+
+const variants = { ModifierInvocation, OverrideSpecifier };
 
 export class FallbackFunctionAttribute extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { variant } = ast;
+      this.variant =
+        variant.type === 'Terminal'
+          ? variant.text
+          : new variants[variant.cst.kind](
+              variant,
+              childrenOffsets.shift(),
+              comments,
+              parse,
+              options
+            );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

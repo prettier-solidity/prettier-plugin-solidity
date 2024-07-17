@@ -10,7 +10,14 @@ export class YulLabel extends SlangNode {
 
   constructor(ast, offset, comments, parse) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = () => {
+      const { label, colon } = ast;
+      this.label = label.text;
+      this.colon = colon.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print() {

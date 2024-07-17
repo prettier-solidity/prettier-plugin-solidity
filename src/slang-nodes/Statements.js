@@ -3,15 +3,25 @@ import { printSeparatedItem } from '../common/printer-helpers.js';
 import { printComments } from '../slang-printers/print-comments.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
 import { SlangNode } from './SlangNode.js';
+import { Statement } from './Statement.js';
 
 const { hardline } = doc.builders;
 
 export class Statements extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { items } = ast;
+      this.items = items.map(
+        (item) =>
+          new Statement(item, childrenOffsets.shift(), comments, parse, options)
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print, options) {

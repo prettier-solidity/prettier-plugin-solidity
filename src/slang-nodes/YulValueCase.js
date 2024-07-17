@@ -1,4 +1,6 @@
 import { SlangNode } from './SlangNode.js';
+import { YulLiteral } from './YulLiteral.js';
+import { YulBlock } from './YulBlock.js';
 
 export class YulValueCase extends SlangNode {
   caseKeyword;
@@ -7,9 +9,29 @@ export class YulValueCase extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { caseKeyword, value, body } = ast;
+      this.caseKeyword = caseKeyword.text;
+      this.value = new YulLiteral(
+        value,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.body = new YulBlock(
+        body,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

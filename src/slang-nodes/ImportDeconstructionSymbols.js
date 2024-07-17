@@ -3,6 +3,7 @@ import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
+import { ImportDeconstructionSymbol } from './ImportDeconstructionSymbol.js';
 
 const { line, softline } = doc.builders;
 
@@ -11,9 +12,25 @@ export class ImportDeconstructionSymbols extends SlangNode {
 
   separators;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { items, separators } = ast;
+      this.items = items.map(
+        (item) =>
+          new ImportDeconstructionSymbol(
+            item,
+            childrenOffsets.shift(),
+            comments,
+            parse,
+            options
+          )
+      );
+      this.separators = separators.map((separator) => separator.text);
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print, options) {

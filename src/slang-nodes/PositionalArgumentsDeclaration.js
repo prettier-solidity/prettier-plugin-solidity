@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { PositionalArguments } from './PositionalArguments.js';
 
 export class PositionalArgumentsDeclaration extends SlangNode {
   openParen;
@@ -7,9 +8,24 @@ export class PositionalArgumentsDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { openParen, closeParen } = ast;
+      const $arguments = ast.arguments;
+      this.openParen = openParen.text;
+      this.arguments = new PositionalArguments(
+        $arguments,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeParen = closeParen.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

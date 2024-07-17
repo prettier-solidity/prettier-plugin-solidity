@@ -1,5 +1,7 @@
 import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
+import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
+import { Expression } from './Expression.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -18,9 +20,41 @@ export class TupleDeconstructionStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const {
+        varKeyword,
+        openParen,
+        elements,
+        closeParen,
+        equal,
+        expression,
+        semicolon
+      } = ast;
+      this.varKeyword = varKeyword?.text;
+      this.openParen = openParen.text;
+      this.elements = new TupleDeconstructionElements(
+        elements,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeParen = closeParen.text;
+      this.equal = equal.text;
+      this.expression = new Expression(
+        expression,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.semicolon = semicolon.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

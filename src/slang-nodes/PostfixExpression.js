@@ -1,13 +1,27 @@
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
 
 export class PostfixExpression extends SlangNode {
   operand;
 
   operator;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { operand, operator } = ast;
+      this.operand = new Expression(
+        operand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.operator = operator.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

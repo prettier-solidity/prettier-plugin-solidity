@@ -1,6 +1,8 @@
 import { doc } from 'prettier';
 import { isLabel } from '../common/util.js';
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
+import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 const { group, indentIfBreak, label } = doc.builders;
 
@@ -9,9 +11,28 @@ export class FunctionCallExpression extends SlangNode {
 
   arguments;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { operand } = ast;
+      this.operand = new Expression(
+        operand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.arguments = new ArgumentsDeclaration(
+        ast.arguments,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

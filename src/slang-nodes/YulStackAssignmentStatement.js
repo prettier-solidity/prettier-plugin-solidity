@@ -1,11 +1,8 @@
 import { SlangNode } from './SlangNode.js';
-import { YulPaths } from './YulPaths.js';
 import { YulAssignmentOperator } from './YulAssignmentOperator.js';
 import { YulExpression } from './YulExpression.js';
 
-export class YulVariableAssignmentStatement extends SlangNode {
-  names;
-
+export class YulStackAssignmentStatement extends SlangNode {
   assignment;
 
   expression;
@@ -14,14 +11,7 @@ export class YulVariableAssignmentStatement extends SlangNode {
     super();
 
     const fetch = (childrenOffsets) => {
-      const { names, assignment, expression } = ast;
-      this.names = new YulPaths(
-        names,
-        childrenOffsets.shift(),
-        comments,
-        parse,
-        options
-      );
+      const { assignment, expression } = ast;
       this.assignment = new YulAssignmentOperator(
         assignment,
         childrenOffsets.shift(),
@@ -41,13 +31,8 @@ export class YulVariableAssignmentStatement extends SlangNode {
     this.initialize(ast, offset, comments, fetch, parse);
   }
 
-  print(path, print) {
-    return [
-      path.call(print, 'names'),
-      ' ',
-      path.call(print, 'assignment'),
-      ' ',
-      path.call(print, 'expression')
-    ];
+  // TODO: implement print
+  print(path, print, options) {
+    return ['TODO: YulStackAssignmentStatement'];
   }
 }

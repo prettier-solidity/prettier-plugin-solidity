@@ -5,7 +5,13 @@ export class YulBreakStatement extends SlangNode {
 
   constructor(ast, offset, comments, parse) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = () => {
+      const { breakKeyword } = ast;
+      this.breakKeyword = breakKeyword.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print() {

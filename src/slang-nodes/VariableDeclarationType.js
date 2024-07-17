@@ -1,11 +1,27 @@
 import { SlangNode } from './SlangNode.js';
+import { TypeName } from './TypeName.js';
 
 export class VariableDeclarationType extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { variant } = ast;
+      this.variant =
+        variant.type === 'Terminal'
+          ? variant.type
+          : new TypeName(
+              variant,
+              childrenOffsets.shift(),
+              comments,
+              parse,
+              options
+            );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

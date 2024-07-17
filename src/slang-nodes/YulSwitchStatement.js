@@ -1,5 +1,7 @@
 import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
+import { YulExpression } from './YulExpression.js';
+import { YulSwitchCases } from './YulSwitchCases.js';
 
 const { hardline } = doc.builders;
 
@@ -10,9 +12,29 @@ export class YulSwitchStatement extends SlangNode {
 
   cases;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { switchKeyword, expression, cases } = ast;
+      this.switchKeyword = switchKeyword.text;
+      this.expression = new YulExpression(
+        expression,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.cases = new YulSwitchCases(
+        cases,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

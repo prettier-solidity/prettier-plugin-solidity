@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { NamedArguments } from './NamedArguments.js';
 
 export class NamedArgumentGroup extends SlangNode {
   openBrace;
@@ -7,9 +8,24 @@ export class NamedArgumentGroup extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { openBrace, closeBrace } = ast;
+      this.openBrace = openBrace.text;
+      this.arguments = new NamedArguments(
+        ast.arguments,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+
+      this.closeBrace = closeBrace.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

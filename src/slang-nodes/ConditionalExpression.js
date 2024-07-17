@@ -2,6 +2,7 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
@@ -97,7 +98,36 @@ export class ConditionalExpression extends SlangNode {
 
   constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { operand, questionMark, trueExpression, colon, falseExpression } =
+        ast;
+      this.operand = new Expression(
+        operand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.questionMark = questionMark.text;
+      this.trueExpression = new Expression(
+        trueExpression,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.colon = colon.text;
+      this.falseExpression = new Expression(
+        falseExpression,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
 
     // TODO: while the behaviour is not stable, it should be behind the
     // experimentalTernaries flag.

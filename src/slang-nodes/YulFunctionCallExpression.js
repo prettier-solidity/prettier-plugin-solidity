@@ -1,4 +1,6 @@
 import { SlangNode } from './SlangNode.js';
+import { YulExpression } from './YulExpression.js';
+import { YulArguments } from './YulArguments.js';
 
 export class YulFunctionCallExpression extends SlangNode {
   operand;
@@ -9,9 +11,30 @@ export class YulFunctionCallExpression extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { operand, openParen, closeParen } = ast;
+      this.operand = new YulExpression(
+        operand,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.openParen = openParen.text;
+      this.arguments = new YulArguments(
+        ast.arguments,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.closeParen = closeParen.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {

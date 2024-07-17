@@ -1,9 +1,10 @@
 import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
+import { Expression } from './Expression.js';
 
 const { group, indent, line } = doc.builders;
 
-function expression(node, path, print, options) {
+function printExpression(node, path, print, options) {
   if (node.expression) {
     return node.expression.variant.kind === 'TupleExpression' ||
       (options.experimentalTernaries &&
@@ -21,15 +22,31 @@ export class ReturnStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { returnKeyword, expression, semicolon } = ast;
+      this.returnKeyword = returnKeyword.text;
+      if (expression) {
+        this.expression = new Expression(
+          expression,
+          childrenOffsets.shift(),
+          comments,
+          parse,
+          options
+        );
+      }
+      this.semicolon = semicolon.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print, options) {
     return [
       this.returnKeyword,
-      expression(this, path, print, options),
+      printExpression(this, path, print, options),
       this.semicolon
     ];
   }

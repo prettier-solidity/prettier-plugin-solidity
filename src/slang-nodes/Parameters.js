@@ -4,16 +4,32 @@ import {
 } from '../common/printer-helpers.js';
 import { printComments } from '../slang-printers/print-comments.js';
 import { SlangNode } from './SlangNode.js';
+import { Parameter } from './Parameter.js';
 
 export class Parameters extends SlangNode {
   items;
 
   separators;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
     if (offset) {
-      this.initialize(ast, offset, comments, parse);
+      const fetch = (childrenOffsets) => {
+        const { items, separators } = ast;
+        this.items = items.map(
+          (item) =>
+            new Parameter(
+              item,
+              childrenOffsets.shift(),
+              comments,
+              parse,
+              options
+            )
+        );
+        this.separators = separators.map((separator) => separator.text);
+      };
+
+      this.initialize(ast, offset, comments, fetch, parse);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

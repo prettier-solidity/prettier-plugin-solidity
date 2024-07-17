@@ -1,4 +1,5 @@
 import { SlangNode } from './SlangNode.js';
+import { Pragma } from './Pragma.js';
 
 export class PragmaDirective extends SlangNode {
   pragmaKeyword;
@@ -7,9 +8,23 @@ export class PragmaDirective extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments, parse, options) {
     super();
-    this.initialize(ast, offset, comments, parse);
+
+    const fetch = (childrenOffsets) => {
+      const { pragmaKeyword, pragma, semicolon } = ast;
+      this.pragmaKeyword = pragmaKeyword.text;
+      this.pragma = new Pragma(
+        pragma,
+        childrenOffsets.shift(),
+        comments,
+        parse,
+        options
+      );
+      this.semicolon = semicolon.text;
+    };
+
+    this.initialize(ast, offset, comments, fetch, parse);
   }
 
   print(path, print) {
