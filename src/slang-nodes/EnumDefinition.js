@@ -15,19 +15,18 @@ export class EnumDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { enumKeyword, name, openBrace, members, closeBrace } = ast;
-      this.enumKeyword = enumKeyword.text;
-      this.name = name.text;
-      this.openBrace = openBrace.text;
-      this.members = new EnumMembers(
-        members,
+    const fetch = (childrenOffsets) => ({
+      enumKeyword: ast.enumKeyword.text,
+      name: ast.name.text,
+      openBrace: ast.openBrace.text,
+      members: new EnumMembers(
+        ast.members,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeBrace = closeBrace.text;
-    };
+      ),
+      closeBrace: ast.closeBrace.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

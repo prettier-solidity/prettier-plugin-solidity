@@ -8,11 +8,10 @@ export class ImportAlias extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { asKeyword, identifier } = ast;
-      this.asKeyword = asKeyword.text;
-      this.identifier = identifier.text;
-    };
+    const fetch = () => ({
+      asKeyword: ast.asKeyword.text,
+      identifier: ast.identifier.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

@@ -11,18 +11,16 @@ export class PositionalArgumentsDeclaration extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { openParen, closeParen } = ast;
-      const $arguments = ast.arguments;
-      this.openParen = openParen.text;
-      this.arguments = new PositionalArguments(
-        $arguments,
+    const fetch = (childrenOffsets) => ({
+      openParen: ast.openParen.text,
+      arguments: new PositionalArguments(
+        ast.arguments,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeParen = closeParen.text;
-    };
+      ),
+      closeParen: ast.closeParen.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

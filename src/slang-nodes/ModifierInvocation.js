@@ -11,23 +11,22 @@ export class ModifierInvocation extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { name } = ast;
-      this.name = new IdentifierPath(
-        name,
+    const fetch = (childrenOffsets) => ({
+      name: new IdentifierPath(
+        ast.name,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      if (ast.arguments) {
-        this.arguments = new ArgumentsDeclaration(
-          ast.arguments,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-    };
+      ),
+      arguments: ast.arguments
+        ? new ArgumentsDeclaration(
+            ast.arguments,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined
+    });
 
     this.initialize(ast, offset, fetch, comments);
 

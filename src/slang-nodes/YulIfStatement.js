@@ -12,24 +12,23 @@ export class YulIfStatement extends SlangNode {
   constructor(ast, offset, comments, parse, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { ifKeyword, condition, body } = ast;
-      this.ifKeyword = ifKeyword.text;
-      this.condition = new YulExpression(
-        condition,
+    const fetch = (childrenOffsets) => ({
+      ifKeyword: ast.ifKeyword.text,
+      condition: new YulExpression(
+        ast.condition,
         childrenOffsets.shift(),
         comments,
         parse,
         options
-      );
-      this.body = new YulBlock(
-        body,
+      ),
+      body: new YulBlock(
+        ast.body,
         childrenOffsets.shift(),
         comments,
         parse,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

@@ -16,34 +16,28 @@ export class YulForStatement extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { forKeyword, initialization, condition, iterator, body } = ast;
-      this.forKeyword = forKeyword.text;
-      this.initialization = new YulBlock(
-        initialization,
+    const fetch = (childrenOffsets) => ({
+      forKeyword: ast.forKeyword.text,
+      initialization: new YulBlock(
+        ast.initialization,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.condition = new YulExpression(
-        condition,
+      ),
+      condition: new YulExpression(
+        ast.condition,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.iterator = new YulBlock(
-        iterator,
+      ),
+      iterator: new YulBlock(
+        ast.iterator,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.body = new YulBlock(
-        body,
-        childrenOffsets.shift(),
-        comments,
-        options
-      );
-    };
+      ),
+      body: new YulBlock(ast.body, childrenOffsets.shift(), comments, options)
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

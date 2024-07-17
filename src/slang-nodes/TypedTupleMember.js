@@ -12,24 +12,23 @@ export class TypedTupleMember extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { typeName, storageLocation, name } = ast;
-      this.typeName = new TypeName(
-        typeName,
+    const fetch = (childrenOffsets) => ({
+      typeName: new TypeName(
+        ast.typeName,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      if (storageLocation) {
-        this.storageLocation = new StorageLocation(
-          storageLocation,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-      this.name = name.text;
-    };
+      ),
+      storageLocation: ast.storageLocation
+        ? new StorageLocation(
+            ast.storageLocation,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined,
+      name: ast.name.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

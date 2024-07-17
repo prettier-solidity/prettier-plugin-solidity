@@ -9,16 +9,15 @@ export class ExperimentalPragma extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { experimentalKeyword, feature } = ast;
-      this.experimentalKeyword = experimentalKeyword.text;
-      this.feature = new ExperimentalFeature(
-        feature,
+    const fetch = (childrenOffsets) => ({
+      experimentalKeyword: ast.experimentalKeyword.text,
+      feature: new ExperimentalFeature(
+        ast.feature,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

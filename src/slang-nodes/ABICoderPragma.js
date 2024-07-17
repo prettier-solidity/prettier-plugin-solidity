@@ -8,11 +8,10 @@ export class ABICoderPragma extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { abicoderKeyword, version } = ast;
-      this.abicoderKeyword = abicoderKeyword.text;
-      this.version = version.text;
-    };
+    const fetch = () => ({
+      abicoderKeyword: ast.abicoderKeyword.text,
+      version: ast.version.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

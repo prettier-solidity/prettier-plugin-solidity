@@ -11,19 +11,18 @@ export class NamedArgumentsDeclaration extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { openParen, closeParen } = ast;
-      this.openParen = openParen.text;
-      if (ast.arguments) {
-        this.arguments = new NamedArgumentGroup(
-          ast.arguments,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-      this.closeParen = closeParen.text;
-    };
+    const fetch = (childrenOffsets) => ({
+      openParen: ast.openParen.text,
+      arguments: ast.arguments
+        ? new NamedArgumentGroup(
+            ast.arguments,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined,
+      closeParen: ast.closeParen.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

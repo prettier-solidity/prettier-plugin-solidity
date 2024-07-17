@@ -21,34 +21,26 @@ export class InterfaceDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const {
-        interfaceKeyword,
-        name,
-        inheritance,
-        openBrace,
-        members,
-        closeBrace
-      } = ast;
-      this.interfaceKeyword = interfaceKeyword.text;
-      this.name = name.text;
-      if (inheritance) {
-        this.inheritance = new InheritanceSpecifier(
-          inheritance,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-      this.openBrace = openBrace.text;
-      this.members = new InterfaceMembers(
-        members,
+    const fetch = (childrenOffsets) => ({
+      interfaceKeyword: ast.interfaceKeyword.text,
+      name: ast.name.text,
+      inheritance: ast.inheritance
+        ? new InheritanceSpecifier(
+            ast.inheritance,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined,
+      openBrace: ast.openBrace.text,
+      members: new InterfaceMembers(
+        ast.members,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeBrace = closeBrace.text;
-    };
+      ),
+      closeBrace: ast.closeBrace.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

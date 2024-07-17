@@ -9,16 +9,15 @@ export class MappingValue extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { typeName, name } = ast;
-      this.typeName = new TypeName(
-        typeName,
+    const fetch = (childrenOffsets) => ({
+      typeName: new TypeName(
+        ast.typeName,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.name = name?.text;
-    };
+      ),
+      name: ast.name?.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

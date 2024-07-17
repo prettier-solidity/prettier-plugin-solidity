@@ -15,16 +15,10 @@ export class ElseBranch extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { elseKeyword, body } = ast;
-      this.elseKeyword = elseKeyword.text;
-      this.body = new Statement(
-        body,
-        childrenOffsets.shift(),
-        comments,
-        options
-      );
-    };
+    const fetch = (childrenOffsets) => ({
+      elseKeyword: ast.elseKeyword.text,
+      body: new Statement(ast.body, childrenOffsets.shift(), comments, options)
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

@@ -12,13 +12,12 @@ export class InterfaceMembers extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { items } = ast;
-      this.items = items.map(
+    const fetch = (childrenOffsets) => ({
+      items: ast.items.map(
         (item) =>
           new ContractMember(item, childrenOffsets.shift(), comments, options)
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

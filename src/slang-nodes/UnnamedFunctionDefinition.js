@@ -16,28 +16,27 @@ export class UnnamedFunctionDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { functionKeyword, parameters, attributes, body } = ast;
-      this.functionKeyword = functionKeyword.text;
-      this.parameters = new ParametersDeclaration(
-        parameters,
+    const fetch = (childrenOffsets) => ({
+      functionKeyword: ast.functionKeyword.text,
+      parameters: new ParametersDeclaration(
+        ast.parameters,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.attributes = new UnnamedFunctionAttributes(
-        attributes,
+      ),
+      attributes: new UnnamedFunctionAttributes(
+        ast.attributes,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.body = new FunctionBody(
-        body,
+      ),
+      body: new FunctionBody(
+        ast.body,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
 

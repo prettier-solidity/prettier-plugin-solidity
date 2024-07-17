@@ -6,18 +6,17 @@ export class ElementaryType extends SlangNode {
 
   constructor(ast, offset, comments, options) {
     super();
-    const fetch = (childrenOffsets) => {
-      const { variant } = ast;
-      this.variant =
-        variant.type === 'Terminal'
-          ? variant.text
+    const fetch = (childrenOffsets) => ({
+      variant:
+        ast.variant.type === 'Terminal'
+          ? ast.variant.text
           : new AddressType(
-              variant,
+              ast.variant,
               childrenOffsets.shift(),
               comments,
               options
-            );
-    };
+            )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

@@ -7,17 +7,16 @@ export class TupleDeconstructionElement extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { member } = ast;
-      if (member) {
-        this.member = new TupleMember(
-          member,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-    };
+    const fetch = (childrenOffsets) => ({
+      member: ast.member
+        ? new TupleMember(
+            ast.member,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

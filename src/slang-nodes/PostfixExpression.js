@@ -9,16 +9,15 @@ export class PostfixExpression extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { operand, operator } = ast;
-      this.operand = new Expression(
-        operand,
+    const fetch = (childrenOffsets) => ({
+      operand: new Expression(
+        ast.operand,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.operator = operator.text;
-    };
+      ),
+      operator: ast.operator.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

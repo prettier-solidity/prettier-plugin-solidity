@@ -12,16 +12,15 @@ export class StateVariableDefinitionValue extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { equal, value } = ast;
-      this.equal = equal.text;
-      this.value = new Expression(
-        value,
+    const fetch = (childrenOffsets) => ({
+      equal: ast.equal.text,
+      value: new Expression(
+        ast.value,
         childrenOffsets.shift(),
         comments,
         options
-      );
-    };
+      )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

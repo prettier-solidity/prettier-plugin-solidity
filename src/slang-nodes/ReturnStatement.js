@@ -25,19 +25,19 @@ export class ReturnStatement extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { returnKeyword, expression, semicolon } = ast;
-      this.returnKeyword = returnKeyword.text;
-      if (expression) {
-        this.expression = new Expression(
-          expression,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-      this.semicolon = semicolon.text;
-    };
+    const fetch = (childrenOffsets) => ({
+      returnKeyword: ast.returnKeyword.text,
+      expression: ast.expression
+        ? new Expression(
+            ast.expression,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined,
+
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

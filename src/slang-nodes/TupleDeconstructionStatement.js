@@ -23,34 +23,25 @@ export class TupleDeconstructionStatement extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const {
-        varKeyword,
-        openParen,
-        elements,
-        closeParen,
-        equal,
-        expression,
-        semicolon
-      } = ast;
-      this.varKeyword = varKeyword?.text;
-      this.openParen = openParen.text;
-      this.elements = new TupleDeconstructionElements(
-        elements,
+    const fetch = (childrenOffsets) => ({
+      varKeyword: ast.varKeyword?.text,
+      openParen: ast.openParen.text,
+      elements: new TupleDeconstructionElements(
+        ast.elements,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeParen = closeParen.text;
-      this.equal = equal.text;
-      this.expression = new Expression(
-        expression,
+      ),
+      closeParen: ast.closeParen.text,
+      equal: ast.equal.text,
+      expression: new Expression(
+        ast.expression,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.semicolon = semicolon.text;
-    };
+      ),
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

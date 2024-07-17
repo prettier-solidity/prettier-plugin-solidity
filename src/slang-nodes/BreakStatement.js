@@ -8,11 +8,10 @@ export class BreakStatement extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { breakKeyword, semicolon } = ast;
-      this.breakKeyword = breakKeyword.text;
-      this.semicolon = semicolon.text;
-    };
+    const fetch = () => ({
+      breakKeyword: ast.breakKeyword.text,
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

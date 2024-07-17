@@ -10,19 +10,18 @@ export class YulLiteral extends SlangNode {
   constructor(ast, offset, comments, parse, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { variant } = ast;
-      this.variant =
-        variant.type === 'Terminal'
-          ? variant.text
-          : new variants[variant.cst.kind](
-              variant,
+    const fetch = (childrenOffsets) => ({
+      variant:
+        ast.variant.type === 'Terminal'
+          ? ast.variant.text
+          : new variants[ast.variant.cst.kind](
+              ast.variant,
               childrenOffsets.shift(),
               comments,
               parse,
               options
-            );
-    };
+            )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

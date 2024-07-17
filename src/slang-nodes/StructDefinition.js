@@ -15,19 +15,18 @@ export class StructDefinition extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { structKeyword, name, openBrace, members, closeBrace } = ast;
-      this.structKeyword = structKeyword.text;
-      this.name = name.text;
-      this.openBrace = openBrace.text;
-      this.members = new StructMembers(
-        members,
+    const fetch = (childrenOffsets) => ({
+      structKeyword: ast.structKeyword.text,
+      name: ast.name.text,
+      openBrace: ast.openBrace.text,
+      members: new StructMembers(
+        ast.members,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.closeBrace = closeBrace.text;
-    };
+      ),
+      closeBrace: ast.closeBrace.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

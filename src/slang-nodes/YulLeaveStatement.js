@@ -3,13 +3,12 @@ import { SlangNode } from './SlangNode.js';
 export class YulLeaveStatement extends SlangNode {
   leaveKeyword;
 
-  constructor(ast, offset, comments, parse) {
+  constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { leaveKeyword } = ast;
-      this.leaveKeyword = leaveKeyword.text;
-    };
+    const fetch = () => ({
+      leaveKeyword: ast.leaveKeyword.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

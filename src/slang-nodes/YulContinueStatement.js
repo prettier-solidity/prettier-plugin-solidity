@@ -6,10 +6,9 @@ export class YulContinueStatement extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { continueKeyword } = ast;
-      this.continueKeyword = continueKeyword.text;
-    };
+    const fetch = () => ({
+      continueKeyword: ast.continueKeyword.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

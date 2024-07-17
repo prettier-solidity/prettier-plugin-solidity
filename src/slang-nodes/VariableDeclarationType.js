@@ -7,13 +7,17 @@ export class VariableDeclarationType extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { variant } = ast;
-      this.variant =
-        variant.type === 'Terminal'
-          ? variant.type
-          : new TypeName(variant, childrenOffsets.shift(), comments, options);
-    };
+    const fetch = (childrenOffsets) => ({
+      variant:
+        ast.variant.type === 'Terminal'
+          ? ast.variant.type
+          : new TypeName(
+              ast.variant,
+              childrenOffsets.shift(),
+              comments,
+              options
+            )
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

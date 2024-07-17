@@ -8,11 +8,10 @@ export class ContinueStatement extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { continueKeyword, semicolon } = ast;
-      this.continueKeyword = continueKeyword.text;
-      this.semicolon = semicolon.text;
-    };
+    const fetch = () => ({
+      continueKeyword: ast.continueKeyword.text,
+      semicolon: ast.semicolon.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

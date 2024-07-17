@@ -6,10 +6,9 @@ export class UsingOperator extends SlangNode {
   constructor(ast, offset, comments) {
     super();
 
-    const fetch = () => {
-      const { variant } = ast;
-      this.variant = variant.text;
-    };
+    const fetch = () => ({
+      variant: ast.variant.text
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

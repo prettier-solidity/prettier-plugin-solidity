@@ -10,19 +10,17 @@ export class PathImport extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { path, alias } = ast;
-      this.path = new StringLiteral(
-        path,
+    const fetch = (childrenOffsets) => ({
+      path: new StringLiteral(
+        ast.path,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      this.alias =
-        typeof alias === 'undefined'
-          ? undefined
-          : new ImportAlias(alias, childrenOffsets.shift(), comments, options);
-    };
+      ),
+      alias: ast.alias
+        ? new ImportAlias(ast.alias, childrenOffsets.shift(), comments, options)
+        : undefined
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

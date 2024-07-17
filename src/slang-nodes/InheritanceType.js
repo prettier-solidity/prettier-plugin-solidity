@@ -10,23 +10,22 @@ export class InheritanceType extends SlangNode {
   constructor(ast, offset, comments, options) {
     super();
 
-    const fetch = (childrenOffsets) => {
-      const { typeName } = ast;
-      this.typeName = new IdentifierPath(
-        typeName,
+    const fetch = (childrenOffsets) => ({
+      typeName: new IdentifierPath(
+        ast.typeName,
         childrenOffsets.shift(),
         comments,
         options
-      );
-      if (ast.arguments) {
-        this.arguments = new ArgumentsDeclaration(
-          ast.arguments,
-          childrenOffsets.shift(),
-          comments,
-          options
-        );
-      }
-    };
+      ),
+      arguments: ast.arguments
+        ? new ArgumentsDeclaration(
+            ast.arguments,
+            childrenOffsets.shift(),
+            comments,
+            options
+          )
+        : undefined
+    });
 
     this.initialize(ast, offset, fetch, comments);
   }

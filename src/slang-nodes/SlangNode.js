@@ -19,7 +19,20 @@ export class SlangNode {
     const childrenOffsets = getChildrenOffsets(cstChildren, offset, comments);
 
     // populate all children nodes
-    fetch(childrenOffsets);
+    let children;
+
+    this.fetch = () => {
+      if (children === undefined) {
+        children = fetch(childrenOffsets);
+      }
+      return children;
+    };
+
+    this.fetch();
+
+    Object.keys(children).forEach((childKey) => {
+      this[childKey] = children[childKey];
+    });
 
     // calculate correct loc object
     const startWithTrivia = offset;
