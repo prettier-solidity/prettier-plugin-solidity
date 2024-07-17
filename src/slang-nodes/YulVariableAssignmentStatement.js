@@ -10,31 +10,24 @@ export class YulVariableAssignmentStatement extends SlangNode {
 
   expression;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
-      names: new YulPaths(
-        ast.names,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      names: new YulPaths(ast.names, childrenOffsets.shift(), options),
       assignment: new YulAssignmentOperator(
         ast.assignment,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       expression: new YulExpression(
         ast.expression,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

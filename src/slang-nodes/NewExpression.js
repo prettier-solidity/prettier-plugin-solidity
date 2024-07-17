@@ -6,20 +6,15 @@ export class NewExpression extends SlangNode {
 
   typeName;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       newKeyword: ast.newKeyword.text,
-      typeName: new TypeName(
-        ast.typeName,
-        childrenOffsets.shift(),
-        comments,
-        options
-      )
+      typeName: new TypeName(ast.typeName, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

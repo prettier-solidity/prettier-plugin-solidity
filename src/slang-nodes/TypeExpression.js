@@ -10,22 +10,17 @@ export class TypeExpression extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       typeKeyword: ast.typeKeyword.text,
       openParen: ast.openParen.text,
-      typeName: new TypeName(
-        ast.typeName,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      typeName: new TypeName(ast.typeName, childrenOffsets.shift(), options),
       closeParen: ast.closeParen.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   // TODO: implement print

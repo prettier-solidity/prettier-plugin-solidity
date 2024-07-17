@@ -6,23 +6,18 @@ export class VersionExpressionSets extends SlangNode {
 
   separators;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       items: ast.items.map(
         (item) =>
-          new VersionExpressionSet(
-            item,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+          new VersionExpressionSet(item, childrenOffsets.shift(), options)
       ),
       separators: ast.separators.map((separator) => separator.text)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

@@ -5,7 +5,7 @@ export class ABICoderPragma extends SlangNode {
 
   version;
 
-  constructor(ast, offset, comments) {
+  constructor(ast, offset) {
     super();
 
     const fetch = () => ({
@@ -13,7 +13,7 @@ export class ABICoderPragma extends SlangNode {
       version: ast.version.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print() {

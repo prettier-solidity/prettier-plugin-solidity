@@ -4,7 +4,7 @@ import { ModifierInvocation } from './ModifierInvocation.js';
 export class ConstructorAttribute extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -14,12 +14,11 @@ export class ConstructorAttribute extends SlangNode {
           : new ModifierInvocation(
               ast.variant,
               childrenOffsets.shift(),
-              comments,
               options
             )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

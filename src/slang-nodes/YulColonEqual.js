@@ -5,7 +5,7 @@ export class YulColonEqual extends SlangNode {
 
   equal;
 
-  constructor(ast, offset, comments) {
+  constructor(ast, offset) {
     super();
 
     const fetch = () => ({
@@ -13,7 +13,7 @@ export class YulColonEqual extends SlangNode {
       equal: ast.equal.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   // TODO: implement print

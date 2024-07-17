@@ -11,27 +11,17 @@ export class CallOptionsExpression extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
-      operand: new Expression(
-        ast.operand,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      operand: new Expression(ast.operand, childrenOffsets.shift(), options),
       openBrace: ast.openBrace.text,
-      options: new CallOptions(
-        ast.options,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      options: new CallOptions(ast.options, childrenOffsets.shift(), options),
       closeBrace: ast.closeBrace.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

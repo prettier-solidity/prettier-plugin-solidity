@@ -96,33 +96,26 @@ export class ConditionalExpression extends SlangNode {
 
   falseExpression;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
-      operand: new Expression(
-        ast.operand,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      operand: new Expression(ast.operand, childrenOffsets.shift(), options),
       questionMark: ast.questionMark.text,
       trueExpression: new Expression(
         ast.trueExpression,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       colon: ast.colon.text,
       falseExpression: new Expression(
         ast.falseExpression,
         childrenOffsets.shift(),
-        comments,
         options
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
 
     // TODO: while the behaviour is not stable, it should be behind the
     // experimentalTernaries flag.

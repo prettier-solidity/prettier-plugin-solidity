@@ -20,7 +20,7 @@ export class TupleDeconstructionStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -29,7 +29,6 @@ export class TupleDeconstructionStatement extends SlangNode {
       elements: new TupleDeconstructionElements(
         ast.elements,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       closeParen: ast.closeParen.text,
@@ -37,13 +36,12 @@ export class TupleDeconstructionStatement extends SlangNode {
       expression: new Expression(
         ast.expression,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       semicolon: ast.semicolon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

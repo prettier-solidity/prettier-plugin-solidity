@@ -13,7 +13,7 @@ export class FunctionType extends SlangNode {
 
   returns;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -21,26 +21,19 @@ export class FunctionType extends SlangNode {
       parameters: new ParametersDeclaration(
         ast.parameters,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       attributes: new FunctionTypeAttributes(
         ast.attributes,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       returns: ast.returns
-        ? new ReturnsDeclaration(
-            ast.returns,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+        ? new ReturnsDeclaration(ast.returns, childrenOffsets.shift(), options)
         : undefined
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

@@ -114,26 +114,16 @@ export class MemberAccessExpression extends SlangNode {
 
   member;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
-      operand: new Expression(
-        ast.operand,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      operand: new Expression(ast.operand, childrenOffsets.shift(), options),
       period: ast.period.text,
-      member: new MemberAccess(
-        ast.member,
-        childrenOffsets.shift(),
-        comments,
-        options
-      )
+      member: new MemberAccess(ast.member, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

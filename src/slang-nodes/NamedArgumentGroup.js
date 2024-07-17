@@ -8,7 +8,7 @@ export class NamedArgumentGroup extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -16,13 +16,12 @@ export class NamedArgumentGroup extends SlangNode {
       arguments: new NamedArguments(
         ast.arguments,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       closeBrace: ast.closeBrace.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

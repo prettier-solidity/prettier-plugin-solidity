@@ -8,7 +8,7 @@ export class UsingDeconstruction extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -16,13 +16,12 @@ export class UsingDeconstruction extends SlangNode {
       symbols: new UsingDeconstructionSymbols(
         ast.symbols,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       closeBrace: ast.closeBrace.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

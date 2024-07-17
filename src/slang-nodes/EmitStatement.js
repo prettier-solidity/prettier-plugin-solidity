@@ -11,27 +11,21 @@ export class EmitStatement extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       emitKeyword: ast.emitKeyword.text,
-      event: new IdentifierPath(
-        ast.event,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      event: new IdentifierPath(ast.event, childrenOffsets.shift(), options),
       arguments: new ArgumentsDeclaration(
         ast.arguments,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       semicolon: ast.semicolon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

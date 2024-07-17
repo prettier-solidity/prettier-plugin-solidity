@@ -22,7 +22,7 @@ export class ContractDefinition extends SlangNode {
 
   closeBrace;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -33,7 +33,6 @@ export class ContractDefinition extends SlangNode {
         ? new InheritanceSpecifier(
             ast.inheritance,
             childrenOffsets.shift(),
-            comments,
             options
           )
         : undefined,
@@ -41,13 +40,12 @@ export class ContractDefinition extends SlangNode {
       members: new ContractMembers(
         ast.members,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       closeBrace: ast.closeBrace.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
 
     this.cleanModifierInvocationArguments(options);
   }

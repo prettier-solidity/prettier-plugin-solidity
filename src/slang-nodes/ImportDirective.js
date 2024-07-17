@@ -8,21 +8,16 @@ export class ImportDirective extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       importKeyword: ast.importKeyword.text,
-      clause: new ImportClause(
-        ast.clause,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      clause: new ImportClause(ast.clause, childrenOffsets.shift(), options),
       semicolon: ast.semicolon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

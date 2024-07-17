@@ -4,21 +4,16 @@ import { TupleMember } from './TupleMember.js';
 export class TupleDeconstructionElement extends SlangNode {
   member;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       member: ast.member
-        ? new TupleMember(
-            ast.member,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+        ? new TupleMember(ast.member, childrenOffsets.shift(), options)
         : undefined
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

@@ -13,7 +13,7 @@ export class ImportDeconstruction extends SlangNode {
 
   path;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -21,20 +21,14 @@ export class ImportDeconstruction extends SlangNode {
       symbols: new ImportDeconstructionSymbols(
         ast.symbols,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       closeBrace: ast.closeBrace.text,
       fromKeyword: ast.fromKeyword.text,
-      path: new StringLiteral(
-        ast.path,
-        childrenOffsets.shift(),
-        comments,
-        options
-      )
+      path: new StringLiteral(ast.path, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

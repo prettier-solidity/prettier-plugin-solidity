@@ -4,22 +4,17 @@ import { Expression } from './Expression.js';
 export class TupleValue extends SlangNode {
   expression;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     if (offset) {
       const fetch = (childrenOffsets) => ({
         expression: ast.expression
-          ? new Expression(
-              ast.expression,
-              childrenOffsets.shift(),
-              comments,
-              options
-            )
+          ? new Expression(ast.expression, childrenOffsets.shift(), options)
           : undefined
       });
 
-      this.initialize(ast, offset, fetch, comments);
+      this.initialize(ast, offset, fetch);
     } else {
       this.kind = ast.kind;
       this.loc = ast.loc;

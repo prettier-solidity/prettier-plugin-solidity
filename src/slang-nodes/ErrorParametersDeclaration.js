@@ -8,7 +8,7 @@ export class ErrorParametersDeclaration extends SlangNode {
 
   closeParen;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -16,13 +16,12 @@ export class ErrorParametersDeclaration extends SlangNode {
       parameters: new ErrorParameters(
         ast.parameters,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       closeParen: ast.closeParen.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

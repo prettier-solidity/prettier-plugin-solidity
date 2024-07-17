@@ -14,20 +14,14 @@ export class StateVariableDefinition extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
-      typeName: new TypeName(
-        ast.typeName,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      typeName: new TypeName(ast.typeName, childrenOffsets.shift(), options),
       attributes: new StateVariableAttributes(
         ast.attributes,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       name: ast.name.text,
@@ -35,14 +29,13 @@ export class StateVariableDefinition extends SlangNode {
         ? new StateVariableDefinitionValue(
             ast.value,
             childrenOffsets.shift(),
-            comments,
             options
           )
         : undefined,
       semicolon: ast.semicolon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

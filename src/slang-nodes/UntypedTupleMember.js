@@ -6,7 +6,7 @@ export class UntypedTupleMember extends SlangNode {
 
   name;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -14,14 +14,13 @@ export class UntypedTupleMember extends SlangNode {
         ? new StorageLocation(
             ast.storageLocation,
             childrenOffsets.shift(),
-            comments,
             options
           )
         : undefined,
       name: ast.name.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   // TODO: implement print

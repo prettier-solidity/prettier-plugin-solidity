@@ -7,7 +7,7 @@ const variants = { ModifierInvocation, OverrideSpecifier };
 export class FallbackFunctionAttribute extends SlangNode {
   variant;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -17,12 +17,11 @@ export class FallbackFunctionAttribute extends SlangNode {
           : new variants[ast.variant.cst.kind](
               ast.variant,
               childrenOffsets.shift(),
-              comments,
               options
             )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

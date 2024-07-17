@@ -9,17 +9,16 @@ const { hardline } = doc.builders;
 export class LibraryMembers extends SlangNode {
   items;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       items: ast.items.map(
-        (item) =>
-          new ContractMember(item, childrenOffsets.shift(), comments, options)
+        (item) => new ContractMember(item, childrenOffsets.shift(), options)
       )
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print, options) {

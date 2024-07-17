@@ -11,21 +11,16 @@ export class ArrayExpression extends SlangNode {
 
   closeBracket;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       openBracket: ast.openBracket.text,
-      items: new ArrayValues(
-        ast.items,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      items: new ArrayValues(ast.items, childrenOffsets.shift(), options),
       closeBracket: ast.closeBracket.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

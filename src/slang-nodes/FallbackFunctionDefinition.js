@@ -16,7 +16,7 @@ export class FallbackFunctionDefinition extends SlangNode {
 
   body;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
@@ -24,32 +24,20 @@ export class FallbackFunctionDefinition extends SlangNode {
       parameters: new ParametersDeclaration(
         ast.parameters,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       attributes: new FallbackFunctionAttributes(
         ast.attributes,
         childrenOffsets.shift(),
-        comments,
         options
       ),
       returns: ast.returns
-        ? new ReturnsDeclaration(
-            ast.returns,
-            childrenOffsets.shift(),
-            comments,
-            options
-          )
+        ? new ReturnsDeclaration(ast.returns, childrenOffsets.shift(), options)
         : undefined,
-      body: new FunctionBody(
-        ast.body,
-        childrenOffsets.shift(),
-        comments,
-        options
-      )
+      body: new FunctionBody(ast.body, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
 
     this.cleanModifierInvocationArguments();
   }

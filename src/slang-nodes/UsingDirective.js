@@ -15,29 +15,19 @@ export class UsingDirective extends SlangNode {
 
   semicolon;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       usingKeyword: ast.usingKeyword.text,
-      clause: new UsingClause(
-        ast.clause,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      clause: new UsingClause(ast.clause, childrenOffsets.shift(), options),
       forKeyword: ast.forKeyword.text,
-      target: new UsingTarget(
-        ast.target,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      target: new UsingTarget(ast.target, childrenOffsets.shift(), options),
       globalKeyword: ast.globalKeyword?.text,
       semicolon: ast.semicolon.text
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

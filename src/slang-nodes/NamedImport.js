@@ -11,27 +11,17 @@ export class NamedImport extends SlangNode {
 
   path;
 
-  constructor(ast, offset, comments, options) {
+  constructor(ast, offset, options) {
     super();
 
     const fetch = (childrenOffsets) => ({
       asterisk: ast.asterisk.text,
-      alias: new ImportAlias(
-        ast.alias,
-        childrenOffsets.shift(),
-        comments,
-        options
-      ),
+      alias: new ImportAlias(ast.alias, childrenOffsets.shift(), options),
       fromKeyword: ast.fromKeyword.text,
-      path: new StringLiteral(
-        ast.path,
-        childrenOffsets.shift(),
-        comments,
-        options
-      )
+      path: new StringLiteral(ast.path, childrenOffsets.shift(), options)
     });
 
-    this.initialize(ast, offset, fetch, comments);
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {
