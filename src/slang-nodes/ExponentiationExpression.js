@@ -33,23 +33,26 @@ export class ExponentiationExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
+    const fetch =
+      typeof offset !== 'undefined'
+        ? (childrenOffsets) => ({
+            leftOperand: new Expression(
+              ast.leftOperand,
+              childrenOffsets.shift(),
+              options
+            ),
+            operator: ast.operator.text,
+            rightOperand: new Expression(
+              ast.rightOperand,
+              childrenOffsets.shift(),
+              options
+            )
+          })
+        : undefined;
+
+    this.initialize(ast, offset, fetch);
+
     if (offset) {
-      const fetch = (childrenOffsets) => ({
-        leftOperand: new Expression(
-          ast.leftOperand,
-          childrenOffsets.shift(),
-          options
-        ),
-        operator: ast.operator.text,
-        rightOperand: new Expression(
-          ast.rightOperand,
-          childrenOffsets.shift(),
-          options
-        )
-      });
-
-      this.initialize(ast, offset, fetch);
-
       const compiler = coerce(options.compiler);
       if (compiler) {
         if (satisfies(compiler, '>=0.8.0')) {
@@ -99,11 +102,6 @@ export class ExponentiationExpression extends SlangNode {
           this.leftOperand = tryToHug(this.leftOperand);
         }
       }
-    } else {
-      this.loc = ast.loc;
-      this.leftOperand = ast.leftOperand;
-      this.operator = ast.operator;
-      this.rightOperand = ast.rightOperand;
     }
   }
 
