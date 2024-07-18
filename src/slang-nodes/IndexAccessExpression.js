@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { isLabel } from '../common/util.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
@@ -7,6 +8,10 @@ import { IndexAccessEnd } from './IndexAccessEnd.js';
 const { group, indent, indentIfBreak, label, softline } = doc.builders;
 
 export class IndexAccessExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.IndexAccessExpression;
+  }
+
   operand;
 
   openBracket;

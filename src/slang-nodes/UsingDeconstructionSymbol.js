@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { UsingAlias } from './UsingAlias.js';
 
 export class UsingDeconstructionSymbol extends SlangNode {
+  get kind() {
+    return NonterminalKind.UsingDeconstructionSymbol;
+  }
+
   name;
 
   alias;

@@ -1,10 +1,15 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ArrayValues } from './ArrayValues.js';
 
 const { group } = doc.builders;
 
 export class ArrayExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.ArrayExpression;
+  }
+
   openBracket;
 
   items;

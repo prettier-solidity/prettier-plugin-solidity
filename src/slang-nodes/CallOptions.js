@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { NamedArgument } from './NamedArgument.js';
@@ -6,6 +7,10 @@ import { NamedArgument } from './NamedArgument.js';
 const { line, softline } = doc.builders;
 
 export class CallOptions extends SlangNode {
+  get kind() {
+    return NonterminalKind.CallOptions;
+  }
+
   items;
 
   separators;

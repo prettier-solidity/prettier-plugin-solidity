@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulColonEqual } from './YulColonEqual.js';
 
 export class YulAssignmentOperator extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulAssignmentOperator;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

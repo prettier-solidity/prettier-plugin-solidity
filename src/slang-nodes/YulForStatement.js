@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulBlock } from './YulBlock.js';
 import { YulExpression } from './YulExpression.js';
 
 export class YulForStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulForStatement;
+  }
+
   forKeyword;
 
   initialization;

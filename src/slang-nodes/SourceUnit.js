@@ -1,11 +1,14 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { SourceUnitMembers } from './SourceUnitMembers.js';
 
 const { line } = doc.builders;
 
 export class SourceUnit extends SlangNode {
-  members;
+  get kind() {
+    return NonterminalKind.SourceUnit;
+  }
 
   constructor(ast, offset, options) {
     super();

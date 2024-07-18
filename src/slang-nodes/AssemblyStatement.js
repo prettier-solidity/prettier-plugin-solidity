@@ -1,9 +1,14 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { AssemblyFlagsDeclaration } from './AssemblyFlagsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
 
 export class AssemblyStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.AssemblyStatement;
+  }
+
   assemblyKeyword;
 
   label;

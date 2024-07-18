@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { Expression } from './Expression.js';
 
 export class ConstantDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.ConstantDefinition;
+  }
+
   typeName;
 
   constantKeyword;

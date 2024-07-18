@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { isLabel } from '../common/util.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { SlangNode } from './SlangNode.js';
@@ -108,6 +109,10 @@ function processChain(chain) {
 }
 
 export class MemberAccessExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.MemberAccessExpression;
+  }
+
   operand;
 
   period;

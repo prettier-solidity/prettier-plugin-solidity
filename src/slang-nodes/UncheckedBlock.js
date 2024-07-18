@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { Block } from './Block.js';
 
 export class UncheckedBlock extends SlangNode {
+  get kind() {
+    return NonterminalKind.UncheckedBlock;
+  }
+
   uncheckedKeyword;
 
   block;

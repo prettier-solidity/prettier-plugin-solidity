@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { CatchClauseError } from './CatchClauseError.js';
 import { Block } from './Block.js';
 
 export class CatchClause extends SlangNode {
+  get kind() {
+    return NonterminalKind.CatchClause;
+  }
+
   catchKeyword;
 
   error;

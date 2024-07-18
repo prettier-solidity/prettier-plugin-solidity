@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 export class ArrayValues extends SlangNode {
+  get kind() {
+    return NonterminalKind.ArrayValues;
+  }
+
   items;
 
   separators;

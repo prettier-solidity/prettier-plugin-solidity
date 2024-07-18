@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { isLabel } from '../common/util.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
@@ -7,6 +8,10 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 const { group, indentIfBreak, label } = doc.builders;
 
 export class FunctionCallExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.FunctionCallExpression;
+  }
+
   operand;
 
   arguments;

@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { PragmaDirective } from './PragmaDirective.js';
 import { ImportDirective } from './ImportDirective.js';
@@ -29,6 +30,10 @@ const variants = {
   EventDefinition
 };
 export class SourceUnitMember extends SlangNode {
+  get kind() {
+    return NonterminalKind.SourceUnitMember;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

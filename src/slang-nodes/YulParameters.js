@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 
 export class YulParameters extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulParameters;
+  }
+
   items;
 
   separators;

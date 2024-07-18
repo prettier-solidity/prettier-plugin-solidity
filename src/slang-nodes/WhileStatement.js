@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
@@ -7,6 +8,10 @@ import { Statement } from './Statement.js';
 const { group, indent, line } = doc.builders;
 
 export class WhileStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.WhileStatement;
+  }
+
   whileKeyword;
 
   openParen;

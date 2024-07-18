@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { UsingDirective } from './UsingDirective.js';
 import { FunctionDefinition } from './FunctionDefinition.js';
@@ -30,6 +31,10 @@ const variants = {
 };
 
 export class ContractMember extends SlangNode {
+  get kind() {
+    return NonterminalKind.ContractMember;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

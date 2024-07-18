@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
@@ -107,6 +108,10 @@ function traditionalTernaries(node, path, print) {
 }
 
 export class ConditionalExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.ConditionalExpression;
+  }
+
   operand;
 
   questionMark;

@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printComparisonOperation } from '../slang-printers/print-comparison-operation.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 export class EqualityExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.EqualityExpression;
+  }
+
   leftOperand;
 
   operator;

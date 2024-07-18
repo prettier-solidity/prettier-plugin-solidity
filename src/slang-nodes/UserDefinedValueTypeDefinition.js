@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ElementaryType } from './ElementaryType.js';
 
 export class UserDefinedValueTypeDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.UserDefinedValueTypeDefinition;
+  }
+
   typeKeyword;
 
   name;

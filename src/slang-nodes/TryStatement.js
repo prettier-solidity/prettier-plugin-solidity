@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
@@ -9,6 +10,10 @@ import { CatchClauses } from './CatchClauses.js';
 const { line } = doc.builders;
 
 export class TryStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.TryStatement;
+  }
+
   tryKeyword;
 
   expression;

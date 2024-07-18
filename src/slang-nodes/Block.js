@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { Statements } from './Statements.js';
 
 export class Block extends SlangNode {
+  get kind() {
+    return NonterminalKind.Block;
+  }
+
   openBrace;
 
   statements;

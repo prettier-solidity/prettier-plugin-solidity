@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { Expression } from './Expression.js';
 
 export class ArrayTypeName extends SlangNode {
+  get kind() {
+    return NonterminalKind.ArrayTypeName;
+  }
+
   operand;
 
   openBracket;

@@ -1,10 +1,15 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 
 const { group } = doc.builders;
 
 export class ReturnsDeclaration extends SlangNode {
+  get kind() {
+    return NonterminalKind.ReturnsDeclaration;
+  }
+
   returnsKeyword;
 
   variables;

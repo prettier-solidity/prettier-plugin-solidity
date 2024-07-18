@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
@@ -8,6 +9,10 @@ import { ElseBranch } from './ElseBranch.js';
 const { group, hardline, indent, line } = doc.builders;
 
 export class IfStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.IfStatement;
+  }
+
   ifKeyword;
 
   openParen;

@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { VersionRange } from './VersionRange.js';
 import { VersionComparator } from './VersionComparator.js';
@@ -10,6 +11,10 @@ const variants = {
 };
 
 export class VersionExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.VersionExpression;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

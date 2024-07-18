@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { Parameters } from './Parameters.js';
 
 export class ParametersDeclaration extends SlangNode {
+  get kind() {
+    return NonterminalKind.ParametersDeclaration;
+  }
+
   openParen;
 
   parameters;
@@ -24,7 +29,6 @@ export class ParametersDeclaration extends SlangNode {
 
       this.initialize(ast, offset, fetch);
     } else {
-      this.kind = ast.kind;
       this.loc = ast.loc;
       this.openParen = ast.openParen;
       this.parameters = ast.parameters;

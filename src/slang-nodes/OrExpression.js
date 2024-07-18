@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printLogicalOperation } from '../slang-printers/print-logical-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { SlangNode } from './SlangNode.js';
@@ -12,6 +13,10 @@ const postProcess = (properties) => ({
 });
 
 export class OrExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.OrExpression;
+  }
+
   leftOperand;
 
   operator;

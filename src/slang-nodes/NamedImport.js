@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ImportAlias } from './ImportAlias.js';
 import { StringLiteral } from './StringLiteral.js';
 
 export class NamedImport extends SlangNode {
+  get kind() {
+    return NonterminalKind.NamedImport;
+  }
+
   asterisk;
 
   alias;

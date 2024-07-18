@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { ForStatementInitialization } from './ForStatementInitialization.js';
@@ -9,6 +10,10 @@ import { Statement } from './Statement.js';
 const { group, indent, line } = doc.builders;
 
 export class ForStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.ForStatement;
+  }
+
   forKeyword;
 
   openParen;

@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 export class InheritanceType extends SlangNode {
+  get kind() {
+    return NonterminalKind.InheritanceType;
+  }
+
   typeName;
 
   arguments;

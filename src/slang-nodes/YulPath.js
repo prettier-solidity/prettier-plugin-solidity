@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulPathComponent } from './YulPathComponent.js';
 
 export class YulPath extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulPath;
+  }
+
   items;
 
   separators;

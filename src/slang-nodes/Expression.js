@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
@@ -58,6 +59,10 @@ const variants = {
 };
 
 export class Expression extends SlangNode {
+  get kind() {
+    return NonterminalKind.Expression;
+  }
+
   variant;
 
   constructor(ast, offset, options) {
@@ -77,7 +82,6 @@ export class Expression extends SlangNode {
 
       this.initialize(ast, offset, fetch);
     } else {
-      this.kind = ast.kind;
       this.loc = ast.loc;
       this.variant = ast.variant;
     }

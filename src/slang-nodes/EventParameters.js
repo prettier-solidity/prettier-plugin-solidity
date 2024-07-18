@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { EventParameter } from './EventParameter.js';
 
 export class EventParameters extends SlangNode {
+  get kind() {
+    return NonterminalKind.EventParameters;
+  }
+
   items;
 
   separators;

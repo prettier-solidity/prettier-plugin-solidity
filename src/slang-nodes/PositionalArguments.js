@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 export class PositionalArguments extends SlangNode {
+  get kind() {
+    return NonterminalKind.PositionalArguments;
+  }
+
   items;
 
   separators;

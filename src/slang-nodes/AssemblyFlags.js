@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
 
 export class AssemblyFlags extends SlangNode {
+  get kind() {
+    return NonterminalKind.AssemblyFlags;
+  }
+
   items;
 
   separators;

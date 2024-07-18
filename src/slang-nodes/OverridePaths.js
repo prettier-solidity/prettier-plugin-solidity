@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 export class OverridePaths extends SlangNode {
+  get kind() {
+    return NonterminalKind.OverridePaths;
+  }
+
   items;
 
   separators;

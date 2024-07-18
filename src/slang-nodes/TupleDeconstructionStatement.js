@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
 import { Expression } from './Expression.js';
@@ -6,6 +7,10 @@ import { Expression } from './Expression.js';
 const { group, indent, line } = doc.builders;
 
 export class TupleDeconstructionStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.TupleDeconstructionStatement;
+  }
+
   varKeyword;
 
   openParen;

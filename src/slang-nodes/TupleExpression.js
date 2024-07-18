@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleValues } from './TupleValues.js';
 
 export class TupleExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.TupleExpression;
+  }
+
   openParen;
 
   items;
@@ -20,7 +25,6 @@ export class TupleExpression extends SlangNode {
 
       this.initialize(ast, offset, fetch);
     } else {
-      this.kind = ast.kind;
       this.loc = ast.loc;
       this.openParen = ast.openParen;
       this.items = ast.items;

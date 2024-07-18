@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { NamedArgumentGroup } from './NamedArgumentGroup.js';
 
 export class NamedArgumentsDeclaration extends SlangNode {
+  get kind() {
+    return NonterminalKind.NamedArgumentsDeclaration;
+  }
+
   openParen;
 
   arguments;

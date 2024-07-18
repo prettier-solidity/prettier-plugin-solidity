@@ -1,9 +1,14 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { isComment } from '../slang-utils/is-comment.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 export class ModifierInvocation extends SlangNode {
+  get kind() {
+    return NonterminalKind.ModifierInvocation;
+  }
+
   name;
 
   arguments;

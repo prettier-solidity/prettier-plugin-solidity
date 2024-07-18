@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { SlangNode } from './SlangNode.js';
@@ -12,6 +13,10 @@ const postProcess = (properties) => ({
 });
 
 export class BitwiseAndExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.BitwiseAndExpression;
+  }
+
   leftOperand;
 
   operator;

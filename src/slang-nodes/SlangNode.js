@@ -8,15 +8,15 @@ const isNotStringOrUndefined = (node) =>
   typeof node !== 'string' && typeof node !== 'undefined';
 
 export class SlangNode {
-  kind;
-
   loc;
 
   comments = [];
 
   initialize(ast, offset, fetch, postProcess) {
-    this.kind = ast.cst.kind;
-
+    if (this.kind !== ast.cst.kind)
+      throw new Error(
+        `${this.kind} can only be initialized with an AST node of the same kind.`
+      );
     // Collect comments and get children offsets.
     const cstChildren = ast.cst.children();
     const childrenOffsets = getChildrenOffsets(

@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { VersionExpressionSet } from './VersionExpressionSet.js';
 
 export class VersionExpressionSets extends SlangNode {
+  get kind() {
+    return NonterminalKind.VersionExpressionSets;
+  }
+
   items;
 
   separators;

@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { ImportDeconstructionSymbol } from './ImportDeconstructionSymbol.js';
@@ -8,6 +9,10 @@ import { ImportDeconstructionSymbol } from './ImportDeconstructionSymbol.js';
 const { line, softline } = doc.builders;
 
 export class ImportDeconstructionSymbols extends SlangNode {
+  get kind() {
+    return NonterminalKind.ImportDeconstructionSymbols;
+  }
+
   items;
 
   separators;

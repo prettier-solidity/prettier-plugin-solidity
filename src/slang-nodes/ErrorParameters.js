@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { ErrorParameter } from './ErrorParameter.js';
 
 export class ErrorParameters extends SlangNode {
+  get kind() {
+    return NonterminalKind.ErrorParameters;
+  }
+
   items;
 
   separators;

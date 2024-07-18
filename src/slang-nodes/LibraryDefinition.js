@@ -1,10 +1,15 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { LibraryMembers } from './LibraryMembers.js';
 
 const { group, line } = doc.builders;
 
 export class LibraryDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.LibraryDefinition;
+  }
+
   libraryKeyword;
 
   name;

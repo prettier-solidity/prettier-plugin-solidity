@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
@@ -5,6 +6,10 @@ import { OverrideSpecifier } from './OverrideSpecifier.js';
 const variants = { ModifierInvocation, OverrideSpecifier };
 
 export class FallbackFunctionAttribute extends SlangNode {
+  get kind() {
+    return NonterminalKind.FallbackFunctionAttribute;
+  }
+
   variant;
 
   constructor(ast, offset, options) {
