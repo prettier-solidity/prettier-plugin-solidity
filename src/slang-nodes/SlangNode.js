@@ -6,6 +6,7 @@ import {
 
 const isNotStringOrUndefined = (node) =>
   typeof node !== 'string' && typeof node !== 'undefined';
+
 export class SlangNode {
   kind;
 
@@ -13,7 +14,7 @@ export class SlangNode {
 
   comments = [];
 
-  initialize(ast, offset, fetch) {
+  initialize(ast, offset, fetch, postProcess) {
     this.kind = ast.cst.kind;
 
     // Collect comments and get children offsets.
@@ -38,9 +39,6 @@ export class SlangNode {
 
     const propertyKeys = Object.keys(properties);
     const propertyValues = Object.values(properties);
-    propertyKeys.forEach((propertyKey) => {
-      this[propertyKey] = properties[propertyKey];
-    });
 
     // Collect comments
     const childrenNodes = propertyValues.reduce((slangNodes, property) => {
@@ -64,7 +62,7 @@ export class SlangNode {
 
     if (leadingOffset === 0 || trailingOffset === 0) {
       for (let i = 0; i < propertyKeys.length; i += 1) {
-        const childLoc = this[propertyKeys[i]]?.loc;
+        const childLoc = properties[propertyKeys[i]]?.loc;
 
         if (childLoc) {
           if (
@@ -90,5 +88,13 @@ export class SlangNode {
       endWithTrivia,
       end: endWithTrivia - trailingOffset
     };
+
+    if (typeof postProcess === 'function') {
+      properties = postProcess(properties);
+    }
+
+    propertyKeys.forEach((propertyKey) => {
+      this[propertyKey] = properties[propertyKey];
+    });
   }
 }

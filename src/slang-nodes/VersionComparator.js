@@ -1,5 +1,6 @@
 import { SlangNode } from './SlangNode.js';
 import { VersionExpression } from './VersionExpression.js';
+
 export class VersionComparator extends SlangNode {
   operator;
 

@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
+import { postProcessFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
 import { SlangNode } from './SlangNode.js';
 import { ConstructorAttribute } from './ConstructorAttribute.js';
 
@@ -18,9 +18,7 @@ export class ConstructorAttributes extends SlangNode {
       )
     });
 
-    this.initialize(ast, offset, fetch);
-
-    this.items = this.items.sort(sortFunctionAttributes);
+    this.initialize(ast, offset, fetch, postProcessFunctionAttributes);
   }
 
   print(path, print) {

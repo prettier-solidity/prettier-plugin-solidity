@@ -7,7 +7,7 @@ const visibilityKeyWords = new Set([
 
 const mutabilityKeyWords = new Set(['pure', 'constant', 'payable', 'view']);
 
-export function sortFunctionAttributes(a, b) {
+function sortFunctionAttributes(a, b) {
   const aIsString = typeof a.variant === 'string';
   const bIsString = typeof b.variant === 'string';
 
@@ -38,3 +38,8 @@ export function sortFunctionAttributes(a, b) {
   }
   return 0;
 }
+
+export const postProcessFunctionAttributes = (properties) => ({
+  ...properties,
+  items: properties.items.sort(sortFunctionAttributes)
+});

@@ -6,6 +6,27 @@ import { Expression } from './Expression.js';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
+const postProcess = (properties) => {
+  // We can remove parentheses only because we are sure that the
+  // `condition` must be a single `bool` value.
+  let { operand } = properties;
+  const operandLoc = operand.loc;
+  while (
+    operand.variant.kind === 'TupleExpression' &&
+    operand.variant.items.items.length === 1 &&
+    operand.variant.items.items[0].expression.variant.kind !==
+      'ConditionalExpression'
+  ) {
+    operand = operand.variant.items.items[0].expression;
+  }
+  operand.loc = operandLoc;
+
+  return {
+    ...properties,
+    operand
+  };
+};
+
 function experimentalTernaries(node, path, print, options) {
   const grandparent = path.getNode(2);
   const isNested = grandparent.kind === 'ConditionalExpression';
@@ -115,25 +136,14 @@ export class ConditionalExpression extends SlangNode {
       )
     });
 
-    this.initialize(ast, offset, fetch);
-
-    // TODO: while the behaviour is not stable, it should be behind the
-    // experimentalTernaries flag.
-    if (options.experimentalTernaries) {
-      // We can remove parentheses only because we are sure that the
-      // `condition` must be a single `bool` value.
-      const operandLoc = this.operand.loc;
-      while (
-        this.operand.variant.kind === 'TupleExpression' &&
-        this.operand.variant.items.items.length === 1 &&
-        this.operand.variant.items.items[0].expression.variant.kind !==
-          'ConditionalExpression'
-      ) {
-        this.operand = this.operand.variant.items.items[0].expression;
-      }
-
-      this.operand.loc = operandLoc;
-    }
+    this.initialize(
+      ast,
+      offset,
+      fetch,
+      // TODO: while the behaviour is not stable, it should be behind the
+      // experimentalTernaries flag.
+      options.experimentalTernaries ? postProcess : undefined
+    );
   }
 
   print(path, print, options) {

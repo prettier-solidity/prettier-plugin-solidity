@@ -5,6 +5,12 @@ import { Expression } from './Expression.js';
 
 const tryToHug = createHugFunction(['+', '-', '*', '/', '**', '<<', '>>']);
 
+const postProcess = (properties) => ({
+  ...properties,
+  leftOperand: tryToHug(properties.leftOperand),
+  rightOperand: tryToHug(properties.rightOperand)
+});
+
 export class BitwiseAndExpression extends SlangNode {
   leftOperand;
 
@@ -29,10 +35,7 @@ export class BitwiseAndExpression extends SlangNode {
       )
     });
 
-    this.initialize(ast, offset, fetch);
-
-    this.leftOperand = tryToHug(this.leftOperand);
-    this.rightOperand = tryToHug(this.rightOperand);
+    this.initialize(ast, offset, fetch, postProcess);
   }
 
   print(path, print, options) {
