@@ -1,6 +1,10 @@
 import { printString } from '../slang-printers/print-string.js';
 import { SlangNode } from './SlangNode.js';
 
+const postProcess = (options) => (properties) => ({
+  variant: `hex${printString(properties.variant.slice(4, -1), options)}`
+});
+
 export class HexStringLiteral extends SlangNode {
   variant;
 
@@ -11,9 +15,7 @@ export class HexStringLiteral extends SlangNode {
       variant: ast.variant.text
     });
 
-    this.initialize(ast, offset, fetch);
-
-    this.variant = `hex${printString(this.variant.slice(4, -1), options)}`;
+    this.initialize(ast, offset, fetch, postProcess(options));
   }
 
   print() {

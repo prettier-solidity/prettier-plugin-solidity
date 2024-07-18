@@ -1,6 +1,10 @@
 import { printString } from '../slang-printers/print-string.js';
 import { SlangNode } from './SlangNode.js';
 
+const postProcess = (options) => (properties) => ({
+  variant: printString(properties.variant.slice(1, -1), options)
+});
+
 export class StringLiteral extends SlangNode {
   variant;
 
@@ -11,9 +15,7 @@ export class StringLiteral extends SlangNode {
       variant: ast.variant.text
     });
 
-    this.initialize(ast, offset, fetch);
-
-    this.variant = printString(this.variant.slice(1, -1), options);
+    this.initialize(ast, offset, fetch, postProcess(options));
   }
 
   print() {

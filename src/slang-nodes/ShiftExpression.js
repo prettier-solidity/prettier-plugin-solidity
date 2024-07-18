@@ -14,6 +14,12 @@ const tryToHugLeftOperand = createHugFunction([
 ]);
 const tryToHugRightOperand = createHugFunction(['+', '-', '*', '/', '**']);
 
+const postProcess = (properties) => ({
+  ...properties,
+  leftOperand: tryToHugLeftOperand(properties.leftOperand),
+  rightOperand: tryToHugRightOperand(properties.rightOperand)
+});
+
 export class ShiftExpression extends SlangNode {
   leftOperand;
 
@@ -38,10 +44,7 @@ export class ShiftExpression extends SlangNode {
       )
     });
 
-    this.initialize(ast, offset, fetch);
-
-    this.leftOperand = tryToHugLeftOperand(this.leftOperand);
-    this.rightOperand = tryToHugRightOperand(this.rightOperand);
+    this.initialize(ast, offset, fetch, postProcess);
   }
 
   print(path, print, options) {

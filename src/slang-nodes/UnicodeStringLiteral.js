@@ -1,6 +1,10 @@
 import { printString } from '../slang-printers/print-string.js';
 import { SlangNode } from './SlangNode.js';
 
+const postProcess = (options) => (properties) => ({
+  variant: `unicode${printString(properties.variant.slice(8, -1), options)}`
+});
+
 export class UnicodeStringLiteral extends SlangNode {
   variant;
 
@@ -11,9 +15,7 @@ export class UnicodeStringLiteral extends SlangNode {
       variant: ast.variant.text
     });
 
-    this.initialize(ast, offset, fetch);
-
-    this.variant = `unicode${printString(this.variant.slice(8, -1), options)}`;
+    this.initialize(ast, offset, fetch, postProcess(options));
   }
 
   print() {

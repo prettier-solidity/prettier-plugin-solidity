@@ -7,6 +7,29 @@ const multiplicationTryToHug = createHugFunction(['/', '%']);
 const divisionTryToHug = createHugFunction(['*', '%']);
 const moduloTryToHug = createHugFunction(['*', '/', '%']);
 
+const postProcess = (properties) => {
+  let { leftOperand } = properties;
+
+  switch (properties.operator) {
+    case '*':
+      leftOperand = multiplicationTryToHug(leftOperand);
+      break;
+    case '/':
+      leftOperand = divisionTryToHug(leftOperand);
+      break;
+    case '%':
+      leftOperand = moduloTryToHug(leftOperand);
+      break;
+    default:
+      break;
+  }
+
+  return {
+    ...properties,
+    leftOperand
+  };
+};
+
 export class MultiplicativeExpression extends SlangNode {
   leftOperand;
 
@@ -31,21 +54,7 @@ export class MultiplicativeExpression extends SlangNode {
       )
     });
 
-    this.initialize(ast, offset, fetch);
-
-    switch (this.operator) {
-      case '*':
-        this.leftOperand = multiplicationTryToHug(this.leftOperand);
-        break;
-      case '/':
-        this.leftOperand = divisionTryToHug(this.leftOperand);
-        break;
-      case '%':
-        this.leftOperand = moduloTryToHug(this.leftOperand);
-        break;
-      default:
-        break;
-    }
+    this.initialize(ast, offset, fetch, postProcess);
   }
 
   print(path, print, options) {
