@@ -11,12 +11,7 @@ export function createHugFunction(huggableOperators) {
       isBinaryOperation(node.variant) &&
       operators.has(node.variant.operator)
     ) {
-      const loc = {
-        startWithTrivia: node.loc.startWithTrivia,
-        start: node.loc.start,
-        endWithTrivia: node.loc.endWithTrivia,
-        end: node.loc.end
-      };
+      const { loc } = node;
 
       return new Expression({
         kind: 'Expression',
