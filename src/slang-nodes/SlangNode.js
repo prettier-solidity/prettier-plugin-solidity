@@ -13,6 +13,15 @@ export class SlangNode {
   comments = [];
 
   initialize(ast, offset, fetch, postProcess) {
+    let properties;
+    if (typeof offset === 'undefined') {
+      properties = { ...ast };
+
+      Object.keys(properties).forEach((propertyKey) => {
+        this[propertyKey] = properties[propertyKey];
+      });
+      return;
+    }
     if (this.kind !== ast.cst.kind)
       throw new Error(
         `${this.kind} can only be initialized with an AST node of the same kind.`
@@ -26,8 +35,6 @@ export class SlangNode {
     );
 
     // populate all children nodes
-    let properties;
-
     this.fetch = () => {
       if (properties === undefined) {
         properties = fetch(childrenOffsets);

@@ -16,20 +16,17 @@ export class TupleValues extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    if (offset) {
-      const fetch = (childrenOffsets) => ({
-        items: ast.items.map(
-          (item) => new TupleValue(item, childrenOffsets.shift(), options)
-        ),
-        separators: ast.separators.map((separator) => separator.text)
-      });
+    const fetch =
+      typeof offset !== 'undefined'
+        ? (childrenOffsets) => ({
+            items: ast.items.map(
+              (item) => new TupleValue(item, childrenOffsets.shift(), options)
+            ),
+            separators: ast.separators.map((separator) => separator.text)
+          })
+        : undefined;
 
-      this.initialize(ast, offset, fetch);
-    } else {
-      this.loc = ast.loc;
-      this.items = ast.items;
-      this.separators = ast.separators;
-    }
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

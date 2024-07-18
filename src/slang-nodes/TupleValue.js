@@ -12,18 +12,16 @@ export class TupleValue extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    if (offset) {
-      const fetch = (childrenOffsets) => ({
-        expression: ast.expression
-          ? new Expression(ast.expression, childrenOffsets.shift(), options)
-          : undefined
-      });
+    const fetch =
+      typeof offset !== 'undefined'
+        ? (childrenOffsets) => ({
+            expression: ast.expression
+              ? new Expression(ast.expression, childrenOffsets.shift(), options)
+              : undefined
+          })
+        : undefined;
 
-      this.initialize(ast, offset, fetch);
-    } else {
-      this.loc = ast.loc;
-      this.expression = ast.expression;
-    }
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {

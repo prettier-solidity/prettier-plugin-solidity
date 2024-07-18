@@ -68,23 +68,21 @@ export class Expression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    if (offset) {
-      const fetch = (childrenOffsets) => ({
-        variant:
-          ast.variant.type === 'Terminal'
-            ? ast.variant.text
-            : new variants[ast.variant.cst.kind](
-                ast.variant,
-                childrenOffsets.shift(),
-                options
-              )
-      });
+    const fetch =
+      typeof offset !== 'undefined'
+        ? (childrenOffsets) => ({
+            variant:
+              ast.variant.type === 'Terminal'
+                ? ast.variant.text
+                : new variants[ast.variant.cst.kind](
+                    ast.variant,
+                    childrenOffsets.shift(),
+                    options
+                  )
+          })
+        : undefined;
 
-      this.initialize(ast, offset, fetch);
-    } else {
-      this.loc = ast.loc;
-      this.variant = ast.variant;
-    }
+    this.initialize(ast, offset, fetch);
   }
 
   print(path, print) {
