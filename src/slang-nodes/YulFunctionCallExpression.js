@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulExpression } from './YulExpression.js';
 import { YulArguments } from './YulArguments.js';
 
 export class YulFunctionCallExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulFunctionCallExpression;
+  }
+
   operand;
 
   openParen;

@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 
 export class VariableDeclarationType extends SlangNode {
+  get kind() {
+    return NonterminalKind.VariableDeclarationType;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

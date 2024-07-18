@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { StringLiterals } from './StringLiterals.js';
@@ -14,6 +15,10 @@ const variants = {
 };
 
 export class StringExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.StringExpression;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

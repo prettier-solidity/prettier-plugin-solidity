@@ -1,5 +1,6 @@
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printFunction } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { FunctionName } from './FunctionName.js';
@@ -9,6 +10,10 @@ import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 import { FunctionBody } from './FunctionBody.js';
 
 export class FunctionDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.FunctionDefinition;
+  }
+
   functionKeyword;
 
   name;

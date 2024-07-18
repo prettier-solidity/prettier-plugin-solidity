@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { VariableDeclarationType } from './VariableDeclarationType.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -7,6 +8,10 @@ import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 const { group, indent, indentIfBreak, line } = doc.builders;
 
 export class VariableDeclarationStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.VariableDeclarationStatement;
+  }
+
   variableType;
 
   storageLocation;

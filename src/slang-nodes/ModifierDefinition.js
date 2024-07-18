@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printFunction } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
@@ -19,11 +20,9 @@ const postProcess = (properties) => {
   return {
     ...properties,
     parameters: new ParametersDeclaration({
-      kind: 'ParametersDeclaration',
       loc: { ...parametersLoc },
       openParen: '(',
       parameters: new Parameters({
-        kind: 'Parameters',
         loc: { ...parametersLoc },
         items: [],
         separators: []
@@ -34,6 +33,10 @@ const postProcess = (properties) => {
 };
 
 export class ModifierDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.ModifierDefinition;
+  }
+
   modifierKeyword;
 
   name;

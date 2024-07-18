@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import {
   printSeparatedItem,
   printSeparatedList
@@ -7,6 +8,10 @@ import { SlangNode } from './SlangNode.js';
 import { Parameter } from './Parameter.js';
 
 export class Parameters extends SlangNode {
+  get kind() {
+    return NonterminalKind.Parameters;
+  }
+
   items;
 
   separators;
@@ -24,7 +29,6 @@ export class Parameters extends SlangNode {
 
       this.initialize(ast, offset, fetch);
     } else {
-      this.kind = ast.kind;
       this.loc = ast.loc;
       this.items = ast.items;
       this.separators = ast.separators;

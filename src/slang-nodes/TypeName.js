@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ArrayTypeName } from './ArrayTypeName.js';
 import { FunctionType } from './FunctionType.js';
@@ -14,6 +15,10 @@ const variants = {
 };
 
 export class TypeName extends SlangNode {
+  get kind() {
+    return NonterminalKind.TypeName;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

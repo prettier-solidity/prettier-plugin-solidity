@@ -1,9 +1,14 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleValue } from './TupleValue.js';
 
 export class TupleValues extends SlangNode {
+  get kind() {
+    return NonterminalKind.TupleValues;
+  }
+
   items;
 
   separators;
@@ -21,7 +26,6 @@ export class TupleValues extends SlangNode {
 
       this.initialize(ast, offset, fetch);
     } else {
-      this.kind = ast.kind;
       this.loc = ast.loc;
       this.items = ast.items;
       this.separators = ast.separators;

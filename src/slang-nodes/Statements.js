@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { printComments } from '../slang-printers/print-comments.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
@@ -8,6 +9,10 @@ import { Statement } from './Statement.js';
 const { hardline } = doc.builders;
 
 export class Statements extends SlangNode {
+  get kind() {
+    return NonterminalKind.Statements;
+  }
+
   items;
 
   constructor(ast, offset, options) {

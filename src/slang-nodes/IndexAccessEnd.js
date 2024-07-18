@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 export class IndexAccessEnd extends SlangNode {
+  get kind() {
+    return NonterminalKind.IndexAccessEnd;
+  }
+
   colon;
 
   end;

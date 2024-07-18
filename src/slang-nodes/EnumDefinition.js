@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { EnumMembers } from './EnumMembers.js';
 
 export class EnumDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.EnumDefinition;
+  }
+
   enumKeyword;
 
   name;

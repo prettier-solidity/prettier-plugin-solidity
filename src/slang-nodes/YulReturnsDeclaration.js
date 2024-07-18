@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { YulReturnVariables } from './YulReturnVariables.js';
@@ -6,6 +7,10 @@ import { YulReturnVariables } from './YulReturnVariables.js';
 const { line } = doc.builders;
 
 export class YulReturnsDeclaration extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulReturnsDeclaration;
+  }
+
   minusGreaterThan;
 
   variables;

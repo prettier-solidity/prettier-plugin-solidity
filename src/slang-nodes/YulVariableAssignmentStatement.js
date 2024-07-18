@@ -1,9 +1,14 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulPaths } from './YulPaths.js';
 import { YulAssignmentOperator } from './YulAssignmentOperator.js';
 import { YulExpression } from './YulExpression.js';
 
 export class YulVariableAssignmentStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulVariableAssignmentStatement;
+  }
+
   names;
 
   assignment;

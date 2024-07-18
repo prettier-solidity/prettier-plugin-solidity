@@ -1,6 +1,11 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 
 export class NumberUnit extends SlangNode {
+  get kind() {
+    return NonterminalKind.NumberUnit;
+  }
+
   variant;
 
   constructor(ast, offset) {

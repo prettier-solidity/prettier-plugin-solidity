@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -16,6 +17,10 @@ function printExpression(node, path, print, options) {
 }
 
 export class ReturnStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.ReturnStatement;
+  }
+
   returnKeyword;
 
   expression;

@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.js';
 
 export class YulVariableDeclarationStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulVariableDeclarationStatement;
+  }
+
   letKeyword;
 
   names;

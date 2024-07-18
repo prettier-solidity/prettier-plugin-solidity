@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ImportDeconstructionSymbols } from './ImportDeconstructionSymbols.js';
 import { StringLiteral } from './StringLiteral.js';
 
 export class ImportDeconstruction extends SlangNode {
+  get kind() {
+    return NonterminalKind.ImportDeconstruction;
+  }
+
   openBrace;
 
   symbols;

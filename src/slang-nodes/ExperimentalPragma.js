@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ExperimentalFeature } from './ExperimentalFeature.js';
 
 export class ExperimentalPragma extends SlangNode {
+  get kind() {
+    return NonterminalKind.ExperimentalPragma;
+  }
+
   experimentalKeyword;
 
   feature;

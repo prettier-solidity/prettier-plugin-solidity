@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { UsingOperator } from './UsingOperator.js';
 
 export class UsingAlias extends SlangNode {
+  get kind() {
+    return NonterminalKind.UsingAlias;
+  }
+
   asKeyword;
 
   operator;

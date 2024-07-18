@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
@@ -5,6 +6,10 @@ import { StringLiteral } from './StringLiteral.js';
 const variants = { HexStringLiteral, StringLiteral };
 
 export class YulLiteral extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulLiteral;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

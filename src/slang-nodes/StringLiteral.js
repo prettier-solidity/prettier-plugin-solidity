@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printString } from '../slang-printers/print-string.js';
 import { SlangNode } from './SlangNode.js';
 
@@ -6,6 +7,10 @@ const postProcess = (options) => (properties) => ({
 });
 
 export class StringLiteral extends SlangNode {
+  get kind() {
+    return NonterminalKind.StringLiteral;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

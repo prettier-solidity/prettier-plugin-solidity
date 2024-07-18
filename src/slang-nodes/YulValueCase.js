@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulLiteral } from './YulLiteral.js';
 import { YulBlock } from './YulBlock.js';
 
 export class YulValueCase extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulValueCase;
+  }
+
   caseKeyword;
 
   value;

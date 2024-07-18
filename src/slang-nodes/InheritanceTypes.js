@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { InheritanceType } from './InheritanceType.js';
@@ -6,6 +7,10 @@ import { InheritanceType } from './InheritanceType.js';
 const { line } = doc.builders;
 
 export class InheritanceTypes extends SlangNode {
+  get kind() {
+    return NonterminalKind.InheritanceTypes;
+  }
+
   items;
 
   separators;

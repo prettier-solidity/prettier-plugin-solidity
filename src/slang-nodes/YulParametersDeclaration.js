@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulParameters } from './YulParameters.js';
 
 export class YulParametersDeclaration extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulParametersDeclaration;
+  }
+
   openParen;
 
   parameters;

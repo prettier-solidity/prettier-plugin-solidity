@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 
 export class StateVariableAttribute extends SlangNode {
+  get kind() {
+    return NonterminalKind.StateVariableAttribute;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

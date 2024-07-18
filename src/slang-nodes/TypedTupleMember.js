@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
 
 export class TypedTupleMember extends SlangNode {
+  get kind() {
+    return NonterminalKind.TypedTupleMember;
+  }
+
   typeName;
 
   storageLocation;

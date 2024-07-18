@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { InterfaceMembers } from './InterfaceMembers.js';
@@ -6,6 +7,10 @@ import { InterfaceMembers } from './InterfaceMembers.js';
 const { group, line } = doc.builders;
 
 export class InterfaceDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.InterfaceDefinition;
+  }
+
   interfaceKeyword;
 
   name;

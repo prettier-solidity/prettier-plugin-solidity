@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { UsingDeconstructionSymbol } from './UsingDeconstructionSymbol.js';
@@ -6,6 +7,10 @@ import { UsingDeconstructionSymbol } from './UsingDeconstructionSymbol.js';
 const { line, softline } = doc.builders;
 
 export class UsingDeconstructionSymbols extends SlangNode {
+  get kind() {
+    return NonterminalKind.UsingDeconstructionSymbols;
+  }
+
   items;
 
   separators;

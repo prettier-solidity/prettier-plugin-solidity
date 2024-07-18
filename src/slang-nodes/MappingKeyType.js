@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
@@ -5,6 +6,10 @@ import { IdentifierPath } from './IdentifierPath.js';
 const variants = { ElementaryType, IdentifierPath };
 
 export class MappingKeyType extends SlangNode {
+  get kind() {
+    return NonterminalKind.MappingKeyType;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

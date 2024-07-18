@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { CallOptions } from './CallOptions.js';
 
 export class CallOptionsExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.CallOptionsExpression;
+  }
+
   operand;
 
   openBrace;

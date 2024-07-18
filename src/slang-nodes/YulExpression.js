@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulFunctionCallExpression } from './YulFunctionCallExpression.js';
 import { YulLiteral } from './YulLiteral.js';
@@ -12,6 +13,10 @@ const variants = {
 };
 
 export class YulExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulExpression;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

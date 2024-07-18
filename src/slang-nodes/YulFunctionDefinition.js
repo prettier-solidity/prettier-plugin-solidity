@@ -1,9 +1,14 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulParametersDeclaration } from './YulParametersDeclaration.js';
 import { YulReturnsDeclaration } from './YulReturnsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
 
 export class YulFunctionDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulFunctionDefinition;
+  }
+
   functionKeyword;
 
   name;

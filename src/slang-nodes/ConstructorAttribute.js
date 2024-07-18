@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 
 export class ConstructorAttribute extends SlangNode {
+  get kind() {
+    return NonterminalKind.ConstructorAttribute;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

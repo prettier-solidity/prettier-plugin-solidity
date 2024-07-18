@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { AssemblyFlags } from './AssemblyFlags.js';
 
 export class AssemblyFlagsDeclaration extends SlangNode {
+  get kind() {
+    return NonterminalKind.AssemblyFlagsDeclaration;
+  }
+
   openParen;
 
   flags;

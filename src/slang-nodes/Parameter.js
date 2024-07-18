@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -6,6 +7,10 @@ import { StorageLocation } from './StorageLocation.js';
 const { group } = doc.builders;
 
 export class Parameter extends SlangNode {
+  get kind() {
+    return NonterminalKind.Parameter;
+  }
+
   typeName;
 
   storageLocation;

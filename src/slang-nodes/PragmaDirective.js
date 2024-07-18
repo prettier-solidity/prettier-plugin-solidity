@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { Pragma } from './Pragma.js';
 
 export class PragmaDirective extends SlangNode {
+  get kind() {
+    return NonterminalKind.PragmaDirective;
+  }
+
   pragmaKeyword;
 
   pragma;

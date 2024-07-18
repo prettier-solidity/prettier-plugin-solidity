@@ -14,18 +14,14 @@ export function createHugFunction(huggableOperators) {
       const { loc } = node;
 
       return new Expression({
-        kind: 'Expression',
         loc: { ...loc },
         variant: new TupleExpression({
-          kind: 'TupleExpression',
           loc: { ...loc },
           openParen: '(',
           items: new TupleValues({
-            kind: 'TupleValues',
             loc: { ...loc },
             items: [
               new TupleValue({
-                kind: 'TupleValue',
                 loc: { ...loc },
                 expression: node
               })

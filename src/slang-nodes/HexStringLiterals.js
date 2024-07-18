@@ -1,10 +1,15 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 
 const { join, hardline } = doc.builders;
 
 export class HexStringLiterals extends SlangNode {
+  get kind() {
+    return NonterminalKind.HexStringLiterals;
+  }
+
   items;
 
   constructor(ast, offset, options) {

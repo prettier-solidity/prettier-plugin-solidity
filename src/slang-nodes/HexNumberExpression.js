@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { NumberUnit } from './NumberUnit.js';
 
 export class HexNumberExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.HexNumberExpression;
+  }
+
   literal;
 
   unit;

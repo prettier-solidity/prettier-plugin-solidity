@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { VersionExpression } from './VersionExpression.js';
 
 export class VersionComparator extends SlangNode {
+  get kind() {
+    return NonterminalKind.VersionComparator;
+  }
+
   operator;
 
   operand;

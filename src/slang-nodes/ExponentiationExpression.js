@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { SlangNode } from './SlangNode.js';
@@ -19,6 +20,10 @@ const printExponentiationExpression = createBinaryOperationPrinter(
 );
 
 export class ExponentiationExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.ExponentiationExpression;
+  }
+
   leftOperand;
 
   operator;
@@ -64,24 +69,18 @@ export class ExponentiationExpression extends SlangNode {
               end: this.rightOperand.variant.leftOperand.loc.end
             };
             this.leftOperand = new Expression({
-              kind: 'Expression',
               loc: { ...leftLoc },
               variant: new TupleExpression({
-                kind: 'TupleExpression',
                 loc: { ...leftLoc },
                 openParen: '(',
                 items: new TupleValues({
-                  kind: 'TupleValues',
                   loc: { ...leftLoc },
                   items: [
                     new TupleValue({
-                      kind: 'TupleValue',
                       loc: { ...leftLoc },
                       expression: new Expression({
-                        kind: 'Expression',
                         loc: { ...leftLoc },
                         variant: new ExponentiationExpression({
-                          kind: 'ExponentiationExpression',
                           loc: { ...leftLoc },
                           leftOperand: this.leftOperand,
                           operator: '**',
@@ -101,7 +100,6 @@ export class ExponentiationExpression extends SlangNode {
         }
       }
     } else {
-      this.kind = ast.kind;
       this.loc = ast.loc;
       this.leftOperand = ast.leftOperand;
       this.operator = ast.operator;

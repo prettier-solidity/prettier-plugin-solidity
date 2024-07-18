@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ErrorParametersDeclaration } from './ErrorParametersDeclaration.js';
 
 export class ErrorDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.ErrorDefinition;
+  }
+
   errorKeyword;
 
   name;

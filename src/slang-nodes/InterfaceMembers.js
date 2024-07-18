@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
 import { SlangNode } from './SlangNode.js';
@@ -7,6 +8,10 @@ import { ContractMember } from './ContractMember.js';
 const { hardline } = doc.builders;
 
 export class InterfaceMembers extends SlangNode {
+  get kind() {
+    return NonterminalKind.InterfaceMembers;
+  }
+
   items;
 
   constructor(ast, offset, options) {

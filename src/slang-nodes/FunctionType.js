@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printFunction } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
@@ -5,6 +6,10 @@ import { FunctionTypeAttributes } from './FunctionTypeAttributes.js';
 import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 
 export class FunctionType extends SlangNode {
+  get kind() {
+    return NonterminalKind.FunctionType;
+  }
+
   functionKeyword;
 
   parameters;

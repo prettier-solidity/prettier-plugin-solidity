@@ -1,6 +1,11 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 
 export class IdentifierPath extends SlangNode {
+  get kind() {
+    return NonterminalKind.IdentifierPath;
+  }
+
   items;
 
   separators;

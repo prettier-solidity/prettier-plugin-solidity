@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { StructMembers } from './StructMembers.js';
 
 export class StructDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.StructDefinition;
+  }
+
   structKeyword;
 
   name;

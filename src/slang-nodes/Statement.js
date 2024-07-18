@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
@@ -38,6 +39,10 @@ const variants = {
 };
 
 export class Statement extends SlangNode {
+  get kind() {
+    return NonterminalKind.Statement;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

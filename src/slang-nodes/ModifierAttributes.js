@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { postProcessFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
 import { SlangNode } from './SlangNode.js';
 import { ModifierAttribute } from './ModifierAttribute.js';
@@ -6,6 +7,10 @@ import { ModifierAttribute } from './ModifierAttribute.js';
 const { line } = doc.builders;
 
 export class ModifierAttributes extends SlangNode {
+  get kind() {
+    return NonterminalKind.ModifierAttributes;
+  }
+
   items;
 
   constructor(ast, offset, options) {

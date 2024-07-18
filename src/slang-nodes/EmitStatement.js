@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 export class EmitStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.EmitStatement;
+  }
+
   emitKeyword;
 
   event;

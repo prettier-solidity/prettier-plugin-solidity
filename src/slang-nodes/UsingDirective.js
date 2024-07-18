@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { UsingClause } from './UsingClause.js';
 import { UsingTarget } from './UsingTarget.js';
 
 export class UsingDirective extends SlangNode {
+  get kind() {
+    return NonterminalKind.UsingDirective;
+  }
+
   usingKeyword;
 
   clause;

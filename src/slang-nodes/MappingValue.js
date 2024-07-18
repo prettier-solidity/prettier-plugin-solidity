@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 
 export class MappingValue extends SlangNode {
+  get kind() {
+    return NonterminalKind.MappingValue;
+  }
+
   typeName;
 
   name;

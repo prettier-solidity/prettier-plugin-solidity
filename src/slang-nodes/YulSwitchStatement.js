@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { YulExpression } from './YulExpression.js';
 import { YulSwitchCases } from './YulSwitchCases.js';
@@ -6,6 +7,10 @@ import { YulSwitchCases } from './YulSwitchCases.js';
 const { hardline } = doc.builders;
 
 export class YulSwitchStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.YulSwitchStatement;
+  }
+
   switchKeyword;
 
   expression;

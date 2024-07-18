@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { MappingKey } from './MappingKey.js';
 import { MappingValue } from './MappingValue.js';
 
 export class MappingType extends SlangNode {
+  get kind() {
+    return NonterminalKind.MappingType;
+  }
+
   mappingKeyword;
 
   openParen;

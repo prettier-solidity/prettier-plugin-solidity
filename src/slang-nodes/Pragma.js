@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { ABICoderPragma } from './ABICoderPragma.js';
 import { ExperimentalPragma } from './ExperimentalPragma.js';
@@ -5,6 +6,10 @@ import { VersionPragma } from './VersionPragma.js';
 
 const variants = { ABICoderPragma, ExperimentalPragma, VersionPragma };
 export class Pragma extends SlangNode {
+  get kind() {
+    return NonterminalKind.Pragma;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

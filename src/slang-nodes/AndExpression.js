@@ -1,8 +1,13 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printLogicalOperation } from '../slang-printers/print-logical-operation.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 export class AndExpression extends SlangNode {
+  get kind() {
+    return NonterminalKind.AndExpression;
+  }
+
   leftOperand;
 
   operator;

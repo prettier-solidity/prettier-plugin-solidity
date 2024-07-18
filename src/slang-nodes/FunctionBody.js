@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { Block } from './Block.js';
 
 export class FunctionBody extends SlangNode {
+  get kind() {
+    return NonterminalKind.FunctionBody;
+  }
+
   variant;
 
   constructor(ast, offset, options) {

@@ -1,7 +1,12 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { EventParametersDeclaration } from './EventParametersDeclaration.js';
 
 export class EventDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.EventDefinition;
+  }
+
   eventKeyword;
 
   name;

@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SlangNode } from './SlangNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { ContractMembers } from './ContractMembers.js';
@@ -8,6 +9,10 @@ import { ContractMembers } from './ContractMembers.js';
 const { group, line } = doc.builders;
 
 export class ContractDefinition extends SlangNode {
+  get kind() {
+    return NonterminalKind.ContractDefinition;
+  }
+
   abstractKeyword;
 
   contractKeyword;

@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 import { SlangNode } from './SlangNode.js';
 import { Statement } from './Statement.js';
@@ -7,6 +8,10 @@ import { Expression } from './Expression.js';
 const { group, indent, line } = doc.builders;
 
 export class DoWhileStatement extends SlangNode {
+  get kind() {
+    return NonterminalKind.DoWhileStatement;
+  }
+
   doKeyword;
 
   body;
