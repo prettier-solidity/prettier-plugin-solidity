@@ -14,14 +14,7 @@ export class SlangNode {
 
   initialize(ast, offset, fetch, postProcess) {
     let properties;
-    if (typeof offset === 'undefined') {
-      properties = { ...ast };
 
-      Object.keys(properties).forEach((propertyKey) => {
-        this[propertyKey] = properties[propertyKey];
-      });
-      return;
-    }
     if (this.kind !== ast.cst.kind)
       throw new Error(
         `${this.kind} can only be initialized with an AST node of the same kind.`

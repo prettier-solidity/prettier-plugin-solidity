@@ -19,15 +19,17 @@ const postProcess = (properties) => {
 
   return {
     ...properties,
-    parameters: new ParametersDeclaration({
-      loc: { ...parametersLoc },
-      openParen: '(',
-      parameters: new Parameters({
-        loc: { ...parametersLoc },
-        items: [],
-        separators: []
-      }),
-      closeParen: ')'
+    parameters: Object.create(ParametersDeclaration.prototype, {
+      loc: { value: { ...parametersLoc } },
+      openParen: { value: '(' },
+      parameters: {
+        value: Object.create(Parameters.prototype, {
+          loc: { value: { ...parametersLoc } },
+          items: { value: [] },
+          separators: { value: [] }
+        })
+      },
+      closeParen: { value: ')' }
     })
   };
 };

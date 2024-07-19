@@ -19,15 +19,12 @@ export class Parameters extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch =
-      typeof offset !== 'undefined'
-        ? (childrenOffsets) => ({
-            items: ast.items.map(
-              (item) => new Parameter(item, childrenOffsets.shift(), options)
-            ),
-            separators: ast.separators.map((separator) => separator.text)
-          })
-        : undefined;
+    const fetch = (childrenOffsets) => ({
+      items: ast.items.map(
+        (item) => new Parameter(item, childrenOffsets.shift(), options)
+      ),
+      separators: ast.separators.map((separator) => separator.text)
+    });
 
     this.initialize(ast, offset, fetch);
   }
