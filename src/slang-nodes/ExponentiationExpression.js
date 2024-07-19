@@ -33,22 +33,19 @@ export class ExponentiationExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch =
-      typeof offset !== 'undefined'
-        ? (childrenOffsets) => ({
-            leftOperand: new Expression(
-              ast.leftOperand,
-              childrenOffsets.shift(),
-              options
-            ),
-            operator: ast.operator.text,
-            rightOperand: new Expression(
-              ast.rightOperand,
-              childrenOffsets.shift(),
-              options
-            )
-          })
-        : undefined;
+    const fetch = (childrenOffsets) => ({
+      leftOperand: new Expression(
+        ast.leftOperand,
+        childrenOffsets.shift(),
+        options
+      ),
+      operator: ast.operator.text,
+      rightOperand: new Expression(
+        ast.rightOperand,
+        childrenOffsets.shift(),
+        options
+      )
+    });
 
     this.initialize(ast, offset, fetch);
 
@@ -71,31 +68,47 @@ export class ExponentiationExpression extends SlangNode {
                 this.rightOperand.variant.leftOperand.loc.endWithTrivia,
               end: this.rightOperand.variant.leftOperand.loc.end
             };
-            this.leftOperand = new Expression({
-              loc: { ...leftLoc },
-              variant: new TupleExpression({
-                loc: { ...leftLoc },
-                openParen: '(',
-                items: new TupleValues({
-                  loc: { ...leftLoc },
-                  items: [
-                    new TupleValue({
-                      loc: { ...leftLoc },
-                      expression: new Expression({
-                        loc: { ...leftLoc },
-                        variant: new ExponentiationExpression({
-                          loc: { ...leftLoc },
-                          leftOperand: this.leftOperand,
-                          operator: '**',
-                          rightOperand: this.rightOperand.variant.leftOperand
-                        })
-                      })
+            this.leftOperand = Object.create(Expression.prototype, {
+              loc: { value: { ...leftLoc } },
+              variant: {
+                value: Object.create(TupleExpression.prototype, {
+                  loc: { value: { ...leftLoc } },
+                  openParen: { value: '(' },
+                  items: {
+                    value: Object.create(TupleValues.prototype, {
+                      loc: { value: { ...leftLoc } },
+                      items: {
+                        value: [
+                          Object.create(TupleValue.prototype, {
+                            loc: { value: { ...leftLoc } },
+                            expression: {
+                              value: Object.create(Expression.prototype, {
+                                loc: { value: { ...leftLoc } },
+                                variant: {
+                                  value: Object.create(
+                                    ExponentiationExpression.prototype,
+                                    {
+                                      loc: { value: { ...leftLoc } },
+                                      leftOperand: { value: this.leftOperand },
+                                      operator: { value: '**' },
+                                      rightOperand: {
+                                        value:
+                                          this.rightOperand.variant.leftOperand
+                                      }
+                                    }
+                                  )
+                                }
+                              })
+                            }
+                          })
+                        ]
+                      },
+                      separators: { value: [] }
                     })
-                  ],
-                  separators: []
-                }),
-                closeParen: ')'
-              })
+                  },
+                  closeParen: { value: ')' }
+                })
+              }
             });
             this.rightOperand = this.rightOperand.variant.rightOperand;
           }

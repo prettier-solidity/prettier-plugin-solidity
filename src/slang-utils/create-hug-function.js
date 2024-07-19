@@ -13,23 +13,29 @@ export function createHugFunction(huggableOperators) {
     ) {
       const { loc } = node;
 
-      return new Expression({
-        loc: { ...loc },
-        variant: new TupleExpression({
-          loc: { ...loc },
-          openParen: '(',
-          items: new TupleValues({
-            loc: { ...loc },
-            items: [
-              new TupleValue({
-                loc: { ...loc },
-                expression: node
+      return Object.create(Expression.prototype, {
+        loc: { value: { ...loc } },
+        variant: {
+          value: Object.create(TupleExpression.prototype, {
+            loc: { value: { ...loc } },
+            openParen: { value: '(' },
+            items: {
+              value: Object.create(TupleValues.prototype, {
+                loc: { value: { ...loc } },
+                items: {
+                  value: [
+                    Object.create(TupleValue.prototype, {
+                      loc: { value: { ...loc } },
+                      expression: { value: node }
+                    })
+                  ]
+                },
+                separators: { value: [] }
               })
-            ],
-            separators: []
-          }),
-          closeParen: ')'
-        })
+            },
+            closeParen: { value: ')' }
+          })
+        }
       });
     }
 
