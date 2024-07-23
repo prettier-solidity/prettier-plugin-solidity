@@ -19,10 +19,10 @@ export class CallOptionsExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      operand: new Expression(ast.operand, childrenOffsets.shift(), options),
+    const fetch = (offsets) => ({
+      operand: new Expression(ast.operand, offsets[0], options),
       openBrace: ast.openBrace.text,
-      options: new CallOptions(ast.options, childrenOffsets.shift(), options),
+      options: new CallOptions(ast.options, offsets[1], options),
       closeBrace: ast.closeBrace.text
     });
 

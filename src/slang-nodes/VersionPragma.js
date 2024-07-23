@@ -14,13 +14,9 @@ export class VersionPragma extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       solidityKeyword: ast.solidityKeyword.text,
-      sets: new VersionExpressionSets(
-        ast.sets,
-        childrenOffsets.shift(),
-        options
-      )
+      sets: new VersionExpressionSets(ast.sets, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

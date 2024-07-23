@@ -17,9 +17,9 @@ export class InterfaceMembers extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) => new ContractMember(item, childrenOffsets.shift(), options)
+        (item, index) => new ContractMember(item, offsets[index], options)
       )
     });
 

@@ -17,18 +17,10 @@ export class AndExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      leftOperand: new Expression(
-        ast.leftOperand,
-        childrenOffsets.shift(),
-        options
-      ),
+    const fetch = (offsets) => ({
+      leftOperand: new Expression(ast.leftOperand, offsets[0], options),
       operator: ast.operator.text,
-      rightOperand: new Expression(
-        ast.rightOperand,
-        childrenOffsets.shift(),
-        options
-      )
+      rightOperand: new Expression(ast.rightOperand, offsets[1], options)
     });
 
     this.initialize(ast, offset, fetch);

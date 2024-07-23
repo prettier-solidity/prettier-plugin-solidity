@@ -16,9 +16,9 @@ export class ImportDirective extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       importKeyword: ast.importKeyword.text,
-      clause: new ImportClause(ast.clause, childrenOffsets.shift(), options),
+      clause: new ImportClause(ast.clause, offsets[0], options),
       semicolon: ast.semicolon.text
     });
 

@@ -12,11 +12,11 @@ export class YulAssignmentOperator extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       variant:
         ast.variant.type === 'Terminal'
           ? ast.variant.text
-          : new YulColonEqual(ast.variant, childrenOffsets.shift(), options)
+          : new YulColonEqual(ast.variant, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

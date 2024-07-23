@@ -16,15 +16,11 @@ export class YulVariableDeclarationStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       letKeyword: ast.letKeyword.text,
       names: ast.names.text,
       value: ast.value
-        ? new YulVariableDeclarationValue(
-            ast.value,
-            childrenOffsets.shift(),
-            options
-          )
+        ? new YulVariableDeclarationValue(ast.value, offsets[0], options)
         : undefined
     });
 

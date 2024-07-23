@@ -18,14 +18,10 @@ export class ErrorDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       errorKeyword: ast.errorKeyword.text,
       name: ast.name.text,
-      members: new ErrorParametersDeclaration(
-        ast.members,
-        childrenOffsets.shift(),
-        options
-      ),
+      members: new ErrorParametersDeclaration(ast.members, offsets[0], options),
       semicolon: ast.semicolon.text
     });
 

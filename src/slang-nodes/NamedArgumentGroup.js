@@ -16,13 +16,9 @@ export class NamedArgumentGroup extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       openBrace: ast.openBrace.text,
-      arguments: new NamedArguments(
-        ast.arguments,
-        childrenOffsets.shift(),
-        options
-      ),
+      arguments: new NamedArguments(ast.arguments, offsets[0], options),
       closeBrace: ast.closeBrace.text
     });
 

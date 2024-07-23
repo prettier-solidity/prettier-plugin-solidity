@@ -30,10 +30,10 @@ export class ReturnStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       returnKeyword: ast.returnKeyword.text,
       expression: ast.expression
-        ? new Expression(ast.expression, childrenOffsets.shift(), options)
+        ? new Expression(ast.expression, offsets[0], options)
         : undefined,
 
       semicolon: ast.semicolon.text

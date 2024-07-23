@@ -21,19 +21,19 @@ export class ConstructorDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       constructorKeyword: ast.constructorKeyword.text,
       parameters: new ParametersDeclaration(
         ast.parameters,
-        childrenOffsets.shift(),
+        offsets[0],
         options
       ),
       attributes: new ConstructorAttributes(
         ast.attributes,
-        childrenOffsets.shift(),
+        offsets[1],
         options
       ),
-      body: new Block(ast.body, childrenOffsets.shift(), options)
+      body: new Block(ast.body, offsets[2], options)
     });
 
     this.initialize(ast, offset, fetch);

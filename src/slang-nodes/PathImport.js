@@ -15,10 +15,10 @@ export class PathImport extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      path: new StringLiteral(ast.path, childrenOffsets.shift(), options),
+    const fetch = (offsets) => ({
+      path: new StringLiteral(ast.path, offsets[0], options),
       alias: ast.alias
-        ? new ImportAlias(ast.alias, childrenOffsets.shift(), options)
+        ? new ImportAlias(ast.alias, offsets[1], options)
         : undefined
     });
 

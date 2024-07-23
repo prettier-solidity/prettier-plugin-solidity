@@ -16,13 +16,9 @@ export class UsingDeconstruction extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       openBrace: ast.openBrace.text,
-      symbols: new UsingDeconstructionSymbols(
-        ast.symbols,
-        childrenOffsets.shift(),
-        options
-      ),
+      symbols: new UsingDeconstructionSymbols(ast.symbols, offsets[0], options),
       closeBrace: ast.closeBrace.text
     });
 

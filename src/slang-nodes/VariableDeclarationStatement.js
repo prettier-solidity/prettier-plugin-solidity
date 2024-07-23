@@ -25,29 +25,25 @@ export class VariableDeclarationStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      variableType: new VariableDeclarationType(
-        ast.variableType,
-        childrenOffsets.shift(),
-        options
-      ),
-      storageLocation: ast.storageLocation
-        ? new StorageLocation(
-            ast.storageLocation,
-            childrenOffsets.shift(),
-            options
-          )
-        : undefined,
-      name: ast.name.text,
-      value: ast.value
-        ? new VariableDeclarationValue(
-            ast.value,
-            childrenOffsets.shift(),
-            options
-          )
-        : undefined,
-      semicolon: ast.semicolon.text
-    });
+    const fetch = (offsets) => {
+      let i = 0;
+      const children = {
+        variableType: new VariableDeclarationType(
+          ast.variableType,
+          offsets[0],
+          options
+        ),
+        storageLocation: ast.storageLocation
+          ? new StorageLocation(ast.storageLocation, offsets[(i += 1)], options)
+          : undefined,
+        name: ast.name.text,
+        value: ast.value
+          ? new VariableDeclarationValue(ast.value, offsets[(i += 1)], options)
+          : undefined,
+        semicolon: ast.semicolon.text
+      };
+      return children;
+    };
 
     this.initialize(ast, offset, fetch);
   }

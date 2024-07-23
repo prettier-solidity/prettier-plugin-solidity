@@ -19,11 +19,11 @@ export class ArrayTypeName extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      operand: new TypeName(ast.operand, childrenOffsets.shift(), options),
+    const fetch = (offsets) => ({
+      operand: new TypeName(ast.operand, offsets[0], options),
       openBracket: ast.openBracket.text,
       index: ast.index
-        ? new Expression(ast.index, childrenOffsets.shift(), options)
+        ? new Expression(ast.index, offsets[1], options)
         : undefined,
       closeBracket: ast.closeBracket.text
     });

@@ -14,13 +14,9 @@ export class VariableDeclarationValue extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       equal: ast.equal.text,
-      expression: new Expression(
-        ast.expression,
-        childrenOffsets.shift(),
-        options
-      )
+      expression: new Expression(ast.expression, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

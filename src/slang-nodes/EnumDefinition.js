@@ -20,11 +20,11 @@ export class EnumDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       enumKeyword: ast.enumKeyword.text,
       name: ast.name.text,
       openBrace: ast.openBrace.text,
-      members: new EnumMembers(ast.members, childrenOffsets.shift(), options),
+      members: new EnumMembers(ast.members, offsets[0], options),
       closeBrace: ast.closeBrace.text
     });
 

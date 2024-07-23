@@ -125,20 +125,12 @@ export class ConditionalExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      operand: new Expression(ast.operand, childrenOffsets.shift(), options),
+    const fetch = (offsets) => ({
+      operand: new Expression(ast.operand, offsets[0], options),
       questionMark: ast.questionMark.text,
-      trueExpression: new Expression(
-        ast.trueExpression,
-        childrenOffsets.shift(),
-        options
-      ),
+      trueExpression: new Expression(ast.trueExpression, offsets[1], options),
       colon: ast.colon.text,
-      falseExpression: new Expression(
-        ast.falseExpression,
-        childrenOffsets.shift(),
-        options
-      )
+      falseExpression: new Expression(ast.falseExpression, offsets[2], options)
     });
 
     this.initialize(

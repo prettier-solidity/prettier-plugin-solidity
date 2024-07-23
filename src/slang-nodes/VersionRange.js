@@ -16,18 +16,10 @@ export class VersionRange extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      leftOperand: new VersionExpression(
-        ast.leftOperand,
-        childrenOffsets.shift(),
-        options
-      ),
+    const fetch = (offsets) => ({
+      leftOperand: new VersionExpression(ast.leftOperand, offsets[0], options),
       operator: ast.operator.text,
-      rightOperand: new VersionExpression(
-        ast.rightOperand,
-        childrenOffsets.shift(),
-        options
-      )
+      rightOperand: new VersionExpression(ast.rightOperand, offsets[1], options)
     });
 
     this.initialize(ast, offset, fetch);

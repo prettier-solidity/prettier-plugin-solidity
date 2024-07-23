@@ -13,12 +13,8 @@ export class SourceUnit extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      members: new SourceUnitMembers(
-        ast.members,
-        childrenOffsets.shift(),
-        options
-      )
+    const fetch = (offsets) => ({
+      members: new SourceUnitMembers(ast.members, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

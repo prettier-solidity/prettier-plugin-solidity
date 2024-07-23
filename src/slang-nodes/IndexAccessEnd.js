@@ -14,11 +14,9 @@ export class IndexAccessEnd extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       colon: ast.colon.text,
-      end: ast.end
-        ? new Expression(ast.end, childrenOffsets.shift(), options)
-        : undefined
+      end: ast.end ? new Expression(ast.end, offsets[0], options) : undefined
     });
 
     this.initialize(ast, offset, fetch);

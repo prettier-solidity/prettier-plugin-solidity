@@ -14,9 +14,9 @@ export class PrefixExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       operator: ast.operator.text,
-      operand: new Expression(ast.operand, childrenOffsets.shift(), options)
+      operand: new Expression(ast.operand, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

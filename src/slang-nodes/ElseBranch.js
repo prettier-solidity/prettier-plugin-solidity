@@ -20,9 +20,9 @@ export class ElseBranch extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       elseKeyword: ast.elseKeyword.text,
-      body: new Statement(ast.body, childrenOffsets.shift(), options)
+      body: new Statement(ast.body, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

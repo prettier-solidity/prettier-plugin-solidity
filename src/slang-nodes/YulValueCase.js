@@ -17,10 +17,10 @@ export class YulValueCase extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       caseKeyword: ast.caseKeyword.text,
-      value: new YulLiteral(ast.value, childrenOffsets.shift(), options),
-      body: new YulBlock(ast.body, childrenOffsets.shift(), options)
+      value: new YulLiteral(ast.value, offsets[0], options),
+      body: new YulBlock(ast.body, offsets[1], options)
     });
 
     this.initialize(ast, offset, fetch);

@@ -17,13 +17,9 @@ export class ReturnsDeclaration extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       returnsKeyword: ast.returnsKeyword.text,
-      variables: new ParametersDeclaration(
-        ast.variables,
-        childrenOffsets.shift(),
-        options
-      )
+      variables: new ParametersDeclaration(ast.variables, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

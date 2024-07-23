@@ -16,10 +16,10 @@ export class ReceiveFunctionAttributes extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) =>
-          new ReceiveFunctionAttribute(item, childrenOffsets.shift(), options)
+        (item, index) =>
+          new ReceiveFunctionAttribute(item, offsets[index], options)
       )
     });
 

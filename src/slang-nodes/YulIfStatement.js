@@ -17,14 +17,10 @@ export class YulIfStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       ifKeyword: ast.ifKeyword.text,
-      condition: new YulExpression(
-        ast.condition,
-        childrenOffsets.shift(),
-        options
-      ),
-      body: new YulBlock(ast.body, childrenOffsets.shift(), options)
+      condition: new YulExpression(ast.condition, offsets[0], options),
+      body: new YulBlock(ast.body, offsets[1], options)
     });
 
     this.initialize(ast, offset, fetch);

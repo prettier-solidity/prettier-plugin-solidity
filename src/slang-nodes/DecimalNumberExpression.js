@@ -14,11 +14,9 @@ export class DecimalNumberExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       literal: ast.literal.text,
-      unit: ast.unit
-        ? new NumberUnit(ast.unit, childrenOffsets.shift(), options)
-        : undefined
+      unit: ast.unit ? new NumberUnit(ast.unit, offsets[0], options) : undefined
     });
 
     this.initialize(ast, offset, fetch);

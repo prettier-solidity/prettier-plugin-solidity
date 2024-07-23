@@ -18,9 +18,9 @@ export class YulStatements extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) => new YulStatement(item, childrenOffsets.shift(), options)
+        (item, index) => new YulStatement(item, offsets[index], options)
       )
     });
 

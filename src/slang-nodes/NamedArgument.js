@@ -16,10 +16,10 @@ export class NamedArgument extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       name: ast.name.text,
       colon: ast.colon.text,
-      value: new Expression(ast.value, childrenOffsets.shift(), options)
+      value: new Expression(ast.value, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

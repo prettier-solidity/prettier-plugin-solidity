@@ -16,8 +16,8 @@ export class StructMember extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      typeName: new TypeName(ast.typeName, childrenOffsets.shift(), options),
+    const fetch = (offsets) => ({
+      typeName: new TypeName(ast.typeName, offsets[0], options),
       name: ast.name.text,
       semicolon: ast.semicolon.text
     });

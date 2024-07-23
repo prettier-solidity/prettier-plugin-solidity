@@ -20,11 +20,11 @@ export class StructDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       structKeyword: ast.structKeyword.text,
       name: ast.name.text,
       openBrace: ast.openBrace.text,
-      members: new StructMembers(ast.members, childrenOffsets.shift(), options),
+      members: new StructMembers(ast.members, offsets[0], options),
       closeBrace: ast.closeBrace.text
     });
 

@@ -30,25 +30,25 @@ export class ContractDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      abstractKeyword: ast.abstractKeyword?.text,
-      contractKeyword: ast.contractKeyword.text,
-      name: ast.name.text,
-      inheritance: ast.inheritance
-        ? new InheritanceSpecifier(
-            ast.inheritance,
-            childrenOffsets.shift(),
-            options
-          )
-        : undefined,
-      openBrace: ast.openBrace.text,
-      members: new ContractMembers(
-        ast.members,
-        childrenOffsets.shift(),
-        options
-      ),
-      closeBrace: ast.closeBrace.text
-    });
+    const fetch = (offsets) => {
+      let i = -1;
+      const children = {
+        abstractKeyword: ast.abstractKeyword?.text,
+        contractKeyword: ast.contractKeyword.text,
+        name: ast.name.text,
+        inheritance: ast.inheritance
+          ? new InheritanceSpecifier(
+              ast.inheritance,
+              offsets[(i += 1)],
+              options
+            )
+          : undefined,
+        openBrace: ast.openBrace.text,
+        members: new ContractMembers(ast.members, offsets[(i += 1)], options),
+        closeBrace: ast.closeBrace.text
+      };
+      return children;
+    };
 
     this.initialize(ast, offset, fetch);
 

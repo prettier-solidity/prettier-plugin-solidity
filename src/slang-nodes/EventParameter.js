@@ -16,8 +16,8 @@ export class EventParameter extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      typeName: new TypeName(ast.typeName, childrenOffsets.shift(), options),
+    const fetch = (offsets) => ({
+      typeName: new TypeName(ast.typeName, offsets[0], options),
       indexedKeyword: ast.indexedKeyword?.text,
       name: ast.name?.text
     });

@@ -14,9 +14,9 @@ export class UncheckedBlock extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       uncheckedKeyword: ast.uncheckedKeyword.text,
-      block: new Block(ast.block, childrenOffsets.shift(), options)
+      block: new Block(ast.block, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

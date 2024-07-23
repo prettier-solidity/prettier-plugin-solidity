@@ -14,13 +14,9 @@ export class VersionComparator extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       operator: ast.operator.text,
-      operand: new VersionExpression(
-        ast.operand,
-        childrenOffsets.shift(),
-        options
-      )
+      operand: new VersionExpression(ast.operand, offsets[0], options)
     });
 
     this.initialize(ast, offset, fetch);

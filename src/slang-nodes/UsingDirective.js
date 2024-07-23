@@ -23,11 +23,11 @@ export class UsingDirective extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       usingKeyword: ast.usingKeyword.text,
-      clause: new UsingClause(ast.clause, childrenOffsets.shift(), options),
+      clause: new UsingClause(ast.clause, offsets[0], options),
       forKeyword: ast.forKeyword.text,
-      target: new UsingTarget(ast.target, childrenOffsets.shift(), options),
+      target: new UsingTarget(ast.target, offsets[1], options),
       globalKeyword: ast.globalKeyword?.text,
       semicolon: ast.semicolon.text
     });

@@ -15,10 +15,9 @@ export class UnicodeStringLiterals extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) =>
-          new UnicodeStringLiteral(item, childrenOffsets.shift(), options)
+        (item, index) => new UnicodeStringLiteral(item, offsets[index], options)
       )
     });
 

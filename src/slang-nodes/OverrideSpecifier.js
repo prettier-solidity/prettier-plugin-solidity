@@ -14,14 +14,10 @@ export class OverrideSpecifier extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       overrideKeyword: ast.overrideKeyword.text,
       overridden: ast.overridden
-        ? new OverridePathsDeclaration(
-            ast.overridden,
-            childrenOffsets.shift(),
-            options
-          )
+        ? new OverridePathsDeclaration(ast.overridden, offsets[0], options)
         : undefined
     });
 

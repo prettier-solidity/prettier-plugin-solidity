@@ -14,13 +14,9 @@ export class UntypedTupleMember extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       storageLocation: ast.storageLocation
-        ? new StorageLocation(
-            ast.storageLocation,
-            childrenOffsets.shift(),
-            options
-          )
+        ? new StorageLocation(ast.storageLocation, offsets[0], options)
         : undefined,
       name: ast.name.text
     });

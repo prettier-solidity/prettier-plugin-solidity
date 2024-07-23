@@ -23,15 +23,11 @@ export class LibraryDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       libraryKeyword: ast.libraryKeyword.text,
       name: ast.name.text,
       openBrace: ast.openBrace.text,
-      members: new LibraryMembers(
-        ast.members,
-        childrenOffsets.shift(),
-        options
-      ),
+      members: new LibraryMembers(ast.members, offsets[0], options),
       closeBrace: ast.closeBrace.text
     });
 
