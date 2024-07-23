@@ -16,10 +16,10 @@ export class UnnamedFunctionAttributes extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) =>
-          new UnnamedFunctionAttribute(item, childrenOffsets.shift(), options)
+        (item, index) =>
+          new UnnamedFunctionAttribute(item, offsets[index], options)
       )
     });
 

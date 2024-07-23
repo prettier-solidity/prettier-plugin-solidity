@@ -16,13 +16,9 @@ export class YulBlock extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       openBrace: ast.openBrace.text,
-      statements: new YulStatements(
-        ast.statements,
-        childrenOffsets.shift(),
-        options
-      ),
+      statements: new YulStatements(ast.statements, offsets[0], options),
       closeBrace: ast.closeBrace.text
     });
 

@@ -15,10 +15,10 @@ export class TupleDeconstructionElements extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) =>
-          new TupleDeconstructionElement(item, childrenOffsets.shift(), options)
+        (item, index) =>
+          new TupleDeconstructionElement(item, offsets[index], options)
       ),
       separators: ast.separators.map((separator) => separator.text)
     });

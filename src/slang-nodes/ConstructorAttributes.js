@@ -16,10 +16,9 @@ export class ConstructorAttributes extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) =>
-          new ConstructorAttribute(item, childrenOffsets.shift(), options)
+        (item, index) => new ConstructorAttribute(item, offsets[index], options)
       )
     });
 

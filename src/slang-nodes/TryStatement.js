@@ -27,23 +27,23 @@ export class TryStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      tryKeyword: ast.tryKeyword.text,
-      expression: new Expression(
-        ast.expression,
-        childrenOffsets.shift(),
-        options
-      ),
-      returns: ast.returns
-        ? new ReturnsDeclaration(ast.returns, childrenOffsets.shift(), options)
-        : undefined,
-      body: new Block(ast.body, childrenOffsets.shift(), options),
-      catchClauses: new CatchClauses(
-        ast.catchClauses,
-        childrenOffsets.shift(),
-        options
-      )
-    });
+    const fetch = (offsets) => {
+      let i = 0;
+      const children = {
+        tryKeyword: ast.tryKeyword.text,
+        expression: new Expression(ast.expression, offsets[0], options),
+        returns: ast.returns
+          ? new ReturnsDeclaration(ast.returns, offsets[(i += 1)], options)
+          : undefined,
+        body: new Block(ast.body, offsets[(i += 1)], options),
+        catchClauses: new CatchClauses(
+          ast.catchClauses,
+          offsets[(i += 1)],
+          options
+        )
+      };
+      return children;
+    };
 
     this.initialize(ast, offset, fetch);
   }

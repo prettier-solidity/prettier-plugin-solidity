@@ -23,16 +23,12 @@ export class MappingType extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       mappingKeyword: ast.mappingKeyword.text,
       openParen: ast.openParen.text,
-      keyType: new MappingKey(ast.keyType, childrenOffsets.shift(), options),
+      keyType: new MappingKey(ast.keyType, offsets[0], options),
       equalGreaterThan: ast.equalGreaterThan.text,
-      valueType: new MappingValue(
-        ast.valueType,
-        childrenOffsets.shift(),
-        options
-      ),
+      valueType: new MappingValue(ast.valueType, offsets[1], options),
       closeParen: ast.closeParen.text
     });
 

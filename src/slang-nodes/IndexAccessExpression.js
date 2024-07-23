@@ -25,17 +25,21 @@ export class IndexAccessExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      operand: new Expression(ast.operand, childrenOffsets.shift(), options),
-      openBracket: ast.openBracket.text,
-      start: ast.start
-        ? new Expression(ast.start, childrenOffsets.shift(), options)
-        : undefined,
-      end: ast.end
-        ? new IndexAccessEnd(ast.end, childrenOffsets.shift(), options)
-        : undefined,
-      closeBracket: ast.closeBracket.text
-    });
+    const fetch = (offsets) => {
+      let i = 0;
+      const children = {
+        operand: new Expression(ast.operand, offsets[0], options),
+        openBracket: ast.openBracket.text,
+        start: ast.start
+          ? new Expression(ast.start, offsets[(i += 1)], options)
+          : undefined,
+        end: ast.end
+          ? new IndexAccessEnd(ast.end, offsets[(i += 1)], options)
+          : undefined,
+        closeBracket: ast.closeBracket.text
+      };
+      return children;
+    };
 
     this.initialize(ast, offset, fetch);
   }

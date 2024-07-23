@@ -15,17 +15,13 @@ export class YulStackAssignmentStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       assignment: new YulAssignmentOperator(
         ast.assignment,
-        childrenOffsets.shift(),
+        offsets[0],
         options
       ),
-      expression: new YulExpression(
-        ast.expression,
-        childrenOffsets.shift(),
-        options
-      )
+      expression: new YulExpression(ast.expression, offsets[1], options)
     });
 
     this.initialize(ast, offset, fetch);

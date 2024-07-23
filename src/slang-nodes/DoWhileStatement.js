@@ -29,16 +29,12 @@ export class DoWhileStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       doKeyword: ast.doKeyword.text,
-      body: new Statement(ast.body, childrenOffsets.shift(), options),
+      body: new Statement(ast.body, offsets[0], options),
       whileKeyword: ast.whileKeyword.text,
       openParen: ast.openParen.text,
-      condition: new Expression(
-        ast.condition,
-        childrenOffsets.shift(),
-        options
-      ),
+      condition: new Expression(ast.condition, offsets[1], options),
       closeParen: ast.closeParen.text,
       semicolon: ast.semicolon.text
     });

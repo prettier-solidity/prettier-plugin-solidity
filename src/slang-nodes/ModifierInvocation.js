@@ -16,14 +16,10 @@ export class ModifierInvocation extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      name: new IdentifierPath(ast.name, childrenOffsets.shift(), options),
+    const fetch = (offsets) => ({
+      name: new IdentifierPath(ast.name, offsets[0], options),
       arguments: ast.arguments
-        ? new ArgumentsDeclaration(
-            ast.arguments,
-            childrenOffsets.shift(),
-            options
-          )
+        ? new ArgumentsDeclaration(ast.arguments, offsets[1], options)
         : undefined
     });
 

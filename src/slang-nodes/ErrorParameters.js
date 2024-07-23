@@ -15,9 +15,9 @@ export class ErrorParameters extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) => new ErrorParameter(item, childrenOffsets.shift(), options)
+        (item, index) => new ErrorParameter(item, offsets[index], options)
       ),
       separators: ast.separators.map((separator) => separator.text)
     });

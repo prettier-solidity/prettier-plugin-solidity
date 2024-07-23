@@ -19,14 +19,10 @@ export class EmitStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       emitKeyword: ast.emitKeyword.text,
-      event: new IdentifierPath(ast.event, childrenOffsets.shift(), options),
-      arguments: new ArgumentsDeclaration(
-        ast.arguments,
-        childrenOffsets.shift(),
-        options
-      ),
+      event: new IdentifierPath(ast.event, offsets[0], options),
+      arguments: new ArgumentsDeclaration(ast.arguments, offsets[1], options),
       semicolon: ast.semicolon.text
     });
 

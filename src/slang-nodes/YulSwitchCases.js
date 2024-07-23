@@ -15,9 +15,9 @@ export class YulSwitchCases extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) => new YulSwitchCase(item, childrenOffsets.shift(), options)
+        (item, index) => new YulSwitchCase(item, offsets[index], options)
       )
     });
 

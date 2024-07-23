@@ -18,9 +18,9 @@ export class Statements extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) => new Statement(item, childrenOffsets.shift(), options)
+        (item, index) => new Statement(item, offsets[index], options)
       )
     });
 

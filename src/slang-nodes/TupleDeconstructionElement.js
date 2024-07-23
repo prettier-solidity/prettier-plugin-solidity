@@ -12,9 +12,9 @@ export class TupleDeconstructionElement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       member: ast.member
-        ? new TupleMember(ast.member, childrenOffsets.shift(), options)
+        ? new TupleMember(ast.member, offsets[0], options)
         : undefined
     });
 

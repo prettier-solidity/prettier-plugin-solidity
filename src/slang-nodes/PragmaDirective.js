@@ -16,9 +16,9 @@ export class PragmaDirective extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       pragmaKeyword: ast.pragmaKeyword.text,
-      pragma: new Pragma(ast.pragma, childrenOffsets.shift(), options),
+      pragma: new Pragma(ast.pragma, offsets[0], options),
       semicolon: ast.semicolon.text
     });
 

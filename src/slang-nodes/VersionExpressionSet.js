@@ -15,9 +15,9 @@ export class VersionExpressionSet extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) => new VersionExpression(item, childrenOffsets.shift(), options)
+        (item, index) => new VersionExpression(item, offsets[index], options)
       )
     });
 

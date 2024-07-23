@@ -14,12 +14,8 @@ export class ExpressionStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      expression: new Expression(
-        ast.expression,
-        childrenOffsets.shift(),
-        options
-      ),
+    const fetch = (offsets) => ({
+      expression: new Expression(ast.expression, offsets[0], options),
       semicolon: ast.semicolon.text
     });
 

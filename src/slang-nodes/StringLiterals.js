@@ -15,9 +15,9 @@ export class StringLiterals extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) => new StringLiteral(item, childrenOffsets.shift(), options)
+        (item, index) => new StringLiteral(item, offsets[index], options)
       )
     });
 

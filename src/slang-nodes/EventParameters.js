@@ -15,9 +15,9 @@ export class EventParameters extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) => new EventParameter(item, childrenOffsets.shift(), options)
+        (item, index) => new EventParameter(item, offsets[index], options)
       ),
       separators: ast.separators.map((separator) => separator.text)
     });

@@ -20,14 +20,10 @@ export class YulSwitchStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       switchKeyword: ast.switchKeyword.text,
-      expression: new YulExpression(
-        ast.expression,
-        childrenOffsets.shift(),
-        options
-      ),
-      cases: new YulSwitchCases(ast.cases, childrenOffsets.shift(), options)
+      expression: new YulExpression(ast.expression, offsets[0], options),
+      cases: new YulSwitchCases(ast.cases, offsets[1], options)
     });
 
     this.initialize(ast, offset, fetch);

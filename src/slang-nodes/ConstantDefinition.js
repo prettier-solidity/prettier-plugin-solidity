@@ -23,12 +23,12 @@ export class ConstantDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      typeName: new TypeName(ast.typeName, childrenOffsets.shift(), options),
+    const fetch = (offsets) => ({
+      typeName: new TypeName(ast.typeName, offsets[0], options),
       constantKeyword: ast.constantKeyword.text,
       name: ast.name.text,
       equal: ast.equal.text,
-      value: new Expression(ast.value, childrenOffsets.shift(), options),
+      value: new Expression(ast.value, offsets[1], options),
       semicolon: ast.semicolon.text
     });
 

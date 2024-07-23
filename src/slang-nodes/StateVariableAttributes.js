@@ -12,10 +12,10 @@ export class StateVariableAttributes extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) =>
-          new StateVariableAttribute(item, childrenOffsets.shift(), options)
+        (item, index) =>
+          new StateVariableAttribute(item, offsets[index], options)
       )
     });
 

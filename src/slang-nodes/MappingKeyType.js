@@ -15,10 +15,10 @@ export class MappingKeyType extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       variant: new variants[ast.variant.cst.kind](
         ast.variant,
-        childrenOffsets.shift(),
+        offsets[0],
         options
       )
     });

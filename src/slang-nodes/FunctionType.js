@@ -21,20 +21,20 @@ export class FunctionType extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       functionKeyword: ast.functionKeyword.text,
       parameters: new ParametersDeclaration(
         ast.parameters,
-        childrenOffsets.shift(),
+        offsets[0],
         options
       ),
       attributes: new FunctionTypeAttributes(
         ast.attributes,
-        childrenOffsets.shift(),
+        offsets[1],
         options
       ),
       returns: ast.returns
-        ? new ReturnsDeclaration(ast.returns, childrenOffsets.shift(), options)
+        ? new ReturnsDeclaration(ast.returns, offsets[2], options)
         : undefined
     });
 

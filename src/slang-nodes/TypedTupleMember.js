@@ -17,14 +17,10 @@ export class TypedTupleMember extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      typeName: new TypeName(ast.typeName, childrenOffsets.shift(), options),
+    const fetch = (offsets) => ({
+      typeName: new TypeName(ast.typeName, offsets[0], options),
       storageLocation: ast.storageLocation
-        ? new StorageLocation(
-            ast.storageLocation,
-            childrenOffsets.shift(),
-            options
-          )
+        ? new StorageLocation(ast.storageLocation, offsets[1], options)
         : undefined,
       name: ast.name.text
     });

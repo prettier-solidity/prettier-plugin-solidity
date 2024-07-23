@@ -22,23 +22,23 @@ export class YulFunctionDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      functionKeyword: ast.functionKeyword.text,
-      name: ast.name.text,
-      parameters: new YulParametersDeclaration(
-        ast.parameters,
-        childrenOffsets.shift(),
-        options
-      ),
-      returns: ast.returns
-        ? new YulReturnsDeclaration(
-            ast.returns,
-            childrenOffsets.shift(),
-            options
-          )
-        : undefined,
-      body: new YulBlock(ast.body, childrenOffsets.shift(), options)
-    });
+    const fetch = (offsets) => {
+      let i = 0;
+      const children = {
+        functionKeyword: ast.functionKeyword.text,
+        name: ast.name.text,
+        parameters: new YulParametersDeclaration(
+          ast.parameters,
+          offsets[0],
+          options
+        ),
+        returns: ast.returns
+          ? new YulReturnsDeclaration(ast.returns, offsets[(i += 1)], options)
+          : undefined,
+        body: new YulBlock(ast.body, offsets[(i += 1)], options)
+      };
+      return children;
+    };
 
     this.initialize(ast, offset, fetch);
   }

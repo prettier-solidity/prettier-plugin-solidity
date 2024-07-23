@@ -19,13 +19,9 @@ export class FunctionCallExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      operand: new Expression(ast.operand, childrenOffsets.shift(), options),
-      arguments: new ArgumentsDeclaration(
-        ast.arguments,
-        childrenOffsets.shift(),
-        options
-      )
+    const fetch = (offsets) => ({
+      operand: new Expression(ast.operand, offsets[0], options),
+      arguments: new ArgumentsDeclaration(ast.arguments, offsets[1], options)
     });
 
     this.initialize(ast, offset, fetch);

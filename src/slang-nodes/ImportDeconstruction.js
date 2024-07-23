@@ -21,16 +21,16 @@ export class ImportDeconstruction extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       openBrace: ast.openBrace.text,
       symbols: new ImportDeconstructionSymbols(
         ast.symbols,
-        childrenOffsets.shift(),
+        offsets[0],
         options
       ),
       closeBrace: ast.closeBrace.text,
       fromKeyword: ast.fromKeyword.text,
-      path: new StringLiteral(ast.path, childrenOffsets.shift(), options)
+      path: new StringLiteral(ast.path, offsets[1], options)
     });
 
     this.initialize(ast, offset, fetch);

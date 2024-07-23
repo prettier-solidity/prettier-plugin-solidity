@@ -17,13 +17,17 @@ export class CatchClause extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      catchKeyword: ast.catchKeyword.text,
-      error: ast.error
-        ? new CatchClauseError(ast.error, childrenOffsets.shift(), options)
-        : undefined,
-      body: new Block(ast.body, childrenOffsets.shift(), options)
-    });
+    const fetch = (offsets) => {
+      let i = -1;
+      const children = {
+        catchKeyword: ast.catchKeyword.text,
+        error: ast.error
+          ? new CatchClauseError(ast.error, offsets[(i += 1)], options)
+          : undefined,
+        body: new Block(ast.body, offsets[(i += 1)], options)
+      };
+      return children;
+    };
 
     this.initialize(ast, offset, fetch);
   }

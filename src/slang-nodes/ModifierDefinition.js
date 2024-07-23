@@ -53,23 +53,27 @@ export class ModifierDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      modifierKeyword: ast.modifierKeyword.text,
-      name: ast.name.text,
-      parameters: ast.parameters
-        ? new ParametersDeclaration(
-            ast.parameters,
-            childrenOffsets.shift(),
-            options
-          )
-        : undefined,
-      attributes: new ModifierAttributes(
-        ast.attributes,
-        childrenOffsets.shift(),
-        options
-      ),
-      body: new FunctionBody(ast.body, childrenOffsets.shift(), options)
-    });
+    const fetch = (offsets) => {
+      let i = -1;
+      const children = {
+        modifierKeyword: ast.modifierKeyword.text,
+        name: ast.name.text,
+        parameters: ast.parameters
+          ? new ParametersDeclaration(
+              ast.parameters,
+              offsets[(i += 1)],
+              options
+            )
+          : undefined,
+        attributes: new ModifierAttributes(
+          ast.attributes,
+          offsets[(i += 1)],
+          options
+        ),
+        body: new FunctionBody(ast.body, offsets[(i += 1)], options)
+      };
+      return children;
+    };
 
     this.initialize(ast, offset, fetch, postProcess);
   }

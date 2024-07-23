@@ -33,87 +33,77 @@ export class ExponentiationExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      leftOperand: new Expression(
-        ast.leftOperand,
-        childrenOffsets.shift(),
-        options
-      ),
+    const fetch = (offsets) => ({
+      leftOperand: new Expression(ast.leftOperand, offsets[0], options),
       operator: ast.operator.text,
-      rightOperand: new Expression(
-        ast.rightOperand,
-        childrenOffsets.shift(),
-        options
-      )
+      rightOperand: new Expression(ast.rightOperand, offsets[1], options)
     });
 
     this.initialize(ast, offset, fetch);
 
-    if (offset) {
-      const compiler = coerce(options.compiler);
-      if (compiler) {
-        if (satisfies(compiler, '>=0.8.0')) {
-          this.rightOperand = tryToHug(this.rightOperand);
-        } else {
-          // Currently the parser considers exponentiation as having left
-          // association from 0.6.0.
-          // in reality solidity fixed this from 0.8.0.
-          // TODO: remove this once the parser has fixed this.
-          // https://github.com/NomicFoundation/slang/issues/1031
-          if (this.rightOperand.variant.kind === 'ExponentiationExpression') {
-            const leftLoc = {
-              leadingOffset: this.leftOperand.loc.leadingOffset,
-              start: this.leftOperand.loc.start,
-              trailingOffset:
-                this.rightOperand.variant.leftOperand.loc.trailingOffset,
-              end: this.rightOperand.variant.leftOperand.loc.end
-            };
-            this.leftOperand = Object.create(Expression.prototype, {
-              loc: { value: { ...leftLoc } },
-              variant: {
-                value: Object.create(TupleExpression.prototype, {
-                  loc: { value: { ...leftLoc } },
-                  openParen: { value: '(' },
-                  items: {
-                    value: Object.create(TupleValues.prototype, {
-                      loc: { value: { ...leftLoc } },
-                      items: {
-                        value: [
-                          Object.create(TupleValue.prototype, {
-                            loc: { value: { ...leftLoc } },
-                            expression: {
-                              value: Object.create(Expression.prototype, {
-                                loc: { value: { ...leftLoc } },
-                                variant: {
-                                  value: Object.create(
-                                    ExponentiationExpression.prototype,
-                                    {
-                                      loc: { value: { ...leftLoc } },
-                                      leftOperand: { value: this.leftOperand },
-                                      operator: { value: '**' },
-                                      rightOperand: {
-                                        value:
-                                          this.rightOperand.variant.leftOperand
-                                      }
+    const compiler = coerce(options.compiler);
+    if (compiler) {
+      if (satisfies(compiler, '>=0.8.0')) {
+        this.rightOperand = tryToHug(this.rightOperand);
+      } else {
+        // Currently the parser considers exponentiation as having left
+        // association from 0.6.0.
+        // in reality solidity fixed this from 0.8.0.
+        // TODO: remove this once the parser has fixed this.
+        // https://github.com/NomicFoundation/slang/issues/1031
+        if (this.rightOperand.variant.kind === 'ExponentiationExpression') {
+          const leftLoc = {
+            leadingOffset: this.leftOperand.loc.leadingOffset,
+            start: this.leftOperand.loc.start,
+            trailingOffset:
+              this.rightOperand.variant.leftOperand.loc.trailingOffset,
+            end: this.rightOperand.variant.leftOperand.loc.end
+          };
+          this.leftOperand = Object.create(Expression.prototype, {
+            loc: { value: { ...leftLoc } },
+            variant: {
+              value: Object.create(TupleExpression.prototype, {
+                loc: { value: { ...leftLoc } },
+                openParen: { value: '(' },
+                items: {
+                  value: Object.create(TupleValues.prototype, {
+                    loc: { value: { ...leftLoc } },
+                    items: {
+                      value: [
+                        Object.create(TupleValue.prototype, {
+                          loc: { value: { ...leftLoc } },
+                          expression: {
+                            value: Object.create(Expression.prototype, {
+                              loc: { value: { ...leftLoc } },
+                              variant: {
+                                value: Object.create(
+                                  ExponentiationExpression.prototype,
+                                  {
+                                    loc: { value: { ...leftLoc } },
+                                    leftOperand: { value: this.leftOperand },
+                                    operator: { value: '**' },
+                                    rightOperand: {
+                                      value:
+                                        this.rightOperand.variant.leftOperand
                                     }
-                                  )
-                                }
-                              })
-                            }
-                          })
-                        ]
-                      },
-                      separators: { value: [] }
-                    })
-                  },
-                  closeParen: { value: ')' }
-                })
-              }
-            });
-            this.rightOperand = this.rightOperand.variant.rightOperand;
-          }
-          this.leftOperand = tryToHug(this.leftOperand);
+                                  }
+                                )
+                              }
+                            })
+                          }
+                        })
+                      ]
+                    },
+                    separators: { value: [] }
+                  })
+                },
+                closeParen: { value: ')' }
+              })
+            }
+          });
+          this.rightOperand = this.rightOperand.variant.rightOperand;
         }
+        this.leftOperand = tryToHug(this.leftOperand);
       }
     }
   }

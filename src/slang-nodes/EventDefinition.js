@@ -20,12 +20,12 @@ export class EventDefinition extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       eventKeyword: ast.eventKeyword.text,
       name: ast.name.text,
       parameters: new EventParametersDeclaration(
         ast.parameters,
-        childrenOffsets.shift(),
+        offsets[0],
         options
       ),
       anonymousKeyword: ast.anonymousKeyword?.text,

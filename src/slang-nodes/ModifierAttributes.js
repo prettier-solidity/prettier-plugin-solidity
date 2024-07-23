@@ -16,9 +16,9 @@ export class ModifierAttributes extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       items: ast.items.map(
-        (item) => new ModifierAttribute(item, childrenOffsets.shift(), options)
+        (item, index) => new ModifierAttribute(item, offsets[index], options)
       )
     });
 

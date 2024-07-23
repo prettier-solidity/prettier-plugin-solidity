@@ -19,9 +19,9 @@ export class ArrayExpression extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
+    const fetch = (offsets) => ({
       openBracket: ast.openBracket.text,
-      items: new ArrayValues(ast.items, childrenOffsets.shift(), options),
+      items: new ArrayValues(ast.items, offsets[0], options),
       closeBracket: ast.closeBracket.text
     });
 

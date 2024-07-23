@@ -31,25 +31,29 @@ export class ForStatement extends SlangNode {
   constructor(ast, offset, options) {
     super();
 
-    const fetch = (childrenOffsets) => ({
-      forKeyword: ast.forKeyword.text,
-      openParen: ast.openParen.text,
-      initialization: new ForStatementInitialization(
-        ast.initialization,
-        childrenOffsets.shift(),
-        options
-      ),
-      condition: new ForStatementCondition(
-        ast.condition,
-        childrenOffsets.shift(),
-        options
-      ),
-      iterator: ast.iterator
-        ? new Expression(ast.iterator, childrenOffsets.shift(), options)
-        : undefined,
-      closeParen: ast.closeParen.text,
-      body: new Statement(ast.body, childrenOffsets.shift(), options)
-    });
+    const fetch = (offsets) => {
+      let i = 1;
+      const children = {
+        forKeyword: ast.forKeyword.text,
+        openParen: ast.openParen.text,
+        initialization: new ForStatementInitialization(
+          ast.initialization,
+          offsets[0],
+          options
+        ),
+        condition: new ForStatementCondition(
+          ast.condition,
+          offsets[1],
+          options
+        ),
+        iterator: ast.iterator
+          ? new Expression(ast.iterator, offsets[(i += 1)], options)
+          : undefined,
+        closeParen: ast.closeParen.text,
+        body: new Statement(ast.body, offsets[(i += 1)], options)
+      };
+      return children;
+    };
 
     this.initialize(ast, offset, fetch);
   }
