@@ -51,7 +51,3 @@ export function getLeadingOffset(children) {
   }
   return offset;
 }
-
-export function getTrailingOffset(children) {
-  return getLeadingOffset(children.reverse());
-}
