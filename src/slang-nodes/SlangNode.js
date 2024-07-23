@@ -1,7 +1,6 @@
 import {
   getChildrenOffsets,
-  getLeadingOffset,
-  getTrailingOffset
+  getLeadingOffset
 } from '../slang-utils/get-offsets.js';
 
 const isNotStringOrUndefined = (node) =>
@@ -50,37 +49,38 @@ export class SlangNode {
     });
 
     // calculate correct loc object
+    const leadingOffset = getLeadingOffset(cstChildren);
+    const trailingOffset = getLeadingOffset(cstChildren.reverse());
     this.loc = {
-      start: offset,
-      end: offset + ast.cst.textLength.utf8,
-      leadingOffset: getLeadingOffset(cstChildren),
-      trailingOffset: getTrailingOffset(cstChildren)
+      start: offset + leadingOffset,
+      end: offset + ast.cst.textLength.utf8 - trailingOffset,
+      leadingOffset,
+      trailingOffset
     };
 
-    if (this.loc.leadingOffset === 0 || this.loc.trailingOffset === 0) {
+    if (leadingOffset === 0 || trailingOffset === 0) {
       for (let i = 0; i < propertyKeys.length; i += 1) {
         const childLoc = properties[propertyKeys[i]]?.loc;
 
         if (childLoc) {
           if (
-            this.loc.leadingOffset === 0 &&
+            leadingOffset === 0 &&
             childLoc.start - childLoc.leadingOffset === this.loc.start
           ) {
             this.loc.leadingOffset = childLoc.leadingOffset;
+            this.loc.start += childLoc.leadingOffset;
           }
 
           if (
-            this.loc.trailingOffset === 0 &&
+            trailingOffset === 0 &&
             childLoc.end + childLoc.trailingOffset === this.loc.end
           ) {
             this.loc.trailingOffset = childLoc.trailingOffset;
+            this.loc.end -= childLoc.trailingOffset;
           }
         }
       }
     }
-
-    this.loc.start += this.loc.leadingOffset;
-    this.loc.end -= this.loc.trailingOffset;
 
     if (typeof postProcess === 'function') {
       properties = postProcess(properties);
