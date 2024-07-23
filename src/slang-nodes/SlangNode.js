@@ -28,14 +28,9 @@ export class SlangNode {
     );
 
     // populate all children nodes
-    this.fetch = () => {
-      if (properties === undefined) {
-        properties = fetch(childrenOffsets);
-      }
-      return properties;
-    };
-
-    this.fetch();
+    if (properties === undefined) {
+      properties = fetch(childrenOffsets);
+    }
 
     const propertyKeys = Object.keys(properties);
     const propertyValues = Object.values(properties);
@@ -55,39 +50,37 @@ export class SlangNode {
     });
 
     // calculate correct loc object
-    const startWithTrivia = offset;
-    const endWithTrivia = offset + ast.cst.textLength.utf8;
-    let leadingOffset = getLeadingOffset(cstChildren);
-    let trailingOffset = getTrailingOffset(cstChildren);
+    this.loc = {
+      start: offset,
+      end: offset + ast.cst.textLength.utf8,
+      leadingOffset: getLeadingOffset(cstChildren),
+      trailingOffset: getTrailingOffset(cstChildren)
+    };
 
-    if (leadingOffset === 0 || trailingOffset === 0) {
+    if (this.loc.leadingOffset === 0 || this.loc.trailingOffset === 0) {
       for (let i = 0; i < propertyKeys.length; i += 1) {
         const childLoc = properties[propertyKeys[i]]?.loc;
 
         if (childLoc) {
           if (
-            leadingOffset === 0 &&
-            childLoc.startWithTrivia === startWithTrivia
+            this.loc.leadingOffset === 0 &&
+            childLoc.start - childLoc.leadingOffset === this.loc.start
           ) {
-            leadingOffset = childLoc.start - startWithTrivia;
+            this.loc.leadingOffset = childLoc.leadingOffset;
           }
 
           if (
-            trailingOffset === 0 &&
-            childLoc.endWithTrivia === endWithTrivia
+            this.loc.trailingOffset === 0 &&
+            childLoc.end + childLoc.trailingOffset === this.loc.end
           ) {
-            trailingOffset = endWithTrivia - childLoc.end;
+            this.loc.trailingOffset = childLoc.trailingOffset;
           }
         }
       }
     }
 
-    this.loc = {
-      startWithTrivia,
-      start: startWithTrivia + leadingOffset,
-      endWithTrivia,
-      end: endWithTrivia - trailingOffset
-    };
+    this.loc.start += this.loc.leadingOffset;
+    this.loc.end -= this.loc.trailingOffset;
 
     if (typeof postProcess === 'function') {
       properties = postProcess(properties);

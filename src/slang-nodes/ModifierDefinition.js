@@ -9,12 +9,13 @@ import { FunctionBody } from './FunctionBody.js';
 const postProcess = (properties) => {
   if (typeof properties.parameters !== 'undefined') return properties;
 
-  const parametersOffset = properties.attributes.loc.startWithTrivia;
+  const parametersOffset =
+    properties.attributes.loc.start - properties.attributes.loc.leadingOffset;
   const parametersLoc = {
-    startWithTrivia: parametersOffset,
     start: parametersOffset,
-    endWithTrivia: parametersOffset,
-    end: parametersOffset
+    end: parametersOffset,
+    leadingOffset: 0,
+    trailingOffset: 0
   };
 
   return {
