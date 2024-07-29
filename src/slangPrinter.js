@@ -1,4 +1,3 @@
-import * as nodes from './slang-nodes/index.js';
 import { prettierVersionSatisfies } from './common/util.js';
 import { isBlockComment } from './slang-utils/is-comment.js';
 import ignoreComments from './comments/ignore.js';
@@ -31,13 +30,9 @@ function genericPrint(path, options, print) {
   prettierVersionCheck();
 
   const node = path.getValue();
-  const nodeType = node.kind;
+
   if (node === null) {
     return '';
-  }
-
-  if (!(nodeType in nodes)) {
-    throw new Error(`Unknown type: ${JSON.stringify(nodeType)}`);
   }
 
   if (hasNodeIgnoreComment(node)) {

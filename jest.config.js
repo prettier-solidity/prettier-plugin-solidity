@@ -1,12 +1,13 @@
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
-const testMatch = [
-  '<rootDir>/tests/format/**/format.test.js',
-
-  '<rootDir>/tests/unit/**/*.test.js'
-];
+const testMatch = ['<rootDir>/tests/format/**/format.test.js'];
 
 if (TEST_STANDALONE) {
-  testMatch.push('<rootDir>/tests/integration/**/*.test.js');
+  testMatch.push(
+    '<rootDir>/tests/integration/**/*.test.js',
+    '<rootDir>/tests/unit/prettier-version/**/*.test.js'
+  );
+} else {
+  testMatch.push('<rootDir>/tests/unit/**/*.test.js');
 }
 
 export default {
@@ -16,7 +17,6 @@ export default {
     'jest-snapshot-serializer-raw',
     'jest-snapshot-serializer-ansi'
   ],
-  testEnvironment: 'node',
   // ignore console warnings in TEST_STANDALONE
   silent: TEST_STANDALONE,
   testPathIgnorePatterns: TEST_STANDALONE
@@ -27,7 +27,6 @@ export default {
       ]
     : [],
   testMatch,
-  transform: {},
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'

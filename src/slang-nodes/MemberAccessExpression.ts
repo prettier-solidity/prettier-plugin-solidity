@@ -1,0 +1,160 @@
+import { doc } from 'prettier';
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { isLabel } from '../slang-utils/is-label.js';
+import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { Expression } from './Expression.js';
+import { MemberAccess } from './MemberAccess.js';
+
+import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { SlangNode } from '../types.js';
+
+const { group, indent, label, softline } = doc.builders;
+
+const isChainableExpression = createKindCheckFunction([
+  'FunctionCallExpression',
+  'IndexAccessExpression',
+  'MemberAccessExpression'
+]);
+
+function isEndOfChain(node: MemberAccessExpression, path: AstPath): boolean {
+  for (
+    let i = 0, currentNode = node, grandparentNode = path.getNode(i + 2);
+    isChainableExpression(grandparentNode);
+    i += 2, currentNode = grandparentNode, grandparentNode = path.getNode(i + 2)
+  ) {
+    switch (grandparentNode.kind) {
+      case 'MemberAccessExpression':
+        // If direct ParentNode is a MemberAccess we are not at the end of the
+        // chain.
+        return false;
+
+      case 'IndexAccessExpression':
+        // If direct ParentNode is an IndexAccess and currentNode is not the
+        // operand then it must be the start or the end in which case it is the
+        // end of the chain.
+        if (currentNode !== grandparentNode.operand.variant) return true;
+        break;
+
+      case 'FunctionCallExpression':
+        // If direct ParentNode is a FunctionCall and currentNode is not the
+        // operand then it must be and argument in which case it is the end
+        // of the chain.
+        if (currentNode !== grandparentNode.operand.variant) return true;
+        break;
+
+      default:
+        break;
+    }
+  }
+  return true;
+}
+
+/**
+ * processChain expects the doc[] of the full chain of MemberAccess.
+ *
+ * It uses the separator label to split the chain into 2 arrays.
+ * The first array is the doc[] corresponding to the first element before the
+ * first separator.
+ * The second array contains the rest of the chain.
+ *
+ * The second array is grouped and indented, while the first element's
+ * formatting logic remains separated.
+ *
+ * That way the first element can safely split into multiple lines and the rest
+ * of the chain will continue its formatting rules as normal.
+ *
+ * i.e.
+ * ```
+ * functionCall(arg1, arg2).rest.of.chain
+ *
+ * functionCall(arg1, arg2)
+ *     .long
+ *     .rest
+ *     .of
+ *     .chain
+ *
+ * functionCall(
+ *     arg1,
+ *     arg2
+ * ).rest.of.chain
+ *
+ * functionCall(
+ *     arg1,
+ *     arg2
+ * )
+ *     .long
+ *     .rest
+ *     .of
+ *     .chain
+ * ```
+ *
+ * NOTE: As described in the examples above, the rest of the chain will be grouped
+ * and try to stay in the same line as the end of the first element.
+ *
+ * @param {doc[]} chain is the full chain of MemberAccess
+ * @returns a processed doc[] with the proper grouping and indentation ready to
+ * be printed.
+ */
+function processChain(chain: Doc[]): Doc {
+  const firstSeparatorIndex = chain.findIndex(
+    (element) => isLabel(element) && element.label === 'separator'
+  );
+
+  // We wrap the expression in a label in case there is an IndexAccess or
+  // a FunctionCall following this MemberAccess.
+  return label('MemberAccessChain', [
+    // The doc[] before the first separator
+    chain.slice(0, firstSeparatorIndex),
+    // The doc[] containing the rest of the chain
+    group(indent(chain.slice(firstSeparatorIndex)))
+  ]);
+}
+
+export class MemberAccessExpression implements SlangNode {
+  readonly kind = NonterminalKind.MemberAccessExpression;
+
+  comments;
+
+  loc;
+
+  operand: Expression;
+
+  period: string;
+
+  member: MemberAccess;
+
+  constructor(
+    ast: ast.MemberAccessExpression,
+    offset: number,
+    options: ParserOptions
+  ) {
+    let metadata = getNodeMetadata(ast, offset);
+    const { offsets } = metadata;
+
+    this.operand = new Expression(ast.operand, offsets[0], options);
+    this.period = ast.period.text;
+    this.member = new MemberAccess(ast.member, offsets[1]);
+
+    metadata = updateMetadata(metadata, [this.operand, this.member]);
+
+    this.comments = metadata.comments;
+    this.loc = metadata.loc;
+  }
+
+  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+    let operandDoc = path.call(print, 'operand');
+    if (Array.isArray(operandDoc)) {
+      operandDoc = operandDoc.flat();
+    }
+
+    const document = [
+      operandDoc,
+      label('separator', [softline, this.period]),
+      path.call(print, 'member')
+    ].flat();
+
+    return isEndOfChain(this, path) ? processChain(document) : document;
+  }
+}
