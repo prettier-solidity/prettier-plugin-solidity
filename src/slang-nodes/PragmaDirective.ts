@@ -1,0 +1,47 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { Pragma } from './Pragma.js';
+
+import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { SlangNode } from '../types.js';
+
+export class PragmaDirective implements SlangNode {
+  readonly kind = NonterminalKind.PragmaDirective;
+
+  comments;
+
+  loc;
+
+  pragmaKeyword: string;
+
+  pragma: Pragma;
+
+  semicolon: string;
+
+  constructor(
+    ast: ast.PragmaDirective,
+    offset: number,
+    options: ParserOptions
+  ) {
+    let metadata = getNodeMetadata(ast, offset);
+    const { offsets } = metadata;
+
+    this.pragmaKeyword = ast.pragmaKeyword.text;
+    this.pragma = new Pragma(ast.pragma, offsets[0], options);
+    this.semicolon = ast.semicolon.text;
+
+    metadata = updateMetadata(metadata, [this.pragma]);
+
+    this.comments = metadata.comments;
+    this.loc = metadata.loc;
+  }
+
+  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+    return [
+      `${this.pragmaKeyword} `,
+      path.call(print, 'pragma'),
+      this.semicolon
+    ];
+  }
+}
