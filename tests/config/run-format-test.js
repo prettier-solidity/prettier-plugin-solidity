@@ -363,7 +363,9 @@ async function runTest({
     if (isAstUnstableTest) {
       expect(formattedAst).not.toEqual(originalAst);
     } else {
-      expect(formattedAst).toEqual(originalAst);
+      expect(JSON.parse(JSON.stringify(formattedAst))).toEqual(
+        JSON.parse(JSON.stringify(originalAst)),
+      );
     }
   }
 

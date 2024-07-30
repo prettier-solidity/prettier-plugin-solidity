@@ -1,6 +1,7 @@
 import { util } from 'prettier';
-import { getNextNonSpaceNonCommentCharacter } from '../../common/backward-compatibility.js';
-import { locEnd } from '../../slang-utils/loc.js';
+import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
+
+import type { HandlerParams } from './types.js';
 
 const { addLeadingComment, addDanglingComment, addTrailingComment } = util;
 
@@ -10,16 +11,12 @@ export default function handleContractDefinitionComments({
   enclosingNode,
   followingNode,
   comment
-}) {
+}: HandlerParams): boolean {
   if (enclosingNode?.kind !== 'ContractDefinition') {
     return false;
   }
 
-  const nextCharacter = getNextNonSpaceNonCommentCharacter(
-    text,
-    comment,
-    locEnd
-  );
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment);
 
   // Everything before the InheritanceSpecifier is pushed onto the beginning of
   // the ContractDefinition.
@@ -34,7 +31,7 @@ export default function handleContractDefinitionComments({
   // The comment is at the end of the body of the ContractDefinition.
   if (precedingNode?.kind === 'ContractMembers') {
     if (precedingNode.items.length === 0) {
-      addDanglingComment(precedingNode, comment);
+      addDanglingComment(precedingNode, comment, false);
     } else {
       addTrailingComment(
         precedingNode.items[precedingNode.items.length - 1],
@@ -65,7 +62,7 @@ export default function handleContractDefinitionComments({
       if (followingNode.items.length > 0) {
         addLeadingComment(followingNode.items[0], comment);
       } else {
-        addDanglingComment(followingNode, comment);
+        addDanglingComment(followingNode, comment, false);
       }
       return true;
     }

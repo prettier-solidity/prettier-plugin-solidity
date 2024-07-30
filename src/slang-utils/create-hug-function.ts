@@ -7,47 +7,60 @@ import { isBinaryOperation } from './is-binary-operation.js';
 
 import type { BinaryOperation } from '../types.js';
 
+const objectConfig = {
+  writable: true,
+  enumerable: true,
+  configurable: true
+};
+
 export function createHugFunction(
   huggableOperators: string[]
 ): (node: Expression) => Expression {
   const operators = new Set(huggableOperators);
   return (node: Expression): Expression => {
     if (
+      typeof node.variant !== 'string' &&
       isBinaryOperation(node.variant) &&
       operators.has((node.variant as BinaryOperation).operator)
     ) {
       const { loc } = node;
 
       return Object.create(Expression.prototype, {
-        kind: { value: NonterminalKind.Expression },
-        loc: { value: { ...loc } },
-        comments: { value: [] },
+        kind: { value: NonterminalKind.Expression, ...objectConfig },
+        loc: { value: { ...loc }, ...objectConfig },
+        comments: { value: [], ...objectConfig },
         variant: {
           value: Object.create(TupleExpression.prototype, {
-            kind: { value: NonterminalKind.TupleExpression },
-            loc: { value: { ...loc } },
-            comments: { value: [] },
-            openParen: { value: '(' },
+            kind: { value: NonterminalKind.TupleExpression, ...objectConfig },
+            loc: { value: { ...loc }, ...objectConfig },
+            comments: { value: [], ...objectConfig },
+            openParen: { value: '(', ...objectConfig },
             items: {
               value: Object.create(TupleValues.prototype, {
-                kind: { value: NonterminalKind.TupleValues },
-                loc: { value: { ...loc } },
-                comments: { value: [] },
+                kind: { value: NonterminalKind.TupleValues, ...objectConfig },
+                loc: { value: { ...loc }, ...objectConfig },
+                comments: { value: [], ...objectConfig },
                 items: {
                   value: [
                     Object.create(TupleValue.prototype, {
-                      kind: { value: NonterminalKind.TupleValue },
-                      loc: { value: { ...loc } },
-                      comments: { value: [] },
-                      expression: { value: node }
+                      kind: {
+                        value: NonterminalKind.TupleValue,
+                        ...objectConfig
+                      },
+                      loc: { value: { ...loc }, ...objectConfig },
+                      comments: { value: [], ...objectConfig },
+                      expression: { value: node, ...objectConfig }
                     })
-                  ]
+                  ],
+                  ...objectConfig
                 },
-                separators: { value: [] }
-              })
+                separators: { value: [], ...objectConfig }
+              }),
+              ...objectConfig
             },
-            closeParen: { value: ')' }
-          })
+            closeParen: { value: ')', ...objectConfig }
+          }),
+          ...objectConfig
         }
       });
     }

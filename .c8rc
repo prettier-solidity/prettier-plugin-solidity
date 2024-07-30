@@ -7,6 +7,7 @@
   "exclude": ["/node_modules/", "/src/prettier-comments/"],
   "include": [
     "src/**/*.js",
+    "src/**/*.ts",
     "!src/prettier-comments/**/*.js",
     "!src/common/backward-compatibility.js"
   ],

@@ -36,6 +36,7 @@ export class TupleValues implements SlangNode {
 
   print(path: AstPath, print: (path: AstPath) => Doc): Doc {
     return this.items.length === 1 &&
+      typeof this.items[0].expression!.variant !== 'string' &&
       isBinaryOperation(this.items[0].expression!.variant)
       ? path.map(print, 'items')
       : printSeparatedList(path.map(print, 'items'));

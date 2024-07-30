@@ -1,5 +1,9 @@
 import { doc } from 'prettier';
-import { isLast, isNextLineEmpty } from '../common/backward-compatibility.js';
+import {
+  isLast,
+  isNextLineEmpty
+} from '../slang-utils/backward-compatibility.js';
+import { locEnd } from '../slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { YulStatement } from '../slang-nodes/YulStatement.js';
@@ -27,7 +31,7 @@ export function printPreservingEmptyLines(
       !isLast(childPath, key, index) &&
       // Append an empty line if the original text already had an one after the
       // current `node`
-      isNextLineEmpty(options.originalText, options.locEnd(node))
+      isNextLineEmpty(options.originalText, locEnd(node))
         ? hardline
         : ''
     ];

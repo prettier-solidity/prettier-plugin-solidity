@@ -1,11 +1,12 @@
+import type { SupportOptions } from 'prettier';
+
 const CATEGORY_GLOBAL = 'Global';
 const CATEGORY_COMMON = 'Common';
 const CATEGORY_JAVASCRIPT = 'JavaScript';
 const CATEGORY_SOLIDITY = 'Solidity';
 
-const options = {
+const options: SupportOptions = {
   printWidth: {
-    since: '0.0.0',
     category: CATEGORY_GLOBAL,
     type: 'int',
     default: 80,
@@ -20,14 +21,12 @@ const options = {
     range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 }
   },
   useTabs: {
-    since: '1.0.0',
     category: CATEGORY_GLOBAL,
     type: 'boolean',
     default: false,
     description: 'Indent with tabs instead of spaces.'
   },
   bracketSpacing: {
-    since: '0.0.0',
     category: CATEGORY_COMMON,
     type: 'boolean',
     default: true,
@@ -35,7 +34,6 @@ const options = {
     oppositeDescription: 'Do not print spaces between brackets.'
   },
   singleQuote: {
-    since: '0.0.0',
     category: CATEGORY_COMMON,
     type: 'boolean',
     default: false,

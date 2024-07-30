@@ -1,5 +1,7 @@
 import { util } from 'prettier';
 
+import type { HandlerParams } from './types';
+
 const { addDanglingComment, addLeadingComment, addTrailingComment } = util;
 
 export default function handleBlockComments({
@@ -7,14 +9,14 @@ export default function handleBlockComments({
   enclosingNode,
   followingNode,
   comment
-}) {
-  if (enclosingNode?.kind !== 'Block') {
+}: HandlerParams): boolean {
+  if (enclosingNode?.kind !== 'ParametersDeclaration') {
     return false;
   }
 
-  if (precedingNode?.kind === 'Statements') {
+  if (precedingNode?.kind === 'Parameters') {
     if (precedingNode.items.length === 0) {
-      addDanglingComment(precedingNode, comment);
+      addDanglingComment(precedingNode, comment, false);
     } else {
       addTrailingComment(
         precedingNode.items[precedingNode.items.length - 1],
@@ -24,9 +26,9 @@ export default function handleBlockComments({
     return true;
   }
 
-  if (followingNode?.kind === 'Statements') {
+  if (followingNode?.kind === 'Parameters') {
     if (followingNode.items.length === 0) {
-      addDanglingComment(followingNode, comment);
+      addDanglingComment(followingNode, comment, false);
     } else {
       addLeadingComment(followingNode.items[0], comment);
     }
