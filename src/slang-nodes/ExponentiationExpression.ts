@@ -27,6 +27,12 @@ const printExponentiationExpression = createBinaryOperationPrinter(
       indent(document) // always indent
 );
 
+const objectConfig = {
+  writable: true,
+  enumerable: true,
+  configurable: true
+};
+
 export class ExponentiationExpression implements SlangNode {
   readonly kind = NonterminalKind.ExponentiationExpression;
 
@@ -79,60 +85,85 @@ export class ExponentiationExpression implements SlangNode {
             end: this.rightOperand.variant.leftOperand.loc.end
           };
           this.leftOperand = Object.create(Expression.prototype, {
-            kind: { value: NonterminalKind.Expression },
-            loc: { value: { ...leftLoc } },
-            comments: { value: [] },
+            kind: { value: NonterminalKind.Expression, ...objectConfig },
+            loc: { value: { ...leftLoc }, ...objectConfig },
+            comments: { value: [], ...objectConfig },
             variant: {
               value: Object.create(TupleExpression.prototype, {
-                kind: { value: NonterminalKind.TupleExpression },
-                loc: { value: { ...leftLoc } },
-                comments: { value: [] },
-                openParen: { value: '(' },
+                kind: {
+                  value: NonterminalKind.TupleExpression,
+                  ...objectConfig
+                },
+                loc: { value: { ...leftLoc }, ...objectConfig },
+                comments: { value: [], ...objectConfig },
+                openParen: { value: '(', ...objectConfig },
                 items: {
                   value: Object.create(TupleValues.prototype, {
-                    kind: { value: NonterminalKind.TupleValues },
-                    loc: { value: { ...leftLoc } },
-                    comments: { value: [] },
+                    kind: {
+                      value: NonterminalKind.TupleValues,
+                      ...objectConfig
+                    },
+                    loc: { value: { ...leftLoc }, ...objectConfig },
+                    comments: { value: [], ...objectConfig },
                     items: {
                       value: [
                         Object.create(TupleValue.prototype, {
-                          kind: { value: NonterminalKind.TupleValue },
-                          loc: { value: { ...leftLoc } },
-                          comments: { value: [] },
+                          kind: {
+                            value: NonterminalKind.TupleValue,
+                            ...objectConfig
+                          },
+                          loc: { value: { ...leftLoc }, ...objectConfig },
+                          comments: { value: [], ...objectConfig },
                           expression: {
                             value: Object.create(Expression.prototype, {
-                              kind: { value: NonterminalKind.Expression },
-                              loc: { value: { ...leftLoc } },
-                              comments: { value: [] },
+                              kind: {
+                                value: NonterminalKind.Expression,
+                                ...objectConfig
+                              },
+                              loc: { value: { ...leftLoc }, ...objectConfig },
+                              comments: { value: [], ...objectConfig },
                               variant: {
                                 value: Object.create(
                                   ExponentiationExpression.prototype,
                                   {
                                     kind: {
                                       value:
-                                        NonterminalKind.ExponentiationExpression
+                                        NonterminalKind.ExponentiationExpression,
+                                      ...objectConfig
                                     },
-                                    loc: { value: { ...leftLoc } },
-                                    comments: { value: [] },
-                                    leftOperand: { value: this.leftOperand },
-                                    operator: { value: '**' },
+                                    loc: {
+                                      value: { ...leftLoc },
+                                      ...objectConfig
+                                    },
+                                    comments: { value: [], ...objectConfig },
+                                    leftOperand: {
+                                      value: this.leftOperand,
+                                      ...objectConfig
+                                    },
+                                    operator: { value: '**', ...objectConfig },
                                     rightOperand: {
                                       value:
-                                        this.rightOperand.variant.leftOperand
+                                        this.rightOperand.variant.leftOperand,
+                                      ...objectConfig
                                     }
                                   }
-                                )
+                                ),
+                                ...objectConfig
                               }
-                            })
+                            }),
+                            ...objectConfig
                           }
                         })
-                      ]
+                      ],
+                      ...objectConfig
                     },
-                    separators: { value: [] }
-                  })
+                    separators: { value: [], ...objectConfig }
+                  }),
+                  ...objectConfig
                 },
-                closeParen: { value: ')' }
-              })
+                closeParen: { value: ')', ...objectConfig }
+              }),
+              ...objectConfig
             }
           });
           this.rightOperand = this.rightOperand.variant.rightOperand;

@@ -45,6 +45,7 @@ export class AssignmentExpression implements SlangNode {
     return [
       path.call(print, 'leftOperand'),
       ` ${this.operator}`,
+      typeof this.rightOperand.variant !== 'string' &&
       isBinaryOperation(this.rightOperand.variant)
         ? group(indent([line, path.call(print, 'rightOperand')]))
         : [' ', path.call(print, 'rightOperand')]

@@ -10,6 +10,11 @@ import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { SlangNode } from '../types.js';
 
+const objectConfig = {
+  writable: true,
+  enumerable: true,
+  configurable: true
+};
 export class ModifierDefinition implements SlangNode {
   readonly kind = NonterminalKind.ModifierDefinition;
 
@@ -70,20 +75,27 @@ export class ModifierDefinition implements SlangNode {
       };
 
       this.parameters = Object.create(ParametersDeclaration.prototype, {
-        kind: { value: NonterminalKind.ParametersDeclaration },
-        loc: { value: { ...parametersLoc } },
-        comments: { value: [] },
-        openParen: { value: '(' },
+        kind: {
+          value: NonterminalKind.ParametersDeclaration,
+          ...objectConfig
+        },
+        loc: {
+          value: { ...parametersLoc },
+          ...objectConfig
+        },
+        comments: { value: [], ...objectConfig },
+        openParen: { value: '(', ...objectConfig },
         parameters: {
           value: Object.create(Parameters.prototype, {
-            kind: { value: NonterminalKind.Parameters },
-            loc: { value: { ...parametersLoc } },
-            comments: { value: [] },
-            items: { value: [] },
-            separators: { value: [] }
-          })
+            kind: { value: NonterminalKind.Parameters, ...objectConfig },
+            loc: { value: { ...parametersLoc }, ...objectConfig },
+            comments: { value: [], ...objectConfig },
+            items: { value: [], ...objectConfig },
+            separators: { value: [], ...objectConfig }
+          }),
+          ...objectConfig
         },
-        closeParen: { value: ')' }
+        closeParen: { value: ')', ...objectConfig }
       });
     }
   }

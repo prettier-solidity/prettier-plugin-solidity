@@ -1,12 +1,15 @@
 import handlers from './handlers/index.js';
 
+import type { AstPath, ParserOptions } from 'prettier';
+import type { Comment } from '../types.js';
+
 export function slangHandleOwnLineComment(
-  comment,
-  text,
-  options,
-  ast,
-  isLastComment
-) {
+  comment: Comment,
+  text: string,
+  options: ParserOptions,
+  ast: AstPath,
+  isLastComment: boolean
+): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;
   const handlerArguments = {
     text,
@@ -22,12 +25,12 @@ export function slangHandleOwnLineComment(
 }
 
 export function slangHandleEndOfLineComment(
-  comment,
-  text,
-  options,
-  ast,
-  isLastComment
-) {
+  comment: Comment,
+  text: string,
+  options: ParserOptions,
+  ast: AstPath,
+  isLastComment: boolean
+): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;
   const handlerArguments = {
     text,
@@ -43,12 +46,12 @@ export function slangHandleEndOfLineComment(
 }
 
 export function slangHandleRemainingComment(
-  comment,
-  text,
-  options,
-  ast,
-  isLastComment
-) {
+  comment: Comment,
+  text: string,
+  options: ParserOptions,
+  ast: AstPath,
+  isLastComment: boolean
+): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;
   const handlerArguments = {
     text,
@@ -61,20 +64,4 @@ export function slangHandleRemainingComment(
   };
 
   return handlers.some((handler) => handler(handlerArguments));
-}
-
-export function isBlockComment(comment) {
-  return comment.type === 'BlockComment';
-}
-
-function isNodeOrComment(node) {
-  return node.type !== undefined;
-}
-
-export function canAttachComment(node) {
-  return (
-    isNodeOrComment(node) &&
-    !isBlockComment(node) &&
-    node.type !== 'LineComment'
-  );
 }

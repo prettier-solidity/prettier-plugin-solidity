@@ -1,5 +1,7 @@
 import { util } from 'prettier';
 
+import type { HandlerParams } from './types';
+
 const { addLeadingComment, addDanglingComment } = util;
 
 export default function handleYulBlockComments({
@@ -7,7 +9,7 @@ export default function handleYulBlockComments({
   enclosingNode,
   followingNode,
   comment
-}) {
+}: HandlerParams): boolean {
   if (enclosingNode?.kind !== 'YulBlock') {
     return false;
   }
@@ -16,7 +18,7 @@ export default function handleYulBlockComments({
     precedingNode?.kind === 'YulStatements' &&
     precedingNode.items.length === 0
   ) {
-    addDanglingComment(precedingNode, comment);
+    addDanglingComment(precedingNode, comment, false);
     return true;
   }
 

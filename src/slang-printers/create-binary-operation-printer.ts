@@ -16,8 +16,10 @@ function rightOperandPrint(
   // If it's a single binary operation, avoid having a small right
   // operand like - 1 on its own line
   const shouldGroup =
-    !isBinaryOperation(node.leftOperand.variant) &&
-    !isBinaryOperation(path.getNode(2));
+    !(
+      typeof node.leftOperand.variant !== 'string' &&
+      isBinaryOperation(node.leftOperand.variant)
+    ) && !isBinaryOperation(path.getNode(2));
 
   return shouldGroup ? group(rightOperand) : rightOperand;
 }

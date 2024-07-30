@@ -5,7 +5,6 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { ContractMembers } from './ContractMembers.js';
-import { FunctionDefinition } from './FunctionDefinition.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';

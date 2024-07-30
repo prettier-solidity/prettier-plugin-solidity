@@ -1,6 +1,6 @@
 import { doc } from 'prettier';
 import { printComment } from '../slang-comments/printer.js';
-import { isPrettier2 } from '../common/backward-compatibility.js';
+import { getNode, isPrettier2 } from '../slang-utils/backward-compatibility.js';
 
 import type { AstPath, Doc } from 'prettier';
 import type { Comment, astNode } from '../types.js';
@@ -14,14 +14,11 @@ export function printComments(node: astNode, path: AstPath): Doc[] {
     line,
     path
       .map((commentPath) => {
-        const comment = commentPath.getValue() as Comment;
+        const comment = getNode(commentPath) as Comment;
         if (comment.trailing || comment.leading || comment.printed) {
-          return null;
+          return '';
         }
         comment.printed = true;
-        // TODO: prettier Prints leading and trailing comments anyway.
-        comment.leading = false;
-        comment.trailing = false;
         return printComment(commentPath);
       }, 'comments')
       .filter(Boolean)

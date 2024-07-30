@@ -7,7 +7,6 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { SlangNode } from '../types.js';
-import type { PositionalArgumentsDeclaration } from './PositionalArgumentsDeclaration.js';
 
 export class ModifierInvocation implements SlangNode {
   readonly kind = NonterminalKind.ModifierInvocation;
