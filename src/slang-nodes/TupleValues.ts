@@ -6,7 +6,7 @@ import { TupleValue } from './TupleValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class TupleValues implements SlangNode {
   readonly kind = NonterminalKind.TupleValues;
@@ -19,7 +19,11 @@ export class TupleValues implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.TupleValues, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.TupleValues,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

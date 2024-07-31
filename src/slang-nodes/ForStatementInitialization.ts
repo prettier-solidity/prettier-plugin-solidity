@@ -7,7 +7,7 @@ import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js'
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class ForStatementInitialization implements SlangNode {
   readonly kind = NonterminalKind.ForStatementInitialization;
@@ -25,7 +25,7 @@ export class ForStatementInitialization implements SlangNode {
   constructor(
     ast: ast.ForStatementInitialization,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

@@ -6,7 +6,7 @@ import { YulSwitchCases } from './YulSwitchCases.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { hardline } = doc.builders;
 
@@ -26,7 +26,7 @@ export class YulSwitchStatement implements SlangNode {
   constructor(
     ast: ast.YulSwitchStatement,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

@@ -21,7 +21,7 @@ const logicalGroupRulesBuilder =
     isBinaryOperation(path.getNode(2) as AstNode) ? document : group(document);
 
 const logicalIndentRulesBuilder =
-  (path: AstPath, options: ParserOptions) =>
+  (path: AstPath, options: ParserOptions<AstNode>) =>
   (document: Doc): Doc => {
     let node = path.getNode() as AstNode;
     for (let i = 2; ; i += 2) {

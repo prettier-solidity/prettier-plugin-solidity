@@ -4,7 +4,7 @@ import { PositionalArguments } from './PositionalArguments.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class PositionalArgumentsDeclaration implements SlangNode {
   readonly kind = NonterminalKind.PositionalArgumentsDeclaration;
@@ -22,7 +22,7 @@ export class PositionalArgumentsDeclaration implements SlangNode {
   constructor(
     ast: ast.PositionalArgumentsDeclaration,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

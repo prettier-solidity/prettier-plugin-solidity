@@ -5,7 +5,7 @@ import { SourceUnitMembers } from './SourceUnitMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { line } = doc.builders;
 
@@ -18,7 +18,11 @@ export class SourceUnit implements SlangNode {
 
   members: SourceUnitMembers;
 
-  constructor(ast: ast.SourceUnit, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.SourceUnit,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
@@ -33,7 +37,7 @@ export class SourceUnit implements SlangNode {
   print(
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc {
     return [path.call(print, 'members'), options.parentParser ? '' : line];
   }

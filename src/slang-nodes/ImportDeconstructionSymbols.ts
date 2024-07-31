@@ -8,7 +8,7 @@ import { ImportDeconstructionSymbol } from './ImportDeconstructionSymbol.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { line, softline } = doc.builders;
 
@@ -41,7 +41,7 @@ export class ImportDeconstructionSymbols implements SlangNode {
   print(
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc {
     const compiler = coerce(options.compiler);
     let firstSeparator;

@@ -15,7 +15,7 @@ function experimentalTernaries(
   node: ConditionalExpression,
   path: AstPath,
   print: (path: AstPath) => Doc,
-  options: ParserOptions
+  options: ParserOptions<AstNode>
 ): Doc {
   const grandparent = path.getNode(2) as AstNode;
   const isNested = grandparent.kind === NonterminalKind.ConditionalExpression;
@@ -128,7 +128,7 @@ export class ConditionalExpression implements SlangNode {
   constructor(
     ast: ast.ConditionalExpression,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
@@ -178,7 +178,7 @@ export class ConditionalExpression implements SlangNode {
   print(
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc {
     return options.experimentalTernaries
       ? experimentalTernaries(this, path, print, options)

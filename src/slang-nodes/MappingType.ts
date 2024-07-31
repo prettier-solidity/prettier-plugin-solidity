@@ -5,7 +5,7 @@ import { MappingValue } from './MappingValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class MappingType implements SlangNode {
   readonly kind = NonterminalKind.MappingType;
@@ -26,7 +26,11 @@ export class MappingType implements SlangNode {
 
   closeParen: string;
 
-  constructor(ast: ast.MappingType, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.MappingType,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

@@ -29,14 +29,14 @@ export const createBinaryOperationPrinter =
     groupRulesBuilder: (path: AstPath) => (document: Doc) => Doc,
     indentRulesBuilder: (
       path: AstPath,
-      options: ParserOptions
+      options: ParserOptions<AstNode>
     ) => (document: Doc) => Doc
   ) =>
   (
     node: BinaryOperation,
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc => {
     const groupRules = groupRulesBuilder(path);
     const indentRules = indentRulesBuilder(path, options);

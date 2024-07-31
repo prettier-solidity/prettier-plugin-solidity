@@ -132,7 +132,7 @@ export class MemberAccessExpression implements SlangNode {
   constructor(
     ast: ast.MemberAccessExpression,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

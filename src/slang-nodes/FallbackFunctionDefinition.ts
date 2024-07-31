@@ -8,7 +8,7 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class FallbackFunctionDefinition implements SlangNode {
   readonly kind = NonterminalKind.FallbackFunctionDefinition;
@@ -30,7 +30,7 @@ export class FallbackFunctionDefinition implements SlangNode {
   constructor(
     ast: ast.FallbackFunctionDefinition,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

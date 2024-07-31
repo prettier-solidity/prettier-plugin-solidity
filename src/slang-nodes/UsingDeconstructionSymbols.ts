@@ -6,7 +6,7 @@ import { UsingDeconstructionSymbol } from './UsingDeconstructionSymbol.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { line, softline } = doc.builders;
 
@@ -39,7 +39,7 @@ export class UsingDeconstructionSymbols implements SlangNode {
   print(
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc {
     return printSeparatedList(path.map(print, 'items'), {
       firstSeparator: options.bracketSpacing ? line : softline

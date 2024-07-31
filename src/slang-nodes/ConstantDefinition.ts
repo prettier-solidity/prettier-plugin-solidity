@@ -5,7 +5,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { /*AstPath,*/ Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class ConstantDefinition implements SlangNode {
   readonly kind = NonterminalKind.ConstantDefinition;
@@ -29,7 +29,7 @@ export class ConstantDefinition implements SlangNode {
   constructor(
     ast: ast.ConstantDefinition,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
@@ -51,7 +51,7 @@ export class ConstantDefinition implements SlangNode {
   print(/*
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   */): Doc {
     return ['TODO: ConstantDefinition'];
   }

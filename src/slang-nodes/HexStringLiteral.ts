@@ -4,7 +4,7 @@ import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class HexStringLiteral implements SlangNode {
   readonly kind = NonterminalKind.HexStringLiteral;
@@ -18,7 +18,7 @@ export class HexStringLiteral implements SlangNode {
   constructor(
     ast: ast.HexStringLiteral,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     const metadata = getNodeMetadata(ast, offset);
 

@@ -4,7 +4,7 @@ import { EventParametersDeclaration } from './EventParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class EventDefinition implements SlangNode {
   readonly kind = NonterminalKind.EventDefinition;
@@ -26,7 +26,7 @@ export class EventDefinition implements SlangNode {
   constructor(
     ast: ast.EventDefinition,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

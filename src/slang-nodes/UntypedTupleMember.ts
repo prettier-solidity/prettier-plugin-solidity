@@ -39,7 +39,7 @@ export class UntypedTupleMember implements SlangNode {
   print(/*
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   */): Doc {
     return ['TODO: UntypedTupleMemberUntypedTupleMember'];
   }

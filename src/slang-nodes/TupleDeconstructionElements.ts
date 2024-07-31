@@ -5,7 +5,7 @@ import { TupleDeconstructionElement } from './TupleDeconstructionElement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class TupleDeconstructionElements implements SlangNode {
   readonly kind = NonterminalKind.TupleDeconstructionElements;
@@ -21,7 +21,7 @@ export class TupleDeconstructionElements implements SlangNode {
   constructor(
     ast: ast.TupleDeconstructionElements,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

@@ -4,7 +4,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class ExpressionStatement implements SlangNode {
   readonly kind = NonterminalKind.ExpressionStatement;
@@ -20,7 +20,7 @@ export class ExpressionStatement implements SlangNode {
   constructor(
     ast: ast.ExpressionStatement,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

@@ -6,7 +6,7 @@ import { VersionPragma } from './VersionPragma.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class Pragma implements SlangNode {
   readonly kind = NonterminalKind.Pragma;
@@ -17,7 +17,11 @@ export class Pragma implements SlangNode {
 
   variant: ABICoderPragma | ExperimentalPragma | VersionPragma;
 
-  constructor(ast: ast.Pragma, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.Pragma,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

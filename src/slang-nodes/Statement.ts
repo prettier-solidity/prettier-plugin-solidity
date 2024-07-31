@@ -20,7 +20,7 @@ import { UncheckedBlock } from './UncheckedBlock.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class Statement implements SlangNode {
   readonly kind = NonterminalKind.Statement;
@@ -48,7 +48,11 @@ export class Statement implements SlangNode {
     | Block
     | UncheckedBlock;
 
-  constructor(ast: ast.Statement, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.Statement,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

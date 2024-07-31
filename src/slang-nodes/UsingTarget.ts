@@ -5,7 +5,7 @@ import { TypeName } from './TypeName.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class UsingTarget implements SlangNode {
   readonly kind = NonterminalKind.UsingTarget;
@@ -16,7 +16,11 @@ export class UsingTarget implements SlangNode {
 
   variant: TypeName | string;
 
-  constructor(ast: ast.UsingTarget, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.UsingTarget,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

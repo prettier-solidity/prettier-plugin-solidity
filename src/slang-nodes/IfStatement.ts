@@ -8,7 +8,7 @@ import { ElseBranch } from './ElseBranch.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { group, hardline, indent, line } = doc.builders;
 
@@ -31,7 +31,11 @@ export class IfStatement implements SlangNode {
 
   elseBranch?: ElseBranch;
 
-  constructor(ast: ast.IfStatement, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.IfStatement,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

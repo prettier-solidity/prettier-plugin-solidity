@@ -6,7 +6,7 @@ import { StorageLocation } from './StorageLocation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { group } = doc.builders;
 
@@ -23,7 +23,11 @@ export class Parameter implements SlangNode {
 
   name?: string;
 
-  constructor(ast: ast.Parameter, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.Parameter,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

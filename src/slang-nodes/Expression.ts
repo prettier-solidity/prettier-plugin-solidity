@@ -31,7 +31,7 @@ import { ElementaryType } from './ElementaryType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class Expression implements SlangNode {
   readonly kind = NonterminalKind.Expression;
@@ -70,7 +70,11 @@ export class Expression implements SlangNode {
     | ElementaryType
     | string;
 
-  constructor(ast: ast.Expression, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.Expression,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

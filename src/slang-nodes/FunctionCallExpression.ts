@@ -7,7 +7,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { group, indentIfBreak, label } = doc.builders;
 
@@ -25,7 +25,7 @@ export class FunctionCallExpression implements SlangNode {
   constructor(
     ast: ast.FunctionCallExpression,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

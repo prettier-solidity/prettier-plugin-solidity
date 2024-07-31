@@ -9,7 +9,7 @@ import { CatchClauses } from './CatchClauses.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { line } = doc.builders;
 
@@ -30,7 +30,11 @@ export class TryStatement implements SlangNode {
 
   catchClauses: CatchClauses;
 
-  constructor(ast: ast.TryStatement, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.TryStatement,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

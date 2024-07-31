@@ -15,7 +15,7 @@ export function printPreservingEmptyLines(
   path: AstPath,
   key: string,
   print: (path: AstPath) => Doc,
-  options: ParserOptions
+  options: ParserOptions<AstNode>
 ): Doc {
   return path.map((childPath, index) => {
     const node = childPath.getNode() as AstNode;

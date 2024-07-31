@@ -5,7 +5,7 @@ import { HexStringLiteral } from './HexStringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { join, hardline } = doc.builders;
 
@@ -21,7 +21,7 @@ export class HexStringLiterals implements SlangNode {
   constructor(
     ast: ast.HexStringLiterals,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

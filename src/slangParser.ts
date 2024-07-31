@@ -12,8 +12,8 @@ import type { AstNode } from './types.js';
 
 function parse(
   text: string,
-  _parsers: Parser[] | ParserOptions,
-  options = _parsers as ParserOptions
+  _parsers: Parser[] | ParserOptions<AstNode>,
+  options = _parsers as ParserOptions<AstNode>
 ): AstNode {
   const compiler = coerce(options.compiler);
 

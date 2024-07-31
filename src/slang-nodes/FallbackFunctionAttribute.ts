@@ -6,7 +6,7 @@ import { OverrideSpecifier } from './OverrideSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class FallbackFunctionAttribute implements SlangNode {
   readonly kind = NonterminalKind.FallbackFunctionAttribute;
@@ -20,7 +20,7 @@ export class FallbackFunctionAttribute implements SlangNode {
   constructor(
     ast: ast.FallbackFunctionAttribute,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

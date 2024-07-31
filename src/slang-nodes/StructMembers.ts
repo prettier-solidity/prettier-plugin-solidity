@@ -6,7 +6,7 @@ import { StructMember } from './StructMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { hardline } = doc.builders;
 
@@ -19,7 +19,11 @@ export class StructMembers implements SlangNode {
 
   items: StructMember[];
 
-  constructor(ast: ast.StructMembers, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.StructMembers,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

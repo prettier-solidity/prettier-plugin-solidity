@@ -4,7 +4,7 @@ import { StructMembers } from './StructMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class StructDefinition implements SlangNode {
   readonly kind = NonterminalKind.StructDefinition;
@@ -26,7 +26,7 @@ export class StructDefinition implements SlangNode {
   constructor(
     ast: ast.StructDefinition,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

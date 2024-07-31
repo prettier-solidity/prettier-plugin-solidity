@@ -5,7 +5,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class AndExpression implements SlangNode {
   readonly kind = NonterminalKind.AndExpression;
@@ -20,7 +20,11 @@ export class AndExpression implements SlangNode {
 
   rightOperand: Expression;
 
-  constructor(ast: ast.AndExpression, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.AndExpression,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
@@ -37,7 +41,7 @@ export class AndExpression implements SlangNode {
   print(
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc {
     return printLogicalOperation(this, path, print, options);
   }

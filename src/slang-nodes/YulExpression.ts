@@ -7,7 +7,7 @@ import { YulPath } from './YulPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class YulExpression implements SlangNode {
   readonly kind = NonterminalKind.YulExpression;
@@ -22,7 +22,11 @@ export class YulExpression implements SlangNode {
     | YulBuiltInFunction
     | YulPath;
 
-  constructor(ast: ast.YulExpression, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.YulExpression,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
