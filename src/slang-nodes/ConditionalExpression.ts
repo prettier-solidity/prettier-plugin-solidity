@@ -7,7 +7,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
@@ -17,18 +17,19 @@ function experimentalTernaries(
   print: (path: AstPath) => Doc,
   options: ParserOptions
 ): Doc {
-  const grandparent = path.getNode(2);
-  const isNested = grandparent.kind === 'ConditionalExpression';
+  const grandparent = path.getNode(2) as AstNode;
+  const isNested = grandparent.kind === NonterminalKind.ConditionalExpression;
   const isNestedAsTrueExpression =
     isNested && grandparent.trueExpression.variant === node;
   let falseExpressionIsTuple = false;
   let falseExpressionInSameLine = false;
   if (typeof node.falseExpression.variant !== 'string') {
     falseExpressionIsTuple =
-      node.falseExpression.variant.kind === 'TupleExpression';
+      node.falseExpression.variant.kind === NonterminalKind.TupleExpression;
     falseExpressionInSameLine =
       falseExpressionIsTuple ||
-      node.falseExpression.variant.kind === 'ConditionalExpression';
+      node.falseExpression.variant.kind ===
+        NonterminalKind.ConditionalExpression;
   }
 
   // If the `condition` breaks into multiple lines, we add parentheses,
@@ -36,7 +37,7 @@ function experimentalTernaries(
   const operand = path.call(print, 'operand');
   const operandDoc = group([
     typeof node.operand.variant !== 'string' &&
-    node.operand.variant.kind === 'TupleExpression'
+    node.operand.variant.kind === NonterminalKind.TupleExpression
       ? operand
       : ifBreak(['(', printSeparatedItem(operand), ')'], operand),
     ` ${node.questionMark}`
@@ -79,7 +80,7 @@ function experimentalTernaries(
 
   const document = group([conditionAndTrueExpressionGroup, falseExpressionDoc]);
 
-  return grandparent.kind === 'VariableDeclarationValue'
+  return grandparent.kind === NonterminalKind.VariableDeclarationValue
     ? group(indent([softline, document]))
     : document;
 }
@@ -94,7 +95,10 @@ function traditionalTernaries(
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
       // line
-      path.getNode(2).kind === 'ConditionalExpression' ? hardline : line,
+      (path.getNode(2) as AstNode).kind ===
+      NonterminalKind.ConditionalExpression
+        ? hardline
+        : line,
       `${node.questionMark} `,
       path.call(print, 'trueExpression'),
       line,
@@ -158,12 +162,12 @@ export class ConditionalExpression implements SlangNode {
       const operandLoc = this.operand.loc;
       while (
         typeof this.operand.variant !== 'string' &&
-        this.operand.variant.kind === 'TupleExpression' &&
+        this.operand.variant.kind === NonterminalKind.TupleExpression &&
         this.operand.variant.items.items.length === 1 &&
         (typeof this.operand.variant.items.items[0].expression!.variant ===
           'string' ||
           this.operand.variant.items.items[0].expression!.variant.kind !==
-            'ConditionalExpression')
+            NonterminalKind.ConditionalExpression)
       ) {
         this.operand = this.operand.variant.items.items[0].expression!;
       }

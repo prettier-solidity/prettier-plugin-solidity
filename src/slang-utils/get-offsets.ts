@@ -1,3 +1,5 @@
+import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NodeType } from '@nomicfoundation/slang/cst/index.js';
 import { isComment } from './is-comment.js';
 
 import type { Node } from '@nomicfoundation/slang/cst/index.js';
@@ -5,15 +7,14 @@ import type { AstNode, Comment, Metadata, SlangAstNode } from '../types.js';
 
 function getLeadingOffset(children: Node[]): number {
   let offset = 0;
-  for (let i = 0; i < children.length; i += 1) {
-    const child = children[i];
-    if (child.type === 'Nonterminal') {
+  for (const child of children) {
+    if (child.type === NodeType.Nonterminal) {
       // The node's content starts when we find the first non-terminal token.
       return offset;
     } else if (
       !isComment(child) &&
-      child.kind !== 'EndOfLine' &&
-      child.kind !== 'Whitespace'
+      child.kind !== TerminalKind.EndOfLine &&
+      child.kind !== TerminalKind.Whitespace
     ) {
       // The content of the node started if we find a non-comment,
       // non-whitespace token.
@@ -35,13 +36,13 @@ export function getNodeMetadata(
   const comments: Comment[] = [];
 
   const offsets = children.reduce((offsetsArray: number[], child) => {
-    if (child.type === 'Nonterminal') {
+    if (child.type === NodeType.Nonterminal) {
       offsetsArray.push(offset);
     } else if (
-      child.kind === 'MultiLineComment' ||
-      child.kind === 'MultiLineNatSpecComment' ||
-      child.kind === 'SingleLineComment' ||
-      child.kind === 'SingleLineNatSpecComment'
+      child.kind === TerminalKind.MultiLineComment ||
+      child.kind === TerminalKind.MultiLineNatSpecComment ||
+      child.kind === TerminalKind.SingleLineComment ||
+      child.kind === TerminalKind.SingleLineNatSpecComment
     ) {
       // Since the fetching the comments and calculating offsets are both done
       // as we iterate over the children and the comment also depends on the

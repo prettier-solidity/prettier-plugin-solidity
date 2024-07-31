@@ -45,7 +45,7 @@ export class Parameter implements SlangNode {
   print(path: AstPath, print: (path: AstPath) => Doc): Doc {
     return group([
       path.call(print, 'typeName'),
-      this.storageLocation ? ` ${path.call(print, 'storageLocation')}` : '',
+      this.storageLocation ? [' ', path.call(print, 'storageLocation')] : '',
       this.name ? ` ${this.name}` : ''
     ]);
   }

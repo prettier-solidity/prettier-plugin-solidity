@@ -21,13 +21,13 @@ export class UsingClause implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'IdentifierPath':
+      case NonterminalKind.IdentifierPath:
         this.variant = new IdentifierPath(
           ast.variant as ast.IdentifierPath,
           offsets[0]
         );
         break;
-      case 'UsingDeconstruction':
+      case NonterminalKind.UsingDeconstruction:
         this.variant = new UsingDeconstruction(
           ast.variant as ast.UsingDeconstruction,
           offsets[0]

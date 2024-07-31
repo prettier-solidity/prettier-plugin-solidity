@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { BinaryOperation } from '../types.js';
+import type { AstNode, BinaryOperation } from '../types.js';
 
 const { group, line } = doc.builders;
 
@@ -19,7 +19,7 @@ function rightOperandPrint(
     !(
       typeof node.leftOperand.variant !== 'string' &&
       isBinaryOperation(node.leftOperand.variant)
-    ) && !isBinaryOperation(path.getNode(2));
+    ) && !isBinaryOperation(path.getNode(2) as AstNode);
 
   return shouldGroup ? group(rightOperand) : rightOperand;
 }

@@ -57,7 +57,7 @@ export class DoWhileStatement implements SlangNode {
   print(path: AstPath, print: (path: AstPath) => Doc): Doc {
     return [
       this.doKeyword,
-      this.body.variant.kind === 'Block'
+      this.body.variant.kind === NonterminalKind.Block
         ? [' ', path.call(print, 'body'), ' ']
         : group([indent([line, path.call(print, 'body')]), line]),
       `${this.whileKeyword} ${this.openParen}`,

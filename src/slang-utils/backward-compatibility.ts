@@ -35,7 +35,11 @@ export function getNextNonSpaceNonCommentCharacter(
 
 // TODO: remove undefined once we stop supporting prettier 2
 export const getNode = (path: AstPath): AstNode | Comment | null | undefined =>
-  isPrettier2 ? path.getValue() : path.node; // V3 deprecated `getValue`
+  (isPrettier2 ? path.getValue() : path.node) as
+    | AstNode
+    | Comment
+    | null
+    | undefined; // V3 deprecated `getValue`
 
 export function isLast(path: AstPath, key: string, index: number): boolean {
   return isPrettier2

@@ -49,7 +49,7 @@ export class WhileStatement implements SlangNode {
       `${this.whileKeyword} ${this.openParen}`,
       printSeparatedItem(path.call(print, 'condition')),
       this.closeParen,
-      this.body.variant.kind === 'Block'
+      this.body.variant.kind === NonterminalKind.Block
         ? [' ', path.call(print, 'body')]
         : group(indent([line, path.call(print, 'body')]))
     ];

@@ -29,7 +29,7 @@ function printIndentableBlockComment(comment: Comment): Doc {
 }
 
 export function printComment(commentPath: AstPath): Doc {
-  const comment = commentPath.node;
+  const comment = commentPath.getNode() as Comment;
 
   if (isLineComment(comment)) {
     return comment.value.trimEnd();

@@ -49,89 +49,89 @@ export class SourceUnitMember implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'PragmaDirective':
+      case NonterminalKind.PragmaDirective:
         this.variant = new PragmaDirective(
           ast.variant as ast.PragmaDirective,
           offsets[0],
           options
         );
         break;
-      case 'ImportDirective':
+      case NonterminalKind.ImportDirective:
         this.variant = new ImportDirective(
           ast.variant as ast.ImportDirective,
           offsets[0],
           options
         );
         break;
-      case 'ContractDefinition':
+      case NonterminalKind.ContractDefinition:
         this.variant = new ContractDefinition(
           ast.variant as ast.ContractDefinition,
           offsets[0],
           options
         );
         break;
-      case 'InterfaceDefinition':
+      case NonterminalKind.InterfaceDefinition:
         this.variant = new InterfaceDefinition(
           ast.variant as ast.InterfaceDefinition,
           offsets[0],
           options
         );
         break;
-      case 'LibraryDefinition':
+      case NonterminalKind.LibraryDefinition:
         this.variant = new LibraryDefinition(
           ast.variant as ast.LibraryDefinition,
           offsets[0],
           options
         );
         break;
-      case 'StructDefinition':
+      case NonterminalKind.StructDefinition:
         this.variant = new StructDefinition(
           ast.variant as ast.StructDefinition,
           offsets[0],
           options
         );
         break;
-      case 'EnumDefinition':
+      case NonterminalKind.EnumDefinition:
         this.variant = new EnumDefinition(
           ast.variant as ast.EnumDefinition,
           offsets[0]
         );
         break;
-      case 'FunctionDefinition':
+      case NonterminalKind.FunctionDefinition:
         this.variant = new FunctionDefinition(
           ast.variant as ast.FunctionDefinition,
           offsets[0],
           options
         );
         break;
-      case 'ConstantDefinition':
+      case NonterminalKind.ConstantDefinition:
         this.variant = new ConstantDefinition(
           ast.variant as ast.ConstantDefinition,
           offsets[0],
           options
         );
         break;
-      case 'ErrorDefinition':
+      case NonterminalKind.ErrorDefinition:
         this.variant = new ErrorDefinition(
           ast.variant as ast.ErrorDefinition,
           offsets[0],
           options
         );
         break;
-      case 'UserDefinedValueTypeDefinition':
+      case NonterminalKind.UserDefinedValueTypeDefinition:
         this.variant = new UserDefinedValueTypeDefinition(
           ast.variant as ast.UserDefinedValueTypeDefinition,
           offsets[0]
         );
         break;
-      case 'UsingDirective':
+      case NonterminalKind.UsingDirective:
         this.variant = new UsingDirective(
           ast.variant as ast.UsingDirective,
           offsets[0],
           options
         );
         break;
-      case 'EventDefinition':
+      case NonterminalKind.EventDefinition:
         this.variant = new EventDefinition(
           ast.variant as ast.EventDefinition,
           offsets[0],

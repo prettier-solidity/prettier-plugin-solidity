@@ -8,7 +8,7 @@ import { MemberAccess } from './MemberAccess.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { group, indent, label, softline } = doc.builders;
 
@@ -20,24 +20,28 @@ const isChainableExpression = createKindCheckFunction([
 
 function isEndOfChain(node: MemberAccessExpression, path: AstPath): boolean {
   for (
-    let i = 0, currentNode = node, grandparentNode = path.getNode(i + 2);
+    let i = 0,
+      currentNode: AstNode = node,
+      grandparentNode = path.getNode(i + 2) as AstNode;
     isChainableExpression(grandparentNode);
-    i += 2, currentNode = grandparentNode, grandparentNode = path.getNode(i + 2)
+    i += 2,
+      currentNode = grandparentNode,
+      grandparentNode = path.getNode(i + 2) as AstNode
   ) {
     switch (grandparentNode.kind) {
-      case 'MemberAccessExpression':
+      case NonterminalKind.MemberAccessExpression:
         // If direct ParentNode is a MemberAccess we are not at the end of the
         // chain.
         return false;
 
-      case 'IndexAccessExpression':
+      case NonterminalKind.IndexAccessExpression:
         // If direct ParentNode is an IndexAccess and currentNode is not the
         // operand then it must be the start or the end in which case it is the
         // end of the chain.
         if (currentNode !== grandparentNode.operand.variant) return true;
         break;
 
-      case 'FunctionCallExpression':
+      case NonterminalKind.FunctionCallExpression:
         // If direct ParentNode is a FunctionCall and currentNode is not the
         // operand then it must be and argument in which case it is the end
         // of the chain.

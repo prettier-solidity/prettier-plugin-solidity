@@ -75,7 +75,8 @@ export class ExponentiationExpression implements SlangNode {
         // https://github.com/NomicFoundation/slang/issues/1031
         if (
           typeof this.rightOperand.variant !== 'string' &&
-          this.rightOperand.variant.kind === 'ExponentiationExpression'
+          this.rightOperand.variant.kind ===
+            NonterminalKind.ExponentiationExpression
         ) {
           const leftLoc = {
             leadingOffset: this.leftOperand.loc.leadingOffset,
@@ -147,25 +148,25 @@ export class ExponentiationExpression implements SlangNode {
                                       ...objectConfig
                                     }
                                   }
-                                ),
+                                ) as ExponentiationExpression,
                                 ...objectConfig
                               }
-                            }),
+                            }) as Expression,
                             ...objectConfig
                           }
-                        })
+                        }) as TupleValue
                       ],
                       ...objectConfig
                     },
                     separators: { value: [], ...objectConfig }
-                  }),
+                  }) as TupleValues,
                   ...objectConfig
                 },
                 closeParen: { value: ')', ...objectConfig }
-              }),
+              }) as TupleExpression,
               ...objectConfig
             }
-          });
+          }) as Expression;
           this.rightOperand = this.rightOperand.variant.rightOperand;
         }
         this.leftOperand = tryToHug(this.leftOperand);

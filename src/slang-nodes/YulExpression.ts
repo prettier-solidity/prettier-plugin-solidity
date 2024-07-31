@@ -27,27 +27,27 @@ export class YulExpression implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'YulFunctionCallExpression':
+      case NonterminalKind.YulFunctionCallExpression:
         this.variant = new YulFunctionCallExpression(
           ast.variant as ast.YulFunctionCallExpression,
           offsets[0],
           options
         );
         break;
-      case 'YulLiteral':
+      case NonterminalKind.YulLiteral:
         this.variant = new YulLiteral(
           ast.variant as ast.YulLiteral,
           offsets[0],
           options
         );
         break;
-      case 'YulBuiltInFunction':
+      case NonterminalKind.YulBuiltInFunction:
         this.variant = new YulBuiltInFunction(
           ast.variant as ast.YulBuiltInFunction,
           offsets[0]
         );
         break;
-      case 'YulPath':
+      case NonterminalKind.YulPath:
         this.variant = new YulPath(ast.variant as ast.YulPath, offsets[0]);
         break;
       default:

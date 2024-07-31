@@ -29,34 +29,34 @@ export class TypeName implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'ArrayTypeName':
+      case NonterminalKind.ArrayTypeName:
         this.variant = new ArrayTypeName(
           ast.variant as ast.ArrayTypeName,
           offsets[0],
           options
         );
         break;
-      case 'FunctionType':
+      case NonterminalKind.FunctionType:
         this.variant = new FunctionType(
           ast.variant as ast.FunctionType,
           offsets[0],
           options
         );
         break;
-      case 'MappingType':
+      case NonterminalKind.MappingType:
         this.variant = new MappingType(
           ast.variant as ast.MappingType,
           offsets[0],
           options
         );
         break;
-      case 'ElementaryType':
+      case NonterminalKind.ElementaryType:
         this.variant = new ElementaryType(
           ast.variant as ast.ElementaryType,
           offsets[0]
         );
         break;
-      case 'IdentifierPath':
+      case NonterminalKind.IdentifierPath:
         this.variant = new IdentifierPath(
           ast.variant as ast.IdentifierPath,
           offsets[0]

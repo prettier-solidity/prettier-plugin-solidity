@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
 
@@ -12,7 +13,10 @@ export default function handleWhileStatementComments({
   followingNode,
   comment
 }: HandlerParams): boolean {
-  if (enclosingNode?.kind !== 'WhileStatement' || !followingNode) {
+  if (
+    enclosingNode?.kind !== NonterminalKind.WhileStatement ||
+    !followingNode
+  ) {
     return false;
   }
 

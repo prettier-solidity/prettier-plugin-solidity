@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
 
@@ -12,7 +13,7 @@ export default function handleContractDefinitionComments({
   followingNode,
   comment
 }: HandlerParams): boolean {
-  if (enclosingNode?.kind !== 'ContractDefinition') {
+  if (enclosingNode?.kind !== NonterminalKind.ContractDefinition) {
     return false;
   }
 
@@ -21,15 +22,16 @@ export default function handleContractDefinitionComments({
   // Everything before the InheritanceSpecifier is pushed onto the beginning of
   // the ContractDefinition.
   if (
-    followingNode?.kind === 'InheritanceSpecifier' ||
-    (followingNode?.kind === 'ContractMembers' && nextCharacter !== '{')
+    followingNode?.kind === NonterminalKind.InheritanceSpecifier ||
+    (followingNode?.kind === NonterminalKind.ContractMembers &&
+      nextCharacter !== '{')
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
 
   // The comment is at the end of the body of the ContractDefinition.
-  if (precedingNode?.kind === 'ContractMembers') {
+  if (precedingNode?.kind === NonterminalKind.ContractMembers) {
     if (precedingNode.items.length === 0) {
       addDanglingComment(precedingNode, comment, false);
     } else {
@@ -46,7 +48,7 @@ export default function handleContractDefinitionComments({
     // If there's an InheritanceSpecifier, the comment is appended to the last
     // InheritanceType.
     if (
-      precedingNode?.kind === 'InheritanceSpecifier' &&
+      precedingNode?.kind === NonterminalKind.InheritanceSpecifier &&
       precedingNode.types.items.length > 0
     ) {
       addTrailingComment(
@@ -58,7 +60,7 @@ export default function handleContractDefinitionComments({
 
     // If there's no InheritanceSpecifier, the comment before the body is
     // assumed to be intended at the beginning of the body.
-    if (followingNode?.kind === 'ContractMembers') {
+    if (followingNode?.kind === NonterminalKind.ContractMembers) {
       if (followingNode.items.length > 0) {
         addLeadingComment(followingNode.items[0], comment);
       } else {

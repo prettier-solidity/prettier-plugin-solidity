@@ -50,19 +50,19 @@ export function createHugFunction(
                       loc: { value: { ...loc }, ...objectConfig },
                       comments: { value: [], ...objectConfig },
                       expression: { value: node, ...objectConfig }
-                    })
+                    }) as TupleValue
                   ],
                   ...objectConfig
                 },
                 separators: { value: [], ...objectConfig }
-              }),
+              }) as TupleValues,
               ...objectConfig
             },
             closeParen: { value: ')', ...objectConfig }
-          }),
+          }) as TupleExpression,
           ...objectConfig
         }
-      });
+      }) as Expression;
     }
 
     return node;

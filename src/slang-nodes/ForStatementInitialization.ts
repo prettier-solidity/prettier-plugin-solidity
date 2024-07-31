@@ -34,21 +34,21 @@ export class ForStatementInitialization implements SlangNode {
       this.variant = ast.variant.text;
     } else {
       switch (ast.variant.cst.kind) {
-        case 'ExpressionStatement':
+        case NonterminalKind.ExpressionStatement:
           this.variant = new ExpressionStatement(
             ast.variant as ast.ExpressionStatement,
             offsets[0],
             options
           );
           break;
-        case 'VariableDeclarationStatement':
+        case NonterminalKind.VariableDeclarationStatement:
           this.variant = new VariableDeclarationStatement(
             ast.variant as ast.VariableDeclarationStatement,
             offsets[0],
             options
           );
           break;
-        case 'TupleDeconstructionStatement':
+        case NonterminalKind.TupleDeconstructionStatement:
           this.variant = new TupleDeconstructionStatement(
             ast.variant as ast.TupleDeconstructionStatement,
             offsets[0],

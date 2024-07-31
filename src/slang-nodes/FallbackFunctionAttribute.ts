@@ -29,14 +29,14 @@ export class FallbackFunctionAttribute implements SlangNode {
       this.variant = ast.variant.text;
     } else {
       switch (ast.variant.cst.kind) {
-        case 'ModifierInvocation':
+        case NonterminalKind.ModifierInvocation:
           this.variant = new ModifierInvocation(
             ast.variant as ast.ModifierInvocation,
             offsets[0],
             options
           );
           break;
-        case 'OverrideSpecifier':
+        case NonterminalKind.OverrideSpecifier:
           this.variant = new OverrideSpecifier(
             ast.variant as ast.OverrideSpecifier,
             offsets[0]

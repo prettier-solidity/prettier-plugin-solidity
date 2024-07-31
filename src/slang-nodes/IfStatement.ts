@@ -59,14 +59,14 @@ export class IfStatement implements SlangNode {
       `${this.ifKeyword} ${this.openParen}`,
       printSeparatedItem(path.call(print, 'condition')),
       this.closeParen,
-      this.body.variant.kind === 'Block'
+      this.body.variant.kind === NonterminalKind.Block
         ? [' ', path.call(print, 'body')]
         : group(indent([line, path.call(print, 'body')]), {
-            shouldBreak: this.body.variant.kind === 'IfStatement' // `if` within `if`
+            shouldBreak: this.body.variant.kind === NonterminalKind.IfStatement // `if` within `if`
           }),
       this.elseBranch
         ? [
-            this.body.variant.kind !== 'Block'
+            this.body.variant.kind !== NonterminalKind.Block
               ? hardline // else on a new line if body is not a block
               : ' ',
             path.call(print, 'elseBranch')

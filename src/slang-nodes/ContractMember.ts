@@ -45,90 +45,90 @@ export class ContractMember implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'UsingDirective':
+      case NonterminalKind.UsingDirective:
         this.variant = new UsingDirective(
           ast.variant as ast.UsingDirective,
           offsets[0],
           options
         );
         break;
-      case 'FunctionDefinition':
+      case NonterminalKind.FunctionDefinition:
         this.variant = new FunctionDefinition(
           ast.variant as ast.FunctionDefinition,
           offsets[0],
           options
         );
         break;
-      case 'ConstructorDefinition':
+      case NonterminalKind.ConstructorDefinition:
         this.variant = new ConstructorDefinition(
           ast.variant as ast.ConstructorDefinition,
           offsets[0],
           options
         );
         break;
-      case 'ReceiveFunctionDefinition':
+      case NonterminalKind.ReceiveFunctionDefinition:
         this.variant = new ReceiveFunctionDefinition(
           ast.variant as ast.ReceiveFunctionDefinition,
           offsets[0],
           options
         );
         break;
-      case 'FallbackFunctionDefinition':
+      case NonterminalKind.FallbackFunctionDefinition:
         this.variant = new FallbackFunctionDefinition(
           ast.variant as ast.FallbackFunctionDefinition,
           offsets[0],
           options
         );
         break;
-      case 'UnnamedFunctionDefinition':
+      case NonterminalKind.UnnamedFunctionDefinition:
         this.variant = new UnnamedFunctionDefinition(
           ast.variant as ast.UnnamedFunctionDefinition,
           offsets[0],
           options
         );
         break;
-      case 'ModifierDefinition':
+      case NonterminalKind.ModifierDefinition:
         this.variant = new ModifierDefinition(
           ast.variant as ast.ModifierDefinition,
           offsets[0],
           options
         );
         break;
-      case 'StructDefinition':
+      case NonterminalKind.StructDefinition:
         this.variant = new StructDefinition(
           ast.variant as ast.StructDefinition,
           offsets[0],
           options
         );
         break;
-      case 'EnumDefinition':
+      case NonterminalKind.EnumDefinition:
         this.variant = new EnumDefinition(
           ast.variant as ast.EnumDefinition,
           offsets[0]
         );
         break;
-      case 'EventDefinition':
+      case NonterminalKind.EventDefinition:
         this.variant = new EventDefinition(
           ast.variant as ast.EventDefinition,
           offsets[0],
           options
         );
         break;
-      case 'StateVariableDefinition':
+      case NonterminalKind.StateVariableDefinition:
         this.variant = new StateVariableDefinition(
           ast.variant as ast.StateVariableDefinition,
           offsets[0],
           options
         );
         break;
-      case 'ErrorDefinition':
+      case NonterminalKind.ErrorDefinition:
         this.variant = new ErrorDefinition(
           ast.variant as ast.ErrorDefinition,
           offsets[0],
           options
         );
         break;
-      case 'UserDefinedValueTypeDefinition':
+      case NonterminalKind.UserDefinedValueTypeDefinition:
         this.variant = new UserDefinedValueTypeDefinition(
           ast.variant as ast.UserDefinedValueTypeDefinition,
           offsets[0]

@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 
 import type { HandlerParams } from './types';
@@ -10,11 +11,11 @@ export default function handleBlockComments({
   followingNode,
   comment
 }: HandlerParams): boolean {
-  if (enclosingNode?.kind !== 'ParametersDeclaration') {
+  if (enclosingNode?.kind !== NonterminalKind.ParametersDeclaration) {
     return false;
   }
 
-  if (precedingNode?.kind === 'Parameters') {
+  if (precedingNode?.kind === NonterminalKind.Parameters) {
     if (precedingNode.items.length === 0) {
       addDanglingComment(precedingNode, comment, false);
     } else {
@@ -26,7 +27,7 @@ export default function handleBlockComments({
     return true;
   }
 
-  if (followingNode?.kind === 'Parameters') {
+  if (followingNode?.kind === NonterminalKind.Parameters) {
     if (followingNode.items.length === 0) {
       addDanglingComment(followingNode, comment, false);
     } else {

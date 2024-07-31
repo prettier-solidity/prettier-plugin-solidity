@@ -92,11 +92,11 @@ export class ModifierDefinition implements SlangNode {
             comments: { value: [], ...objectConfig },
             items: { value: [], ...objectConfig },
             separators: { value: [], ...objectConfig }
-          }),
+          }) as Parameters,
           ...objectConfig
         },
         closeParen: { value: ')', ...objectConfig }
-      });
+      }) as ParametersDeclaration;
     }
   }
 

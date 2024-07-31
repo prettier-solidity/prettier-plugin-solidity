@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 
 import type { HandlerParams } from './types';
@@ -10,12 +11,12 @@ export default function handleYulBlockComments({
   followingNode,
   comment
 }: HandlerParams): boolean {
-  if (enclosingNode?.kind !== 'YulBlock') {
+  if (enclosingNode?.kind !== NonterminalKind.YulBlock) {
     return false;
   }
 
   if (
-    precedingNode?.kind === 'YulStatements' &&
+    precedingNode?.kind === NonterminalKind.YulStatements &&
     precedingNode.items.length === 0
   ) {
     addDanglingComment(precedingNode, comment, false);
@@ -23,7 +24,7 @@ export default function handleYulBlockComments({
   }
 
   if (
-    followingNode?.kind === 'YulStatements' &&
+    followingNode?.kind === NonterminalKind.YulStatements &&
     followingNode.items.length > 0
   ) {
     addLeadingComment(followingNode.items[0], comment);

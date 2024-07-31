@@ -17,9 +17,10 @@ function printExpression(
 ): Doc {
   if (node.expression) {
     return typeof node.expression.variant !== 'string' &&
-      (node.expression.variant.kind === 'TupleExpression' ||
+      (node.expression.variant.kind === NonterminalKind.TupleExpression ||
         (options.experimentalTernaries &&
-          node.expression.variant.kind === 'ConditionalExpression'))
+          node.expression.variant.kind ===
+            NonterminalKind.ConditionalExpression))
       ? [' ', path.call(print, 'expression')]
       : group(indent([line, path.call(print, 'expression')]));
   }

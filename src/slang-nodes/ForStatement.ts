@@ -83,7 +83,7 @@ export class ForStatement implements SlangNode {
             : ''
       }),
       this.closeParen,
-      this.body.variant.kind === 'Block'
+      this.body.variant.kind === NonterminalKind.Block
         ? [' ', path.call(print, 'body')]
         : group(indent([line, path.call(print, 'body')]))
     ];
