@@ -26,19 +26,19 @@ export class VersionExpression implements SlangNode {
       this.variant = ast.variant.text;
     } else {
       switch (ast.variant.cst.kind) {
-        case 'VersionRange':
+        case NonterminalKind.VersionRange:
           this.variant = new VersionRange(
             ast.variant as ast.VersionRange,
             offsets[0]
           );
           break;
-        case 'VersionComparator':
+        case NonterminalKind.VersionComparator:
           this.variant = new VersionComparator(
             ast.variant as ast.VersionComparator,
             offsets[0]
           );
           break;
-        case 'VersionSpecifiers':
+        case NonterminalKind.VersionSpecifiers:
           this.variant = new VersionSpecifiers(
             ast.variant as ast.VersionSpecifiers,
             offsets[0]

@@ -42,7 +42,8 @@ export class ModifierInvocation implements SlangNode {
     this.cleanModifierInvocationArguments = (): void => {
       if (
         this.arguments &&
-        this.arguments.variant.kind === 'PositionalArgumentsDeclaration' &&
+        this.arguments.variant.kind ===
+          NonterminalKind.PositionalArgumentsDeclaration &&
         this.arguments.variant.arguments.items.length === 0 && // no arguments
         !ast.arguments!.variant.cst.children().some((child) => isComment(child)) // no comments
       ) {

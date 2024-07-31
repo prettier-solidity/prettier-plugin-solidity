@@ -78,187 +78,187 @@ export class Expression implements SlangNode {
       this.variant = ast.variant.text;
     } else {
       switch (ast.variant.cst.kind) {
-        case 'AssignmentExpression':
+        case NonterminalKind.AssignmentExpression:
           this.variant = new AssignmentExpression(
             ast.variant as ast.AssignmentExpression,
             offsets[0],
             options
           );
           break;
-        case 'ConditionalExpression':
+        case NonterminalKind.ConditionalExpression:
           this.variant = new ConditionalExpression(
             ast.variant as ast.ConditionalExpression,
             offsets[0],
             options
           );
           break;
-        case 'OrExpression':
+        case NonterminalKind.OrExpression:
           this.variant = new OrExpression(
             ast.variant as ast.OrExpression,
             offsets[0],
             options
           );
           break;
-        case 'AndExpression':
+        case NonterminalKind.AndExpression:
           this.variant = new AndExpression(
             ast.variant as ast.AndExpression,
             offsets[0],
             options
           );
           break;
-        case 'EqualityExpression':
+        case NonterminalKind.EqualityExpression:
           this.variant = new EqualityExpression(
             ast.variant as ast.EqualityExpression,
             offsets[0],
             options
           );
           break;
-        case 'ComparisonExpression':
+        case NonterminalKind.ComparisonExpression:
           this.variant = new ComparisonExpression(
             ast.variant as ast.ComparisonExpression,
             offsets[0],
             options
           );
           break;
-        case 'BitwiseOrExpression':
+        case NonterminalKind.BitwiseOrExpression:
           this.variant = new BitwiseOrExpression(
             ast.variant as ast.BitwiseOrExpression,
             offsets[0],
             options
           );
           break;
-        case 'BitwiseXorExpression':
+        case NonterminalKind.BitwiseXorExpression:
           this.variant = new BitwiseXorExpression(
             ast.variant as ast.BitwiseXorExpression,
             offsets[0],
             options
           );
           break;
-        case 'BitwiseAndExpression':
+        case NonterminalKind.BitwiseAndExpression:
           this.variant = new BitwiseAndExpression(
             ast.variant as ast.BitwiseAndExpression,
             offsets[0],
             options
           );
           break;
-        case 'ShiftExpression':
+        case NonterminalKind.ShiftExpression:
           this.variant = new ShiftExpression(
             ast.variant as ast.ShiftExpression,
             offsets[0],
             options
           );
           break;
-        case 'AdditiveExpression':
+        case NonterminalKind.AdditiveExpression:
           this.variant = new AdditiveExpression(
             ast.variant as ast.AdditiveExpression,
             offsets[0],
             options
           );
           break;
-        case 'MultiplicativeExpression':
+        case NonterminalKind.MultiplicativeExpression:
           this.variant = new MultiplicativeExpression(
             ast.variant as ast.MultiplicativeExpression,
             offsets[0],
             options
           );
           break;
-        case 'ExponentiationExpression':
+        case NonterminalKind.ExponentiationExpression:
           this.variant = new ExponentiationExpression(
             ast.variant as ast.ExponentiationExpression,
             offsets[0],
             options
           );
           break;
-        case 'PostfixExpression':
+        case NonterminalKind.PostfixExpression:
           this.variant = new PostfixExpression(
             ast.variant as ast.PostfixExpression,
             offsets[0],
             options
           );
           break;
-        case 'PrefixExpression':
+        case NonterminalKind.PrefixExpression:
           this.variant = new PrefixExpression(
             ast.variant as ast.PrefixExpression,
             offsets[0],
             options
           );
           break;
-        case 'FunctionCallExpression':
+        case NonterminalKind.FunctionCallExpression:
           this.variant = new FunctionCallExpression(
             ast.variant as ast.FunctionCallExpression,
             offsets[0],
             options
           );
           break;
-        case 'CallOptionsExpression':
+        case NonterminalKind.CallOptionsExpression:
           this.variant = new CallOptionsExpression(
             ast.variant as ast.CallOptionsExpression,
             offsets[0],
             options
           );
           break;
-        case 'MemberAccessExpression':
+        case NonterminalKind.MemberAccessExpression:
           this.variant = new MemberAccessExpression(
             ast.variant as ast.MemberAccessExpression,
             offsets[0],
             options
           );
           break;
-        case 'IndexAccessExpression':
+        case NonterminalKind.IndexAccessExpression:
           this.variant = new IndexAccessExpression(
             ast.variant as ast.IndexAccessExpression,
             offsets[0],
             options
           );
           break;
-        case 'NewExpression':
+        case NonterminalKind.NewExpression:
           this.variant = new NewExpression(
             ast.variant as ast.NewExpression,
             offsets[0],
             options
           );
           break;
-        case 'TupleExpression':
+        case NonterminalKind.TupleExpression:
           this.variant = new TupleExpression(
             ast.variant as ast.TupleExpression,
             offsets[0],
             options
           );
           break;
-        case 'TypeExpression':
+        case NonterminalKind.TypeExpression:
           this.variant = new TypeExpression(
             ast.variant as ast.TypeExpression,
             offsets[0],
             options
           );
           break;
-        case 'ArrayExpression':
+        case NonterminalKind.ArrayExpression:
           this.variant = new ArrayExpression(
             ast.variant as ast.ArrayExpression,
             offsets[0],
             options
           );
           break;
-        case 'HexNumberExpression':
+        case NonterminalKind.HexNumberExpression:
           this.variant = new HexNumberExpression(
             ast.variant as ast.HexNumberExpression,
             offsets[0]
           );
           break;
-        case 'DecimalNumberExpression':
+        case NonterminalKind.DecimalNumberExpression:
           this.variant = new DecimalNumberExpression(
             ast.variant as ast.DecimalNumberExpression,
             offsets[0]
           );
           break;
-        case 'StringExpression':
+        case NonterminalKind.StringExpression:
           this.variant = new StringExpression(
             ast.variant as ast.StringExpression,
             offsets[0],
             options
           );
           break;
-        case 'ElementaryType':
+        case NonterminalKind.ElementaryType:
           this.variant = new ElementaryType(
             ast.variant as ast.ElementaryType,
             offsets[0]

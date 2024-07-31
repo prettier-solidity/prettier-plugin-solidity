@@ -39,7 +39,7 @@ export class StateVariableDefinitionValue implements SlangNode {
 
   print(path: AstPath, print: (path: AstPath) => Doc): Doc {
     return typeof this.value.variant !== 'string' &&
-      this.value.variant.kind === 'ArrayExpression'
+      this.value.variant.kind === NonterminalKind.ArrayExpression
       ? [` ${this.equal} `, path.call(print, 'value')]
       : group([` ${this.equal}`, indent([line, path.call(print, 'value')])]);
   }

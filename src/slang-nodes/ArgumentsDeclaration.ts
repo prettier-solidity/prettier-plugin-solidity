@@ -25,14 +25,14 @@ export class ArgumentsDeclaration implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'PositionalArgumentsDeclaration':
+      case NonterminalKind.PositionalArgumentsDeclaration:
         this.variant = new PositionalArgumentsDeclaration(
           ast.variant as ast.PositionalArgumentsDeclaration,
           offsets[0],
           options
         );
         break;
-      case 'NamedArgumentsDeclaration':
+      case NonterminalKind.NamedArgumentsDeclaration:
         this.variant = new NamedArgumentsDeclaration(
           ast.variant as ast.NamedArgumentsDeclaration,
           offsets[0],

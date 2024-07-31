@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import type { SortableAttribute, SortableVariant } from './types';
 
 const visibilityKeyWords = new Set([
@@ -32,13 +33,13 @@ export function sortFunctionAttributes(
   // Both are nodes
   // OverrideSpecifiers before ModifierInvocation
   if (
-    (a.variant as SortableVariant).kind === 'OverrideSpecifier' &&
-    (b.variant as SortableVariant).kind === 'ModifierInvocation'
+    (a.variant as SortableVariant).kind === NonterminalKind.OverrideSpecifier &&
+    (b.variant as SortableVariant).kind === NonterminalKind.ModifierInvocation
   )
     return -1;
   if (
-    (b.variant as SortableVariant).kind === 'OverrideSpecifier' &&
-    (a.variant as SortableVariant).kind === 'ModifierInvocation'
+    (b.variant as SortableVariant).kind === NonterminalKind.OverrideSpecifier &&
+    (a.variant as SortableVariant).kind === NonterminalKind.ModifierInvocation
   )
     return 1;
 

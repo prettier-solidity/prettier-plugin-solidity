@@ -25,14 +25,14 @@ export class YulLiteral implements SlangNode {
       this.variant = ast.variant.text;
     } else {
       switch (ast.variant.cst.kind) {
-        case 'HexStringLiteral':
+        case NonterminalKind.HexStringLiteral:
           this.variant = new HexStringLiteral(
             ast.variant as ast.HexStringLiteral,
             offsets[0],
             options
           );
           break;
-        case 'StringLiteral':
+        case NonterminalKind.StringLiteral:
           this.variant = new StringLiteral(
             ast.variant as ast.StringLiteral,
             offsets[0],

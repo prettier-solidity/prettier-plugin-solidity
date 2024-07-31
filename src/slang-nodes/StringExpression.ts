@@ -33,21 +33,21 @@ export class StringExpression implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'StringLiteral':
+      case NonterminalKind.StringLiteral:
         this.variant = new StringLiteral(
           ast.variant as ast.StringLiteral,
           offsets[0],
           options
         );
         break;
-      case 'StringLiterals':
+      case NonterminalKind.StringLiterals:
         this.variant = new StringLiterals(
           ast.variant as ast.StringLiterals,
           offsets[0],
           options
         );
         break;
-      case 'HexStringLiteral':
+      case NonterminalKind.HexStringLiteral:
         this.variant = new HexStringLiteral(
           ast.variant as ast.HexStringLiteral,
           offsets[0],
@@ -55,14 +55,14 @@ export class StringExpression implements SlangNode {
         );
         break;
 
-      case 'HexStringLiterals':
+      case NonterminalKind.HexStringLiterals:
         this.variant = new HexStringLiterals(
           ast.variant as ast.HexStringLiterals,
           offsets[0],
           options
         );
         break;
-      case 'UnicodeStringLiterals':
+      case NonterminalKind.UnicodeStringLiterals:
         this.variant = new UnicodeStringLiterals(
           ast.variant as ast.UnicodeStringLiterals,
           offsets[0],

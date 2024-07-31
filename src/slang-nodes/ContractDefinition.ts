@@ -72,7 +72,7 @@ export class ContractDefinition implements SlangNode {
     if (compiler && !satisfies(compiler, '>=0.5.0')) {
       this.members.items.forEach((member) => {
         if (
-          member.variant.kind === 'FunctionDefinition' &&
+          member.variant.kind === NonterminalKind.FunctionDefinition &&
           member.variant.name.variant !== this.name
         ) {
           member.variant.cleanModifierInvocationArguments();

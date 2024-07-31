@@ -21,14 +21,14 @@ export class TupleMember implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'TypedTupleMember':
+      case NonterminalKind.TypedTupleMember:
         this.variant = new TypedTupleMember(
           ast.variant as ast.TypedTupleMember,
           offsets[0],
           options
         );
         break;
-      case 'UntypedTupleMember':
+      case NonterminalKind.UntypedTupleMember:
         this.variant = new UntypedTupleMember(
           ast.variant as ast.UntypedTupleMember,
           offsets[0]

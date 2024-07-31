@@ -63,7 +63,7 @@ export class TupleDeconstructionStatement implements SlangNode {
       this.openParen,
       path.call(print, 'elements'),
       typeof this.expression.variant !== 'string' &&
-      this.expression.variant.kind === 'TupleExpression'
+      this.expression.variant.kind === NonterminalKind.TupleExpression
         ? [`${this.closeParen} ${this.equal} `, path.call(print, 'expression')]
         : group([
             `${this.closeParen} ${this.equal}`,

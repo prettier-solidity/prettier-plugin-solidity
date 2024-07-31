@@ -70,7 +70,7 @@ export class FallbackFunctionDefinition implements SlangNode {
     this.attributes.items.forEach((attribute) => {
       if (
         typeof attribute.variant !== 'string' &&
-        attribute.variant.kind === 'ModifierInvocation'
+        attribute.variant.kind === NonterminalKind.ModifierInvocation
       ) {
         attribute.variant.cleanModifierInvocationArguments();
       }

@@ -21,13 +21,13 @@ export class MappingKeyType implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'ElementaryType':
+      case NonterminalKind.ElementaryType:
         this.variant = new ElementaryType(
           ast.variant as ast.ElementaryType,
           offsets[0]
         );
         break;
-      case 'IdentifierPath':
+      case NonterminalKind.IdentifierPath:
         this.variant = new IdentifierPath(
           ast.variant as ast.IdentifierPath,
           offsets[0]

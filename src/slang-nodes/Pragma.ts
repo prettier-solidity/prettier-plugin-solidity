@@ -22,20 +22,20 @@ export class Pragma implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case 'ABICoderPragma':
+      case NonterminalKind.ABICoderPragma:
         this.variant = new ABICoderPragma(
           ast.variant as ast.ABICoderPragma,
           offsets[0]
         );
         break;
-      case 'ExperimentalPragma':
+      case NonterminalKind.ExperimentalPragma:
         this.variant = new ExperimentalPragma(
           ast.variant as ast.ExperimentalPragma,
           offsets[0],
           options
         );
         break;
-      case 'VersionPragma':
+      case NonterminalKind.VersionPragma:
         this.variant = new VersionPragma(
           ast.variant as ast.VersionPragma,
           offsets[0]
