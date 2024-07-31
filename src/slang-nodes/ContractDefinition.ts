@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { ContractMembers } from './ContractMembers.js';
 
@@ -70,14 +70,14 @@ export class ContractDefinition implements SlangNode {
     // the same name as the contract.
     const compiler = coerce(options.compiler);
     if (compiler && !satisfies(compiler, '>=0.5.0')) {
-      this.members.items.forEach((member) => {
+      for (const member of this.members.items) {
         if (
           member.variant.kind === NonterminalKind.FunctionDefinition &&
           member.variant.name.variant !== this.name
         ) {
           member.variant.cleanModifierInvocationArguments();
         }
-      });
+      }
     }
   }
 

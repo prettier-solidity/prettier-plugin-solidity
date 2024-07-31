@@ -4,7 +4,7 @@ import satisfies from 'semver/functions/satisfies.js';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 import { TupleExpression } from './TupleExpression.js';
 import { TupleValues } from './TupleValues.js';

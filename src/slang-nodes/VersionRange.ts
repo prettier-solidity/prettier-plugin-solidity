@@ -1,9 +1,9 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { VersionExpression } from './VersionExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
-import type { /*AstPath,*/ Doc } from 'prettier';
+import type { /*AstPath,*/ Doc /*, ParserOptions*/ } from 'prettier';
 import type { SlangNode } from '../types.js';
 
 export class VersionRange implements SlangNode {

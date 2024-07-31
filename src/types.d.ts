@@ -1,6 +1,7 @@
+import type { kinds } from '@nomicfoundation/slang/napi-bindings/generated/index.js';
+import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type * as nodes from './slang-nodes/index.js';
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
 
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {
@@ -31,11 +32,15 @@ interface BaseComment {
   followingNode?: AstNode;
 }
 interface BlockComment extends BaseComment {
-  kind: 'MultiLineComment' | 'MultiLineNatSpecComment';
+  kind:
+    | kinds.TerminalKind.MultiLineComment
+    | kinds.TerminalKind.MultiLineNatSpecComment;
 }
 
 interface LineComment extends BaseComment {
-  kind: 'SingleLineComment' | 'SingleLineNatSpecComment';
+  kind:
+    | kinds.TerminalKind.SingleLineComment
+    | kinds.TerminalKind.SingleLineNatSpecComment;
 }
 
 type Comment = BlockComment | LineComment;

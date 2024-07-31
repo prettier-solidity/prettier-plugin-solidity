@@ -1,6 +1,6 @@
 import { doc } from 'prettier';
 import { printComment } from '../slang-comments/printer.js';
-import { getNode, isPrettier2 } from '../slang-utils/backward-compatibility.js';
+import { isPrettier2 } from '../slang-utils/backward-compatibility.js';
 
 import type { AstPath, Doc } from 'prettier';
 import type { AstNode, Comment } from '../types.js';
@@ -14,7 +14,7 @@ export function printComments(node: AstNode, path: AstPath): Doc[] {
     line,
     path
       .map((commentPath) => {
-        const comment = getNode(commentPath) as Comment;
+        const comment = commentPath.getNode() as Comment;
         if (comment.trailing || comment.leading || comment.printed) {
           return '';
         }

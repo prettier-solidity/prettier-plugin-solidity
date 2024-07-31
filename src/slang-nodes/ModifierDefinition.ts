@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printFunction } from '../slang-printers/print-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { Parameters } from './Parameters.js';
 import { ModifierAttributes } from './ModifierAttributes.js';

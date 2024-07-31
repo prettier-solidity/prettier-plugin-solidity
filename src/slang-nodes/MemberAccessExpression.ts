@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { isLabel } from '../slang-utils/is-label.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 import { MemberAccess } from './MemberAccess.js';
 
@@ -13,9 +13,9 @@ import type { AstNode, SlangNode } from '../types.js';
 const { group, indent, label, softline } = doc.builders;
 
 const isChainableExpression = createKindCheckFunction([
-  'FunctionCallExpression',
-  'IndexAccessExpression',
-  'MemberAccessExpression'
+  NonterminalKind.FunctionCallExpression,
+  NonterminalKind.IndexAccessExpression,
+  NonterminalKind.MemberAccessExpression
 ]);
 
 function isEndOfChain(node: MemberAccessExpression, path: AstPath): boolean {

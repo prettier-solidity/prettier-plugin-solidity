@@ -80,7 +80,7 @@ function collectComments(
 ): Comment[] {
   if (node) {
     if (Array.isArray(node)) {
-      comments.push(...node.reduce(collectComments, []));
+      return node.reduce(collectComments, comments);
     } else if (node.comments.length > 0) {
       comments.push(...node.comments.splice(0));
     }
@@ -92,34 +92,38 @@ export function updateMetadata(
   metadata: Metadata,
   childNodes: (AstNode | AstNode[] | undefined)[]
 ): Metadata {
-  const { comments, loc } = metadata;
   // Collect comments
-  comments.push(...childNodes.reduce(collectComments, []));
+  const comments = childNodes.reduce(collectComments, metadata.comments);
 
   // calculate correct loc object
-  if (loc.leadingOffset === 0 || loc.trailingOffset === 0) {
-    childNodes.forEach((childNode) => {
-      if (Array.isArray(childNode)) return;
-      const childLoc = childNode?.loc;
+  const { loc } = metadata;
+  if (loc.leadingOffset === 0) {
+    for (const childNode of childNodes) {
+      if (typeof childNode === 'undefined' || Array.isArray(childNode))
+        continue;
+      const childLoc = childNode.loc;
 
-      if (childLoc) {
-        if (
-          loc.leadingOffset === 0 &&
-          childLoc.start - childLoc.leadingOffset === loc.start
-        ) {
-          loc.leadingOffset = childLoc.leadingOffset;
-          loc.start += childLoc.leadingOffset;
-        }
-
-        if (
-          loc.trailingOffset === 0 &&
-          childLoc.end + childLoc.trailingOffset === loc.end
-        ) {
-          loc.trailingOffset = childLoc.trailingOffset;
-          loc.end -= childLoc.trailingOffset;
-        }
+      if (childLoc.start - childLoc.leadingOffset === loc.start) {
+        loc.leadingOffset = childLoc.leadingOffset;
+        loc.start += childLoc.leadingOffset;
+        break;
       }
-    });
+    }
   }
+
+  if (loc.trailingOffset === 0) {
+    for (const childNode of childNodes.reverse()) {
+      if (typeof childNode === 'undefined' || Array.isArray(childNode))
+        continue;
+      const childLoc = childNode.loc;
+
+      if (childLoc.end + childLoc.trailingOffset === loc.end) {
+        loc.trailingOffset = childLoc.trailingOffset;
+        loc.end -= childLoc.trailingOffset;
+        break;
+      }
+    }
+  }
+
   return { comments, loc, offsets: [] };
 }
