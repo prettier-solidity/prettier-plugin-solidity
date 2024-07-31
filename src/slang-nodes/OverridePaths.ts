@@ -3,7 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { /*AstPath,*/ Doc /*, ParserOptions*/ } from 'prettier';
 import type { SlangNode } from '../types.js';
 
 export class OverridePaths implements SlangNode {
@@ -33,11 +33,11 @@ export class OverridePaths implements SlangNode {
   }
 
   // TODO: implement print
-  print(
+  print(/*
     path: AstPath,
     print: (path: AstPath) => Doc,
     options: ParserOptions
-  ): Doc {
+  */): Doc {
     return ['TODO: OverridePaths'];
   }
 }

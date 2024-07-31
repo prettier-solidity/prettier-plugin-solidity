@@ -3,7 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
 import { TypeName } from './TypeName.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { /*AstPath,*/ Doc, ParserOptions } from 'prettier';
 import type { SlangNode } from '../types.js';
 
 export class TypeExpression implements SlangNode {
@@ -37,11 +37,11 @@ export class TypeExpression implements SlangNode {
   }
 
   // TODO: implement print
-  print(
+  print(/*
     path: AstPath,
     print: (path: AstPath) => Doc,
     options: ParserOptions
-  ): Doc {
+  */): Doc {
     return ['TODO: TypeExpression'];
   }
 }
