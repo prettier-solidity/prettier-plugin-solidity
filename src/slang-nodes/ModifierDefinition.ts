@@ -66,7 +66,7 @@ export class ModifierDefinition implements SlangNode {
 
     if (!this.parameters) {
       const parametersOffset =
-        this.attributes.loc.start - this.attributes.loc.leadingOffset!;
+        this.attributes.loc.start - this.attributes.loc.leadingOffset;
       const parametersLoc = {
         start: parametersOffset,
         end: parametersOffset,

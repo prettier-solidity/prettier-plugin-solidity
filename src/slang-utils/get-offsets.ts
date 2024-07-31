@@ -104,18 +104,18 @@ export function updateMetadata(
       if (childLoc) {
         if (
           loc.leadingOffset === 0 &&
-          childLoc.start - childLoc.leadingOffset! === loc.start
+          childLoc.start - childLoc.leadingOffset === loc.start
         ) {
           loc.leadingOffset = childLoc.leadingOffset;
-          loc.start += childLoc.leadingOffset!;
+          loc.start += childLoc.leadingOffset;
         }
 
         if (
           loc.trailingOffset === 0 &&
-          childLoc.end + childLoc.trailingOffset! === loc.end
+          childLoc.end + childLoc.trailingOffset === loc.end
         ) {
           loc.trailingOffset = childLoc.trailingOffset;
-          loc.end -= childLoc.trailingOffset!;
+          loc.end -= childLoc.trailingOffset;
         }
       }
     });

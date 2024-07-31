@@ -13,8 +13,11 @@ declare module 'prettier' {
 interface Location {
   start: number;
   end: number;
-  leadingOffset?: number;
-  trailingOffset?: number;
+}
+
+interface AstLocation extends Location {
+  leadingOffset: number;
+  trailingOffset: number;
 }
 
 interface BaseComment {
@@ -39,7 +42,7 @@ type Comment = BlockComment | LineComment;
 
 interface Metadata {
   comments: Comment[];
-  loc: Location;
+  loc: AstLocation;
   offsets: number[];
 }
 

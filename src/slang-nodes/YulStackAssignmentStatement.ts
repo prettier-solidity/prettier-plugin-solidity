@@ -4,7 +4,7 @@ import { YulAssignmentOperator } from './YulAssignmentOperator.js';
 import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { /*AstPath,*/ Doc, ParserOptions } from 'prettier';
 import type { SlangNode } from '../types.js';
 
 export class YulStackAssignmentStatement implements SlangNode {
@@ -36,11 +36,11 @@ export class YulStackAssignmentStatement implements SlangNode {
   }
 
   // TODO: implement print
-  print(
+  print(/*
     path: AstPath,
     print: (path: AstPath) => Doc,
     options: ParserOptions
-  ): Doc {
+  */): Doc {
     return ['TODO: YulStackAssignmentStatement'];
   }
 }
