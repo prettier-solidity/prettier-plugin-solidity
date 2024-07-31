@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printString } from '../slang-printers/print-string.js';
-import { getNodeMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { Doc, ParserOptions } from 'prettier';

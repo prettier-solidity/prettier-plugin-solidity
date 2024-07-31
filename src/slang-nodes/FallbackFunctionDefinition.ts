@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printFunction } from '../slang-printers/print-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { FallbackFunctionAttributes } from './FallbackFunctionAttributes.js';
 import { ReturnsDeclaration } from './ReturnsDeclaration.js';
@@ -67,14 +67,14 @@ export class FallbackFunctionDefinition implements SlangNode {
   }
 
   cleanModifierInvocationArguments(): void {
-    this.attributes.items.forEach((attribute) => {
+    for (const attribute of this.attributes.items) {
       if (
         typeof attribute.variant !== 'string' &&
         attribute.variant.kind === NonterminalKind.ModifierInvocation
       ) {
         attribute.variant.cleanModifierInvocationArguments();
       }
-    });
+    }
   }
 
   print(path: AstPath, print: (path: AstPath) => Doc): Doc {

@@ -1,5 +1,4 @@
-import { Node } from '@nomicfoundation/slang/cst';
-
+import type { Node } from '@nomicfoundation/slang/cst';
 import type { AstNode, Comment } from '../types';
 
 export function createKindCheckFunction(

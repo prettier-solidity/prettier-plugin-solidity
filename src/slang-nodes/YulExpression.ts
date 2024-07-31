@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulFunctionCallExpression } from './YulFunctionCallExpression.js';
 import { YulLiteral } from './YulLiteral.js';
 import { YulBuiltInFunction } from './YulBuiltInFunction.js';

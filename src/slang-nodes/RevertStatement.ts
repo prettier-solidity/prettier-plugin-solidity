@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 

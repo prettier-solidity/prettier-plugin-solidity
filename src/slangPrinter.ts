@@ -1,5 +1,4 @@
 import { prettierVersionSatisfies } from './slang-utils/prettier-version-satisfies.js';
-import { getNode } from './slang-utils/backward-compatibility.js';
 import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
@@ -32,12 +31,12 @@ function hasNodeIgnoreComment(node: AstNode): boolean {
 
 function ignoreComments(path: AstPath): void {
   // TODO: remove undefined once we stop supporting prettier 2
-  const node = getNode(path) as AstNode | null | undefined;
+  const node = path.getNode() as AstNode | null | undefined;
   // We ignore anything that is not an object
   if (node === null || node === undefined || typeof node !== 'object') return;
 
   const keys = Object.keys(node) as (keyof AstNode)[];
-  keys.forEach((key) => {
+  for (const key of keys) {
     switch (key) {
       // We ignore `kind`, `loc`, and comments since these are added by the
       // parser
@@ -48,7 +47,7 @@ function ignoreComments(path: AstPath): void {
       // The key `comments` will contain every comment for this node
       case 'comments':
         path.each((commentPath) => {
-          const comment = getNode(commentPath) as Comment;
+          const comment = commentPath.getNode() as Comment;
           comment.printed = true;
         }, 'comments');
         break;
@@ -63,7 +62,7 @@ function ignoreComments(path: AstPath): void {
           path.call(ignoreComments, key);
         }
     }
-  });
+  }
 }
 
 function genericPrint(
@@ -73,7 +72,7 @@ function genericPrint(
 ): Doc {
   prettierVersionCheck();
 
-  const node = getNode(path) as AstNode | null | undefined;
+  const node = path.getNode() as AstNode | null | undefined;
 
   if (node === null || node === undefined) {
     return '';

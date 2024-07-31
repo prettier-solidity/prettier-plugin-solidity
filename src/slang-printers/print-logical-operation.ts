@@ -5,14 +5,14 @@ import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, BinaryOperation } from '../types.js';
+import type { AstNode } from '../types.js';
 
 const { group, indent } = doc.builders;
 
 const isStatementWithoutIndentedOperation = createKindCheckFunction([
-  'ReturnStatement',
-  'IfStatement',
-  'WhileStatement'
+  NonterminalKind.ReturnStatement,
+  NonterminalKind.IfStatement,
+  NonterminalKind.WhileStatement
 ]);
 
 const logicalGroupRulesBuilder =
@@ -34,8 +34,7 @@ const logicalIndentRulesBuilder =
       )
         break;
       if (!isBinaryOperation(grandparentNode)) return indent(document);
-      if (node === (grandparentNode as BinaryOperation).rightOperand.variant)
-        break;
+      if (node === grandparentNode.rightOperand.variant) break;
       node = grandparentNode;
     }
     return document;

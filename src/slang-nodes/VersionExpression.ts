@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { VersionRange } from './VersionRange.js';
 import { VersionComparator } from './VersionComparator.js';
 import { VersionSpecifiers } from './VersionSpecifiers.js';

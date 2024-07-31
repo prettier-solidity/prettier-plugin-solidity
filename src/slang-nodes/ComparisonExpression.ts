@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printComparisonOperation } from '../slang-printers/print-comparison-operation.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';

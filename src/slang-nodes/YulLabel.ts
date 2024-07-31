@@ -1,6 +1,6 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { getNodeMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { Doc } from 'prettier';

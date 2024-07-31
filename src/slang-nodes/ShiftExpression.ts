@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';

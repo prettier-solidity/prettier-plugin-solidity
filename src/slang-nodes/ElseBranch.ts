@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
@@ -10,7 +10,10 @@ import type { SlangNode } from '../types.js';
 
 const { group, indent, line } = doc.builders;
 
-const isIfStatementOrBlock = createKindCheckFunction(['Block', 'IfStatement']);
+const isIfStatementOrBlock = createKindCheckFunction([
+  NonterminalKind.Block,
+  NonterminalKind.IfStatement
+]);
 
 export class ElseBranch implements SlangNode {
   readonly kind = NonterminalKind.ElseBranch;

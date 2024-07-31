@@ -5,8 +5,6 @@ import { TupleValues } from '../slang-nodes/TupleValues.js';
 import { TupleValue } from '../slang-nodes/TupleValue.js';
 import { isBinaryOperation } from './is-binary-operation.js';
 
-import type { BinaryOperation } from '../types.js';
-
 const objectConfig = {
   writable: true,
   enumerable: true,
@@ -21,7 +19,7 @@ export function createHugFunction(
     if (
       typeof node.variant !== 'string' &&
       isBinaryOperation(node.variant) &&
-      operators.has((node.variant as BinaryOperation).operator)
+      operators.has(node.variant.operator)
     ) {
       const { loc } = node;
 

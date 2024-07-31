@@ -9,17 +9,17 @@ import type { AstNode, BinaryOperation } from '../types.js';
 const { group, indent } = doc.builders;
 
 const isBinaryOperationWithoutComparison = createKindCheckFunction([
-  'AdditiveExpression',
-  'MultiplicativeExpression',
-  'ExponentiationExpression',
-  'AssignmentExpression',
-  'BitwiseAndExpression',
-  'BitwiseOrExpression',
-  'BitwiseXorExpression',
-  'AndExpression',
-  'OrExpression',
-  'ShiftExpression'
-]);
+  NonterminalKind.AdditiveExpression,
+  NonterminalKind.MultiplicativeExpression,
+  NonterminalKind.ExponentiationExpression,
+  NonterminalKind.AssignmentExpression,
+  NonterminalKind.BitwiseAndExpression,
+  NonterminalKind.BitwiseOrExpression,
+  NonterminalKind.BitwiseXorExpression,
+  NonterminalKind.AndExpression,
+  NonterminalKind.OrExpression,
+  NonterminalKind.ShiftExpression
+]) as (node: AstNode | Comment | Node) => node is BinaryOperation;
 
 const binaryGroupRulesBuilder =
   (path: AstPath) =>
@@ -41,8 +41,7 @@ const binaryIndentRulesBuilder =
       if (!isBinaryOperationWithoutComparison(grandparentNode)) {
         return indent(document);
       }
-      if (node === (grandparentNode as BinaryOperation).rightOperand.variant)
-        break;
+      if (node === grandparentNode.rightOperand.variant) break;
       node = grandparentNode;
     }
     return document;

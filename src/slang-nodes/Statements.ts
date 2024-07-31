@@ -3,7 +3,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printComments } from '../slang-printers/print-comments.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';

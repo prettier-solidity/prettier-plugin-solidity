@@ -1,6 +1,6 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulExpression } from './YulExpression.js';
 import { YulSwitchCases } from './YulSwitchCases.js';
 

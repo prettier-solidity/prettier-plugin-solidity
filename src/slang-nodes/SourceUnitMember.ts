@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
+import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { PragmaDirective } from './PragmaDirective.js';
 import { ImportDirective } from './ImportDirective.js';
 import { ContractDefinition } from './ContractDefinition.js';
