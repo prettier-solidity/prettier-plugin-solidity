@@ -5,7 +5,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class RevertStatement implements SlangNode {
   readonly kind = NonterminalKind.RevertStatement;
@@ -25,7 +25,7 @@ export class RevertStatement implements SlangNode {
   constructor(
     ast: ast.RevertStatement,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

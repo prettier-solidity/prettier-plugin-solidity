@@ -4,7 +4,7 @@ import { ErrorParameters } from './ErrorParameters.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class ErrorParametersDeclaration implements SlangNode {
   readonly kind = NonterminalKind.ErrorParametersDeclaration;
@@ -22,7 +22,7 @@ export class ErrorParametersDeclaration implements SlangNode {
   constructor(
     ast: ast.ErrorParametersDeclaration,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

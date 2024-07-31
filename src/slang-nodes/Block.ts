@@ -4,7 +4,7 @@ import { Statements } from './Statements.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class Block implements SlangNode {
   readonly kind = NonterminalKind.Block;
@@ -19,7 +19,7 @@ export class Block implements SlangNode {
 
   closeBrace: string;
 
-  constructor(ast: ast.Block, offset: number, options: ParserOptions) {
+  constructor(ast: ast.Block, offset: number, options: ParserOptions<AstNode>) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

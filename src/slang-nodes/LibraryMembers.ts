@@ -7,7 +7,7 @@ import { ContractMember } from './ContractMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { hardline } = doc.builders;
 
@@ -20,7 +20,11 @@ export class LibraryMembers implements SlangNode {
 
   items: ContractMember[];
 
-  constructor(ast: ast.LibraryMembers, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.LibraryMembers,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
@@ -37,7 +41,7 @@ export class LibraryMembers implements SlangNode {
   print(
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc {
     return this.items.length > 0
       ? printSeparatedItem(

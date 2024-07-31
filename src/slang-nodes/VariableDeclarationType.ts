@@ -5,7 +5,7 @@ import { TypeName } from './TypeName.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class VariableDeclarationType implements SlangNode {
   readonly kind = NonterminalKind.VariableDeclarationType;
@@ -19,7 +19,7 @@ export class VariableDeclarationType implements SlangNode {
   constructor(
     ast: ast.VariableDeclarationType,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

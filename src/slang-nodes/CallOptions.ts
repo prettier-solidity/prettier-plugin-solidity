@@ -6,7 +6,7 @@ import { NamedArgument } from './NamedArgument.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { line, softline } = doc.builders;
 
@@ -21,7 +21,11 @@ export class CallOptions implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.CallOptions, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.CallOptions,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
@@ -39,7 +43,7 @@ export class CallOptions implements SlangNode {
   print(
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc {
     return printSeparatedList(path.map(print, 'items'), {
       firstSeparator: options.bracketSpacing ? line : softline

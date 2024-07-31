@@ -6,7 +6,7 @@ import { ImportDeconstruction } from './ImportDeconstruction.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class ImportClause implements SlangNode {
   readonly kind = NonterminalKind.ImportClause;
@@ -17,7 +17,11 @@ export class ImportClause implements SlangNode {
 
   variant: PathImport | NamedImport | ImportDeconstruction;
 
-  constructor(ast: ast.ImportClause, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.ImportClause,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

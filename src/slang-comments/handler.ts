@@ -1,13 +1,13 @@
 import handlers from './handlers/index.js';
 
-import type { AstPath, ParserOptions } from 'prettier';
-import type { Comment } from '../types.js';
+import type { ParserOptions } from 'prettier';
+import type { AstNode, Comment } from '../types.js';
 
 export function slangHandleOwnLineComment(
   comment: Comment,
   text: string,
-  options: ParserOptions,
-  ast: AstPath,
+  options: ParserOptions<AstNode>,
+  ast: AstNode,
   isLastComment: boolean
 ): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;
@@ -27,8 +27,8 @@ export function slangHandleOwnLineComment(
 export function slangHandleEndOfLineComment(
   comment: Comment,
   text: string,
-  options: ParserOptions,
-  ast: AstPath,
+  options: ParserOptions<AstNode>,
+  ast: AstNode,
   isLastComment: boolean
 ): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;
@@ -48,8 +48,8 @@ export function slangHandleEndOfLineComment(
 export function slangHandleRemainingComment(
   comment: Comment,
   text: string,
-  options: ParserOptions,
-  ast: AstPath,
+  options: ParserOptions<AstNode>,
+  ast: AstNode,
   isLastComment: boolean
 ): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;

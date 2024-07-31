@@ -8,7 +8,7 @@ import { YulStatement } from './YulStatement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { hardline } = doc.builders;
 
@@ -21,7 +21,11 @@ export class YulStatements implements SlangNode {
 
   items: YulStatement[];
 
-  constructor(ast: ast.YulStatements, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.YulStatements,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
@@ -38,7 +42,7 @@ export class YulStatements implements SlangNode {
   print(
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc {
     return this.items.length === 0 &&
       (!this.comments || this.comments.length === 0)

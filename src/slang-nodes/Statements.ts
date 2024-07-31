@@ -8,7 +8,7 @@ import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { hardline } = doc.builders;
 
@@ -21,7 +21,11 @@ export class Statements implements SlangNode {
 
   items: Statement[];
 
-  constructor(ast: ast.Statements, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.Statements,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
@@ -38,7 +42,7 @@ export class Statements implements SlangNode {
   print(
     path: AstPath,
     print: (path: AstPath) => Doc,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ): Doc {
     return this.items.length === 0 &&
       (!this.comments || this.comments.length === 0)

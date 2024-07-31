@@ -5,7 +5,7 @@ import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { join, hardline } = doc.builders;
 
@@ -18,7 +18,11 @@ export class StringLiterals implements SlangNode {
 
   items: StringLiteral[];
 
-  constructor(ast: ast.StringLiterals, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.StringLiterals,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

@@ -7,7 +7,7 @@ import { IndexAccessEnd } from './IndexAccessEnd.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { group, indent, indentIfBreak, label, softline } = doc.builders;
 
@@ -31,7 +31,7 @@ export class IndexAccessExpression implements SlangNode {
   constructor(
     ast: ast.IndexAccessExpression,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

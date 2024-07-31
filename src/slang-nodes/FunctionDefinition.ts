@@ -11,7 +11,7 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class FunctionDefinition implements SlangNode {
   readonly kind = NonterminalKind.FunctionDefinition;
@@ -35,7 +35,7 @@ export class FunctionDefinition implements SlangNode {
   constructor(
     ast: ast.FunctionDefinition,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

@@ -5,7 +5,7 @@ import { Block } from './Block.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class CatchClause implements SlangNode {
   readonly kind = NonterminalKind.CatchClause;
@@ -20,7 +20,11 @@ export class CatchClause implements SlangNode {
 
   body: Block;
 
-  constructor(ast: ast.CatchClause, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.CatchClause,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

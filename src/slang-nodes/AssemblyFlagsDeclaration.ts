@@ -4,7 +4,7 @@ import { AssemblyFlags } from './AssemblyFlags.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class AssemblyFlagsDeclaration implements SlangNode {
   readonly kind = NonterminalKind.AssemblyFlagsDeclaration;
@@ -22,7 +22,7 @@ export class AssemblyFlagsDeclaration implements SlangNode {
   constructor(
     ast: ast.AssemblyFlagsDeclaration,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

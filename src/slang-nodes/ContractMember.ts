@@ -16,7 +16,7 @@ import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class ContractMember implements SlangNode {
   readonly kind = NonterminalKind.ContractMember;
@@ -40,7 +40,11 @@ export class ContractMember implements SlangNode {
     | ErrorDefinition
     | UserDefinedValueTypeDefinition;
 
-  constructor(ast: ast.ContractMember, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.ContractMember,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

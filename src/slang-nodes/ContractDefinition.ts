@@ -8,7 +8,7 @@ import { ContractMembers } from './ContractMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { group, line } = doc.builders;
 
@@ -36,7 +36,7 @@ export class ContractDefinition implements SlangNode {
   constructor(
     ast: ast.ContractDefinition,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
@@ -65,7 +65,7 @@ export class ContractDefinition implements SlangNode {
     this.cleanModifierInvocationArguments(options);
   }
 
-  cleanModifierInvocationArguments(options: ParserOptions): void {
+  cleanModifierInvocationArguments(options: ParserOptions<AstNode>): void {
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
     const compiler = coerce(options.compiler);

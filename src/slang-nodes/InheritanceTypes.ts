@@ -6,7 +6,7 @@ import { InheritanceType } from './InheritanceType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { line } = doc.builders;
 
@@ -24,7 +24,7 @@ export class InheritanceTypes implements SlangNode {
   constructor(
     ast: ast.InheritanceTypes,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

@@ -9,7 +9,7 @@ import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -34,7 +34,11 @@ export class ForStatement implements SlangNode {
 
   body: Statement;
 
-  constructor(ast: ast.ForStatement, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.ForStatement,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

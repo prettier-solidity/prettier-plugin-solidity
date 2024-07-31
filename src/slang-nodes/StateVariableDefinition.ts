@@ -6,7 +6,7 @@ import { StateVariableDefinitionValue } from './StateVariableDefinitionValue.js'
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class StateVariableDefinition implements SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinition;
@@ -28,7 +28,7 @@ export class StateVariableDefinition implements SlangNode {
   constructor(
     ast: ast.StateVariableDefinition,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

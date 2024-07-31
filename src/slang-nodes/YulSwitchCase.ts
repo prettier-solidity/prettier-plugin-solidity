@@ -5,7 +5,7 @@ import { YulValueCase } from './YulValueCase.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class YulSwitchCase implements SlangNode {
   readonly kind = NonterminalKind.YulSwitchCase;
@@ -16,7 +16,11 @@ export class YulSwitchCase implements SlangNode {
 
   variant: YulDefaultCase | YulValueCase;
 
-  constructor(ast: ast.YulSwitchCase, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.YulSwitchCase,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

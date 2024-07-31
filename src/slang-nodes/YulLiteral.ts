@@ -6,7 +6,7 @@ import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class YulLiteral implements SlangNode {
   readonly kind = NonterminalKind.YulLiteral;
@@ -17,7 +17,11 @@ export class YulLiteral implements SlangNode {
 
   variant: HexStringLiteral | StringLiteral | string;
 
-  constructor(ast: ast.YulLiteral, offset: number, options: ParserOptions) {
+  constructor(
+    ast: ast.YulLiteral,
+    offset: number,
+    options: ParserOptions<AstNode>
+  ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 

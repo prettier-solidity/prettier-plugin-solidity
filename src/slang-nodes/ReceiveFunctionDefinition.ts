@@ -7,7 +7,7 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class ReceiveFunctionDefinition implements SlangNode {
   readonly kind = NonterminalKind.ReceiveFunctionDefinition;
@@ -27,7 +27,7 @@ export class ReceiveFunctionDefinition implements SlangNode {
   constructor(
     ast: ast.ReceiveFunctionDefinition,
     offset: number,
-    options: ParserOptions
+    options: ParserOptions<AstNode>
   ) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;

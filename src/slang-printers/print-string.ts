@@ -2,13 +2,14 @@ import { util } from 'prettier';
 
 import type { ParserOptions } from 'prettier';
 import type { QuoteRegex } from './types';
+import type { AstNode } from '../types';
 
 const double: QuoteRegex = { quote: '"', regex: /"/g };
 const single: QuoteRegex = { quote: "'", regex: /'/g };
 
 export function printString(
   rawContent: string,
-  options: ParserOptions
+  options: ParserOptions<AstNode>
 ): string {
   const preferred = options.singleQuote ? single : double;
   const alternate = preferred === single ? double : single;

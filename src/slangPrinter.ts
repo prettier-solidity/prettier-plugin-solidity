@@ -67,7 +67,7 @@ function ignoreComments(path: AstPath): void {
 
 function genericPrint(
   path: AstPath,
-  options: ParserOptions,
+  options: ParserOptions<AstNode>,
   print: (path: AstPath) => Doc
 ): Doc {
   prettierVersionCheck();
