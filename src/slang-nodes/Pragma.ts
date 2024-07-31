@@ -38,8 +38,7 @@ export class Pragma implements SlangNode {
       case 'VersionPragma':
         this.variant = new VersionPragma(
           ast.variant as ast.VersionPragma,
-          offsets[0],
-          options
+          offsets[0]
         );
         break;
       default:

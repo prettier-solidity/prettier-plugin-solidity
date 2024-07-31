@@ -3,7 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
 import { VersionExpression } from './VersionExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { AstPath, Doc } from 'prettier';
 import type { SlangNode } from '../types.js';
 
 export class VersionComparator implements SlangNode {
@@ -17,16 +17,12 @@ export class VersionComparator implements SlangNode {
 
   operand: VersionExpression;
 
-  constructor(
-    ast: ast.VersionComparator,
-    offset: number,
-    options: ParserOptions
-  ) {
+  constructor(ast: ast.VersionComparator, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
     this.operator = ast.operator.text;
-    this.operand = new VersionExpression(ast.operand, offsets[0], options);
+    this.operand = new VersionExpression(ast.operand, offsets[0]);
 
     metadata = updateMetadata(metadata, [this.operand]);
 

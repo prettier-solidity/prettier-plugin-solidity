@@ -6,7 +6,7 @@ import { VersionComparator } from './VersionComparator.js';
 import { VersionSpecifiers } from './VersionSpecifiers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { AstPath, Doc } from 'prettier';
 import type { SlangNode } from '../types.js';
 
 export class VersionExpression implements SlangNode {
@@ -18,11 +18,7 @@ export class VersionExpression implements SlangNode {
 
   variant: VersionRange | VersionComparator | VersionSpecifiers | string;
 
-  constructor(
-    ast: ast.VersionExpression,
-    offset: number,
-    options: ParserOptions
-  ) {
+  constructor(ast: ast.VersionExpression, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
@@ -33,15 +29,13 @@ export class VersionExpression implements SlangNode {
         case 'VersionRange':
           this.variant = new VersionRange(
             ast.variant as ast.VersionRange,
-            offsets[0],
-            options
+            offsets[0]
           );
           break;
         case 'VersionComparator':
           this.variant = new VersionComparator(
             ast.variant as ast.VersionComparator,
-            offsets[0],
-            options
+            offsets[0]
           );
           break;
         case 'VersionSpecifiers':

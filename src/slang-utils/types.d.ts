@@ -11,7 +11,7 @@ import type {
   ModifierInvocation
 } from '../slang-nodes';
 import type { util } from 'prettier';
-import type { astNode, Comment } from '../types';
+import type { AstNode, Comment } from '../types';
 
 type SortableAttribute =
   | ConstructorAttribute
@@ -28,8 +28,8 @@ type SortableVariant = OverrideSpecifier | ModifierInvocation;
 declare namespace utilV2Functions {
   function getNextNonSpaceNonCommentCharacterIndex(
     text: string,
-    node: astNode | Comment,
-    locEnd: (node: astNode) => number
+    node: AstNode | Comment,
+    locEnd: (node: AstNode) => number
   ): number | false;
 
   function isNextLineEmptyAfterIndex(text: string, startIndex: number): boolean;

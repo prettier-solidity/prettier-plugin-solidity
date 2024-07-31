@@ -8,13 +8,13 @@ import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
 import type { NonterminalNode } from '@nomicfoundation/slang/cst/index.js';
 import type { Parser, ParserOptions } from 'prettier';
-import type { astNode } from './types.js';
+import type { AstNode } from './types.js';
 
 function parse(
   text: string,
   _parsers: Parser[] | ParserOptions,
   options = _parsers as ParserOptions
-): astNode {
+): AstNode {
   const compiler = coerce(options.compiler);
 
   const language = new Language(compiler?.version || '0.8.26');

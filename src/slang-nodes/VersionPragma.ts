@@ -3,7 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/get-offsets.js';
 import { VersionExpressionSets } from './VersionExpressionSets.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { AstPath, Doc } from 'prettier';
 import type { SlangNode } from '../types.js';
 
 export class VersionPragma implements SlangNode {
@@ -17,12 +17,12 @@ export class VersionPragma implements SlangNode {
 
   sets: VersionExpressionSets;
 
-  constructor(ast: ast.VersionPragma, offset: number, options: ParserOptions) {
+  constructor(ast: ast.VersionPragma, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
     this.solidityKeyword = ast.solidityKeyword.text;
-    this.sets = new VersionExpressionSets(ast.sets, offsets[0], options);
+    this.sets = new VersionExpressionSets(ast.sets, offsets[0]);
 
     metadata = updateMetadata(metadata, [this.sets]);
 

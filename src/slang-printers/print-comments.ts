@@ -3,12 +3,12 @@ import { printComment } from '../slang-comments/printer.js';
 import { getNode, isPrettier2 } from '../slang-utils/backward-compatibility.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { Comment, astNode } from '../types.js';
+import type { AstNode, Comment } from '../types.js';
 import type { DocV2 } from './types.js';
 
 const { join, line } = doc.builders;
 
-export function printComments(node: astNode, path: AstPath): Doc[] {
+export function printComments(node: AstNode, path: AstPath): Doc[] {
   if (!node.comments) return [];
   const document = join(
     line,

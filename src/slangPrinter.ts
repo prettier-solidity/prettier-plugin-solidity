@@ -1,9 +1,10 @@
 import { prettierVersionSatisfies } from './slang-utils/prettier-version-satisfies.js';
 import { getNode } from './slang-utils/backward-compatibility.js';
 import { isBlockComment } from './slang-utils/is-comment.js';
+import { locEnd, locStart } from './slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { astNode, Comment } from './types.js';
+import type { AstNode, Comment } from './types.js';
 
 let checked = false;
 
@@ -17,7 +18,7 @@ function prettierVersionCheck(): void {
   checked = true;
 }
 
-function hasNodeIgnoreComment(node: astNode): boolean {
+function hasNodeIgnoreComment(node: AstNode): boolean {
   return (
     node?.comments &&
     node.comments.some(
@@ -31,11 +32,11 @@ function hasNodeIgnoreComment(node: astNode): boolean {
 
 function ignoreComments(path: AstPath): void {
   // TODO: remove undefined once we stop supporting prettier 2
-  const node = getNode(path) as astNode | null | undefined;
+  const node = getNode(path) as AstNode | null | undefined;
   // We ignore anything that is not an object
   if (node === null || node === undefined || typeof node !== 'object') return;
 
-  const keys = Object.keys(node) as (keyof astNode)[];
+  const keys = Object.keys(node) as (keyof AstNode)[];
   keys.forEach((key) => {
     switch (key) {
       // We ignore `kind`, `loc`, and comments since these are added by the
@@ -72,7 +73,7 @@ function genericPrint(
 ): Doc {
   prettierVersionCheck();
 
-  const node = getNode(path) as astNode | null | undefined;
+  const node = getNode(path) as AstNode | null | undefined;
 
   if (node === null || node === undefined) {
     return '';
@@ -81,10 +82,7 @@ function genericPrint(
   if (hasNodeIgnoreComment(node)) {
     ignoreComments(path);
 
-    return options.originalText.slice(
-      options.locStart(node),
-      options.locEnd(node)
-    );
+    return options.originalText.slice(locStart(node), locEnd(node));
   }
 
   return node.print(path, print, options);

@@ -17,28 +17,22 @@ interface Location {
   trailingOffset?: number;
 }
 
-interface BlockComment {
-  kind: 'MultiLineComment' | 'MultiLineNatSpecComment';
+interface BaseComment {
   value: string;
   loc: Location;
   leading?: boolean;
   trailing?: boolean;
   printed?: boolean;
-  precedingNode?: astNode;
-  enclosingNode?: astNode;
-  followingNode?: astNode;
+  precedingNode?: AstNode;
+  enclosingNode?: AstNode;
+  followingNode?: AstNode;
+}
+interface BlockComment extends BaseComment {
+  kind: 'MultiLineComment' | 'MultiLineNatSpecComment';
 }
 
-interface LineComment {
+interface LineComment extends BaseComment {
   kind: 'SingleLineComment' | 'SingleLineNatSpecComment';
-  value: string;
-  loc: Location;
-  leading?: boolean;
-  trailing?: boolean;
-  printed?: boolean;
-  precedingNode?: astNode;
-  enclosingNode?: astNode;
-  followingNode?: astNode;
 }
 
 type Comment = BlockComment | LineComment;
@@ -83,7 +77,7 @@ export type FunctionLike =
   | nodes.ReceiveFunctionDefinition
   | nodes.UnnamedFunctionDefinition;
 
-export type astNode =
+export type AstNode =
   | nodes.SourceUnit
   | nodes.PragmaDirective
   | nodes.ABICoderPragma
@@ -300,7 +294,7 @@ export type astNode =
   | nodes.YulPaths
   | nodes.YulPath;
 
-export type SlangASTNode =
+export type SlangAstNode =
   | ast.SourceUnit
   | ast.PragmaDirective
   | ast.ABICoderPragma
