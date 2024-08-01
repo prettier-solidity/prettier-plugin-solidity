@@ -16,8 +16,14 @@ function parse(
   options = _parsers as ParserOptions<AstNode>
 ): AstNode {
   const compiler = coerce(options.compiler);
+  const supportedVersions = Language.supportedVersions();
 
-  const language = new Language(compiler?.version || '0.8.26');
+  const language = new Language(
+    compiler && supportedVersions.includes(compiler.version)
+      ? compiler.version
+      : supportedVersions[supportedVersions.length - 1]
+  );
+
   const ast = new SlangSourceUnit(
     language.parse(NonterminalKind.SourceUnit, text).tree() as NonterminalNode
   );
