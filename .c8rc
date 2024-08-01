@@ -4,13 +4,8 @@
   "lines": 100,
   "functions": 100,
   "statements": 100,
-  "exclude": ["/node_modules/", "/src/prettier-comments/"],
-  "include": [
-    "src/**/*.js",
-    "src/**/*.ts",
-    "!src/prettier-comments/**/*.js",
-    "!src/common/backward-compatibility.js"
-  ],
+  "exclude": ["/node_modules/"],
+  "include": ["src/**/*.ts", "!src/slang-utils/backward-compatibility.ts"],
   "reporter": ["lcov", "text"],
   "temp-dir": "./coverage/"
 }
