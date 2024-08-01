@@ -47,7 +47,10 @@ export class MappingType implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<MappingType>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       `${this.mappingKeyword}${this.openParen}`,
       path.call(print, 'keyType'),

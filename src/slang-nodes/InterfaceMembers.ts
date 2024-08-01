@@ -39,15 +39,15 @@ export class InterfaceMembers implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<InterfaceMembers>,
+    print: (path: AstPath<AstNode | string>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     return this.items.length > 0
-      ? printSeparatedItem(
-          printPreservingEmptyLines(path, 'items', print, options),
-          { firstSeparator: hardline, grouped: false }
-        )
+      ? printSeparatedItem(printPreservingEmptyLines(path, print, options), {
+          firstSeparator: hardline,
+          grouped: false
+        })
       : '';
   }
 }

@@ -36,7 +36,10 @@ export class UnicodeStringLiterals implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<UnicodeStringLiterals>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return join(hardline, path.map(print, 'items'));
   }
 }

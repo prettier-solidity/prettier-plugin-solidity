@@ -37,8 +37,8 @@ export class UsingDeconstructionSymbols implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<UsingDeconstructionSymbols>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     return printSeparatedList(path.map(print, 'items'), {

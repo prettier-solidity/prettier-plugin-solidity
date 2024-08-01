@@ -4,7 +4,7 @@ import { EnumMembers } from './EnumMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class EnumDefinition implements SlangNode {
   readonly kind = NonterminalKind.EnumDefinition;
@@ -39,7 +39,10 @@ export class EnumDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<EnumDefinition>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       `${this.enumKeyword} ${this.name} ${this.openBrace}`,
       path.call(print, 'members'),

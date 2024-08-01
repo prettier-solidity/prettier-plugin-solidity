@@ -51,7 +51,10 @@ export class StateVariableDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<StateVariableDefinition>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       path.call(print, 'typeName'),
       path.call(print, 'attributes'),

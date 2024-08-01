@@ -89,7 +89,10 @@ export class FunctionDefinition implements SlangNode {
     }
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<FunctionDefinition>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return printFunction(
       [`${this.functionKeyword} `, path.call(print, 'name')],
       this,

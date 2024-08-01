@@ -43,7 +43,10 @@ export class ArrayTypeName implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ArrayTypeName>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       path.call(print, 'operand'),
       this.openBracket,

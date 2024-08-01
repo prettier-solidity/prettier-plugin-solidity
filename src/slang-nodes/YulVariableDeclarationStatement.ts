@@ -43,7 +43,10 @@ export class YulVariableDeclarationStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<YulVariableDeclarationStatement>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       `${this.letKeyword} ${this.names} `,
       this.value ? path.call(print, 'value') : ''

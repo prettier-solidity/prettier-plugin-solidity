@@ -42,7 +42,10 @@ export class CatchClause implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<CatchClause>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       `${this.catchKeyword} `,
       this.error ? path.call(print, 'error') : '',

@@ -64,7 +64,10 @@ export class VariableDeclarationStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<VariableDeclarationStatement>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     const declarationDoc = group(
       [
         path.call(print, 'variableType'),

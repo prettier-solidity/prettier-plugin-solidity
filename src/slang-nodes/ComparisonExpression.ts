@@ -39,8 +39,8 @@ export class ComparisonExpression implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<ComparisonExpression>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     return printComparisonOperation(this, path, print, options);

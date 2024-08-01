@@ -45,8 +45,8 @@ export class BitwiseXorExpression implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<BitwiseXorExpression>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     return printBinaryOperation(this, path, print, options);

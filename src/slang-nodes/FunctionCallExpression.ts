@@ -43,7 +43,10 @@ export class FunctionCallExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<FunctionCallExpression>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     let operandDoc = path.call(print, 'operand');
     let argumentsDoc = path.call(print, 'arguments');
 

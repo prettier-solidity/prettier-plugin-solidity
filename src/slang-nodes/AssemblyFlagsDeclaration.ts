@@ -37,7 +37,10 @@ export class AssemblyFlagsDeclaration implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<AssemblyFlagsDeclaration>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [this.openParen, path.call(print, 'flags'), this.closeParen];
   }
 }

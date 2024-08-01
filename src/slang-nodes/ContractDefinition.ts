@@ -81,7 +81,10 @@ export class ContractDefinition implements SlangNode {
     }
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ContractDefinition>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       group([
         `${this.abstractKeyword ? `${this.abstractKeyword} ` : ''}${this.contractKeyword} ${this.name}`,

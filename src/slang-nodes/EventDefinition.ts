@@ -47,7 +47,10 @@ export class EventDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<EventDefinition>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       `${this.eventKeyword} ${this.name}`,
       path.call(print, 'parameters'),

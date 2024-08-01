@@ -73,7 +73,10 @@ export class ForStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ForStatement>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     const initialization = path.call(print, 'initialization');
     const condition = path.call(print, 'condition');
     const iterator = this.iterator ? path.call(print, 'iterator') : '';

@@ -41,7 +41,10 @@ export class PositionalArgumentsDeclaration implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<PositionalArgumentsDeclaration>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [this.openParen, path.call(print, 'arguments'), this.closeParen];
   }
 }

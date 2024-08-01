@@ -35,8 +35,8 @@ export class OverridePathsDeclaration implements SlangNode {
 
   // TODO: implement print
   print(/*
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<OverridePathsDeclaration>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   */): Doc {
     return ['TODO: OverridePathsDeclaration'];

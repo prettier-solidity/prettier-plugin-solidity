@@ -38,7 +38,10 @@ export class TupleValues implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<TupleValues>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return this.items.length === 1 &&
       typeof this.items[0].expression!.variant !== 'string' &&
       isBinaryOperation(this.items[0].expression!.variant)

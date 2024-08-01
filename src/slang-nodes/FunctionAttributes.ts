@@ -39,7 +39,10 @@ export class FunctionAttributes implements SlangNode {
     this.items = this.items.sort(sortFunctionAttributes);
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<FunctionAttributes>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return path.map(print, 'items').map((item) => [line, item]);
   }
 }

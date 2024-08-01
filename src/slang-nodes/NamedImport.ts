@@ -41,7 +41,10 @@ export class NamedImport implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<NamedImport>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       this.asterisk,
       path.call(print, 'alias'),

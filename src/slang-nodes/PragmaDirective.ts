@@ -37,7 +37,10 @@ export class PragmaDirective implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<PragmaDirective>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       `${this.pragmaKeyword} `,
       path.call(print, 'pragma'),

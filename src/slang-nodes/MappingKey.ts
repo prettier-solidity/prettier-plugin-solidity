@@ -4,7 +4,7 @@ import { MappingKeyType } from './MappingKeyType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class MappingKey implements SlangNode {
   readonly kind = NonterminalKind.MappingKey;
@@ -30,7 +30,10 @@ export class MappingKey implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<MappingKey>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [path.call(print, 'keyType'), this.name ? ` ${this.name}` : ''];
   }
 }

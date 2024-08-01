@@ -55,7 +55,7 @@ export class Pragma implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(path: AstPath<Pragma>, print: (path: AstPath<AstNode>) => Doc): Doc {
     return path.call(print, 'variant');
   }
 }

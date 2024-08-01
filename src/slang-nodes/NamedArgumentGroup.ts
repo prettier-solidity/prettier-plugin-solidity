@@ -37,7 +37,10 @@ export class NamedArgumentGroup implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<NamedArgumentGroup>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [this.openBrace, path.call(print, 'arguments'), this.closeBrace];
   }
 }

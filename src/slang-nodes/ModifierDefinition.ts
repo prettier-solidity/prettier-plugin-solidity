@@ -100,7 +100,10 @@ export class ModifierDefinition implements SlangNode {
     }
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ModifierDefinition>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return printFunction(
       `${this.modifierKeyword} ${this.name}`,
       this,

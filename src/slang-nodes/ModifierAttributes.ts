@@ -6,7 +6,7 @@ import { ModifierAttribute } from './ModifierAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 const { line } = doc.builders;
 
@@ -35,7 +35,10 @@ export class ModifierAttributes implements SlangNode {
     this.items = this.items.sort(sortFunctionAttributes);
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ModifierAttributes>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return path.map(print, 'items').map((item) => [line, item]);
   }
 }

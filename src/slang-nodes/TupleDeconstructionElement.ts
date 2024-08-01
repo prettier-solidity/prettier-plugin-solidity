@@ -33,7 +33,10 @@ export class TupleDeconstructionElement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<TupleDeconstructionElement>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return this.member ? path.call(print, 'member') : '';
   }
 }

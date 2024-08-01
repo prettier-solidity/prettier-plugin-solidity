@@ -58,7 +58,10 @@ export class IfStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<IfStatement>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       `${this.ifKeyword} ${this.openParen}`,
       printSeparatedItem(path.call(print, 'condition')),

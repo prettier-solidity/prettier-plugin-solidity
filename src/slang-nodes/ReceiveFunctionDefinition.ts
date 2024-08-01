@@ -68,7 +68,10 @@ export class ReceiveFunctionDefinition implements SlangNode {
     }
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ReceiveFunctionDefinition>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return printFunction(this.receiveKeyword, this, path, print);
   }
 }

@@ -5,7 +5,7 @@ import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../types.js';
+import type { AstNode, BinaryOperation } from '../types.js';
 
 const { group, indent } = doc.builders;
 
@@ -16,12 +16,12 @@ const isStatementWithoutIndentedOperation = createKindCheckFunction([
 ]);
 
 const logicalGroupRulesBuilder =
-  (path: AstPath) =>
+  (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc =>
     isBinaryOperation(path.getNode(2) as AstNode) ? document : group(document);
 
 const logicalIndentRulesBuilder =
-  (path: AstPath, options: ParserOptions<AstNode>) =>
+  (path: AstPath<BinaryOperation>, options: ParserOptions<AstNode>) =>
   (document: Doc): Doc => {
     let node = path.getNode() as AstNode;
     for (let i = 2; ; i += 2) {

@@ -5,7 +5,7 @@ import { AddressType } from './AddressType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class ElementaryType implements SlangNode {
   readonly kind = NonterminalKind.ElementaryType;
@@ -34,7 +34,10 @@ export class ElementaryType implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ElementaryType>,
+    print: (path: AstPath<AstNode | string>) => Doc
+  ): Doc {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

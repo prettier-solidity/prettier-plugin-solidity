@@ -38,7 +38,10 @@ export class YulValueCase implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<YulValueCase>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       `${this.caseKeyword} `,
       path.call(print, 'value'),

@@ -56,8 +56,8 @@ interface SlangNode {
   comments?: Comment[];
   loc: Location;
   print?(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<AstNode>,
+    print: (path: AstPath<AstNode | string | undefined>) => Doc,
     options: ParserOptions
   ): Doc;
 }
@@ -84,6 +84,51 @@ export type FunctionLike =
   | nodes.ModifierDefinition
   | nodes.ReceiveFunctionDefinition
   | nodes.UnnamedFunctionDefinition;
+
+export type HubNode =
+  | nodes.ArrayValues
+  | nodes.AssemblyFlags
+  | nodes.CallOptions
+  | nodes.CatchClauses
+  | nodes.ConstructorAttributes
+  | nodes.ContractMembers
+  | nodes.EnumMembers
+  | nodes.ErrorParameters
+  | nodes.EventParameters
+  | nodes.FallbackFunctionAttributes
+  | nodes.FunctionAttributes
+  | nodes.FunctionTypeAttributes
+  | nodes.HexStringLiterals
+  | nodes.IdentifierPath
+  | nodes.ImportDeconstructionSymbols
+  | nodes.InheritanceTypes
+  | nodes.InterfaceMembers
+  | nodes.LibraryMembers
+  | nodes.ModifierAttributes
+  | nodes.NamedArguments
+  | nodes.OverridePaths
+  | nodes.Parameters
+  | nodes.ReceiveFunctionAttributes
+  | nodes.SourceUnitMembers
+  | nodes.Statements
+  | nodes.StateVariableAttributes
+  | nodes.StringLiterals
+  | nodes.StructMembers
+  | nodes.TupleDeconstructionElements
+  | nodes.TupleValues
+  | nodes.UnicodeStringLiterals
+  | nodes.UnnamedFunctionAttributes
+  | nodes.UsingDeconstructionSymbols
+  | nodes.VersionExpressionSet
+  | nodes.VersionExpressionSets
+  | nodes.VersionSpecifiers
+  | nodes.YulArguments
+  | nodes.YulParameters
+  | nodes.YulPath
+  | nodes.YulPaths
+  | nodes.YulReturnVariables
+  | nodes.YulStatements
+  | nodes.YulSwitchCases;
 
 export type AstNode =
   | nodes.SourceUnit

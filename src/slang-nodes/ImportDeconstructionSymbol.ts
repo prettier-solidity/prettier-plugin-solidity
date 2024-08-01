@@ -4,7 +4,7 @@ import { ImportAlias } from './ImportAlias.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class ImportDeconstructionSymbol implements SlangNode {
   readonly kind = NonterminalKind.ImportDeconstructionSymbol;
@@ -32,7 +32,10 @@ export class ImportDeconstructionSymbol implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ImportDeconstructionSymbol>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [this.name, this.alias ? path.call(print, 'alias') : ''];
   }
 }

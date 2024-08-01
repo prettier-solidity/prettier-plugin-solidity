@@ -35,8 +35,8 @@ export class SourceUnit implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<SourceUnit>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     return [path.call(print, 'members'), options.parentParser ? '' : line];

@@ -11,8 +11,8 @@ const { group, indent, line } = doc.builders;
 
 function printExpression(
   node: ReturnStatement,
-  path: AstPath,
-  print: (path: AstPath) => Doc,
+  path: AstPath<ReturnStatement>,
+  print: (path: AstPath<AstNode | undefined>) => Doc,
   options: ParserOptions<AstNode>
 ): Doc {
   if (node.expression) {
@@ -61,8 +61,8 @@ export class ReturnStatement implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<ReturnStatement>,
+    print: (path: AstPath<AstNode | undefined>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     return [

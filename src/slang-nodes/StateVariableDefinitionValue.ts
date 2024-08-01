@@ -37,7 +37,10 @@ export class StateVariableDefinitionValue implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<StateVariableDefinitionValue>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return typeof this.value.variant !== 'string' &&
       this.value.variant.kind === NonterminalKind.ArrayExpression
       ? [` ${this.equal} `, path.call(print, 'value')]

@@ -39,7 +39,10 @@ export class Parameters implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<Parameters>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     if (this.items.length > 0) {
       return printSeparatedList(path.map(print, 'items'), { grouped: false });
     }

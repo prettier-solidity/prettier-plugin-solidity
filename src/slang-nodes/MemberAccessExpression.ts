@@ -18,7 +18,10 @@ const isChainableExpression = createKindCheckFunction([
   NonterminalKind.MemberAccessExpression
 ]);
 
-function isEndOfChain(node: MemberAccessExpression, path: AstPath): boolean {
+function isEndOfChain(
+  node: MemberAccessExpression,
+  path: AstPath<AstNode>
+): boolean {
   for (
     let i = 0,
       currentNode: AstNode = node,
@@ -147,7 +150,10 @@ export class MemberAccessExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<MemberAccessExpression>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     let operandDoc = path.call(print, 'operand');
     if (Array.isArray(operandDoc)) {
       operandDoc = operandDoc.flat();

@@ -37,7 +37,7 @@ export class YulBlock implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(path: AstPath<YulBlock>, print: (path: AstPath<AstNode>) => Doc): Doc {
     return [this.openBrace, path.call(print, 'statements'), this.closeBrace];
   }
 }
