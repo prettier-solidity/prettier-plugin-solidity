@@ -38,7 +38,10 @@ export class FunctionBody implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<FunctionBody>,
+    print: (path: AstPath<AstNode | string>) => Doc
+  ): Doc {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

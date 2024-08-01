@@ -33,7 +33,7 @@ export class Block implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(path: AstPath<Block>, print: (path: AstPath<AstNode>) => Doc): Doc {
     return [this.openBrace, path.call(print, 'statements'), this.closeBrace];
   }
 }

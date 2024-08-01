@@ -48,7 +48,10 @@ export class WhileStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<WhileStatement>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       `${this.whileKeyword} ${this.openParen}`,
       printSeparatedItem(path.call(print, 'condition')),

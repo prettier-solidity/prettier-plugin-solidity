@@ -46,7 +46,10 @@ export class Parameter implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<Parameter>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return group([
       path.call(print, 'typeName'),
       this.storageLocation ? [' ', path.call(print, 'storageLocation')] : '',

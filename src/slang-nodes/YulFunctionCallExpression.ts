@@ -41,7 +41,10 @@ export class YulFunctionCallExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<YulFunctionCallExpression>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       path.call(print, 'operand'),
       this.openParen,

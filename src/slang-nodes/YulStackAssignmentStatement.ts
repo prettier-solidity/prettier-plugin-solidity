@@ -37,8 +37,8 @@ export class YulStackAssignmentStatement implements SlangNode {
 
   // TODO: implement print
   print(/*
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<YulStackAssignmentStatement>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   */): Doc {
     return ['TODO: YulStackAssignmentStatement'];

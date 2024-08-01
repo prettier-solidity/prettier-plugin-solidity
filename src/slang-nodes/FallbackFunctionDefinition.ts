@@ -77,7 +77,10 @@ export class FallbackFunctionDefinition implements SlangNode {
     }
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<FallbackFunctionDefinition>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return printFunction(this.fallbackKeyword, this, path, print);
   }
 }

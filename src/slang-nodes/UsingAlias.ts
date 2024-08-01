@@ -4,7 +4,7 @@ import { UsingOperator } from './UsingOperator.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class UsingAlias implements SlangNode {
   readonly kind = NonterminalKind.UsingAlias;
@@ -30,7 +30,10 @@ export class UsingAlias implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<UsingAlias>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [` ${this.asKeyword} `, path.call(print, 'operator')];
   }
 }

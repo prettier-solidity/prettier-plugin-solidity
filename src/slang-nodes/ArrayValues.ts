@@ -37,7 +37,10 @@ export class ArrayValues implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ArrayValues>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return printSeparatedList(path.map(print, 'items'));
   }
 }

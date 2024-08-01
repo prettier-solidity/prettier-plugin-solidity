@@ -55,7 +55,10 @@ export class ConstructorDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ConstructorDefinition>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return printFunction(this.constructorKeyword, this, path, print);
   }
 }

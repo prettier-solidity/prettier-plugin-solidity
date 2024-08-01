@@ -41,7 +41,10 @@ export class AssignmentExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<AssignmentExpression>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       path.call(print, 'leftOperand'),
       ` ${this.operator}`,

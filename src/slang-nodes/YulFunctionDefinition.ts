@@ -53,7 +53,10 @@ export class YulFunctionDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<YulFunctionDefinition>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       `${this.functionKeyword} ${this.name}`,
       path.call(print, 'parameters'),

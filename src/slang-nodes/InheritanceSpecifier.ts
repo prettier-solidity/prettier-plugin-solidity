@@ -34,7 +34,10 @@ export class InheritanceSpecifier implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<InheritanceSpecifier>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [this.isKeyword, path.call(print, 'types')];
   }
 }

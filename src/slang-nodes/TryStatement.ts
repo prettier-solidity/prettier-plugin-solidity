@@ -60,7 +60,10 @@ export class TryStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<TryStatement>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       this.tryKeyword,
       printSeparatedItem(path.call(print, 'expression'), {

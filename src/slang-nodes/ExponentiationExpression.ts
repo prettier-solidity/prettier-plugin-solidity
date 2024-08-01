@@ -175,8 +175,8 @@ export class ExponentiationExpression implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<ExponentiationExpression>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     return printExponentiationExpression(this, path, print, options);

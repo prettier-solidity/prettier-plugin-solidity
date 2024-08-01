@@ -55,8 +55,8 @@ export class BitwiseOrExpression implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<BitwiseOrExpression>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     return printBinaryOperation(this, path, print, options);

@@ -54,7 +54,10 @@ export class IndexAccessExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<IndexAccessExpression>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     let operandDoc: Doc = path.call(print, 'operand');
     let indexDoc: Doc = group([
       this.openBracket,

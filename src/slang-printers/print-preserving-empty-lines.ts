@@ -12,13 +12,12 @@ import type { AstNode } from '../types.js';
 const { hardline } = doc.builders;
 
 export function printPreservingEmptyLines(
-  path: AstPath,
-  key: string,
-  print: (path: AstPath) => Doc,
+  path: AstPath<AstNode>,
+  print: (path: AstPath<AstNode | string>) => Doc,
   options: ParserOptions<AstNode>
 ): Doc {
   return path.map((childPath, index) => {
-    const node = childPath.getNode() as AstNode;
+    const node = childPath.getNode()! as AstNode;
 
     return [
       // Only attempt to prepend an empty line if `node` is not the first item
@@ -30,12 +29,12 @@ export function printPreservingEmptyLines(
         : '',
       print(childPath),
       // Only attempt to append an empty line if `node` is not the last item
-      !isLast(childPath, key, index) &&
+      !isLast(childPath, index) &&
       // Append an empty line if the original text already had an one after the
       // current `node`
       isNextLineEmpty(options.originalText, locEnd(node))
         ? hardline
         : ''
     ];
-  }, key);
+  }, 'items');
 }

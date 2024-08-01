@@ -37,7 +37,10 @@ export class StructMembers implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<StructMembers>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return this.items.length > 0
       ? printSeparatedList(path.map(print, 'items'), {
           firstSeparator: hardline,

@@ -52,7 +52,10 @@ export class ModifierInvocation implements SlangNode {
     };
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ModifierInvocation>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       path.call(print, 'name'),
       this.arguments ? path.call(print, 'arguments') : ''

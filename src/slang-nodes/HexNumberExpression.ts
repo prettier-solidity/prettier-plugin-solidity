@@ -4,7 +4,7 @@ import { NumberUnit } from './NumberUnit.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class HexNumberExpression implements SlangNode {
   readonly kind = NonterminalKind.HexNumberExpression;
@@ -32,7 +32,10 @@ export class HexNumberExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<HexNumberExpression>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [this.literal, this.unit ? [' ', path.call(print, 'unit')] : ''];
   }
 }

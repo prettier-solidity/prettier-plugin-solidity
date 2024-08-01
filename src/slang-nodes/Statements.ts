@@ -40,8 +40,8 @@ export class Statements implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<Statements>,
+    print: (path: AstPath<AstNode | string>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     return this.items.length === 0 &&
@@ -49,7 +49,7 @@ export class Statements implements SlangNode {
       ? ''
       : printSeparatedItem(
           [
-            printPreservingEmptyLines(path, 'items', print, options),
+            printPreservingEmptyLines(path, print, options),
             printComments(this, path)
           ],
           {

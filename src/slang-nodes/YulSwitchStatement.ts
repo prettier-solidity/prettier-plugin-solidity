@@ -41,7 +41,10 @@ export class YulSwitchStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<YulSwitchStatement>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       `${this.switchKeyword} `,
       path.call(print, 'expression'),

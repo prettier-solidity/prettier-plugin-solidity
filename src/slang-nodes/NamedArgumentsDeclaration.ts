@@ -43,7 +43,10 @@ export class NamedArgumentsDeclaration implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<NamedArgumentsDeclaration>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       this.openParen,
       this.arguments ? path.call(print, 'arguments') : '',

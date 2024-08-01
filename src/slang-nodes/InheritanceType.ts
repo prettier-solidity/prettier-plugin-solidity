@@ -41,7 +41,10 @@ export class InheritanceType implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<InheritanceType>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       path.call(print, 'typeName'),
       this.arguments ? path.call(print, 'arguments') : ''

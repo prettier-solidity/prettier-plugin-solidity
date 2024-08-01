@@ -29,7 +29,7 @@ function hasNodeIgnoreComment(node: AstNode): boolean {
   );
 }
 
-function ignoreComments(path: AstPath): void {
+function ignoreComments(path: AstPath<AstNode>): void {
   // TODO: remove undefined once we stop supporting prettier 2
   const node = path.getNode() as AstNode | null | undefined;
   // We ignore anything that is not an object
@@ -66,13 +66,13 @@ function ignoreComments(path: AstPath): void {
 }
 
 function genericPrint(
-  path: AstPath,
+  path: AstPath<AstNode>,
   options: ParserOptions<AstNode>,
-  print: (path: AstPath) => Doc
+  print: (path: AstPath<AstNode>) => Doc
 ): Doc {
   prettierVersionCheck();
 
-  const node = path.getNode() as AstNode | null | undefined;
+  const node = path.getNode();
 
   if (node === null || node === undefined) {
     return '';
@@ -84,7 +84,11 @@ function genericPrint(
     return options.originalText.slice(locStart(node), locEnd(node));
   }
 
-  return node.print(path, print, options);
+  return node.print(
+    path as AstPath<never>,
+    print as (path: AstPath<AstNode | string | undefined>) => Doc,
+    options
+  );
 }
 
 export default genericPrint;

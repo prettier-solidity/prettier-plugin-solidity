@@ -57,7 +57,10 @@ export class TupleDeconstructionStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<TupleDeconstructionStatement>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       this.varKeyword ? this.varKeyword : '',
       this.openParen,

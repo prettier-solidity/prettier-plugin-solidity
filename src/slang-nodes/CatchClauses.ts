@@ -36,7 +36,10 @@ export class CatchClauses implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<CatchClauses>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return join(' ', path.map(print, 'items'));
   }
 }

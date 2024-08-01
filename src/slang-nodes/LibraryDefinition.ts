@@ -46,7 +46,10 @@ export class LibraryDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<LibraryDefinition>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       group([`${this.libraryKeyword} ${this.name}`, line, this.openBrace]),
       path.call(print, 'members'),

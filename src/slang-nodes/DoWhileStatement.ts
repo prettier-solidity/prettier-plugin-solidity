@@ -54,7 +54,10 @@ export class DoWhileStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<DoWhileStatement>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       this.doKeyword,
       this.body.variant.kind === NonterminalKind.Block

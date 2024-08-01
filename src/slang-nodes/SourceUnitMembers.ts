@@ -35,10 +35,10 @@ export class SourceUnitMembers implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<SourceUnitMembers>,
+    print: (path: AstPath<AstNode | string>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
-    return printPreservingEmptyLines(path, 'items', print, options);
+    return printPreservingEmptyLines(path, print, options);
   }
 }

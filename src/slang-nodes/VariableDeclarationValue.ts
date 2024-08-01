@@ -34,7 +34,10 @@ export class VariableDeclarationValue implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<VariableDeclarationValue>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [` ${this.equal} `, path.call(print, 'expression')];
   }
 }

@@ -37,7 +37,10 @@ export class ParametersDeclaration implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<ParametersDeclaration>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [this.openParen, path.call(print, 'parameters'), this.closeParen];
   }
 }

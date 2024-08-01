@@ -39,8 +39,8 @@ export class ImportDeconstructionSymbols implements SlangNode {
   }
 
   print(
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<ImportDeconstructionSymbols>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
     const compiler = coerce(options.compiler);

@@ -22,7 +22,7 @@ const isBinaryOperationWithoutComparison = createKindCheckFunction([
 ]) as (node: AstNode | Comment | Node) => node is BinaryOperation;
 
 const binaryGroupRulesBuilder =
-  (path: AstPath) =>
+  (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
     const grandparentNode = path.getNode(2) as AstNode;
     if (isBinaryOperationWithoutComparison(grandparentNode)) {
@@ -32,7 +32,7 @@ const binaryGroupRulesBuilder =
   };
 
 const binaryIndentRulesBuilder =
-  (path: AstPath) =>
+  (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
     let node = path.getNode() as AstNode;
     for (let i = 2; ; i += 2) {

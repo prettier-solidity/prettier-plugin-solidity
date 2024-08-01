@@ -8,8 +8,8 @@ const { group, line } = doc.builders;
 
 function rightOperandPrint(
   node: BinaryOperation,
-  path: AstPath,
-  print: (path: AstPath) => Doc
+  path: AstPath<BinaryOperation>,
+  print: (path: AstPath<AstNode>) => Doc
 ): Doc {
   const rightOperand = [line, path.call(print, 'rightOperand')];
 
@@ -26,16 +26,18 @@ function rightOperandPrint(
 
 export const createBinaryOperationPrinter =
   (
-    groupRulesBuilder: (path: AstPath) => (document: Doc) => Doc,
+    groupRulesBuilder: (
+      path: AstPath<BinaryOperation>
+    ) => (document: Doc) => Doc,
     indentRulesBuilder: (
-      path: AstPath,
+      path: AstPath<BinaryOperation>,
       options: ParserOptions<AstNode>
     ) => (document: Doc) => Doc
   ) =>
   (
     node: BinaryOperation,
-    path: AstPath,
-    print: (path: AstPath) => Doc,
+    path: AstPath<BinaryOperation>,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc => {
     const groupRules = groupRulesBuilder(path);

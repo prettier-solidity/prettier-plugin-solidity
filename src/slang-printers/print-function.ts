@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 
 import type { AstPath, Doc } from 'prettier';
-import type { FunctionLike } from '../types.js';
+import type { AstNode, FunctionLike } from '../types.js';
 import type { FunctionDefinition } from '../slang-nodes';
 
 const { dedent, group, indent, line } = doc.builders;
@@ -9,8 +9,8 @@ const { dedent, group, indent, line } = doc.builders;
 export function printFunction(
   functionName: Doc,
   node: FunctionLike,
-  path: AstPath,
-  print: (path: AstPath) => Doc
+  path: AstPath<FunctionLike>,
+  print: (path: AstPath<AstNode | undefined>) => Doc
 ): Doc {
   return [
     group([

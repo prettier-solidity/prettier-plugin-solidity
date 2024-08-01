@@ -49,7 +49,10 @@ export class RevertStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<RevertStatement>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [
       `${this.revertKeyword} `,
       this.error ? path.call(print, 'error') : '',

@@ -65,7 +65,10 @@ export class UnnamedFunctionDefinition implements SlangNode {
     }
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<UnnamedFunctionDefinition>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return printFunction(this.functionKeyword, this, path, print);
   }
 }

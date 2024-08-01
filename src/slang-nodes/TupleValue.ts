@@ -33,7 +33,10 @@ export class TupleValue implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<TupleValue>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return this.expression ? path.call(print, 'expression') : '';
   }
 }

@@ -4,7 +4,7 @@ import { NumberUnit } from './NumberUnit.js';
 
 import type * as ast from '@nomicfoundation/slang/ast/index.js';
 import type { AstPath, Doc } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types.js';
 
 export class DecimalNumberExpression implements SlangNode {
   readonly kind = NonterminalKind.DecimalNumberExpression;
@@ -32,7 +32,10 @@ export class DecimalNumberExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<DecimalNumberExpression>,
+    print: (path: AstPath<AstNode | undefined>) => Doc
+  ): Doc {
     return [this.literal, this.unit ? [' ', path.call(print, 'unit')] : ''];
   }
 }

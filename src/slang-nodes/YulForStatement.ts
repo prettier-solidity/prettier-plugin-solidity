@@ -49,7 +49,10 @@ export class YulForStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<YulForStatement>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [
       `${this.forKeyword} `,
       path.call(print, 'initialization'),

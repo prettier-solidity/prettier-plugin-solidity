@@ -37,7 +37,10 @@ export class NamedArgument implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath, print: (path: AstPath) => Doc): Doc {
+  print(
+    path: AstPath<NamedArgument>,
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
     return [`${this.name}${this.colon} `, path.call(print, 'value')];
   }
 }
