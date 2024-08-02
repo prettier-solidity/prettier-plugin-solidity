@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
 
-import type { HandlerParams } from './types.js';
+import type { HandlerParams } from './types';
 
 const { addTrailingComment } = util;
 

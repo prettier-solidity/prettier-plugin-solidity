@@ -1,7 +1,7 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { createKindCheckFunction } from './create-kind-check-function.js';
 
-import type { AstNode, BinaryOperation } from '../types.js';
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import type { AstNode, BinaryOperation } from '../types';
 
 export const isBinaryOperation = createKindCheckFunction([
   NonterminalKind.AdditiveExpression,

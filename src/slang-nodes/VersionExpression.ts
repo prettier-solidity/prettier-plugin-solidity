@@ -5,9 +5,9 @@ import { VersionRange } from './VersionRange.js';
 import { VersionComparator } from './VersionComparator.js';
 import { VersionSpecifiers } from './VersionSpecifiers.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class VersionExpression implements SlangNode {
   readonly kind = NonterminalKind.VersionExpression;

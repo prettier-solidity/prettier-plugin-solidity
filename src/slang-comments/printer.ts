@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { isBlockComment, isLineComment } from '../slang-utils/is-comment.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { Comment } from '../types.js';
+import type { Comment } from '../types';
 
 const { hardline, join, literalline } = doc.builders;
 

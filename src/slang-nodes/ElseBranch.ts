@@ -4,9 +4,9 @@ import { createKindCheckFunction } from '../slang-utils/create-kind-check-functi
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Statement } from './Statement.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 const { group, indent, line } = doc.builders;
 

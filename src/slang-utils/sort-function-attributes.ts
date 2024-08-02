@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+
 import type { SortableAttribute, SortableVariant } from './types';
 
 const visibilityKeyWords = new Set([

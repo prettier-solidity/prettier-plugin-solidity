@@ -2,9 +2,9 @@ import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { SlangNode } from '../types';
 
 const { dedent, line } = doc.builders;
 

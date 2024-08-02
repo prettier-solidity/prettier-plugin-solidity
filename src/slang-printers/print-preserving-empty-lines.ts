@@ -7,7 +7,7 @@ import {
 import { locEnd } from '../slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../types.js';
+import type { AstNode } from '../types';
 
 const { hardline } = doc.builders;
 

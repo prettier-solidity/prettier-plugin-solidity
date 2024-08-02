@@ -3,9 +3,9 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TypedTupleMember } from './TypedTupleMember.js';
 import { UntypedTupleMember } from './UntypedTupleMember.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class TupleMember implements SlangNode {
   readonly kind = NonterminalKind.TupleMember;

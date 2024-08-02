@@ -2,9 +2,9 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { VersionExpressionSets } from './VersionExpressionSets.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class VersionPragma implements SlangNode {
   readonly kind = NonterminalKind.VersionPragma;

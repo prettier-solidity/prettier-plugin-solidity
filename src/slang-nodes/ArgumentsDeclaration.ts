@@ -3,9 +3,9 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { PositionalArgumentsDeclaration } from './PositionalArgumentsDeclaration.js';
 import { NamedArgumentsDeclaration } from './NamedArgumentsDeclaration.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class ArgumentsDeclaration implements SlangNode {
   readonly kind = NonterminalKind.ArgumentsDeclaration;

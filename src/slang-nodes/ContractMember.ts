@@ -14,9 +14,9 @@ import { StateVariableDefinition } from './StateVariableDefinition.js';
 import { ErrorDefinition } from './ErrorDefinition.js';
 import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class ContractMember implements SlangNode {
   readonly kind = NonterminalKind.ContractMember;

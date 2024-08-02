@@ -2,9 +2,9 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { OverridePaths } from './OverridePaths.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { /*AstPath,*/ Doc /*, ParserOptions*/ } from 'prettier';
-import type { SlangNode } from '../types.js';
+import type { SlangNode } from '../types';
 
 export class OverridePathsDeclaration implements SlangNode {
   readonly kind = NonterminalKind.OverridePathsDeclaration;

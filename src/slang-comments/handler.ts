@@ -1,7 +1,7 @@
 import handlers from './handlers/index.js';
 
 import type { ParserOptions } from 'prettier';
-import type { AstNode, Comment } from '../types.js';
+import type { AstNode, Comment } from '../types';
 
 export function slangHandleOwnLineComment(
   comment: Comment,

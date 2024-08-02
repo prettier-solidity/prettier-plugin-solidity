@@ -4,9 +4,9 @@ import { StringLiteral } from './StringLiteral.js';
 import { AssemblyFlagsDeclaration } from './AssemblyFlagsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class AssemblyStatement implements SlangNode {
   readonly kind = NonterminalKind.AssemblyStatement;

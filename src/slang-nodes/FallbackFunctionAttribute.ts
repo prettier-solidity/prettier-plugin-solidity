@@ -4,9 +4,9 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class FallbackFunctionAttribute implements SlangNode {
   readonly kind = NonterminalKind.FallbackFunctionAttribute;

@@ -3,9 +3,9 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulLiteral } from './YulLiteral.js';
 import { YulBlock } from './YulBlock.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class YulValueCase implements SlangNode {
   readonly kind = NonterminalKind.YulValueCase;

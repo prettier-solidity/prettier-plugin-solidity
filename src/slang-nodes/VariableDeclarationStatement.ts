@@ -5,9 +5,9 @@ import { VariableDeclarationType } from './VariableDeclarationType.js';
 import { StorageLocation } from './StorageLocation.js';
 import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 const { group, indent, indentIfBreak, line } = doc.builders;
 

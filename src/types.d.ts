@@ -1,7 +1,7 @@
-import type { kinds } from '@nomicfoundation/slang/napi-bindings/generated/index.js';
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type { kinds } from '@nomicfoundation/slang/napi-bindings/generated';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type * as nodes from './slang-nodes/index.js';
+import type * as nodes from './slang-nodes';
 
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {

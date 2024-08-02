@@ -29,9 +29,9 @@ import { DecimalNumberExpression } from './DecimalNumberExpression.js';
 import { StringExpression } from './StringExpression.js';
 import { ElementaryType } from './ElementaryType.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class Expression implements SlangNode {
   readonly kind = NonterminalKind.Expression;

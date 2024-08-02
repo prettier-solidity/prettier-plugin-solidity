@@ -2,9 +2,9 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printString } from '../slang-printers/print-string.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class HexStringLiteral implements SlangNode {
   readonly kind = NonterminalKind.HexStringLiteral;
