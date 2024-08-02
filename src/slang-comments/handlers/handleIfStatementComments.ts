@@ -66,5 +66,6 @@ export default function handleIfStatementComments({
     }
     return true;
   }
+
   return false;
 }
