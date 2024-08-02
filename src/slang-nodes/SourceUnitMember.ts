@@ -14,9 +14,9 @@ import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition
 import { UsingDirective } from './UsingDirective.js';
 import { EventDefinition } from './EventDefinition.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class SourceUnitMember implements SlangNode {
   readonly kind = NonterminalKind.SourceUnitMember;

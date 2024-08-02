@@ -3,9 +3,9 @@ import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulColonEqual } from './YulColonEqual.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class YulAssignmentOperator implements SlangNode {
   readonly kind = NonterminalKind.YulAssignmentOperator;

@@ -1,3 +1,4 @@
+import type { util } from 'prettier';
 import type {
   ConstructorAttribute,
   FallbackFunctionAttribute,
@@ -10,7 +11,6 @@ import type {
   OverrideSpecifier,
   ModifierInvocation
 } from '../slang-nodes';
-import type { util } from 'prettier';
 import type { AstNode, Comment } from '../types';
 
 type SortableAttribute =

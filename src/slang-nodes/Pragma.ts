@@ -4,9 +4,9 @@ import { ABICoderPragma } from './ABICoderPragma.js';
 import { ExperimentalPragma } from './ExperimentalPragma.js';
 import { VersionPragma } from './VersionPragma.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class Pragma implements SlangNode {
   readonly kind = NonterminalKind.Pragma;

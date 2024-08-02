@@ -4,9 +4,9 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class YulLiteral implements SlangNode {
   readonly kind = NonterminalKind.YulLiteral;

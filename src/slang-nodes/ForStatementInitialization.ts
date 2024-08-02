@@ -5,9 +5,9 @@ import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
 import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class ForStatementInitialization implements SlangNode {
   readonly kind = NonterminalKind.ForStatementInitialization;

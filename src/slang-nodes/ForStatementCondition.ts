@@ -3,9 +3,9 @@ import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class ForStatementCondition implements SlangNode {
   readonly kind = NonterminalKind.ForStatementCondition;

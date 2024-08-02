@@ -4,9 +4,9 @@ import { PathImport } from './PathImport.js';
 import { NamedImport } from './NamedImport.js';
 import { ImportDeconstruction } from './ImportDeconstruction.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class ImportClause implements SlangNode {
   readonly kind = NonterminalKind.ImportClause;

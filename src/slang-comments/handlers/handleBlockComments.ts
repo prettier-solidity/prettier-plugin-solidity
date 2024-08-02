@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 import addHubNodeFirstComment from './add-hub-node-first-comment.js';
 
-import type { HandlerParams } from './types.js';
+import type { HandlerParams } from './types';
 
 const { addDanglingComment, addTrailingComment } = util;
 

@@ -6,9 +6,9 @@ import { printPreservingEmptyLines } from '../slang-printers/print-preserving-em
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Statement } from './Statement.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 const { hardline } = doc.builders;
 

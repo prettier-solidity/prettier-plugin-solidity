@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, BinaryOperation } from '../types.js';
+import type { AstNode, BinaryOperation } from '../types';
 
 const { group, line } = doc.builders;
 

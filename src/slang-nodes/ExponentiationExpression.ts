@@ -10,9 +10,9 @@ import { TupleExpression } from './TupleExpression.js';
 import { TupleValues } from './TupleValues.js';
 import { TupleValue } from './TupleValue.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 const { group, indent } = doc.builders;
 

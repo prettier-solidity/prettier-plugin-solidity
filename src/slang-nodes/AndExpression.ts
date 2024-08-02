@@ -3,9 +3,9 @@ import { printLogicalOperation } from '../slang-printers/print-logical-operation
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class AndExpression implements SlangNode {
   readonly kind = NonterminalKind.AndExpression;

@@ -18,9 +18,9 @@ import { AssemblyStatement } from './AssemblyStatement.js';
 import { Block } from './Block.js';
 import { UncheckedBlock } from './UncheckedBlock.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class Statement implements SlangNode {
   readonly kind = NonterminalKind.Statement;

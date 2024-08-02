@@ -2,8 +2,8 @@ import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { NodeType } from '@nomicfoundation/slang/cst/index.js';
 import { isComment } from './is-comment.js';
 
-import type { Node } from '@nomicfoundation/slang/cst/index.js';
-import type { AstNode, Comment, Metadata, SlangAstNode } from '../types.js';
+import type { Node } from '@nomicfoundation/slang/cst';
+import type { AstNode, Comment, Metadata, SlangAstNode } from '../types';
 
 function getLeadingOffset(children: Node[]): number {
   let offset = 0;

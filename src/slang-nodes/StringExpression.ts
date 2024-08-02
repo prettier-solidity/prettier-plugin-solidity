@@ -6,9 +6,9 @@ import { HexStringLiteral } from './HexStringLiteral.js';
 import { HexStringLiterals } from './HexStringLiterals.js';
 import { UnicodeStringLiterals } from './UnicodeStringLiterals.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class StringExpression implements SlangNode {
   readonly kind = NonterminalKind.StringExpression;

@@ -4,9 +4,9 @@ import { TypeName } from './TypeName.js';
 import { StateVariableAttributes } from './StateVariableAttributes.js';
 import { StateVariableDefinitionValue } from './StateVariableDefinitionValue.js';
 
-import type * as ast from '@nomicfoundation/slang/ast/index.js';
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types.js';
+import type { AstNode, SlangNode } from '../types';
 
 export class StateVariableDefinition implements SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinition;

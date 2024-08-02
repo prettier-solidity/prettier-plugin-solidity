@@ -6,9 +6,9 @@ import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast/index.
 import coerce from 'semver/functions/coerce.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
-import type { NonterminalNode } from '@nomicfoundation/slang/cst/index.js';
+import type { NonterminalNode } from '@nomicfoundation/slang/cst';
 import type { Parser, ParserOptions } from 'prettier';
-import type { AstNode } from './types.js';
+import type { AstNode } from './types';
 
 function parse(
   text: string,
