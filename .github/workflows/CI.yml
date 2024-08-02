@@ -59,7 +59,7 @@ jobs:
       - name: Build test app
         run: npm run build:test
       - name: Run standalone tests
-        run: npm run test:standalone tests/format tests/integration tests/unit/prettier-version
+        run: npm run test:standalone
 
   test_linux:
     name: Test on Linux with Node ${{ matrix.node }}

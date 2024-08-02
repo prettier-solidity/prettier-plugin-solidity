@@ -1,0 +1,6 @@
+// Prettier offers a clean way to define ignored properties.
+const ignoredProperties = new Set(['loc', 'range', 'comments']);
+function clean(/* ast, newObj, parent */): void {}
+clean.ignoredProperties = ignoredProperties;
+
+export default clean;

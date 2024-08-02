@@ -1,5 +1,5 @@
 import { util } from 'prettier';
-import { prettierVersionSatisfies } from './util.js';
+import { prettierVersionSatisfies } from './util.ts';
 
 export const isPrettier2 = prettierVersionSatisfies('^2.3.0');
 
@@ -26,6 +26,8 @@ export function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
       )
     : util.getNextNonSpaceNonCommentCharacter(text, locEnd(node)); // V3 exposes this function directly
 }
+
+export const getNode = (path) => (isPrettier2 ? path.getValue() : path.node); // V3 deprecated `getValue`
 
 export function isLast(path, key, index) {
   return isPrettier2

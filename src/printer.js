@@ -2,7 +2,7 @@ import * as nodes from './nodes/index.js';
 import {
   hasNodeIgnoreComment,
   prettierVersionSatisfies
-} from './common/util.js';
+} from './common/util.ts';
 import ignoreComments from './comments/ignore.js';
 
 let checked = false;

@@ -1,12 +1,15 @@
 import * as comments from './comments/index.js';
-import massageAstNode from './clean.js';
-import loc from './loc.js';
-import options from './options.js';
-import parse from './parser.js';
+import massageAstNode from './clean.ts';
+import { locEnd, locStart } from './common/util.ts';
+import options from './options.ts';
+import parse from './parser.ts';
 import print from './printer.js';
 
+const astFormat = 'solidity-ast';
+const parserName = 'solidity-parse';
+
 // https://prettier.io/docs/en/plugins.html#languages
-// https://github.com/ikatyang/linguist-languages/blob/master/data/Solidity.json
+// https://github.com/github-linguist/linguist/blob/master/lib/linguist/languages.yml
 const languages = [
   {
     linguistLanguageId: 237469032,
@@ -16,35 +19,29 @@ const languages = [
     aceMode: 'text',
     tmScope: 'source.solidity',
     extensions: ['.sol'],
-    parsers: ['solidity-parse'],
+    parsers: [parserName],
     vscodeLanguageIds: ['solidity']
   }
 ];
 
 // https://prettier.io/docs/en/plugins.html#parsers
-const parser = { astFormat: 'solidity-ast', parse, ...loc };
-const parsers = {
-  'solidity-parse': parser
-};
-
-const canAttachComment = (node) =>
-  node.type && node.type !== 'BlockComment' && node.type !== 'LineComment';
+const parser = { astFormat, locEnd, locStart, parse };
+const parsers = { [parserName]: parser };
 
 // https://prettier.io/docs/en/plugins.html#printers
-const printers = {
-  'solidity-ast': {
-    canAttachComment,
-    handleComments: {
-      ownLine: comments.solidityHandleOwnLineComment,
-      endOfLine: comments.solidityHandleEndOfLineComment,
-      remaining: comments.solidityHandleRemainingComment
-    },
-    isBlockComment: comments.isBlockComment,
-    massageAstNode,
-    print,
-    printComment: comments.printComment
-  }
+const printer = {
+  canAttachComment: comments.canAttachComment,
+  handleComments: {
+    ownLine: comments.solidityHandleOwnLineComment,
+    endOfLine: comments.solidityHandleEndOfLineComment,
+    remaining: comments.solidityHandleRemainingComment
+  },
+  isBlockComment: comments.isBlockComment,
+  massageAstNode,
+  print,
+  printComment: comments.printComment
 };
+const printers = { [astFormat]: printer };
 
 // https://prettier.io/docs/en/plugins.html#defaultoptions
 const defaultOptions = {

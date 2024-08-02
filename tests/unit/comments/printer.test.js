@@ -1,11 +1,8 @@
-import { printComment } from '../../../src/comments/printer.js';
-import loc from '../../../src/loc.js';
+import { printComment } from '../../../src/comments/printer.ts';
 
 test('given an unknown comment type then printComment function should throw', () => {
-  const mockCommentPath = {
-    getValue: () => ({ type: 'UnknownComment', range: [0, 1] })
-  };
-  const mockOptions = { ...loc, originalText: 'foo' };
+  const mockCommentPath = { node: { type: 'UnknownComment', range: [0, 1] } };
+  const mockOptions = { originalText: 'foo' };
 
   expect(() => {
     printComment(mockCommentPath, mockOptions);
