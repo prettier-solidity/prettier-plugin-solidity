@@ -1,10 +1,12 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
+import addHubNodeFirstComment from './add-hub-node-first-comment.js';
+import addHubNodeLastComment from './add-hub-node-last-comment.js';
 
 import type { HandlerParams } from './types.js';
 
-const { addLeadingComment, addDanglingComment, addTrailingComment } = util;
+const { addLeadingComment, addTrailingComment } = util;
 
 export default function handleContractDefinitionComments({
   text,
@@ -32,14 +34,7 @@ export default function handleContractDefinitionComments({
 
   // The comment is at the end of the body of the ContractDefinition.
   if (precedingNode?.kind === NonterminalKind.ContractMembers) {
-    if (precedingNode.items.length === 0) {
-      addDanglingComment(precedingNode, comment, false);
-    } else {
-      addTrailingComment(
-        precedingNode.items[precedingNode.items.length - 1],
-        comment
-      );
-    }
+    addHubNodeLastComment(precedingNode, comment);
     return true;
   }
 
@@ -61,11 +56,7 @@ export default function handleContractDefinitionComments({
     // If there's no InheritanceSpecifier, the comment before the body is
     // assumed to be intended at the beginning of the body.
     if (followingNode?.kind === NonterminalKind.ContractMembers) {
-      if (followingNode.items.length > 0) {
-        addLeadingComment(followingNode.items[0], comment);
-      } else {
-        addDanglingComment(followingNode, comment, false);
-      }
+      addHubNodeFirstComment(followingNode, comment);
       return true;
     }
   }

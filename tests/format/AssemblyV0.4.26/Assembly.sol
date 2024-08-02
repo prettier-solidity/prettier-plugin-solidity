@@ -35,7 +35,7 @@ assembly{
 }
 }
 
-contract MultipleAssemblyAssignement {
+contract MultipleAssemblyAssignment {
     function foo() public pure {
         assembly {
             function bar() -> a, b {

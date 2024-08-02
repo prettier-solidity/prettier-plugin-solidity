@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ['solidity-parse']);
+runFormatTest(import.meta, ['slang']);

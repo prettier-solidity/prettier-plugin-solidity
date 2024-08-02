@@ -1,9 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { util } from 'prettier';
+import addHubNodeFirstComment from './add-hub-node-first-comment.js';
+import addHubNodeLastComment from './add-hub-node-last-comment.js';
 
-import type { HandlerParams } from './types';
-
-const { addDanglingComment, addLeadingComment, addTrailingComment } = util;
+import type { HandlerParams } from './types.js';
 
 export default function handleBlockComments({
   precedingNode,
@@ -16,23 +15,12 @@ export default function handleBlockComments({
   }
 
   if (precedingNode?.kind === NonterminalKind.Parameters) {
-    if (precedingNode.items.length === 0) {
-      addDanglingComment(precedingNode, comment, false);
-    } else {
-      addTrailingComment(
-        precedingNode.items[precedingNode.items.length - 1],
-        comment
-      );
-    }
+    addHubNodeLastComment(precedingNode, comment);
     return true;
   }
 
   if (followingNode?.kind === NonterminalKind.Parameters) {
-    if (followingNode.items.length === 0) {
-      addDanglingComment(followingNode, comment, false);
-    } else {
-      addLeadingComment(followingNode.items[0], comment);
-    }
+    addHubNodeFirstComment(followingNode, comment);
     return true;
   }
 
