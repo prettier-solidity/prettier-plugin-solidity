@@ -265,8 +265,16 @@ function handleIfStatementComments(
     return true;
   }
 
-  if (followingNode.type === "ExpressionStatement") {
-    addBlockStatementFirstComment(followingNode, comment);
+  if (enclosingNode.trueBody === followingNode) {
+    if (followingNode.type === "Block") {
+      if(followingNode.statements.length === 0) {
+        addDanglingComment(followingNode, comment);
+      } else {
+        addLeadingComment(followingNode.statements[0], comment);
+      }
+    } else {
+      addLeadingComment(followingNode, comment);
+    }
     return true;
   }
 
