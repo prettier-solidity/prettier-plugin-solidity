@@ -1,10 +1,11 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
+import addHubNodeFirstComment from './add-hub-node-first-comment.js';
 
 import type { HandlerParams } from './types';
 
-const { addTrailingComment } = util;
+const { addLeadingComment, addTrailingComment } = util;
 
 export default function handleWhileStatementComments({
   text,
@@ -28,6 +29,15 @@ export default function handleWhileStatementComments({
   const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment);
   if (nextCharacter === ')' || enclosingNode.condition === precedingNode) {
     addTrailingComment(precedingNode, comment);
+    return true;
+  }
+
+  if (enclosingNode.body === followingNode) {
+    if (followingNode.variant.kind === NonterminalKind.Block) {
+      addHubNodeFirstComment(followingNode.variant.statements, comment);
+    } else {
+      addLeadingComment(followingNode, comment);
+    }
     return true;
   }
 

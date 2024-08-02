@@ -30,5 +30,6 @@ export default function handleYulBlockComments({
     addLeadingComment(followingNode.items[0], comment);
     return true;
   }
+
   return false;
 }
