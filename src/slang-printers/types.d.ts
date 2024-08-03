@@ -1,4 +1,4 @@
-import type { Doc, util } from 'prettier';
+import type { Doc } from 'prettier';
 
 interface PrintSeparatedOptions {
   firstSeparator?: Doc;
@@ -8,8 +8,3 @@ interface PrintSeparatedOptions {
 }
 
 type DocV2 = Doc[] & { parts: Doc[] };
-
-interface QuoteRegex {
-  quote: util.Quote;
-  regex: RegExp;
-}
