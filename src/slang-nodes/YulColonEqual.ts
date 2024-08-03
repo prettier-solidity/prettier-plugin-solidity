@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { /*AstPath,*/ Doc /*, ParserOptions*/ } from 'prettier';
+import type { Doc } from 'prettier';
 import type { SlangNode } from '../types';
 
 export class YulColonEqual implements SlangNode {
@@ -26,12 +26,7 @@ export class YulColonEqual implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  // TODO: implement print
-  print(/*
-    path: AstPath<YulColonEqual>,
-    print: (path: AstPath<AstNode>) => Doc,
-    options: ParserOptions<AstNode>
-  */): Doc {
-    return ['TODO: YulColonEqual'];
+  print(): Doc {
+    return `${this.colon}${this.equal}`;
   }
 }
