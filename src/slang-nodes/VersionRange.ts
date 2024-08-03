@@ -3,8 +3,8 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { VersionExpression } from './VersionExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { /*AstPath,*/ Doc /*, ParserOptions*/ } from 'prettier';
-import type { SlangNode } from '../types';
+import type { AstPath, Doc } from 'prettier';
+import type { AstNode, SlangNode } from '../types';
 
 export class VersionRange implements SlangNode {
   readonly kind = NonterminalKind.VersionRange;
@@ -34,11 +34,14 @@ export class VersionRange implements SlangNode {
   }
 
   // TODO: implement print
-  print(/*
+  print(
     path: AstPath<VersionRange>,
-    print: (path: AstPath<AstNode>) => Doc,
-    options: ParserOptions<AstNode>
-  */): Doc {
-    return ['TODO: VersionRange'];
+    print: (path: AstPath<AstNode>) => Doc
+  ): Doc {
+    return [
+      path.call(print, 'leftOperand'),
+      ` ${this.operator} `,
+      path.call(print, 'rightOperand')
+    ];
   }
 }
