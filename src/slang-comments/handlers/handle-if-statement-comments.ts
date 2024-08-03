@@ -4,7 +4,7 @@ import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-c
 import addHubNodeFirstComment from './add-hub-node-first-comment.js';
 import addHubNodeLastComment from './add-hub-node-last-comment.js';
 
-import type { HandlerParams } from './types';
+import type { HandlerParams } from './types.js';
 
 const { addLeadingComment, addTrailingComment } = util;
 

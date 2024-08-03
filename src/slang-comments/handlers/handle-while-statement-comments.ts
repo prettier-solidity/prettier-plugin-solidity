@@ -3,7 +3,7 @@ import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
 import addHubNodeFirstComment from './add-hub-node-first-comment.js';
 
-import type { HandlerParams } from './types';
+import type { HandlerParams } from './types.js';
 
 const { addLeadingComment, addTrailingComment } = util;
 
