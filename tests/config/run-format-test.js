@@ -43,10 +43,8 @@ const unstableAstTests = new Map(
 const testsWithSlang = new Map(
   [
     // "AllSolidityFeatures/AllSolidityFeatures.sol",
-    // "AssemblyV0.4.26/Assembly.sol", // TODO: Report to Nomic Foundation?
-    // "BasicIterator/BasicIterator.sol", // TODO: Fix solidity-parser comments
+    // "AssemblyV0.4.26/Assembly.sol", // TODO: Wait for Nomic Foundation's response
     // "Comments/Comments.sol", // TODO: finish Comments
-    "IndexOf/IndexOf.sol", // TODO: Finish comments and file level functions
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
       ? fixture
