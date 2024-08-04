@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { isBlockComment, isLineComment } from '../slang-utils/is-comment.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { Comment } from '../types';
+import type { AstNode, Comment } from '../types';
 
 const { hardline, join, literalline } = doc.builders;
 
@@ -28,8 +28,8 @@ function printIndentableBlockComment(comment: Comment): Doc {
   );
 }
 
-export function printComment(commentPath: AstPath): Doc {
-  const comment = commentPath.getNode() as Comment;
+export function printComment(commentPath: AstPath<AstNode | Comment>): Doc {
+  const comment = commentPath.getNode()!;
 
   if (isLineComment(comment)) {
     return comment.value.trimEnd();

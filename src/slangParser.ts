@@ -10,7 +10,7 @@ import type { NonterminalNode } from '@nomicfoundation/slang/cst';
 import type { Parser, ParserOptions } from 'prettier';
 import type { AstNode } from './types';
 
-function parse(
+export default function parse(
   text: string,
   _parsers: Parser[] | ParserOptions<AstNode>,
   options = _parsers as ParserOptions<AstNode>
@@ -24,11 +24,14 @@ function parse(
       : supportedVersions[supportedVersions.length - 1]
   );
 
-  const ast = new SlangSourceUnit(
-    language.parse(NonterminalKind.SourceUnit, text).tree() as NonterminalNode
-  );
+  const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
 
-  return new SourceUnit(ast, 0, options);
+  if (parseOutput.isValid) {
+    return new SourceUnit(
+      new SlangSourceUnit(parseOutput.tree() as NonterminalNode),
+      0,
+      options
+    );
+  }
+  throw new Error(parseOutput.errors()[0].message());
 }
-
-export default parse;
