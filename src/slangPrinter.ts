@@ -3,7 +3,7 @@ import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, Comment } from './types';
+import type { AstNode } from './types';
 
 let checked = false;
 
@@ -31,7 +31,7 @@ function hasNodeIgnoreComment(node: AstNode): boolean {
 
 function ignoreComments(path: AstPath<AstNode>): void {
   // TODO: remove undefined once we stop supporting prettier 2
-  const node = path.getNode() as AstNode | null | undefined;
+  const node = path.getNode();
   // We ignore anything that is not an object
   if (node === null || node === undefined || typeof node !== 'object') return;
 
@@ -47,7 +47,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
       // The key `comments` will contain every comment for this node
       case 'comments':
         path.each((commentPath) => {
-          const comment = commentPath.getNode() as Comment;
+          const comment = commentPath.getNode()!;
           comment.printed = true;
         }, 'comments');
         break;
