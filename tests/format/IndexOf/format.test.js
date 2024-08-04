@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ['solidity-parse'], { compiler: '0.4.26' });
+runFormatTest(import.meta, ['slang'], { compiler: '0.4.26' });
