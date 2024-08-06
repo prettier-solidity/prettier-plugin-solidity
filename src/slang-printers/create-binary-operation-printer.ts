@@ -2,14 +2,19 @@ import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, BinaryOperation } from '../types';
+import type {
+  AstNode,
+  BinaryOperation,
+  PrintFunction,
+  StrictAstNode
+} from '../types';
 
 const { group, line } = doc.builders;
 
 function rightOperandPrint(
   node: BinaryOperation,
   path: AstPath<BinaryOperation>,
-  print: (path: AstPath<AstNode>) => Doc
+  print: PrintFunction
 ): Doc {
   const rightOperand = [line, path.call(print, 'rightOperand')];
 
@@ -19,7 +24,7 @@ function rightOperandPrint(
     !(
       typeof node.leftOperand.variant !== 'string' &&
       isBinaryOperation(node.leftOperand.variant)
-    ) && !isBinaryOperation(path.getNode(2) as AstNode);
+    ) && !isBinaryOperation(path.getNode(2) as StrictAstNode);
 
   return shouldGroup ? group(rightOperand) : rightOperand;
 }
@@ -37,7 +42,7 @@ export const createBinaryOperationPrinter =
   (
     node: BinaryOperation,
     path: AstPath<BinaryOperation>,
-    print: (path: AstPath<AstNode>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc => {
     const groupRules = groupRulesBuilder(path);

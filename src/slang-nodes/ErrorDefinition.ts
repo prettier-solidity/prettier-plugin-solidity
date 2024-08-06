@@ -4,7 +4,7 @@ import { ErrorParametersDeclaration } from './ErrorParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ErrorDefinition implements SlangNode {
   readonly kind = NonterminalKind.ErrorDefinition;
@@ -38,10 +38,7 @@ export class ErrorDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<ErrorDefinition>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<ErrorDefinition>, print: PrintFunction): Doc {
     return [`error ${this.name}`, path.call(print, 'members'), ';'];
   }
 }

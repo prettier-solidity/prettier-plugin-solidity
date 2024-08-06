@@ -5,7 +5,7 @@ import { StorageLocation } from './StorageLocation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class TypedTupleMember implements SlangNode {
   readonly kind = NonterminalKind.TypedTupleMember;
@@ -43,10 +43,7 @@ export class TypedTupleMember implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<TypedTupleMember>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<TypedTupleMember>, print: PrintFunction): Doc {
     return [
       path.call(print, 'typeName'),
       this.storageLocation ? [' ', path.call(print, 'storageLocation')] : '',

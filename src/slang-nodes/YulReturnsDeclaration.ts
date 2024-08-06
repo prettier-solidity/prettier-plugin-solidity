@@ -6,7 +6,7 @@ import { YulReturnVariables } from './YulReturnVariables.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 const { line } = doc.builders;
 
@@ -34,10 +34,7 @@ export class YulReturnsDeclaration implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<YulReturnsDeclaration>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<YulReturnsDeclaration>, print: PrintFunction): Doc {
     return printSeparatedItem(
       [this.minusGreaterThan, path.call(print, 'variables')],
       {

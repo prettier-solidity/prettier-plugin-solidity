@@ -9,7 +9,7 @@ import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, indent, line } = doc.builders;
 
@@ -64,10 +64,7 @@ export class ForStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<ForStatement>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<ForStatement>, print: PrintFunction): Doc {
     const initialization = path.call(print, 'initialization');
     const condition = path.call(print, 'condition');
     const iterator = this.iterator ? path.call(print, 'iterator') : '';

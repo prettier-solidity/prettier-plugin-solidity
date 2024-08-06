@@ -6,7 +6,7 @@ import { StorageLocation } from './StorageLocation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group } = doc.builders;
 
@@ -46,10 +46,7 @@ export class Parameter implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<Parameter>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<Parameter>, print: PrintFunction): Doc {
     return group([
       path.call(print, 'typeName'),
       this.storageLocation ? [' ', path.call(print, 'storageLocation')] : '',

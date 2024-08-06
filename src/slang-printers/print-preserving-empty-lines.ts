@@ -7,17 +7,17 @@ import {
 import { locEnd } from '../slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../types';
+import type { AstNode, HubNode, PrintFunction, StrictAstNode } from '../types';
 
 const { hardline } = doc.builders;
 
 export function printPreservingEmptyLines(
-  path: AstPath<AstNode>,
-  print: (path: AstPath<AstNode | string>) => Doc,
+  path: AstPath<HubNode>,
+  print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
   return path.map((childPath, index) => {
-    const node = childPath.getNode()! as AstNode;
+    const node = childPath.getNode() as StrictAstNode;
 
     return [
       // Only attempt to prepend an empty line if `node` is not the first item

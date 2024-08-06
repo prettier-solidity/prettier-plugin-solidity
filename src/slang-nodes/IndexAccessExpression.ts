@@ -7,7 +7,7 @@ import { IndexAccessEnd } from './IndexAccessEnd.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, indent, indentIfBreak, label, softline } = doc.builders;
 
@@ -48,10 +48,7 @@ export class IndexAccessExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<IndexAccessExpression>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<IndexAccessExpression>, print: PrintFunction): Doc {
     let operandDoc: Doc = path.call(print, 'operand');
     let indexDoc: Doc = group([
       '[',

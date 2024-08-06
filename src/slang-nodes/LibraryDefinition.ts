@@ -5,7 +5,7 @@ import { LibraryMembers } from './LibraryMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, line } = doc.builders;
 
@@ -37,10 +37,7 @@ export class LibraryDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<LibraryDefinition>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<LibraryDefinition>, print: PrintFunction): Doc {
     return [
       group([`library ${this.name}`, line, '{']),
       path.call(print, 'members'),

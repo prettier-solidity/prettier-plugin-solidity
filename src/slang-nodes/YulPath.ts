@@ -4,7 +4,7 @@ import { YulPathComponent } from './YulPathComponent.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class YulPath implements SlangNode {
   readonly kind = NonterminalKind.YulPath;
@@ -32,7 +32,7 @@ export class YulPath implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath<YulPath>, print: (path: AstPath<AstNode>) => Doc): Doc {
+  print(path: AstPath<YulPath>, print: PrintFunction): Doc {
     return path
       .map(print, 'items')
       .map((item, index) =>

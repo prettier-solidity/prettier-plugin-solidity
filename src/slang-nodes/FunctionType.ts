@@ -7,7 +7,7 @@ import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class FunctionType implements SlangNode {
   readonly kind = NonterminalKind.FunctionType;
@@ -50,10 +50,7 @@ export class FunctionType implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<FunctionType>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<FunctionType>, print: PrintFunction): Doc {
     return printFunction('function', this, path, print);
   }
 }

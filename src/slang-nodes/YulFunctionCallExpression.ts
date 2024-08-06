@@ -5,7 +5,7 @@ import { YulArguments } from './YulArguments.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class YulFunctionCallExpression implements SlangNode {
   readonly kind = NonterminalKind.YulFunctionCallExpression;
@@ -35,10 +35,7 @@ export class YulFunctionCallExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<YulFunctionCallExpression>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<YulFunctionCallExpression>, print: PrintFunction): Doc {
     return [
       path.call(print, 'operand'),
       '(',

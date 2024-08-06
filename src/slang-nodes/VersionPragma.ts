@@ -4,7 +4,7 @@ import { VersionExpressionSets } from './VersionExpressionSets.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class VersionPragma implements SlangNode {
   readonly kind = NonterminalKind.VersionPragma;
@@ -27,10 +27,7 @@ export class VersionPragma implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<VersionPragma>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<VersionPragma>, print: PrintFunction): Doc {
     return ['solidity ', path.call(print, 'sets')];
   }
 }

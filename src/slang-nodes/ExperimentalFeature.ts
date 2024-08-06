@@ -5,7 +5,7 @@ import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ExperimentalFeature implements SlangNode {
   readonly kind = NonterminalKind.ExperimentalFeature;
@@ -38,10 +38,7 @@ export class ExperimentalFeature implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<ExperimentalFeature>,
-    print: (path: AstPath<AstNode | string>) => Doc
-  ): Doc {
+  print(path: AstPath<ExperimentalFeature>, print: PrintFunction): Doc {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

@@ -5,7 +5,7 @@ import { ErrorParameter } from './ErrorParameter.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ErrorParameters implements SlangNode {
   readonly kind = NonterminalKind.ErrorParameters;
@@ -37,10 +37,7 @@ export class ErrorParameters implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<ErrorParameters>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<ErrorParameters>, print: PrintFunction): Doc {
     return this.items.length > 0
       ? printSeparatedList(path.map(print, 'items'))
       : '';

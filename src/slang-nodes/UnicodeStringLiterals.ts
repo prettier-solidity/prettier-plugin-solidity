@@ -5,7 +5,7 @@ import { UnicodeStringLiteral } from './UnicodeStringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { join, hardline } = doc.builders;
 
@@ -36,10 +36,7 @@ export class UnicodeStringLiterals implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<UnicodeStringLiterals>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<UnicodeStringLiterals>, print: PrintFunction): Doc {
     return join(hardline, path.map(print, 'items'));
   }
 }

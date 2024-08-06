@@ -31,7 +31,7 @@ import { ElementaryType } from './ElementaryType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class Expression implements SlangNode {
   readonly kind = NonterminalKind.Expression;
@@ -282,10 +282,7 @@ export class Expression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<Expression>,
-    print: (path: AstPath<AstNode | string>) => Doc
-  ): Doc {
+  print(path: AstPath<Expression>, print: PrintFunction): Doc {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

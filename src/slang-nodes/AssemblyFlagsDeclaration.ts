@@ -4,7 +4,7 @@ import { AssemblyFlags } from './AssemblyFlags.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class AssemblyFlagsDeclaration implements SlangNode {
   readonly kind = NonterminalKind.AssemblyFlagsDeclaration;
@@ -31,10 +31,7 @@ export class AssemblyFlagsDeclaration implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<AssemblyFlagsDeclaration>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<AssemblyFlagsDeclaration>, print: PrintFunction): Doc {
     return ['(', path.call(print, 'flags'), ')'];
   }
 }

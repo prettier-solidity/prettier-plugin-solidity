@@ -54,7 +54,10 @@ const canAttachComment = (node: { type: string }): boolean =>
   node.type !== 'BlockComment' &&
   node.type !== 'LineComment';
 const slangCanAttachComment = (node: AstNode | Comment): boolean =>
-  node.kind && !isComment(node);
+  typeof node !== 'string' &&
+  typeof node !== 'undefined' &&
+  node.kind &&
+  !isComment(node);
 
 // https://prettier.io/docs/en/plugins.html#printers
 const printer = {

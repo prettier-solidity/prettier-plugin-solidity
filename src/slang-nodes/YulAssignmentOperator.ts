@@ -5,7 +5,7 @@ import { YulColonEqual } from './YulColonEqual.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class YulAssignmentOperator implements SlangNode {
   readonly kind = NonterminalKind.YulAssignmentOperator;
@@ -34,10 +34,7 @@ export class YulAssignmentOperator implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<YulAssignmentOperator>,
-    print: (path: AstPath<AstNode | string>) => Doc
-  ): Doc {
+  print(path: AstPath<YulAssignmentOperator>, print: PrintFunction): Doc {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

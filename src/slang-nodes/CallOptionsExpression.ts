@@ -5,7 +5,7 @@ import { CallOptions } from './CallOptions.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class CallOptionsExpression implements SlangNode {
   readonly kind = NonterminalKind.CallOptionsExpression;
@@ -35,10 +35,7 @@ export class CallOptionsExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<CallOptionsExpression>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<CallOptionsExpression>, print: PrintFunction): Doc {
     return [path.call(print, 'operand'), '{', path.call(print, 'options'), '}'];
   }
 }

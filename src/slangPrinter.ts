@@ -3,7 +3,7 @@ import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types';
+import type { AstNode, PrintFunction, StrictAstNode } from './types';
 
 let checked = false;
 
@@ -17,9 +17,11 @@ function prettierVersionCheck(): void {
   checked = true;
 }
 
-function hasNodeIgnoreComment(node: AstNode): boolean {
+function hasNodeIgnoreComment(node: StrictAstNode): boolean {
+  // Prettier sets SourceUnit's comments to undefined after assigning comments
+  // to each node.
   return (
-    node?.comments &&
+    node.comments &&
     node.comments.some(
       (comment) =>
         comment.value
@@ -35,7 +37,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
   // We ignore anything that is not an object
   if (node === null || node === undefined || typeof node !== 'object') return;
 
-  const keys = Object.keys(node) as (keyof AstNode)[];
+  const keys = Object.keys(node) as (keyof StrictAstNode)[];
   for (const key of keys) {
     switch (key) {
       // We ignore `kind`, `loc`, and comments since these are added by the
@@ -65,18 +67,16 @@ function ignoreComments(path: AstPath<AstNode>): void {
   }
 }
 
+// Nodes take care of undefined and string properties so we can restrict path
+// to AstPath<StrictAstNode>
 function genericPrint(
-  path: AstPath<AstNode>,
+  path: AstPath<StrictAstNode>,
   options: ParserOptions<AstNode>,
-  print: (path: AstPath<AstNode>) => Doc
+  print: PrintFunction
 ): Doc {
   prettierVersionCheck();
 
-  const node = path.getNode();
-
-  if (node === null || node === undefined) {
-    return '';
-  }
+  const node = path.getNode()!;
 
   if (hasNodeIgnoreComment(node)) {
     ignoreComments(path);
@@ -84,11 +84,10 @@ function genericPrint(
     return options.originalText.slice(locStart(node), locEnd(node));
   }
 
-  return node.print(
-    path as AstPath<never>,
-    print as (path: AstPath<AstNode | string | undefined>) => Doc,
-    options
-  );
+  // Since each node has a print function with a specific AstPath, the union of
+  // all nodes into AstNode creates a print function with an AstPath of the
+  // intersection of all nodes. This forces us to cast this with a never type.
+  return node.print(path as AstPath<never>, print, options);
 }
 
 export default genericPrint;

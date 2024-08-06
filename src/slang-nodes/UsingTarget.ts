@@ -5,7 +5,7 @@ import { TypeName } from './TypeName.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class UsingTarget implements SlangNode {
   readonly kind = NonterminalKind.UsingTarget;
@@ -38,10 +38,7 @@ export class UsingTarget implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<UsingTarget>,
-    print: (path: AstPath<AstNode | string>) => Doc
-  ): Doc {
+  print(path: AstPath<UsingTarget>, print: PrintFunction): Doc {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

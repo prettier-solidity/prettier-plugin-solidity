@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 
-import type { SortableAttribute, SortableVariant } from './types';
+import type { SortableAttribute } from './types';
 
 const visibilityKeyWords = new Set([
   'external',
@@ -15,34 +15,39 @@ export function sortFunctionAttributes(
   a: SortableAttribute,
   b: SortableAttribute
 ): number {
-  const aIsString = typeof a.variant === 'string';
-  const bIsString = typeof b.variant === 'string';
+  const aVariant = a.variant;
+  const bVariant = b.variant;
+
+  const aIsString = typeof aVariant === 'string';
+  const bIsString = typeof bVariant === 'string';
 
   if (aIsString && !bIsString) return -1;
   if (bIsString && !aIsString) return 1;
 
   // Both are strings
-  if (aIsString) {
+  if (aIsString && bIsString) {
     // Visibility First
-    if (visibilityKeyWords.has(a.variant as string)) return -1;
-    if (visibilityKeyWords.has(b.variant as string)) return 1;
+    if (visibilityKeyWords.has(aVariant)) return -1;
+    if (visibilityKeyWords.has(bVariant)) return 1;
     // State Mutability Second
-    if (mutabilityKeyWords.has(a.variant as string)) return -1;
-    if (mutabilityKeyWords.has(b.variant as string)) return 1;
+    if (mutabilityKeyWords.has(aVariant)) return -1;
+    if (mutabilityKeyWords.has(bVariant)) return 1;
     // Virtual keyword last
   }
   // Both are nodes
-  // OverrideSpecifiers before ModifierInvocation
-  if (
-    (a.variant as SortableVariant).kind === NonterminalKind.OverrideSpecifier &&
-    (b.variant as SortableVariant).kind === NonterminalKind.ModifierInvocation
-  )
-    return -1;
-  if (
-    (b.variant as SortableVariant).kind === NonterminalKind.OverrideSpecifier &&
-    (a.variant as SortableVariant).kind === NonterminalKind.ModifierInvocation
-  )
-    return 1;
+  if (!aIsString && !bIsString) {
+    // OverrideSpecifiers before ModifierInvocation
+    if (
+      aVariant.kind === NonterminalKind.OverrideSpecifier &&
+      bVariant.kind === NonterminalKind.ModifierInvocation
+    )
+      return -1;
+    if (
+      bVariant.kind === NonterminalKind.OverrideSpecifier &&
+      aVariant.kind === NonterminalKind.ModifierInvocation
+    )
+      return 1;
+  }
 
   return 0;
 }

@@ -6,7 +6,7 @@ import { TupleValue } from './TupleValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class TupleValues implements SlangNode {
   readonly kind = NonterminalKind.TupleValues;
@@ -38,10 +38,7 @@ export class TupleValues implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<TupleValues>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<TupleValues>, print: PrintFunction): Doc {
     return this.items.length === 1 &&
       typeof this.items[0].expression!.variant !== 'string' &&
       isBinaryOperation(this.items[0].expression!.variant)

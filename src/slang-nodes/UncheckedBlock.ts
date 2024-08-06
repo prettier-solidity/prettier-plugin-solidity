@@ -4,7 +4,7 @@ import { Block } from './Block.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class UncheckedBlock implements SlangNode {
   readonly kind = NonterminalKind.UncheckedBlock;
@@ -31,10 +31,7 @@ export class UncheckedBlock implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<UncheckedBlock>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<UncheckedBlock>, print: PrintFunction): Doc {
     return ['unchecked ', path.call(print, 'block')];
   }
 }

@@ -4,7 +4,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class VariableDeclarationValue implements SlangNode {
   readonly kind = NonterminalKind.VariableDeclarationValue;
@@ -31,10 +31,7 @@ export class VariableDeclarationValue implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<VariableDeclarationValue>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<VariableDeclarationValue>, print: PrintFunction): Doc {
     return [' = ', path.call(print, 'expression')];
   }
 }

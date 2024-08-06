@@ -5,7 +5,7 @@ import { ModifierInvocation } from './ModifierInvocation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ConstructorAttribute implements SlangNode {
   readonly kind = NonterminalKind.ConstructorAttribute;
@@ -38,10 +38,7 @@ export class ConstructorAttribute implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<ConstructorAttribute>,
-    print: (path: AstPath<AstNode | string>) => Doc
-  ): Doc {
+  print(path: AstPath<ConstructorAttribute>, print: PrintFunction): Doc {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

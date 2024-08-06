@@ -6,7 +6,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ModifierInvocation implements SlangNode {
   readonly kind = NonterminalKind.ModifierInvocation;
@@ -52,10 +52,7 @@ export class ModifierInvocation implements SlangNode {
     };
   }
 
-  print(
-    path: AstPath<ModifierInvocation>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<ModifierInvocation>, print: PrintFunction): Doc {
     return [
       path.call(print, 'name'),
       this.arguments ? path.call(print, 'arguments') : ''

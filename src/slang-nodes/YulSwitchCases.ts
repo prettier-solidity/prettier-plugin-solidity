@@ -5,7 +5,7 @@ import { YulSwitchCase } from './YulSwitchCase.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { hardline, join } = doc.builders;
 
@@ -36,10 +36,7 @@ export class YulSwitchCases implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<YulSwitchCases>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<YulSwitchCases>, print: PrintFunction): Doc {
     return join(hardline, path.map(print, 'items'));
   }
 }

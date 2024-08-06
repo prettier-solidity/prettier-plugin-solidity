@@ -4,7 +4,7 @@ import { EventParametersDeclaration } from './EventParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class EventDefinition implements SlangNode {
   readonly kind = NonterminalKind.EventDefinition;
@@ -41,10 +41,7 @@ export class EventDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<EventDefinition>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<EventDefinition>, print: PrintFunction): Doc {
     return [
       `event ${this.name}`,
       path.call(print, 'parameters'),

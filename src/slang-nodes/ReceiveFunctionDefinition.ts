@@ -7,7 +7,7 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ReceiveFunctionDefinition implements SlangNode {
   readonly kind = NonterminalKind.ReceiveFunctionDefinition;
@@ -65,10 +65,7 @@ export class ReceiveFunctionDefinition implements SlangNode {
     }
   }
 
-  print(
-    path: AstPath<ReceiveFunctionDefinition>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<ReceiveFunctionDefinition>, print: PrintFunction): Doc {
     return printFunction('receive', this, path, print);
   }
 }

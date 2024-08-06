@@ -6,7 +6,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, indent, line } = doc.builders;
 
@@ -47,10 +47,10 @@ export class TupleDeconstructionStatement implements SlangNode {
 
   print(
     path: AstPath<TupleDeconstructionStatement>,
-    print: (path: AstPath<AstNode>) => Doc
+    print: PrintFunction
   ): Doc {
     return [
-      this.varKeyword ? this.varKeyword : '',
+      this.varKeyword ? 'var ' : '',
       '(',
       path.call(print, 'elements'),
       typeof this.expression.variant !== 'string' &&

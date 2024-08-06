@@ -5,7 +5,7 @@ import { ImportAlias } from './ImportAlias.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class PathImport implements SlangNode {
   readonly kind = NonterminalKind.PathImport;
@@ -37,10 +37,7 @@ export class PathImport implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<PathImport>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<PathImport>, print: PrintFunction): Doc {
     return [
       path.call(print, 'path'),
       this.alias ? path.call(print, 'alias') : ''

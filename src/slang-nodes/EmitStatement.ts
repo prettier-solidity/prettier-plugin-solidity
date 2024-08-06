@@ -5,7 +5,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class EmitStatement implements SlangNode {
   readonly kind = NonterminalKind.EmitStatement;
@@ -39,10 +39,7 @@ export class EmitStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<EmitStatement>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<EmitStatement>, print: PrintFunction): Doc {
     return [
       'emit ',
       path.call(print, 'event'),

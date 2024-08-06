@@ -4,7 +4,7 @@ import { OverridePathsDeclaration } from './OverridePathsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class OverrideSpecifier implements SlangNode {
   readonly kind = NonterminalKind.OverrideSpecifier;
@@ -32,10 +32,7 @@ export class OverrideSpecifier implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<OverrideSpecifier>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<OverrideSpecifier>, print: PrintFunction): Doc {
     return ['override', this.overridden ? path.call(print, 'overridden') : ''];
   }
 }

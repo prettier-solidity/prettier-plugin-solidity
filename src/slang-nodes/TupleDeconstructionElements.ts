@@ -5,7 +5,7 @@ import { TupleDeconstructionElement } from './TupleDeconstructionElement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class TupleDeconstructionElements implements SlangNode {
   readonly kind = NonterminalKind.TupleDeconstructionElements;
@@ -38,10 +38,7 @@ export class TupleDeconstructionElements implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<TupleDeconstructionElements>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<TupleDeconstructionElements>, print: PrintFunction): Doc {
     return printSeparatedList(path.map(print, 'items'));
   }
 }

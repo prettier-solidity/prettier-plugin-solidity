@@ -5,7 +5,7 @@ import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, BinaryOperation } from '../types';
+import type { BinaryOperation, StrictAstNode } from '../types';
 
 const { group, indent } = doc.builders;
 
@@ -18,12 +18,12 @@ const isStatementWithoutIndentedOperation = createKindCheckFunction([
 const comparisonIndentRulesBuilder =
   (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
-    let node = path.getNode() as AstNode;
+    let node = path.getNode() as StrictAstNode;
     for (let i = 2; ; i += 2) {
-      const grandparentNode = path.getNode(i) as AstNode;
+      const grandparentNode = path.getNode(i) as StrictAstNode;
       if (grandparentNode.kind === NonterminalKind.ExpressionStatement) {
         if (
-          (path.getNode(i + 1) as AstNode).kind ===
+          (path.getNode(i + 1) as StrictAstNode).kind ===
           NonterminalKind.ForStatementCondition
         )
           break;
