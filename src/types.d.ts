@@ -27,9 +27,9 @@ interface BaseComment {
   leading?: boolean;
   trailing?: boolean;
   printed?: boolean;
-  precedingNode?: AstNode;
-  enclosingNode?: AstNode;
-  followingNode?: AstNode;
+  precedingNode?: StrictAstNode;
+  enclosingNode?: StrictAstNode;
+  followingNode?: StrictAstNode;
 }
 interface BlockComment extends BaseComment {
   kind:
@@ -131,6 +131,8 @@ export type HubNode =
   | nodes.YulSwitchCases;
 
 export type AstNode =
+  | string
+  | undefined
   | nodes.SourceUnit
   | nodes.PragmaDirective
   | nodes.ABICoderPragma
@@ -346,6 +348,10 @@ export type AstNode =
   | nodes.YulArguments
   | nodes.YulPaths
   | nodes.YulPath;
+
+type StrictAstNode = Exclude<AstNode, string | undefined>;
+
+type PrintFunction = (path: AstPath<AstNode>) => Doc;
 
 export type SlangAstNode =
   | ast.SourceUnit

@@ -5,7 +5,7 @@ import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class AssemblyFlags implements SlangNode {
   readonly kind = NonterminalKind.AssemblyFlags;
@@ -37,10 +37,7 @@ export class AssemblyFlags implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<AssemblyFlags>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<AssemblyFlags>, print: PrintFunction): Doc {
     return printSeparatedList(path.map(print, 'items'));
   }
 }

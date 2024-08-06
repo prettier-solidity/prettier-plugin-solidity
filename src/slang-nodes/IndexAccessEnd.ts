@@ -4,7 +4,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class IndexAccessEnd implements SlangNode {
   readonly kind = NonterminalKind.IndexAccessEnd;
@@ -33,10 +33,7 @@ export class IndexAccessEnd implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<IndexAccessEnd>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<IndexAccessEnd>, print: PrintFunction): Doc {
     return [':', this.end ? path.call(print, 'end') : ''];
   }
 }

@@ -7,7 +7,7 @@ import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, indent, indentIfBreak, line } = doc.builders;
 
@@ -63,7 +63,7 @@ export class VariableDeclarationStatement implements SlangNode {
 
   print(
     path: AstPath<VariableDeclarationStatement>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
+    print: PrintFunction
   ): Doc {
     const declarationDoc = group(
       [

@@ -6,7 +6,7 @@ import { OverrideSpecifier } from './OverrideSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ReceiveFunctionAttribute implements SlangNode {
   readonly kind = NonterminalKind.ReceiveFunctionAttribute;
@@ -56,10 +56,7 @@ export class ReceiveFunctionAttribute implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<ReceiveFunctionAttribute>,
-    print: (path: AstPath<AstNode | string>) => Doc
-  ): Doc {
+  print(path: AstPath<ReceiveFunctionAttribute>, print: PrintFunction): Doc {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

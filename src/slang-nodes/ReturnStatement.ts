@@ -5,14 +5,14 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, indent, line } = doc.builders;
 
 function printExpression(
   node: ReturnStatement,
   path: AstPath<ReturnStatement>,
-  print: (path: AstPath<AstNode | undefined>) => Doc,
+  print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
   if (node.expression) {
@@ -56,7 +56,7 @@ export class ReturnStatement implements SlangNode {
 
   print(
     path: AstPath<ReturnStatement>,
-    print: (path: AstPath<AstNode | undefined>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
     return ['return', printExpression(this, path, print, options), ';'];

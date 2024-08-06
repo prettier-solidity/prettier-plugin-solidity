@@ -1,9 +1,9 @@
-import type { AstNode, Comment } from '../../types';
+import type { Comment, StrictAstNode } from '../../types';
 
 interface HandlerParams {
   text: string;
-  precedingNode?: AstNode;
-  enclosingNode?: AstNode;
-  followingNode?: AstNode;
+  precedingNode?: StrictAstNode;
+  enclosingNode?: StrictAstNode;
+  followingNode?: StrictAstNode;
   comment: Comment;
 }

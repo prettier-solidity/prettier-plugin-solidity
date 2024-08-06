@@ -5,7 +5,7 @@ import { SourceUnitMember } from './SourceUnitMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class SourceUnitMembers implements SlangNode {
   readonly kind = NonterminalKind.SourceUnitMembers;
@@ -36,7 +36,7 @@ export class SourceUnitMembers implements SlangNode {
 
   print(
     path: AstPath<SourceUnitMembers>,
-    print: (path: AstPath<AstNode | string>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
     return printPreservingEmptyLines(path, print, options);

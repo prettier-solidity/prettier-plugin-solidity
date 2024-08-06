@@ -9,7 +9,7 @@ import { CatchClauses } from './CatchClauses.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { line } = doc.builders;
 
@@ -57,10 +57,7 @@ export class TryStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<TryStatement>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<TryStatement>, print: PrintFunction): Doc {
     return [
       'try',
       printSeparatedItem(path.call(print, 'expression'), {

@@ -34,7 +34,7 @@ export class TypeExpression implements SlangNode {
   // TODO: implement print
   print(/*
     path: AstPath<TypeExpression>,
-    print: (path: AstPath<AstNode>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   */): Doc {
     return ['TODO: TypeExpression'];

@@ -8,7 +8,7 @@ import { ElseBranch } from './ElseBranch.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, hardline, indent, line } = doc.builders;
 
@@ -49,10 +49,7 @@ export class IfStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<IfStatement>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<IfStatement>, print: PrintFunction): Doc {
     return [
       'if (',
       printSeparatedItem(path.call(print, 'condition')),

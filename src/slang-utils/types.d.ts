@@ -7,9 +7,7 @@ import type {
   ModifierAttribute,
   ReceiveFunctionAttribute,
   StateVariableAttribute,
-  UnnamedFunctionAttribute,
-  OverrideSpecifier,
-  ModifierInvocation
+  UnnamedFunctionAttribute
 } from '../slang-nodes';
 import type { AstNode, Comment } from '../types';
 
@@ -22,8 +20,6 @@ type SortableAttribute =
   | ReceiveFunctionAttribute
   | StateVariableAttribute
   | UnnamedFunctionAttribute;
-
-type SortableVariant = OverrideSpecifier | ModifierInvocation;
 
 declare namespace utilV2Functions {
   function getNextNonSpaceNonCommentCharacterIndex(

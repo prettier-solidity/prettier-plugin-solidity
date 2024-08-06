@@ -5,7 +5,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ComparisonExpression implements SlangNode {
   readonly kind = NonterminalKind.ComparisonExpression;
@@ -40,7 +40,7 @@ export class ComparisonExpression implements SlangNode {
 
   print(
     path: AstPath<ComparisonExpression>,
-    print: (path: AstPath<AstNode>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
     return printComparisonOperation(this, path, print, options);

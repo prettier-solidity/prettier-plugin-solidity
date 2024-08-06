@@ -4,7 +4,7 @@ import { NamedArgumentGroup } from './NamedArgumentGroup.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class NamedArgumentsDeclaration implements SlangNode {
   readonly kind = NonterminalKind.NamedArgumentsDeclaration;
@@ -37,10 +37,7 @@ export class NamedArgumentsDeclaration implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<NamedArgumentsDeclaration>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<NamedArgumentsDeclaration>, print: PrintFunction): Doc {
     return ['(', this.arguments ? path.call(print, 'arguments') : '', ')'];
   }
 }

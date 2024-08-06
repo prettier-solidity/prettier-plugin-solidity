@@ -6,7 +6,7 @@ import { InterfaceMembers } from './InterfaceMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, line } = doc.builders;
 
@@ -49,10 +49,7 @@ export class InterfaceDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<InterfaceDefinition>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<InterfaceDefinition>, print: PrintFunction): Doc {
     return [
       group([
         `interface ${this.name}`,

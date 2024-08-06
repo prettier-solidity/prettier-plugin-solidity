@@ -7,17 +7,22 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type {
+  AstNode,
+  PrintFunction,
+  SlangNode,
+  StrictAstNode
+} from '../types';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
 function experimentalTernaries(
   node: ConditionalExpression,
   path: AstPath<ConditionalExpression>,
-  print: (path: AstPath<AstNode>) => Doc,
+  print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const grandparent = path.getNode(2) as AstNode;
+  const grandparent = path.getNode(2) as StrictAstNode;
   const isNested = grandparent.kind === NonterminalKind.ConditionalExpression;
   const isNestedAsTrueExpression =
     isNested && grandparent.trueExpression.variant === node;
@@ -88,14 +93,14 @@ function experimentalTernaries(
 function traditionalTernaries(
   node: ConditionalExpression,
   path: AstPath<ConditionalExpression>,
-  print: (path: AstPath<AstNode>) => Doc
+  print: PrintFunction
 ): Doc {
   return group([
     path.call(print, 'operand'),
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
       // line
-      (path.getNode(2) as AstNode).kind ===
+      (path.getNode(2) as StrictAstNode).kind ===
       NonterminalKind.ConditionalExpression
         ? hardline
         : line,
@@ -171,7 +176,7 @@ export class ConditionalExpression implements SlangNode {
 
   print(
     path: AstPath<ConditionalExpression>,
-    print: (path: AstPath<AstNode>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
     return options.experimentalTernaries

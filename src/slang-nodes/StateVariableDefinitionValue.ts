@@ -5,7 +5,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, indent, line } = doc.builders;
 
@@ -36,7 +36,7 @@ export class StateVariableDefinitionValue implements SlangNode {
 
   print(
     path: AstPath<StateVariableDefinitionValue>,
-    print: (path: AstPath<AstNode>) => Doc
+    print: PrintFunction
   ): Doc {
     return typeof this.value.variant !== 'string' &&
       this.value.variant.kind === NonterminalKind.ArrayExpression

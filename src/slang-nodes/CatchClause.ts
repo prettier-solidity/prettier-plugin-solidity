@@ -5,7 +5,7 @@ import { Block } from './Block.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class CatchClause implements SlangNode {
   readonly kind = NonterminalKind.CatchClause;
@@ -39,10 +39,7 @@ export class CatchClause implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<CatchClause>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<CatchClause>, print: PrintFunction): Doc {
     return [
       'catch ',
       this.error ? path.call(print, 'error') : '',

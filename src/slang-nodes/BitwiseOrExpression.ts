@@ -6,7 +6,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const tryToHug = createHugFunction([
   '+',
@@ -56,7 +56,7 @@ export class BitwiseOrExpression implements SlangNode {
 
   print(
     path: AstPath<BitwiseOrExpression>,
-    print: (path: AstPath<AstNode>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
     return printBinaryOperation(this, path, print, options);

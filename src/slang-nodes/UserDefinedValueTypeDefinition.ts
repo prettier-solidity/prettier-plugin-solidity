@@ -4,7 +4,7 @@ import { ElementaryType } from './ElementaryType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class UserDefinedValueTypeDefinition implements SlangNode {
   readonly kind = NonterminalKind.UserDefinedValueTypeDefinition;
@@ -32,7 +32,7 @@ export class UserDefinedValueTypeDefinition implements SlangNode {
 
   print(
     path: AstPath<UserDefinedValueTypeDefinition>,
-    print: (path: AstPath<AstNode>) => Doc
+    print: PrintFunction
   ): Doc {
     return [`type ${this.name} is `, path.call(print, 'valueType'), ';'];
   }

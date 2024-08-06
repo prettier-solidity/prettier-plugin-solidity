@@ -5,7 +5,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class RevertStatement implements SlangNode {
   readonly kind = NonterminalKind.RevertStatement;
@@ -43,10 +43,7 @@ export class RevertStatement implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<RevertStatement>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<RevertStatement>, print: PrintFunction): Doc {
     return [
       'revert ',
       this.error ? path.call(print, 'error') : '',

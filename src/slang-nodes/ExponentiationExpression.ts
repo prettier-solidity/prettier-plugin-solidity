@@ -12,7 +12,7 @@ import { TupleValue } from './TupleValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, indent } = doc.builders;
 
@@ -174,7 +174,7 @@ export class ExponentiationExpression implements SlangNode {
 
   print(
     path: AstPath<ExponentiationExpression>,
-    print: (path: AstPath<AstNode>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
     return printExponentiationExpression(this, path, print, options);

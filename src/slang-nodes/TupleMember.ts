@@ -5,7 +5,7 @@ import { UntypedTupleMember } from './UntypedTupleMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class TupleMember implements SlangNode {
   readonly kind = NonterminalKind.TupleMember;
@@ -48,10 +48,7 @@ export class TupleMember implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<TupleMember>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<TupleMember>, print: PrintFunction): Doc {
     return path.call(print, 'variant');
   }
 }

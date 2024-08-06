@@ -6,7 +6,7 @@ import { FunctionAttribute } from './FunctionAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { line } = doc.builders;
 
@@ -39,10 +39,7 @@ export class FunctionAttributes implements SlangNode {
     this.items = this.items.sort(sortFunctionAttributes);
   }
 
-  print(
-    path: AstPath<FunctionAttributes>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<FunctionAttributes>, print: PrintFunction): Doc {
     return path.map(print, 'items').map((item) => [line, item]);
   }
 }

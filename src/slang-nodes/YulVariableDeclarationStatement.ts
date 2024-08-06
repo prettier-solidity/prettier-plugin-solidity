@@ -4,7 +4,7 @@ import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class YulVariableDeclarationStatement implements SlangNode {
   readonly kind = NonterminalKind.YulVariableDeclarationStatement;
@@ -42,7 +42,7 @@ export class YulVariableDeclarationStatement implements SlangNode {
 
   print(
     path: AstPath<YulVariableDeclarationStatement>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
+    print: PrintFunction
   ): Doc {
     return [`let ${this.names} `, this.value ? path.call(print, 'value') : ''];
   }

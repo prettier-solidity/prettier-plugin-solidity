@@ -4,7 +4,7 @@ import { StateVariableAttribute } from './StateVariableAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class StateVariableAttributes implements SlangNode {
   readonly kind = NonterminalKind.StateVariableAttributes;
@@ -29,10 +29,7 @@ export class StateVariableAttributes implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<StateVariableAttributes>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<StateVariableAttributes>, print: PrintFunction): Doc {
     return this.items.length
       ? path.map(print, 'items').map((item) => [' ', item])
       : '';

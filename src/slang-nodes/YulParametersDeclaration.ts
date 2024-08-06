@@ -4,7 +4,7 @@ import { YulParameters } from './YulParameters.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class YulParametersDeclaration implements SlangNode {
   readonly kind = NonterminalKind.YulParametersDeclaration;
@@ -27,10 +27,7 @@ export class YulParametersDeclaration implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<YulParametersDeclaration>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<YulParametersDeclaration>, print: PrintFunction): Doc {
     return ['(', path.call(print, 'parameters'), ')'];
   }
 }

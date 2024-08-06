@@ -5,7 +5,7 @@ import { CatchClause } from './CatchClause.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { join } = doc.builders;
 
@@ -36,10 +36,7 @@ export class CatchClauses implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<CatchClauses>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<CatchClauses>, print: PrintFunction): Doc {
     return join(' ', path.map(print, 'items'));
   }
 }

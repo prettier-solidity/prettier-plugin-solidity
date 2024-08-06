@@ -5,7 +5,7 @@ import { ModifierInvocation } from './ModifierInvocation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class UnnamedFunctionAttribute implements SlangNode {
   readonly kind = NonterminalKind.UnnamedFunctionAttribute;
@@ -38,10 +38,7 @@ export class UnnamedFunctionAttribute implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<UnnamedFunctionAttribute>,
-    print: (path: AstPath<AstNode | string>) => Doc
-  ): Doc {
+  print(path: AstPath<UnnamedFunctionAttribute>, print: PrintFunction): Doc {
     return typeof this.variant === 'string'
       ? this.variant
       : path.call(print, 'variant');

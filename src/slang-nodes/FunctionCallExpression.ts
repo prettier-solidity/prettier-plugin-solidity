@@ -7,7 +7,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { group, indentIfBreak, label } = doc.builders;
 
@@ -43,10 +43,7 @@ export class FunctionCallExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<FunctionCallExpression>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {
     let operandDoc = path.call(print, 'operand');
     let argumentsDoc = path.call(print, 'arguments');
 

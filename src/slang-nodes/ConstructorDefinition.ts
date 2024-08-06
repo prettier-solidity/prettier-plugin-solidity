@@ -7,7 +7,7 @@ import { Block } from './Block.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ConstructorDefinition implements SlangNode {
   readonly kind = NonterminalKind.ConstructorDefinition;
@@ -52,10 +52,7 @@ export class ConstructorDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<ConstructorDefinition>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<ConstructorDefinition>, print: PrintFunction): Doc {
     return printFunction('constructor', this, path, print);
   }
 }

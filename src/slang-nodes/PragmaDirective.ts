@@ -4,7 +4,7 @@ import { Pragma } from './Pragma.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class PragmaDirective implements SlangNode {
   readonly kind = NonterminalKind.PragmaDirective;
@@ -31,10 +31,7 @@ export class PragmaDirective implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<PragmaDirective>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<PragmaDirective>, print: PrintFunction): Doc {
     return ['pragma ', path.call(print, 'pragma'), ';'];
   }
 }

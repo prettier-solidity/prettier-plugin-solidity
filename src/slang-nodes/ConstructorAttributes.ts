@@ -6,7 +6,7 @@ import { ConstructorAttribute } from './ConstructorAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { line } = doc.builders;
 
@@ -39,10 +39,7 @@ export class ConstructorAttributes implements SlangNode {
     this.items = this.items.sort(sortFunctionAttributes);
   }
 
-  print(
-    path: AstPath<ConstructorAttributes>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<ConstructorAttributes>, print: PrintFunction): Doc {
     return path.map(print, 'items').map((item) => [line, item]);
   }
 }

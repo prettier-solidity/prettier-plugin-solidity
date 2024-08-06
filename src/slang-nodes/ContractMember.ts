@@ -16,7 +16,7 @@ import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ContractMember implements SlangNode {
   readonly kind = NonterminalKind.ContractMember;
@@ -148,10 +148,7 @@ export class ContractMember implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<ContractMember>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<ContractMember>, print: PrintFunction): Doc {
     return path.call(print, 'variant');
   }
 }

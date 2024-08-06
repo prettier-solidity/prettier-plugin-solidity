@@ -5,7 +5,7 @@ import { UsingAlias } from './UsingAlias.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class UsingDeconstructionSymbol implements SlangNode {
   readonly kind = NonterminalKind.UsingDeconstructionSymbol;
@@ -33,10 +33,7 @@ export class UsingDeconstructionSymbol implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<UsingDeconstructionSymbol>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<UsingDeconstructionSymbol>, print: PrintFunction): Doc {
     return [
       path.call(print, 'name'),
       this.alias ? path.call(print, 'alias') : ''

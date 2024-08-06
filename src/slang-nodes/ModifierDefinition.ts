@@ -8,7 +8,7 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const objectConfig = {
   writable: true,
@@ -95,10 +95,7 @@ export class ModifierDefinition implements SlangNode {
     }
   }
 
-  print(
-    path: AstPath<ModifierDefinition>,
-    print: (path: AstPath<AstNode | undefined>) => Doc
-  ): Doc {
+  print(path: AstPath<ModifierDefinition>, print: PrintFunction): Doc {
     return printFunction(`modifier ${this.name}`, this, path, print);
   }
 }

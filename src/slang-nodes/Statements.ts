@@ -8,7 +8,7 @@ import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 const { hardline } = doc.builders;
 
@@ -41,7 +41,7 @@ export class Statements implements SlangNode {
 
   print(
     path: AstPath<Statements>,
-    print: (path: AstPath<AstNode | string>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
     return this.items.length === 0 && this.comments.length === 0

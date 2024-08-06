@@ -4,7 +4,7 @@ import { TupleValues } from './TupleValues.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class TupleExpression implements SlangNode {
   readonly kind = NonterminalKind.TupleExpression;
@@ -31,10 +31,7 @@ export class TupleExpression implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<TupleExpression>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<TupleExpression>, print: PrintFunction): Doc {
     return ['(', path.call(print, 'items'), ')'];
   }
 }

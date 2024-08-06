@@ -41,7 +41,7 @@ export class ConstantDefinition implements SlangNode {
   // TODO: implement print
   print(/*
     path: AstPath<ConstantDefinition>,
-    print: (path: AstPath<AstNode>) => Doc,
+    print: PrintFunction,
     options: ParserOptions<AstNode>
   */): Doc {
     return ['TODO: ConstantDefinition'];

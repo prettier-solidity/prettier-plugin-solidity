@@ -33,10 +33,7 @@ export function getNextNonSpaceNonCommentCharacter(
   return util.getNextNonSpaceNonCommentCharacter(text, locEnd(node)); // V3 exposes this function directly
 }
 
-export function isLast(
-  path: AstPath<AstNode | string>,
-  index: number
-): boolean {
+export function isLast(path: AstPath<AstNode>, index: number): boolean {
   return isPrettier2
     ? index === (path.getParentNode() as HubNode).items.length - 1
     : path.isLast;

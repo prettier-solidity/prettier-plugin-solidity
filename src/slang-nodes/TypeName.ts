@@ -8,7 +8,7 @@ import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class TypeName implements SlangNode {
   readonly kind = NonterminalKind.TypeName;
@@ -79,7 +79,7 @@ export class TypeName implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(path: AstPath<TypeName>, print: (path: AstPath<AstNode>) => Doc): Doc {
+  print(path: AstPath<TypeName>, print: PrintFunction): Doc {
     return path.call(print, 'variant');
   }
 }

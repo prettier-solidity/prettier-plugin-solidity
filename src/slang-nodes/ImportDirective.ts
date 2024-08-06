@@ -4,7 +4,7 @@ import { ImportClause } from './ImportClause.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode, PrintFunction, SlangNode } from '../types';
 
 export class ImportDirective implements SlangNode {
   readonly kind = NonterminalKind.ImportDirective;
@@ -31,10 +31,7 @@ export class ImportDirective implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  print(
-    path: AstPath<ImportDirective>,
-    print: (path: AstPath<AstNode>) => Doc
-  ): Doc {
+  print(path: AstPath<ImportDirective>, print: PrintFunction): Doc {
     return ['import ', path.call(print, 'clause'), ';'];
   }
 }

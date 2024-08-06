@@ -3,7 +3,7 @@ import { NodeType } from '@nomicfoundation/slang/cst/index.js';
 import { isComment } from './is-comment.js';
 
 import type { Node } from '@nomicfoundation/slang/cst';
-import type { AstNode, Comment, Metadata, SlangAstNode } from '../types';
+import type { Comment, Metadata, SlangAstNode, StrictAstNode } from '../types';
 
 function getLeadingOffset(children: Node[]): number {
   let offset = 0;
@@ -76,7 +76,7 @@ export function getNodeMetadata(
 
 function collectComments(
   comments: Comment[],
-  node: AstNode | AstNode[] | undefined
+  node: StrictAstNode | StrictAstNode[] | undefined
 ): Comment[] {
   if (node) {
     if (Array.isArray(node)) {
@@ -90,7 +90,7 @@ function collectComments(
 
 export function updateMetadata(
   metadata: Metadata,
-  childNodes: (AstNode | AstNode[] | undefined)[]
+  childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
 ): Metadata {
   // Collect comments
   const comments = childNodes.reduce(collectComments, metadata.comments);
