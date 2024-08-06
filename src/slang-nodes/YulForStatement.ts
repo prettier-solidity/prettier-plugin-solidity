@@ -14,8 +14,6 @@ export class YulForStatement implements SlangNode {
 
   loc;
 
-  forKeyword: string;
-
   initialization: YulBlock;
 
   condition: YulExpression;
@@ -32,7 +30,6 @@ export class YulForStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.forKeyword = ast.forKeyword.text;
     this.initialization = new YulBlock(ast.initialization, offsets[0], options);
     this.condition = new YulExpression(ast.condition, offsets[1], options);
     this.iterator = new YulBlock(ast.iterator, offsets[2], options);
@@ -54,7 +51,7 @@ export class YulForStatement implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      `${this.forKeyword} `,
+      'for ',
       path.call(print, 'initialization'),
       ' ',
       path.call(print, 'condition'),

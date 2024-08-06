@@ -17,8 +17,6 @@ export class FallbackFunctionDefinition implements SlangNode {
 
   loc;
 
-  fallbackKeyword: string;
-
   parameters: ParametersDeclaration;
 
   attributes: FallbackFunctionAttributes;
@@ -35,7 +33,6 @@ export class FallbackFunctionDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.fallbackKeyword = ast.fallbackKeyword.text;
     this.parameters = new ParametersDeclaration(
       ast.parameters,
       offsets[0],
@@ -81,6 +78,6 @@ export class FallbackFunctionDefinition implements SlangNode {
     path: AstPath<FallbackFunctionDefinition>,
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
-    return printFunction(this.fallbackKeyword, this, path, print);
+    return printFunction('fallback', this, path, print);
   }
 }

@@ -13,15 +13,11 @@ export class EventDefinition implements SlangNode {
 
   loc;
 
-  eventKeyword: string;
-
   name: string;
 
   parameters: EventParametersDeclaration;
 
   anonymousKeyword?: string;
-
-  semicolon: string;
 
   constructor(
     ast: ast.EventDefinition,
@@ -31,7 +27,6 @@ export class EventDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.eventKeyword = ast.eventKeyword.text;
     this.name = ast.name.text;
     this.parameters = new EventParametersDeclaration(
       ast.parameters,
@@ -39,7 +34,6 @@ export class EventDefinition implements SlangNode {
       options
     );
     this.anonymousKeyword = ast.anonymousKeyword?.text;
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.parameters]);
 
@@ -52,10 +46,10 @@ export class EventDefinition implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      `${this.eventKeyword} ${this.name}`,
+      `event ${this.name}`,
       path.call(print, 'parameters'),
-      this.anonymousKeyword ? ` ${this.anonymousKeyword}` : '',
-      this.semicolon
+      this.anonymousKeyword ? ' anonymous' : '',
+      ';'
     ];
   }
 }

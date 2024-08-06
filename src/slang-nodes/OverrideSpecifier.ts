@@ -13,15 +13,12 @@ export class OverrideSpecifier implements SlangNode {
 
   loc;
 
-  overrideKeyword: string;
-
   overridden?: OverridePathsDeclaration;
 
   constructor(ast: ast.OverrideSpecifier, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.overrideKeyword = ast.overrideKeyword.text;
     if (ast.overridden) {
       this.overridden = new OverridePathsDeclaration(
         ast.overridden,
@@ -39,9 +36,6 @@ export class OverrideSpecifier implements SlangNode {
     path: AstPath<OverrideSpecifier>,
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
-    return [
-      this.overrideKeyword,
-      this.overridden ? path.call(print, 'overridden') : ''
-    ];
+    return ['override', this.overridden ? path.call(print, 'overridden') : ''];
   }
 }

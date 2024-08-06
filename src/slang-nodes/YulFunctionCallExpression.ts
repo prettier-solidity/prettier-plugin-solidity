@@ -16,11 +16,7 @@ export class YulFunctionCallExpression implements SlangNode {
 
   operand: YulExpression;
 
-  openParen: string;
-
   arguments: YulArguments;
-
-  closeParen: string;
 
   constructor(
     ast: ast.YulFunctionCallExpression,
@@ -31,9 +27,7 @@ export class YulFunctionCallExpression implements SlangNode {
     const { offsets } = metadata;
 
     this.operand = new YulExpression(ast.operand, offsets[0], options);
-    this.openParen = ast.openParen.text;
     this.arguments = new YulArguments(ast.arguments, offsets[1], options);
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.operand, this.arguments]);
 
@@ -47,9 +41,9 @@ export class YulFunctionCallExpression implements SlangNode {
   ): Doc {
     return [
       path.call(print, 'operand'),
-      this.openParen,
+      '(',
       path.call(print, 'arguments'),
-      this.closeParen
+      ')'
     ];
   }
 }

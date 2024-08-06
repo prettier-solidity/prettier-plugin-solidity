@@ -12,21 +12,14 @@ export class YulColonEqual implements SlangNode {
 
   loc;
 
-  colon: string;
-
-  equal: string;
-
   constructor(ast: ast.YulColonEqual, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
-
-    this.colon = ast.colon.text;
-    this.equal = ast.equal.text;
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return `${this.colon}${this.equal}`;
+    return ':=';
   }
 }

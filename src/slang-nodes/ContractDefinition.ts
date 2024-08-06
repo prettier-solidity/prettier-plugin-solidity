@@ -21,17 +21,11 @@ export class ContractDefinition implements SlangNode {
 
   abstractKeyword?: string;
 
-  contractKeyword: string;
-
   name: string;
 
   inheritance?: InheritanceSpecifier;
 
-  openBrace: string;
-
   members: ContractMembers;
-
-  closeBrace: string;
 
   constructor(
     ast: ast.ContractDefinition,
@@ -42,7 +36,6 @@ export class ContractDefinition implements SlangNode {
     const { offsets } = metadata;
 
     this.abstractKeyword = ast.abstractKeyword?.text;
-    this.contractKeyword = ast.contractKeyword.text;
     this.name = ast.name.text;
     let i = 0;
     if (ast.inheritance) {
@@ -53,9 +46,7 @@ export class ContractDefinition implements SlangNode {
       );
       i += 1;
     }
-    this.openBrace = ast.openBrace.text;
     this.members = new ContractMembers(ast.members, offsets[i], options);
-    this.closeBrace = ast.closeBrace.text;
 
     metadata = updateMetadata(metadata, [this.inheritance, this.members]);
 
@@ -87,12 +78,13 @@ export class ContractDefinition implements SlangNode {
   ): Doc {
     return [
       group([
-        `${this.abstractKeyword ? `${this.abstractKeyword} ` : ''}${this.contractKeyword} ${this.name}`,
+        this.abstractKeyword ? 'abstract ' : '',
+        `contract ${this.name}`,
         this.inheritance ? [' ', path.call(print, 'inheritance')] : line,
-        this.openBrace
+        '{'
       ]),
       path.call(print, 'members'),
-      this.closeBrace
+      '}'
     ];
   }
 }

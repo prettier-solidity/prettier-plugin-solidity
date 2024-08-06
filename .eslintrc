@@ -8,7 +8,12 @@
   "overrides": [
     {
       "files": ["**/*.ts"],
-      "extends": ["prettier", "plugin:@typescript-eslint/recommended"],
+      "extends": [
+        "prettier",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/stylistic",
+        "plugin:@typescript-eslint/recommended-type-checked"
+      ],
       "parser": "@typescript-eslint/parser",
       "plugins": ["@typescript-eslint"],
       "parserOptions": {

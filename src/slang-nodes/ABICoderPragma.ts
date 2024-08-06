@@ -12,14 +12,11 @@ export class ABICoderPragma implements SlangNode {
 
   loc;
 
-  abicoderKeyword: string;
-
   version: string;
 
   constructor(ast: ast.ABICoderPragma, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
 
-    this.abicoderKeyword = ast.abicoderKeyword.text;
     this.version = ast.version.text;
 
     this.comments = metadata.comments;
@@ -27,6 +24,6 @@ export class ABICoderPragma implements SlangNode {
   }
 
   print(): Doc {
-    return `${this.abicoderKeyword} ${this.version}`;
+    return `abicoder ${this.version}`;
   }
 }

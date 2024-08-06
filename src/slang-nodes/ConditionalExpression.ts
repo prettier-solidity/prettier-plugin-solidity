@@ -40,7 +40,7 @@ function experimentalTernaries(
     node.operand.variant.kind === NonterminalKind.TupleExpression
       ? operand
       : ifBreak(['(', printSeparatedItem(operand), ')'], operand),
-    ` ${node.questionMark}`
+    ' ?'
   ]);
 
   // To switch between "case-style" and "curious" ternaries we force a new line
@@ -69,7 +69,7 @@ function experimentalTernaries(
   const falseExpression = path.call(print, 'falseExpression');
   const falseExpressionDoc = [
     isNested ? hardline : line,
-    node.colon,
+    ':',
     falseExpressionInSameLine
       ? [' ', falseExpression]
       : ifBreak([fillTab, indent(falseExpression)], [' ', falseExpression], {
@@ -99,10 +99,10 @@ function traditionalTernaries(
       NonterminalKind.ConditionalExpression
         ? hardline
         : line,
-      `${node.questionMark} `,
+      '? ',
       path.call(print, 'trueExpression'),
       line,
-      `${node.colon} `,
+      ': ',
       path.call(print, 'falseExpression')
     ])
   ]);
@@ -117,11 +117,7 @@ export class ConditionalExpression implements SlangNode {
 
   operand: Expression;
 
-  questionMark: string;
-
   trueExpression: Expression;
-
-  colon: string;
 
   falseExpression: Expression;
 
@@ -134,13 +130,11 @@ export class ConditionalExpression implements SlangNode {
     const { offsets } = metadata;
 
     this.operand = new Expression(ast.operand, offsets[0], options);
-    this.questionMark = ast.questionMark.text;
     this.trueExpression = new Expression(
       ast.trueExpression,
       offsets[1],
       options
     );
-    this.colon = ast.colon.text;
     this.falseExpression = new Expression(
       ast.falseExpression,
       offsets[2],

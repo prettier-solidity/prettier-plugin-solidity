@@ -12,14 +12,11 @@ export class AddressType implements SlangNode {
 
   loc;
 
-  addressKeyword: string;
-
   payableKeyword?: string;
 
   constructor(ast: ast.AddressType, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
 
-    this.addressKeyword = ast.addressKeyword.text;
     this.payableKeyword = ast.payableKeyword?.text;
 
     this.comments = metadata.comments;
@@ -27,6 +24,6 @@ export class AddressType implements SlangNode {
   }
 
   print(): Doc {
-    return `${this.addressKeyword}${this.payableKeyword ? ` ${this.payableKeyword}` : ''}`;
+    return ['address', this.payableKeyword ? ' payable' : ''];
   }
 }

@@ -15,8 +15,6 @@ export class AssemblyStatement implements SlangNode {
 
   loc;
 
-  assemblyKeyword: string;
-
   label?: StringLiteral;
 
   flags?: AssemblyFlagsDeclaration;
@@ -31,7 +29,6 @@ export class AssemblyStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.assemblyKeyword = ast.assemblyKeyword.text;
     let i = 0;
     if (ast.label) {
       this.label = new StringLiteral(ast.label, offsets[i], options);
@@ -54,7 +51,7 @@ export class AssemblyStatement implements SlangNode {
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
     return [
-      `${this.assemblyKeyword} `,
+      'assembly ',
       this.label ? [path.call(print, 'label'), ' '] : '',
       this.flags ? [path.call(print, 'flags'), ' '] : '',
       path.call(print, 'body')

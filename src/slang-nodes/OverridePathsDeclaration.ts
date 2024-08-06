@@ -13,19 +13,13 @@ export class OverridePathsDeclaration implements SlangNode {
 
   loc;
 
-  openParen: string;
-
   paths: OverridePaths;
-
-  closeParen: string;
 
   constructor(ast: ast.OverridePathsDeclaration, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openParen = ast.openParen.text;
     this.paths = new OverridePaths(ast.paths, offsets[0]);
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.paths]);
 

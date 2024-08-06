@@ -13,11 +13,7 @@ export class PragmaDirective implements SlangNode {
 
   loc;
 
-  pragmaKeyword: string;
-
   pragma: Pragma;
-
-  semicolon: string;
 
   constructor(
     ast: ast.PragmaDirective,
@@ -27,9 +23,7 @@ export class PragmaDirective implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.pragmaKeyword = ast.pragmaKeyword.text;
     this.pragma = new Pragma(ast.pragma, offsets[0], options);
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.pragma]);
 
@@ -41,10 +35,6 @@ export class PragmaDirective implements SlangNode {
     path: AstPath<PragmaDirective>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [
-      `${this.pragmaKeyword} `,
-      path.call(print, 'pragma'),
-      this.semicolon
-    ];
+    return ['pragma ', path.call(print, 'pragma'), ';'];
   }
 }

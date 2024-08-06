@@ -14,8 +14,6 @@ export class YulIfStatement implements SlangNode {
 
   loc;
 
-  ifKeyword: string;
-
   condition: YulExpression;
 
   body: YulBlock;
@@ -28,7 +26,6 @@ export class YulIfStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.ifKeyword = ast.ifKeyword.text;
     this.condition = new YulExpression(ast.condition, offsets[0], options);
     this.body = new YulBlock(ast.body, offsets[1], options);
 
@@ -43,7 +40,7 @@ export class YulIfStatement implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      `${this.ifKeyword} `,
+      'if ',
       path.call(print, 'condition'),
       ' ',
       path.call(print, 'body')

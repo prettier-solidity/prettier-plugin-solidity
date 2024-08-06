@@ -13,11 +13,7 @@ export class NamedArgumentsDeclaration implements SlangNode {
 
   loc;
 
-  openParen: string;
-
   arguments?: NamedArgumentGroup;
-
-  closeParen: string;
 
   constructor(
     ast: ast.NamedArgumentsDeclaration,
@@ -27,7 +23,6 @@ export class NamedArgumentsDeclaration implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openParen = ast.openParen.text;
     if (ast.arguments) {
       this.arguments = new NamedArgumentGroup(
         ast.arguments,
@@ -35,7 +30,6 @@ export class NamedArgumentsDeclaration implements SlangNode {
         options
       );
     }
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.arguments]);
 
@@ -47,10 +41,6 @@ export class NamedArgumentsDeclaration implements SlangNode {
     path: AstPath<NamedArgumentsDeclaration>,
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
-    return [
-      this.openParen,
-      this.arguments ? path.call(print, 'arguments') : '',
-      this.closeParen
-    ];
+    return ['(', this.arguments ? path.call(print, 'arguments') : '', ')'];
   }
 }

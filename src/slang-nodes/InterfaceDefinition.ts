@@ -17,17 +17,11 @@ export class InterfaceDefinition implements SlangNode {
 
   loc;
 
-  interfaceKeyword: string;
-
   name: string;
 
   inheritance?: InheritanceSpecifier;
 
-  openBrace: string;
-
   members: InterfaceMembers;
-
-  closeBrace: string;
 
   constructor(
     ast: ast.InterfaceDefinition,
@@ -37,7 +31,6 @@ export class InterfaceDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.interfaceKeyword = ast.interfaceKeyword.text;
     this.name = ast.name.text;
     let i = 0;
     if (ast.inheritance) {
@@ -48,9 +41,7 @@ export class InterfaceDefinition implements SlangNode {
       );
       i += 1;
     }
-    this.openBrace = ast.openBrace.text;
     this.members = new InterfaceMembers(ast.members, offsets[i], options);
-    this.closeBrace = ast.closeBrace.text;
 
     metadata = updateMetadata(metadata, [this.inheritance, this.members]);
 
@@ -64,12 +55,12 @@ export class InterfaceDefinition implements SlangNode {
   ): Doc {
     return [
       group([
-        `${this.interfaceKeyword} ${this.name}`,
+        `interface ${this.name}`,
         this.inheritance ? path.call(print, 'inheritance') : line,
-        this.openBrace
+        '{'
       ]),
       path.call(print, 'members'),
-      this.closeBrace
+      '}'
     ];
   }
 }

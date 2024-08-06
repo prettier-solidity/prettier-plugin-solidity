@@ -22,9 +22,7 @@ export class ModifierDefinition implements SlangNode {
 
   loc;
 
-  modifierKeyword;
-
-  name;
+  name: string;
 
   parameters?: ParametersDeclaration;
 
@@ -40,7 +38,6 @@ export class ModifierDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.modifierKeyword = ast.modifierKeyword.text;
     this.name = ast.name.text;
     let i = 0;
     if (ast.parameters) {
@@ -84,7 +81,6 @@ export class ModifierDefinition implements SlangNode {
           ...objectConfig
         },
         comments: { value: [], ...objectConfig },
-        openParen: { value: '(', ...objectConfig },
         parameters: {
           value: Object.create(Parameters.prototype, {
             kind: { value: NonterminalKind.Parameters, ...objectConfig },
@@ -94,8 +90,7 @@ export class ModifierDefinition implements SlangNode {
             separators: { value: [], ...objectConfig }
           }) as Parameters,
           ...objectConfig
-        },
-        closeParen: { value: ')', ...objectConfig }
+        }
       }) as ParametersDeclaration;
     }
   }
@@ -104,11 +99,6 @@ export class ModifierDefinition implements SlangNode {
     path: AstPath<ModifierDefinition>,
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
-    return printFunction(
-      `${this.modifierKeyword} ${this.name}`,
-      this,
-      path,
-      print
-    );
+    return printFunction(`modifier ${this.name}`, this, path, print);
   }
 }

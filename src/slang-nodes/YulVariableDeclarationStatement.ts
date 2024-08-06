@@ -13,8 +13,6 @@ export class YulVariableDeclarationStatement implements SlangNode {
 
   loc;
 
-  letKeyword: string;
-
   names: string;
 
   value?: YulVariableDeclarationValue;
@@ -27,7 +25,6 @@ export class YulVariableDeclarationStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.letKeyword = ast.letKeyword.text;
     this.names = ast.names.text;
     if (ast.value) {
       this.value = new YulVariableDeclarationValue(
@@ -47,9 +44,6 @@ export class YulVariableDeclarationStatement implements SlangNode {
     path: AstPath<YulVariableDeclarationStatement>,
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
-    return [
-      `${this.letKeyword} ${this.names} `,
-      this.value ? path.call(print, 'value') : ''
-    ];
+    return [`let ${this.names} `, this.value ? path.call(print, 'value') : ''];
   }
 }

@@ -13,11 +13,7 @@ export class YulBlock implements SlangNode {
 
   loc;
 
-  openBrace: string;
-
   statements: YulStatements;
-
-  closeBrace: string;
 
   constructor(
     ast: ast.YulBlock,
@@ -27,9 +23,7 @@ export class YulBlock implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openBrace = ast.openBrace.text;
     this.statements = new YulStatements(ast.statements, offsets[0], options);
-    this.closeBrace = ast.closeBrace.text;
 
     metadata = updateMetadata(metadata, [this.statements]);
 
@@ -38,6 +32,6 @@ export class YulBlock implements SlangNode {
   }
 
   print(path: AstPath<YulBlock>, print: (path: AstPath<AstNode>) => Doc): Doc {
-    return [this.openBrace, path.call(print, 'statements'), this.closeBrace];
+    return ['{', path.call(print, 'statements'), '}'];
   }
 }

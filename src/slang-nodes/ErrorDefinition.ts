@@ -13,13 +13,9 @@ export class ErrorDefinition implements SlangNode {
 
   loc;
 
-  errorKeyword: string;
-
   name: string;
 
   members: ErrorParametersDeclaration;
-
-  semicolon: string;
 
   constructor(
     ast: ast.ErrorDefinition,
@@ -29,14 +25,12 @@ export class ErrorDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.errorKeyword = ast.errorKeyword.text;
     this.name = ast.name.text;
     this.members = new ErrorParametersDeclaration(
       ast.members,
       offsets[0],
       options
     );
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.members]);
 
@@ -48,10 +42,6 @@ export class ErrorDefinition implements SlangNode {
     path: AstPath<ErrorDefinition>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [
-      `${this.errorKeyword} ${this.name}`,
-      path.call(print, 'members'),
-      this.semicolon
-    ];
+    return [`error ${this.name}`, path.call(print, 'members'), ';'];
   }
 }

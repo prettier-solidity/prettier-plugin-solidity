@@ -43,7 +43,7 @@ export class EventParameter implements SlangNode {
   ): Doc {
     return [
       path.call(print, 'typeName'),
-      this.indexedKeyword ? ` ${this.indexedKeyword}` : '',
+      this.indexedKeyword ? ' indexed' : '',
       this.name ? ` ${this.name}` : ''
     ];
   }

@@ -13,11 +13,7 @@ export class TupleExpression implements SlangNode {
 
   loc;
 
-  openParen: string;
-
   items: TupleValues;
-
-  closeParen: string;
 
   constructor(
     ast: ast.TupleExpression,
@@ -27,9 +23,7 @@ export class TupleExpression implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openParen = ast.openParen.text;
     this.items = new TupleValues(ast.items, offsets[0], options);
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.items]);
 
@@ -41,6 +35,6 @@ export class TupleExpression implements SlangNode {
     path: AstPath<TupleExpression>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [this.openParen, path.call(print, 'items'), this.closeParen];
+    return ['(', path.call(print, 'items'), ')'];
   }
 }

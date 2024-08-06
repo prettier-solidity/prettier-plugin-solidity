@@ -12,18 +12,14 @@ export class YulLeaveStatement implements SlangNode {
 
   loc;
 
-  leaveKeyword: string;
-
   constructor(ast: ast.YulLeaveStatement, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
-
-    this.leaveKeyword = ast.leaveKeyword.text;
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return this.leaveKeyword;
+    return 'leave';
   }
 }

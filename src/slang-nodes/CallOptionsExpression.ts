@@ -16,11 +16,7 @@ export class CallOptionsExpression implements SlangNode {
 
   operand: Expression;
 
-  openBrace: string;
-
   options: CallOptions;
-
-  closeBrace: string;
 
   constructor(
     ast: ast.CallOptionsExpression,
@@ -31,9 +27,7 @@ export class CallOptionsExpression implements SlangNode {
     const { offsets } = metadata;
 
     this.operand = new Expression(ast.operand, offsets[0], options);
-    this.openBrace = ast.openBrace.text;
     this.options = new CallOptions(ast.options, offsets[1], options);
-    this.closeBrace = ast.closeBrace.text;
 
     metadata = updateMetadata(metadata, [this.operand, this.options]);
 
@@ -45,11 +39,6 @@ export class CallOptionsExpression implements SlangNode {
     path: AstPath<CallOptionsExpression>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [
-      path.call(print, 'operand'),
-      this.openBrace,
-      path.call(print, 'options'),
-      this.closeBrace
-    ];
+    return [path.call(print, 'operand'), '{', path.call(print, 'options'), '}'];
   }
 }

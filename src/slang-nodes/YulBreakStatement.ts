@@ -12,18 +12,14 @@ export class YulBreakStatement implements SlangNode {
 
   loc;
 
-  breakKeyword: string;
-
   constructor(ast: ast.YulBreakStatement, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
-
-    this.breakKeyword = ast.breakKeyword.text;
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return this.breakKeyword;
+    return 'break';
   }
 }

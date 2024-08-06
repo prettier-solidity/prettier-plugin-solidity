@@ -97,7 +97,6 @@ export class ExponentiationExpression implements SlangNode {
                 },
                 loc: { value: { ...leftLoc }, ...objectConfig },
                 comments: { value: [], ...objectConfig },
-                openParen: { value: '(', ...objectConfig },
                 items: {
                   value: Object.create(TupleValues.prototype, {
                     kind: {
@@ -161,8 +160,7 @@ export class ExponentiationExpression implements SlangNode {
                     separators: { value: [], ...objectConfig }
                   }) as TupleValues,
                   ...objectConfig
-                },
-                closeParen: { value: ')', ...objectConfig }
+                }
               }) as TupleExpression,
               ...objectConfig
             }

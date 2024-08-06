@@ -13,11 +13,7 @@ export class ImportDirective implements SlangNode {
 
   loc;
 
-  importKeyword: string;
-
   clause: ImportClause;
-
-  semicolon: string;
 
   constructor(
     ast: ast.ImportDirective,
@@ -27,9 +23,7 @@ export class ImportDirective implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.importKeyword = ast.importKeyword.text;
     this.clause = new ImportClause(ast.clause, offsets[0], options);
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.clause]);
 
@@ -41,10 +35,6 @@ export class ImportDirective implements SlangNode {
     path: AstPath<ImportDirective>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [
-      `${this.importKeyword} `,
-      path.call(print, 'clause'),
-      this.semicolon
-    ];
+    return ['import ', path.call(print, 'clause'), ';'];
   }
 }

@@ -13,15 +13,12 @@ export class UsingAlias implements SlangNode {
 
   loc;
 
-  asKeyword: string;
-
   operator: UsingOperator;
 
   constructor(ast: ast.UsingAlias, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.asKeyword = ast.asKeyword.text;
     this.operator = new UsingOperator(ast.operator, offsets[0]);
 
     metadata = updateMetadata(metadata, [this.operator]);
@@ -34,6 +31,6 @@ export class UsingAlias implements SlangNode {
     path: AstPath<UsingAlias>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [` ${this.asKeyword} `, path.call(print, 'operator')];
+    return [' as ', path.call(print, 'operator')];
   }
 }

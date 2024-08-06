@@ -14,8 +14,6 @@ export class CatchClause implements SlangNode {
 
   loc;
 
-  catchKeyword: string;
-
   error?: CatchClauseError;
 
   body: Block;
@@ -28,7 +26,6 @@ export class CatchClause implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.catchKeyword = ast.catchKeyword.text;
     let i = 0;
     if (ast.error) {
       this.error = new CatchClauseError(ast.error, offsets[i], options);
@@ -47,7 +44,7 @@ export class CatchClause implements SlangNode {
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
     return [
-      `${this.catchKeyword} `,
+      'catch ',
       this.error ? path.call(print, 'error') : '',
       path.call(print, 'body')
     ];

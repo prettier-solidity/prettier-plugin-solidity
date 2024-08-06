@@ -17,8 +17,6 @@ export class YulSwitchStatement implements SlangNode {
 
   loc;
 
-  switchKeyword: string;
-
   expression: YulExpression;
 
   cases: YulSwitchCases;
@@ -31,7 +29,6 @@ export class YulSwitchStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.switchKeyword = ast.switchKeyword.text;
     this.expression = new YulExpression(ast.expression, offsets[0], options);
     this.cases = new YulSwitchCases(ast.cases, offsets[1], options);
 
@@ -46,7 +43,7 @@ export class YulSwitchStatement implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      `${this.switchKeyword} `,
+      'switch ',
       path.call(print, 'expression'),
       hardline,
       path.call(print, 'cases')

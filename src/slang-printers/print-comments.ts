@@ -9,7 +9,6 @@ import type { DocV2 } from './types';
 const { join, line } = doc.builders;
 
 export function printComments(node: AstNode, path: AstPath<AstNode>): Doc[] {
-  if (!node.comments) return [];
   const document = join(
     line,
     path

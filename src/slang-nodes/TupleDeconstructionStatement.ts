@@ -19,17 +19,9 @@ export class TupleDeconstructionStatement implements SlangNode {
 
   varKeyword?: string;
 
-  openParen: string;
-
   elements: TupleDeconstructionElements;
 
-  closeParen: string;
-
-  equal: string;
-
   expression: Expression;
-
-  semicolon: string;
 
   constructor(
     ast: ast.TupleDeconstructionStatement,
@@ -40,16 +32,12 @@ export class TupleDeconstructionStatement implements SlangNode {
     const { offsets } = metadata;
 
     this.varKeyword = ast.varKeyword?.text;
-    this.openParen = ast.openParen.text;
     this.elements = new TupleDeconstructionElements(
       ast.elements,
       offsets[0],
       options
     );
-    this.closeParen = ast.closeParen.text;
-    this.equal = ast.equal.text;
     this.expression = new Expression(ast.expression, offsets[1], options);
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.elements, this.expression]);
 
@@ -63,15 +51,12 @@ export class TupleDeconstructionStatement implements SlangNode {
   ): Doc {
     return [
       this.varKeyword ? this.varKeyword : '',
-      this.openParen,
+      '(',
       path.call(print, 'elements'),
       typeof this.expression.variant !== 'string' &&
       this.expression.variant.kind === NonterminalKind.TupleExpression
-        ? [`${this.closeParen} ${this.equal} `, path.call(print, 'expression')]
-        : group([
-            `${this.closeParen} ${this.equal}`,
-            indent([line, path.call(print, 'expression'), this.semicolon])
-          ])
+        ? [') = ', path.call(print, 'expression')]
+        : group([') =', indent([line, path.call(print, 'expression'), ';'])])
     ];
   }
 }

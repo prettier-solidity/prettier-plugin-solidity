@@ -13,8 +13,6 @@ export class NewExpression implements SlangNode {
 
   loc;
 
-  newKeyword: string;
-
   typeName: TypeName;
 
   constructor(
@@ -25,7 +23,6 @@ export class NewExpression implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.newKeyword = ast.newKeyword.text;
     this.typeName = new TypeName(ast.typeName, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.typeName]);
@@ -38,6 +35,6 @@ export class NewExpression implements SlangNode {
     path: AstPath<NewExpression>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [`${this.newKeyword} `, path.call(print, 'typeName')];
+    return ['new ', path.call(print, 'typeName')];
   }
 }

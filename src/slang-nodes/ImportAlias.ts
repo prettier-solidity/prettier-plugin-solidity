@@ -12,14 +12,11 @@ export class ImportAlias implements SlangNode {
 
   loc;
 
-  asKeyword: string;
-
   identifier: string;
 
   constructor(ast: ast.ImportAlias, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
 
-    this.asKeyword = ast.asKeyword.text;
     this.identifier = ast.identifier.text;
 
     this.comments = metadata.comments;
@@ -27,6 +24,6 @@ export class ImportAlias implements SlangNode {
   }
 
   print(): Doc {
-    return ` ${this.asKeyword} ${this.identifier}`;
+    return ` as ${this.identifier}`;
   }
 }

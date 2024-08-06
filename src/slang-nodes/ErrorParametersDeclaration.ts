@@ -13,11 +13,7 @@ export class ErrorParametersDeclaration implements SlangNode {
 
   loc;
 
-  openParen: string;
-
   parameters: ErrorParameters;
-
-  closeParen: string;
 
   constructor(
     ast: ast.ErrorParametersDeclaration,
@@ -27,9 +23,7 @@ export class ErrorParametersDeclaration implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openParen = ast.openParen.text;
     this.parameters = new ErrorParameters(ast.parameters, offsets[0], options);
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.parameters]);
 
@@ -41,6 +35,6 @@ export class ErrorParametersDeclaration implements SlangNode {
     path: AstPath<ErrorParametersDeclaration>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [this.openParen, path.call(print, 'parameters'), this.closeParen];
+    return ['(', path.call(print, 'parameters'), ')'];
   }
 }

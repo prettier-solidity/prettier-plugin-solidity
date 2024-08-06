@@ -16,11 +16,7 @@ export class ArrayExpression implements SlangNode {
 
   loc;
 
-  openBracket: string;
-
   items: ArrayValues;
-
-  closeBracket: string;
 
   constructor(
     ast: ast.ArrayExpression,
@@ -30,9 +26,7 @@ export class ArrayExpression implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openBracket = ast.openBracket.text;
     this.items = new ArrayValues(ast.items, offsets[0], options);
-    this.closeBracket = ast.closeBracket.text;
 
     metadata = updateMetadata(metadata, [this.items]);
 
@@ -44,10 +38,6 @@ export class ArrayExpression implements SlangNode {
     path: AstPath<ArrayExpression>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return group([
-      this.openBracket,
-      path.call(print, 'items'),
-      this.closeBracket
-    ]);
+    return group(['[', path.call(print, 'items'), ']']);
   }
 }

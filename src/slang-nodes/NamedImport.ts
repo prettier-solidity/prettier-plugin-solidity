@@ -18,8 +18,6 @@ export class NamedImport implements SlangNode {
 
   alias: ImportAlias;
 
-  fromKeyword: string;
-
   path: StringLiteral;
 
   constructor(
@@ -32,7 +30,6 @@ export class NamedImport implements SlangNode {
 
     this.asterisk = ast.asterisk.text;
     this.alias = new ImportAlias(ast.alias, offsets[0]);
-    this.fromKeyword = ast.fromKeyword.text;
     this.path = new StringLiteral(ast.path, offsets[1], options);
 
     metadata = updateMetadata(metadata, [this.alias, this.path]);
@@ -48,7 +45,7 @@ export class NamedImport implements SlangNode {
     return [
       this.asterisk,
       path.call(print, 'alias'),
-      ` ${this.fromKeyword} `,
+      ' from ',
       path.call(print, 'path')
     ];
   }

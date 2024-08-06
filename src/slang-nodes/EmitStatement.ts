@@ -14,13 +14,9 @@ export class EmitStatement implements SlangNode {
 
   loc;
 
-  emitKeyword: string;
-
   event: IdentifierPath;
 
   arguments: ArgumentsDeclaration;
-
-  semicolon: string;
 
   constructor(
     ast: ast.EmitStatement,
@@ -30,14 +26,12 @@ export class EmitStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.emitKeyword = ast.emitKeyword.text;
     this.event = new IdentifierPath(ast.event, offsets[0]);
     this.arguments = new ArgumentsDeclaration(
       ast.arguments,
       offsets[1],
       options
     );
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.event, this.arguments]);
 
@@ -50,10 +44,10 @@ export class EmitStatement implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      `${this.emitKeyword} `,
+      'emit ',
       path.call(print, 'event'),
       path.call(print, 'arguments'),
-      this.semicolon
+      ';'
     ];
   }
 }

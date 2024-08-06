@@ -16,8 +16,6 @@ export class ConstructorDefinition implements SlangNode {
 
   loc;
 
-  constructorKeyword: string;
-
   parameters: ParametersDeclaration;
 
   attributes: ConstructorAttributes;
@@ -32,7 +30,6 @@ export class ConstructorDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.constructorKeyword = ast.constructorKeyword.text;
     this.parameters = new ParametersDeclaration(
       ast.parameters,
       offsets[0],
@@ -59,6 +56,6 @@ export class ConstructorDefinition implements SlangNode {
     path: AstPath<ConstructorDefinition>,
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
-    return printFunction(this.constructorKeyword, this, path, print);
+    return printFunction('constructor', this, path, print);
   }
 }

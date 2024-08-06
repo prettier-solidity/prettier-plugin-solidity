@@ -14,13 +14,9 @@ export class RevertStatement implements SlangNode {
 
   loc;
 
-  revertKeyword: string;
-
   error?: IdentifierPath;
 
   arguments: ArgumentsDeclaration;
-
-  semicolon: string;
 
   constructor(
     ast: ast.RevertStatement,
@@ -30,7 +26,6 @@ export class RevertStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.revertKeyword = ast.revertKeyword.text;
     let i = 0;
     if (ast.error) {
       this.error = new IdentifierPath(ast.error, offsets[i]);
@@ -41,7 +36,6 @@ export class RevertStatement implements SlangNode {
       offsets[i],
       options
     );
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.error, this.arguments]);
 
@@ -54,10 +48,10 @@ export class RevertStatement implements SlangNode {
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
     return [
-      `${this.revertKeyword} `,
+      'revert ',
       this.error ? path.call(print, 'error') : '',
       path.call(print, 'arguments'),
-      this.semicolon
+      ';'
     ];
   }
 }

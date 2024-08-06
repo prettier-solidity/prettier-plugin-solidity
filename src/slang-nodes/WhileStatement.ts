@@ -18,13 +18,7 @@ export class WhileStatement implements SlangNode {
 
   loc;
 
-  whileKeyword: string;
-
-  openParen: string;
-
   condition: Expression;
-
-  closeParen: string;
 
   body: Statement;
 
@@ -36,10 +30,7 @@ export class WhileStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.whileKeyword = ast.whileKeyword.text;
-    this.openParen = ast.openParen.text;
     this.condition = new Expression(ast.condition, offsets[0], options);
-    this.closeParen = ast.closeParen.text;
     this.body = new Statement(ast.body, offsets[1], options);
 
     metadata = updateMetadata(metadata, [this.condition, this.body]);
@@ -53,9 +44,9 @@ export class WhileStatement implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      `${this.whileKeyword} ${this.openParen}`,
+      'while (',
       printSeparatedItem(path.call(print, 'condition')),
-      this.closeParen,
+      ')',
       this.body.variant.kind === NonterminalKind.Block
         ? [' ', path.call(print, 'body')]
         : group(indent([line, path.call(print, 'body')]))

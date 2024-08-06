@@ -16,8 +16,6 @@ export class ReturnsDeclaration implements SlangNode {
 
   loc;
 
-  returnsKeyword: string;
-
   variables: ParametersDeclaration;
 
   constructor(
@@ -28,7 +26,6 @@ export class ReturnsDeclaration implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.returnsKeyword = ast.returnsKeyword.text;
     this.variables = new ParametersDeclaration(
       ast.variables,
       offsets[0],
@@ -45,6 +42,6 @@ export class ReturnsDeclaration implements SlangNode {
     path: AstPath<ReturnsDeclaration>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [`${this.returnsKeyword} `, group(path.call(print, 'variables'))];
+    return ['returns ', group(path.call(print, 'variables'))];
   }
 }

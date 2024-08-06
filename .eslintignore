@@ -1,5 +1,6 @@
 coverage/**/*.js
 dist/**/*.cjs
+dist/**/*.js
 tests/**/*.snap
 tests/format/**/*.sol
 tests/format/Markdown/Markdown.md

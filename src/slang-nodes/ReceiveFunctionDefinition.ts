@@ -16,8 +16,6 @@ export class ReceiveFunctionDefinition implements SlangNode {
 
   loc;
 
-  receiveKeyword: string;
-
   parameters: ParametersDeclaration;
 
   attributes: ReceiveFunctionAttributes;
@@ -32,7 +30,6 @@ export class ReceiveFunctionDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.receiveKeyword = ast.receiveKeyword.text;
     this.parameters = new ParametersDeclaration(
       ast.parameters,
       offsets[0],
@@ -72,6 +69,6 @@ export class ReceiveFunctionDefinition implements SlangNode {
     path: AstPath<ReceiveFunctionDefinition>,
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
-    return printFunction(this.receiveKeyword, this, path, print);
+    return printFunction('receive', this, path, print);
   }
 }
