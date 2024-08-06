@@ -22,8 +22,6 @@ export class ElseBranch implements SlangNode {
 
   loc;
 
-  elseKeyword: string;
-
   body: Statement;
 
   constructor(
@@ -34,7 +32,6 @@ export class ElseBranch implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.elseKeyword = ast.elseKeyword.text;
     this.body = new Statement(ast.body, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.body]);
@@ -48,7 +45,7 @@ export class ElseBranch implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      this.elseKeyword,
+      'else',
       isIfStatementOrBlock(this.body.variant)
         ? [' ', path.call(print, 'body')]
         : group(indent([line, path.call(print, 'body')]))

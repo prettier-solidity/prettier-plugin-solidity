@@ -12,21 +12,14 @@ export class ThrowStatement implements SlangNode {
 
   loc;
 
-  throwKeyword: string;
-
-  semicolon: string;
-
   constructor(ast: ast.ThrowStatement, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
-
-    this.throwKeyword = ast.throwKeyword.text;
-    this.semicolon = ast.semicolon.text;
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return `${this.throwKeyword}${this.semicolon}`;
+    return 'throw;';
   }
 }

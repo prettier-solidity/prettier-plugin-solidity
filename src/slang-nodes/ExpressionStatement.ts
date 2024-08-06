@@ -15,8 +15,6 @@ export class ExpressionStatement implements SlangNode {
 
   expression: Expression;
 
-  semicolon: string;
-
   constructor(
     ast: ast.ExpressionStatement,
     offset: number,
@@ -26,7 +24,6 @@ export class ExpressionStatement implements SlangNode {
     const { offsets } = metadata;
 
     this.expression = new Expression(ast.expression, offsets[0], options);
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.expression]);
 
@@ -38,6 +35,6 @@ export class ExpressionStatement implements SlangNode {
     path: AstPath<ExpressionStatement>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [path.call(print, 'expression'), this.semicolon];
+    return [path.call(print, 'expression'), ';'];
   }
 }

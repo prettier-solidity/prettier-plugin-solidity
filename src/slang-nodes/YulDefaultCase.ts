@@ -13,8 +13,6 @@ export class YulDefaultCase implements SlangNode {
 
   loc;
 
-  defaultKeyword: string;
-
   body: YulBlock;
 
   constructor(
@@ -25,7 +23,6 @@ export class YulDefaultCase implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.defaultKeyword = ast.defaultKeyword.text;
     this.body = new YulBlock(ast.body, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.body]);
@@ -38,6 +35,6 @@ export class YulDefaultCase implements SlangNode {
     path: AstPath<YulDefaultCase>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [`${this.defaultKeyword} `, path.call(print, 'body')];
+    return ['default ', path.call(print, 'body')];
   }
 }

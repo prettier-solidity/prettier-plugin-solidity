@@ -13,15 +13,9 @@ export class StructDefinition implements SlangNode {
 
   loc;
 
-  structKeyword: string;
-
   name: string;
 
-  openBrace: string;
-
   members: StructMembers;
-
-  closeBrace: string;
 
   constructor(
     ast: ast.StructDefinition,
@@ -31,11 +25,8 @@ export class StructDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.structKeyword = ast.structKeyword.text;
     this.name = ast.name.text;
-    this.openBrace = ast.openBrace.text;
     this.members = new StructMembers(ast.members, offsets[0], options);
-    this.closeBrace = ast.closeBrace.text;
 
     metadata = updateMetadata(metadata, [this.members]);
 
@@ -47,10 +38,6 @@ export class StructDefinition implements SlangNode {
     path: AstPath<StructDefinition>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [
-      `${this.structKeyword} ${this.name} ${this.openBrace}`,
-      path.call(print, 'members'),
-      this.closeBrace
-    ];
+    return [`struct ${this.name} {`, path.call(print, 'members'), '}'];
   }
 }

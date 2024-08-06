@@ -18,19 +18,9 @@ export class DoWhileStatement implements SlangNode {
 
   loc;
 
-  doKeyword: string;
-
   body: Statement;
 
-  whileKeyword: string;
-
-  openParen: string;
-
   condition: Expression;
-
-  closeParen: string;
-
-  semicolon: string;
 
   constructor(
     ast: ast.DoWhileStatement,
@@ -40,13 +30,8 @@ export class DoWhileStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.doKeyword = ast.doKeyword.text;
     this.body = new Statement(ast.body, offsets[0], options);
-    this.whileKeyword = ast.whileKeyword.text;
-    this.openParen = ast.openParen.text;
     this.condition = new Expression(ast.condition, offsets[1], options);
-    this.closeParen = ast.closeParen.text;
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.body, this.condition]);
 
@@ -59,13 +44,13 @@ export class DoWhileStatement implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      this.doKeyword,
+      'do',
       this.body.variant.kind === NonterminalKind.Block
         ? [' ', path.call(print, 'body'), ' ']
         : group([indent([line, path.call(print, 'body')]), line]),
-      `${this.whileKeyword} ${this.openParen}`,
+      'while (',
       printSeparatedItem(path.call(print, 'condition')),
-      `${this.closeParen}${this.semicolon}`
+      ');'
     ];
   }
 }

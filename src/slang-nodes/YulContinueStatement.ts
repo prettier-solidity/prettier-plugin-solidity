@@ -12,18 +12,14 @@ export class YulContinueStatement implements SlangNode {
 
   loc;
 
-  continueKeyword: string;
-
   constructor(ast: ast.YulContinueStatement, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
-
-    this.continueKeyword = ast.continueKeyword.text;
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return this.continueKeyword;
+    return 'continue';
   }
 }

@@ -20,8 +20,6 @@ export class FunctionDefinition implements SlangNode {
 
   loc;
 
-  functionKeyword: string;
-
   name: FunctionName;
 
   parameters: ParametersDeclaration;
@@ -40,7 +38,6 @@ export class FunctionDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.functionKeyword = ast.functionKeyword.text;
     this.name = new FunctionName(ast.name, offsets[0]);
     this.parameters = new ParametersDeclaration(
       ast.parameters,
@@ -94,7 +91,7 @@ export class FunctionDefinition implements SlangNode {
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
     return printFunction(
-      [`${this.functionKeyword} `, path.call(print, 'name')],
+      ['function ', path.call(print, 'name')],
       this,
       path,
       print

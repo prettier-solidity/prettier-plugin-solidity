@@ -19,13 +19,7 @@ export class IfStatement implements SlangNode {
 
   loc;
 
-  ifKeyword: string;
-
-  openParen: string;
-
   condition: Expression;
-
-  closeParen: string;
 
   body: Statement;
 
@@ -39,10 +33,7 @@ export class IfStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.ifKeyword = ast.ifKeyword.text;
-    this.openParen = ast.openParen.text;
     this.condition = new Expression(ast.condition, offsets[0], options);
-    this.closeParen = ast.closeParen.text;
     this.body = new Statement(ast.body, offsets[1], options);
     if (ast.elseBranch) {
       this.elseBranch = new ElseBranch(ast.elseBranch, offsets[2], options);
@@ -63,9 +54,9 @@ export class IfStatement implements SlangNode {
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
     return [
-      `${this.ifKeyword} ${this.openParen}`,
+      'if (',
       printSeparatedItem(path.call(print, 'condition')),
-      this.closeParen,
+      ')',
       this.body.variant.kind === NonterminalKind.Block
         ? [' ', path.call(print, 'body')]
         : group(indent([line, path.call(print, 'body')]), {

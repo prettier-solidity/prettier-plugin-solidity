@@ -13,8 +13,6 @@ export class IndexAccessEnd implements SlangNode {
 
   loc;
 
-  colon: string;
-
   end?: Expression;
 
   constructor(
@@ -25,7 +23,6 @@ export class IndexAccessEnd implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.colon = ast.colon.text;
     if (ast.end) {
       this.end = new Expression(ast.end, offsets[0], options);
     }
@@ -40,6 +37,6 @@ export class IndexAccessEnd implements SlangNode {
     path: AstPath<IndexAccessEnd>,
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
-    return [this.colon, this.end ? path.call(print, 'end') : ''];
+    return [':', this.end ? path.call(print, 'end') : ''];
   }
 }

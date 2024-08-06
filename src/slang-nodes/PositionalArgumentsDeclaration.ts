@@ -13,11 +13,7 @@ export class PositionalArgumentsDeclaration implements SlangNode {
 
   loc;
 
-  openParen: string;
-
   arguments: PositionalArguments;
-
-  closeParen: string;
 
   constructor(
     ast: ast.PositionalArgumentsDeclaration,
@@ -27,13 +23,11 @@ export class PositionalArgumentsDeclaration implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openParen = ast.openParen.text;
     this.arguments = new PositionalArguments(
       ast.arguments,
       offsets[0],
       options
     );
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.arguments]);
 
@@ -45,6 +39,6 @@ export class PositionalArgumentsDeclaration implements SlangNode {
     path: AstPath<PositionalArgumentsDeclaration>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [this.openParen, path.call(print, 'arguments'), this.closeParen];
+    return ['(', path.call(print, 'arguments'), ')'];
   }
 }

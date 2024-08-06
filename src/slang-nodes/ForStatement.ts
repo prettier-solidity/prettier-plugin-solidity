@@ -20,17 +20,11 @@ export class ForStatement implements SlangNode {
 
   loc;
 
-  forKeyword: string;
-
-  openParen: string;
-
   initialization: ForStatementInitialization;
 
   condition: ForStatementCondition;
 
   iterator?: Expression;
-
-  closeParen: string;
 
   body: Statement;
 
@@ -42,8 +36,6 @@ export class ForStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.forKeyword = ast.forKeyword.text;
-    this.openParen = ast.openParen.text;
     this.initialization = new ForStatementInitialization(
       ast.initialization,
       offsets[0],
@@ -59,7 +51,6 @@ export class ForStatement implements SlangNode {
       this.iterator = new Expression(ast.iterator, offsets[i], options);
       i += 1;
     }
-    this.closeParen = ast.closeParen.text;
     this.body = new Statement(ast.body, offsets[i], options);
 
     metadata = updateMetadata(metadata, [
@@ -82,14 +73,14 @@ export class ForStatement implements SlangNode {
     const iterator = this.iterator ? path.call(print, 'iterator') : '';
 
     return [
-      `${this.forKeyword} ${this.openParen}`,
+      'for (',
       printSeparatedList([initialization, condition, iterator], {
         separator:
           initialization !== ';' || condition !== ';' || iterator !== ''
             ? line
             : ''
       }),
-      this.closeParen,
+      ')',
       this.body.variant.kind === NonterminalKind.Block
         ? [' ', path.call(print, 'body')]
         : group(indent([line, path.call(print, 'body')]))

@@ -13,8 +13,6 @@ export class ExperimentalPragma implements SlangNode {
 
   loc;
 
-  experimentalKeyword: string;
-
   feature: ExperimentalFeature;
 
   constructor(
@@ -25,7 +23,6 @@ export class ExperimentalPragma implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.experimentalKeyword = ast.experimentalKeyword.text;
     this.feature = new ExperimentalFeature(ast.feature, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.feature]);
@@ -38,6 +35,6 @@ export class ExperimentalPragma implements SlangNode {
     path: AstPath<ExperimentalPragma>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [`${this.experimentalKeyword} `, path.call(print, 'feature')];
+    return ['experimental ', path.call(print, 'feature')];
   }
 }

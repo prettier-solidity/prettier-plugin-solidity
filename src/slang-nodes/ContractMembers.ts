@@ -44,8 +44,7 @@ export class ContractMembers implements SlangNode {
     print: (path: AstPath<AstNode | string>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
-    return this.items.length === 0 &&
-      (!this.comments || this.comments.length === 0)
+    return this.items.length === 0 && this.comments.length === 0
       ? ''
       : printSeparatedItem(
           [

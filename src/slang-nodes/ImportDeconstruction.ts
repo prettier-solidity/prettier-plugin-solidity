@@ -14,13 +14,7 @@ export class ImportDeconstruction implements SlangNode {
 
   loc;
 
-  openBrace: string;
-
   symbols: ImportDeconstructionSymbols;
-
-  closeBrace: string;
-
-  fromKeyword: string;
 
   path: StringLiteral;
 
@@ -32,10 +26,7 @@ export class ImportDeconstruction implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openBrace = ast.openBrace.text;
     this.symbols = new ImportDeconstructionSymbols(ast.symbols, offsets[0]);
-    this.closeBrace = ast.closeBrace.text;
-    this.fromKeyword = ast.fromKeyword.text;
     this.path = new StringLiteral(ast.path, offsets[1], options);
 
     metadata = updateMetadata(metadata, [this.symbols, this.path]);
@@ -49,9 +40,9 @@ export class ImportDeconstruction implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      this.openBrace,
+      '{',
       path.call(print, 'symbols'),
-      `${this.closeBrace} ${this.fromKeyword} `,
+      '} from ',
       path.call(print, 'path')
     ];
   }

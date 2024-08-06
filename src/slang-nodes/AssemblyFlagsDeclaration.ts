@@ -13,11 +13,7 @@ export class AssemblyFlagsDeclaration implements SlangNode {
 
   loc;
 
-  openParen: string;
-
   flags: AssemblyFlags;
-
-  closeParen: string;
 
   constructor(
     ast: ast.AssemblyFlagsDeclaration,
@@ -27,9 +23,7 @@ export class AssemblyFlagsDeclaration implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openParen = ast.openParen.text;
     this.flags = new AssemblyFlags(ast.flags, offsets[0], options);
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.flags]);
 
@@ -41,6 +35,6 @@ export class AssemblyFlagsDeclaration implements SlangNode {
     path: AstPath<AssemblyFlagsDeclaration>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [this.openParen, path.call(print, 'flags'), this.closeParen];
+    return ['(', path.call(print, 'flags'), ')'];
   }
 }

@@ -12,21 +12,14 @@ export class BreakStatement implements SlangNode {
 
   loc;
 
-  breakKeyword: string;
-
-  semicolon: string;
-
   constructor(ast: ast.BreakStatement, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
-
-    this.breakKeyword = ast.breakKeyword.text;
-    this.semicolon = ast.semicolon.text;
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return `${this.breakKeyword}${this.semicolon}`;
+    return 'break;';
   }
 }

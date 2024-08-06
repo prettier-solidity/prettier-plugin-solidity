@@ -13,25 +13,16 @@ export class UserDefinedValueTypeDefinition implements SlangNode {
 
   loc;
 
-  typeKeyword: string;
-
   name: string;
 
-  isKeyword: string;
-
   valueType: ElementaryType;
-
-  semicolon: string;
 
   constructor(ast: ast.UserDefinedValueTypeDefinition, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.typeKeyword = ast.typeKeyword.text;
     this.name = ast.name.text;
-    this.isKeyword = ast.isKeyword.text;
     this.valueType = new ElementaryType(ast.valueType, offsets[0]);
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.valueType]);
 
@@ -43,10 +34,6 @@ export class UserDefinedValueTypeDefinition implements SlangNode {
     path: AstPath<UserDefinedValueTypeDefinition>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [
-      `${this.typeKeyword} ${this.name} ${this.isKeyword} `,
-      path.call(print, 'valueType'),
-      this.semicolon
-    ];
+    return [`type ${this.name} is `, path.call(print, 'valueType'), ';'];
   }
 }

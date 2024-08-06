@@ -16,15 +16,9 @@ export class LibraryDefinition implements SlangNode {
 
   loc;
 
-  libraryKeyword: string;
-
   name: string;
 
-  openBrace: string;
-
   members: LibraryMembers;
-
-  closeBrace: string;
 
   constructor(
     ast: ast.LibraryDefinition,
@@ -34,11 +28,8 @@ export class LibraryDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.libraryKeyword = ast.libraryKeyword.text;
     this.name = ast.name.text;
-    this.openBrace = ast.openBrace.text;
     this.members = new LibraryMembers(ast.members, offsets[0], options);
-    this.closeBrace = ast.closeBrace.text;
 
     metadata = updateMetadata(metadata, [this.members]);
 
@@ -51,9 +42,9 @@ export class LibraryDefinition implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      group([`${this.libraryKeyword} ${this.name}`, line, this.openBrace]),
+      group([`library ${this.name}`, line, '{']),
       path.call(print, 'members'),
-      this.closeBrace
+      '}'
     ];
   }
 }

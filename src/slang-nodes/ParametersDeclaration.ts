@@ -13,11 +13,7 @@ export class ParametersDeclaration implements SlangNode {
 
   loc;
 
-  openParen: string;
-
   parameters: Parameters;
-
-  closeParen: string;
 
   constructor(
     ast: ast.ParametersDeclaration,
@@ -27,9 +23,7 @@ export class ParametersDeclaration implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openParen = ast.openParen.text;
     this.parameters = new Parameters(ast.parameters, offsets[0], options);
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.parameters]);
 
@@ -41,6 +35,6 @@ export class ParametersDeclaration implements SlangNode {
     path: AstPath<ParametersDeclaration>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [this.openParen, path.call(print, 'parameters'), this.closeParen];
+    return ['(', path.call(print, 'parameters'), ')'];
   }
 }

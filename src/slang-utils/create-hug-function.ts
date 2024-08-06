@@ -32,7 +32,6 @@ export function createHugFunction(
             kind: { value: NonterminalKind.TupleExpression, ...objectConfig },
             loc: { value: { ...loc }, ...objectConfig },
             comments: { value: [], ...objectConfig },
-            openParen: { value: '(', ...objectConfig },
             items: {
               value: Object.create(TupleValues.prototype, {
                 kind: { value: NonterminalKind.TupleValues, ...objectConfig },
@@ -55,8 +54,7 @@ export function createHugFunction(
                 separators: { value: [], ...objectConfig }
               }) as TupleValues,
               ...objectConfig
-            },
-            closeParen: { value: ')', ...objectConfig }
+            }
           }) as TupleExpression,
           ...objectConfig
         }

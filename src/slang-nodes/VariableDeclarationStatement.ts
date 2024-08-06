@@ -26,8 +26,6 @@ export class VariableDeclarationStatement implements SlangNode {
 
   value?: VariableDeclarationValue;
 
-  semicolon: string;
-
   constructor(
     ast: ast.VariableDeclarationStatement,
     offset: number,
@@ -52,7 +50,6 @@ export class VariableDeclarationStatement implements SlangNode {
     if (ast.value) {
       this.value = new VariableDeclarationValue(ast.value, offsets[i], options);
     }
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [
       this.variableType,
@@ -86,7 +83,7 @@ export class VariableDeclarationStatement implements SlangNode {
       indentIfBreak(this.value ? path.call(print, 'value') : '', {
         groupId: declarationDoc.id!
       }),
-      this.semicolon
+      ';'
     ];
   }
 }

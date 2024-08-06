@@ -14,17 +14,11 @@ export class MappingType implements SlangNode {
 
   loc;
 
-  mappingKeyword: string;
-
-  openParen: string;
-
   keyType: MappingKey;
 
   equalGreaterThan: string;
 
   valueType: MappingValue;
-
-  closeParen: string;
 
   constructor(
     ast: ast.MappingType,
@@ -34,12 +28,9 @@ export class MappingType implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.mappingKeyword = ast.mappingKeyword.text;
-    this.openParen = ast.openParen.text;
     this.keyType = new MappingKey(ast.keyType, offsets[0]);
     this.equalGreaterThan = ast.equalGreaterThan.text;
     this.valueType = new MappingValue(ast.valueType, offsets[1], options);
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.keyType, this.valueType]);
 
@@ -52,11 +43,11 @@ export class MappingType implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      `${this.mappingKeyword}${this.openParen}`,
+      'mapping(',
       path.call(print, 'keyType'),
       ` ${this.equalGreaterThan} `,
       path.call(print, 'valueType'),
-      this.closeParen
+      ')'
     ];
   }
 }

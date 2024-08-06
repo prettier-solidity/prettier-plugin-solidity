@@ -23,8 +23,6 @@ export class StateVariableDefinition implements SlangNode {
 
   value?: StateVariableDefinitionValue;
 
-  semicolon: string;
-
   constructor(
     ast: ast.StateVariableDefinition,
     offset: number,
@@ -39,7 +37,6 @@ export class StateVariableDefinition implements SlangNode {
     this.value = ast.value
       ? new StateVariableDefinitionValue(ast.value, offsets[2], options)
       : undefined;
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [
       this.typeName,
@@ -60,7 +57,7 @@ export class StateVariableDefinition implements SlangNode {
       path.call(print, 'attributes'),
       ` ${this.name}`,
       this.value ? path.call(print, 'value') : '',
-      this.semicolon
+      ';'
     ];
   }
 }

@@ -20,13 +20,9 @@ export class IndexAccessExpression implements SlangNode {
 
   operand: Expression;
 
-  openBracket: string;
-
   start?: Expression;
 
   end?: IndexAccessEnd;
-
-  closeBracket: string;
 
   constructor(
     ast: ast.IndexAccessExpression,
@@ -37,7 +33,6 @@ export class IndexAccessExpression implements SlangNode {
     const { offsets } = metadata;
 
     this.operand = new Expression(ast.operand, offsets[0], options);
-    this.openBracket = ast.openBracket.text;
     let i = 1;
     if (ast.start) {
       this.start = new Expression(ast.start, offsets[i], options);
@@ -46,7 +41,6 @@ export class IndexAccessExpression implements SlangNode {
     if (ast.end) {
       this.end = new IndexAccessEnd(ast.end, offsets[i], options);
     }
-    this.closeBracket = ast.closeBracket.text;
 
     metadata = updateMetadata(metadata, [this.operand, this.start, this.end]);
 
@@ -60,14 +54,14 @@ export class IndexAccessExpression implements SlangNode {
   ): Doc {
     let operandDoc: Doc = path.call(print, 'operand');
     let indexDoc: Doc = group([
-      this.openBracket,
+      '[',
       indent([
         softline,
         this.start ? path.call(print, 'start') : '',
         this.end ? path.call(print, 'end') : ''
       ]),
       softline,
-      this.closeBracket
+      ']'
     ]);
 
     // If we are at the end of a MemberAccessChain we should indent the

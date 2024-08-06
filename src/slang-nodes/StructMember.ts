@@ -17,8 +17,6 @@ export class StructMember implements SlangNode {
 
   name: string;
 
-  semicolon: string;
-
   constructor(
     ast: ast.StructMember,
     offset: number,
@@ -29,7 +27,6 @@ export class StructMember implements SlangNode {
 
     this.typeName = new TypeName(ast.typeName, offsets[0], options);
     this.name = ast.name.text;
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.typeName]);
 
@@ -41,6 +38,6 @@ export class StructMember implements SlangNode {
     path: AstPath<StructMember>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [path.call(print, 'typeName'), ` ${this.name}${this.semicolon}`];
+    return [path.call(print, 'typeName'), ` ${this.name};`];
   }
 }

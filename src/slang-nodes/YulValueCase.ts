@@ -14,8 +14,6 @@ export class YulValueCase implements SlangNode {
 
   loc;
 
-  caseKeyword: string;
-
   value: YulLiteral;
 
   body: YulBlock;
@@ -28,7 +26,6 @@ export class YulValueCase implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.caseKeyword = ast.caseKeyword.text;
     this.value = new YulLiteral(ast.value, offsets[0], options);
     this.body = new YulBlock(ast.body, offsets[1], options);
 
@@ -42,11 +39,6 @@ export class YulValueCase implements SlangNode {
     path: AstPath<YulValueCase>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [
-      `${this.caseKeyword} `,
-      path.call(print, 'value'),
-      ' ',
-      path.call(print, 'body')
-    ];
+    return ['case ', path.call(print, 'value'), ' ', path.call(print, 'body')];
   }
 }

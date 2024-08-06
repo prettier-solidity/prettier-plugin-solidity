@@ -17,19 +17,16 @@ export class YulLabel implements SlangNode {
 
   label: string;
 
-  colon: string;
-
   constructor(ast: ast.YulLabel, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
 
     this.label = ast.label.text;
-    this.colon = ast.colon.text;
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return [dedent(line), `${this.label}${this.colon}`];
+    return [dedent(line), `${this.label}:`];
   }
 }

@@ -16,15 +16,9 @@ export class ConstantDefinition implements SlangNode {
 
   typeName: TypeName;
 
-  constantKeyword: string;
-
   name: string;
 
-  equal: string;
-
   value: Expression;
-
-  semicolon: string;
 
   constructor(
     ast: ast.ConstantDefinition,
@@ -35,11 +29,8 @@ export class ConstantDefinition implements SlangNode {
     const { offsets } = metadata;
 
     this.typeName = new TypeName(ast.typeName, offsets[0], options);
-    this.constantKeyword = ast.constantKeyword.text;
     this.name = ast.name.text;
-    this.equal = ast.equal.text;
     this.value = new Expression(ast.value, offsets[1], options);
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.typeName, this.value]);
 

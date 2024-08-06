@@ -15,8 +15,6 @@ export class NamedArgument implements SlangNode {
 
   name: string;
 
-  colon: string;
-
   value: Expression;
 
   constructor(
@@ -28,7 +26,6 @@ export class NamedArgument implements SlangNode {
     const { offsets } = metadata;
 
     this.name = ast.name.text;
-    this.colon = ast.colon.text;
     this.value = new Expression(ast.value, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.value]);
@@ -41,6 +38,6 @@ export class NamedArgument implements SlangNode {
     path: AstPath<NamedArgument>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [`${this.name}${this.colon} `, path.call(print, 'value')];
+    return [`${this.name}: `, path.call(print, 'value')];
   }
 }

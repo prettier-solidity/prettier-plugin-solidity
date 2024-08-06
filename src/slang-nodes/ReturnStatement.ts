@@ -34,11 +34,7 @@ export class ReturnStatement implements SlangNode {
 
   loc;
 
-  returnKeyword: string;
-
   expression?: Expression;
-
-  semicolon: string;
 
   constructor(
     ast: ast.ReturnStatement,
@@ -48,11 +44,9 @@ export class ReturnStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.returnKeyword = ast.returnKeyword.text;
     if (ast.expression) {
       this.expression = new Expression(ast.expression, offsets[0], options);
     }
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.expression]);
 
@@ -65,10 +59,6 @@ export class ReturnStatement implements SlangNode {
     print: (path: AstPath<AstNode | undefined>) => Doc,
     options: ParserOptions<AstNode>
   ): Doc {
-    return [
-      this.returnKeyword,
-      printExpression(this, path, print, options),
-      this.semicolon
-    ];
+    return ['return', printExpression(this, path, print, options), ';'];
   }
 }

@@ -20,8 +20,6 @@ export class TryStatement implements SlangNode {
 
   loc;
 
-  tryKeyword;
-
   expression: Expression;
 
   returns?: ReturnsDeclaration;
@@ -38,7 +36,6 @@ export class TryStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.tryKeyword = ast.tryKeyword.text;
     this.expression = new Expression(ast.expression, offsets[0], options);
     let i = 1;
     if (ast.returns) {
@@ -65,7 +62,7 @@ export class TryStatement implements SlangNode {
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
     return [
-      this.tryKeyword,
+      'try',
       printSeparatedItem(path.call(print, 'expression'), {
         firstSeparator: line
       }),

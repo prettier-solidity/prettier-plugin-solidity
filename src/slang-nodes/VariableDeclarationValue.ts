@@ -13,8 +13,6 @@ export class VariableDeclarationValue implements SlangNode {
 
   loc;
 
-  equal: string;
-
   expression: Expression;
 
   constructor(
@@ -25,7 +23,6 @@ export class VariableDeclarationValue implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.equal = ast.equal.text;
     this.expression = new Expression(ast.expression, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.expression]);
@@ -38,6 +35,6 @@ export class VariableDeclarationValue implements SlangNode {
     path: AstPath<VariableDeclarationValue>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [` ${this.equal} `, path.call(print, 'expression')];
+    return [' = ', path.call(print, 'expression')];
   }
 }

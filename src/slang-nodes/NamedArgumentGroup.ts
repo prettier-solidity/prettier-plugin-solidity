@@ -13,11 +13,7 @@ export class NamedArgumentGroup implements SlangNode {
 
   loc;
 
-  openBrace: string;
-
   arguments: NamedArguments;
-
-  closeBrace: string;
 
   constructor(
     ast: ast.NamedArgumentGroup,
@@ -27,9 +23,7 @@ export class NamedArgumentGroup implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.openBrace = ast.openBrace.text;
     this.arguments = new NamedArguments(ast.arguments, offsets[0], options);
-    this.closeBrace = ast.closeBrace.text;
 
     metadata = updateMetadata(metadata, [this.arguments]);
 
@@ -41,6 +35,6 @@ export class NamedArgumentGroup implements SlangNode {
     path: AstPath<NamedArgumentGroup>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [this.openBrace, path.call(print, 'arguments'), this.closeBrace];
+    return ['{', path.call(print, 'arguments'), '}'];
   }
 }

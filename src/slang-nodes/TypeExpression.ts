@@ -13,13 +13,7 @@ export class TypeExpression implements SlangNode {
 
   loc;
 
-  typeKeyword: string;
-
-  openParen: string;
-
   typeName: TypeName;
-
-  closeParen: string;
 
   constructor(
     ast: ast.TypeExpression,
@@ -29,10 +23,7 @@ export class TypeExpression implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.typeKeyword = ast.typeKeyword.text;
-    this.openParen = ast.openParen.text;
     this.typeName = new TypeName(ast.typeName, offsets[0], options);
-    this.closeParen = ast.closeParen.text;
 
     metadata = updateMetadata(metadata, [this.typeName]);
 

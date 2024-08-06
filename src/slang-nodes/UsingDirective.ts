@@ -14,17 +14,11 @@ export class UsingDirective implements SlangNode {
 
   loc;
 
-  usingKeyword: string;
-
   clause: UsingClause;
-
-  forKeyword: string;
 
   target: UsingTarget;
 
   globalKeyword?: string;
-
-  semicolon: string;
 
   constructor(
     ast: ast.UsingDirective,
@@ -34,12 +28,9 @@ export class UsingDirective implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.usingKeyword = ast.usingKeyword.text;
     this.clause = new UsingClause(ast.clause, offsets[0]);
-    this.forKeyword = ast.forKeyword.text;
     this.target = new UsingTarget(ast.target, offsets[1], options);
     this.globalKeyword = ast.globalKeyword?.text;
-    this.semicolon = ast.semicolon.text;
 
     metadata = updateMetadata(metadata, [this.clause, this.target]);
 
@@ -52,11 +43,12 @@ export class UsingDirective implements SlangNode {
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
     return [
-      `${this.usingKeyword} `,
+      'using ',
       path.call(print, 'clause'),
-      ` ${this.forKeyword} `,
+      ' for ',
       path.call(print, 'target'),
-      `${this.globalKeyword ? ` ${this.globalKeyword}` : ''}${this.semicolon}`
+      this.globalKeyword ? ' global' : '',
+      ';'
     ];
   }
 }

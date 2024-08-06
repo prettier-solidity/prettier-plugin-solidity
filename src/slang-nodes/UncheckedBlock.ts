@@ -13,8 +13,6 @@ export class UncheckedBlock implements SlangNode {
 
   loc;
 
-  uncheckedKeyword: string;
-
   block: Block;
 
   constructor(
@@ -25,7 +23,6 @@ export class UncheckedBlock implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.uncheckedKeyword = ast.uncheckedKeyword.text;
     this.block = new Block(ast.block, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.block]);
@@ -38,6 +35,6 @@ export class UncheckedBlock implements SlangNode {
     path: AstPath<UncheckedBlock>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [`${this.uncheckedKeyword} `, path.call(print, 'block')];
+    return ['unchecked ', path.call(print, 'block')];
   }
 }

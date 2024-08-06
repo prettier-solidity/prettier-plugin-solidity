@@ -52,10 +52,10 @@ interface Metadata {
 }
 
 interface SlangNode {
-  get kind(): string;
-  comments?: Comment[];
+  kind: string;
+  comments: Comment[];
   loc: Location;
-  print?(
+  print(
     path: AstPath<AstNode>,
     print: (path: AstPath<AstNode | string | undefined>) => Doc,
     options: ParserOptions

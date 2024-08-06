@@ -13,15 +13,12 @@ export class VersionPragma implements SlangNode {
 
   loc;
 
-  solidityKeyword: string;
-
   sets: VersionExpressionSets;
 
   constructor(ast: ast.VersionPragma, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.solidityKeyword = ast.solidityKeyword.text;
     this.sets = new VersionExpressionSets(ast.sets, offsets[0]);
 
     metadata = updateMetadata(metadata, [this.sets]);
@@ -34,6 +31,6 @@ export class VersionPragma implements SlangNode {
     path: AstPath<VersionPragma>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [`${this.solidityKeyword} `, path.call(print, 'sets')];
+    return ['solidity ', path.call(print, 'sets')];
   }
 }

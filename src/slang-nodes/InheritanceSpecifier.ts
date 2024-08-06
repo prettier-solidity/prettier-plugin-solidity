@@ -13,8 +13,6 @@ export class InheritanceSpecifier implements SlangNode {
 
   loc;
 
-  isKeyword: string;
-
   types: InheritanceTypes;
 
   constructor(
@@ -25,7 +23,6 @@ export class InheritanceSpecifier implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.isKeyword = ast.isKeyword?.text;
     this.types = new InheritanceTypes(ast.types, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.types]);
@@ -38,6 +35,6 @@ export class InheritanceSpecifier implements SlangNode {
     path: AstPath<InheritanceSpecifier>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [this.isKeyword, path.call(print, 'types')];
+    return ['is', path.call(print, 'types')];
   }
 }

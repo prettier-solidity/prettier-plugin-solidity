@@ -12,21 +12,14 @@ export class ContinueStatement implements SlangNode {
 
   loc;
 
-  continueKeyword: string;
-
-  semicolon: string;
-
   constructor(ast: ast.ContinueStatement, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
-
-    this.continueKeyword = ast.continueKeyword.text;
-    this.semicolon = ast.semicolon.text;
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return `${this.continueKeyword}${this.semicolon}`;
+    return 'continue;';
   }
 }

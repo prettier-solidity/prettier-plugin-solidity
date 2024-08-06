@@ -3,6 +3,7 @@
     "allowJs": true,
     "outDir": "./dist/",
     "noImplicitAny": true,
+    "strictPropertyInitialization": true,
     "sourceMap": true,
     "target": "es6",
     "module": "es2022",

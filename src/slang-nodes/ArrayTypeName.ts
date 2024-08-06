@@ -16,11 +16,7 @@ export class ArrayTypeName implements SlangNode {
 
   operand: TypeName;
 
-  openBracket: string;
-
   index?: Expression;
-
-  closeBracket: string;
 
   constructor(
     ast: ast.ArrayTypeName,
@@ -31,11 +27,9 @@ export class ArrayTypeName implements SlangNode {
     const { offsets } = metadata;
 
     this.operand = new TypeName(ast.operand, offsets[0], options);
-    this.openBracket = ast.openBracket.text;
     if (ast.index) {
       this.index = new Expression(ast.index, offsets[1], options);
     }
-    this.closeBracket = ast.closeBracket.text;
 
     metadata = updateMetadata(metadata, [this.operand, this.index]);
 
@@ -49,9 +43,9 @@ export class ArrayTypeName implements SlangNode {
   ): Doc {
     return [
       path.call(print, 'operand'),
-      this.openBracket,
+      '[',
       this.index ? path.call(print, 'index') : '',
-      this.closeBracket
+      ']'
     ];
   }
 }

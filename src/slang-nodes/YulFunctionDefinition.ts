@@ -15,9 +15,7 @@ export class YulFunctionDefinition implements SlangNode {
 
   loc;
 
-  functionKeyword;
-
-  name;
+  name: string;
 
   parameters: YulParametersDeclaration;
 
@@ -33,7 +31,6 @@ export class YulFunctionDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.functionKeyword = ast.functionKeyword.text;
     this.name = ast.name.text;
     this.parameters = new YulParametersDeclaration(ast.parameters, offsets[0]);
     let i = 1;
@@ -58,7 +55,7 @@ export class YulFunctionDefinition implements SlangNode {
     print: (path: AstPath<AstNode | undefined>) => Doc
   ): Doc {
     return [
-      `${this.functionKeyword} ${this.name}`,
+      `function ${this.name}`,
       path.call(print, 'parameters'),
       this.returns ? path.call(print, 'returns') : ' ',
       path.call(print, 'body')

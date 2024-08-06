@@ -16,8 +16,6 @@ export class StateVariableDefinitionValue implements SlangNode {
 
   loc;
 
-  equal: string;
-
   value: Expression;
 
   constructor(
@@ -28,7 +26,6 @@ export class StateVariableDefinitionValue implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.equal = ast.equal.text;
     this.value = new Expression(ast.value, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.value]);
@@ -43,7 +40,7 @@ export class StateVariableDefinitionValue implements SlangNode {
   ): Doc {
     return typeof this.value.variant !== 'string' &&
       this.value.variant.kind === NonterminalKind.ArrayExpression
-      ? [` ${this.equal} `, path.call(print, 'value')]
-      : group([` ${this.equal}`, indent([line, path.call(print, 'value')])]);
+      ? [' = ', path.call(print, 'value')]
+      : group([' =', indent([line, path.call(print, 'value')])]);
   }
 }

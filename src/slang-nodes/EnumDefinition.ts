@@ -13,25 +13,16 @@ export class EnumDefinition implements SlangNode {
 
   loc;
 
-  enumKeyword: string;
-
   name: string;
 
-  openBrace: string;
-
   members: EnumMembers;
-
-  closeBrace: string;
 
   constructor(ast: ast.EnumDefinition, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.enumKeyword = ast.enumKeyword.text;
     this.name = ast.name.text;
-    this.openBrace = ast.openBrace.text;
     this.members = new EnumMembers(ast.members, offsets[0]);
-    this.closeBrace = ast.closeBrace.text;
 
     metadata = updateMetadata(metadata, [this.members]);
 
@@ -43,10 +34,6 @@ export class EnumDefinition implements SlangNode {
     path: AstPath<EnumDefinition>,
     print: (path: AstPath<AstNode>) => Doc
   ): Doc {
-    return [
-      `${this.enumKeyword} ${this.name} ${this.openBrace}`,
-      path.call(print, 'members'),
-      this.closeBrace
-    ];
+    return [`enum ${this.name} {`, path.call(print, 'members'), '}'];
   }
 }
