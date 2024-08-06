@@ -15,7 +15,6 @@ export default function handleIfStatementComments({
   followingNode,
   comment
 }: HandlerParams): boolean {
-  // console.log(comment);
   if (enclosingNode?.kind !== NonterminalKind.IfStatement || !followingNode) {
     return false;
   }

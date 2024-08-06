@@ -3,7 +3,7 @@ import handlers from './handlers/index.js';
 import type { ParserOptions } from 'prettier';
 import type { AstNode, Comment } from '../types';
 
-export function slangHandleOwnLineComment(
+function ownLine(
   comment: Comment,
   text: string,
   options: ParserOptions<AstNode>,
@@ -24,7 +24,7 @@ export function slangHandleOwnLineComment(
   return handlers.some((handler) => handler(handlerArguments));
 }
 
-export function slangHandleEndOfLineComment(
+function endOfLine(
   comment: Comment,
   text: string,
   options: ParserOptions<AstNode>,
@@ -45,7 +45,7 @@ export function slangHandleEndOfLineComment(
   return handlers.some((handler) => handler(handlerArguments));
 }
 
-export function slangHandleRemainingComment(
+function remaining(
   comment: Comment,
   text: string,
   options: ParserOptions<AstNode>,
@@ -65,3 +65,9 @@ export function slangHandleRemainingComment(
 
   return handlers.some((handler) => handler(handlerArguments));
 }
+
+export const handleComments = {
+  ownLine,
+  endOfLine,
+  remaining
+};
