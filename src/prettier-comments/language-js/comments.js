@@ -257,10 +257,14 @@ function handleIfStatementComments(
     precedingNode === enclosingNode.trueBody &&
     followingNode === enclosingNode.falseBody
   ) {
-    if (precedingNode.type === "ExpressionStatement") {
-      addTrailingComment(precedingNode, comment);
+    if (precedingNode.type === "Block") {
+      if(precedingNode.statements.length === 0) {
+        addDanglingComment(precedingNode, comment);
+      } else {
+        addTrailingComment(precedingNode.statements[precedingNode.statements.length - 1], comment);
+      }
     } else {
-      addDanglingComment(enclosingNode, comment);
+      addTrailingComment(precedingNode, comment);
     }
     return true;
   }
