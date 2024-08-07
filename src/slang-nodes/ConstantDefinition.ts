@@ -5,7 +5,8 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { /*AstPath,*/ Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode } from '../slang-nodes';
+import type { SlangNode } from '../types';
 
 export class ConstantDefinition implements SlangNode {
   readonly kind = NonterminalKind.ConstantDefinition;

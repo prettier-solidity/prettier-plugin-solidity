@@ -8,12 +8,8 @@ import { MemberAccess } from './MemberAccess.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  PrintFunction,
-  SlangNode,
-  StrictAstNode
-} from '../types';
+import type { AstNode, StrictAstNode } from '../slang-nodes';
+import type { PrintFunction, SlangNode } from '../types';
 
 const { group, indent, label, softline } = doc.builders;
 

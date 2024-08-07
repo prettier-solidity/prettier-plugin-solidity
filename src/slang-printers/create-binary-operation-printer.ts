@@ -2,12 +2,8 @@ import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  BinaryOperation,
-  PrintFunction,
-  StrictAstNode
-} from '../types';
+import type { AstNode, BinaryOperation, StrictAstNode } from '../slang-nodes';
+import type { PrintFunction } from '../types';
 
 const { group, line } = doc.builders;
 

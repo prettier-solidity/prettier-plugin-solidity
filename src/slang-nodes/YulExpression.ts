@@ -7,7 +7,8 @@ import { YulPath } from './YulPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, PrintFunction, SlangNode } from '../types';
+import type { AstNode } from '../slang-nodes';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class YulExpression implements SlangNode {
   readonly kind = NonterminalKind.YulExpression;

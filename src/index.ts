@@ -16,7 +16,8 @@ import type {
   RequiredOptions,
   SupportLanguage
 } from 'prettier';
-import type { AstNode, Comment } from './types';
+import type { AstNode } from './slang-nodes';
+import type { Comment } from './types';
 
 const parserName = 'slang';
 const astFormat = 'slang-ast';

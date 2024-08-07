@@ -1,7 +1,7 @@
 import { util } from 'prettier';
 
 import type { ParserOptions } from 'prettier';
-import type { AstNode } from '../types';
+import type { AstNode } from '../slang-nodes';
 
 const SINGLE_QUOTE: util.Quote = "'";
 const DOUBLE_QUOTE: util.Quote = '"';

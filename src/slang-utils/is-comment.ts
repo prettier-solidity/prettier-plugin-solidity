@@ -2,7 +2,8 @@ import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { createKindCheckFunction } from './create-kind-check-function.js';
 
 import type { Node } from '@nomicfoundation/slang/cst';
-import type { AstNode, BlockComment, Comment, LineComment } from '../types';
+import type { AstNode } from '../slang-nodes';
+import type { BlockComment, Comment, LineComment } from '../types';
 
 export const isBlockComment = createKindCheckFunction([
   TerminalKind.MultiLineComment,

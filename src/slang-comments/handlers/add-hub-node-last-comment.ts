@@ -1,6 +1,7 @@
 import { util } from 'prettier';
 
-import type { Comment, HubNode } from '../../types';
+import type { HubNode } from '../../slang-nodes';
+import type { Comment } from '../../types';
 
 const { addDanglingComment, addTrailingComment } = util;
 

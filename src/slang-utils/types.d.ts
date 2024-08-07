@@ -1,15 +1,14 @@
 import type { util } from 'prettier';
-import type {
-  ConstructorAttribute,
-  FallbackFunctionAttribute,
-  FunctionAttribute,
-  FunctionTypeAttribute,
-  ModifierAttribute,
-  ReceiveFunctionAttribute,
-  StateVariableAttribute,
-  UnnamedFunctionAttribute
-} from '../slang-nodes';
-import type { AstNode, Comment } from '../types';
+import type { ConstructorAttribute } from '../slang-nodes/ConstructorAttribute';
+import type { FallbackFunctionAttribute } from '../slang-nodes/FallbackFunctionAttribute';
+import type { FunctionAttribute } from '../slang-nodes/FunctionAttribute';
+import type { FunctionTypeAttribute } from '../slang-nodes/FunctionTypeAttribute';
+import type { ModifierAttribute } from '../slang-nodes/ModifierAttribute';
+import type { ReceiveFunctionAttribute } from '../slang-nodes/ReceiveFunctionAttribute';
+import type { StateVariableAttribute } from '../slang-nodes/StateVariableAttribute';
+import type { UnnamedFunctionAttribute } from '../slang-nodes/UnnamedFunctionAttribute';
+import type { AstNode } from '../slang-nodes';
+import type { Comment } from '../types';
 
 type SortableAttribute =
   | ConstructorAttribute

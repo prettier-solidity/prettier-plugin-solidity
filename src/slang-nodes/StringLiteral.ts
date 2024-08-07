@@ -4,7 +4,8 @@ import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc, ParserOptions } from 'prettier';
-import type { AstNode, SlangNode } from '../types';
+import type { AstNode } from '../slang-nodes';
+import type { SlangNode } from '../types';
 
 export class StringLiteral implements SlangNode {
   readonly kind = NonterminalKind.StringLiteral;

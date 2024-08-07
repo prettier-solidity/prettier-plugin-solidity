@@ -44,7 +44,7 @@ const testsWithSlang = new Map(
   [
     // "AllSolidityFeatures/AllSolidityFeatures.sol",
     // "AssemblyV0.4.26/Assembly.sol", // TODO: Wait for Nomic Foundation's response
-    // "Comments/Comments.sol", // TODO: finish Comments
+    "Comments/Comments.sol", // TODO: finish Comments
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)
       ? fixture

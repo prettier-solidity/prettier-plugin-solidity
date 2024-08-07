@@ -4,7 +4,7 @@ import { createBinaryOperationPrinter } from './create-binary-operation-printer.
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, BinaryOperation, StrictAstNode } from '../types';
+import type { AstNode, BinaryOperation, StrictAstNode } from '../slang-nodes';
 
 const { group, indent } = doc.builders;
 
