@@ -1,4 +1,5 @@
-import type { AstNode, Comment } from '../types';
+import type { AstNode, StrictAstNode } from '../slang-nodes';
+import type { Comment } from '../types';
 
 export function locStart(node: AstNode | Comment): number {
   if (typeof node === 'string' || typeof node === 'undefined') return -1;

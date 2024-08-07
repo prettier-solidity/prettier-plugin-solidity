@@ -3,7 +3,8 @@ import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, PrintFunction, StrictAstNode } from './types';
+import type { AstNode, StrictAstNode } from './slang-nodes';
+import type { PrintFunction } from './types';
 
 let checked = false;
 

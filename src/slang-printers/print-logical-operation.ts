@@ -5,7 +5,7 @@ import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, BinaryOperation, StrictAstNode } from '../types';
+import type { AstNode, BinaryOperation, StrictAstNode } from '../slang-nodes';
 
 const { group, indent } = doc.builders;
 

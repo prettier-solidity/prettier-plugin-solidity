@@ -1,8 +1,9 @@
 import { doc } from 'prettier';
 
 import type { AstPath, Doc } from 'prettier';
-import type { FunctionLike, PrintFunction } from '../types';
-import type { FunctionDefinition } from '../slang-nodes';
+import type { FunctionLike } from '../slang-nodes';
+import type { PrintFunction } from '../types';
+import type { FunctionDefinition } from '../slang-nodes/FunctionDefinition';
 
 const { dedent, group, indent, line } = doc.builders;
 

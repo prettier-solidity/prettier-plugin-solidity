@@ -3,7 +3,7 @@ import { printComment } from '../slang-comments/printer.js';
 import { isPrettier2 } from '../slang-utils/backward-compatibility.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode } from '../types';
+import type { AstNode } from '../slang-nodes';
 import type { DocV2 } from './types';
 
 const { join, line } = doc.builders;

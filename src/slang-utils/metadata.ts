@@ -3,7 +3,8 @@ import { NodeType } from '@nomicfoundation/slang/cst/index.js';
 import { isComment } from './is-comment.js';
 
 import type { Node } from '@nomicfoundation/slang/cst';
-import type { Comment, Metadata, SlangAstNode, StrictAstNode } from '../types';
+import type { StrictAstNode } from '../slang-nodes';
+import type { Comment, Metadata, SlangAstNode } from '../types';
 
 function getLeadingOffset(children: Node[]): number {
   let offset = 0;

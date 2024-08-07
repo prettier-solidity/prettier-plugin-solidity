@@ -16,7 +16,8 @@ import { EventDefinition } from './EventDefinition.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, PrintFunction, SlangNode } from '../types';
+import type { AstNode } from '../slang-nodes';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class SourceUnitMember implements SlangNode {
   readonly kind = NonterminalKind.SourceUnitMember;

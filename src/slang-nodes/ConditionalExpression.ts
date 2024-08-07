@@ -7,12 +7,8 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  PrintFunction,
-  SlangNode,
-  StrictAstNode
-} from '../types';
+import type { AstNode, StrictAstNode } from '../slang-nodes';
+import type { PrintFunction, SlangNode } from '../types';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 

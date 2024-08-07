@@ -6,7 +6,8 @@ import { FallbackFunctionAttribute } from './FallbackFunctionAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, PrintFunction, SlangNode } from '../types';
+import type { AstNode } from '../slang-nodes';
+import type { PrintFunction, SlangNode } from '../types';
 
 const { line } = doc.builders;
 
