@@ -61,7 +61,7 @@ We follow Prettier's strategy for populating their plugins in the object `pretti
 <script>
   async function format(code) {
     return await prettier.format(code, {
-      parser: 'solidity-parse',
+      parser: 'slang',
       plugins: [solidityPlugin]
     });
   }
