@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
@@ -12,6 +11,13 @@ import type { PrintFunction, SlangNode } from '../types';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
+function fillTab(options: ParserOptions<AstNode>): Doc {
+  if (options.useTabs) return '\t';
+  // For the odd case of `tabWidth` of 1 or 0 we initiate `fillTab` as a single
+  // space.
+  return options.tabWidth > 2 ? ' '.repeat(options.tabWidth - 1) : ' ';
+}
+
 function experimentalTernaries(
   node: ConditionalExpression,
   path: AstPath<ConditionalExpression>,
@@ -22,16 +28,11 @@ function experimentalTernaries(
   const isNested = grandparent.kind === NonterminalKind.ConditionalExpression;
   const isNestedAsTrueExpression =
     isNested && grandparent.trueExpression.variant === node;
-  let falseExpressionIsTuple = false;
-  let falseExpressionInSameLine = false;
-  if (typeof node.falseExpression.variant !== 'string') {
-    falseExpressionIsTuple =
-      node.falseExpression.variant.kind === NonterminalKind.TupleExpression;
-    falseExpressionInSameLine =
-      falseExpressionIsTuple ||
+  const falseExpressionInSameLine =
+    typeof node.falseExpression.variant !== 'string' &&
+    (node.falseExpression.variant.kind === NonterminalKind.TupleExpression ||
       node.falseExpression.variant.kind ===
-        NonterminalKind.ConditionalExpression;
-  }
+        NonterminalKind.ConditionalExpression);
 
   // If the `condition` breaks into multiple lines, we add parentheses,
   // unless it already is a `TupleExpression`.
@@ -57,26 +58,20 @@ function experimentalTernaries(
     { id: Symbol('Slang.ConditionalExpression.trueExpression') }
   );
 
-  // For the odd case of `tabWidth` of 1 or 0 we initiate `fillTab` as a single
-  // space.
-  let fillTab = ' ';
-  if (
-    !falseExpressionInSameLine && // avoid processing if it's not needed
-    (options.tabWidth > 2 || options.useTabs)
-  ) {
-    fillTab = options.useTabs ? '\t' : ' '.repeat(options.tabWidth - 1);
-  }
-
   const falseExpression = path.call(print, 'falseExpression');
   const falseExpressionDoc = [
     isNested ? hardline : line,
     ':',
     falseExpressionInSameLine
       ? [' ', falseExpression]
-      : ifBreak([fillTab, indent(falseExpression)], [' ', falseExpression], {
-          // We only add `fillTab` if we are sure the trueExpression is indented
-          groupId: conditionAndTrueExpressionGroup.id
-        })
+      : ifBreak(
+          [fillTab(options), indent(falseExpression)],
+          [' ', falseExpression],
+          {
+            // We only add `fillTab` if we are sure the trueExpression is indented
+            groupId: conditionAndTrueExpressionGroup.id
+          }
+        )
   ];
 
   const document = group([conditionAndTrueExpressionGroup, falseExpressionDoc]);
@@ -87,7 +82,6 @@ function experimentalTernaries(
 }
 
 function traditionalTernaries(
-  node: ConditionalExpression,
   path: AstPath<ConditionalExpression>,
   print: PrintFunction
 ): Doc {
@@ -177,6 +171,6 @@ export class ConditionalExpression implements SlangNode {
   ): Doc {
     return options.experimentalTernaries
       ? experimentalTernaries(this, path, print, options)
-      : traditionalTernaries(this, path, print);
+      : traditionalTernaries(path, print);
   }
 }
