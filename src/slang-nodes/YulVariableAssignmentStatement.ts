@@ -16,7 +16,7 @@ export class YulVariableAssignmentStatement implements SlangNode {
 
   loc;
 
-  names: YulPaths;
+  variables: YulPaths;
 
   assignment: YulAssignmentOperator;
 
@@ -30,12 +30,12 @@ export class YulVariableAssignmentStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.names = new YulPaths(ast.names, offsets[0]);
+    this.variables = new YulPaths(ast.variables, offsets[0]);
     this.assignment = new YulAssignmentOperator(ast.assignment, offsets[1]);
     this.expression = new YulExpression(ast.expression, offsets[2], options);
 
     metadata = updateMetadata(metadata, [
-      this.names,
+      this.variables,
       this.assignment,
       this.expression
     ]);
@@ -49,7 +49,7 @@ export class YulVariableAssignmentStatement implements SlangNode {
     print: PrintFunction
   ): Doc {
     return [
-      path.call(print, 'names'),
+      path.call(print, 'variables'),
       ' ',
       path.call(print, 'assignment'),
       ' ',

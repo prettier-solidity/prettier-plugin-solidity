@@ -5,25 +5,21 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { SlangNode } from '../types';
 
-export class MemberAccess implements SlangNode {
-  readonly kind = NonterminalKind.MemberAccess;
+export class YulColonAndEqual implements SlangNode {
+  readonly kind = NonterminalKind.YulColonAndEqual;
 
   comments;
 
   loc;
 
-  variant: string;
-
-  constructor(ast: ast.MemberAccess, offset: number) {
+  constructor(ast: ast.YulColonAndEqual, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
-
-    this.variant = ast.variant.text;
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return this.variant;
+    return ':=';
   }
 }

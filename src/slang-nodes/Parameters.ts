@@ -45,7 +45,7 @@ export class Parameters implements SlangNode {
       return printSeparatedList(path.map(print, 'items'), { grouped: false });
     }
 
-    const parameterComments = printComments(this, path);
+    const parameterComments = printComments(path);
 
     return parameterComments.length > 0
       ? printSeparatedItem(parameterComments)

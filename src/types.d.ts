@@ -1,3 +1,4 @@
+import type { NonterminalKind } from '@nomicfoundation/slang/kinds';
 import type { kinds } from '@nomicfoundation/slang/napi-bindings/generated';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -52,7 +53,7 @@ interface Metadata {
 }
 
 interface SlangNode {
-  kind: string;
+  kind: keyof typeof NonterminalKind;
   comments: Comment[];
   loc: Location;
   print(
@@ -182,7 +183,9 @@ export type SlangAstNode =
   | ast.YulVariableDeclarationValue
   | ast.YulVariableAssignmentStatement
   | ast.YulStackAssignmentStatement
-  | ast.YulColonEqual
+  | ast.YulStackAssignmentOperator
+  | ast.YulColonAndEqual
+  | ast.YulEqualAndColon
   | ast.YulIfStatement
   | ast.YulForStatement
   | ast.YulSwitchStatement
@@ -222,7 +225,6 @@ export type SlangAstNode =
   | ast.ForStatementInitialization
   | ast.ForStatementCondition
   | ast.Expression
-  | ast.MemberAccess
   | ast.ArgumentsDeclaration
   | ast.NumberUnit
   | ast.StringExpression
@@ -276,7 +278,7 @@ export type SlangAstNode =
   | ast.ArrayValues
   | ast.IdentifierPath
   | ast.YulParameters
-  | ast.YulReturnVariables
+  | ast.YulVariableNames
   | ast.YulArguments
   | ast.YulPaths
   | ast.YulPath;

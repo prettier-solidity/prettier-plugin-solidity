@@ -1,4 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { printComments } from '../slang-printers/print-comments.js';
+import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
@@ -39,8 +41,13 @@ export class PositionalArguments implements SlangNode {
   }
 
   print(path: AstPath<PositionalArguments>, print: PrintFunction): Doc {
-    return this.items.length > 0
-      ? printSeparatedList(path.map(print, 'items'))
+    if (this.items.length > 0) {
+      return printSeparatedList(path.map(print, 'items'));
+    }
+    const argumentComments = printComments(path);
+
+    return argumentComments.length > 0
+      ? printSeparatedItem(argumentComments)
       : '';
   }
 }

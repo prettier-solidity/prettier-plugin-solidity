@@ -115,7 +115,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@nomicfoundation/slang": "^0.15.1",
+    "@nomicfoundation/slang": "^0.16.0",
     "@solidity-parser/parser": "^0.18.0",
     "semver": "^7.6.3"
   },

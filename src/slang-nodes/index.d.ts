@@ -90,7 +90,6 @@ import type { MappingKey } from './MappingKey';
 import type { MappingKeyType } from './MappingKeyType';
 import type { MappingType } from './MappingType';
 import type { MappingValue } from './MappingValue';
-import type { MemberAccess } from './MemberAccess';
 import type { MemberAccessExpression } from './MemberAccessExpression';
 import type { ModifierAttribute } from './ModifierAttribute';
 import type { ModifierAttributes } from './ModifierAttributes';
@@ -185,9 +184,10 @@ import type { YulAssignmentOperator } from './YulAssignmentOperator';
 import type { YulBlock } from './YulBlock';
 import type { YulBreakStatement } from './YulBreakStatement';
 import type { YulBuiltInFunction } from './YulBuiltInFunction';
-import type { YulColonEqual } from './YulColonEqual';
+import type { YulColonAndEqual } from './YulColonAndEqual';
 import type { YulContinueStatement } from './YulContinueStatement';
 import type { YulDefaultCase } from './YulDefaultCase';
+import type { YulEqualAndColon } from './YulEqualAndColon';
 import type { YulExpression } from './YulExpression';
 import type { YulForStatement } from './YulForStatement';
 import type { YulFunctionCallExpression } from './YulFunctionCallExpression';
@@ -202,7 +202,7 @@ import type { YulPath } from './YulPath';
 import type { YulPathComponent } from './YulPathComponent';
 import type { YulPaths } from './YulPaths';
 import type { YulReturnsDeclaration } from './YulReturnsDeclaration';
-import type { YulReturnVariables } from './YulReturnVariables';
+import type { YulStackAssignmentOperator } from './YulStackAssignmentOperator';
 import type { YulStackAssignmentStatement } from './YulStackAssignmentStatement';
 import type { YulStatement } from './YulStatement';
 import type { YulStatements } from './YulStatements';
@@ -213,6 +213,7 @@ import type { YulValueCase } from './YulValueCase';
 import type { YulVariableAssignmentStatement } from './YulVariableAssignmentStatement';
 import type { YulVariableDeclarationStatement } from './YulVariableDeclarationStatement';
 import type { YulVariableDeclarationValue } from './YulVariableDeclarationValue';
+import type { YulVariableNames } from './YulVariableNames';
 
 export type BinaryOperation =
   | AdditiveExpression
@@ -260,6 +261,7 @@ export type HubNode =
   | NamedArguments
   | OverridePaths
   | Parameters
+  | PositionalArguments
   | ReceiveFunctionAttributes
   | SourceUnitMembers
   | Statements
@@ -278,9 +280,9 @@ export type HubNode =
   | YulParameters
   | YulPath
   | YulPaths
-  | YulReturnVariables
   | YulStatements
-  | YulSwitchCases;
+  | YulSwitchCases
+  | YulVariableNames;
 
 export type AstNode =
   | string
@@ -402,7 +404,9 @@ export type AstNode =
   | YulVariableDeclarationValue
   | YulVariableAssignmentStatement
   | YulStackAssignmentStatement
-  | YulColonEqual
+  | YulStackAssignmentOperator
+  | YulColonAndEqual
+  | YulEqualAndColon
   | YulIfStatement
   | YulForStatement
   | YulSwitchStatement
@@ -442,7 +446,6 @@ export type AstNode =
   | ForStatementInitialization
   | ForStatementCondition
   | Expression
-  | MemberAccess
   | ArgumentsDeclaration
   | NumberUnit
   | StringExpression
@@ -496,7 +499,7 @@ export type AstNode =
   | ArrayValues
   | IdentifierPath
   | YulParameters
-  | YulReturnVariables
+  | YulVariableNames
   | YulArguments
   | YulPaths
   | YulPath;

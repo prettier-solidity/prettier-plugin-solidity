@@ -8,7 +8,7 @@ import type { DocV2 } from './types';
 
 const { join, line } = doc.builders;
 
-export function printComments(node: AstNode, path: AstPath<AstNode>): Doc[] {
+export function printComments(path: AstPath<AstNode>): Doc[] {
   const document = join(
     line,
     path

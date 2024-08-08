@@ -3,7 +3,7 @@
 exports[`Assembly.sol - {"compiler":"0.4.26"} format 1`] = `
 ====================================options=====================================
 compiler: "0.4.26"
-parsers: ["solidity-parse"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -121,7 +121,8 @@ contract MultipleAssemblyAssignment {
 contract AssemblyStackAssignment {
     function f() public {
         assembly {
-            4 =: y
+            4
+            =: y
         }
     }
 }

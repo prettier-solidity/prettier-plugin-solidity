@@ -5,14 +5,14 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { SlangNode } from '../types';
 
-export class YulColonEqual implements SlangNode {
-  readonly kind = NonterminalKind.YulColonEqual;
+export class YulEqualAndColon implements SlangNode {
+  readonly kind = NonterminalKind.YulEqualAndColon;
 
   comments;
 
   loc;
 
-  constructor(ast: ast.YulColonEqual, offset: number) {
+  constructor(ast: ast.YulEqualAndColon, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
 
     this.comments = metadata.comments;
@@ -20,6 +20,6 @@ export class YulColonEqual implements SlangNode {
   }
 
   print(): Doc {
-    return ':=';
+    return '=:';
   }
 }
