@@ -81,8 +81,7 @@ export class YulStatement implements SlangNode {
       case NonterminalKind.YulStackAssignmentStatement:
         this.variant = new YulStackAssignmentStatement(
           ast.variant as ast.YulStackAssignmentStatement,
-          offsets[0],
-          options
+          offsets[0]
         );
         break;
       case NonterminalKind.YulIfStatement:

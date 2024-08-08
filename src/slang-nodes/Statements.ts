@@ -50,7 +50,7 @@ export class Statements implements SlangNode {
       : printSeparatedItem(
           [
             printPreservingEmptyLines(path, print, options),
-            printComments(this, path)
+            printComments(path)
           ],
           {
             firstSeparator: hardline,

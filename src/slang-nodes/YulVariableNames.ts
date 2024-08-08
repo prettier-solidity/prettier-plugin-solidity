@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 
@@ -9,8 +9,8 @@ import type { SlangNode } from '../types';
 
 const { line } = doc.builders;
 
-export class YulReturnVariables implements SlangNode {
-  readonly kind = NonterminalKind.YulReturnVariables;
+export class YulVariableNames implements SlangNode {
+  readonly kind = NonterminalKind.YulVariableNames;
 
   comments;
 
@@ -20,7 +20,7 @@ export class YulReturnVariables implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.YulReturnVariables, offset: number) {
+  constructor(ast: ast.YulVariableNames, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
 
     this.items = ast.items.map((item) => item.text);

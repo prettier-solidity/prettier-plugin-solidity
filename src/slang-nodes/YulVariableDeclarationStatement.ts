@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.js';
+import { YulVariableNames } from './YulVariableNames.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -14,7 +15,7 @@ export class YulVariableDeclarationStatement implements SlangNode {
 
   loc;
 
-  names: string;
+  variables: YulVariableNames;
 
   value?: YulVariableDeclarationValue;
 
@@ -26,11 +27,11 @@ export class YulVariableDeclarationStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.names = ast.names.text;
+    this.variables = new YulVariableNames(ast.variables, offsets[0]);
     if (ast.value) {
       this.value = new YulVariableDeclarationValue(
         ast.value,
-        offsets[0],
+        offsets[1],
         options
       );
     }
@@ -45,6 +46,11 @@ export class YulVariableDeclarationStatement implements SlangNode {
     path: AstPath<YulVariableDeclarationStatement>,
     print: PrintFunction
   ): Doc {
-    return [`let ${this.names} `, this.value ? path.call(print, 'value') : ''];
+    return [
+      'let',
+      path.call(print, 'variables'),
+      ' ',
+      this.value ? path.call(print, 'value') : ''
+    ];
   }
 }

@@ -1,12 +1,14 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
-import { YulAssignmentOperator } from './YulAssignmentOperator.js';
-import { YulExpression } from './YulExpression.js';
+import { YulStackAssignmentOperator } from './YulStackAssignmentOperator.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { /*AstPath,*/ Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { SlangNode } from '../types';
+import type { AstPath, Doc } from 'prettier';
+import type { PrintFunction, SlangNode } from '../types';
+import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
+
+const { line } = doc.builders;
 
 export class YulStackAssignmentStatement implements SlangNode {
   readonly kind = NonterminalKind.YulStackAssignmentStatement;
@@ -15,33 +17,33 @@ export class YulStackAssignmentStatement implements SlangNode {
 
   loc;
 
-  assignment: YulAssignmentOperator;
+  assignment: YulStackAssignmentOperator;
 
-  expression: YulExpression;
+  variable: string;
 
-  constructor(
-    ast: ast.YulStackAssignmentStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.YulStackAssignmentStatement, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.assignment = new YulAssignmentOperator(ast.assignment, offsets[0]);
-    this.expression = new YulExpression(ast.expression, offsets[1], options);
+    this.assignment = new YulStackAssignmentOperator(
+      ast.assignment,
+      offsets[0]
+    );
+    this.variable = ast.variable.text;
 
-    metadata = updateMetadata(metadata, [this.assignment, this.expression]);
+    metadata = updateMetadata(metadata, [this.assignment]);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
-  // TODO: implement print
-  print(/*
-    path: AstPath<YulStackAssignmentStatement>,
-    print: PrintFunction,
-    options: ParserOptions<AstNode>
-  */): Doc {
-    return ['TODO: YulStackAssignmentStatement'];
+  print(path: AstPath<YulStackAssignmentStatement>, print: PrintFunction): Doc {
+    return [
+      path.call(print, 'assignment'),
+      printSeparatedItem(this.variable, {
+        firstSeparator: line,
+        lastSeparator: ''
+      })
+    ];
   }
 }

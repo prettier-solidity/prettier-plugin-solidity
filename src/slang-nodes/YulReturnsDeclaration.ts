@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
-import { YulReturnVariables } from './YulReturnVariables.js';
+import { YulVariableNames } from './YulVariableNames.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -19,14 +19,14 @@ export class YulReturnsDeclaration implements SlangNode {
 
   minusGreaterThan: string;
 
-  variables: YulReturnVariables;
+  variables: YulVariableNames;
 
   constructor(ast: ast.YulReturnsDeclaration, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
     this.minusGreaterThan = ast.minusGreaterThan.text;
-    this.variables = new YulReturnVariables(ast.variables, offsets[0]);
+    this.variables = new YulVariableNames(ast.variables, offsets[0]);
 
     metadata = updateMetadata(metadata, [this.variables]);
 
