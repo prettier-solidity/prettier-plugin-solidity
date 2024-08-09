@@ -1,12 +1,13 @@
 import { doc } from 'prettier';
 import { printComment } from '../slang-comments/printer.js';
 import { isPrettier2 } from '../slang-utils/backward-compatibility.js';
+import { isLineComment } from '../slang-utils/is-comment.js';
 
 import type { AstPath, Doc } from 'prettier';
 import type { AstNode } from '../slang-nodes';
 import type { DocV2 } from './types';
 
-const { join, line } = doc.builders;
+const { breakParent, join, line } = doc.builders;
 
 export function printComments(path: AstPath<AstNode>): Doc[] {
   const document = join(
@@ -18,7 +19,8 @@ export function printComments(path: AstPath<AstNode>): Doc[] {
           return '';
         }
         comment.printed = true;
-        return printComment(commentPath);
+        const printed = printComment(commentPath);
+        return isLineComment(comment) ? [printed, breakParent] : printed;
       }, 'comments')
       .filter(Boolean)
   );

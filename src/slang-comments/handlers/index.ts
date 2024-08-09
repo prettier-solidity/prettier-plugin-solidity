@@ -3,6 +3,7 @@ import handleContractDefinitionComments from './handle-contract-definition-comme
 import handleElseBranchComments from './handle-else-branch-comments.js';
 import handleIfStatementComments from './handle-if-statement-comments.js';
 import handleParametersDeclarationComments from './handle-parameters-declaration-comments.js';
+import handlePositionalArgumentsDeclarationComments from './handle-positional-arguments-declaration-comments.js';
 import handleWhileStatementComments from './handle-while-statement-comments.js';
 import handleYulBlockComments from './handle-yul-block-comments.js';
 
@@ -12,6 +13,7 @@ export default [
   handleElseBranchComments,
   handleIfStatementComments,
   handleParametersDeclarationComments,
+  handlePositionalArgumentsDeclarationComments,
   handleWhileStatementComments,
   handleYulBlockComments
 ];

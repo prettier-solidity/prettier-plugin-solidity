@@ -4,22 +4,25 @@ import addHubNodeLastComment from './add-hub-node-last-comment.js';
 
 import type { HandlerParams } from './types';
 
-export default function handleBlockComments({
+export default function handlePositionalArgumentsDeclarationComments({
   precedingNode,
   enclosingNode,
   followingNode,
   comment
 }: HandlerParams): boolean {
-  if (enclosingNode?.kind !== NonterminalKind.Block) {
+  if (comment.value.startsWith('// test')) {
+    console.log(comment);
+  }
+  if (enclosingNode?.kind !== NonterminalKind.PositionalArgumentsDeclaration) {
     return false;
   }
 
-  if (precedingNode?.kind === NonterminalKind.Statements) {
+  if (precedingNode?.kind === NonterminalKind.PositionalArguments) {
     addHubNodeLastComment(precedingNode, comment);
     return true;
   }
 
-  if (followingNode?.kind === NonterminalKind.Statements) {
+  if (followingNode?.kind === NonterminalKind.PositionalArguments) {
     addHubNodeFirstComment(followingNode, comment);
     return true;
   }
