@@ -3,8 +3,8 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { OverridePaths } from './OverridePaths.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { /*AstPath,*/ Doc /*, ParserOptions*/ } from 'prettier';
-import type { SlangNode } from '../types';
+import type { AstPath, Doc } from 'prettier';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class OverridePathsDeclaration implements SlangNode {
   readonly kind = NonterminalKind.OverridePathsDeclaration;
@@ -27,12 +27,7 @@ export class OverridePathsDeclaration implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  // TODO: implement print
-  print(/*
-    path: AstPath<OverridePathsDeclaration>,
-    print: PrintFunction,
-    options: ParserOptions<AstNode>
-  */): Doc {
-    return ['TODO: OverridePathsDeclaration'];
+  print(path: AstPath<OverridePathsDeclaration>, print: PrintFunction): Doc {
+    return ['(', path.call(print, 'paths'), ')'];
   }
 }

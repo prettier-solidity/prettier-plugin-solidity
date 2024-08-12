@@ -4,9 +4,9 @@ import { TypeName } from './TypeName.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { /*AstPath,*/ Doc, ParserOptions } from 'prettier';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from '../slang-nodes';
-import type { SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class ConstantDefinition implements SlangNode {
   readonly kind = NonterminalKind.ConstantDefinition;
@@ -39,12 +39,12 @@ export class ConstantDefinition implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  // TODO: implement print
-  print(/*
-    path: AstPath<ConstantDefinition>,
-    print: PrintFunction,
-    options: ParserOptions<AstNode>
-  */): Doc {
-    return ['TODO: ConstantDefinition'];
+  print(path: AstPath<ConstantDefinition>, print: PrintFunction): Doc {
+    return [
+      path.call(print, 'typeName'),
+      ` constant ${this.name} = `,
+      path.call(print, 'value'),
+      ';'
+    ];
   }
 }

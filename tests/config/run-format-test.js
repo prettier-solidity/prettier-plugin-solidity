@@ -42,7 +42,6 @@ const unstableAstTests = new Map(
 
 const testsWithSlang = new Map(
   [
-    // "AllSolidityFeatures/AllSolidityFeatures.sol",
     // "Comments/Comments.sol", // TODO: finish Comments
   ].map((fixture) => {
     const [file, testSlang = () => true] = Array.isArray(fixture)

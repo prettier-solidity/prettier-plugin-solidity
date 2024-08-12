@@ -1,4 +1,4 @@
-import type { AstNode, StrictAstNode } from '../slang-nodes';
+import type { AstNode } from '../slang-nodes';
 import type { Comment } from '../types';
 
 export function locStart(node: AstNode | Comment): number {

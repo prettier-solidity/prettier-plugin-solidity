@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
 import { Expression } from './Expression.js';
@@ -57,7 +57,8 @@ export class TupleDeconstructionStatement implements SlangNode {
       typeof this.expression.variant !== 'string' &&
       this.expression.variant.kind === NonterminalKind.TupleExpression
         ? [') = ', path.call(print, 'expression')]
-        : group([') =', indent([line, path.call(print, 'expression'), ';'])])
+        : group([') =', indent([line, path.call(print, 'expression')])]),
+      ';'
     ];
   }
 }

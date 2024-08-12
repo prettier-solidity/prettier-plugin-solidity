@@ -3,8 +3,8 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { StorageLocation } from './StorageLocation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { /*AstPath,*/ Doc /*, ParserOptions*/ } from 'prettier';
-import type { SlangNode } from '../types';
+import type { AstPath, Doc } from 'prettier';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class UntypedTupleMember implements SlangNode {
   readonly kind = NonterminalKind.UntypedTupleMember;
@@ -35,12 +35,10 @@ export class UntypedTupleMember implements SlangNode {
     this.loc = metadata.loc;
   }
 
-  // TODO: implement print
-  print(/*
-    path: AstPath<UntypedTupleMember>,
-    print: PrintFunction,
-    options: ParserOptions<AstNode>
-  */): Doc {
-    return ['TODO: UntypedTupleMemberUntypedTupleMember'];
+  print(path: AstPath<UntypedTupleMember>, print: PrintFunction): Doc {
+    return [
+      this.storageLocation ? [path.call(print, 'storageLocation'), ' '] : '',
+      this.name
+    ];
   }
 }

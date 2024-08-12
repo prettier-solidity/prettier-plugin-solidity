@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { group, indent, line } = doc.builders;
+const { dedent, group, indent, line } = doc.builders;
 
 const modifierParameters = (node, path, print) => {
   if (node.parameters?.length > 0) {
@@ -32,8 +32,8 @@ const override = (node, path, print) => {
 
 const body = (node, path, print) => {
   if (!node.body) return ';';
-  if (node.isVirtual) return group([' ', path.call(print, 'body')]);
-  return [' ', path.call(print, 'body')];
+  if (node.isVirtual) return group(path.call(print, 'body'));
+  return [path.call(print, 'body')];
 };
 
 export const ModifierDefinition = {
@@ -41,7 +41,13 @@ export const ModifierDefinition = {
     'modifier ',
     node.name,
     modifierParameters(node, path, print),
-    group(indent([virtual(node), override(node, path, print)])),
+    group(
+      indent([
+        virtual(node),
+        override(node, path, print),
+        node.body ? dedent(line) : ''
+      ])
+    ),
     body(node, path, print)
   ]
 };

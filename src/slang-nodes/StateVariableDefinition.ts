@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TypeName } from './TypeName.js';
 import { StateVariableAttributes } from './StateVariableAttributes.js';
@@ -8,6 +9,8 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from '../slang-nodes';
 import type { PrintFunction, SlangNode } from '../types';
+
+const { group, indent, indentIfBreak } = doc.builders;
 
 export class StateVariableDefinition implements SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinition;
@@ -50,11 +53,19 @@ export class StateVariableDefinition implements SlangNode {
   }
 
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {
+    const attributesDoc = group(indent(path.call(print, 'attributes')), {
+      id: Symbol('Slang.StateVariableDefinition.attributes')
+    });
+
     return [
       path.call(print, 'typeName'),
-      path.call(print, 'attributes'),
+      attributesDoc,
       ` ${this.name}`,
-      this.value ? path.call(print, 'value') : '',
+      this.value
+        ? indentIfBreak(path.call(print, 'value'), {
+            groupId: attributesDoc.id!
+          })
+        : '',
       ';'
     ];
   }

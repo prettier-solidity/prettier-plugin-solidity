@@ -27,7 +27,7 @@ export class VariableDeclarationType implements SlangNode {
 
     this.variant =
       ast.variant instanceof TerminalNode
-        ? ast.variant.type
+        ? ast.variant.text
         : new TypeName(ast.variant, offsets[0], options);
 
     metadata = updateMetadata(

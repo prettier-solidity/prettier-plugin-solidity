@@ -33,6 +33,10 @@ export class PrefixExpression implements SlangNode {
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
+
+    if (this.operator === 'delete') {
+      this.operator = `${this.operator} `;
+    }
   }
 
   print(path: AstPath<PrefixExpression>, print: PrintFunction): Doc {
