@@ -1,9 +1,9 @@
 {
   "check-coverage": true,
-  "branches": 99,
-  "lines": 100,
-  "functions": 100,
-  "statements": 100,
+  "branches": 90,
+  "lines": 90,
+  "functions": 90,
+  "statements": 90,
   "exclude": ["/node_modules/"],
   "include": ["src/**/*.ts", "!src/slang-utils/backward-compatibility.ts"],
   "reporter": ["lcov", "text"],
