@@ -6,17 +6,24 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode, StrictAstNode } from './slang-nodes';
 import type { PrintFunction } from './types';
 
-let checked = false;
+function once<T>(factory: () => T): () => T {
+  let value: T;
+  return (): T => {
+    if (typeof value === 'undefined') {
+      value = factory();
+    }
+    return value;
+  };
+}
 
-function prettierVersionCheck(): void {
-  if (checked) return;
+const prettierVersionCheck = once((): boolean => {
   if (!prettierVersionSatisfies('>=2.3.0')) {
     throw new Error(
       'The version of prettier in your node-modules does not satisfy the required ">=2.3.0" constraint. Please update the version of Prettier.'
     );
   }
-  checked = true;
-}
+  return true;
+});
 
 function hasNodeIgnoreComment(node: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments

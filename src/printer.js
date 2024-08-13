@@ -5,19 +5,32 @@ import {
 } from './common/util.js';
 import ignoreComments from './comments/ignore.js';
 
-let checked = false;
+function once(factory) {
+  let value;
+  return () => {
+    if (typeof value === 'undefined') {
+      value = factory();
+    }
+    return value;
+  };
+}
 
-function prettierVersionCheck() {
-  if (checked) return;
+const warnDeprecation = once(() => {
+  console.warn(`'solidity-parse' has been deprecated, please use 'slang'.`);
+  return true;
+});
+
+const prettierVersionCheck = once(() => {
   if (!prettierVersionSatisfies('>=2.3.0')) {
     throw new Error(
       'The version of prettier in your node-modules does not satisfy the required ">=2.3.0" constraint. Please update the version of Prettier.'
     );
   }
-  checked = true;
-}
+  return true;
+});
 
 function genericPrint(path, options, print) {
+  warnDeprecation();
   prettierVersionCheck();
 
   const node = path.getValue();
