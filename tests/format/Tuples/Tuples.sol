@@ -22,4 +22,9 @@ bytes32 volumeId,
 bytes32 subUnitId,
 bytes32 requestId) = getParamsById(paramsId);
     }
+
+    function emptyTuple() public {
+        attacker.callSender(abi.encodeCall(this.callback, ()));
+    }
+
 }
