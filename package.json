@@ -1,32 +1,18 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.3.1",
+  "version": "2.0.0-beta",
   "description": "A Prettier Plugin for automatically formatting your Solidity code.",
   "type": "module",
-  "main": "./src/index.js",
-  "browser": "./dist/standalone.cjs",
-  "unpkg": "./dist/standalone.cjs",
-  "exports": {
-    ".": {
-      "import": "./src/index.js",
-      "require": "./dist/standalone.cjs"
-    },
-    "./standalone": {
-      "default": "./dist/standalone.cjs"
-    }
-  },
+  "main": "./dist/index.js",
   "scripts": {
-    "build": "webpack --env production",
-    "build:dev": "webpack --env development",
-    "build:test": "webpack --config test.config.js",
+    "build": "npx tsc",
     "eslint": "eslint 'src/**' 'tests/**'",
     "lint": "npm run eslint && npm run prettier -- --list-different",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prepublishOnly": "npm run build",
     "prettier": "prettier './*.{ts,js,cjs,json,md,yml}' '{src,tests}/**/*.{ts,js,cjs}'",
     "test": "NODE_OPTIONS=\"--loader=ts-node/esm --loader=esmock\" jest",
-    "test:all": "cross-env FULL_TEST=1 NODE_OPTIONS=\"--loader=ts-node/esm --loader=esmock\" c8 jest",
-    "test:standalone": "cross-env TEST_STANDALONE=1 FULL_TEST=1 jest"
+    "test:all": "cross-env FULL_TEST=1 NODE_OPTIONS=\"--loader=ts-node/esm --loader=esmock\" c8 jest"
   },
   "files": [
     "src",
@@ -42,6 +28,7 @@
     "ethereum",
     "plugin",
     "prettier",
+    "slang",
     "solidity"
   ],
   "author": {

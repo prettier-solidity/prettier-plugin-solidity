@@ -31,7 +31,7 @@ const languages: SupportLanguage[] = [
     aceMode: 'text',
     tmScope: 'source.solidity',
     extensions: ['.sol'],
-    parsers: ['solidity-parse', parserName],
+    parsers: [parserName, 'solidity-parse'],
     vscodeLanguageIds: ['solidity']
   }
 ];
@@ -46,8 +46,8 @@ const slangParser: Parser<AstNode> = {
 };
 
 const parsers = {
-  'solidity-parse': parser,
-  [parserName]: slangParser
+  [parserName]: slangParser,
+  'solidity-parse': parser
 };
 
 const solidityCanAttachComment = (node: { type: string }): boolean =>
@@ -83,8 +83,8 @@ const slangPrinter: Printer<AstNode> = {
 };
 
 const printers = {
-  'solidity-ast': printer,
-  [astFormat]: slangPrinter
+  [astFormat]: slangPrinter,
+  'solidity-ast': printer
 };
 
 // https://prettier.io/docs/en/plugins.html#defaultoptions
