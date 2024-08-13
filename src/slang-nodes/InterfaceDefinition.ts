@@ -54,7 +54,7 @@ export class InterfaceDefinition implements SlangNode {
     return [
       group([
         `interface ${this.name}`,
-        this.inheritance ? path.call(print, 'inheritance') : line,
+        this.inheritance ? [' ', path.call(print, 'inheritance')] : line,
         '{'
       ]),
       path.call(print, 'members'),

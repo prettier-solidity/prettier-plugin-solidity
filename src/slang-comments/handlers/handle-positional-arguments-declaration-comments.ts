@@ -10,9 +10,6 @@ export default function handlePositionalArgumentsDeclarationComments({
   followingNode,
   comment
 }: HandlerParams): boolean {
-  if (comment.value.startsWith('// test')) {
-    console.log(comment);
-  }
   if (enclosingNode?.kind !== NonterminalKind.PositionalArgumentsDeclaration) {
     return false;
   }
