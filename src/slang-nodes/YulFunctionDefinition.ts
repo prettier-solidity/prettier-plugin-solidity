@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { YulIdentifier } from './YulIdentifier.js';
 import { YulParametersDeclaration } from './YulParametersDeclaration.js';
 import { YulReturnsDeclaration } from './YulReturnsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
@@ -16,7 +17,7 @@ export class YulFunctionDefinition implements SlangNode {
 
   loc;
 
-  name: string;
+  name: YulIdentifier;
 
   parameters: YulParametersDeclaration;
 
@@ -32,9 +33,9 @@ export class YulFunctionDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name.text;
-    this.parameters = new YulParametersDeclaration(ast.parameters, offsets[0]);
-    let i = 1;
+    this.name = new YulIdentifier(ast.name, offsets[0]);
+    this.parameters = new YulParametersDeclaration(ast.parameters, offsets[1]);
+    let i = 2;
     if (ast.returns) {
       this.returns = new YulReturnsDeclaration(ast.returns, offsets[i]);
       i += 1;
@@ -53,7 +54,8 @@ export class YulFunctionDefinition implements SlangNode {
 
   print(path: AstPath<YulFunctionDefinition>, print: PrintFunction): Doc {
     return [
-      `function ${this.name}`,
+      'function ',
+      path.call(print, 'name'),
       path.call(print, 'parameters'),
       this.returns ? path.call(print, 'returns') : ' ',
       path.call(print, 'body')

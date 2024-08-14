@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 import { ErrorParametersDeclaration } from './ErrorParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -14,7 +15,7 @@ export class ErrorDefinition implements SlangNode {
 
   loc;
 
-  name: string;
+  name: Identifier;
 
   members: ErrorParametersDeclaration;
 
@@ -26,10 +27,10 @@ export class ErrorDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name.text;
+    this.name = new Identifier(ast.name, offsets[0]);
     this.members = new ErrorParametersDeclaration(
       ast.members,
-      offsets[0],
+      offsets[1],
       options
     );
 
@@ -40,6 +41,11 @@ export class ErrorDefinition implements SlangNode {
   }
 
   print(path: AstPath<ErrorDefinition>, print: PrintFunction): Doc {
-    return [`error ${this.name}`, path.call(print, 'members'), ';'];
+    return [
+      'error ',
+      path.call(print, 'name'),
+      path.call(print, 'members'),
+      ';'
+    ];
   }
 }

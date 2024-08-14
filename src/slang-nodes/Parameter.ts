@@ -3,6 +3,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -22,7 +23,7 @@ export class Parameter implements SlangNode {
 
   storageLocation?: StorageLocation;
 
-  name?: string;
+  name?: Identifier;
 
   constructor(
     ast: ast.Parameter,
@@ -33,13 +34,17 @@ export class Parameter implements SlangNode {
     const { offsets } = metadata;
 
     this.typeName = new TypeName(ast.typeName, offsets[0], options);
+    let i = 1;
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(
         ast.storageLocation,
-        offsets[1]
+        offsets[i]
       );
+      i += 1;
     }
-    this.name = ast.name?.text;
+    if (ast.name) {
+      this.name = new Identifier(ast.name, offsets[i]);
+    }
 
     metadata = updateMetadata(metadata, [this.typeName, this.storageLocation]);
 
@@ -51,7 +56,7 @@ export class Parameter implements SlangNode {
     return group([
       path.call(print, 'typeName'),
       this.storageLocation ? [' ', path.call(print, 'storageLocation')] : '',
-      this.name ? ` ${this.name}` : ''
+      this.name ? [' ', path.call(print, 'name')] : ''
     ]);
   }
 }

@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TypeName } from './TypeName.js';
+import { Identifier } from './Identifier.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -17,7 +18,7 @@ export class ConstantDefinition implements SlangNode {
 
   typeName: TypeName;
 
-  name: string;
+  name: Identifier;
 
   value: Expression;
 
@@ -30,8 +31,8 @@ export class ConstantDefinition implements SlangNode {
     const { offsets } = metadata;
 
     this.typeName = new TypeName(ast.typeName, offsets[0], options);
-    this.name = ast.name.text;
-    this.value = new Expression(ast.value, offsets[1], options);
+    this.name = new Identifier(ast.name, offsets[1]);
+    this.value = new Expression(ast.value, offsets[2], options);
 
     metadata = updateMetadata(metadata, [this.typeName, this.value]);
 
@@ -42,7 +43,9 @@ export class ConstantDefinition implements SlangNode {
   print(path: AstPath<ConstantDefinition>, print: PrintFunction): Doc {
     return [
       path.call(print, 'typeName'),
-      ` constant ${this.name} = `,
+      ' constant ',
+      path.call(print, 'name'),
+      ' = ',
       path.call(print, 'value'),
       ';'
     ];

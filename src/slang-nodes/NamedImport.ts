@@ -15,8 +15,6 @@ export class NamedImport implements SlangNode {
 
   loc;
 
-  asterisk: string;
-
   alias: ImportAlias;
 
   path: StringLiteral;
@@ -29,7 +27,6 @@ export class NamedImport implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.asterisk = ast.asterisk.text;
     this.alias = new ImportAlias(ast.alias, offsets[0]);
     this.path = new StringLiteral(ast.path, offsets[1], options);
 
@@ -40,11 +37,6 @@ export class NamedImport implements SlangNode {
   }
 
   print(path: AstPath<NamedImport>, print: PrintFunction): Doc {
-    return [
-      this.asterisk,
-      path.call(print, 'alias'),
-      ' from ',
-      path.call(print, 'path')
-    ];
+    return ['*', path.call(print, 'alias'), ' from ', path.call(print, 'path')];
   }
 }

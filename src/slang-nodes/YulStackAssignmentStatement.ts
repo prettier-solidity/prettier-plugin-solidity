@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulStackAssignmentOperator } from './YulStackAssignmentOperator.js';
+import { YulIdentifier } from './YulIdentifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -19,7 +20,7 @@ export class YulStackAssignmentStatement implements SlangNode {
 
   assignment: YulStackAssignmentOperator;
 
-  variable: string;
+  variable: YulIdentifier;
 
   constructor(ast: ast.YulStackAssignmentStatement, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
@@ -29,7 +30,8 @@ export class YulStackAssignmentStatement implements SlangNode {
       ast.assignment,
       offsets[0]
     );
-    this.variable = ast.variable.text;
+    console.log(ast.variable.kind);
+    this.variable = new YulIdentifier(ast.variable, offsets[1]);
 
     metadata = updateMetadata(metadata, [this.assignment]);
 
@@ -40,7 +42,7 @@ export class YulStackAssignmentStatement implements SlangNode {
   print(path: AstPath<YulStackAssignmentStatement>, print: PrintFunction): Doc {
     return [
       path.call(print, 'assignment'),
-      printSeparatedItem(this.variable, {
+      printSeparatedItem(path.call(print, 'variable'), {
         firstSeparator: line,
         lastSeparator: ''
       })

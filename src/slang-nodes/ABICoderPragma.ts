@@ -1,9 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc } from 'prettier';
-import type { SlangNode } from '../types';
+import type { AstPath, Doc } from 'prettier';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class ABICoderPragma implements SlangNode {
   readonly kind = NonterminalKind.ABICoderPragma;
@@ -12,18 +13,19 @@ export class ABICoderPragma implements SlangNode {
 
   loc;
 
-  version: string;
+  version: Identifier;
 
   constructor(ast: ast.ABICoderPragma, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
+    const { offsets } = metadata;
 
-    this.version = ast.version.text;
+    this.version = new Identifier(ast.version, offsets[0]);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
-  print(): Doc {
-    return `abicoder ${this.version}`;
+  print(path: AstPath<ABICoderPragma>, print: PrintFunction): Doc {
+    return ['abicoder ', path.call(print, 'version')];
   }
 }

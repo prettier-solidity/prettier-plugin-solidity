@@ -4,6 +4,7 @@ import { isLabel } from '../slang-utils/is-label.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -128,9 +129,7 @@ export class MemberAccessExpression implements SlangNode {
 
   operand: Expression;
 
-  period: string;
-
-  member: string;
+  member: Identifier;
 
   constructor(
     ast: ast.MemberAccessExpression,
@@ -141,8 +140,7 @@ export class MemberAccessExpression implements SlangNode {
     const { offsets } = metadata;
 
     this.operand = new Expression(ast.operand, offsets[0], options);
-    this.period = ast.period.text;
-    this.member = ast.member.text;
+    this.member = new Identifier(ast.member, offsets[1]);
 
     metadata = updateMetadata(metadata, [this.operand]);
 
@@ -158,8 +156,8 @@ export class MemberAccessExpression implements SlangNode {
 
     const document = [
       operandDoc,
-      label('separator', [softline, this.period]),
-      this.member
+      label('separator', [softline, '.']),
+      path.call(print, 'member')
     ].flat();
 
     return isEndOfChain(this, path) ? processChain(document) : document;

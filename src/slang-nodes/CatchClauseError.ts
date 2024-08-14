@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -17,7 +18,7 @@ export class CatchClauseError implements SlangNode {
 
   loc;
 
-  name?: string;
+  name?: Identifier;
 
   parameters: ParametersDeclaration;
 
@@ -29,10 +30,14 @@ export class CatchClauseError implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name?.text;
+    let i = 0;
+    if (ast.name) {
+      this.name = new Identifier(ast.name, offsets[i]);
+      i += 1;
+    }
     this.parameters = new ParametersDeclaration(
       ast.parameters,
-      offsets[0],
+      offsets[i],
       options
     );
 
@@ -44,7 +49,7 @@ export class CatchClauseError implements SlangNode {
 
   print(path: AstPath<CatchClauseError>, print: PrintFunction): Doc {
     return [
-      this.name ? this.name : '',
+      this.name ? path.call(print, 'name') : '',
       group(path.call(print, 'parameters')),
       ' '
     ];

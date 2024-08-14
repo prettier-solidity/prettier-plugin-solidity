@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { StorageLocation } from './StorageLocation.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -15,19 +16,21 @@ export class UntypedTupleMember implements SlangNode {
 
   storageLocation?: StorageLocation;
 
-  name: string;
+  name: Identifier;
 
   constructor(ast: ast.UntypedTupleMember, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
+    let i = 0;
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(
         ast.storageLocation,
-        offsets[0]
+        offsets[i]
       );
+      i += 1;
     }
-    this.name = ast.name.text;
+    this.name = new Identifier(ast.name, offsets[i]);
 
     metadata = updateMetadata(metadata, [this.storageLocation]);
 
@@ -38,7 +41,7 @@ export class UntypedTupleMember implements SlangNode {
   print(path: AstPath<UntypedTupleMember>, print: PrintFunction): Doc {
     return [
       this.storageLocation ? [path.call(print, 'storageLocation'), ' '] : '',
-      this.name
+      path.call(print, 'name')
     ];
   }
 }

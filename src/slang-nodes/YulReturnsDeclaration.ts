@@ -17,15 +17,12 @@ export class YulReturnsDeclaration implements SlangNode {
 
   loc;
 
-  minusGreaterThan: string;
-
   variables: YulVariableNames;
 
   constructor(ast: ast.YulReturnsDeclaration, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.minusGreaterThan = ast.minusGreaterThan.text;
     this.variables = new YulVariableNames(ast.variables, offsets[0]);
 
     metadata = updateMetadata(metadata, [this.variables]);
@@ -35,11 +32,8 @@ export class YulReturnsDeclaration implements SlangNode {
   }
 
   print(path: AstPath<YulReturnsDeclaration>, print: PrintFunction): Doc {
-    return printSeparatedItem(
-      [this.minusGreaterThan, path.call(print, 'variables')],
-      {
-        firstSeparator: line
-      }
-    );
+    return printSeparatedItem(['->', path.call(print, 'variables')], {
+      firstSeparator: line
+    });
   }
 }

@@ -1,4 +1,7 @@
-import type { NonterminalKind } from '@nomicfoundation/slang/kinds';
+import type {
+  NonterminalKind,
+  TerminalKind
+} from '@nomicfoundation/slang/kinds';
 import type { kinds } from '@nomicfoundation/slang/napi-bindings/generated';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -53,7 +56,10 @@ interface Metadata {
 }
 
 interface SlangNode {
-  kind: keyof typeof NonterminalKind;
+  kind:
+    | keyof typeof NonterminalKind
+    | typeof TerminalKind.Identifier
+    | typeof TerminalKind.YulIdentifier;
   comments: Comment[];
   loc: Location;
   print(

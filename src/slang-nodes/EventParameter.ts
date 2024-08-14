@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TypeName } from './TypeName.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -18,7 +19,7 @@ export class EventParameter implements SlangNode {
 
   indexedKeyword?: string;
 
-  name?: string;
+  name?: Identifier;
 
   constructor(
     ast: ast.EventParameter,
@@ -30,7 +31,9 @@ export class EventParameter implements SlangNode {
 
     this.typeName = new TypeName(ast.typeName, offsets[0], options);
     this.indexedKeyword = ast.indexedKeyword?.text;
-    this.name = ast.name?.text;
+    if (ast.name) {
+      this.name = new Identifier(ast.name, offsets[1]);
+    }
 
     metadata = updateMetadata(metadata, [this.typeName]);
 
@@ -42,7 +45,7 @@ export class EventParameter implements SlangNode {
     return [
       path.call(print, 'typeName'),
       this.indexedKeyword ? ' indexed' : '',
-      this.name ? ` ${this.name}` : ''
+      this.name ? [' ', path.call(print, 'name')] : ''
     ];
   }
 }

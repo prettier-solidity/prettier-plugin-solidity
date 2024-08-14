@@ -4,8 +4,9 @@ import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc } from 'prettier';
-import type { SlangNode } from '../types';
+import type { AstPath, Doc } from 'prettier';
+import type { PrintFunction, SlangNode } from '../types';
+import { YulIdentifier } from './YulIdentifier.js';
 
 const { line } = doc.builders;
 
@@ -16,22 +17,25 @@ export class YulVariableNames implements SlangNode {
 
   loc;
 
-  items: string[];
+  items: YulIdentifier[];
 
   separators: string[];
 
   constructor(ast: ast.YulVariableNames, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
+    const { offsets } = metadata;
 
-    this.items = ast.items.map((item) => item.text);
+    this.items = ast.items.map(
+      (item, index) => new YulIdentifier(item, offsets[index])
+    );
     this.separators = ast.separators.map((separator) => separator.text);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
-  print(): Doc {
-    return printSeparatedList(this.items, {
+  print(path: AstPath<YulVariableNames>, print: PrintFunction): Doc {
+    return printSeparatedList(path.map(print, 'items'), {
       firstSeparator: line,
       lastSeparator: ''
     });

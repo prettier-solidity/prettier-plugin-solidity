@@ -3,6 +3,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { VariableDeclarationType } from './VariableDeclarationType.js';
 import { StorageLocation } from './StorageLocation.js';
+import { Identifier } from './Identifier.js';
 import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -23,7 +24,7 @@ export class VariableDeclarationStatement implements SlangNode {
 
   storageLocation?: StorageLocation;
 
-  name: string;
+  name: Identifier;
 
   value?: VariableDeclarationValue;
 
@@ -47,7 +48,8 @@ export class VariableDeclarationStatement implements SlangNode {
         : undefined;
       i += 1;
     }
-    this.name = ast.name.text;
+    this.name = new Identifier(ast.name, offsets[i]);
+    i += 1;
     if (ast.value) {
       this.value = new VariableDeclarationValue(ast.value, offsets[i], options);
     }
@@ -73,7 +75,8 @@ export class VariableDeclarationStatement implements SlangNode {
           this.storageLocation
             ? [line, path.call(print, 'storageLocation')]
             : '',
-          ` ${this.name}`
+          ' ',
+          path.call(print, 'name')
         ])
       ],
       { id: Symbol('Slang.VariableDeclarationStatement.variables') }

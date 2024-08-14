@@ -69,6 +69,7 @@ import type { FunctionTypeAttributes } from './FunctionTypeAttributes';
 import type { HexNumberExpression } from './HexNumberExpression';
 import type { HexStringLiteral } from './HexStringLiteral';
 import type { HexStringLiterals } from './HexStringLiterals';
+import type { Identifier } from './Identifier';
 import type { IdentifierPath } from './IdentifierPath';
 import type { IfStatement } from './IfStatement';
 import type { ImportAlias } from './ImportAlias';
@@ -192,6 +193,7 @@ import type { YulExpression } from './YulExpression';
 import type { YulForStatement } from './YulForStatement';
 import type { YulFunctionCallExpression } from './YulFunctionCallExpression';
 import type { YulFunctionDefinition } from './YulFunctionDefinition';
+import type { YulIdentifier } from './YulIdentifier';
 import type { YulIfStatement } from './YulIfStatement';
 import type { YulLabel } from './YulLabel';
 import type { YulLeaveStatement } from './YulLeaveStatement';
@@ -285,6 +287,8 @@ export type HubNode =
   | YulVariableNames;
 
 export type AstNode =
+  | Identifier
+  | YulIdentifier
   | string
   | undefined
   | SourceUnit
@@ -504,4 +508,7 @@ export type AstNode =
   | YulPaths
   | YulPath;
 
-export type StrictAstNode = Exclude<AstNode, string | undefined>;
+export type StrictAstNode = Exclude<
+  AstNode,
+  Identifier | YulIdentifier | string | undefined
+>;

@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 import { LibraryMembers } from './LibraryMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -17,7 +18,7 @@ export class LibraryDefinition implements SlangNode {
 
   loc;
 
-  name: string;
+  name: Identifier;
 
   members: LibraryMembers;
 
@@ -29,8 +30,8 @@ export class LibraryDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name.text;
-    this.members = new LibraryMembers(ast.members, offsets[0], options);
+    this.name = new Identifier(ast.name, offsets[0]);
+    this.members = new LibraryMembers(ast.members, offsets[1], options);
 
     metadata = updateMetadata(metadata, [this.members]);
 
@@ -40,7 +41,7 @@ export class LibraryDefinition implements SlangNode {
 
   print(path: AstPath<LibraryDefinition>, print: PrintFunction): Doc {
     return [
-      group([`library ${this.name}`, line, '{']),
+      group(['library ', path.call(print, 'name'), line, '{']),
       path.call(print, 'members'),
       '}'
     ];

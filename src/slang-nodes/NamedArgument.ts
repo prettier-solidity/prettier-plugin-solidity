@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -14,7 +15,7 @@ export class NamedArgument implements SlangNode {
 
   loc;
 
-  name: string;
+  name: Identifier;
 
   value: Expression;
 
@@ -26,8 +27,8 @@ export class NamedArgument implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name.text;
-    this.value = new Expression(ast.value, offsets[0], options);
+    this.name = new Identifier(ast.name, offsets[0]);
+    this.value = new Expression(ast.value, offsets[1], options);
 
     metadata = updateMetadata(metadata, [this.value]);
 
@@ -36,6 +37,6 @@ export class NamedArgument implements SlangNode {
   }
 
   print(path: AstPath<NamedArgument>, print: PrintFunction): Doc {
-    return [`${this.name}: `, path.call(print, 'value')];
+    return [path.call(print, 'name'), ': ', path.call(print, 'value')];
   }
 }

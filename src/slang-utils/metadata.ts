@@ -30,6 +30,10 @@ export function getNodeMetadata(
   ast: SlangAstNode,
   initialOffset: number
 ): Metadata {
+  if (typeof initialOffset === 'undefined') {
+    throw new Error("Can't initiate metadata with an undefined initialOffset");
+  }
+
   const children = ast.cst.children();
 
   let offset = initialOffset;
@@ -39,24 +43,34 @@ export function getNodeMetadata(
   const offsets = children.reduce((offsetsArray: number[], child) => {
     if (child.type === NodeType.Nonterminal) {
       offsetsArray.push(offset);
-    } else if (
-      child.kind === TerminalKind.MultiLineComment ||
-      child.kind === TerminalKind.MultiLineNatSpecComment ||
-      child.kind === TerminalKind.SingleLineComment ||
-      child.kind === TerminalKind.SingleLineNatSpecComment
-    ) {
-      // Since the fetching the comments and calculating offsets are both done
-      // as we iterate over the children and the comment also depends on the
-      // offset, it's hard to separate these responsibilities into different
-      // functions.
-      comments.push({
-        kind: child.kind,
-        value: child.text,
-        loc: {
-          start: offset,
-          end: offset + child.textLength.utf8
-        }
-      });
+    } else {
+      switch (child.kind) {
+        case TerminalKind.MultiLineComment:
+        case TerminalKind.MultiLineNatSpecComment:
+        case TerminalKind.SingleLineComment:
+        case TerminalKind.SingleLineNatSpecComment:
+          // Since the fetching the comments and calculating offsets are both done
+          // as we iterate over the children and the comment also depends on the
+          // offset, it's hard to separate these responsibilities into different
+          // functions without doing the iteration twice.
+          comments.push({
+            kind: child.kind,
+            value: child.text,
+            loc: {
+              start: offset,
+              end: offset + child.textLength.utf8
+            }
+          });
+          break;
+        case TerminalKind.Identifier:
+        case TerminalKind.YulIdentifier:
+          // Identifiers usually are user provided names for variables,
+          // functions, etc...
+          // Since a user can add comments to this section of the code as well,
+          // we need to track the offsets.
+          offsetsArray.push(offset);
+          break;
+      }
     }
 
     offset += child.textLength.utf8;

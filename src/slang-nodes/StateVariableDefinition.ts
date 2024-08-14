@@ -3,6 +3,7 @@ import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TypeName } from './TypeName.js';
 import { StateVariableAttributes } from './StateVariableAttributes.js';
+import { Identifier } from './Identifier.js';
 import { StateVariableDefinitionValue } from './StateVariableDefinitionValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -23,7 +24,7 @@ export class StateVariableDefinition implements SlangNode {
 
   attributes: StateVariableAttributes;
 
-  name: string;
+  name: Identifier;
 
   value?: StateVariableDefinitionValue;
 
@@ -37,10 +38,14 @@ export class StateVariableDefinition implements SlangNode {
 
     this.typeName = new TypeName(ast.typeName, offsets[0], options);
     this.attributes = new StateVariableAttributes(ast.attributes, offsets[1]);
-    this.name = ast.name.text;
-    this.value = ast.value
-      ? new StateVariableDefinitionValue(ast.value, offsets[2], options)
-      : undefined;
+    this.name = new Identifier(ast.name, offsets[2]);
+    if (ast.value) {
+      this.value = new StateVariableDefinitionValue(
+        ast.value,
+        offsets[3],
+        options
+      );
+    }
 
     metadata = updateMetadata(metadata, [
       this.typeName,
@@ -60,7 +65,8 @@ export class StateVariableDefinition implements SlangNode {
     return [
       path.call(print, 'typeName'),
       attributesDoc,
-      ` ${this.name}`,
+      ' ',
+      path.call(print, 'name'),
       this.value
         ? indentIfBreak(path.call(print, 'value'), {
             groupId: attributesDoc.id!

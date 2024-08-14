@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 import { ImportAlias } from './ImportAlias.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -13,7 +14,7 @@ export class ImportDeconstructionSymbol implements SlangNode {
 
   loc;
 
-  name: string;
+  name: Identifier;
 
   alias?: ImportAlias;
 
@@ -21,9 +22,9 @@ export class ImportDeconstructionSymbol implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name.text;
+    this.name = new Identifier(ast.name, offsets[0]);
     if (ast.alias) {
-      this.alias = new ImportAlias(ast.alias, offsets[0]);
+      this.alias = new ImportAlias(ast.alias, offsets[1]);
     }
 
     metadata = updateMetadata(metadata, [this.alias]);
@@ -33,6 +34,9 @@ export class ImportDeconstructionSymbol implements SlangNode {
   }
 
   print(path: AstPath<ImportDeconstructionSymbol>, print: PrintFunction): Doc {
-    return [this.name, this.alias ? path.call(print, 'alias') : ''];
+    return [
+      path.call(print, 'name'),
+      this.alias ? path.call(print, 'alias') : ''
+    ];
   }
 }

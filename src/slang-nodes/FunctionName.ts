@@ -1,9 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc } from 'prettier';
-import type { SlangNode } from '../types';
+import type { AstPath, Doc } from 'prettier';
+import type { PrintFunction, SlangNode } from '../types';
 
 export class FunctionName implements SlangNode {
   readonly kind = NonterminalKind.FunctionName;
@@ -12,18 +13,19 @@ export class FunctionName implements SlangNode {
 
   loc;
 
-  variant: string;
+  variant: Identifier;
 
   constructor(ast: ast.FunctionName, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
+    const { offsets } = metadata;
 
-    this.variant = ast.variant.text;
+    this.variant = new Identifier(ast.variant, offsets[0]);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
-  print(): Doc {
-    return this.variant;
+  print(path: AstPath<FunctionName>, print: PrintFunction): Doc {
+    return path.call(print, 'variant');
   }
 }

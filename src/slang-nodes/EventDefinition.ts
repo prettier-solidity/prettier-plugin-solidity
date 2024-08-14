@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { EventParametersDeclaration } from './EventParametersDeclaration.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -14,7 +15,7 @@ export class EventDefinition implements SlangNode {
 
   loc;
 
-  name: string;
+  name: Identifier;
 
   parameters: EventParametersDeclaration;
 
@@ -28,10 +29,10 @@ export class EventDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name.text;
+    this.name = new Identifier(ast.name, offsets[0]);
     this.parameters = new EventParametersDeclaration(
       ast.parameters,
-      offsets[0],
+      offsets[1],
       options
     );
     this.anonymousKeyword = ast.anonymousKeyword?.text;
@@ -44,7 +45,8 @@ export class EventDefinition implements SlangNode {
 
   print(path: AstPath<EventDefinition>, print: PrintFunction): Doc {
     return [
-      `event ${this.name}`,
+      'event ',
+      path.call(print, 'name'),
       path.call(print, 'parameters'),
       this.anonymousKeyword ? ' anonymous' : '',
       ';'

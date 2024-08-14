@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 import { EnumMembers } from './EnumMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -13,7 +14,7 @@ export class EnumDefinition implements SlangNode {
 
   loc;
 
-  name: string;
+  name: Identifier;
 
   members: EnumMembers;
 
@@ -21,8 +22,8 @@ export class EnumDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name.text;
-    this.members = new EnumMembers(ast.members, offsets[0]);
+    this.name = new Identifier(ast.name, offsets[0]);
+    this.members = new EnumMembers(ast.members, offsets[1]);
 
     metadata = updateMetadata(metadata, [this.members]);
 
@@ -31,6 +32,12 @@ export class EnumDefinition implements SlangNode {
   }
 
   print(path: AstPath<EnumDefinition>, print: PrintFunction): Doc {
-    return [`enum ${this.name} {`, path.call(print, 'members'), '}'];
+    return [
+      'enum ',
+      path.call(print, 'name'),
+      ' {',
+      path.call(print, 'members'),
+      '}'
+    ];
   }
 }

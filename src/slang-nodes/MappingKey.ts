@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { MappingKeyType } from './MappingKeyType.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -15,14 +16,16 @@ export class MappingKey implements SlangNode {
 
   keyType: MappingKeyType;
 
-  name?: string;
+  name?: Identifier;
 
   constructor(ast: ast.MappingKey, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
     this.keyType = new MappingKeyType(ast.keyType, offsets[0]);
-    this.name = ast.name?.text;
+    if (ast.name) {
+      this.name = new Identifier(ast.name, offsets[1]);
+    }
 
     metadata = updateMetadata(metadata, [this.keyType]);
 
@@ -31,6 +34,9 @@ export class MappingKey implements SlangNode {
   }
 
   print(path: AstPath<MappingKey>, print: PrintFunction): Doc {
-    return [path.call(print, 'keyType'), this.name ? ` ${this.name}` : ''];
+    return [
+      path.call(print, 'keyType'),
+      this.name ? [' ', path.call(print, 'name')] : ''
+    ];
   }
 }

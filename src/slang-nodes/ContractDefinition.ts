@@ -3,6 +3,7 @@ import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { ContractMembers } from './ContractMembers.js';
 
@@ -22,7 +23,7 @@ export class ContractDefinition implements SlangNode {
 
   abstractKeyword?: string;
 
-  name: string;
+  name: Identifier;
 
   inheritance?: InheritanceSpecifier;
 
@@ -37,8 +38,8 @@ export class ContractDefinition implements SlangNode {
     const { offsets } = metadata;
 
     this.abstractKeyword = ast.abstractKeyword?.text;
-    this.name = ast.name.text;
-    let i = 0;
+    this.name = new Identifier(ast.name, offsets[0]);
+    let i = 1;
     if (ast.inheritance) {
       this.inheritance = new InheritanceSpecifier(
         ast.inheritance,
@@ -65,7 +66,7 @@ export class ContractDefinition implements SlangNode {
       for (const member of this.members.items) {
         if (
           member.variant.kind === NonterminalKind.FunctionDefinition &&
-          member.variant.name.variant !== this.name
+          member.variant.name.variant.value !== this.name.value
         ) {
           member.variant.cleanModifierInvocationArguments();
         }
@@ -77,7 +78,8 @@ export class ContractDefinition implements SlangNode {
     return [
       group([
         this.abstractKeyword ? 'abstract ' : '',
-        `contract ${this.name}`,
+        'contract ',
+        path.call(print, 'name'),
         this.inheritance ? [' ', path.call(print, 'inheritance')] : line,
         '{'
       ]),

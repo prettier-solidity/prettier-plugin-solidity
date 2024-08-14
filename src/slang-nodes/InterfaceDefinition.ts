@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { InterfaceMembers } from './InterfaceMembers.js';
 
@@ -18,7 +19,7 @@ export class InterfaceDefinition implements SlangNode {
 
   loc;
 
-  name: string;
+  name: Identifier;
 
   inheritance?: InheritanceSpecifier;
 
@@ -32,8 +33,8 @@ export class InterfaceDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name.text;
-    let i = 0;
+    this.name = new Identifier(ast.name, offsets[0]);
+    let i = 1;
     if (ast.inheritance) {
       this.inheritance = new InheritanceSpecifier(
         ast.inheritance,
@@ -53,7 +54,8 @@ export class InterfaceDefinition implements SlangNode {
   print(path: AstPath<InterfaceDefinition>, print: PrintFunction): Doc {
     return [
       group([
-        `interface ${this.name}`,
+        'interface ',
+        path.call(print, 'name'),
         this.inheritance ? [' ', path.call(print, 'inheritance')] : line,
         '{'
       ]),

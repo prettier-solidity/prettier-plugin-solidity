@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printFunction } from '../slang-printers/print-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { Identifier } from './Identifier.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { Parameters } from './Parameters.js';
 import { ModifierAttributes } from './ModifierAttributes.js';
@@ -23,7 +24,7 @@ export class ModifierDefinition implements SlangNode {
 
   loc;
 
-  name: string;
+  name: Identifier;
 
   parameters?: ParametersDeclaration;
 
@@ -39,8 +40,8 @@ export class ModifierDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.name = ast.name.text;
-    let i = 0;
+    this.name = new Identifier(ast.name, offsets[0]);
+    let i = 1;
     if (ast.parameters) {
       this.parameters = new ParametersDeclaration(
         ast.parameters,
@@ -97,6 +98,11 @@ export class ModifierDefinition implements SlangNode {
   }
 
   print(path: AstPath<ModifierDefinition>, print: PrintFunction): Doc {
-    return printFunction(`modifier ${this.name}`, this, path, print);
+    return printFunction(
+      ['modifier ', path.call(print, 'name')],
+      this,
+      path,
+      print
+    );
   }
 }
