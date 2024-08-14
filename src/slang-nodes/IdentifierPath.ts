@@ -18,7 +18,7 @@ export class IdentifierPath implements SlangNode {
   separators: string[];
 
   constructor(ast: ast.IdentifierPath, offset: number) {
-    const metadata = getNodeMetadata(ast, offset, true);
+    const metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
     this.items = ast.items.map(

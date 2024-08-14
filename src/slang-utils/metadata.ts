@@ -29,7 +29,7 @@ function getLeadingOffset(children: Node[]): number {
 export function getNodeMetadata(
   ast: SlangAstNode,
   initialOffset: number,
-  isHubNode = false
+  includePeripheralComments = false
 ): Metadata {
   if (typeof initialOffset === 'undefined') {
     throw new Error("Can't initiate metadata with an undefined initialOffset");
@@ -78,8 +78,12 @@ export function getNodeMetadata(
     return offsetsArray;
   }, []);
 
-  const leadingOffset = isHubNode ? 0 : getLeadingOffset(children);
-  const trailingOffset = isHubNode ? 0 : getLeadingOffset(children.reverse());
+  const leadingOffset = includePeripheralComments
+    ? 0
+    : getLeadingOffset(children);
+  const trailingOffset = includePeripheralComments
+    ? 0
+    : getLeadingOffset(children.reverse());
   const loc = {
     start: initialOffset + leadingOffset,
     end: initialOffset + ast.cst.textLength.utf8 - trailingOffset,
