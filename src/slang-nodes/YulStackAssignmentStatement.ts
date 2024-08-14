@@ -30,7 +30,6 @@ export class YulStackAssignmentStatement implements SlangNode {
       ast.assignment,
       offsets[0]
     );
-    console.log(ast.variable.kind);
     this.variable = new YulIdentifier(ast.variable, offsets[1]);
 
     metadata = updateMetadata(metadata, [this.assignment]);

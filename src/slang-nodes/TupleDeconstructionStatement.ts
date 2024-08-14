@@ -9,7 +9,7 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from '../slang-nodes';
 import type { PrintFunction, SlangNode } from '../types';
 
-const { group, indent, line } = doc.builders;
+const { group, indentIfBreak } = doc.builders;
 
 export class TupleDeconstructionStatement implements SlangNode {
   readonly kind = NonterminalKind.TupleDeconstructionStatement;
@@ -50,15 +50,16 @@ export class TupleDeconstructionStatement implements SlangNode {
     path: AstPath<TupleDeconstructionStatement>,
     print: PrintFunction
   ): Doc {
+    const declarationDoc = group(
+      [this.varKeyword ? 'var (' : '(', path.call(print, 'elements'), ')'],
+      { id: Symbol('Slang.VariableDeclarationStatement.variables') }
+    );
+
     return [
-      this.varKeyword ? 'var ' : '',
-      '(',
-      path.call(print, 'elements'),
-      typeof this.expression.variant !== 'string' &&
-      this.expression.variant.kind === NonterminalKind.TupleExpression
-        ? [') = ', path.call(print, 'expression')]
-        : group([') =', indent([line, path.call(print, 'expression')])]),
-      ';'
+      declarationDoc,
+      indentIfBreak([' = ', path.call(print, 'expression'), ';'], {
+        groupId: declarationDoc.id!
+      })
     ];
   }
 }
