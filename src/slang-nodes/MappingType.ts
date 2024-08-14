@@ -17,8 +17,6 @@ export class MappingType implements SlangNode {
 
   keyType: MappingKey;
 
-  equalGreaterThan: string;
-
   valueType: MappingValue;
 
   constructor(
@@ -30,7 +28,6 @@ export class MappingType implements SlangNode {
     const { offsets } = metadata;
 
     this.keyType = new MappingKey(ast.keyType, offsets[0]);
-    this.equalGreaterThan = ast.equalGreaterThan.text;
     this.valueType = new MappingValue(ast.valueType, offsets[1], options);
 
     metadata = updateMetadata(metadata, [this.keyType, this.valueType]);
@@ -43,7 +40,7 @@ export class MappingType implements SlangNode {
     return [
       'mapping(',
       path.call(print, 'keyType'),
-      ` ${this.equalGreaterThan} `,
+      ` => `,
       path.call(print, 'valueType'),
       ')'
     ];
