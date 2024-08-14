@@ -26,7 +26,7 @@ export class LibraryMembers implements SlangNode {
     offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
+    let metadata = getNodeMetadata(ast, offset, true);
     const { offsets } = metadata;
 
     this.items = ast.items.map(

@@ -20,7 +20,7 @@ export class StateVariableAttributes implements SlangNode {
   items: StateVariableAttribute[];
 
   constructor(ast: ast.StateVariableAttributes, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
+    let metadata = getNodeMetadata(ast, offset, true);
     const { offsets } = metadata;
 
     this.items = ast.items.map(

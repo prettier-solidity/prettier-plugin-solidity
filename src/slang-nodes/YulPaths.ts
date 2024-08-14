@@ -18,7 +18,7 @@ export class YulPaths implements SlangNode {
   separators: string[];
 
   constructor(ast: ast.YulPaths, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
+    let metadata = getNodeMetadata(ast, offset, true);
     const { offsets } = metadata;
 
     this.items = ast.items.map(

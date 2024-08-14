@@ -22,7 +22,7 @@ export class EnumMembers implements SlangNode {
   separators: string[];
 
   constructor(ast: ast.EnumMembers, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+    const metadata = getNodeMetadata(ast, offset, true);
     const { offsets } = metadata;
 
     this.items = ast.items.map(
