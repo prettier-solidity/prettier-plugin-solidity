@@ -1,4 +1,7 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import {
+  NonterminalKind,
+  TerminalKind
+} from '@nomicfoundation/slang/kinds/index.js';
 import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
@@ -28,6 +31,7 @@ import { HexNumberExpression } from './HexNumberExpression.js';
 import { DecimalNumberExpression } from './DecimalNumberExpression.js';
 import { StringExpression } from './StringExpression.js';
 import { ElementaryType } from './ElementaryType.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -69,7 +73,7 @@ export class Expression implements SlangNode {
     | DecimalNumberExpression
     | StringExpression
     | ElementaryType
-    | string;
+    | Identifier;
 
   constructor(
     ast: ast.Expression,
@@ -80,7 +84,7 @@ export class Expression implements SlangNode {
     const { offsets } = metadata;
 
     if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.text;
+      this.variant = new Identifier(ast.variant, offsets[0]);
     } else {
       switch (ast.variant.cst.kind) {
         case NonterminalKind.AssignmentExpression:
@@ -276,7 +280,7 @@ export class Expression implements SlangNode {
 
     metadata = updateMetadata(
       metadata,
-      typeof this.variant === 'string' ? [] : [this.variant]
+      this.variant.kind === TerminalKind.Identifier ? [] : [this.variant]
     );
 
     this.comments = metadata.comments;
@@ -284,8 +288,6 @@ export class Expression implements SlangNode {
   }
 
   print(path: AstPath<Expression>, print: PrintFunction): Doc {
-    return typeof this.variant === 'string'
-      ? this.variant
-      : path.call(print, 'variant');
+    return path.call(print, 'variant');
   }
 }

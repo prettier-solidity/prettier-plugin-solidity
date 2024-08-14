@@ -23,6 +23,7 @@ export class VersionExpression implements SlangNode {
     const { offsets } = metadata;
 
     if (ast.variant instanceof TerminalNode) {
+      // TODO: test whether this is a Identifier
       this.variant = ast.variant.text;
     } else {
       switch (ast.variant.cst.kind) {

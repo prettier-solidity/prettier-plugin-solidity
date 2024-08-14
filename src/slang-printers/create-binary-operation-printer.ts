@@ -1,3 +1,4 @@
+import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
@@ -18,7 +19,7 @@ function rightOperandPrint(
   // operand like - 1 on its own line
   const shouldGroup =
     !(
-      typeof node.leftOperand.variant !== 'string' &&
+      node.leftOperand.variant.kind !== TerminalKind.Identifier &&
       isBinaryOperation(node.leftOperand.variant)
     ) && !isBinaryOperation(path.getNode(2) as StrictAstNode);
 

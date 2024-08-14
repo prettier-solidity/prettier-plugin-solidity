@@ -1,4 +1,7 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import {
+  NonterminalKind,
+  TerminalKind
+} from '@nomicfoundation/slang/kinds/index.js';
 import { Expression } from '../slang-nodes/Expression.js';
 import { TupleExpression } from '../slang-nodes/TupleExpression.js';
 import { TupleValues } from '../slang-nodes/TupleValues.js';
@@ -17,7 +20,7 @@ export function createHugFunction(
   const operators = new Set(huggableOperators);
   return (node: Expression): Expression => {
     if (
-      typeof node.variant !== 'string' &&
+      node.variant.kind !== TerminalKind.Identifier &&
       isBinaryOperation(node.variant) &&
       operators.has(node.variant.operator)
     ) {

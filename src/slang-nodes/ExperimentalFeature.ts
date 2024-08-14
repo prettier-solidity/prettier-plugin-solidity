@@ -1,7 +1,11 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import {
+  NonterminalKind,
+  TerminalKind
+} from '@nomicfoundation/slang/kinds/index.js';
 import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { StringLiteral } from './StringLiteral.js';
+import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -15,7 +19,7 @@ export class ExperimentalFeature implements SlangNode {
 
   loc;
 
-  variant: StringLiteral | string;
+  variant: StringLiteral | Identifier;
 
   constructor(
     ast: ast.ExperimentalFeature,
@@ -27,12 +31,12 @@ export class ExperimentalFeature implements SlangNode {
 
     this.variant =
       ast.variant instanceof TerminalNode
-        ? ast.variant.text
+        ? new Identifier(ast.variant, offsets[0])
         : new StringLiteral(ast.variant, offsets[0], options);
 
     metadata = updateMetadata(
       metadata,
-      typeof this.variant === 'string' ? [] : [this.variant]
+      this.variant.kind === TerminalKind.Identifier ? [] : [this.variant]
     );
 
     this.comments = metadata.comments;
@@ -40,8 +44,6 @@ export class ExperimentalFeature implements SlangNode {
   }
 
   print(path: AstPath<ExperimentalFeature>, print: PrintFunction): Doc {
-    return typeof this.variant === 'string'
-      ? this.variant
-      : path.call(print, 'variant');
+    return path.call(print, 'variant');
   }
 }
