@@ -129,10 +129,10 @@ contract Contract {
     }
 
     function fun(uint256 a) returns (uint) {
-        if (something)
-            foo();
+        if (something) foo();
+        else if (somethingElse)
             // comment
-        else if (somethingElse) bar();
+            bar();
         else whatever();
         return;
     }

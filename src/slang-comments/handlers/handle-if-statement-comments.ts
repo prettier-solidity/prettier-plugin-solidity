@@ -2,11 +2,23 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
 import addHubNodeFirstComment from './add-hub-node-first-comment.js';
-import addHubNodeLastComment from './add-hub-node-last-comment.js';
 
 import type { HandlerParams } from './types';
+import type { StatementVariant } from '../../slang-nodes/index.js';
+import type { Comment } from '../../types.js';
 
 const { addLeadingComment, addTrailingComment } = util;
+
+function addIfStatementBodyFirstComment(
+  node: StatementVariant,
+  comment: Comment
+): void {
+  if (node.kind === NonterminalKind.Block) {
+    addHubNodeFirstComment(node.statements, comment);
+  } else {
+    addLeadingComment(node, comment);
+  }
+}
 
 export default function handleIfStatementComments({
   text,
@@ -31,26 +43,29 @@ export default function handleIfStatementComments({
   }
 
   // Comments before `else`:
-  // - treat as trailing comments of the consequent, if it's a BlockStatement
+  // - treat as leading comments of the elseBranch, if it's a BlockStatement
   // - treat as a dangling comment otherwise
   if (
     precedingNode === enclosingNode.body &&
     followingNode === enclosingNode.elseBranch
   ) {
-    if (precedingNode.variant.kind === NonterminalKind.Block) {
-      addHubNodeLastComment(precedingNode.variant.statements, comment);
+    if (followingNode.body.variant.kind === NonterminalKind.Block) {
+      addHubNodeFirstComment(followingNode.body.variant.statements, comment);
+    } else if (
+      followingNode.body.variant.kind === NonterminalKind.IfStatement
+    ) {
+      addIfStatementBodyFirstComment(
+        followingNode.body.variant.body.variant,
+        comment
+      );
     } else {
-      addTrailingComment(precedingNode, comment);
+      addLeadingComment(followingNode.body.variant, comment);
     }
     return true;
   }
 
   if (followingNode.kind === NonterminalKind.IfStatement) {
-    if (followingNode.body.variant.kind === NonterminalKind.Block) {
-      addHubNodeFirstComment(followingNode.body.variant.statements, comment);
-    } else {
-      addLeadingComment(followingNode.body.variant, comment);
-    }
+    addIfStatementBodyFirstComment(followingNode.body.variant, comment);
     return true;
   }
 

@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulBlock } from './YulBlock.js';
 import { YulExpression } from './YulExpression.js';
@@ -7,6 +8,8 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from '../slang-nodes';
 import type { PrintFunction, SlangNode } from '../types';
+
+const { join } = doc.builders;
 
 export class YulForStatement implements SlangNode {
   readonly kind = NonterminalKind.YulForStatement;
@@ -48,15 +51,12 @@ export class YulForStatement implements SlangNode {
   }
 
   print(path: AstPath<YulForStatement>, print: PrintFunction): Doc {
-    return [
-      'for ',
+    return join(' ', [
+      'for',
       path.call(print, 'initialization'),
-      ' ',
       path.call(print, 'condition'),
-      ' ',
       path.call(print, 'iterator'),
-      ' ',
       path.call(print, 'body')
-    ];
+    ]);
   }
 }

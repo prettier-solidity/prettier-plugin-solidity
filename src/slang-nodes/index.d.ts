@@ -286,6 +286,25 @@ export type HubNode =
   | YulSwitchCases
   | YulVariableNames;
 
+export type StatementVariant =
+  | ExpressionStatement
+  | VariableDeclarationStatement
+  | TupleDeconstructionStatement
+  | IfStatement
+  | ForStatement
+  | WhileStatement
+  | DoWhileStatement
+  | ContinueStatement
+  | BreakStatement
+  | ReturnStatement
+  | ThrowStatement
+  | EmitStatement
+  | TryStatement
+  | RevertStatement
+  | AssemblyStatement
+  | Block
+  | UncheckedBlock;
+
 export type AstNode =
   | Identifier
   | YulIdentifier
