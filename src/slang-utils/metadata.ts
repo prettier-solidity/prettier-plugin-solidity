@@ -21,7 +21,7 @@ function getLeadingOffset(children: Node[]): number {
       // non-whitespace token.
       return offset;
     }
-    offset += child.textLength.utf8;
+    offset += child.textLength.utf16;
   }
   return offset;
 }
@@ -59,7 +59,7 @@ export function getNodeMetadata(
             value: child.text,
             loc: {
               start: offset,
-              end: offset + child.textLength.utf8
+              end: offset + child.textLength.utf16
             }
           });
           break;
@@ -74,7 +74,7 @@ export function getNodeMetadata(
       }
     }
 
-    offset += child.textLength.utf8;
+    offset += child.textLength.utf16;
     return offsetsArray;
   }, []);
 
@@ -86,7 +86,7 @@ export function getNodeMetadata(
     : getLeadingOffset(children.reverse());
   const loc = {
     start: initialOffset + leadingOffset,
-    end: initialOffset + ast.cst.textLength.utf8 - trailingOffset,
+    end: initialOffset + ast.cst.textLength.utf16 - trailingOffset,
     leadingOffset,
     trailingOffset
   };

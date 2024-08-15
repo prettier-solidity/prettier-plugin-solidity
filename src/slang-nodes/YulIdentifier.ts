@@ -19,7 +19,7 @@ export class YulIdentifier implements SlangNode {
     this.comments = [];
     this.loc = {
       start: offset,
-      end: offset + ast.textLength.utf8,
+      end: offset + ast.textLength.utf16,
       leadingOffset: 0,
       trailingOffset: 0
     };
