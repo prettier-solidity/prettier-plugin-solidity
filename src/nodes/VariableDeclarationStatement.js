@@ -9,7 +9,6 @@ const embraceVariables = (document, embrace) =>
 const initialValue = (node, path, print) =>
   node.initialValue ? [' = ', path.call(print, 'initialValue')] : '';
 
-let groupIndex = 0;
 export const VariableDeclarationStatement = {
   print: ({ node, path, print }) => {
     const startsWithVar =
@@ -23,9 +22,8 @@ export const VariableDeclarationStatement = {
           node.variables.length > 1 || startsWithVar
         )
       ],
-      { id: `VariableDeclarationStatement.variables-${groupIndex}` }
+      { id: Symbol('VariableDeclarationStatement.variables') }
     );
-    groupIndex += 1;
     const initialValueDoc = initialValue(node, path, print);
 
     return group([

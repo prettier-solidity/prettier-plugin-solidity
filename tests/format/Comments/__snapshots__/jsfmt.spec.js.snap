@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Comments.sol format 1`] = `
+exports[`Comments.sol - {"compiler":"0.4.24"} format 1`] = `
 ====================================options=====================================
+compiler: "0.4.24"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -259,18 +260,18 @@ contract Comments7 {
 
 contract Comments8 {
     function someFunction() {
-        if (something) {}
-        // comment
-        else {}
+        if (something) {} else {
+            // comment
+        }
     }
 }
 
 contract Comments8 {
     function someFunction() {
-        if (something) {}
-        /* comment
-         * comment */
-        else {}
+        if (something) {} else {
+            /* comment
+             * comment */
+        }
     }
 }
 

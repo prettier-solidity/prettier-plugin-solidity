@@ -24,7 +24,6 @@ const printArguments = (path, print) =>
     lastSeparator: [softline, ')']
   });
 
-let groupIndex = 0;
 export const FunctionCall = {
   print: ({ node, path, print, options }) => {
     let expressionDoc = path.call(print, 'expression');
@@ -42,10 +41,8 @@ export const FunctionCall = {
     // arguments accordingly.
     if (expressionDoc.label === 'MemberAccessChain') {
       expressionDoc = group(expressionDoc.contents, {
-        id: `FunctionCall.expression-${groupIndex}`
+        id: Symbol('FunctionCall.expression')
       });
-
-      groupIndex += 1;
 
       argumentsDoc = indentIfBreak(argumentsDoc, {
         groupId: expressionDoc.id

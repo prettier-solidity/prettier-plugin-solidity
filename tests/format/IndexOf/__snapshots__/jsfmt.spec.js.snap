@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IndexOf.sol format 1`] = `
+exports[`IndexOf.sol - {"compiler":"0.4.26"} format 1`] = `
 ====================================options=====================================
+compiler: "0.4.26"
 parsers: ["solidity-parse"]
 printWidth: 80
                                                                                 | printWidth
@@ -98,17 +99,15 @@ contract IndexOf {
         if (a.length < 1 || b.length < 1 || (b.length > a.length)) {
             whatwastheval = -1;
             return -1;
-        } else if (
-            a.length > (2 ** 128 - 1)
-        ) // since we have to be able to return -1 (if the char isn't found or input error), this function must return an "int" type with a max length of (2^128 - 1)
-        {
+        } else if (a.length > (2 ** 128 - 1)) {
+            // since we have to be able to return -1 (if the char isn't found or input error), this function must return an "int" type with a max length of (2^128 - 1)
             whatwastheval = -1;
             return -1;
         } else {
             uint subindex = 0;
             for (uint i = 0; i < a.length; i++) {
-                if (a[i] == b[0]) // found the first char of b
-                {
+                if (a[i] == b[0]) {
+                    // found the first char of b
                     subindex = 1;
                     while (
                         subindex < b.length &&
