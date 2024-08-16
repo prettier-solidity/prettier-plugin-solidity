@@ -1,1 +1,1 @@
-run_spec(import.meta, ['solidity-parse']);
+runFormatTest(import.meta, ['solidity-parse']);

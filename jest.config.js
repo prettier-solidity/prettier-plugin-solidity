@@ -11,7 +11,7 @@ if (TEST_STANDALONE) {
 
 export default {
   runner: 'jest-light-runner',
-  setupFiles: ['<rootDir>/tests/config/setup.js'],
+  setupFiles: ['<rootDir>/tests/config/format-test-setup.js'],
   snapshotSerializers: [
     'jest-snapshot-serializer-raw',
     'jest-snapshot-serializer-ansi'

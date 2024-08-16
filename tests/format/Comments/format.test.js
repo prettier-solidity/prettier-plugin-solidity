@@ -1,1 +1,1 @@
-run_spec(import.meta, ['solidity-parse'], { compiler: '0.4.24' });
+runFormatTest(import.meta, ['solidity-parse'], { compiler: '0.4.24' });

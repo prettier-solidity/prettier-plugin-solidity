@@ -1,13 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
+
 import createEsmUtils from "esm-utils";
+
 import getPrettier from "./get-prettier.js";
 import compileContract from "./utils/compile-contract.js";
-import createSnapshot from "./utils/create-snapshot.js";
-import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
+import createSnapshot from "./utils/create-snapshot.js";
 import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
+import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -112,7 +114,7 @@ const isTestDirectory = (dirname, name) =>
     path.join(__dirname, "../format", name) + path.sep,
   );
 
-function runSpec(fixtures, parsers, options) {
+function runFormatTest(fixtures, parsers, options) {
   let { importMeta, snippets = [] } = fixtures.importMeta
     ? fixtures
     : { importMeta: fixtures };
@@ -326,7 +328,7 @@ async function runTest({
   if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
       const { eolVisualizedOutput: output } = await format(
-        code.replace(/\n/g, eol),
+        code.replace(/\n/gu, eol),
         formatOptions,
       );
       // Only if `endOfLine: "auto"` the result will be different
@@ -334,7 +336,7 @@ async function runTest({
         formatOptions.endOfLine === "auto"
           ? visualizeEndOfLine(
               // All `code` use `LF`, so the `eol` of result is always `LF`
-              formatResult.outputWithCursor.replace(/\n/g, eol),
+              formatResult.outputWithCursor.replace(/\n/gu, eol),
             )
           : formatResult.eolVisualizedOutput;
       expect(output).toEqual(expected);
@@ -452,4 +454,4 @@ async function format(originalText, originalOptions) {
   };
 }
 
-export default runSpec;
+export default runFormatTest;

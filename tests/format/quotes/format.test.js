@@ -1,2 +1,2 @@
-run_spec(import.meta, ['solidity-parse'], { singleQuote: true });
-run_spec(import.meta, ['solidity-parse'], { singleQuote: false });
+runFormatTest(import.meta, ['solidity-parse'], { singleQuote: true });
+runFormatTest(import.meta, ['solidity-parse'], { singleQuote: false });
