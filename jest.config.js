@@ -1,6 +1,6 @@
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const testMatch = [
-  '<rootDir>/tests/format/**/jsfmt.spec.js',
+  '<rootDir>/tests/format/**/format.test.js',
 
   '<rootDir>/tests/unit/**/*.test.js'
 ];
