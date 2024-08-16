@@ -260,18 +260,18 @@ contract Comments7 {
 
 contract Comments8 {
     function someFunction() {
-        if (something) {
+        if (something) {} else {
             // comment
-        } else {}
+        }
     }
 }
 
 contract Comments8 {
     function someFunction() {
-        if (something) {
+        if (something) {} else {
             /* comment
              * comment */
-        } else {}
+        }
     }
 }
 

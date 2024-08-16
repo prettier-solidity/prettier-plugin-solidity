@@ -44,7 +44,3 @@ export function hasNodeIgnoreComment(node) {
     node.comments.some((comment) => comment.value.trim() === 'prettier-ignore')
   );
 }
-
-export function isLabel(doc) {
-  return doc.type === 'label';
-}

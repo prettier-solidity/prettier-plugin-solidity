@@ -8,7 +8,7 @@ import {
 const { group, indent, join, line, softline, hardline } = doc.builders;
 
 export const printComments = (node, path, options, filter = () => true) => {
-  if (!node.comments) return [];
+  if (!node.comments) return '';
   const document = join(
     line,
     path
@@ -37,26 +37,35 @@ export const printComments = (node, path, options, filter = () => true) => {
 };
 
 export function printPreservingEmptyLines(path, key, options, print) {
-  return path.map((childPath, index) => {
-    const node = childPath.getNode();
-    return [
+  const parts = [];
+  path.each((childPath, index) => {
+    const node = childPath.getValue();
+    const nodeType = node.type;
+
+    if (
       // Avoid adding a hardline at the beginning of the document.
-      index > 0 &&
+      parts.length !== 0 &&
       // LabelDefinition adds a dedented line so we don't have to prepend a
       // hardline.
-      node.type !== 'LabelDefinition'
-        ? hardline
-        : '',
-      print(childPath),
-      // Only attempt to append an empty line if `node` is not the last item
+      nodeType !== 'LabelDefinition'
+    ) {
+      parts.push(hardline);
+    }
+
+    parts.push(print(childPath));
+
+    // Only attempt to append an empty line if `node` is not the last item
+    if (
       !isLast(childPath, key, index) &&
+      isNextLineEmpty(options.originalText, options.locEnd(node) + 1)
+    ) {
       // Append an empty line if the original text already had an one after
       // the current `node`
-      isNextLineEmpty(options.originalText, options.locEnd(node) + 1)
-        ? hardline
-        : ''
-    ];
+      parts.push(hardline);
+    }
   }, key);
+
+  return parts;
 }
 
 // This function will add an indentation to the `item` and separate it from the

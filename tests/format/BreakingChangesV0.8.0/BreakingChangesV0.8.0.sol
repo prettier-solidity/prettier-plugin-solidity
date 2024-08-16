@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: MIT
-// https://github.com/NomicFoundation/slang/issues/986
 pragma solidity >=0.7.0 <=0.8.5;
 
 contract BreakingChangesV080 {

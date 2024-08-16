@@ -257,14 +257,24 @@ function handleIfStatementComments(
     precedingNode === enclosingNode.trueBody &&
     followingNode === enclosingNode.falseBody
   ) {
-    if (precedingNode.type === "Block") {
-      if(precedingNode.statements.length === 0) {
-        addDanglingComment(precedingNode, comment);
+    if (followingNode.type === "Block") {
+      if(followingNode.statements.length === 0) {
+        addDanglingComment(followingNode, comment);
       } else {
-        addTrailingComment(precedingNode.statements[precedingNode.statements.length - 1], comment);
+        addLeadingComment(followingNode.statements[followingNode.statements.length - 1], comment);
+      }
+    } else if (followingNode.type === "IfStatement") {
+      if (followingNode.trueBody.type === "Block") {
+        if(followingNode.trueBody.statements.length === 0) {
+          addDanglingComment(followingNode.trueBody, comment);
+        } else {
+          addLeadingComment(followingNode.trueBody.statements[0], comment);
+        }
+      } else {
+        addLeadingComment(followingNode.trueBody, comment);
       }
     } else {
-      addTrailingComment(precedingNode, comment);
+      addLeadingComment(precedingNode, comment);
     }
     return true;
   }
@@ -283,7 +293,15 @@ function handleIfStatementComments(
   }
 
   if (followingNode.type === "IfStatement") {
-    addBlockOrNotComment(followingNode.trueBody, comment);
+    if (followingNode.trueBody.type === "Block") {
+      if(followingNode.trueBody.statements.length === 0) {
+        addDanglingComment(followingNode.trueBody, comment);
+      } else {
+        addLeadingComment(followingNode.trueBody.statements[0], comment);
+      }
+    } else {
+      addLeadingComment(followingNode.trueBody, comment);
+    }
     return true;
   }
 
