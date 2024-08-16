@@ -3,7 +3,6 @@ import { printSeparatedItem } from '../common/printer-helpers.js';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
-let groupIndex = 0;
 const experimentalTernaries = (node, path, print, options) => {
   const parent = path.getParentNode();
   const isNested = parent.type === 'Conditional';
@@ -30,10 +29,8 @@ const experimentalTernaries = (node, path, print, options) => {
 
   const conditionAndTrueExpressionGroup = group(
     [conditionDoc, trueExpressionDoc],
-    { id: `Conditional.trueExpressionDoc-${groupIndex}` }
+    { id: Symbol('Conditional.trueExpression') }
   );
-
-  groupIndex += 1;
 
   // For the odd case of `tabWidth` of 1 or 0 we initiate `fillTab` as a single
   // space.

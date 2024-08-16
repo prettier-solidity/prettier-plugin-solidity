@@ -117,6 +117,29 @@ contract IfStatements {
 
         if (simpleIf) {if (simpleIfWithinIf) {return true;} else {return false;}} else return false;
     }
+
+         function _tryHexToUint(bytes1 char) private pure returns (bool, uint8) {
+         uint8 c = uint8(char);
+         unchecked {
+             // Case 0-9
+             if (47 < c && c < 58) {
+                 return (true, c - 48);
+            }
+            // Case A-F
+            else if (64 < c && c < 71) {
+                 return (true, c - 55);
+            }
+            // Case a-f
+            else if (96 < c && c < 103) {
+                 return (true, c - 87);
+            }
+            // Else: not a hex char
+            else {
+                 return (false, 0);
+             }
+         }
+     }
+
 }
 
 =====================================output=====================================
@@ -527,6 +550,25 @@ contract IfStatements {
                 return false;
             }
         } else return false;
+    }
+
+    function _tryHexToUint(bytes1 char) private pure returns (bool, uint8) {
+        uint8 c = uint8(char);
+        unchecked {
+            // Case 0-9
+            if (47 < c && c < 58) {
+                return (true, c - 48);
+            } else if (64 < c && c < 71) {
+                // Case A-F
+                return (true, c - 55);
+            } else if (96 < c && c < 103) {
+                // Case a-f
+                return (true, c - 87);
+            } else {
+                // Else: not a hex char
+                return (false, 0);
+            }
+        }
     }
 }
 

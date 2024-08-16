@@ -1,20 +1,14 @@
 import { doc } from 'prettier';
 import { printSeparatedList } from '../common/printer-helpers.js';
 
-const { group, hardline, indent, line } = doc.builders;
+const { dedent, group, indent, line } = doc.builders;
 
 const modifierParameters = (node, path, print) => {
   if (node.parameters?.length > 0) {
     return [
       '(',
       printSeparatedList(path.map(print, 'parameters'), {
-        separator: [
-          ',',
-          // To keep consistency any list of parameters will split if it's longer than 2.
-          // For more information see:
-          // https://github.com/prettier-solidity/prettier-plugin-solidity/issues/256
-          node.parameters.length > 2 ? hardline : line
-        ]
+        separator: [',', line]
       }),
       ')'
     ];
@@ -38,8 +32,8 @@ const override = (node, path, print) => {
 
 const body = (node, path, print) => {
   if (!node.body) return ';';
-  if (node.isVirtual) return group([' ', path.call(print, 'body')]);
-  return [' ', path.call(print, 'body')];
+  if (node.isVirtual) return group(path.call(print, 'body'));
+  return [path.call(print, 'body')];
 };
 
 export const ModifierDefinition = {
@@ -47,7 +41,13 @@ export const ModifierDefinition = {
     'modifier ',
     node.name,
     modifierParameters(node, path, print),
-    group(indent([virtual(node), override(node, path, print)])),
+    group(
+      indent([
+        virtual(node),
+        override(node, path, print),
+        node.body ? dedent(line) : ''
+      ])
+    ),
     body(node, path, print)
   ]
 };

@@ -24,16 +24,19 @@ const stateMutability = (node) =>
     : '';
 
 export const FunctionTypeName = {
-  print: ({ node, path, print }) => [
-    'function(',
-    printSeparatedList(path.map(print, 'parameterTypes')),
-    ')',
-    indent(
-      group([
-        visibility(node),
-        stateMutability(node),
-        returnTypes(node, path, print)
-      ])
-    )
-  ]
+  print: ({ node, path, print }) =>
+    group([
+      'function(',
+      printSeparatedList(path.map(print, 'parameterTypes'), {
+        grouped: false
+      }),
+      ')',
+      indent(
+        group([
+          visibility(node),
+          stateMutability(node),
+          returnTypes(node, path, print)
+        ])
+      )
+    ])
 };
