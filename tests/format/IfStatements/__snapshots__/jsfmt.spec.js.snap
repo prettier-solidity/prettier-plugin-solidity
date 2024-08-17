@@ -558,14 +558,17 @@ contract IfStatements {
             // Case 0-9
             if (47 < c && c < 58) {
                 return (true, c - 48);
-            } else if (64 < c && c < 71) {
-                // Case A-F
+            }
+            // Case A-F
+            else if (64 < c && c < 71) {
                 return (true, c - 55);
-            } else if (96 < c && c < 103) {
-                // Case a-f
+            }
+            // Case a-f
+            else if (96 < c && c < 103) {
                 return (true, c - 87);
-            } else {
-                // Else: not a hex char
+            }
+            // Else: not a hex char
+            else {
                 return (false, 0);
             }
         }
