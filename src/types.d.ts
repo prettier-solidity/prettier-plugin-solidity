@@ -31,6 +31,7 @@ interface BaseComment {
   leading?: boolean;
   trailing?: boolean;
   printed?: boolean;
+  placement?: 'endOfLine' | 'ownLine' | 'remaining';
   precedingNode?: StrictAstNode;
   enclosingNode?: StrictAstNode;
   followingNode?: StrictAstNode;

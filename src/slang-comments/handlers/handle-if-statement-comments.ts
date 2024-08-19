@@ -49,18 +49,7 @@ export default function handleIfStatementComments({
     precedingNode === enclosingNode.body &&
     followingNode === enclosingNode.elseBranch
   ) {
-    if (followingNode.body.variant.kind === NonterminalKind.Block) {
-      addHubNodeFirstComment(followingNode.body.variant.statements, comment);
-    } else if (
-      followingNode.body.variant.kind === NonterminalKind.IfStatement
-    ) {
-      addIfStatementBodyFirstComment(
-        followingNode.body.variant.body.variant,
-        comment
-      );
-    } else {
-      addLeadingComment(followingNode.body.variant, comment);
-    }
+    addTrailingComment(precedingNode.variant, comment);
     return true;
   }
 

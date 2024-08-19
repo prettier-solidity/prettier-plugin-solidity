@@ -257,51 +257,21 @@ function handleIfStatementComments(
     precedingNode === enclosingNode.trueBody &&
     followingNode === enclosingNode.falseBody
   ) {
-    if (followingNode.type === "Block") {
-      if(followingNode.statements.length === 0) {
-        addDanglingComment(followingNode, comment);
-      } else {
-        addLeadingComment(followingNode.statements[followingNode.statements.length - 1], comment);
-      }
-    } else if (followingNode.type === "IfStatement") {
-      if (followingNode.trueBody.type === "Block") {
-        if(followingNode.trueBody.statements.length === 0) {
-          addDanglingComment(followingNode.trueBody, comment);
-        } else {
-          addLeadingComment(followingNode.trueBody.statements[0], comment);
-        }
-      } else {
-        addLeadingComment(followingNode.trueBody, comment);
-      }
+    if (precedingNode.type === "ExpressionStatement") {
+      addTrailingComment(precedingNode, comment);
     } else {
-      addLeadingComment(precedingNode, comment);
+      addDanglingComment(enclosingNode, comment);
     }
     return true;
   }
 
-  if (enclosingNode.trueBody === followingNode) {
-    if (followingNode.type === "Block") {
-      if(followingNode.statements.length === 0) {
-        addDanglingComment(followingNode, comment);
-      } else {
-        addLeadingComment(followingNode.statements[0], comment);
-      }
-    } else {
-      addLeadingComment(followingNode, comment);
-    }
+  if (followingNode.type === "ExpressionStatement") {
+    addBlockStatementFirstComment(followingNode, comment);
     return true;
   }
 
   if (followingNode.type === "IfStatement") {
-    if (followingNode.trueBody.type === "Block") {
-      if(followingNode.trueBody.statements.length === 0) {
-        addDanglingComment(followingNode.trueBody, comment);
-      } else {
-        addLeadingComment(followingNode.trueBody.statements[0], comment);
-      }
-    } else {
-      addLeadingComment(followingNode.trueBody, comment);
-    }
+    addBlockOrNotComment(followingNode.trueBody, comment);
     return true;
   }
 
