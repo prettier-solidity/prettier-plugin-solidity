@@ -16,4 +16,4 @@ export const isBinaryOperation = createKindCheckFunction([
   NonterminalKind.AndExpression,
   NonterminalKind.OrExpression,
   NonterminalKind.ShiftExpression
-]) as (node: StrictAstNode | Comment | Node) => node is BinaryOperation;
+]) as (node: StrictAstNode) => node is BinaryOperation;

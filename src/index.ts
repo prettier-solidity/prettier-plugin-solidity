@@ -17,7 +17,6 @@ import type {
   SupportLanguage
 } from 'prettier';
 import type { AstNode } from './slang-nodes';
-import type { Comment } from './types';
 
 const parserName = 'slang';
 const astFormat = 'slang-ast';
@@ -54,10 +53,10 @@ const solidityCanAttachComment = (node: { type: string }): boolean =>
   typeof node.type === 'string' &&
   node.type !== 'BlockComment' &&
   node.type !== 'LineComment';
-const canAttachComment = (node: AstNode | Comment): boolean =>
+const canAttachComment = (node: AstNode): boolean =>
   typeof node !== 'string' &&
   typeof node !== 'undefined' &&
-  node.kind &&
+  node.kind && // Make sure it's not Location
   !isComment(node);
 
 // https://prettier.io/docs/en/plugins.html#printers

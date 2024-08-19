@@ -5,6 +5,8 @@ import { createKindCheckFunction } from '../slang-utils/create-kind-check-functi
 
 import type { AstPath, Doc } from 'prettier';
 import type { AstNode, BinaryOperation, StrictAstNode } from '../slang-nodes';
+import type { ComparisonExpression } from '../slang-nodes/ComparisonExpression';
+import type { EqualityExpression } from '../slang-nodes/EqualityExpression';
 
 const { group, indent } = doc.builders;
 
@@ -19,7 +21,12 @@ const isBinaryOperationWithoutComparison = createKindCheckFunction([
   NonterminalKind.AndExpression,
   NonterminalKind.OrExpression,
   NonterminalKind.ShiftExpression
-]) as (node: StrictAstNode | Comment | Node) => node is BinaryOperation;
+]) as (
+  node: StrictAstNode
+) => node is Exclude<
+  BinaryOperation,
+  ComparisonExpression | EqualityExpression
+>;
 
 const binaryGroupRulesBuilder =
   (path: AstPath<BinaryOperation>) =>

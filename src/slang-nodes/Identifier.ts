@@ -2,14 +2,15 @@ import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
 import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
 
 import type { Doc } from 'prettier';
-import type { AstLocation, Comment, SlangNode } from '../types';
+import type { Location, SlangNode } from '../types';
+import type { Comment } from '.';
 
 export class Identifier implements SlangNode {
   readonly kind = TerminalKind.Identifier;
 
   comments: Comment[];
 
-  loc: AstLocation;
+  loc: Location;
 
   value: string;
 
@@ -19,9 +20,7 @@ export class Identifier implements SlangNode {
     this.comments = [];
     this.loc = {
       start: offset,
-      end: offset + ast.textLength.utf16,
-      leadingOffset: 0,
-      trailingOffset: 0
+      end: offset + ast.textLength.utf16
     };
   }
 

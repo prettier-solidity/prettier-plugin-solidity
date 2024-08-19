@@ -96,6 +96,8 @@ import type { ModifierAttribute } from './ModifierAttribute';
 import type { ModifierAttributes } from './ModifierAttributes';
 import type { ModifierDefinition } from './ModifierDefinition';
 import type { ModifierInvocation } from './ModifierInvocation';
+import type { MultiLineComment } from './MultiLineComment';
+import type { MultiLineNatSpecComment } from './MultiLineNatSpecComment';
 import type { MultiplicativeExpression } from './MultiplicativeExpression';
 import type { NamedArgument } from './NamedArgument';
 import type { NamedArgumentGroup } from './NamedArgumentGroup';
@@ -125,6 +127,8 @@ import type { ReturnsDeclaration } from './ReturnsDeclaration';
 import type { ReturnStatement } from './ReturnStatement';
 import type { RevertStatement } from './RevertStatement';
 import type { ShiftExpression } from './ShiftExpression';
+import type { SingleLineComment } from './SingleLineComment';
+import type { SingleLineNatSpecComment } from './SingleLineNatSpecComment';
 import type { SourceUnit } from './SourceUnit';
 import type { SourceUnitMember } from './SourceUnitMember';
 import type { SourceUnitMembers } from './SourceUnitMembers';
@@ -286,30 +290,13 @@ export type HubNode =
   | YulSwitchCases
   | YulVariableNames;
 
-export type StatementVariant =
-  | ExpressionStatement
-  | VariableDeclarationStatement
-  | TupleDeconstructionStatement
-  | IfStatement
-  | ForStatement
-  | WhileStatement
-  | DoWhileStatement
-  | ContinueStatement
-  | BreakStatement
-  | ReturnStatement
-  | ThrowStatement
-  | EmitStatement
-  | TryStatement
-  | RevertStatement
-  | AssemblyStatement
-  | Block
-  | UncheckedBlock;
+export type BlockComment = MultiLineComment | MultiLineNatSpecComment;
 
-export type AstNode =
-  | Identifier
-  | YulIdentifier
-  | string
-  | undefined
+export type LineComment = SingleLineComment | SingleLineNatSpecComment;
+
+export type Comment = BlockComment | LineComment;
+
+export type StrictAstNode =
   | SourceUnit
   | PragmaDirective
   | ABICoderPragma
@@ -527,7 +514,10 @@ export type AstNode =
   | YulPaths
   | YulPath;
 
-export type StrictAstNode = Exclude<
-  AstNode,
-  Identifier | YulIdentifier | string | undefined
->;
+export type AstNode =
+  | StrictAstNode
+  | Comment
+  | Identifier
+  | YulIdentifier
+  | string
+  | undefined;

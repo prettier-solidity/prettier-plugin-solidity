@@ -1,13 +1,12 @@
 import { doc } from 'prettier';
-import { isBlockComment, isLineComment } from '../slang-utils/is-comment.js';
+import { isComment } from '../slang-utils/is-comment.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { Comment } from '../types';
+import type { AstNode, BlockComment } from '../slang-nodes';
 
-const { hardline, join, literalline } = doc.builders;
+const { hardline, join } = doc.builders;
 
-function isIndentableBlockComment(comment: Comment): boolean {
+export function isIndentableBlockComment(comment: BlockComment): boolean {
   // If the comment has multiple lines and every line starts with a star
   // we can fix the indentation of each line. The stars in the `/*` and
   // `*/` delimiters are not included in the comment value, so add them
@@ -16,7 +15,7 @@ function isIndentableBlockComment(comment: Comment): boolean {
   return lines.length > 1 && lines.every((line) => line.trimStart()[0] === '*');
 }
 
-function printIndentableBlockComment(comment: Comment): Doc {
+export function printIndentableBlockComment(comment: BlockComment): Doc {
   const lines = comment.value.split('\n');
 
   return join(
@@ -29,19 +28,11 @@ function printIndentableBlockComment(comment: Comment): Doc {
   );
 }
 
-export function printComment(commentPath: AstPath<AstNode | Comment>): Doc {
+export function printComment(commentPath: AstPath<AstNode>): Doc {
   const comment = commentPath.getNode()!;
 
-  if (isLineComment(comment)) {
-    return comment.value.trimEnd();
-  }
-
-  if (isBlockComment(comment)) {
-    if (isIndentableBlockComment(comment)) {
-      return printIndentableBlockComment(comment);
-    }
-
-    return join(literalline, comment.value.split('\n'));
+  if (isComment(comment)) {
+    return comment.print();
   }
 
   throw new Error(`Not a comment: ${JSON.stringify(comment)}`);

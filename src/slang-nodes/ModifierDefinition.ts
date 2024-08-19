@@ -17,6 +17,7 @@ const objectConfig = {
   enumerable: true,
   configurable: true
 };
+
 export class ModifierDefinition implements SlangNode {
   readonly kind = NonterminalKind.ModifierDefinition;
 

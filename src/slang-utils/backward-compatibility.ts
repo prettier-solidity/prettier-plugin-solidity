@@ -5,7 +5,6 @@ import { locEnd } from './loc.js';
 import type { AstPath } from 'prettier';
 import type { utilV2 } from './types';
 import type { AstNode, HubNode } from '../slang-nodes';
-import type { Comment } from '../types';
 
 export const isPrettier2 = prettierVersionSatisfies('^2.3.0');
 
@@ -21,7 +20,7 @@ export function isNextLineEmpty(text: string, startIndex: number): boolean {
 
 export function getNextNonSpaceNonCommentCharacter(
   text: string,
-  node: AstNode | Comment
+  node: AstNode
 ): string {
   if (isPrettier2) {
     const index = (util as utilV2).getNextNonSpaceNonCommentCharacterIndex(

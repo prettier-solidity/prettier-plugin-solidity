@@ -2,10 +2,9 @@ import type {
   NonterminalKind,
   TerminalKind
 } from '@nomicfoundation/slang/kinds';
-import type { kinds } from '@nomicfoundation/slang/napi-bindings/generated';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, StrictAstNode } from './slang-nodes';
+import type { AstNode, Comment, StrictAstNode } from './slang-nodes';
 
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {
@@ -36,19 +35,6 @@ interface BaseComment {
   enclosingNode?: StrictAstNode;
   followingNode?: StrictAstNode;
 }
-interface BlockComment extends BaseComment {
-  kind:
-    | kinds.TerminalKind.MultiLineComment
-    | kinds.TerminalKind.MultiLineNatSpecComment;
-}
-
-interface LineComment extends BaseComment {
-  kind:
-    | kinds.TerminalKind.SingleLineComment
-    | kinds.TerminalKind.SingleLineNatSpecComment;
-}
-
-type Comment = BlockComment | LineComment;
 
 interface Metadata {
   comments: Comment[];
@@ -60,12 +46,16 @@ interface SlangNode {
   kind:
     | keyof typeof NonterminalKind
     | typeof TerminalKind.Identifier
-    | typeof TerminalKind.YulIdentifier;
-  comments: Comment[];
-  loc: Location;
+    | typeof TerminalKind.YulIdentifier
+    | typeof TerminalKind.MultiLineComment
+    | typeof TerminalKind.MultiLineNatSpecComment
+    | typeof TerminalKind.SingleLineComment
+    | typeof TerminalKind.SingleLineNatSpecComment;
+  comments?: Comment[];
+  loc: AstLocation | Location;
   print(
     path: AstPath<AstNode>,
-    print: (path: AstPath<AstNode | string | undefined>) => Doc,
+    print: (path: AstPath<AstNode>) => Doc,
     options: ParserOptions
   ): Doc;
 }

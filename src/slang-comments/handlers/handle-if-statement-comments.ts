@@ -4,21 +4,8 @@ import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-c
 import addHubNodeFirstComment from './add-hub-node-first-comment.js';
 
 import type { HandlerParams } from './types';
-import type { StatementVariant } from '../../slang-nodes/index.js';
-import type { Comment } from '../../types.js';
 
 const { addLeadingComment, addTrailingComment } = util;
-
-function addIfStatementBodyFirstComment(
-  node: StatementVariant,
-  comment: Comment
-): void {
-  if (node.kind === NonterminalKind.Block) {
-    addHubNodeFirstComment(node.statements, comment);
-  } else {
-    addLeadingComment(node, comment);
-  }
-}
 
 export default function handleIfStatementComments({
   text,
@@ -54,7 +41,11 @@ export default function handleIfStatementComments({
   }
 
   if (followingNode.kind === NonterminalKind.IfStatement) {
-    addIfStatementBodyFirstComment(followingNode.body.variant, comment);
+    if (followingNode.body.variant.kind === NonterminalKind.Block) {
+      addHubNodeFirstComment(followingNode.body.variant.statements, comment);
+    } else {
+      addLeadingComment(followingNode.body.variant, comment);
+    }
     return true;
   }
 

@@ -1,11 +1,9 @@
 import type { Node } from '@nomicfoundation/slang/cst';
 import type { StrictAstNode } from '../slang-nodes';
-import type { Comment } from '../types';
 
 export function createKindCheckFunction(
   kindsArray: string[]
-): (node: StrictAstNode | Comment | Node) => boolean {
+): (node: StrictAstNode | Node) => boolean {
   const kinds = new Set(kindsArray);
-  return (node: StrictAstNode | Comment | Node): boolean =>
-    kinds.has(node.kind);
+  return (node: StrictAstNode | Node): boolean => kinds.has(node.kind);
 }

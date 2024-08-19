@@ -1,10 +1,23 @@
 import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { NodeType } from '@nomicfoundation/slang/cst/index.js';
-import { isComment } from './is-comment.js';
+import { createKindCheckFunction } from './create-kind-check-function.js';
+import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
+import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
+import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
+import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
 
 import type { Node } from '@nomicfoundation/slang/cst';
-import type { StrictAstNode } from '../slang-nodes';
-import type { Comment, Metadata, SlangAstNode } from '../types';
+import type { Comment, StrictAstNode } from '../slang-nodes';
+import type { Metadata, SlangAstNode } from '../types';
+
+const isCommentOrWhiteSpace = createKindCheckFunction([
+  TerminalKind.MultiLineComment,
+  TerminalKind.MultiLineNatSpecComment,
+  TerminalKind.SingleLineComment,
+  TerminalKind.SingleLineNatSpecComment,
+  TerminalKind.EndOfLine,
+  TerminalKind.Whitespace
+]);
 
 function getLeadingOffset(children: Node[]): number {
   let offset = 0;
@@ -12,11 +25,7 @@ function getLeadingOffset(children: Node[]): number {
     if (child.type === NodeType.Nonterminal) {
       // The node's content starts when we find the first non-terminal token.
       return offset;
-    } else if (
-      !isComment(child) &&
-      child.kind !== TerminalKind.EndOfLine &&
-      child.kind !== TerminalKind.Whitespace
-    ) {
+    } else if (!isCommentOrWhiteSpace(child)) {
       // The content of the node started if we find a non-comment,
       // non-whitespace token.
       return offset;
@@ -46,22 +55,21 @@ export function getNodeMetadata(
       offsetsArray.push(offset);
     } else {
       switch (child.kind) {
+        // Since the fetching the comments and calculating offsets are both done
+        // as we iterate over the children and the comment also depends on the
+        // offset, it's hard to separate these responsibilities into different
+        // functions without doing the iteration twice.
         case TerminalKind.MultiLineComment:
+          comments.push(new MultiLineComment(child, offset));
+          break;
         case TerminalKind.MultiLineNatSpecComment:
+          comments.push(new MultiLineNatSpecComment(child, offset));
+          break;
         case TerminalKind.SingleLineComment:
+          comments.push(new SingleLineComment(child, offset));
+          break;
         case TerminalKind.SingleLineNatSpecComment:
-          // Since the fetching the comments and calculating offsets are both done
-          // as we iterate over the children and the comment also depends on the
-          // offset, it's hard to separate these responsibilities into different
-          // functions without doing the iteration twice.
-          comments.push({
-            kind: child.kind,
-            value: child.text,
-            loc: {
-              start: offset,
-              end: offset + child.textLength.utf16
-            }
-          });
+          comments.push(new SingleLineNatSpecComment(child, offset));
           break;
         case TerminalKind.Identifier:
         case TerminalKind.YulIdentifier:

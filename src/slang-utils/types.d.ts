@@ -8,7 +8,6 @@ import type { ReceiveFunctionAttribute } from '../slang-nodes/ReceiveFunctionAtt
 import type { StateVariableAttribute } from '../slang-nodes/StateVariableAttribute';
 import type { UnnamedFunctionAttribute } from '../slang-nodes/UnnamedFunctionAttribute';
 import type { AstNode } from '../slang-nodes';
-import type { Comment } from '../types';
 
 type SortableAttribute =
   | ConstructorAttribute
@@ -23,7 +22,7 @@ type SortableAttribute =
 declare namespace utilV2Functions {
   function getNextNonSpaceNonCommentCharacterIndex(
     text: string,
-    node: AstNode | Comment,
+    node: AstNode,
     locEnd: (node: AstNode) => number
   ): number | false;
 

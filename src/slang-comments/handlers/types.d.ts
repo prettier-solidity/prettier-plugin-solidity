@@ -1,5 +1,4 @@
-import type { StrictAstNode } from '../../slang-nodes';
-import type { Comment } from '../../types';
+import type { Comment, StrictAstNode } from '../../slang-nodes';
 
 interface HandlerParams {
   text: string;

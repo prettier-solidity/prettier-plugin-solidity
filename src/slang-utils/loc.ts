@@ -1,12 +1,11 @@
 import type { AstNode } from '../slang-nodes';
-import type { Comment } from '../types';
 
-export function locStart(node: AstNode | Comment): number {
+export function locStart(node: AstNode): number {
   if (typeof node === 'string' || typeof node === 'undefined') return -1;
   return node.loc.start;
 }
 
-export function locEnd(node: AstNode | Comment): number {
+export function locEnd(node: AstNode): number {
   if (typeof node === 'string' || typeof node === 'undefined') return -1;
   return node.loc.end;
 }
