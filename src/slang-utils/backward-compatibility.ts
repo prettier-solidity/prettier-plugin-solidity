@@ -4,7 +4,7 @@ import { locEnd } from './loc.js';
 
 import type { AstPath } from 'prettier';
 import type { utilV2 } from './types';
-import type { AstNode, HubNode } from '../slang-nodes';
+import type { AstNode, CollectionNode } from '../slang-nodes';
 
 export const isPrettier2 = prettierVersionSatisfies('^2.3.0');
 
@@ -35,6 +35,6 @@ export function getNextNonSpaceNonCommentCharacter(
 
 export function isLast(path: AstPath<AstNode>, index: number): boolean {
   return isPrettier2
-    ? index === (path.getParentNode() as HubNode).items.length - 1
+    ? index === (path.getParentNode() as CollectionNode).items.length - 1
     : path.isLast;
 }

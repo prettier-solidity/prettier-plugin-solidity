@@ -1,11 +1,11 @@
 import { util } from 'prettier';
 
-import type { Comment, HubNode } from '../../slang-nodes';
+import type { Comment, CollectionNode } from '../../slang-nodes';
 
 const { addDanglingComment, addLeadingComment } = util;
 
-export default function addHubNodeFirstComment(
-  node: HubNode,
+export default function addCollectionNodeFirstComment(
+  node: CollectionNode,
   comment: Comment
 ): void {
   if (node.items.length === 0) {

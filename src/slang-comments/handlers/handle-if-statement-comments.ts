@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
-import addHubNodeFirstComment from './add-hub-node-first-comment.js';
+import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
 
 import type { HandlerParams } from './types';
 
@@ -42,7 +42,10 @@ export default function handleIfStatementComments({
 
   if (followingNode.kind === NonterminalKind.IfStatement) {
     if (followingNode.body.variant.kind === NonterminalKind.Block) {
-      addHubNodeFirstComment(followingNode.body.variant.statements, comment);
+      addCollectionNodeFirstComment(
+        followingNode.body.variant.statements,
+        comment
+      );
     } else {
       addLeadingComment(followingNode.body.variant, comment);
     }
@@ -54,7 +57,7 @@ export default function handleIfStatementComments({
   // if (a) /* comment */ true
   if (enclosingNode.body === followingNode) {
     if (followingNode.variant.kind === NonterminalKind.Block) {
-      addHubNodeFirstComment(followingNode.variant.statements, comment);
+      addCollectionNodeFirstComment(followingNode.variant.statements, comment);
     } else {
       addLeadingComment(followingNode, comment);
     }

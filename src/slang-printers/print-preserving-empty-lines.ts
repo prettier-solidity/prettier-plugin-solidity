@@ -7,13 +7,13 @@ import {
 import { locEnd } from '../slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, HubNode, StrictAstNode } from '../slang-nodes';
+import type { AstNode, CollectionNode, StrictAstNode } from '../slang-nodes';
 import type { PrintFunction } from '../types';
 
 const { hardline } = doc.builders;
 
 export function printPreservingEmptyLines(
-  path: AstPath<HubNode>,
+  path: AstPath<CollectionNode>,
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {

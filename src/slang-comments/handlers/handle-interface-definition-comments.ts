@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
-import addHubNodeFirstComment from './add-hub-node-first-comment.js';
-import addHubNodeLastComment from './add-hub-node-last-comment.js';
+import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
+import addCollectionNodeLastComment from './add-collection-node-last-comment.js';
 
 import type { HandlerParams } from './types';
 
@@ -20,7 +20,7 @@ export default function handleInterfaceDefinitionComments({
 
   // The comment is at the end of the body of the InterfaceDefinition.
   if (precedingNode?.kind === NonterminalKind.InterfaceMembers) {
-    addHubNodeLastComment(precedingNode, comment);
+    addCollectionNodeLastComment(precedingNode, comment);
     return true;
   }
 
@@ -29,7 +29,7 @@ export default function handleInterfaceDefinitionComments({
     nextCharacter === '{' &&
     followingNode?.kind === NonterminalKind.InterfaceMembers
   ) {
-    addHubNodeFirstComment(followingNode, comment);
+    addCollectionNodeFirstComment(followingNode, comment);
     return true;
   }
 

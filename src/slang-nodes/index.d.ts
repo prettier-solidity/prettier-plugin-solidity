@@ -244,7 +244,7 @@ export type FunctionLike =
   | ReceiveFunctionDefinition
   | UnnamedFunctionDefinition;
 
-export type HubNode =
+export type CollectionNode =
   | ArrayValues
   | AssemblyFlags
   | CallOptions
