@@ -221,20 +221,6 @@ import type { YulVariableDeclarationStatement } from './YulVariableDeclarationSt
 import type { YulVariableDeclarationValue } from './YulVariableDeclarationValue';
 import type { YulVariableNames } from './YulVariableNames';
 
-export type BinaryOperation =
-  | AdditiveExpression
-  | MultiplicativeExpression
-  | ExponentiationExpression
-  | AssignmentExpression
-  | BitwiseAndExpression
-  | BitwiseOrExpression
-  | BitwiseXorExpression
-  | ComparisonExpression
-  | EqualityExpression
-  | AndExpression
-  | OrExpression
-  | ShiftExpression;
-
 export type FunctionLike =
   | ConstructorDefinition
   | FallbackFunctionDefinition
@@ -243,52 +229,6 @@ export type FunctionLike =
   | ModifierDefinition
   | ReceiveFunctionDefinition
   | UnnamedFunctionDefinition;
-
-export type CollectionNode =
-  | ArrayValues
-  | AssemblyFlags
-  | CallOptions
-  | CatchClauses
-  | ConstructorAttributes
-  | ContractMembers
-  | EnumMembers
-  | ErrorParameters
-  | EventParameters
-  | FallbackFunctionAttributes
-  | FunctionAttributes
-  | FunctionTypeAttributes
-  | HexStringLiterals
-  | IdentifierPath
-  | ImportDeconstructionSymbols
-  | InheritanceTypes
-  | InterfaceMembers
-  | LibraryMembers
-  | ModifierAttributes
-  | NamedArguments
-  | OverridePaths
-  | Parameters
-  | PositionalArguments
-  | ReceiveFunctionAttributes
-  | SourceUnitMembers
-  | Statements
-  | StateVariableAttributes
-  | StringLiterals
-  | StructMembers
-  | TupleDeconstructionElements
-  | TupleValues
-  | UnicodeStringLiterals
-  | UnnamedFunctionAttributes
-  | UsingDeconstructionSymbols
-  | VersionExpressionSet
-  | VersionExpressionSets
-  | VersionSpecifiers
-  | YulArguments
-  | YulParameters
-  | YulPath
-  | YulPaths
-  | YulStatements
-  | YulSwitchCases
-  | YulVariableNames;
 
 export type BlockComment = MultiLineComment | MultiLineNatSpecComment;
 
@@ -513,6 +453,17 @@ export type StrictAstNode =
   | YulArguments
   | YulPaths
   | YulPath;
+
+export type CollectionNode = Extract<StrictAstNode, { items: unknown[] }>;
+
+export type BinaryOperation = Extract<
+  StrictAstNode,
+  {
+    leftOperand: Expression;
+    operator: string;
+    rightOperand: Expression;
+  }
+>;
 
 export type AstNode =
   | StrictAstNode

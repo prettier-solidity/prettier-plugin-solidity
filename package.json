@@ -76,8 +76,8 @@
   "devDependencies": {
     "@babel/code-frame": "^7.24.7",
     "@types/semver": "^7.5.8",
-    "@typescript-eslint/eslint-plugin": "^8.1.0",
-    "@typescript-eslint/parser": "^8.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.2.0",
+    "@typescript-eslint/parser": "^8.2.0",
     "c8": "^9.1.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
