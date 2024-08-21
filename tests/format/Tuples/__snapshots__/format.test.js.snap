@@ -2,7 +2,7 @@
 
 exports[`Tuples.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

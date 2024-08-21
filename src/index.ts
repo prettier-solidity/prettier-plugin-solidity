@@ -3,10 +3,10 @@ import { handleComments, printComment } from './slang-comments/index.js';
 import massageAstNode from './clean.js';
 import loc from './loc.js';
 import options from './options.js';
-import solidityParse from './parser.js';
-import solidityPrint from './printer.js';
-import parse from './slangParser.js';
-import print from './slangPrinter.js';
+import parse from './parser.js';
+import print from './printer.js';
+import solidityParse from './slangSolidityParser.js';
+import slangPrint from './slangPrinter.js';
 import { isComment, isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
@@ -18,11 +18,11 @@ import type {
 } from 'prettier';
 import type { AstNode } from './slang-nodes';
 
-const parserName = 'slang';
+const parserSolidity = 'slang-solidity';
 const astFormat = 'slang-ast';
 
 // https://prettier.io/docs/en/plugins.html#languages
-// https://github.com/ikatyang/linguist-languages/blob/master/data/Solidity.json
+// https://github.com/github-linguist/linguist/blob/master/lib/linguist/languages.yml
 const languages: SupportLanguage[] = [
   {
     linguistLanguageId: 237469032,
@@ -30,22 +30,22 @@ const languages: SupportLanguage[] = [
     aceMode: 'text',
     tmScope: 'source.solidity',
     extensions: ['.sol'],
-    parsers: [parserName, 'solidity-parse'],
+    parsers: [parserSolidity, 'solidity-parse'],
     vscodeLanguageIds: ['solidity']
   }
 ];
 
 // https://prettier.io/docs/en/plugins.html#parsers
-const parser = { astFormat: 'solidity-ast', parse: solidityParse, ...loc };
-const slangParser: Parser<AstNode> = {
+const parser = { astFormat: 'solidity-ast', parse, ...loc };
+const solidityParser: Parser<AstNode> = {
   astFormat,
-  parse,
+  parse: solidityParse,
   locStart,
   locEnd
 };
 
 const parsers = {
-  [parserName]: slangParser,
+  [parserSolidity]: solidityParser,
   'solidity-parse': parser
 };
 
@@ -69,7 +69,7 @@ const printer = {
   },
   isBlockComment: comments.isBlockComment,
   massageAstNode,
-  print: solidityPrint,
+  print,
   printComment: comments.printComment
 };
 const slangPrinter: Printer<AstNode> = {
@@ -77,7 +77,7 @@ const slangPrinter: Printer<AstNode> = {
   handleComments,
   isBlockComment,
   massageAstNode,
-  print,
+  print: slangPrint,
   printComment
 };
 

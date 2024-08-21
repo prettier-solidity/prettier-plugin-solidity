@@ -3,7 +3,7 @@
 exports[`BreakingChangesV0.7.4.sol - {"bracketSpacing":true} format 1`] = `
 ====================================options=====================================
 bracketSpacing: true
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -35,7 +35,7 @@ exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.3","bracketSpacing":true} 
 ====================================options=====================================
 bracketSpacing: true
 compiler: "0.7.3"
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -66,7 +66,7 @@ import { symbol1 as alias1, symbol2 as alias2, symbol3 as alias3, symbol4 } from
 exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.3"} format 1`] = `
 ====================================options=====================================
 compiler: "0.7.3"
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -98,7 +98,7 @@ exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.4","bracketSpacing":true} 
 ====================================options=====================================
 bracketSpacing: true
 compiler: "0.7.4"
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -134,7 +134,7 @@ import {
 exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.4"} format 1`] = `
 ====================================options=====================================
 compiler: "0.7.4"
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -169,7 +169,7 @@ import {
 
 exports[`BreakingChangesV0.7.4.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

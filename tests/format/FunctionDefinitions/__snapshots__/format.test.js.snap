@@ -3,7 +3,7 @@
 exports[`FunctionDefinitions.sol - {"compiler":"0.8.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.8.0"
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

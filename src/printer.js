@@ -16,7 +16,9 @@ function once(factory) {
 }
 
 const warnDeprecation = once(() => {
-  console.warn(`'solidity-parse' has been deprecated, please use 'slang'.`);
+  console.warn(
+    `'solidity-parse' has been deprecated, please use 'slang-solidity'.`
+  );
   return true;
 });
 

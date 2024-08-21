@@ -3,7 +3,7 @@
 exports[`Libraries.sol - {"bracketSpacing":true} format 1`] = `
 ====================================options=====================================
 bracketSpacing: true
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -55,7 +55,7 @@ using {
 
 exports[`Libraries.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

@@ -3,7 +3,7 @@
 exports[`ImportDirectives.sol - {"bracketSpacing":true} format 1`] = `
 ====================================options=====================================
 bracketSpacing: true
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -48,7 +48,7 @@ import { symbol1 as alias1, symbol2 as alias2, symbol3 as alias3, symbol4 } from
 
 exports[`ImportDirectives.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

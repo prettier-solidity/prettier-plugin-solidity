@@ -10,11 +10,11 @@
 
 A [Prettier plugin](https://prettier.io/docs/en/plugins.html) for automatically formatting your [Solidity](https://github.com/ethereum/solidity) code.
 
-## Nomic Foundation`s Slang
+## Nomic Foundation's Slang
 
 Nomic Foundation has put a lot of effort in providing a set of compiler APIs that helped us rethink our approach to parsing and rely on their flexibility, detail oriented solution and continuos support of new and old Solidity syntaxes.
 
-Since v2.0.0 this package will ship with the Slang parser and this change must be implemented in existing configurations by replacing `parser: 'solidity-parse'` with `parser: 'slang'`.
+Since v2.0.0 this package will ship with the Slang parser and this change must be implemented in existing configurations by replacing `parser: 'solidity-parse'` with `parser: 'slang-solidity'`.
 
 ## Installation and usage
 
@@ -67,7 +67,7 @@ We follow Prettier's strategy for populating their plugins in the object `pretti
 <script>
   async function format(code) {
     return await prettier.format(code, {
-      parser: 'slang',
+      parser: 'slang-solidity',
       plugins: [solidityPlugin]
     });
   }
@@ -91,7 +91,7 @@ import solidityPlugin from 'prettier-plugin-solidity/standalone';
 
 async function format(code) {
   return await prettier.format(code, {
-    parser: "slang",
+    parser: "slang-solidity",
     plugins: [solidityPlugin],
   });
 }
@@ -112,7 +112,7 @@ The following is the default configuration internally used by this plugin.
     {
       "files": "*.sol",
       "options": {
-        "parser": "slang",
+        "parser": "slang-solidity",
         "printWidth": 80,
         "tabWidth": 4,
         "useTabs": false,

@@ -4,7 +4,7 @@ import solidityPlugin from '../../dist/standalone.cjs';
 
 export default async function format(code) {
   const formattedCode = await prettier.format(code, {
-    parser: 'slang',
+    parser: 'slang-solidity',
     plugins: [solidityPlugin]
   });
   return formattedCode;

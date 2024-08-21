@@ -8,7 +8,7 @@ import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
 import type { NonterminalNode } from '@nomicfoundation/slang/cst';
 import type { Parser, ParserOptions } from 'prettier';
-import type { AstNode } from './slang-nodes';
+import type { AstNode } from './slang-nodes/index.js';
 
 export default function parse(
   text: string,

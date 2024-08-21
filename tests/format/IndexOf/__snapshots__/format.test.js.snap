@@ -3,7 +3,7 @@
 exports[`IndexOf.sol - {"compiler":"0.4.26"} format 1`] = `
 ====================================options=====================================
 compiler: "0.4.26"
-parsers: ["slang"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
