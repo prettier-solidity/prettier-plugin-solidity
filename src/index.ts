@@ -6,6 +6,7 @@ import options from './options.js';
 import parse from './parser.js';
 import print from './printer.js';
 import solidityParse from './slangSolidityParser.js';
+import yulParse from './slangYulParser.js';
 import slangPrint from './slangPrinter.js';
 import { isComment, isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
@@ -19,6 +20,7 @@ import type {
 import type { AstNode } from './slang-nodes';
 
 const parserSolidity = 'slang-solidity';
+const parserYul = 'slang-yul';
 const astFormat = 'slang-ast';
 
 // https://prettier.io/docs/en/plugins.html#languages
@@ -32,6 +34,15 @@ const languages: SupportLanguage[] = [
     extensions: ['.sol'],
     parsers: [parserSolidity, 'solidity-parse'],
     vscodeLanguageIds: ['solidity']
+  },
+  {
+    linguistLanguageId: 237469033,
+    name: 'Yul',
+    aceMode: 'text',
+    tmScope: 'source.yul',
+    extensions: ['.yul'],
+    parsers: [parserYul],
+    vscodeLanguageIds: ['yul']
   }
 ];
 
@@ -43,9 +54,16 @@ const solidityParser: Parser<AstNode> = {
   locStart,
   locEnd
 };
+const yulParser: Parser<AstNode> = {
+  astFormat,
+  parse: yulParse,
+  locStart,
+  locEnd
+};
 
 const parsers = {
   [parserSolidity]: solidityParser,
+  [parserYul]: yulParser,
   'solidity-parse': parser
 };
 

@@ -1,13 +1,13 @@
 // https://prettier.io/docs/en/plugins.html#parsers
 import { Language } from '@nomicfoundation/slang/language/index.js';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast/index.js';
+import { YulBlock as SlangYulBlock } from '@nomicfoundation/slang/ast/index.js';
 import coerce from 'semver/functions/coerce.js';
-import { SourceUnit } from './slang-nodes/SourceUnit.js';
+import { YulBlock } from './slang-nodes/YulBlock.js';
 
 import type { NonterminalNode } from '@nomicfoundation/slang/cst';
 import type { Parser, ParserOptions } from 'prettier';
-import type { AstNode } from './slang-nodes/index.js';
+import type { AstNode } from './slang-nodes';
 
 export default function parse(
   text: string,
@@ -23,11 +23,11 @@ export default function parse(
       : supportedVersions[supportedVersions.length - 1]
   );
 
-  const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
+  const parseOutput = language.parse(NonterminalKind.YulBlock, text);
 
   if (parseOutput.isValid) {
-    return new SourceUnit(
-      new SlangSourceUnit(parseOutput.tree() as NonterminalNode),
+    return new YulBlock(
+      new SlangYulBlock(parseOutput.tree() as NonterminalNode),
       0,
       options
     );
