@@ -5,6 +5,9 @@
   "globals": {
     "runFormatTest": "readonly"
   },
+  "rules": {
+    "no-console": ["error", { "allow": ["warn"] }]
+  },
   "overrides": [
     {
       "files": ["**/*.ts"],

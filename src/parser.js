@@ -27,7 +27,6 @@ function parse(text, _parsers, options = _parsers) {
       if (!satisfies(compiler, ctx.value)) {
         // @TODO: investigate the best way to warn that would apply to
         // different editors.
-        // eslint-disable-next-line no-console
         console.warn(
           `[prettier-solidity] The compiler option is set to '${options.compiler}', which does not satisfy 'pragma solidity ${ctx.value}'.`
         );
