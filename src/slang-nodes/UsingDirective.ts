@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { joinExisting } from '../slang-utils/join-existing.js';
 import { UsingClause } from './UsingClause.js';
 import { UsingTarget } from './UsingTarget.js';
 
@@ -41,11 +42,13 @@ export class UsingDirective implements SlangNode {
 
   print(path: AstPath<UsingDirective>, print: PrintFunction): Doc {
     return [
-      'using ',
-      path.call(print, 'clause'),
-      ' for ',
-      path.call(print, 'target'),
-      this.globalKeyword ? ' global' : '',
+      joinExisting(' ', [
+        'using',
+        path.call(print, 'clause'),
+        'for',
+        path.call(print, 'target'),
+        this.globalKeyword
+      ]),
       ';'
     ];
   }

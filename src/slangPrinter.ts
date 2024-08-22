@@ -84,7 +84,11 @@ function genericPrint(
 ): Doc {
   prettierVersionCheck();
 
-  const node = path.getNode()!;
+  const node = path.getNode();
+
+  if (typeof node === 'undefined' || node === null) {
+    return '';
+  }
 
   if (hasNodeIgnoreComment(node)) {
     ignoreComments(path);

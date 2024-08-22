@@ -50,7 +50,7 @@ export class YulVariableDeclarationStatement implements SlangNode {
       'let',
       path.call(print, 'variables'),
       ' ',
-      this.value ? path.call(print, 'value') : ''
+      path.call(print, 'value')
     ];
   }
 }

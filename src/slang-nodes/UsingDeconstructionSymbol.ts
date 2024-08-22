@@ -34,9 +34,6 @@ export class UsingDeconstructionSymbol implements SlangNode {
   }
 
   print(path: AstPath<UsingDeconstructionSymbol>, print: PrintFunction): Doc {
-    return [
-      path.call(print, 'name'),
-      this.alias ? path.call(print, 'alias') : ''
-    ];
+    return [path.call(print, 'name'), path.call(print, 'alias')];
   }
 }

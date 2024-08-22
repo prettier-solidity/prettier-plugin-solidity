@@ -31,9 +31,13 @@ export class ModifierInvocation implements SlangNode {
     const { offsets } = metadata;
 
     this.name = new IdentifierPath(ast.name, offsets[0]);
-    this.arguments = ast.arguments
-      ? new ArgumentsDeclaration(ast.arguments, offsets[1], options)
-      : undefined;
+    if (ast.arguments) {
+      this.arguments = new ArgumentsDeclaration(
+        ast.arguments,
+        offsets[1],
+        options
+      );
+    }
 
     metadata = updateMetadata(metadata, [this.name, this.arguments]);
 
@@ -54,9 +58,6 @@ export class ModifierInvocation implements SlangNode {
   }
 
   print(path: AstPath<ModifierInvocation>, print: PrintFunction): Doc {
-    return [
-      path.call(print, 'name'),
-      this.arguments ? path.call(print, 'arguments') : ''
-    ];
+    return [path.call(print, 'name'), path.call(print, 'arguments')];
   }
 }

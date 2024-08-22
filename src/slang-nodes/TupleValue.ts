@@ -35,6 +35,6 @@ export class TupleValue implements SlangNode {
   }
 
   print(path: AstPath<TupleValue>, print: PrintFunction): Doc {
-    return this.expression ? path.call(print, 'expression') : '';
+    return path.call(print, 'expression');
   }
 }

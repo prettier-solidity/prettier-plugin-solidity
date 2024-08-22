@@ -57,7 +57,7 @@ export class YulFunctionDefinition implements SlangNode {
       'function ',
       path.call(print, 'name'),
       path.call(print, 'parameters'),
-      this.returns ? path.call(print, 'returns') : ' ',
+      path.call(print, 'returns') || ' ',
       path.call(print, 'body')
     ];
   }

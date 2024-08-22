@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { joinExisting } from '../slang-utils/join-existing.js';
 import { StringLiteral } from './StringLiteral.js';
 import { AssemblyFlagsDeclaration } from './AssemblyFlagsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
@@ -48,11 +49,11 @@ export class AssemblyStatement implements SlangNode {
   }
 
   print(path: AstPath<AssemblyStatement>, print: PrintFunction): Doc {
-    return [
-      'assembly ',
-      this.label ? [path.call(print, 'label'), ' '] : '',
-      this.flags ? [path.call(print, 'flags'), ' '] : '',
+    return joinExisting(' ', [
+      'assembly',
+      path.call(print, 'label'),
+      path.call(print, 'flags'),
       path.call(print, 'body')
-    ];
+    ]);
   }
 }

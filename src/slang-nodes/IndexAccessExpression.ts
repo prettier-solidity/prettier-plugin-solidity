@@ -53,11 +53,7 @@ export class IndexAccessExpression implements SlangNode {
     let operandDoc: Doc = path.call(print, 'operand');
     let indexDoc: Doc = group([
       '[',
-      indent([
-        softline,
-        this.start ? path.call(print, 'start') : '',
-        this.end ? path.call(print, 'end') : ''
-      ]),
+      indent([softline, path.call(print, 'start'), path.call(print, 'end')]),
       softline,
       ']'
     ]);

@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { joinExisting } from '../slang-utils/join-existing.js';
 import { NumberUnit } from './NumberUnit.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -33,6 +34,6 @@ export class HexNumberExpression implements SlangNode {
   }
 
   print(path: AstPath<HexNumberExpression>, print: PrintFunction): Doc {
-    return [this.literal, this.unit ? [' ', path.call(print, 'unit')] : ''];
+    return joinExisting(' ', [this.literal, path.call(print, 'unit')]);
   }
 }

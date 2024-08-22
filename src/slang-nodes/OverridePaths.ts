@@ -1,11 +1,11 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types';
-import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 
 export class OverridePaths implements SlangNode {
   readonly kind = NonterminalKind.OverridePaths;

@@ -39,11 +39,6 @@ export class ArrayTypeName implements SlangNode {
   }
 
   print(path: AstPath<ArrayTypeName>, print: PrintFunction): Doc {
-    return [
-      path.call(print, 'operand'),
-      '[',
-      this.index ? path.call(print, 'index') : '',
-      ']'
-    ];
+    return [path.call(print, 'operand'), '[', path.call(print, 'index'), ']'];
   }
 }

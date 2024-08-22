@@ -49,7 +49,7 @@ export class CatchClauseError implements SlangNode {
 
   print(path: AstPath<CatchClauseError>, print: PrintFunction): Doc {
     return [
-      this.name ? path.call(print, 'name') : '',
+      path.call(print, 'name'),
       group(path.call(print, 'parameters')),
       ' '
     ];

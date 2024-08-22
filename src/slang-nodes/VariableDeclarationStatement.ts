@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { VariableDeclarationType } from './VariableDeclarationType.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -43,9 +43,10 @@ export class VariableDeclarationStatement implements SlangNode {
     );
     let i = 1;
     if (ast.storageLocation) {
-      this.storageLocation = ast.storageLocation
-        ? new StorageLocation(ast.storageLocation, offsets[i])
-        : undefined;
+      this.storageLocation = new StorageLocation(
+        ast.storageLocation,
+        offsets[i]
+      );
       i += 1;
     }
     this.name = new Identifier(ast.name, offsets[i]);
@@ -84,7 +85,7 @@ export class VariableDeclarationStatement implements SlangNode {
 
     return [
       declarationDoc,
-      indentIfBreak(this.value ? path.call(print, 'value') : '', {
+      indentIfBreak(path.call(print, 'value'), {
         groupId: declarationDoc.id!
       }),
       ';'

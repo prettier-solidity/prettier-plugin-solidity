@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { joinExisting } from '../slang-utils/join-existing.js';
 import { MappingKeyType } from './MappingKeyType.js';
 import { Identifier } from './Identifier.js';
 
@@ -34,9 +35,9 @@ export class MappingKey implements SlangNode {
   }
 
   print(path: AstPath<MappingKey>, print: PrintFunction): Doc {
-    return [
+    return joinExisting(' ', [
       path.call(print, 'keyType'),
-      this.name ? [' ', path.call(print, 'name')] : ''
-    ];
+      path.call(print, 'name')
+    ]);
   }
 }

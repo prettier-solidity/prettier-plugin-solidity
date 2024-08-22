@@ -35,6 +35,6 @@ export class TupleDeconstructionElement implements SlangNode {
   }
 
   print(path: AstPath<TupleDeconstructionElement>, print: PrintFunction): Doc {
-    return this.member ? path.call(print, 'member') : '';
+    return path.call(print, 'member');
   }
 }

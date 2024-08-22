@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { joinExisting } from '../slang-utils/join-existing.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
@@ -24,6 +25,6 @@ export class AddressType implements SlangNode {
   }
 
   print(): Doc {
-    return ['address', this.payableKeyword ? ' payable' : ''];
+    return joinExisting(' ', ['address', this.payableKeyword]);
   }
 }

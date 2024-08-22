@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { joinExisting } from '../slang-utils/join-existing.js';
 import { StorageLocation } from './StorageLocation.js';
 import { Identifier } from './Identifier.js';
 
@@ -39,9 +40,9 @@ export class UntypedTupleMember implements SlangNode {
   }
 
   print(path: AstPath<UntypedTupleMember>, print: PrintFunction): Doc {
-    return [
-      this.storageLocation ? [path.call(print, 'storageLocation'), ' '] : '',
+    return joinExisting(' ', [
+      path.call(print, 'storageLocation'),
       path.call(print, 'name')
-    ];
+    ]);
   }
 }

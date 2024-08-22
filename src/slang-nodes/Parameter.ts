@@ -1,6 +1,7 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { joinExisting } from '../slang-utils/join-existing.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
 import { Identifier } from './Identifier.js';
@@ -53,10 +54,12 @@ export class Parameter implements SlangNode {
   }
 
   print(path: AstPath<Parameter>, print: PrintFunction): Doc {
-    return group([
-      path.call(print, 'typeName'),
-      this.storageLocation ? [' ', path.call(print, 'storageLocation')] : '',
-      this.name ? [' ', path.call(print, 'name')] : ''
-    ]);
+    return group(
+      joinExisting(' ', [
+        path.call(print, 'typeName'),
+        path.call(print, 'storageLocation'),
+        path.call(print, 'name')
+      ])
+    );
   }
 }

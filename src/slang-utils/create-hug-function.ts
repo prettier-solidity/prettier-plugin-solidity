@@ -2,11 +2,11 @@ import {
   NonterminalKind,
   TerminalKind
 } from '@nomicfoundation/slang/kinds/index.js';
+import { isBinaryOperation } from './is-binary-operation.js';
 import { Expression } from '../slang-nodes/Expression.js';
 import { TupleExpression } from '../slang-nodes/TupleExpression.js';
 import { TupleValues } from '../slang-nodes/TupleValues.js';
 import { TupleValue } from '../slang-nodes/TupleValue.js';
-import { isBinaryOperation } from './is-binary-operation.js';
 
 const objectConfig = {
   writable: true,

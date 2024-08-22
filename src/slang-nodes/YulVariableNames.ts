@@ -2,11 +2,11 @@ import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { YulIdentifier } from './YulIdentifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types';
-import { YulIdentifier } from './YulIdentifier.js';
 
 const { line } = doc.builders;
 

@@ -71,10 +71,7 @@ export class TypeName implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    metadata = updateMetadata(
-      metadata,
-      typeof this.variant === 'string' ? [] : [this.variant]
-    );
+    metadata = updateMetadata(metadata, [this.variant]);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

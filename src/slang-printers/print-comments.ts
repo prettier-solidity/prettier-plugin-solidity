@@ -2,27 +2,26 @@ import { doc } from 'prettier';
 import { printComment } from '../slang-comments/printer.js';
 import { isPrettier2 } from '../slang-utils/backward-compatibility.js';
 import { isLineComment } from '../slang-utils/is-comment.js';
+import { joinExisting } from '../slang-utils/join-existing.js';
 
 import type { AstPath, Doc } from 'prettier';
 import type { AstNode } from '../slang-nodes';
 import type { DocV2 } from './types';
 
-const { breakParent, join, line } = doc.builders;
+const { breakParent, line } = doc.builders;
 
 export function printComments(path: AstPath<AstNode>): Doc[] {
-  const document = join(
+  const document = joinExisting(
     line,
-    path
-      .map((commentPath) => {
-        const comment = commentPath.getNode()!;
-        if (comment.trailing || comment.leading || comment.printed) {
-          return '';
-        }
-        comment.printed = true;
-        const printed = printComment(commentPath);
-        return isLineComment(comment) ? [printed, breakParent] : printed;
-      }, 'comments')
-      .filter(Boolean)
+    path.map((commentPath) => {
+      const comment = commentPath.getNode()!;
+      if (comment.trailing || comment.leading || comment.printed) {
+        return '';
+      }
+      comment.printed = true;
+      const printed = printComment(commentPath);
+      return isLineComment(comment) ? [printed, breakParent] : printed;
+    }, 'comments')
   );
 
   // The following if statement will never be 100% covered in a single run
