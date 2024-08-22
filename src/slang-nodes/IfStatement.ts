@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
-import { isLineComment } from '../slang-utils/is-comment.js';
+import { isBlockComment } from '../slang-utils/is-comment.js';
 import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
 import { ElseBranch } from './ElseBranch.js';
@@ -66,7 +66,7 @@ export class IfStatement implements SlangNode {
             this.body.variant.kind !== NonterminalKind.Block || // else on a new line if body is not a block
             this.body.variant.comments.some(
               (comment) =>
-                isLineComment(comment) || comment.placement === 'ownLine'
+                !isBlockComment(comment) || comment.placement === 'ownLine'
             ) // or if body has trailing single line comments or a block comment on a new line
               ? hardline
               : ' ',

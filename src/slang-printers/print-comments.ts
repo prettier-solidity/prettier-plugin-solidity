@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { printComment } from '../slang-comments/printer.js';
 import { isPrettier2 } from '../slang-utils/backward-compatibility.js';
-import { isLineComment } from '../slang-utils/is-comment.js';
+import { isBlockComment } from '../slang-utils/is-comment.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 
 import type { AstPath, Doc } from 'prettier';
@@ -20,7 +20,7 @@ export function printComments(path: AstPath<AstNode>): Doc[] {
       }
       comment.printed = true;
       const printed = printComment(commentPath);
-      return isLineComment(comment) ? [printed, breakParent] : printed;
+      return isBlockComment(comment) ? printed : [printed, breakParent];
     }, 'comments')
   );
 

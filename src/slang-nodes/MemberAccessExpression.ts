@@ -21,16 +21,16 @@ const isChainableExpression = createKindCheckFunction([
 
 function isEndOfChain(
   node: MemberAccessExpression,
-  path: AstPath<AstNode>
+  path: AstPath<StrictAstNode>
 ): boolean {
   for (
     let i = 0,
-      currentNode: AstNode = node,
-      grandparentNode = path.getNode(i + 2) as StrictAstNode;
+      currentNode: StrictAstNode = node,
+      grandparentNode = path.getNode(i + 2)!;
     isChainableExpression(grandparentNode);
     i += 2,
       currentNode = grandparentNode,
-      grandparentNode = path.getNode(i + 2) as StrictAstNode
+      grandparentNode = path.getNode(i + 2)!
   ) {
     switch (grandparentNode.kind) {
       case NonterminalKind.MemberAccessExpression:

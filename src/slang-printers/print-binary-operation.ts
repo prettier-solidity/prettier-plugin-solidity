@@ -4,7 +4,7 @@ import { createBinaryOperationPrinter } from './create-binary-operation-printer.
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, BinaryOperation, StrictAstNode } from '../slang-nodes';
+import type { BinaryOperation, StrictAstNode } from '../slang-nodes';
 import type { ComparisonExpression } from '../slang-nodes/ComparisonExpression';
 import type { EqualityExpression } from '../slang-nodes/EqualityExpression';
 
@@ -41,7 +41,7 @@ const binaryGroupRulesBuilder =
 const binaryIndentRulesBuilder =
   (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
-    let node = path.getNode() as AstNode;
+    let node = path.getNode() as StrictAstNode;
     for (let i = 2; ; i += 2) {
       const grandparentNode = path.getNode(i) as StrictAstNode;
       if (grandparentNode.kind === NonterminalKind.ReturnStatement) break;
