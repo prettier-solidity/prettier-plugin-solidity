@@ -1,9 +1,5 @@
 import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import {
-  NodeType,
-  NonterminalNode,
-  TerminalNode
-} from '@nomicfoundation/slang/cst/index.js';
+import { NodeType, TerminalNode } from '@nomicfoundation/slang/cst/index.js';
 import { createKindCheckFunction } from './create-kind-check-function.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
@@ -69,7 +65,7 @@ export function getNodeMetadata(
   let offset = initialOffset;
 
   const comments = children.reduce((commentsArray: Comment[], child) => {
-    if (child instanceof NonterminalNode) {
+    if (child.type === NodeType.Nonterminal) {
       offsets.set(child, offset);
     } else {
       switch (child.kind) {
