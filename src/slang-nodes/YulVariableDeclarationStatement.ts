@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { joinExisting } from '../slang-utils/join-existing.js';
 import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.js';
 import { YulVariableNames } from './YulVariableNames.js';
 
@@ -46,11 +47,9 @@ export class YulVariableDeclarationStatement implements SlangNode {
     path: AstPath<YulVariableDeclarationStatement>,
     print: PrintFunction
   ): Doc {
-    return [
-      'let',
-      path.call(print, 'variables'),
-      ' ',
+    return joinExisting(' ', [
+      ['let', path.call(print, 'variables')],
       path.call(print, 'value')
-    ];
+    ]);
   }
 }
