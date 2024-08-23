@@ -30,21 +30,15 @@ export class StateVariableDefinition implements SlangNode {
 
   constructor(
     ast: ast.StateVariableDefinition,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, offsets[0], options);
-    this.attributes = new StateVariableAttributes(ast.attributes, offsets[1]);
-    this.name = new Identifier(ast.name, offsets[2]);
+    this.typeName = new TypeName(ast.typeName, options);
+    this.attributes = new StateVariableAttributes(ast.attributes);
+    this.name = new Identifier(ast.name);
     if (ast.value) {
-      this.value = new StateVariableDefinitionValue(
-        ast.value,
-        offsets[3],
-        options
-      );
+      this.value = new StateVariableDefinitionValue(ast.value, options);
     }
 
     metadata = updateMetadata(metadata, [

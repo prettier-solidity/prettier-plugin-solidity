@@ -28,28 +28,16 @@ export class FallbackFunctionDefinition implements SlangNode {
 
   constructor(
     ast: ast.FallbackFunctionDefinition,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.parameters = new ParametersDeclaration(
-      ast.parameters,
-      offsets[0],
-      options
-    );
-    this.attributes = new FallbackFunctionAttributes(
-      ast.attributes,
-      offsets[1],
-      options
-    );
-    let i = 2;
+    this.parameters = new ParametersDeclaration(ast.parameters, options);
+    this.attributes = new FallbackFunctionAttributes(ast.attributes, options);
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, offsets[i], options);
-      i += 1;
+      this.returns = new ReturnsDeclaration(ast.returns, options);
     }
-    this.body = new FunctionBody(ast.body, offsets[i], options);
+    this.body = new FunctionBody(ast.body, options);
 
     metadata = updateMetadata(metadata, [
       this.parameters,

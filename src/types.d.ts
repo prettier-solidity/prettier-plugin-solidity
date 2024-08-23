@@ -39,7 +39,6 @@ interface BaseComment {
 interface Metadata {
   comments: Comment[];
   loc: AstLocation;
-  offsets: number[];
 }
 
 interface SlangNode {

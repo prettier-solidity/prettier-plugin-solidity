@@ -17,17 +17,10 @@ export class SourceUnitMembers implements SlangNode {
 
   items: SourceUnitMember[];
 
-  constructor(
-    ast: ast.SourceUnitMembers,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.SourceUnitMembers, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new SourceUnitMember(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new SourceUnitMember(item, options));
 
     metadata = updateMetadata(metadata, [this.items]);
 

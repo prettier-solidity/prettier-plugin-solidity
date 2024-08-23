@@ -18,13 +18,11 @@ export class ErrorParametersDeclaration implements SlangNode {
 
   constructor(
     ast: ast.ErrorParametersDeclaration,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.parameters = new ErrorParameters(ast.parameters, offsets[0], options);
+    this.parameters = new ErrorParameters(ast.parameters, options);
 
     metadata = updateMetadata(metadata, [this.parameters]);
 

@@ -25,22 +25,15 @@ export class YulFunctionDefinition implements SlangNode {
 
   body: YulBlock;
 
-  constructor(
-    ast: ast.YulFunctionDefinition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulFunctionDefinition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new YulIdentifier(ast.name, offsets[0]);
-    this.parameters = new YulParametersDeclaration(ast.parameters, offsets[1]);
-    let i = 2;
+    this.name = new YulIdentifier(ast.name);
+    this.parameters = new YulParametersDeclaration(ast.parameters);
     if (ast.returns) {
-      this.returns = new YulReturnsDeclaration(ast.returns, offsets[i]);
-      i += 1;
+      this.returns = new YulReturnsDeclaration(ast.returns);
     }
-    this.body = new YulBlock(ast.body, offsets[i], options);
+    this.body = new YulBlock(ast.body, options);
 
     metadata = updateMetadata(metadata, [
       this.parameters,

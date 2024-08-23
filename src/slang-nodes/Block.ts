@@ -16,11 +16,10 @@ export class Block implements SlangNode {
 
   statements: Statements;
 
-  constructor(ast: ast.Block, offset: number, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.Block, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.statements = new Statements(ast.statements, offsets[0], options);
+    this.statements = new Statements(ast.statements, options);
 
     metadata = updateMetadata(metadata, [this.statements]);
 

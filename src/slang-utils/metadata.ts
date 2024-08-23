@@ -1,5 +1,9 @@
 import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { NodeType } from '@nomicfoundation/slang/cst/index.js';
+import {
+  NodeType,
+  NonterminalNode,
+  TerminalNode
+} from '@nomicfoundation/slang/cst/index.js';
 import { createKindCheckFunction } from './create-kind-check-function.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
@@ -19,6 +23,12 @@ const isCommentOrWhiteSpace = createKindCheckFunction([
   TerminalKind.Whitespace
 ]);
 
+const offsets = new Map<Node, number>();
+
+export function clearOffsets(): void {
+  offsets.clear();
+}
+
 function getLeadingOffset(children: Node[]): number {
   let offset = 0;
   for (const child of children) {
@@ -36,23 +46,31 @@ function getLeadingOffset(children: Node[]): number {
 }
 
 export function getNodeMetadata(
-  ast: SlangAstNode,
-  initialOffset: number,
+  ast: SlangAstNode | TerminalNode,
   enclosePeripheralComments = false
 ): Metadata {
-  if (typeof initialOffset === 'undefined') {
-    throw new Error("Can't initiate metadata with an undefined initialOffset");
+  if (ast instanceof TerminalNode) {
+    const offset = offsets.get(ast) || 0;
+
+    return {
+      comments: [],
+      loc: {
+        start: offset,
+        end: offset + ast.textLength.utf16,
+        leadingOffset: 0,
+        trailingOffset: 0
+      }
+    };
   }
 
   const children = ast.cst.children();
 
+  const initialOffset = offsets.get(ast.cst) || 0;
   let offset = initialOffset;
 
-  const comments: Comment[] = [];
-
-  const offsets = children.reduce((offsetsArray: number[], child) => {
-    if (child.type === NodeType.Nonterminal) {
-      offsetsArray.push(offset);
+  const comments = children.reduce((commentsArray: Comment[], child) => {
+    if (child instanceof NonterminalNode) {
+      offsets.set(child, offset);
     } else {
       switch (child.kind) {
         // Since the fetching the comments and calculating offsets are both done
@@ -60,16 +78,16 @@ export function getNodeMetadata(
         // offset, it's hard to separate these responsibilities into different
         // functions without doing the iteration twice.
         case TerminalKind.MultiLineComment:
-          comments.push(new MultiLineComment(child, offset));
+          commentsArray.push(new MultiLineComment(child, offset));
           break;
         case TerminalKind.MultiLineNatSpecComment:
-          comments.push(new MultiLineNatSpecComment(child, offset));
+          commentsArray.push(new MultiLineNatSpecComment(child, offset));
           break;
         case TerminalKind.SingleLineComment:
-          comments.push(new SingleLineComment(child, offset));
+          commentsArray.push(new SingleLineComment(child, offset));
           break;
         case TerminalKind.SingleLineNatSpecComment:
-          comments.push(new SingleLineNatSpecComment(child, offset));
+          commentsArray.push(new SingleLineNatSpecComment(child, offset));
           break;
         case TerminalKind.Identifier:
         case TerminalKind.YulIdentifier:
@@ -77,13 +95,13 @@ export function getNodeMetadata(
           // functions, etc...
           // Since a user can add comments to this section of the code as well,
           // we need to track the offsets.
-          offsetsArray.push(offset);
+          offsets.set(child, offset);
           break;
       }
     }
 
     offset += child.textLength.utf16;
-    return offsetsArray;
+    return commentsArray;
   }, []);
 
   const leadingOffset = enclosePeripheralComments
@@ -99,7 +117,7 @@ export function getNodeMetadata(
     trailingOffset
   };
 
-  return { comments, loc, offsets };
+  return { comments, loc };
 }
 
 function collectComments(
@@ -153,5 +171,5 @@ export function updateMetadata(
     }
   }
 
-  return { comments, loc, offsets: [] };
+  return { comments, loc };
 }

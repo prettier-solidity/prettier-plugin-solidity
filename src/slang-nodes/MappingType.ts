@@ -19,16 +19,11 @@ export class MappingType implements SlangNode {
 
   valueType: MappingValue;
 
-  constructor(
-    ast: ast.MappingType,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.MappingType, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.keyType = new MappingKey(ast.keyType, offsets[0]);
-    this.valueType = new MappingValue(ast.valueType, offsets[1], options);
+    this.keyType = new MappingKey(ast.keyType);
+    this.valueType = new MappingValue(ast.valueType, options);
 
     metadata = updateMetadata(metadata, [this.keyType, this.valueType]);
 

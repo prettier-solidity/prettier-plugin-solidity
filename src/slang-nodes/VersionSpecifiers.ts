@@ -16,8 +16,8 @@ export class VersionSpecifiers implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.VersionSpecifiers, offset: number) {
-    const metadata = getNodeMetadata(ast, offset, true);
+  constructor(ast: ast.VersionSpecifiers) {
+    const metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => item.text);
     this.separators = ast.separators.map((separator) => separator.text);

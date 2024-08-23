@@ -25,25 +25,14 @@ export class InterfaceDefinition implements SlangNode {
 
   members: InterfaceMembers;
 
-  constructor(
-    ast: ast.InterfaceDefinition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.InterfaceDefinition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new Identifier(ast.name, offsets[0]);
-    let i = 1;
+    this.name = new Identifier(ast.name);
     if (ast.inheritance) {
-      this.inheritance = new InheritanceSpecifier(
-        ast.inheritance,
-        offsets[i],
-        options
-      );
-      i += 1;
+      this.inheritance = new InheritanceSpecifier(ast.inheritance, options);
     }
-    this.members = new InterfaceMembers(ast.members, offsets[i], options);
+    this.members = new InterfaceMembers(ast.members, options);
 
     metadata = updateMetadata(metadata, [this.inheritance, this.members]);
 

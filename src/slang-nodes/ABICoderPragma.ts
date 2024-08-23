@@ -15,11 +15,10 @@ export class ABICoderPragma implements SlangNode {
 
   version: Identifier;
 
-  constructor(ast: ast.ABICoderPragma, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ABICoderPragma) {
+    const metadata = getNodeMetadata(ast);
 
-    this.version = new Identifier(ast.version, offsets[0]);
+    this.version = new Identifier(ast.version);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

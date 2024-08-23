@@ -17,26 +17,19 @@ export class TupleMember implements SlangNode {
 
   variant: TypedTupleMember | UntypedTupleMember;
 
-  constructor(
-    ast: ast.TupleMember,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.TupleMember, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.TypedTupleMember:
         this.variant = new TypedTupleMember(
           ast.variant as ast.TypedTupleMember,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.UntypedTupleMember:
         this.variant = new UntypedTupleMember(
-          ast.variant as ast.UntypedTupleMember,
-          offsets[0]
+          ast.variant as ast.UntypedTupleMember
         );
         break;
       default:

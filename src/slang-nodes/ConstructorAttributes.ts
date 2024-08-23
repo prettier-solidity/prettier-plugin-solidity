@@ -20,16 +20,11 @@ export class ConstructorAttributes implements SlangNode {
 
   items: ConstructorAttribute[];
 
-  constructor(
-    ast: ast.ConstructorAttributes,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.ConstructorAttributes, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map(
-      (item, index) => new ConstructorAttribute(item, offsets[index], options)
+      (item) => new ConstructorAttribute(item, options)
     );
 
     metadata = updateMetadata(metadata, [this.items]);

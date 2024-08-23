@@ -23,22 +23,13 @@ export class FunctionType implements SlangNode {
 
   returns?: ReturnsDeclaration;
 
-  constructor(
-    ast: ast.FunctionType,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.FunctionType, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.parameters = new ParametersDeclaration(
-      ast.parameters,
-      offsets[0],
-      options
-    );
-    this.attributes = new FunctionTypeAttributes(ast.attributes, offsets[1]);
+    this.parameters = new ParametersDeclaration(ast.parameters, options);
+    this.attributes = new FunctionTypeAttributes(ast.attributes);
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, offsets[2], options);
+      this.returns = new ReturnsDeclaration(ast.returns, options);
     }
 
     metadata = updateMetadata(metadata, [

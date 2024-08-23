@@ -25,15 +25,10 @@ export class ElseBranch implements SlangNode {
 
   body: Statement;
 
-  constructor(
-    ast: ast.ElseBranch,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ElseBranch, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.body = new Statement(ast.body, offsets[0], options);
+    this.body = new Statement(ast.body, options);
 
     metadata = updateMetadata(metadata, [this.body]);
 

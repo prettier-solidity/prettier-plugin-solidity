@@ -22,17 +22,10 @@ export class Statements implements SlangNode {
 
   items: Statement[];
 
-  constructor(
-    ast: ast.Statements,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.Statements, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new Statement(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new Statement(item, options));
 
     metadata = updateMetadata(metadata, [this.items]);
 

@@ -18,9 +18,8 @@ export class VersionExpression implements SlangNode {
 
   variant: VersionRange | VersionComparator | VersionSpecifiers | string;
 
-  constructor(ast: ast.VersionExpression, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.VersionExpression) {
+    let metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
       // TODO: test whether this is a Identifier
@@ -28,21 +27,16 @@ export class VersionExpression implements SlangNode {
     } else {
       switch (ast.variant.cst.kind) {
         case NonterminalKind.VersionRange:
-          this.variant = new VersionRange(
-            ast.variant as ast.VersionRange,
-            offsets[0]
-          );
+          this.variant = new VersionRange(ast.variant as ast.VersionRange);
           break;
         case NonterminalKind.VersionComparator:
           this.variant = new VersionComparator(
-            ast.variant as ast.VersionComparator,
-            offsets[0]
+            ast.variant as ast.VersionComparator
           );
           break;
         case NonterminalKind.VersionSpecifiers:
           this.variant = new VersionSpecifiers(
-            ast.variant as ast.VersionSpecifiers,
-            offsets[0]
+            ast.variant as ast.VersionSpecifiers
           );
           break;
         default:

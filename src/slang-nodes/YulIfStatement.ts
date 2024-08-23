@@ -19,16 +19,11 @@ export class YulIfStatement implements SlangNode {
 
   body: YulBlock;
 
-  constructor(
-    ast: ast.YulIfStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulIfStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.condition = new YulExpression(ast.condition, offsets[0], options);
-    this.body = new YulBlock(ast.body, offsets[1], options);
+    this.condition = new YulExpression(ast.condition, options);
+    this.body = new YulBlock(ast.body, options);
 
     metadata = updateMetadata(metadata, [this.condition, this.body]);
 

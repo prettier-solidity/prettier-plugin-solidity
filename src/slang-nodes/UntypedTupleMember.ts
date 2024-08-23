@@ -19,19 +19,13 @@ export class UntypedTupleMember implements SlangNode {
 
   name: Identifier;
 
-  constructor(ast: ast.UntypedTupleMember, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.UntypedTupleMember) {
+    let metadata = getNodeMetadata(ast);
 
-    let i = 0;
     if (ast.storageLocation) {
-      this.storageLocation = new StorageLocation(
-        ast.storageLocation,
-        offsets[i]
-      );
-      i += 1;
+      this.storageLocation = new StorageLocation(ast.storageLocation);
     }
-    this.name = new Identifier(ast.name, offsets[i]);
+    this.name = new Identifier(ast.name);
 
     metadata = updateMetadata(metadata, [this.storageLocation]);
 

@@ -19,17 +19,10 @@ export class CatchClauses implements SlangNode {
 
   items: CatchClause[];
 
-  constructor(
-    ast: ast.CatchClauses,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.CatchClauses, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new CatchClause(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new CatchClause(item, options));
 
     metadata = updateMetadata(metadata, [this.items]);
 

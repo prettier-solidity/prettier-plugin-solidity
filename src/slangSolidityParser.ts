@@ -4,6 +4,7 @@ import { Language } from '@nomicfoundation/slang/language/index.js';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast/index.js';
 import coerce from 'semver/functions/coerce.js';
+import { clearOffsets } from './slang-utils/metadata.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
 import type { NonterminalNode } from '@nomicfoundation/slang/cst';
@@ -27,11 +28,14 @@ export default function parse(
   const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
 
   if (parseOutput.isValid) {
-    return new SourceUnit(
+    const parsed = new SourceUnit(
       new SlangSourceUnit(parseOutput.tree() as NonterminalNode),
-      0,
       options
     );
+
+    clearOffsets();
+
+    return parsed;
   }
   throw new Error(parseOutput.errors()[0].message());
 }

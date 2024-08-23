@@ -19,16 +19,11 @@ export class NamedImport implements SlangNode {
 
   path: StringLiteral;
 
-  constructor(
-    ast: ast.NamedImport,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.NamedImport, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.alias = new ImportAlias(ast.alias, offsets[0]);
-    this.path = new StringLiteral(ast.path, offsets[1], options);
+    this.alias = new ImportAlias(ast.alias);
+    this.path = new StringLiteral(ast.path, options);
 
     metadata = updateMetadata(metadata, [this.alias, this.path]);
 

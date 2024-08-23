@@ -19,17 +19,12 @@ export class ArrayTypeName implements SlangNode {
 
   index?: Expression;
 
-  constructor(
-    ast: ast.ArrayTypeName,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ArrayTypeName, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.operand = new TypeName(ast.operand, offsets[0], options);
+    this.operand = new TypeName(ast.operand, options);
     if (ast.index) {
-      this.index = new Expression(ast.index, offsets[1], options);
+      this.index = new Expression(ast.index, options);
     }
 
     metadata = updateMetadata(metadata, [this.operand, this.index]);

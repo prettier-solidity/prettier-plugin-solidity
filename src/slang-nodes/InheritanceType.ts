@@ -19,21 +19,12 @@ export class InheritanceType implements SlangNode {
 
   arguments?: ArgumentsDeclaration;
 
-  constructor(
-    ast: ast.InheritanceType,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.InheritanceType, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.typeName = new IdentifierPath(ast.typeName, offsets[0]);
+    this.typeName = new IdentifierPath(ast.typeName);
     if (ast.arguments) {
-      this.arguments = new ArgumentsDeclaration(
-        ast.arguments,
-        offsets[1],
-        options
-      );
+      this.arguments = new ArgumentsDeclaration(ast.arguments, options);
     }
 
     metadata = updateMetadata(metadata, [this.typeName, this.arguments]);

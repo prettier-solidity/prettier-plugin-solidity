@@ -16,14 +16,13 @@ export class StateVariableAttribute implements SlangNode {
 
   variant: OverrideSpecifier | string;
 
-  constructor(ast: ast.StateVariableAttribute, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.StateVariableAttribute) {
+    let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.text
-        : new OverrideSpecifier(ast.variant, offsets[0]);
+        : new OverrideSpecifier(ast.variant);
 
     metadata = updateMetadata(
       metadata,

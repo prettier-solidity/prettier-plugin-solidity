@@ -23,16 +23,11 @@ export class WhileStatement implements SlangNode {
 
   body: Statement;
 
-  constructor(
-    ast: ast.WhileStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.WhileStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.condition = new Expression(ast.condition, offsets[0], options);
-    this.body = new Statement(ast.body, offsets[1], options);
+    this.condition = new Expression(ast.condition, options);
+    this.body = new Statement(ast.body, options);
 
     metadata = updateMetadata(metadata, [this.condition, this.body]);
 

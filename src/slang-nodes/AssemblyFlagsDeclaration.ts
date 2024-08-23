@@ -18,13 +18,11 @@ export class AssemblyFlagsDeclaration implements SlangNode {
 
   constructor(
     ast: ast.AssemblyFlagsDeclaration,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.flags = new AssemblyFlags(ast.flags, offsets[0], options);
+    this.flags = new AssemblyFlags(ast.flags, options);
 
     metadata = updateMetadata(metadata, [this.flags]);
 

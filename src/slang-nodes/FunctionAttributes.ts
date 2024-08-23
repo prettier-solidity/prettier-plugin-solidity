@@ -20,17 +20,10 @@ export class FunctionAttributes implements SlangNode {
 
   items: FunctionAttribute[];
 
-  constructor(
-    ast: ast.FunctionAttributes,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.FunctionAttributes, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new FunctionAttribute(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new FunctionAttribute(item, options));
 
     metadata = updateMetadata(metadata, [this.items]);
 

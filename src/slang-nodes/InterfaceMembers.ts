@@ -21,17 +21,10 @@ export class InterfaceMembers implements SlangNode {
 
   items: ContractMember[];
 
-  constructor(
-    ast: ast.InterfaceMembers,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.InterfaceMembers, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new ContractMember(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new ContractMember(item, options));
 
     metadata = updateMetadata(metadata, [this.items]);
 

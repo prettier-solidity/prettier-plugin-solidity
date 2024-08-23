@@ -12,8 +12,8 @@ export class YulEqualAndColon implements SlangNode {
 
   loc;
 
-  constructor(ast: ast.YulEqualAndColon, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.YulEqualAndColon) {
+    const metadata = getNodeMetadata(ast);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

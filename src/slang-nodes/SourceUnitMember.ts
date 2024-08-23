@@ -41,101 +41,81 @@ export class SourceUnitMember implements SlangNode {
     | UsingDirective
     | EventDefinition;
 
-  constructor(
-    ast: ast.SourceUnitMember,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.SourceUnitMember, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.PragmaDirective:
         this.variant = new PragmaDirective(
           ast.variant as ast.PragmaDirective,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.ImportDirective:
         this.variant = new ImportDirective(
           ast.variant as ast.ImportDirective,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.ContractDefinition:
         this.variant = new ContractDefinition(
           ast.variant as ast.ContractDefinition,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.InterfaceDefinition:
         this.variant = new InterfaceDefinition(
           ast.variant as ast.InterfaceDefinition,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.LibraryDefinition:
         this.variant = new LibraryDefinition(
           ast.variant as ast.LibraryDefinition,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.StructDefinition:
         this.variant = new StructDefinition(
           ast.variant as ast.StructDefinition,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.EnumDefinition:
-        this.variant = new EnumDefinition(
-          ast.variant as ast.EnumDefinition,
-          offsets[0]
-        );
+        this.variant = new EnumDefinition(ast.variant as ast.EnumDefinition);
         break;
       case NonterminalKind.FunctionDefinition:
         this.variant = new FunctionDefinition(
           ast.variant as ast.FunctionDefinition,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.ConstantDefinition:
         this.variant = new ConstantDefinition(
           ast.variant as ast.ConstantDefinition,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.ErrorDefinition:
         this.variant = new ErrorDefinition(
           ast.variant as ast.ErrorDefinition,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.UserDefinedValueTypeDefinition:
         this.variant = new UserDefinedValueTypeDefinition(
-          ast.variant as ast.UserDefinedValueTypeDefinition,
-          offsets[0]
+          ast.variant as ast.UserDefinedValueTypeDefinition
         );
         break;
       case NonterminalKind.UsingDirective:
         this.variant = new UsingDirective(
           ast.variant as ast.UsingDirective,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.EventDefinition:
         this.variant = new EventDefinition(
           ast.variant as ast.EventDefinition,
-          offsets[0],
           options
         );
         break;

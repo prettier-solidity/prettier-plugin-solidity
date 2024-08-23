@@ -25,47 +25,30 @@ export class TypeName implements SlangNode {
     | ElementaryType
     | IdentifierPath;
 
-  constructor(
-    ast: ast.TypeName,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.TypeName, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ArrayTypeName:
         this.variant = new ArrayTypeName(
           ast.variant as ast.ArrayTypeName,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.FunctionType:
         this.variant = new FunctionType(
           ast.variant as ast.FunctionType,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.MappingType:
-        this.variant = new MappingType(
-          ast.variant as ast.MappingType,
-          offsets[0],
-          options
-        );
+        this.variant = new MappingType(ast.variant as ast.MappingType, options);
         break;
       case NonterminalKind.ElementaryType:
-        this.variant = new ElementaryType(
-          ast.variant as ast.ElementaryType,
-          offsets[0]
-        );
+        this.variant = new ElementaryType(ast.variant as ast.ElementaryType);
         break;
       case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(
-          ast.variant as ast.IdentifierPath,
-          offsets[0]
-        );
+        this.variant = new IdentifierPath(ast.variant as ast.IdentifierPath);
         break;
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);

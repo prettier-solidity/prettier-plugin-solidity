@@ -16,15 +16,10 @@ export class TupleExpression implements SlangNode {
 
   items: TupleValues;
 
-  constructor(
-    ast: ast.TupleExpression,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.TupleExpression, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.items = new TupleValues(ast.items, offsets[0], options);
+    this.items = new TupleValues(ast.items, options);
 
     metadata = updateMetadata(metadata, [this.items]);
 

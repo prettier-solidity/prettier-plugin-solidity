@@ -116,25 +116,12 @@ export class ConditionalExpression implements SlangNode {
 
   falseExpression: Expression;
 
-  constructor(
-    ast: ast.ConditionalExpression,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ConditionalExpression, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.operand = new Expression(ast.operand, offsets[0], options);
-    this.trueExpression = new Expression(
-      ast.trueExpression,
-      offsets[1],
-      options
-    );
-    this.falseExpression = new Expression(
-      ast.falseExpression,
-      offsets[2],
-      options
-    );
+    this.operand = new Expression(ast.operand, options);
+    this.trueExpression = new Expression(ast.trueExpression, options);
+    this.falseExpression = new Expression(ast.falseExpression, options);
 
     metadata = updateMetadata(metadata, [
       this.operand,

@@ -22,24 +22,13 @@ export class CatchClauseError implements SlangNode {
 
   parameters: ParametersDeclaration;
 
-  constructor(
-    ast: ast.CatchClauseError,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.CatchClauseError, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    let i = 0;
     if (ast.name) {
-      this.name = new Identifier(ast.name, offsets[i]);
-      i += 1;
+      this.name = new Identifier(ast.name);
     }
-    this.parameters = new ParametersDeclaration(
-      ast.parameters,
-      offsets[i],
-      options
-    );
+    this.parameters = new ParametersDeclaration(ast.parameters, options);
 
     metadata = updateMetadata(metadata, [this.parameters]);
 

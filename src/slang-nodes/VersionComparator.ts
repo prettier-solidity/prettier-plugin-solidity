@@ -17,12 +17,11 @@ export class VersionComparator implements SlangNode {
 
   operand: VersionExpression;
 
-  constructor(ast: ast.VersionComparator, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.VersionComparator) {
+    let metadata = getNodeMetadata(ast);
 
     this.operator = ast.operator.text;
-    this.operand = new VersionExpression(ast.operand, offsets[0]);
+    this.operand = new VersionExpression(ast.operand);
 
     metadata = updateMetadata(metadata, [this.operand]);
 

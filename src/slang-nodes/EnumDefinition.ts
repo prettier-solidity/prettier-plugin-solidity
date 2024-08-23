@@ -18,12 +18,11 @@ export class EnumDefinition implements SlangNode {
 
   members: EnumMembers;
 
-  constructor(ast: ast.EnumDefinition, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.EnumDefinition) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new Identifier(ast.name, offsets[0]);
-    this.members = new EnumMembers(ast.members, offsets[1]);
+    this.name = new Identifier(ast.name);
+    this.members = new EnumMembers(ast.members);
 
     metadata = updateMetadata(metadata, [this.members]);
 

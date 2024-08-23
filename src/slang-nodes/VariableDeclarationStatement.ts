@@ -30,29 +30,17 @@ export class VariableDeclarationStatement implements SlangNode {
 
   constructor(
     ast: ast.VariableDeclarationStatement,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.variableType = new VariableDeclarationType(
-      ast.variableType,
-      offsets[0],
-      options
-    );
-    let i = 1;
+    this.variableType = new VariableDeclarationType(ast.variableType, options);
     if (ast.storageLocation) {
-      this.storageLocation = new StorageLocation(
-        ast.storageLocation,
-        offsets[i]
-      );
-      i += 1;
+      this.storageLocation = new StorageLocation(ast.storageLocation);
     }
-    this.name = new Identifier(ast.name, offsets[i]);
-    i += 1;
+    this.name = new Identifier(ast.name);
     if (ast.value) {
-      this.value = new VariableDeclarationValue(ast.value, offsets[i], options);
+      this.value = new VariableDeclarationValue(ast.value, options);
     }
 
     metadata = updateMetadata(metadata, [

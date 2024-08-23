@@ -18,13 +18,8 @@ export class YulLiteral implements SlangNode {
 
   variant: HexStringLiteral | StringLiteral | string;
 
-  constructor(
-    ast: ast.YulLiteral,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulLiteral, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.text;
@@ -33,14 +28,12 @@ export class YulLiteral implements SlangNode {
         case NonterminalKind.HexStringLiteral:
           this.variant = new HexStringLiteral(
             ast.variant as ast.HexStringLiteral,
-            offsets[0],
             options
           );
           break;
         case NonterminalKind.StringLiteral:
           this.variant = new StringLiteral(
             ast.variant as ast.StringLiteral,
-            offsets[0],
             options
           );
           break;

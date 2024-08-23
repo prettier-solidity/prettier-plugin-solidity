@@ -16,15 +16,10 @@ export class ImportDirective implements SlangNode {
 
   clause: ImportClause;
 
-  constructor(
-    ast: ast.ImportDirective,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ImportDirective, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.clause = new ImportClause(ast.clause, offsets[0], options);
+    this.clause = new ImportClause(ast.clause, options);
 
     metadata = updateMetadata(metadata, [this.clause]);
 

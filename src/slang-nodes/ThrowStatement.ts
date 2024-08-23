@@ -12,8 +12,8 @@ export class ThrowStatement implements SlangNode {
 
   loc;
 
-  constructor(ast: ast.ThrowStatement, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.ThrowStatement) {
+    const metadata = getNodeMetadata(ast);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

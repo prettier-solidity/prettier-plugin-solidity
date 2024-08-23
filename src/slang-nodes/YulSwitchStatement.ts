@@ -22,16 +22,11 @@ export class YulSwitchStatement implements SlangNode {
 
   cases: YulSwitchCases;
 
-  constructor(
-    ast: ast.YulSwitchStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulSwitchStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.expression = new YulExpression(ast.expression, offsets[0], options);
-    this.cases = new YulSwitchCases(ast.cases, offsets[1], options);
+    this.expression = new YulExpression(ast.expression, options);
+    this.cases = new YulSwitchCases(ast.cases, options);
 
     metadata = updateMetadata(metadata, [this.expression, this.cases]);
 

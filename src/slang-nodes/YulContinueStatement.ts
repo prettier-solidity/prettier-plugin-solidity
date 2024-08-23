@@ -12,8 +12,8 @@ export class YulContinueStatement implements SlangNode {
 
   loc;
 
-  constructor(ast: ast.YulContinueStatement, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.YulContinueStatement) {
+    const metadata = getNodeMetadata(ast);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

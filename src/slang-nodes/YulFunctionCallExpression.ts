@@ -21,14 +21,12 @@ export class YulFunctionCallExpression implements SlangNode {
 
   constructor(
     ast: ast.YulFunctionCallExpression,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.operand = new YulExpression(ast.operand, offsets[0], options);
-    this.arguments = new YulArguments(ast.arguments, offsets[1], options);
+    this.operand = new YulExpression(ast.operand, options);
+    this.arguments = new YulArguments(ast.arguments, options);
 
     metadata = updateMetadata(metadata, [this.operand, this.arguments]);
 

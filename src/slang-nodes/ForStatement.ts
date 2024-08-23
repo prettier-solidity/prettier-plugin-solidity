@@ -29,30 +29,18 @@ export class ForStatement implements SlangNode {
 
   body: Statement;
 
-  constructor(
-    ast: ast.ForStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ForStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     this.initialization = new ForStatementInitialization(
       ast.initialization,
-      offsets[0],
       options
     );
-    this.condition = new ForStatementCondition(
-      ast.condition,
-      offsets[1],
-      options
-    );
-    let i = 2;
+    this.condition = new ForStatementCondition(ast.condition, options);
     if (ast.iterator) {
-      this.iterator = new Expression(ast.iterator, offsets[i], options);
-      i += 1;
+      this.iterator = new Expression(ast.iterator, options);
     }
-    this.body = new Statement(ast.body, offsets[i], options);
+    this.body = new Statement(ast.body, options);
 
     metadata = updateMetadata(metadata, [
       this.initialization,

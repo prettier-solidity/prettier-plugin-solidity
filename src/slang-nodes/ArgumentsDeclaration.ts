@@ -17,26 +17,19 @@ export class ArgumentsDeclaration implements SlangNode {
 
   variant: PositionalArgumentsDeclaration | NamedArgumentsDeclaration;
 
-  constructor(
-    ast: ast.ArgumentsDeclaration,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ArgumentsDeclaration, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.PositionalArgumentsDeclaration:
         this.variant = new PositionalArgumentsDeclaration(
           ast.variant as ast.PositionalArgumentsDeclaration,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.NamedArgumentsDeclaration:
         this.variant = new NamedArgumentsDeclaration(
           ast.variant as ast.NamedArgumentsDeclaration,
-          offsets[0],
           options
         );
         break;
