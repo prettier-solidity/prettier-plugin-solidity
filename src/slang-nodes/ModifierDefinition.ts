@@ -12,12 +12,6 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from '../slang-nodes';
 import type { PrintFunction, SlangNode } from '../types';
 
-const objectConfig = {
-  writable: true,
-  enumerable: true,
-  configurable: true
-};
-
 export class ModifierDefinition implements SlangNode {
   readonly kind = NonterminalKind.ModifierDefinition;
 
@@ -74,27 +68,24 @@ export class ModifierDefinition implements SlangNode {
         trailingOffset: 0
       };
 
-      this.parameters = Object.create(ParametersDeclaration.prototype, {
-        kind: {
-          value: NonterminalKind.ParametersDeclaration,
-          ...objectConfig
-        },
-        loc: {
-          value: { ...parametersLoc },
-          ...objectConfig
-        },
-        comments: { value: [], ...objectConfig },
-        parameters: {
-          value: Object.create(Parameters.prototype, {
-            kind: { value: NonterminalKind.Parameters, ...objectConfig },
-            loc: { value: { ...parametersLoc }, ...objectConfig },
-            comments: { value: [], ...objectConfig },
-            items: { value: [], ...objectConfig },
-            separators: { value: [], ...objectConfig }
-          }) as Parameters,
-          ...objectConfig
+      this.parameters = Object.assign(
+        Object.create(ParametersDeclaration.prototype) as ParametersDeclaration,
+        {
+          kind: NonterminalKind.ParametersDeclaration,
+          loc: { ...parametersLoc },
+          comments: [],
+          parameters: Object.assign(
+            Object.create(Parameters.prototype) as Parameters,
+            {
+              kind: NonterminalKind.Parameters,
+              loc: { ...parametersLoc },
+              comments: [],
+              items: [],
+              separators: []
+            }
+          )
         }
-      }) as ParametersDeclaration;
+      );
     }
   }
 

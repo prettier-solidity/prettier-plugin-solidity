@@ -52,7 +52,7 @@ export class ModifierInvocation implements SlangNode {
         this.arguments.variant.arguments.items.length === 0 && // no arguments
         !ast.arguments!.variant.cst.children().some((child) => isComment(child)) // no comments, at this point we need to check the CST
       ) {
-        this.arguments = undefined;
+        delete this.arguments;
       }
     };
   }
