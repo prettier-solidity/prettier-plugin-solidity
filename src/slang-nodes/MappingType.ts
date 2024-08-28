@@ -40,7 +40,7 @@ export class MappingType implements SlangNode {
     return [
       'mapping(',
       path.call(print, 'keyType'),
-      ` => `,
+      ' => ',
       path.call(print, 'valueType'),
       ')'
     ];
