@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
-import { VersionExpression } from './VersionExpression.js';
+import { VersionLiteral } from './VersionLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -13,31 +13,24 @@ export class VersionRange implements SlangNode {
 
   loc;
 
-  leftOperand: VersionExpression;
+  start: VersionLiteral;
 
-  operator: string;
-
-  rightOperand: VersionExpression;
+  end: VersionLiteral;
 
   constructor(ast: ast.VersionRange, offset: number) {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.leftOperand = new VersionExpression(ast.leftOperand, offsets[0]);
-    this.operator = ast.operator.text;
-    this.rightOperand = new VersionExpression(ast.rightOperand, offsets[1]);
+    this.start = new VersionLiteral(ast.start, offsets[0]);
+    this.end = new VersionLiteral(ast.end, offsets[1]);
 
-    metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);
+    metadata = updateMetadata(metadata, [this.start, this.end]);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(path: AstPath<VersionRange>, print: PrintFunction): Doc {
-    return [
-      path.call(print, 'leftOperand'),
-      ` ${this.operator} `,
-      path.call(print, 'rightOperand')
-    ];
+    return [path.call(print, 'start'), ' - ', path.call(print, 'end')];
   }
 }

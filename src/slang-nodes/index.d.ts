@@ -127,6 +127,7 @@ import type { ReturnsDeclaration } from './ReturnsDeclaration';
 import type { ReturnStatement } from './ReturnStatement';
 import type { RevertStatement } from './RevertStatement';
 import type { ShiftExpression } from './ShiftExpression';
+import type { SimpleVersionLiteral } from './SimpleVersionLiteral';
 import type { SingleLineComment } from './SingleLineComment';
 import type { SingleLineNatSpecComment } from './SingleLineNatSpecComment';
 import type { SourceUnit } from './SourceUnit';
@@ -176,13 +177,14 @@ import type { UsingTarget } from './UsingTarget';
 import type { VariableDeclarationStatement } from './VariableDeclarationStatement';
 import type { VariableDeclarationType } from './VariableDeclarationType';
 import type { VariableDeclarationValue } from './VariableDeclarationValue';
-import type { VersionComparator } from './VersionComparator';
 import type { VersionExpression } from './VersionExpression';
 import type { VersionExpressionSet } from './VersionExpressionSet';
 import type { VersionExpressionSets } from './VersionExpressionSets';
+import type { VersionOperator } from './VersionOperator';
+import type { VersionLiteral } from './VersionLiteral';
 import type { VersionPragma } from './VersionPragma';
 import type { VersionRange } from './VersionRange';
-import type { VersionSpecifiers } from './VersionSpecifiers';
+import type { VersionTerm } from './VersionTerm';
 import type { WhileStatement } from './WhileStatement';
 import type { YulArguments } from './YulArguments';
 import type { YulAssignmentOperator } from './YulAssignmentOperator';
@@ -243,7 +245,7 @@ export type StrictAstNode =
   | ExperimentalPragma
   | VersionPragma
   | VersionRange
-  | VersionComparator
+  | VersionTerm
   | ImportDirective
   | PathImport
   | NamedImport
@@ -371,6 +373,8 @@ export type StrictAstNode =
   | Pragma
   | ExperimentalFeature
   | VersionExpression
+  | VersionOperator
+  | VersionLiteral
   | ImportClause
   | UsingClause
   | UsingOperator
@@ -431,7 +435,7 @@ export type StrictAstNode =
   | YulStatements
   | YulSwitchCases
   | VersionExpressionSets
-  | VersionSpecifiers
+  | SimpleVersionLiteral
   | ImportDeconstructionSymbols
   | UsingDeconstructionSymbols
   | InheritanceTypes
