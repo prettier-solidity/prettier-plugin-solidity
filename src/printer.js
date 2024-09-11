@@ -1,4 +1,5 @@
 import * as nodes from './nodes/index.js';
+import { printWarning } from './common/print-warning.js';
 import {
   hasNodeIgnoreComment,
   prettierVersionSatisfies
@@ -16,7 +17,7 @@ function once(factory) {
 }
 
 const warnDeprecation = once(() => {
-  console.warn(
+  printWarning(
     `'solidity-parse' has been deprecated, please use 'slang-solidity'.`
   );
   return true;
