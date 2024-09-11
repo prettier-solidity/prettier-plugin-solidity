@@ -3,9 +3,9 @@ import { handleComments, printComment } from './slang-comments/index.js';
 import massageAstNode from './clean.js';
 import loc from './loc.js';
 import options from './options.js';
-import parse from './parser.js';
-import print from './printer.js';
-import solidityParse from './slangSolidityParser.js';
+import antlrParse from './parser.js';
+import antlrPrint from './printer.js';
+import slangParse from './slangSolidityParser.js';
 import slangPrint from './slangPrinter.js';
 import { isComment, isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
@@ -18,8 +18,10 @@ import type {
 } from 'prettier';
 import type { AstNode } from './slang-nodes';
 
-const parserSolidity = 'slang-solidity';
-const astFormat = 'slang-ast';
+const slangParserId = 'slang-solidity';
+const antlrParserId = 'solidity-parse';
+const slangAstId = 'slang-ast';
+const antlrAstId = 'solidity-ast';
 
 // https://prettier.io/docs/en/plugins.html#languages
 // https://github.com/github-linguist/linguist/blob/master/lib/linguist/languages.yml
@@ -30,23 +32,23 @@ const languages: SupportLanguage[] = [
     aceMode: 'text',
     tmScope: 'source.solidity',
     extensions: ['.sol'],
-    parsers: [parserSolidity, 'solidity-parse'],
+    parsers: [slangParserId, antlrParserId],
     vscodeLanguageIds: ['solidity']
   }
 ];
 
 // https://prettier.io/docs/en/plugins.html#parsers
-const parser = { astFormat: 'solidity-ast', parse, ...loc };
-const solidityParser: Parser<AstNode> = {
-  astFormat,
-  parse: solidityParse,
+const antlrParser = { astFormat: antlrAstId, parse: antlrParse, ...loc };
+const slangParser: Parser<AstNode> = {
+  astFormat: slangAstId,
+  parse: slangParse,
   locStart,
   locEnd
 };
 
 const parsers = {
-  [parserSolidity]: solidityParser,
-  'solidity-parse': parser
+  [slangParserId]: slangParser,
+  [antlrParserId]: antlrParser
 };
 
 const solidityCanAttachComment = (node: { type: string }): boolean =>
@@ -60,7 +62,7 @@ const canAttachComment = (node: AstNode): boolean =>
   !isComment(node);
 
 // https://prettier.io/docs/en/plugins.html#printers
-const printer = {
+const antlrPrinter = {
   canAttachComment: solidityCanAttachComment,
   handleComments: {
     ownLine: comments.solidityHandleOwnLineComment,
@@ -69,7 +71,7 @@ const printer = {
   },
   isBlockComment: comments.isBlockComment,
   massageAstNode,
-  print,
+  print: antlrPrint,
   printComment: comments.printComment
 };
 const slangPrinter: Printer<AstNode> = {
@@ -82,8 +84,8 @@ const slangPrinter: Printer<AstNode> = {
 };
 
 const printers = {
-  [astFormat]: slangPrinter,
-  'solidity-ast': printer
+  [slangAstId]: slangPrinter,
+  [antlrAstId]: antlrPrinter
 };
 
 // https://prettier.io/docs/en/plugins.html#defaultoptions
