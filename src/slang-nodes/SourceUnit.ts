@@ -40,6 +40,13 @@ export class SourceUnit implements SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    return [path.call(print, 'members'), options.parentParser ? '' : line];
+    return [
+      path.call(print, 'members'),
+      // Prettier's Markdown formatter already appends a new line on code
+      // blocks, therefore we avoid trailing with a new line at the end of
+      // a file in this case.
+      // https://github.com/prettier-solidity/prettier-plugin-solidity/issues/764
+      options.parentParser ? '' : line
+    ];
   }
 }
