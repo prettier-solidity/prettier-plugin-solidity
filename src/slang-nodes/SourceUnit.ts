@@ -31,7 +31,9 @@ export class SourceUnit implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.members]);
 
-    this.comments = metadata.comments;
+    // Because of comments being extracted like a russian doll, the order needs
+    // to be fixed at the end.
+    this.comments = metadata.comments.sort((a, b) => a.loc.start - b.loc.start);
     this.loc = metadata.loc;
   }
 

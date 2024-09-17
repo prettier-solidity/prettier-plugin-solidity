@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { isComment } from '../slang-utils/is-comment.js';
+import { isBlockComment } from '../slang-utils/is-comment.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
@@ -50,7 +50,9 @@ export class ModifierInvocation implements SlangNode {
         this.arguments.variant.kind ===
           NonterminalKind.PositionalArgumentsDeclaration &&
         this.arguments.variant.arguments.items.length === 0 && // no arguments
-        !ast.arguments!.variant.cst.children().some((child) => isComment(child)) // no comments, at this point we need to check the CST
+        !ast
+          .arguments!.variant.cst.children()
+          .some((child) => isBlockComment(child)) // no comments, at this point we need to check the CST
       ) {
         delete this.arguments;
       }

@@ -40,17 +40,6 @@ const unstableAstTests = new Map(
   }),
 );
 
-const testsWithSlang = new Map(
-  [
-    // "Comments/Comments.sol", // TODO: finish Comments
-  ].map((fixture) => {
-    const [file, testSlang = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../format/", file), testSlang];
-  }),
-);
-
 const testsWithAstChanges = new Map(
   [
     "Parentheses/AddNoParentheses.sol",
@@ -87,16 +76,6 @@ const isUnstable = (filename, options) => {
 
 const isAstUnstable = (filename, options) => {
   const testFunction = unstableAstTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
-
-const shouldTestSlang = (filename, options) => {
-  const testFunction = testsWithSlang.get(filename);
 
   if (!testFunction) {
     return false;
@@ -308,22 +287,6 @@ async function runTest({
       CURSOR_PLACEHOLDER,
     }),
   ).toMatchSnapshot();
-
-  if (shouldTestSlang(filename, formatOptions)) {
-    const { input, output } = formatResult;
-    const slangOptions = {
-      ...formatOptions,
-      parser: "slang",
-    };
-    console.log(filename);
-    const prettier = await getPrettier();
-    const slangOutput = await prettier.format(input, slangOptions);
-
-    // const slangOutput2 = await prettier.format(output, slangOptions);
-
-    expect(slangOutput).toEqual(output);
-    // expect(slangOutput2).toEqual(output);
-  }
 
   if (!FULL_TEST) {
     return;

@@ -4,6 +4,7 @@ import handleElseBranchComments from './handle-else-branch-comments.js';
 import handleIfStatementComments from './handle-if-statement-comments.js';
 import handleInterfaceDefinitionComments from './handle-interface-definition-comments.js';
 import handleLibraryDefinitionComments from './handle-library-definition-comments.js';
+import handleModifierInvocationComments from './handle-modifier-invocation-comments.js';
 import handleParametersDeclarationComments from './handle-parameters-declaration-comments.js';
 import handlePositionalArgumentsDeclarationComments from './handle-positional-arguments-declaration-comments.js';
 import handleWhileStatementComments from './handle-while-statement-comments.js';
@@ -16,6 +17,7 @@ export default [
   handleIfStatementComments,
   handleInterfaceDefinitionComments,
   handleLibraryDefinitionComments,
+  handleModifierInvocationComments,
   handleParametersDeclarationComments,
   handlePositionalArgumentsDeclarationComments,
   handleWhileStatementComments,

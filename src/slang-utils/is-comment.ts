@@ -7,7 +7,7 @@ import type { AstNode, BlockComment, Comment } from '../slang-nodes';
 export const isBlockComment = createKindCheckFunction([
   TerminalKind.MultiLineComment,
   TerminalKind.MultiLineNatSpecComment
-]) as (node: AstNode) => node is BlockComment;
+]) as (node: AstNode | Node) => node is BlockComment;
 
 export const isComment = createKindCheckFunction([
   TerminalKind.MultiLineComment,

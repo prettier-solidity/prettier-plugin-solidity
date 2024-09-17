@@ -3,7 +3,7 @@
 exports[`Comments.sol - {"compiler":"0.4.24"} format 1`] = `
 ====================================options=====================================
 compiler: "0.4.24"
-parsers: ["solidity-parse"]
+parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -207,8 +207,7 @@ contract Comments3 is
 {
     // solhint-disable-previous-line no-empty-blocks
 
-    function someFunction() {} /*1*/
-    /*2
+    function someFunction() {} /*1*/ /*2
      */
 }
 
@@ -223,7 +222,7 @@ contract Comments4 is
     // solhint-disable-previous-line no-empty-blocks
 }
 
-/*nice name*/ contract Comments5 {
+contract Comments5 /*nice name*/ {
     // solhint-disable-previous-line no-empty-blocks
 }
 
@@ -289,7 +288,7 @@ interface Comments10 {
         // the first value
         // the second value
         // the lats value
-    )/* comment outside the parameters */ external;
+    ) /* comment outside the parameters */ external;
 
     function someOtherFunction(/* checking for Block comment */) external;
 }
@@ -319,14 +318,12 @@ contract Comments13 {
     function commentInModifierInvocation()
         external
         // comment 1
-        // comment 2
-        // comment 3
-        modifier1 // comment 4
+        modifier1 // comment 2
+        // comment 3 // comment 4
         // comment 5
-        // comment 6
-        modifier2(/* comment 7 */) // comment 8
-        // comment 9
+        modifier2(/* comment 7 */) // comment 6 // comment 8
         modifier3(
+            // comment 9
             // comment 10
             param1 // comment 11
             // comment 12
