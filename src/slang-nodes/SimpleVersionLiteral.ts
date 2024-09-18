@@ -5,8 +5,8 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { SlangNode } from '../types';
 
-export class VersionSpecifiers implements SlangNode {
-  readonly kind = NonterminalKind.VersionSpecifiers;
+export class SimpleVersionLiteral implements SlangNode {
+  readonly kind = NonterminalKind.SimpleVersionLiteral;
 
   comments;
 
@@ -16,7 +16,7 @@ export class VersionSpecifiers implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.VersionSpecifiers, offset: number) {
+  constructor(ast: ast.SimpleVersionLiteral, offset: number) {
     const metadata = getNodeMetadata(ast, offset, true);
 
     this.items = ast.items.map((item) => item.text);

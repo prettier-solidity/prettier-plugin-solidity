@@ -69,7 +69,7 @@ export type SlangAstNode =
   | ast.ExperimentalPragma
   | ast.VersionPragma
   | ast.VersionRange
-  | ast.VersionComparator
+  | ast.VersionTerm
   | ast.ImportDirective
   | ast.PathImport
   | ast.NamedImport
@@ -197,6 +197,8 @@ export type SlangAstNode =
   | ast.Pragma
   | ast.ExperimentalFeature
   | ast.VersionExpression
+  | ast.VersionOperator
+  | ast.VersionLiteral
   | ast.ImportClause
   | ast.UsingClause
   | ast.UsingOperator
@@ -257,7 +259,7 @@ export type SlangAstNode =
   | ast.YulStatements
   | ast.YulSwitchCases
   | ast.VersionExpressionSets
-  | ast.VersionSpecifiers
+  | ast.SimpleVersionLiteral
   | ast.ImportDeconstructionSymbols
   | ast.UsingDeconstructionSymbols
   | ast.InheritanceTypes
