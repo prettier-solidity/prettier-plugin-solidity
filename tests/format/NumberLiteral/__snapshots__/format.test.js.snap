@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumberLiteral.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.26;
+
+contract NumberLiteral {
+  function numbers()public {
+  2 ether;
+  5 days;
+  2.3e5;
+  1000000e-2;
+    .1;
+  1_000_000;
+  }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.26;
+
+contract NumberLiteral {
+    function numbers() public {
+        2 ether;
+        5 days;
+        2.3e5;
+        1000000e-2;
+        .1;
+        1_000_000;
+    }
+}
+
+================================================================================
+`;

@@ -40,7 +40,7 @@ async function compileContract(filename, content) {
       ...byteCodes,
       [contractName]: compiledContracts[contractName].evm.bytecode.object,
     }),
-    {}
+    {},
   );
 }
 

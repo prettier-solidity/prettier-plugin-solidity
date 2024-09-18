@@ -11,7 +11,7 @@ test('should throw if the installed version of prettier is less than v2.3.0', as
 
   const options = {
     plugins: [plugin],
-    parser: 'solidity-parse'
+    parser: 'slang-solidity'
   };
 
   await expect(async () => {

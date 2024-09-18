@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModifierInvocations.sol - {"compiler":"0.8.0"} format 1`] = `
+====================================options=====================================
+compiler: "0.8.0"
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.26;
+
+contract ModifierDefinitions {
+  // We enforce the use of parentheses in modifiers without parameters.
+  modifier emptyParams {_;}
+  modifier noParams() {_;}
+}
+
+contract ModifierInvocations is ModifierDefinitions {
+  // We can't differentiate between constructor calls or modifiers, so we keep
+  // parentheses untouched in constructors.
+  constructor () emptyParams noParams() ModifierDefinitions() {}
+
+  // We remove parentheses in modifiers without arguments.
+  function test() public emptyParams noParams() {}
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.26;
+
+contract ModifierDefinitions {
+    // We enforce the use of parentheses in modifiers without parameters.
+    modifier emptyParams() {
+        _;
+    }
+    modifier noParams() {
+        _;
+    }
+}
+
+contract ModifierInvocations is ModifierDefinitions {
+    // We can't differentiate between constructor calls or modifiers, so we keep
+    // parentheses untouched in constructors.
+    constructor() emptyParams noParams() ModifierDefinitions() {}
+
+    // We remove parentheses in modifiers without arguments.
+    function test() public emptyParams noParams {}
+}
+
+================================================================================
+`;

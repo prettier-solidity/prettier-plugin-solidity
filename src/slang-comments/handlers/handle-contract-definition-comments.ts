@@ -1,0 +1,57 @@
+import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { util } from 'prettier';
+import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
+import addCollectionNodeLastComment from './add-collection-node-last-comment.js';
+
+import type { HandlerParams } from './types';
+
+const { addLeadingComment, addTrailingComment } = util;
+
+export default function handleContractDefinitionComments({
+  text,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  comment
+}: HandlerParams): boolean {
+  if (enclosingNode?.kind !== NonterminalKind.ContractDefinition) {
+    return false;
+  }
+
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment);
+
+  // Everything before the InheritanceSpecifier is pushed onto the beginning of
+  // the ContractDefinition.
+  if (
+    followingNode?.kind === NonterminalKind.InheritanceSpecifier ||
+    (followingNode?.kind === NonterminalKind.ContractMembers &&
+      nextCharacter !== '{')
+  ) {
+    addLeadingComment(enclosingNode, comment);
+    return true;
+  }
+
+  // The comment is at the end of the body of the ContractDefinition.
+  if (precedingNode?.kind === NonterminalKind.ContractMembers) {
+    addCollectionNodeLastComment(precedingNode, comment);
+    return true;
+  }
+
+  // The last comments before the body.
+  if (nextCharacter === '{') {
+    // If there's an InheritanceSpecifier, the comment is appended to the last
+    // InheritanceType.
+    if (
+      precedingNode?.kind === NonterminalKind.InheritanceSpecifier &&
+      precedingNode.types.items.length > 0
+    ) {
+      addTrailingComment(
+        precedingNode.types.items[precedingNode.types.items.length - 1],
+        comment
+      );
+      return true;
+    }
+  }
+
+  return false;
+}

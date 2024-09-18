@@ -3,6 +3,8 @@ import parser from '@solidity-parser/parser';
 import coerce from 'semver/functions/coerce.js';
 import satisfies from 'semver/functions/satisfies.js';
 
+import { printWarning } from './common/print-warning.js';
+
 const tryHug = (node, operators) => {
   if (node.type === 'BinaryOperation' && operators.includes(node.operator))
     return {
@@ -27,9 +29,8 @@ function parse(text, _parsers, options = _parsers) {
       if (!satisfies(compiler, ctx.value)) {
         // @TODO: investigate the best way to warn that would apply to
         // different editors.
-        // eslint-disable-next-line no-console
-        console.warn(
-          `[prettier-solidity] The compiler option is set to '${options.compiler}', which does not satisfy 'pragma solidity ${ctx.value}'.`
+        printWarning(
+          `The compiler option is set to '${options.compiler}', which does not satisfy 'pragma solidity ${ctx.value}'.`
         );
       }
     },

@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Libraries.sol - {"bracketSpacing":true} format 1`] = `
+====================================options=====================================
+bracketSpacing: true
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+  using   Lib    for uint;
+using Lib for
+    uint global;
+using { f} for uint;
+using {f } for uint global;
+using {f as +} for uint global;
+using { a, very,     long, and, complex,     Function, list, with, long, names }     for
+    uint;
+using { a, very,
+        long, and, complex, Function,
+        list, with, long, names }       for uint global;
+
+=====================================output=====================================
+using Lib for uint;
+using Lib for uint global;
+using { f } for uint;
+using { f } for uint global;
+using { f as + } for uint global;
+using {
+    a,
+    very,
+    long,
+    and,
+    complex,
+    Function,
+    list,
+    with,
+    long,
+    names
+} for uint;
+using {
+    a,
+    very,
+    long,
+    and,
+    complex,
+    Function,
+    list,
+    with,
+    long,
+    names
+} for uint global;
+
+================================================================================
+`;
+
+exports[`Libraries.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+  using   Lib    for uint;
+using Lib for
+    uint global;
+using { f} for uint;
+using {f } for uint global;
+using {f as +} for uint global;
+using { a, very,     long, and, complex,     Function, list, with, long, names }     for
+    uint;
+using { a, very,
+        long, and, complex, Function,
+        list, with, long, names }       for uint global;
+
+=====================================output=====================================
+using Lib for uint;
+using Lib for uint global;
+using {f} for uint;
+using {f} for uint global;
+using {f as +} for uint global;
+using {a, very, long, and, complex, Function, list, with, long, names} for uint;
+using {
+    a,
+    very,
+    long,
+    and,
+    complex,
+    Function,
+    list,
+    with,
+    long,
+    names
+} for uint global;
+
+================================================================================
+`;

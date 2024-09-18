@@ -13,7 +13,7 @@ contract FunctionCalls {
 
       Voter airbnb = Voter({
         weight: 2,
-        voted: true,
+        voted: true
       });
     }
     function verify(ForwardRequest calldata req, bytes calldata signature) public view returns (bool) {
