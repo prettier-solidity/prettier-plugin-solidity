@@ -20,11 +20,13 @@ describe("inferLanguage", function () {
         })
     }
 
-    test("should use the latest version if the source has no pragmas", function () {
+    test("should use the latest valid version if the source has no pragmas", function () {
         const supportedVersions = Language.supportedVersions();
         const latestSupportedVersion = supportedVersions[supportedVersions.length - 1];
-        const inferredLanguage = inferLanguage(`contract Foo {}`);
+        let inferredLanguage = inferLanguage(`contract Foo {}`);
         expect(inferredLanguage.version).toEqual(latestSupportedVersion);
+        inferredLanguage = inferLanguage(`contract Foo {byte bar;}`);
+        expect(inferredLanguage.version).toEqual('0.7.6');
     })
 
     test.skip('should throw an error if there are incompatible ranges', function () {
