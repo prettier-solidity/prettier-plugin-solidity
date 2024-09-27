@@ -8,6 +8,13 @@ import type { AstNode, Comment, StrictAstNode } from './slang-nodes';
 
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {
+  namespace __debug {
+    function formatAST(
+      source: AstNode,
+      options?: Partial<ParserOptions> // We use partial because we won't provide a parser function.
+    ): Promise<{ formatted: string }>;
+  }
+
   interface ParserOptions {
     compiler: string;
     experimentalTernaries: boolean;
