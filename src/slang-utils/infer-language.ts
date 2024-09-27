@@ -2,7 +2,7 @@ import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfound
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { Language } from '@nomicfoundation/slang/language/index.js';
 import { Query } from '@nomicfoundation/slang/query/index.js';
-import { maxSatisfying, minSatisfying, minor, major } from 'semver';
+import { maxSatisfying, minSatisfying, minor, major, minVersion } from 'semver';
 import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
 
 import type { NonterminalNode } from '@nomicfoundation/slang/cst';
@@ -29,6 +29,12 @@ export function inferLanguage(text: string): Language {
       inferredRange = tryToCollectPragmas(text, version);
       break;
     } catch {}
+  }
+
+  if (!minVersion(inferredRange)) {
+    throw new Error(
+      "Couldn't infer any version from the ranges in the pragmas."
+    );
   }
   const maxSatisfyingVersion = maxSatisfying(supportedVersions, inferredRange);
 
