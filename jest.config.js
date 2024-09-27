@@ -8,6 +8,7 @@ if (TEST_STANDALONE) {
   );
 } else {
   testMatch.push('<rootDir>/tests/unit/**/*.test.js');
+  testMatch.push('<rootDir>/tests/unit/**/*.test.ts');
 }
 
 export default {

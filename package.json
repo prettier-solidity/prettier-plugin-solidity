@@ -75,6 +75,7 @@
   },
   "devDependencies": {
     "@babel/code-frame": "^7.24.7",
+    "@types/jest": "^29.5.13",
     "@types/semver": "^7.5.8",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
