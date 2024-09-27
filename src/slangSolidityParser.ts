@@ -8,10 +8,7 @@ import {
 } from '@nomicfoundation/slang/ast/index.js';
 import { Query } from '@nomicfoundation/slang/query/index.js';
 import prettier from 'prettier';
-import maxSatisfying from 'semver/ranges/max-satisfying.js';
-import minSatisfying from 'semver/ranges/min-satisfying.js';
-import major from 'semver/functions/major.js';
-import minor from 'semver/functions/minor.js';
+import { maxSatisfying, minSatisfying, minor, major } from 'semver';
 import { printWarning } from './slang-utils/print-warning.js';
 import slangPrint from './slangPrinter.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
