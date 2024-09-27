@@ -7,10 +7,8 @@ import {
   VersionExpressionSets as SlangVersionExpressionSets
 } from '@nomicfoundation/slang/ast/index.js';
 import { Query } from '@nomicfoundation/slang/query/index.js';
-import prettier from 'prettier';
 import { maxSatisfying, minSatisfying, minor, major } from 'semver';
 import { printWarning } from './slang-utils/print-warning.js';
-import slangPrint from './slangPrinter.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 import { VersionExpressionSets } from './slang-nodes/VersionExpressionSets.js';
 
@@ -33,42 +31,26 @@ const milestoneVersions = Array.from(
     return versions;
   }, []);
 
-const slangAstId = 'slang-ast';
-const slangParserId = 'slang-pragma';
-
-const pragmaOptions = {
-  plugins: [
-    {
-      // No parser function needed as we are gonna provide the AST directly
-      parsers: { [slangParserId]: { astFormat: slangAstId } as Parser },
-      printers: { [slangAstId]: { print: slangPrint } }
-    }
-  ],
-  parser: slangParserId
-};
-
-async function tryToCollectPragmas(
-  text: string,
-  version: string
-): Promise<string> {
+function tryToCollectPragmas(text: string, version: string): string {
   const language = new Language(version);
   const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
-  const query = Query.parse('[VersionPragma @sets [VersionExpressionSets]]');
+  const query = Query.parse(
+    '[VersionPragma @versionRanges [VersionExpressionSets]]'
+  );
   const matches = parseOutput.createTreeCursor().query([query]);
   const ranges: string[] = [];
 
   let match;
   while ((match = matches.next())) {
-    const sets = new VersionExpressionSets(
-      new SlangVersionExpressionSets(
-        match.captures.sets[0].node() as NonterminalNode
-      ),
-      0
+    const versionRange = new SlangVersionExpressionSets(
+      match.captures.versionRanges[0].node() as NonterminalNode
     );
-    // In order to remove comments attached to this VersionExpressionSets
-    sets.comments = [];
     ranges.push(
-      (await prettier.__debug.formatAST(sets, pragmaOptions)).formatted
+      // Replace all comments that could be in the expression with whitespace
+      new VersionExpressionSets(versionRange, 0).comments.reduce(
+        (range, comment) => range.replace(comment.value, ' '),
+        versionRange.cst.unparse()
+      )
     );
   }
 
@@ -87,11 +69,11 @@ async function tryToCollectPragmas(
   return ranges.join(' ');
 }
 
-async function inferLanguage(text: string): Promise<Language> {
+function inferLanguage(text: string): Language {
   let inferredRange = '';
   for (const version of milestoneVersions) {
     try {
-      inferredRange = await tryToCollectPragmas(text, version);
+      inferredRange = tryToCollectPragmas(text, version);
       break;
     } catch {}
   }
@@ -102,17 +84,17 @@ async function inferLanguage(text: string): Promise<Language> {
     : new Language(supportedVersions[supportedVersions.length - 1]);
 }
 
-export default async function parse(
+export default function parse(
   text: string,
   _parsers: Parser[] | ParserOptions<AstNode>,
   options = _parsers as ParserOptions<AstNode>
-): Promise<AstNode> {
+): AstNode {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
 
   const language =
     compiler && supportedVersions.includes(compiler)
       ? new Language(compiler)
-      : await inferLanguage(text);
+      : inferLanguage(text);
 
   const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
   printWarning(
