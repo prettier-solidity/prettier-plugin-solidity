@@ -6,7 +6,7 @@ parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-pragma solidity ^0.5.2;
+pragma solidity ^0.6.0;
 
 contract PrettierIgnore {
     fallback() external payable {
@@ -47,7 +47,7 @@ contract Example {
 }
 
 =====================================output=====================================
-pragma solidity ^0.5.2;
+pragma solidity ^0.6.0;
 
 contract PrettierIgnore {
     fallback() external payable {

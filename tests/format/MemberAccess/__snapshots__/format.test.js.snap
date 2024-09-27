@@ -6,7 +6,7 @@ parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
 contract MemberAccess {
     function foo() {
@@ -115,7 +115,7 @@ contract MemberAccessIsEndOfChainCases {
 }
 
 =====================================output=====================================
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
 contract MemberAccess {
     function foo() {
