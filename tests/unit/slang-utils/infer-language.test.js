@@ -61,6 +61,23 @@ describe('inferLanguage', function () {
       description: 'With tracing line comment',
       source: `pragma solidity 0.8.2; // line comment`,
       version: '0.8.2'
+    },
+    {
+      description: 'should use the latest version if the source has no pragmas',
+      source: `contract Foo {}`,
+      version: latestSupportedVersion
+    },
+    {
+      description:
+        'should use the latest valid version if the source has no pragmas and the syntax is old',
+      source: `contract Foo {byte bar;}`,
+      version: '0.7.6'
+    },
+    {
+      description:
+        'should use the latest version if the range is outside the supported versions',
+      source: `pragma solidity ^0.8.27;`,
+      version: latestSupportedVersion
     }
   ];
 
@@ -70,21 +87,6 @@ describe('inferLanguage', function () {
       expect(inferredLanguage.version).toEqual(version);
     });
   }
-
-  test('should use the latest version if the source has no pragmas', function () {
-    const inferredLanguage = inferLanguage(`contract Foo {}`);
-    expect(inferredLanguage.version).toEqual(latestSupportedVersion);
-  });
-
-  test('should use the latest valid version if the source has no pragmas and the syntax is old', function () {
-    const inferredLanguage = inferLanguage(`contract Foo {byte bar;}`);
-    expect(inferredLanguage.version).toEqual('0.7.6');
-  });
-
-  test('should use the latest version if the range is outside the supported versions', function () {
-    const inferredLanguage = inferLanguage(`pragma solidity ^0.8.27;`);
-    expect(inferredLanguage.version).toEqual(latestSupportedVersion);
-  });
 
   test('should throw an error if there are incompatible ranges', function () {
     expect(() =>
