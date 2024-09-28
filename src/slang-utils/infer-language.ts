@@ -2,7 +2,14 @@ import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfound
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { Language } from '@nomicfoundation/slang/language/index.js';
 import { Query } from '@nomicfoundation/slang/query/index.js';
-import { maxSatisfying, minSatisfying, minor, major, minVersion } from 'semver';
+import {
+  maxSatisfying,
+  minSatisfying,
+  minor,
+  major,
+  minVersion,
+  validRange
+} from 'semver';
 import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
 
 import type { NonterminalNode } from '@nomicfoundation/slang/cst';
@@ -24,6 +31,7 @@ const milestoneVersions = Array.from(
 
 export function inferLanguage(text: string): Language {
   let inferredRange = '';
+
   for (const version of milestoneVersions) {
     try {
       inferredRange = tryToCollectPragmas(text, version);
@@ -36,6 +44,7 @@ export function inferLanguage(text: string): Language {
       "Couldn't infer any version from the ranges in the pragmas."
     );
   }
+
   const maxSatisfyingVersion = maxSatisfying(supportedVersions, inferredRange);
 
   return maxSatisfyingVersion
@@ -78,5 +87,8 @@ function tryToCollectPragmas(text: string, version: string): string {
     );
   }
 
-  return ranges.join(' ');
+  // validRange rewrites `0.5.0 - 0.6.0` as `>=0.5.0 <=0.6.0` but it returns
+  // null if the range is not valid. We have to coerce null to 'null' so it
+  // fails the `minVersion(inferredRange)` call.
+  return ranges.map((range) => `${validRange(range)}`).join(' ');
 }
