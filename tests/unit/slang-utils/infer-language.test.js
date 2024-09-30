@@ -63,6 +63,13 @@ describe('inferLanguage', function () {
       version: '0.8.2'
     },
     {
+      description: 'With line comment between "solidity" and the version',
+      source: `pragma solidity
+// line comment
+0.8.2;`,
+      version: '0.8.2'
+    },
+    {
       description: 'should use the latest version if the source has no pragmas',
       source: `contract Foo {}`,
       version: latestSupportedVersion
