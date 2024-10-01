@@ -263,8 +263,6 @@ enum TopLevelEnum {
       Level,
             Enum
 }
-pragma solidity ^0.6.0;
-
 
 contract A {
     function doStuff() public virtual {}

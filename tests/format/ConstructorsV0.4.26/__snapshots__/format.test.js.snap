@@ -1,20 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FunctionDefinitions.sol format 1`] = `
+exports[`Constructors.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-contract FunctionDefinitions {
-  function () external {}
-  function () external payable {}
+pragma solidity ^0.4.26;
+
+contract Constructors is Ownable, Changeable {
+  function Constructors(variable1) public Changeable(variable1) Ownable() onlyOwner {
+  }
 }
 
 =====================================output=====================================
-contract FunctionDefinitions {
-    function() external {}
-    function() external payable {}
+pragma solidity ^0.4.26;
+
+contract Constructors is Ownable, Changeable {
+    function Constructors(
+        variable1
+    ) public Changeable(variable1) Ownable() onlyOwner {}
 }
 
 ================================================================================

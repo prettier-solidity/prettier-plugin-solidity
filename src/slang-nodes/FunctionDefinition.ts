@@ -1,5 +1,4 @@
-import coerce from 'semver/functions/coerce.js';
-import satisfies from 'semver/functions/satisfies.js';
+import { coerce, satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printFunction } from '../slang-printers/print-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';

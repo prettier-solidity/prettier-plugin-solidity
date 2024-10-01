@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ModifierInvocations.sol - {"compiler":"0.8.0"} format 1`] = `
+exports[`ModifierInvocations.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.8.0"
 parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth

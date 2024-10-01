@@ -1,6 +1,5 @@
 import { doc } from 'prettier';
-import coerce from 'semver/functions/coerce.js';
-import satisfies from 'semver/functions/satisfies.js';
+import { coerce, satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';

@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.6.0;
 
 contract PrettierIgnore {
     fallback() external payable {

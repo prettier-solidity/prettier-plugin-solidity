@@ -35,6 +35,8 @@ export class VersionLiteral implements SlangNode {
   }
 
   print(path: AstPath<VersionLiteral>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
+    return typeof this.variant === 'string'
+      ? this.variant
+      : path.call(print, 'variant');
   }
 }
