@@ -65,9 +65,7 @@ export class IndexAccessExpression implements SlangNode {
         id: Symbol('IndexAccessExpression.operand')
       });
 
-      indexDoc = indentIfBreak(indexDoc, {
-        groupId: operandDoc.id!
-      });
+      indexDoc = indentIfBreak(indexDoc, { groupId: operandDoc.id! });
       // We wrap the expression in a label in case there is an IndexAccess or
       // a FunctionCall following this IndexAccess.
       return label('MemberAccessChain', [operandDoc, indexDoc]);

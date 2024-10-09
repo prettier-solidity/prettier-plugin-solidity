@@ -85,9 +85,7 @@ export class VariableDeclarationStatement implements SlangNode {
 
     return [
       declarationDoc,
-      indentIfBreak(path.call(print, 'value'), {
-        groupId: declarationDoc.id!
-      }),
+      indentIfBreak(path.call(print, 'value'), { groupId: declarationDoc.id! }),
       ';'
     ];
   }

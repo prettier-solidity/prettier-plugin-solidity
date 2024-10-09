@@ -48,7 +48,6 @@ export class ImportClause implements SlangNode {
           options
         );
         break;
-
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }

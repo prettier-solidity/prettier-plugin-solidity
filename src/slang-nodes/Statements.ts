@@ -52,10 +52,7 @@ export class Statements implements SlangNode {
             printPreservingEmptyLines(path, print, options),
             printComments(path)
           ],
-          {
-            firstSeparator: hardline,
-            grouped: false
-          }
+          { firstSeparator: hardline, grouped: false }
         );
   }
 }

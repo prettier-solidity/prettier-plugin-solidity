@@ -66,8 +66,4 @@ function remaining(
   return handlers.some((handler) => handler(handlerArguments));
 }
 
-export const handleComments = {
-  ownLine,
-  endOfLine,
-  remaining
-};
+export const handleComments = { ownLine, endOfLine, remaining };

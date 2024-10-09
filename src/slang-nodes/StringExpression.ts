@@ -55,7 +55,6 @@ export class StringExpression implements SlangNode {
           options
         );
         break;
-
       case NonterminalKind.HexStringLiterals:
         this.variant = new HexStringLiterals(
           ast.variant as ast.HexStringLiterals,

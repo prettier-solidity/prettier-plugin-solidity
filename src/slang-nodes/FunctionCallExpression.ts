@@ -54,10 +54,7 @@ export class FunctionCallExpression implements SlangNode {
       operandDoc = group(operandDoc.contents, {
         id: Symbol('FunctionCallExpression.operand')
       });
-
-      argumentsDoc = indentIfBreak(argumentsDoc, {
-        groupId: operandDoc.id!
-      });
+      argumentsDoc = indentIfBreak(argumentsDoc, { groupId: operandDoc.id! });
       // We wrap the expression in a label in case there is an IndexAccess or
       // a FunctionCall following this IndexAccess.
       return label('MemberAccessChain', [operandDoc, argumentsDoc]);

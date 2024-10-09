@@ -7,9 +7,7 @@ const esmockPlugin = async () => {
   const plugin = await esmock(
     '../../../src/index.ts',
     {},
-    {
-      prettier: prettierMock
-    }
+    { prettier: prettierMock }
   );
 
   return { plugin, prettierMock };

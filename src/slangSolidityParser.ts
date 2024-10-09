@@ -1,5 +1,4 @@
 // https://prettier.io/docs/en/plugins.html#parsers
-// import parser from '@solidity-parser/parser';
 import { Language } from '@nomicfoundation/slang/language/index.js';
 import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast/index.js';

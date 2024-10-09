@@ -94,12 +94,4 @@ const defaultOptions: Partial<RequiredOptions> = {
   tabWidth: 4
 };
 
-const plugin = {
-  languages,
-  parsers,
-  printers,
-  options,
-  defaultOptions
-};
-
-export default plugin;
+export default { languages, parsers, printers, options, defaultOptions };
