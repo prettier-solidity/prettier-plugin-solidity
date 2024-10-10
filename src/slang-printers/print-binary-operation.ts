@@ -1,12 +1,12 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { BinaryOperation, StrictAstNode } from '../slang-nodes';
-import type { ComparisonExpression } from '../slang-nodes/ComparisonExpression';
-import type { EqualityExpression } from '../slang-nodes/EqualityExpression';
+import type { BinaryOperation, StrictAstNode } from '../slang-nodes/index.d.ts';
+import type { ComparisonExpression } from '../slang-nodes/ComparisonExpression.ts';
+import type { EqualityExpression } from '../slang-nodes/EqualityExpression.ts';
 
 const { group, indent } = doc.builders;
 

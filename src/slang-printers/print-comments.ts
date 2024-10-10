@@ -5,8 +5,8 @@ import { isBlockComment } from '../slang-utils/is-comment.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { DocV2 } from './types';
+import type { AstNode } from '../slang-nodes/index.d.ts';
+import type { DocV2 } from './types.d.ts';
 
 const { breakParent, line } = doc.builders;
 

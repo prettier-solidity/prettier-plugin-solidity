@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import {
   isLast,
@@ -7,8 +7,12 @@ import {
 import { locEnd } from '../slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, CollectionNode, StrictAstNode } from '../slang-nodes';
-import type { PrintFunction } from '../types';
+import type {
+  AstNode,
+  CollectionNode,
+  StrictAstNode
+} from '../slang-nodes/index.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { hardline } = doc.builders;
 
