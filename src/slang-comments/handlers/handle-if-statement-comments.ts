@@ -1,9 +1,9 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
 import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
 
-import type { HandlerParams } from './types';
+import type { HandlerParams } from './types.d.ts';
 
 const { addLeadingComment, addTrailingComment } = util;
 

@@ -1,7 +1,7 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
 
-import type { HandlerParams } from './types';
+import type { HandlerParams } from './types.d.ts';
 
 const { addLeadingComment, addDanglingComment } = util;
 

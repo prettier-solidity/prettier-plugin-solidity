@@ -1,6 +1,6 @@
 import { util } from 'prettier';
 
-import type { Comment, CollectionNode } from '../../slang-nodes';
+import type { Comment, CollectionNode } from '../../slang-nodes/index.d.ts';
 
 const { addDanglingComment, addTrailingComment } = util;
 
