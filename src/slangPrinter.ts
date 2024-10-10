@@ -3,8 +3,8 @@ import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, StrictAstNode } from './slang-nodes';
-import type { PrintFunction } from './types';
+import type { AstNode, StrictAstNode } from './slang-nodes/index.d.ts';
+import type { PrintFunction } from './types.d.ts';
 
 function once<T>(factory: () => T): () => T {
   let value: T;

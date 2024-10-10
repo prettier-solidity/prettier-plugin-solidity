@@ -1,5 +1,4 @@
-import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { NodeType } from '@nomicfoundation/slang/cst/index.js';
+import { TerminalKind } from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from './create-kind-check-function.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
@@ -7,8 +6,8 @@ import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
 
 import type { Node } from '@nomicfoundation/slang/cst';
-import type { Comment, StrictAstNode } from '../slang-nodes';
-import type { Metadata, SlangAstNode } from '../types';
+import type { Comment, StrictAstNode } from '../slang-nodes/index.d.ts';
+import type { Metadata, SlangAstNode } from '../types.d.ts';
 
 const isCommentOrWhiteSpace = createKindCheckFunction([
   TerminalKind.MultiLineComment,
@@ -22,7 +21,7 @@ const isCommentOrWhiteSpace = createKindCheckFunction([
 function getLeadingOffset(children: Node[]): number {
   let offset = 0;
   for (const child of children) {
-    if (child.type === NodeType.Nonterminal) {
+    if (child.isNonterminalNode()) {
       // The node's content starts when we find the first non-terminal token.
       return offset;
     } else if (!isCommentOrWhiteSpace(child)) {
@@ -44,14 +43,16 @@ export function getNodeMetadata(
     throw new Error("Can't initiate metadata with an undefined initialOffset");
   }
 
-  const children = ast.cst.children();
+  const children = ast.cst.children.map((child) => {
+    return child.node;
+  });
 
   let offset = initialOffset;
 
   const comments: Comment[] = [];
 
   const offsets = children.reduce((offsetsArray: number[], child) => {
-    if (child.type === NodeType.Nonterminal) {
+    if (child.isNonterminalNode()) {
       offsetsArray.push(offset);
     } else {
       switch (child.kind) {

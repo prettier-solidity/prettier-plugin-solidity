@@ -1,7 +1,6 @@
-import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfoundation/slang/ast/index.js';
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { Language } from '@nomicfoundation/slang/language/index.js';
-import { Query } from '@nomicfoundation/slang/query/index.js';
+import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfoundation/slang/ast';
+import { NonterminalKind, Query } from '@nomicfoundation/slang/cst';
+import { Parser } from '@nomicfoundation/slang/parser';
 import {
   maxSatisfying,
   minSatisfying,
@@ -12,9 +11,7 @@ import {
 } from 'semver';
 import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
 
-import type { NonterminalNode } from '@nomicfoundation/slang/cst';
-
-const supportedVersions = Language.supportedVersions();
+const supportedVersions = Parser.supportedVersions();
 
 const milestoneVersions = Array.from(
   supportedVersions.reduce((minorRanges, version) => {
@@ -29,7 +26,7 @@ const milestoneVersions = Array.from(
     return versions;
   }, []);
 
-export function inferLanguage(text: string): Language {
+export function inferLanguage(text: string): Parser {
   let inferredRange = '';
 
   for (const version of milestoneVersions) {
@@ -48,12 +45,12 @@ export function inferLanguage(text: string): Language {
   const maxSatisfyingVersion = maxSatisfying(supportedVersions, inferredRange);
 
   return maxSatisfyingVersion
-    ? new Language(maxSatisfyingVersion)
-    : new Language(supportedVersions[supportedVersions.length - 1]);
+    ? Parser.create(maxSatisfyingVersion)
+    : Parser.create(supportedVersions[supportedVersions.length - 1]);
 }
 
 function tryToCollectPragmas(text: string, version: string): string {
-  const language = new Language(version);
+  const language = Parser.create(version);
   const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
   const query = Query.parse(
     '[VersionPragma @versionRanges [VersionExpressionSets]]'
@@ -64,7 +61,7 @@ function tryToCollectPragmas(text: string, version: string): string {
   let match;
   while ((match = matches.next())) {
     const versionRange = new SlangVersionExpressionSets(
-      match.captures.versionRanges[0].node() as NonterminalNode
+      match.captures.versionRanges[0].node.asNonterminalNode()!
     );
     ranges.push(
       // Replace all comments that could be in the expression with whitespace
@@ -78,7 +75,7 @@ function tryToCollectPragmas(text: string, version: string): string {
   // Check if we found pragmas.
   if (ranges.length === 0) {
     // If we didn't find pragmas but succeeded parsing the source we keep it.
-    if (parseOutput.isValid) {
+    if (parseOutput.isValid()) {
       return version;
     }
     // Otherwise we throw.

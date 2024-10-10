@@ -16,7 +16,7 @@ import type {
   RequiredOptions,
   SupportLanguage
 } from 'prettier';
-import type { AstNode } from './slang-nodes';
+import type { AstNode } from './slang-nodes/index.d.ts';
 
 const slangParserId = 'slang-solidity';
 const antlrParserId = 'solidity-parse';
