@@ -1,7 +1,4 @@
-import {
-  NonterminalKind,
-  TerminalKind
-} from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
@@ -9,8 +6,8 @@ import { TupleValue } from './TupleValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './index.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class TupleValues implements SlangNode {
   readonly kind = NonterminalKind.TupleValues;
@@ -34,7 +31,7 @@ export class TupleValues implements SlangNode {
     this.items = ast.items.map(
       (item, index) => new TupleValue(item, offsets[index], options)
     );
-    this.separators = ast.separators.map((separator) => separator.text);
+    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

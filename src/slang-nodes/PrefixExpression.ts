@@ -1,11 +1,11 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './index.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class PrefixExpression implements SlangNode {
   readonly kind = NonterminalKind.PrefixExpression;
@@ -26,7 +26,7 @@ export class PrefixExpression implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.operator = ast.operator.text;
+    this.operator = ast.operator.unparse();
     this.operand = new Expression(ast.operand, offsets[0], options);
 
     metadata = updateMetadata(metadata, [this.operand]);

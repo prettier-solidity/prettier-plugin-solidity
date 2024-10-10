@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printComments } from '../slang-printers/print-comments.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
@@ -7,8 +7,8 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './index.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class PositionalArguments implements SlangNode {
   readonly kind = NonterminalKind.PositionalArguments;
@@ -32,7 +32,7 @@ export class PositionalArguments implements SlangNode {
     this.items = ast.items.map(
       (item, index) => new Expression(item, offsets[index], options)
     );
-    this.separators = ast.separators.map((separator) => separator.text);
+    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

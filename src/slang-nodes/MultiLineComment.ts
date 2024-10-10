@@ -1,12 +1,11 @@
-import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
-import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isIndentableBlockComment } from '../slang-utils/is-indentable-block-comment.js';
 import { printIndentableBlockComment } from '../slang-printers/print-indentable-block-comment.js';
 
 import type { Doc } from 'prettier';
-import type { BaseComment, Location, SlangNode } from '../types';
-import type { StrictAstNode } from '.';
+import type { BaseComment, Location, SlangNode } from '../types.d.ts';
+import type { StrictAstNode } from './index.d.ts';
 
 const { join, literalline } = doc.builders;
 
@@ -32,7 +31,7 @@ export class MultiLineComment implements SlangNode, BaseComment {
   followingNode?: StrictAstNode;
 
   constructor(ast: TerminalNode, offset: number) {
-    this.value = ast.text;
+    this.value = ast.unparse();
 
     this.loc = {
       start: offset,

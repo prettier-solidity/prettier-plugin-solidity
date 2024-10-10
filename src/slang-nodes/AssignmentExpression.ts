@@ -1,7 +1,4 @@
-import {
-  NonterminalKind,
-  TerminalKind
-} from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
@@ -9,8 +6,8 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './index.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indent, line } = doc.builders;
 
@@ -36,7 +33,7 @@ export class AssignmentExpression implements SlangNode {
     const { offsets } = metadata;
 
     this.leftOperand = new Expression(ast.leftOperand, offsets[0], options);
-    this.operator = ast.operator.text;
+    this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, offsets[1], options);
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);

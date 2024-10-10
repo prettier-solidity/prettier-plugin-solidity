@@ -1,8 +1,8 @@
 import {
   NonterminalKind,
-  TerminalKind
-} from '@nomicfoundation/slang/kinds/index.js';
-import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
+  TerminalKind,
+  TerminalNode
+} from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
@@ -35,8 +35,8 @@ import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './index.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class Expression implements SlangNode {
   readonly kind = NonterminalKind.Expression;

@@ -1,9 +1,8 @@
-import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
-import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 
 import type { Doc } from 'prettier';
-import type { BaseComment, Location, SlangNode } from '../types';
-import type { StrictAstNode } from '.';
+import type { BaseComment, Location, SlangNode } from '../types.d.ts';
+import type { StrictAstNode } from './index.d.ts';
 
 export class SingleLineComment implements SlangNode, BaseComment {
   readonly kind = TerminalKind.SingleLineComment;
@@ -27,7 +26,7 @@ export class SingleLineComment implements SlangNode, BaseComment {
   followingNode?: StrictAstNode;
 
   constructor(ast: TerminalNode, offset: number) {
-    this.value = ast.text;
+    this.value = ast.unparse();
 
     this.loc = {
       start: offset,

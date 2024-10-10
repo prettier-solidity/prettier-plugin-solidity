@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { isBlockComment } from '../slang-utils/is-comment.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { IdentifierPath } from './IdentifierPath.js';
@@ -6,8 +6,8 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './index.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ModifierInvocation implements SlangNode {
   readonly kind = NonterminalKind.ModifierInvocation;
@@ -50,9 +50,9 @@ export class ModifierInvocation implements SlangNode {
         this.arguments.variant.kind ===
           NonterminalKind.PositionalArgumentsDeclaration &&
         this.arguments.variant.arguments.items.length === 0 && // no arguments
-        !ast
-          .arguments!.variant.cst.children()
-          .some((child) => isBlockComment(child)) // no comments, at this point we need to check the CST
+        !ast.arguments!.variant.cst.children.some((child) =>
+          isBlockComment(child.node)
+        ) // no comments, at this point we need to check the CST
       ) {
         delete this.arguments;
       }

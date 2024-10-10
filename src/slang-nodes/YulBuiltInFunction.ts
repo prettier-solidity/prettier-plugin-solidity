@@ -1,9 +1,9 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
-import type { SlangNode } from '../types';
+import type { SlangNode } from '../types.d.ts';
 
 export class YulBuiltInFunction implements SlangNode {
   readonly kind = NonterminalKind.YulBuiltInFunction;
@@ -17,7 +17,7 @@ export class YulBuiltInFunction implements SlangNode {
   constructor(ast: ast.YulBuiltInFunction, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
 
-    this.variant = ast.variant.text;
+    this.variant = ast.variant.unparse();
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

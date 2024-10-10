@@ -1,12 +1,12 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { EventParametersDeclaration } from './EventParametersDeclaration.js';
 import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './index.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class EventDefinition implements SlangNode {
   readonly kind = NonterminalKind.EventDefinition;
@@ -35,7 +35,7 @@ export class EventDefinition implements SlangNode {
       offsets[1],
       options
     );
-    this.anonymousKeyword = ast.anonymousKeyword?.text;
+    this.anonymousKeyword = ast.anonymousKeyword?.unparse();
 
     metadata = updateMetadata(metadata, [this.parameters]);
 

@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
@@ -7,8 +7,8 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './index.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indent } = doc.builders;
 
@@ -45,7 +45,7 @@ export class ExponentiationExpression implements SlangNode {
     const { offsets } = metadata;
 
     this.leftOperand = new Expression(ast.leftOperand, offsets[0], options);
-    this.operator = ast.operator.text;
+    this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, offsets[1], options);
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);

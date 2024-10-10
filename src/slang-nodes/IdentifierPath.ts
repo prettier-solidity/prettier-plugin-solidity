@@ -1,10 +1,10 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class IdentifierPath implements SlangNode {
   readonly kind = NonterminalKind.IdentifierPath;
@@ -24,7 +24,7 @@ export class IdentifierPath implements SlangNode {
     this.items = ast.items.map(
       (item, index) => new Identifier(item, offsets[index])
     );
-    this.separators = ast.separators.map((separator) => separator.text);
+    this.separators = ast.separators.map((separator) => separator.unparse());
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

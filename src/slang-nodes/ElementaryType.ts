@@ -1,11 +1,10 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
+import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { AddressType } from './AddressType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ElementaryType implements SlangNode {
   readonly kind = NonterminalKind.ElementaryType;
@@ -22,7 +21,7 @@ export class ElementaryType implements SlangNode {
 
     this.variant =
       ast.variant instanceof TerminalNode
-        ? ast.variant.text
+        ? ast.variant.unparse()
         : new AddressType(ast.variant, offsets[0]);
 
     metadata = updateMetadata(

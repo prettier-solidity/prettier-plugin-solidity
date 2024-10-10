@@ -1,11 +1,11 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 import { NumberUnit } from './NumberUnit.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class DecimalNumberExpression implements SlangNode {
   readonly kind = NonterminalKind.DecimalNumberExpression;
@@ -22,7 +22,7 @@ export class DecimalNumberExpression implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.literal = ast.literal.text;
+    this.literal = ast.literal.unparse();
     if (ast.unit) {
       this.unit = new NumberUnit(ast.unit, offsets[0]);
     }

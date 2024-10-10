@@ -1,9 +1,9 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
-import type { SlangNode } from '../types';
+import type { SlangNode } from '../types.d.ts';
 
 export class SimpleVersionLiteral implements SlangNode {
   readonly kind = NonterminalKind.SimpleVersionLiteral;
@@ -19,8 +19,8 @@ export class SimpleVersionLiteral implements SlangNode {
   constructor(ast: ast.SimpleVersionLiteral, offset: number) {
     const metadata = getNodeMetadata(ast, offset, true);
 
-    this.items = ast.items.map((item) => item.text);
-    this.separators = ast.separators.map((separator) => separator.text);
+    this.items = ast.items.map((item) => item.unparse());
+    this.separators = ast.separators.map((separator) => separator.unparse());
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

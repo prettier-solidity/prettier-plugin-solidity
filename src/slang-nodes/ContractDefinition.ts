@@ -1,6 +1,6 @@
 import { doc } from 'prettier';
 import { coerce, satisfies } from 'semver';
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Identifier } from './Identifier.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
@@ -8,8 +8,8 @@ import { ContractMembers } from './ContractMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './index.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, line } = doc.builders;
 
@@ -36,7 +36,7 @@ export class ContractDefinition implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.abstractKeyword = ast.abstractKeyword?.text;
+    this.abstractKeyword = ast.abstractKeyword?.unparse();
     this.name = new Identifier(ast.name, offsets[0]);
     let i = 1;
     if (ast.inheritance) {
