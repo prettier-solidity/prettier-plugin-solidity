@@ -1,6 +1,6 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 
-import type { SortableAttribute } from './types';
+import type { SortableAttribute } from './types.d.ts';
 
 const visibilityKeyWords = new Set([
   'external',

@@ -3,8 +3,8 @@ import { prettierVersionSatisfies } from './prettier-version-satisfies.js';
 import { locEnd } from './loc.js';
 
 import type { AstPath } from 'prettier';
-import type { utilV2 } from './types';
-import type { AstNode, CollectionNode } from '../slang-nodes';
+import type { utilV2 } from './types.d.ts';
+import type { AstNode, CollectionNode } from '../slang-nodes/index.d.ts';
 
 export const isPrettier2 = prettierVersionSatisfies('^2.3.0');
 
