@@ -31,7 +31,15 @@ export default (webpackEnv) => {
       extensions: ['.ts', '.js'],
       extensionAlias: {
         '.js': ['.js', '.ts']
+      },
+      fallback: {
+        fs: false
       }
+    },
+
+    experiments: {
+      asyncWebAssembly: true,
+      syncWebAssembly: true
     },
 
     module: {
@@ -49,6 +57,8 @@ export default (webpackEnv) => {
     },
     target: ['browserslist'],
     output: {
+      chunkFormat: false,
+      publicPath: '',
       path: path.resolve(__dirname, 'dist'),
       filename: 'standalone.cjs',
       clean: true,
