@@ -1,6 +1,7 @@
-import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfoundation/slang/ast';
+import { VersionExpressionSets } from '@nomicfoundation/slang/ast';
 import { NonterminalKind, Query } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
+import strip from 'strip-comments';
 import {
   maxSatisfying,
   minSatisfying,
@@ -9,7 +10,6 @@ import {
   minVersion,
   validRange
 } from 'semver';
-import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
 
 const supportedVersions = Parser.supportedVersions();
 
@@ -60,14 +60,12 @@ function tryToCollectPragmas(text: string, version: string): string {
 
   let match;
   while ((match = matches.next())) {
-    const versionRange = new SlangVersionExpressionSets(
-      match.captures.versionRanges[0].node.asNonterminalNode()!
-    );
     ranges.push(
-      // Replace all comments that could be in the expression with whitespace
-      new VersionExpressionSets(versionRange, 0).comments.reduce(
-        (range, comment) => range.replace(comment.value, ' '),
-        versionRange.cst.unparse()
+      strip(
+        new VersionExpressionSets(
+          match.captures.versionRanges[0].node.asNonterminalNode()!
+        ).cst.unparse(),
+        { keepProtected: true }
       )
     );
   }
