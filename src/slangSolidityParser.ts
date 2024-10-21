@@ -3,7 +3,7 @@ import { Parser } from '@nomicfoundation/slang/parser';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
 import { maxSatisfying } from 'semver';
-import { inferLanguage } from './slang-utils/infer-language.js';
+import { createParser } from './slang-utils/create-parser.js';
 import { printWarning } from './slang-utils/print-warning.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
@@ -19,21 +19,21 @@ export default function parse(
 ): AstNode {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
 
-  const language =
+  const parser =
     compiler && supportedVersions.includes(compiler)
       ? Parser.create(compiler)
-      : inferLanguage(text);
+      : createParser(text);
 
-  const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
+  const parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
   printWarning(
     compiler
-      ? `Using version ${language.version} based on the compiler option provided.`
-      : `Inferred version ${language.version} based on the pragma statements in the code.`
+      ? `Using version ${parser.version} based on the compiler option provided.`
+      : `Inferred version ${parser.version} based on the pragma statements in the code.`
   );
 
   if (parseOutput.isValid()) {
     // We update the compiler version by the inferred one.
-    options.compiler = language.version;
+    options.compiler = parser.version;
     return new SourceUnit(
       new SlangSourceUnit(parseOutput.tree.asNonterminalNode()!),
       0,

@@ -1,4 +1,3 @@
-import { VersionExpressionSets } from '@nomicfoundation/slang/ast';
 import { NonterminalKind, Query } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
 import strip from 'strip-comments';
@@ -7,7 +6,7 @@ import {
   minSatisfying,
   minor,
   major,
-  minVersion,
+  satisfies,
   validRange
 } from 'semver';
 
@@ -26,30 +25,39 @@ const milestoneVersions = Array.from(
     return versions;
   }, []);
 
-export function inferLanguage(text: string): Parser {
-  let inferredRange = '';
+// TODO if we ended up selecting the same version that the pragmas were parsed with,
+// should we be able to reuse/just return the already parsed CST, instead of
+// returning a Parser and forcing user to parse it again?
+export function createParser(text: string): Parser {
+  let inferredRanges: string[] = [];
 
   for (const version of milestoneVersions) {
     try {
-      inferredRange = tryToCollectPragmas(text, version);
+      inferredRanges = tryToCollectPragmas(text, version);
       break;
     } catch {}
   }
 
-  if (!minVersion(inferredRange)) {
-    throw new Error(
-      "Couldn't infer any version from the ranges in the pragmas."
-    );
-  }
+  const satisfyingVersions = inferredRanges.reduce(
+    (versions, inferredRange) => {
+      if (!validRange(inferredRange)) {
+        throw new Error(
+          "Couldn't infer any version from the ranges in the pragmas."
+        );
+      }
+      return versions.filter((supportedVersion) =>
+        satisfies(supportedVersion, inferredRange)
+      );
+    },
+    supportedVersions
+  );
 
-  const maxSatisfyingVersion = maxSatisfying(supportedVersions, inferredRange);
-
-  return maxSatisfyingVersion
-    ? Parser.create(maxSatisfyingVersion)
+  return satisfyingVersions.length > 0
+    ? Parser.create(satisfyingVersions[satisfyingVersions.length - 1])
     : Parser.create(supportedVersions[supportedVersions.length - 1]);
 }
 
-function tryToCollectPragmas(text: string, version: string): string {
+function tryToCollectPragmas(text: string, version: string): string[] {
   const language = Parser.create(version);
   const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
   const query = Query.parse(
@@ -61,20 +69,16 @@ function tryToCollectPragmas(text: string, version: string): string {
   let match;
   while ((match = matches.next())) {
     ranges.push(
-      strip(
-        new VersionExpressionSets(
-          match.captures.versionRanges[0].node.asNonterminalNode()!
-        ).cst.unparse(),
-        { keepProtected: true }
-      )
+      strip(match.captures.versionRanges[0].node.unparse(), {
+        keepProtected: true
+      })
     );
   }
 
-  // Check if we found pragmas.
   if (ranges.length === 0) {
     // If we didn't find pragmas but succeeded parsing the source we keep it.
     if (parseOutput.isValid()) {
-      return version;
+      return [version];
     }
     // Otherwise we throw.
     throw new Error(
@@ -82,8 +86,5 @@ function tryToCollectPragmas(text: string, version: string): string {
     );
   }
 
-  // validRange rewrites `0.5.0 - 0.6.0` as `>=0.5.0 <=0.6.0` but it returns
-  // null if the range is not valid. We have to coerce null to 'null' so it
-  // fails the `minVersion(inferredRange)` call.
-  return ranges.map((range) => `${validRange(range)}`).join(' ');
+  return ranges;
 }
