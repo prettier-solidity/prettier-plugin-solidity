@@ -13,14 +13,8 @@ export default (webpackEnv) => {
 
     // Avoid bundling Prettier
     externals: {
-      prettier: {
-        // use 'prettier/standalone' in case the project importing this file is
-        // bundling for the browser.
-        amd: 'prettier/standalone',
-        commonjs: 'prettier/standalone',
-        commonjs2: 'prettier/standalone',
-        root: 'prettier' // global variable if it was loaded by the browser
-      }
+      prettier: 'prettier/standalone',
+      'fs/promises': 'fs/promises'
     },
 
     mode: isEnvProduction ? 'production' : 'development',
@@ -29,17 +23,12 @@ export default (webpackEnv) => {
 
     resolve: {
       extensions: ['.ts', '.js'],
-      extensionAlias: {
-        '.js': ['.js', '.ts']
-      },
-      fallback: {
-        fs: false
-      }
+      extensionAlias: { '.js': ['.js', '.ts'] }
     },
 
     experiments: {
       asyncWebAssembly: true,
-      syncWebAssembly: true
+      outputModule: true
     },
 
     module: {
@@ -52,30 +41,14 @@ export default (webpackEnv) => {
       ]
     },
 
-    optimization: {
-      minimize: isEnvProduction
-    },
+    optimization: { minimize: isEnvProduction },
     target: ['browserslist'],
     output: {
       chunkFormat: false,
-      publicPath: '',
       path: path.resolve(__dirname, 'dist'),
-      filename: 'standalone.cjs',
+      filename: 'standalone.js',
       clean: true,
-      globalObject: `
-        typeof globalThis !== 'undefined' ? globalThis
-        : typeof global !== 'undefined' ? global
-        : typeof self !== 'undefined' ? self
-        : this || {}
-      `,
-      library: {
-        export: 'default',
-        name: {
-          commonjs: 'prettierPluginSolidity',
-          root: ['prettierPlugins', 'solidity']
-        },
-        type: 'umd2'
-      }
+      library: { export: 'default', type: 'module' }
     },
     performance: {
       maxEntrypointSize: 1024 * 1024,
