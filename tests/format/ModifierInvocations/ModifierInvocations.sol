@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.27;
+pragma solidity 0.8.28;
 
 contract ModifierDefinitions {
   // We enforce the use of parentheses in modifiers without parameters.
