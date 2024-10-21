@@ -10,6 +10,7 @@ import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import standalone from "../../dist/standalone.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -190,8 +191,8 @@ function runFormatTest(fixtures, parsers, options) {
     describe(title, () => {
       const formatOptions = {
         plugins: TEST_STANDALONE
-          ? []
-          : [path.join(__dirname, "../../src/index.js")],
+          ? [standalone]
+          : [path.join(__dirname, "../../src/index.ts")],
         printWidth: 80,
         ...options,
         filepath: filename,
