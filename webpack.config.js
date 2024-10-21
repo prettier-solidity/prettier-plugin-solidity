@@ -28,6 +28,7 @@ export default (webpackEnv) => {
 
     experiments: {
       asyncWebAssembly: true,
+      topLevelAwait: true,
       outputModule: true
     },
 
