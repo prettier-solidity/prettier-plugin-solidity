@@ -49,7 +49,7 @@ export default (webpackEnv) => {
       path: path.resolve(__dirname, 'dist'),
       filename: 'standalone.js',
       clean: true,
-      library: { export: 'default', type: 'module' }
+      library: { type: 'module' }
     },
     performance: {
       maxEntrypointSize: 1024 * 1024,
