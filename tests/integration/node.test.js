@@ -1,4 +1,4 @@
-import format from '../../dist/test.cjs';
+import format from '../../dist/test.js';
 
 test('Should run a test app in a node environment', async () => {
   const data = 'contract    CheckPackage {}';

@@ -1,5 +1,4 @@
 import path from 'node:path';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import createEsmUtils from 'esm-utils';
 
 const { __dirname } = createEsmUtils(import.meta);
@@ -12,20 +11,18 @@ export default {
   optimization: { minimize: false },
   target: ['browserslist'],
 
+  externals: { 'fs/promises': 'fs/promises' },
+
+  experiments: {
+    asyncWebAssembly: true,
+    topLevelAwait: true,
+    outputModule: true
+  },
+
   output: {
-    filename: 'test.cjs',
+    filename: 'test.js',
     path: path.resolve(__dirname, 'dist'),
-    globalObject: `
-      typeof globalThis !== "undefined" ? globalThis
-      : typeof global !== "undefined" ? global
-      : typeof self !== "undefined" ? self
-      : this || {}
-    `,
-    library: {
-      export: 'default',
-      name: 'format',
-      type: 'umd2'
-    }
+    library: { type: 'module' }
   },
 
   performance: {
