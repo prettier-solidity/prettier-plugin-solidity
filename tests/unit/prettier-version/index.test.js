@@ -1,11 +1,7 @@
-test('should throw if the installed version of prettier is less than v2.3.0', async () => {
-  const entry = process.env.TEST_STANDALONE
-    ? new URL('./proxyquire-plugin.cjs', import.meta.url) // standalone uses proxyquire to mock cjs
-    : './esmock-plugin.js'; // uses esmock to mock esm
+import esmockPlugin from './esmock-plugin.js';
 
-  const { plugin, prettierMock } = await import(entry).then((module) =>
-    module.default()
-  );
+test('should throw if the installed version of prettier is less than v2.3.0', async () => {
+  const { plugin, prettierMock } = await esmockPlugin();
 
   const data = 'contract CheckPrettierVersion {}';
 
