@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { isBlockComment } from '../slang-utils/is-comment.js';
 import { PositionalArguments } from './PositionalArguments.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -13,6 +14,8 @@ export class PositionalArgumentsDeclaration implements SlangNode {
   comments;
 
   loc;
+
+  isEmpty;
 
   arguments: PositionalArguments;
 
@@ -34,6 +37,14 @@ export class PositionalArgumentsDeclaration implements SlangNode {
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
+
+    // We need to check the comments at this point because they will be removed
+    // from this node into the root node.
+    const empty =
+      this.arguments.items.length === 0 && // no arguments
+      !this.comments.some((comment) => isBlockComment(comment)); // no block comments
+
+    this.isEmpty = (): boolean => empty;
   }
 
   print(
