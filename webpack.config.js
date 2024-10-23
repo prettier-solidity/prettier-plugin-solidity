@@ -13,7 +13,7 @@ export default (webpackEnv) => {
 
     // Avoid bundling Prettier
     externals: {
-      prettier: 'prettier/standalone',
+      prettier: 'prettier',
       'fs/promises': 'fs/promises'
     },
 
