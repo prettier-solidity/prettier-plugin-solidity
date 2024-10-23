@@ -1,5 +1,7 @@
 import path from 'node:path';
 import createEsmUtils from 'esm-utils';
+import prettier from 'prettier';
+import { satisfies } from 'semver';
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -12,6 +14,14 @@ export default {
   target: ['browserslist'],
 
   externals: { 'fs/promises': 'fs/promises' },
+
+  resolve: {
+    alias: {
+      prettier: satisfies(prettier.version, '^2.3.0')
+        ? 'prettier/standalone.js'
+        : 'prettier/standalone'
+    }
+  },
 
   experiments: {
     asyncWebAssembly: true,
