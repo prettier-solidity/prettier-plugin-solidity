@@ -1,6 +1,11 @@
+import path from "node:path";
+import { createRequire } from "node:module";
+
 function getPrettierInternal() {
+  const require = createRequire(import.meta.url);
+
   const entry = process.env.TEST_STANDALONE
-    ? "prettier/standalone"
+    ? path.join(path.dirname(require.resolve("prettier")), "standalone.js")
     : "prettier";
 
   return import(entry).then((module) => module.default);
