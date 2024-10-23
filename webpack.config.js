@@ -45,6 +45,7 @@ export default (webpackEnv) => {
     optimization: { minimize: isEnvProduction },
     target: ['browserslist'],
     output: {
+      chunkFormat: false,
       path: path.resolve(__dirname, 'dist'),
       filename: 'standalone.js',
       clean: true,

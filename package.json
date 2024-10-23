@@ -4,16 +4,11 @@
   "description": "A Prettier Plugin for automatically formatting your Solidity code.",
   "type": "module",
   "main": "./dist/index.js",
-  "browser": "./dist/standalone.cjs",
-  "unpkg": "./dist/standalone.cjs",
+  "browser": "./dist/standalone.js",
+  "unpkg": "./dist/",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/standalone.cjs"
-    },
-    "./standalone": {
-      "default": "./dist/standalone.cjs"
-    }
+    ".": "./dist/index.js",
+    "./standalone": "./dist/standalone.js"
   },
   "scripts": {
     "build": "webpack --env production",
