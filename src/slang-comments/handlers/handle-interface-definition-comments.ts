@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
+import { util } from 'prettier';
+import { locEnd } from '../../slang-utils/loc.js';
 import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
 import addCollectionNodeLastComment from './add-collection-node-last-comment.js';
 
@@ -16,7 +17,10 @@ export default function handleInterfaceDefinitionComments({
     return false;
   }
 
-  const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment);
+  const nextCharacter = util.getNextNonSpaceNonCommentCharacter(
+    text,
+    locEnd(comment)
+  );
 
   // The comment is at the end of the body of the InterfaceDefinition.
   if (precedingNode?.kind === NonterminalKind.InterfaceMembers) {

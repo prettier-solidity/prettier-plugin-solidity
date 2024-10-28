@@ -6,5 +6,3 @@ interface PrintSeparatedOptions {
   lastSeparator?: Doc;
   grouped?: boolean;
 }
-
-type DocV2 = Doc[] & { parts: Doc[] };

@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
-import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
+import { locEnd } from '../../slang-utils/loc.js';
 import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
@@ -18,7 +18,10 @@ export default function handleModifierInvocationComments({
     return false;
   }
 
-  const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment);
+  const nextCharacter = util.getNextNonSpaceNonCommentCharacter(
+    text,
+    locEnd(comment)
+  );
 
   // The last comments before the body.
   if (

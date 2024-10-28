@@ -1,29 +1,9 @@
-import { prettierVersionSatisfies } from './slang-utils/prettier-version-satisfies.js';
 import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode, StrictAstNode } from './slang-nodes/index.d.ts';
 import type { PrintFunction } from './types.d.ts';
-
-function once<T>(factory: () => T): () => T {
-  let value: T;
-  return (): T => {
-    if (typeof value === 'undefined') {
-      value = factory();
-    }
-    return value;
-  };
-}
-
-const prettierVersionCheck = once((): boolean => {
-  if (!prettierVersionSatisfies('>=2.3.0')) {
-    throw new Error(
-      'The version of prettier in your node-modules does not satisfy the required ">=2.3.0" constraint. Please update the version of Prettier.'
-    );
-  }
-  return true;
-});
 
 function hasNodeIgnoreComment(node: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -82,8 +62,6 @@ function genericPrint(
   options: ParserOptions<AstNode>,
   print: PrintFunction
 ): Doc {
-  prettierVersionCheck();
-
   const node = path.getNode();
 
   if (typeof node === 'undefined' || node === null) {
