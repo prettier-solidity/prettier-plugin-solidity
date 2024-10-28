@@ -39,7 +39,7 @@ jobs:
       - name: Build test app
         run: npm run build:test
       - name: Run tests
-        run: npm run test:standalone
+        run: npm run test:standalone -- --runInBand
 
   test_linux:
     name: Test on Linux with Node ${{ matrix.node }}
@@ -56,7 +56,7 @@ jobs:
       - name: Install
         run: npm install
       - name: Run tests
-        run: npm run test:all
+        run: npm run test:all -- --runInBand
 
   test_macos:
     name: Test on MacOS with Node 16
@@ -70,7 +70,7 @@ jobs:
       - name: Install
         run: npm install
       - name: Run tests
-        run: npm run test:all
+        run: npm run test:all -- --runInBand
 
   test_windows:
     name: Test on Windows with Node 16
@@ -84,4 +84,4 @@ jobs:
       - name: Install
         run: npm install
       - name: Run tests
-        run: npm run test:all
+        run: npm run test:all -- --runInBand
