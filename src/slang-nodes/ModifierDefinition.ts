@@ -27,27 +27,15 @@ export class ModifierDefinition implements SlangNode {
 
   body: FunctionBody;
 
-  constructor(
-    ast: ast.ModifierDefinition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ModifierDefinition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new Identifier(ast.name, offsets[0]);
-    let i = 1;
+    this.name = new Identifier(ast.name);
     if (ast.parameters) {
-      this.parameters = new ParametersDeclaration(
-        ast.parameters,
-        offsets[i],
-        options
-      );
-      i += 1;
+      this.parameters = new ParametersDeclaration(ast.parameters, options);
     }
-    this.attributes = new ModifierAttributes(ast.attributes, offsets[i]);
-    i += 1;
-    this.body = new FunctionBody(ast.body, offsets[i], options);
+    this.attributes = new ModifierAttributes(ast.attributes);
+    this.body = new FunctionBody(ast.body, options);
 
     metadata = updateMetadata(metadata, [
       this.parameters,

@@ -14,8 +14,8 @@ export class NumberUnit implements SlangNode {
 
   variant: string;
 
-  constructor(ast: ast.NumberUnit, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.NumberUnit) {
+    const metadata = getNodeMetadata(ast);
 
     this.variant = ast.variant.unparse();
 

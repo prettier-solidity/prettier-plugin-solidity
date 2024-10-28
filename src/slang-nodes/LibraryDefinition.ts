@@ -22,16 +22,11 @@ export class LibraryDefinition implements SlangNode {
 
   members: LibraryMembers;
 
-  constructor(
-    ast: ast.LibraryDefinition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.LibraryDefinition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new Identifier(ast.name, offsets[0]);
-    this.members = new LibraryMembers(ast.members, offsets[1], options);
+    this.name = new Identifier(ast.name);
+    this.members = new LibraryMembers(ast.members, options);
 
     metadata = updateMetadata(metadata, [this.members]);
 

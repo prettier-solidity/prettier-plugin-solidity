@@ -30,23 +30,15 @@ export class TryStatement implements SlangNode {
 
   catchClauses: CatchClauses;
 
-  constructor(
-    ast: ast.TryStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.TryStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.expression = new Expression(ast.expression, offsets[0], options);
-    let i = 1;
+    this.expression = new Expression(ast.expression, options);
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, offsets[i], options);
-      i += 1;
+      this.returns = new ReturnsDeclaration(ast.returns, options);
     }
-    this.body = new Block(ast.body, offsets[i], options);
-    i += 1;
-    this.catchClauses = new CatchClauses(ast.catchClauses, offsets[i], options);
+    this.body = new Block(ast.body, options);
+    this.catchClauses = new CatchClauses(ast.catchClauses, options);
 
     metadata = updateMetadata(metadata, [
       this.expression,

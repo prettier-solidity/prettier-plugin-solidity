@@ -21,13 +21,10 @@ export class YulVariableNames implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.YulVariableNames, offset: number) {
-    const metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulVariableNames) {
+    const metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new YulIdentifier(item, offsets[index])
-    );
+    this.items = ast.items.map((item) => new YulIdentifier(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     this.comments = metadata.comments;

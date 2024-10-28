@@ -17,12 +17,11 @@ export class VersionRange implements SlangNode {
 
   end: VersionLiteral;
 
-  constructor(ast: ast.VersionRange, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.VersionRange) {
+    let metadata = getNodeMetadata(ast);
 
-    this.start = new VersionLiteral(ast.start, offsets[0]);
-    this.end = new VersionLiteral(ast.end, offsets[1]);
+    this.start = new VersionLiteral(ast.start);
+    this.end = new VersionLiteral(ast.end);
 
     metadata = updateMetadata(metadata, [this.start, this.end]);
 

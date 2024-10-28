@@ -15,11 +15,10 @@ export class FunctionName implements SlangNode {
 
   variant: Identifier;
 
-  constructor(ast: ast.FunctionName, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.FunctionName) {
+    const metadata = getNodeMetadata(ast);
 
-    this.variant = new Identifier(ast.variant, offsets[0]);
+    this.variant = new Identifier(ast.variant);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

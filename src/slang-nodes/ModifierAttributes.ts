@@ -19,13 +19,10 @@ export class ModifierAttributes implements SlangNode {
 
   items: ModifierAttribute[];
 
-  constructor(ast: ast.ModifierAttributes, offset: number) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.ModifierAttributes) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new ModifierAttribute(item, offsets[index])
-    );
+    this.items = ast.items.map((item) => new ModifierAttribute(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

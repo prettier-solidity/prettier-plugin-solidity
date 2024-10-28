@@ -16,15 +16,10 @@ export class YulDefaultCase implements SlangNode {
 
   body: YulBlock;
 
-  constructor(
-    ast: ast.YulDefaultCase,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulDefaultCase, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.body = new YulBlock(ast.body, offsets[0], options);
+    this.body = new YulBlock(ast.body, options);
 
     metadata = updateMetadata(metadata, [this.body]);
 

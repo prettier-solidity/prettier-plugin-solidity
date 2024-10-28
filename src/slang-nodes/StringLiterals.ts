@@ -19,17 +19,10 @@ export class StringLiterals implements SlangNode {
 
   items: StringLiteral[];
 
-  constructor(
-    ast: ast.StringLiterals,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.StringLiterals, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new StringLiteral(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new StringLiteral(item, options));
 
     metadata = updateMetadata(metadata, [this.items]);
 

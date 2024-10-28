@@ -16,18 +16,13 @@ export class ForStatementCondition implements SlangNode {
 
   variant: ExpressionStatement | string;
 
-  constructor(
-    ast: ast.ForStatementCondition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ForStatementCondition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
-        : new ExpressionStatement(ast.variant, offsets[0], options);
+        : new ExpressionStatement(ast.variant, options);
 
     metadata = updateMetadata(
       metadata,

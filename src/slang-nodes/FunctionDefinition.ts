@@ -30,31 +30,16 @@ export class FunctionDefinition implements SlangNode {
 
   body: FunctionBody;
 
-  constructor(
-    ast: ast.FunctionDefinition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.FunctionDefinition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new FunctionName(ast.name, offsets[0]);
-    this.parameters = new ParametersDeclaration(
-      ast.parameters,
-      offsets[1],
-      options
-    );
-    this.attributes = new FunctionAttributes(
-      ast.attributes,
-      offsets[2],
-      options
-    );
-    let i = 3;
+    this.name = new FunctionName(ast.name);
+    this.parameters = new ParametersDeclaration(ast.parameters, options);
+    this.attributes = new FunctionAttributes(ast.attributes, options);
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, offsets[i], options);
-      i += 1;
+      this.returns = new ReturnsDeclaration(ast.returns, options);
     }
-    this.body = new FunctionBody(ast.body, offsets[i], options);
+    this.body = new FunctionBody(ast.body, options);
 
     metadata = updateMetadata(metadata, [
       this.name,

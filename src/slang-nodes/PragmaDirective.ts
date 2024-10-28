@@ -16,15 +16,10 @@ export class PragmaDirective implements SlangNode {
 
   pragma: Pragma;
 
-  constructor(
-    ast: ast.PragmaDirective,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.PragmaDirective, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.pragma = new Pragma(ast.pragma, offsets[0], options);
+    this.pragma = new Pragma(ast.pragma, options);
 
     metadata = updateMetadata(metadata, [this.pragma]);
 

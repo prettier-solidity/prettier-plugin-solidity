@@ -18,13 +18,12 @@ export class DecimalNumberExpression implements SlangNode {
 
   unit?: NumberUnit;
 
-  constructor(ast: ast.DecimalNumberExpression, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.DecimalNumberExpression) {
+    let metadata = getNodeMetadata(ast);
 
     this.literal = ast.literal.unparse();
     if (ast.unit) {
-      this.unit = new NumberUnit(ast.unit, offsets[0]);
+      this.unit = new NumberUnit(ast.unit);
     }
 
     metadata = updateMetadata(metadata, [this.unit]);

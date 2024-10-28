@@ -18,16 +18,14 @@ export class UnnamedFunctionAttribute implements SlangNode {
 
   constructor(
     ast: ast.UnnamedFunctionAttribute,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
-        : new ModifierInvocation(ast.variant, offsets[0], options);
+        : new ModifierInvocation(ast.variant, options);
 
     metadata = updateMetadata(
       metadata,

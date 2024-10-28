@@ -21,17 +21,10 @@ export class PositionalArguments implements SlangNode {
 
   separators;
 
-  constructor(
-    ast: ast.PositionalArguments,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.PositionalArguments, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new Expression(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new Expression(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);

@@ -15,15 +15,11 @@ export class OverrideSpecifier implements SlangNode {
 
   overridden?: OverridePathsDeclaration;
 
-  constructor(ast: ast.OverrideSpecifier, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.OverrideSpecifier) {
+    let metadata = getNodeMetadata(ast);
 
     if (ast.overridden) {
-      this.overridden = new OverridePathsDeclaration(
-        ast.overridden,
-        offsets[0]
-      );
+      this.overridden = new OverridePathsDeclaration(ast.overridden);
     }
 
     metadata = updateMetadata(metadata, [this.overridden]);

@@ -26,25 +26,15 @@ export class Parameter implements SlangNode {
 
   name?: Identifier;
 
-  constructor(
-    ast: ast.Parameter,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.Parameter, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, offsets[0], options);
-    let i = 1;
+    this.typeName = new TypeName(ast.typeName, options);
     if (ast.storageLocation) {
-      this.storageLocation = new StorageLocation(
-        ast.storageLocation,
-        offsets[i]
-      );
-      i += 1;
+      this.storageLocation = new StorageLocation(ast.storageLocation);
     }
     if (ast.name) {
-      this.name = new Identifier(ast.name, offsets[i]);
+      this.name = new Identifier(ast.name);
     }
 
     metadata = updateMetadata(metadata, [this.typeName, this.storageLocation]);

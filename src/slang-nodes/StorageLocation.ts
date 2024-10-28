@@ -14,8 +14,8 @@ export class StorageLocation implements SlangNode {
 
   variant: string;
 
-  constructor(ast: ast.StorageLocation, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.StorageLocation) {
+    const metadata = getNodeMetadata(ast);
 
     this.variant = ast.variant.unparse();
 

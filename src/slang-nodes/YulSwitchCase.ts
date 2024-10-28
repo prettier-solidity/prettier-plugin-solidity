@@ -17,26 +17,19 @@ export class YulSwitchCase implements SlangNode {
 
   variant: YulDefaultCase | YulValueCase;
 
-  constructor(
-    ast: ast.YulSwitchCase,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulSwitchCase, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.YulDefaultCase:
         this.variant = new YulDefaultCase(
           ast.variant as ast.YulDefaultCase,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.YulValueCase:
         this.variant = new YulValueCase(
           ast.variant as ast.YulValueCase,
-          offsets[0],
           options
         );
         break;

@@ -23,24 +23,16 @@ export class AssemblyStatement implements SlangNode {
 
   body: YulBlock;
 
-  constructor(
-    ast: ast.AssemblyStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.AssemblyStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    let i = 0;
     if (ast.label) {
-      this.label = new StringLiteral(ast.label, offsets[i], options);
-      i += 1;
+      this.label = new StringLiteral(ast.label, options);
     }
     if (ast.flags) {
-      this.flags = new AssemblyFlagsDeclaration(ast.flags, offsets[i], options);
-      i += 1;
+      this.flags = new AssemblyFlagsDeclaration(ast.flags, options);
     }
-    this.body = new YulBlock(ast.body, offsets[i], options);
+    this.body = new YulBlock(ast.body, options);
 
     metadata = updateMetadata(metadata, [this.label, this.flags, this.body]);
 

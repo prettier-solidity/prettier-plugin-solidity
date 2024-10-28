@@ -18,14 +18,12 @@ export class TupleDeconstructionElement implements SlangNode {
 
   constructor(
     ast: ast.TupleDeconstructionElement,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
     if (ast.member) {
-      this.member = new TupleMember(ast.member, offsets[0], options);
+      this.member = new TupleMember(ast.member, options);
     }
 
     metadata = updateMetadata(metadata, [this.member]);

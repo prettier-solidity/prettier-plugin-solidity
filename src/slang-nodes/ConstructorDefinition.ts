@@ -23,25 +23,12 @@ export class ConstructorDefinition implements SlangNode {
 
   body: Block;
 
-  constructor(
-    ast: ast.ConstructorDefinition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ConstructorDefinition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.parameters = new ParametersDeclaration(
-      ast.parameters,
-      offsets[0],
-      options
-    );
-    this.attributes = new ConstructorAttributes(
-      ast.attributes,
-      offsets[1],
-      options
-    );
-    this.body = new Block(ast.body, offsets[2], options);
+    this.parameters = new ParametersDeclaration(ast.parameters, options);
+    this.attributes = new ConstructorAttributes(ast.attributes, options);
+    this.body = new Block(ast.body, options);
 
     metadata = updateMetadata(metadata, [
       this.parameters,

@@ -14,8 +14,8 @@ export class UsingOperator implements SlangNode {
 
   variant: string;
 
-  constructor(ast: ast.UsingOperator, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.UsingOperator) {
+    const metadata = getNodeMetadata(ast);
 
     this.variant = ast.variant.unparse();
 

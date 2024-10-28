@@ -19,16 +19,11 @@ export class NamedArgument implements SlangNode {
 
   value: Expression;
 
-  constructor(
-    ast: ast.NamedArgument,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.NamedArgument, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new Identifier(ast.name, offsets[0]);
-    this.value = new Expression(ast.value, offsets[1], options);
+    this.name = new Identifier(ast.name);
+    this.value = new Expression(ast.value, options);
 
     metadata = updateMetadata(metadata, [this.value]);
 

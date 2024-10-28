@@ -17,13 +17,10 @@ export class YulPath implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.YulPath, offset: number) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulPath) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new YulPathComponent(item, offsets[index])
-    );
+    this.items = ast.items.map((item) => new YulPathComponent(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);

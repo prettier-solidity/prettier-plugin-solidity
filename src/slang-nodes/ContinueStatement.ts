@@ -12,8 +12,8 @@ export class ContinueStatement implements SlangNode {
 
   loc;
 
-  constructor(ast: ast.ContinueStatement, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.ContinueStatement) {
+    const metadata = getNodeMetadata(ast);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

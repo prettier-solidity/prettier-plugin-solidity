@@ -25,47 +25,37 @@ export class StringExpression implements SlangNode {
     | HexStringLiterals
     | UnicodeStringLiterals;
 
-  constructor(
-    ast: ast.StringExpression,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.StringExpression, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.StringLiteral:
         this.variant = new StringLiteral(
           ast.variant as ast.StringLiteral,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.StringLiterals:
         this.variant = new StringLiterals(
           ast.variant as ast.StringLiterals,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.HexStringLiteral:
         this.variant = new HexStringLiteral(
           ast.variant as ast.HexStringLiteral,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.HexStringLiterals:
         this.variant = new HexStringLiterals(
           ast.variant as ast.HexStringLiterals,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.UnicodeStringLiterals:
         this.variant = new UnicodeStringLiterals(
           ast.variant as ast.UnicodeStringLiterals,
-          offsets[0],
           options
         );
         break;

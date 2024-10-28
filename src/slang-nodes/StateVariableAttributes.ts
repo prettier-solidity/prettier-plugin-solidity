@@ -19,13 +19,10 @@ export class StateVariableAttributes implements SlangNode {
 
   items: StateVariableAttribute[];
 
-  constructor(ast: ast.StateVariableAttributes, offset: number) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.StateVariableAttributes) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new StateVariableAttribute(item, offsets[index])
-    );
+    this.items = ast.items.map((item) => new StateVariableAttribute(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

@@ -22,17 +22,12 @@ export class ConstantDefinition implements SlangNode {
 
   value: Expression;
 
-  constructor(
-    ast: ast.ConstantDefinition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ConstantDefinition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, offsets[0], options);
-    this.name = new Identifier(ast.name, offsets[1]);
-    this.value = new Expression(ast.value, offsets[2], options);
+    this.typeName = new TypeName(ast.typeName, options);
+    this.name = new Identifier(ast.name);
+    this.value = new Expression(ast.value, options);
 
     metadata = updateMetadata(metadata, [this.typeName, this.value]);
 

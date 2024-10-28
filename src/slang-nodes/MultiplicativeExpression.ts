@@ -28,15 +28,13 @@ export class MultiplicativeExpression implements SlangNode {
 
   constructor(
     ast: ast.MultiplicativeExpression,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.leftOperand = new Expression(ast.leftOperand, offsets[0], options);
+    this.leftOperand = new Expression(ast.leftOperand, options);
     this.operator = ast.operator.unparse();
-    this.rightOperand = new Expression(ast.rightOperand, offsets[1], options);
+    this.rightOperand = new Expression(ast.rightOperand, options);
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);
 

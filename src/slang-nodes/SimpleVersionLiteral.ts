@@ -16,8 +16,8 @@ export class SimpleVersionLiteral implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.SimpleVersionLiteral, offset: number) {
-    const metadata = getNodeMetadata(ast, offset, true);
+  constructor(ast: ast.SimpleVersionLiteral) {
+    const metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => item.unparse());
     this.separators = ast.separators.map((separator) => separator.unparse());

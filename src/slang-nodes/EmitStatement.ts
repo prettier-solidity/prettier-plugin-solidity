@@ -19,20 +19,11 @@ export class EmitStatement implements SlangNode {
 
   arguments: ArgumentsDeclaration;
 
-  constructor(
-    ast: ast.EmitStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.EmitStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.event = new IdentifierPath(ast.event, offsets[0]);
-    this.arguments = new ArgumentsDeclaration(
-      ast.arguments,
-      offsets[1],
-      options
-    );
+    this.event = new IdentifierPath(ast.event);
+    this.arguments = new ArgumentsDeclaration(ast.arguments, options);
 
     metadata = updateMetadata(metadata, [this.event, this.arguments]);
 

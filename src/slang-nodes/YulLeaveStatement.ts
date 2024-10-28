@@ -12,8 +12,8 @@ export class YulLeaveStatement implements SlangNode {
 
   loc;
 
-  constructor(ast: ast.YulLeaveStatement, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.YulLeaveStatement) {
+    const metadata = getNodeMetadata(ast);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

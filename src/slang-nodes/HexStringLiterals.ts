@@ -19,17 +19,10 @@ export class HexStringLiterals implements SlangNode {
 
   items: HexStringLiteral[];
 
-  constructor(
-    ast: ast.HexStringLiterals,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.HexStringLiterals, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new HexStringLiteral(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new HexStringLiteral(item, options));
 
     metadata = updateMetadata(metadata, [this.items]);
 

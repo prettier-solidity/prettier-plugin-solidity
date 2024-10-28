@@ -15,11 +15,10 @@ export class ImportAlias implements SlangNode {
 
   identifier: Identifier;
 
-  constructor(ast: ast.ImportAlias, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ImportAlias) {
+    const metadata = getNodeMetadata(ast);
 
-    this.identifier = new Identifier(ast.identifier, offsets[0]);
+    this.identifier = new Identifier(ast.identifier);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

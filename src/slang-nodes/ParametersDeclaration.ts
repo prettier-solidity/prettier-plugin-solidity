@@ -16,15 +16,10 @@ export class ParametersDeclaration implements SlangNode {
 
   parameters: Parameters;
 
-  constructor(
-    ast: ast.ParametersDeclaration,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ParametersDeclaration, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.parameters = new Parameters(ast.parameters, offsets[0], options);
+    this.parameters = new Parameters(ast.parameters, options);
 
     metadata = updateMetadata(metadata, [this.parameters]);
 

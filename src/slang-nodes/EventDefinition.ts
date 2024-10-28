@@ -21,20 +21,11 @@ export class EventDefinition implements SlangNode {
 
   anonymousKeyword?: string;
 
-  constructor(
-    ast: ast.EventDefinition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.EventDefinition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new Identifier(ast.name, offsets[0]);
-    this.parameters = new EventParametersDeclaration(
-      ast.parameters,
-      offsets[1],
-      options
-    );
+    this.name = new Identifier(ast.name);
+    this.parameters = new EventParametersDeclaration(ast.parameters, options);
     this.anonymousKeyword = ast.anonymousKeyword?.unparse();
 
     metadata = updateMetadata(metadata, [this.parameters]);

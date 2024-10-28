@@ -18,15 +18,10 @@ export class PostfixExpression implements SlangNode {
 
   operator: string;
 
-  constructor(
-    ast: ast.PostfixExpression,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.PostfixExpression, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.operand = new Expression(ast.operand, offsets[0], options);
+    this.operand = new Expression(ast.operand, options);
     this.operator = ast.operator.unparse();
 
     metadata = updateMetadata(metadata, [this.operand]);

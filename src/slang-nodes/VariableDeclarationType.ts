@@ -18,16 +18,14 @@ export class VariableDeclarationType implements SlangNode {
 
   constructor(
     ast: ast.VariableDeclarationType,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
-        : new TypeName(ast.variant, offsets[0], options);
+        : new TypeName(ast.variant, options);
 
     metadata = updateMetadata(
       metadata,

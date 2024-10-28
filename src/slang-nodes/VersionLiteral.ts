@@ -15,14 +15,13 @@ export class VersionLiteral implements SlangNode {
 
   variant: SimpleVersionLiteral | string;
 
-  constructor(ast: ast.VersionLiteral, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.VersionLiteral) {
+    let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
-        : new SimpleVersionLiteral(ast.variant, offsets[0]);
+        : new SimpleVersionLiteral(ast.variant);
 
     metadata = updateMetadata(
       metadata,

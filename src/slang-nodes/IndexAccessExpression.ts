@@ -25,22 +25,15 @@ export class IndexAccessExpression implements SlangNode {
 
   end?: IndexAccessEnd;
 
-  constructor(
-    ast: ast.IndexAccessExpression,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.IndexAccessExpression, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.operand = new Expression(ast.operand, offsets[0], options);
-    let i = 1;
+    this.operand = new Expression(ast.operand, options);
     if (ast.start) {
-      this.start = new Expression(ast.start, offsets[i], options);
-      i += 1;
+      this.start = new Expression(ast.start, options);
     }
     if (ast.end) {
-      this.end = new IndexAccessEnd(ast.end, offsets[i], options);
+      this.end = new IndexAccessEnd(ast.end, options);
     }
 
     metadata = updateMetadata(metadata, [this.operand, this.start, this.end]);

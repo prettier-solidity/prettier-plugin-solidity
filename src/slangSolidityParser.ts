@@ -3,6 +3,7 @@ import { Parser } from '@nomicfoundation/slang/parser';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
 import { maxSatisfying } from 'semver';
+import { clearOffsets } from './slang-utils/metadata.js';
 import { createParser } from './slang-utils/create-parser.js';
 import { printWarning } from './slang-utils/print-warning.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
@@ -33,11 +34,12 @@ export default function parse(
   if (parseOutput.isValid()) {
     // We update the compiler version by the inferred one.
     options.compiler = parser.version;
-    return new SourceUnit(
+    const parsed = new SourceUnit(
       new SlangSourceUnit(parseOutput.tree.asNonterminalNode()!),
-      0,
       options
     );
+    clearOffsets();
+    return parsed;
   }
   throw new Error(parseOutput.errors[0].message);
 }

@@ -15,8 +15,8 @@ export class AddressType implements SlangNode {
 
   payableKeyword?: string;
 
-  constructor(ast: ast.AddressType, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.AddressType) {
+    const metadata = getNodeMetadata(ast);
 
     this.payableKeyword = ast.payableKeyword?.unparse();
 

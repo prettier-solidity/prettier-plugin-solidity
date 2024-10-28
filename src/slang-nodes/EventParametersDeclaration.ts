@@ -18,13 +18,11 @@ export class EventParametersDeclaration implements SlangNode {
 
   constructor(
     ast: ast.EventParametersDeclaration,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.parameters = new EventParameters(ast.parameters, offsets[0], options);
+    this.parameters = new EventParameters(ast.parameters, options);
 
     metadata = updateMetadata(metadata, [this.parameters]);
 

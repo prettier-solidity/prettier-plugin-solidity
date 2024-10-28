@@ -20,17 +20,12 @@ export class MappingValue implements SlangNode {
 
   name?: Identifier;
 
-  constructor(
-    ast: ast.MappingValue,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.MappingValue, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, offsets[0], options);
+    this.typeName = new TypeName(ast.typeName, options);
     if (ast.name) {
-      this.name = new Identifier(ast.name, offsets[1]);
+      this.name = new Identifier(ast.name);
     }
 
     metadata = updateMetadata(metadata, [this.typeName]);
