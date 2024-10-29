@@ -21,12 +21,9 @@ const isCommentOrWhiteSpace = createKindCheckFunction([
 function getLeadingOffset(children: Node[]): number {
   let offset = 0;
   for (const child of children) {
-    if (child.isNonterminalNode()) {
-      // The node's content starts when we find the first non-terminal token.
-      return offset;
-    } else if (!isCommentOrWhiteSpace(child)) {
-      // The content of the node started if we find a non-comment,
-      // non-whitespace token.
+    if (child.isNonterminalNode() || !isCommentOrWhiteSpace(child)) {
+      // The node's content starts when we find the first non-terminal token,
+      // or if we find a non-comment, non-whitespace token.
       return offset;
     }
     offset += child.textLength.utf16;
@@ -110,7 +107,8 @@ function collectComments(
   if (node) {
     if (Array.isArray(node)) {
       return node.reduce(collectComments, comments);
-    } else if (node.comments.length > 0) {
+    }
+    if (node.comments.length > 0) {
       comments.push(...node.comments.splice(0));
     }
   }
