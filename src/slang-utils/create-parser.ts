@@ -1,6 +1,7 @@
+import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfoundation/slang/ast';
 import { NonterminalKind, Query } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
-import strip from 'strip-comments';
+import prettier from 'prettier';
 import {
   maxSatisfying,
   minSatisfying,
@@ -9,6 +10,12 @@ import {
   satisfies,
   validRange
 } from 'semver';
+import slangPrint from '../slangPrinter.js';
+import { locEnd, locStart } from './loc.js';
+import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
+
+import type { NonterminalNode } from '@nomicfoundation/slang/cst';
+import type { Parser as PrettierParser } from 'prettier';
 
 const supportedVersions = Parser.supportedVersions();
 
@@ -25,15 +32,48 @@ const milestoneVersions = Array.from(
     return versions;
   }, []);
 
+const bypassParse =
+  (parseOutput: NonterminalNode) => (): VersionExpressionSets => {
+    // We don't need to parse the text twice if we already have the
+    // NonterminalNode.
+    const parsed = new VersionExpressionSets(
+      new SlangVersionExpressionSets(parseOutput),
+      0
+    );
+    parsed.comments = [];
+    return parsed;
+  };
+
+const options = {
+  plugins: [
+    {
+      languages: [{ name: 'SolidityPragma', parsers: ['slangPragma'] }],
+      parsers: {
+        slangPragma: {
+          astFormat: 'slang-ast',
+          locStart,
+          locEnd
+        } as PrettierParser
+      },
+      printers: { ['slang-ast']: { print: slangPrint } }
+    }
+  ],
+  parser: 'slangPragma'
+};
+
+const query = Query.parse(
+  '[VersionPragma @versionRanges [VersionExpressionSets]]'
+);
+
 // TODO if we ended up selecting the same version that the pragmas were parsed with,
 // should we be able to reuse/just return the already parsed CST, instead of
 // returning a Parser and forcing user to parse it again?
-export function createParser(text: string): Parser {
+export async function createParser(text: string): Promise<Parser> {
   let inferredRanges: string[] = [];
 
   for (const version of milestoneVersions) {
     try {
-      inferredRanges = tryToCollectPragmas(text, version);
+      inferredRanges = await tryToCollectPragmas(text, version);
       break;
     } catch {}
   }
@@ -57,22 +97,22 @@ export function createParser(text: string): Parser {
     : Parser.create(supportedVersions[supportedVersions.length - 1]);
 }
 
-function tryToCollectPragmas(text: string, version: string): string[] {
-  const language = Parser.create(version);
-  const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
-  const query = Query.parse(
-    '[VersionPragma @versionRanges [VersionExpressionSets]]'
-  );
+async function tryToCollectPragmas(
+  text: string,
+  version: string
+): Promise<string[]> {
+  const parser = Parser.create(version);
+  const parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
+
   const matches = parseOutput.createTreeCursor().query([query]);
   const ranges: string[] = [];
 
   let match;
   while ((match = matches.next())) {
-    ranges.push(
-      strip(match.captures.versionRanges[0].node.unparse(), {
-        keepProtected: true
-      })
+    options.plugins[0].parsers.slangPragma.parse = bypassParse(
+      match.captures.versionRanges[0].node.asNonterminalNode()!
     );
+    ranges.push(await prettier.format(text, options));
   }
 
   if (ranges.length === 0) {

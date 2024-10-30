@@ -12,16 +12,16 @@ import type { AstNode } from './slang-nodes/types.d.ts';
 
 const supportedVersions = Parser.supportedVersions();
 
-export default function parse(
+export default async function parse(
   text: string,
   options: ParserOptions<AstNode>
-): AstNode {
+): Promise<AstNode> {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
 
   const parser =
     compiler && supportedVersions.includes(compiler)
       ? Parser.create(compiler)
-      : createParser(text);
+      : await createParser(text);
 
   const parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
   printWarning(

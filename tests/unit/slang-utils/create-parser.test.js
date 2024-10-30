@@ -83,21 +83,31 @@ describe('inferLanguage', function () {
     {
       description:
         'should use the latest version if the range is outside the supported versions',
-      source: `pragma solidity ^0.8.27;`,
+      source: `pragma solidity ^0.9.27;`,
       version: latestSupportedVersion
+    },
+    {
+      description: 'broken by new lines, whitespace and comments',
+      source: `pragma solidity 0.
+      // comment 1
+                         7.
+      /* comment 2*/
+             3;`,
+      version: '0.7.3'
     }
   ];
 
   for (const { description, source, version } of fixtures) {
-    test(description, function () {
-      const parser = createParser(source);
+    test(description, async function () {
+      const parser = await createParser(source);
       expect(parser.version).toEqual(version);
     });
   }
 
   test.skip('should throw an error if there are incompatible ranges', function () {
-    expect(() =>
-      createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`)
+    expect(
+      async () =>
+        await createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`)
     ).toThrow();
   });
 });
