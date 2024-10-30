@@ -7,15 +7,14 @@ import { createParser } from './slang-utils/create-parser.js';
 import { printWarning } from './slang-utils/print-warning.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
-import type { Parser as PrettierParser, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './slang-nodes/types.d.ts';
 
 const supportedVersions = Parser.supportedVersions();
 
 export default function parse(
   text: string,
-  _parsers: PrettierParser[] | ParserOptions<AstNode>,
-  options = _parsers as ParserOptions<AstNode>
+  options: ParserOptions<AstNode>
 ): AstNode {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
 
