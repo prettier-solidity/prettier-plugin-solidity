@@ -102,7 +102,6 @@
     "lines-and-columns": "^2.0.4",
     "prettier": "^3.3.3",
     "solc": "^0.8.28",
-    "strip-comments": "^2.0.1",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
@@ -112,7 +111,8 @@
   "dependencies": {
     "@nomicfoundation/slang": "0.18.3",
     "@solidity-parser/parser": "^0.18.0",
-    "semver": "^7.6.3"
+    "semver": "^7.6.3",
+    "strip-comments": "^2.0.1"
   },
   "peerDependencies": {
     "prettier": ">=3.0.0"
