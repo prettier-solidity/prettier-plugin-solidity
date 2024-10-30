@@ -3,8 +3,8 @@ import createEsmUtils from "esm-utils";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-async function getPluginsInternal() {
-  return await Promise.all(
+function getPluginsInternal() {
+  return Promise.all(
     process.env.TEST_STANDALONE
       ? [
           import("prettier/plugins/babel"),

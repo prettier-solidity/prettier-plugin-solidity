@@ -6,7 +6,7 @@ import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
 
 import type { Node } from '@nomicfoundation/slang/cst';
-import type { Comment, StrictAstNode } from '../slang-nodes/index.d.ts';
+import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { Metadata, SlangAstNode } from '../types.d.ts';
 
 const isCommentOrWhiteSpace = createKindCheckFunction([

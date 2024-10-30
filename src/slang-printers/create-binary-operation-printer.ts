@@ -7,7 +7,7 @@ import type {
   AstNode,
   BinaryOperation,
   StrictAstNode
-} from '../slang-nodes/index.d.ts';
+} from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
 const { group, line } = doc.builders;

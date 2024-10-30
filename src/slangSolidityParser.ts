@@ -8,7 +8,7 @@ import { printWarning } from './slang-utils/print-warning.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
 import type { Parser as PrettierParser, ParserOptions } from 'prettier';
-import type { AstNode } from './slang-nodes/index.d.ts';
+import type { AstNode } from './slang-nodes/types.d.ts';
 
 const supportedVersions = Parser.supportedVersions();
 

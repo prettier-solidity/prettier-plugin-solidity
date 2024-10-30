@@ -3,7 +3,7 @@ import type {
   NonterminalKind,
   TerminalKind
 } from '@nomicfoundation/slang/cst';
-import type { StrictAstNode } from '../slang-nodes/index.d.ts';
+import type { StrictAstNode } from '../slang-nodes/types.d.ts';
 
 export function createKindCheckFunction(
   kindsArray: (keyof typeof TerminalKind | keyof typeof NonterminalKind)[]

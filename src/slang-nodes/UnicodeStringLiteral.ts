@@ -4,7 +4,7 @@ import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './index.d.ts';
+import type { AstNode } from './types.d.ts';
 import type { SlangNode } from '../types.d.ts';
 
 export class UnicodeStringLiteral implements SlangNode {

@@ -1,7 +1,7 @@
 import type { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, Comment, StrictAstNode } from './slang-nodes/index.d.ts';
+import type { AstNode, Comment, StrictAstNode } from './slang-nodes/types.d.ts';
 
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {

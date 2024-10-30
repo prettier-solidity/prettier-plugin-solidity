@@ -5,7 +5,7 @@ import { printIndentableBlockComment } from '../slang-printers/print-indentable-
 
 import type { Doc } from 'prettier';
 import type { BaseComment, Location, SlangNode } from '../types.d.ts';
-import type { StrictAstNode } from './index.d.ts';
+import type { StrictAstNode } from './types.d.ts';
 
 const { join, literalline } = doc.builders;
 

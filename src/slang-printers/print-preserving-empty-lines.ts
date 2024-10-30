@@ -7,7 +7,7 @@ import type {
   AstNode,
   CollectionNode,
   StrictAstNode
-} from '../slang-nodes/index.d.ts';
+} from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
 const { hardline } = doc.builders;

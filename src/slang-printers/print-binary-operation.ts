@@ -4,7 +4,7 @@ import { createBinaryOperationPrinter } from './create-binary-operation-printer.
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { BinaryOperation, StrictAstNode } from '../slang-nodes/index.d.ts';
+import type { BinaryOperation, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { ComparisonExpression } from '../slang-nodes/ComparisonExpression.ts';
 import type { EqualityExpression } from '../slang-nodes/EqualityExpression.ts';
 

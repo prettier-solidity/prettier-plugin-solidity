@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { joinExisting } from '../slang-utils/join-existing.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { FunctionLike } from '../slang-nodes/index.d.ts';
+import type { FunctionLike } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 import type { FunctionDefinition } from '../slang-nodes/FunctionDefinition.ts';
 

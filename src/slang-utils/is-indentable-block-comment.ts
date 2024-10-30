@@ -1,4 +1,4 @@
-import type { BlockComment } from '../slang-nodes/index.d.ts';
+import type { BlockComment } from '../slang-nodes/types.d.ts';
 
 export function isIndentableBlockComment(comment: BlockComment): boolean {
   // If the comment has multiple lines and every line starts with a star

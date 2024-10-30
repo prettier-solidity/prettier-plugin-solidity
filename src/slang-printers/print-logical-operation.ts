@@ -9,7 +9,7 @@ import type {
   AstNode,
   BinaryOperation,
   StrictAstNode
-} from '../slang-nodes/index.d.ts';
+} from '../slang-nodes/types.d.ts';
 
 const { group, indent } = doc.builders;
 

@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 
 import type { Doc } from 'prettier';
-import type { BlockComment } from '../slang-nodes/index.d.ts';
+import type { BlockComment } from '../slang-nodes/types.d.ts';
 
 const { hardline, join } = doc.builders;
 

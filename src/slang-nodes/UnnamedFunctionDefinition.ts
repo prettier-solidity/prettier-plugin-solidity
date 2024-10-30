@@ -7,7 +7,7 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './index.d.ts';
+import type { AstNode } from './types.d.ts';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class UnnamedFunctionDefinition implements SlangNode {

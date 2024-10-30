@@ -2,7 +2,7 @@ import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 
 import type { Doc } from 'prettier';
 import type { Location, SlangNode } from '../types.d.ts';
-import type { Comment } from './index.d.ts';
+import type { Comment } from './types.d.ts';
 
 export class YulIdentifier implements SlangNode {
   readonly kind = TerminalKind.YulIdentifier;
