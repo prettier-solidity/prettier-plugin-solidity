@@ -1,11 +1,11 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "description": "A Prettier Plugin for automatically formatting your Solidity code.",
   "type": "module",
   "main": "./dist/index.js",
   "browser": "./dist/standalone.js",
-  "unpkg": "./dist/",
+  "unpkg": "./dist/standalone.js",
   "exports": {
     ".": "./dist/index.js",
     "./standalone": "./dist/standalone.js"

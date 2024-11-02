@@ -66,7 +66,7 @@ We follow Prettier's strategy for populating their plugins in the object `pretti
     'https://unpkg.com/prettier-plugin-solidity@latest'
   );
   const prettierSolidity = await import(
-    'https://unpkg.com/prettier-plugin-solidity@latest'
+    'https://unpkg.com/prettier-plugin-solidity@next'
   );
 
   async function format(code) {
