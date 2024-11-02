@@ -54,14 +54,6 @@ _Added in v1.1.0_
 
 To use this package in the browser, you need to load Prettier's standalone bundle before loading the build provided in this package.
 
-```html
-<script src="https://unpkg.com/prettier@latest"></script>
-<script
-  type="module"
-  src="https://unpkg.com/prettier-plugin-solidity@latest"
-></script>
-```
-
 Prettier's unpkg field points to `https://unpkg.com/prettier/standalone.js`, in a similar way this plugin points to `https://unpkg.com/prettier-plugin-solidity/dist/standalone.js`.
 
 Once the scripts are loaded you will have access the globals `prettier` and `prettierPlugins`.
@@ -69,7 +61,14 @@ Once the scripts are loaded you will have access the globals `prettier` and `pre
 We follow Prettier's strategy for populating their plugins in the object `prettierPlugins`, you can load other plugins like `https://unpkg.com/prettier@2.8.0/parser-markdown.js` and Prettier will have access to multiple parsers.
 
 ```html
-<script>
+<script type="module">
+  const prettier = await import(
+    'https://unpkg.com/prettier-plugin-solidity@latest'
+  );
+  const prettierSolidity = await import(
+    'https://unpkg.com/prettier-plugin-solidity@latest'
+  );
+
   async function format(code) {
     return await prettier.format(code, {
       parser: 'slang-solidity',

@@ -1,7 +1,22 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
+import getPrettier from "./get-prettier.js";
 
 const { __dirname } = createEsmUtils(import.meta);
+
+// populate the root object for the standalone in node
+if (process.env.TEST_STANDALONE) {
+  const root =
+    typeof globalThis !== "undefined"
+      ? globalThis
+      : typeof global !== "undefined"
+        ? global
+        : typeof self !== "undefined"
+          ? self
+          : this || {};
+  root.prettier = await getPrettier();
+  root["fs/promises"] = await import("fs/promises");
+}
 
 function getPluginsInternal() {
   return Promise.all(
