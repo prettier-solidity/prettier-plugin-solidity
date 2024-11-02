@@ -1,10 +1,14 @@
-import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { TerminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, BinaryOperation, StrictAstNode } from '../slang-nodes';
-import type { PrintFunction } from '../types';
+import type {
+  AstNode,
+  BinaryOperation,
+  StrictAstNode
+} from '../slang-nodes/types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, line } = doc.builders;
 

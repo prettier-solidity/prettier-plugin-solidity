@@ -1,11 +1,11 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printString } from '../slang-printers/print-string.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { SlangNode } from '../types.d.ts';
 
 export class UnicodeStringLiteral implements SlangNode {
   readonly kind = NonterminalKind.UnicodeStringLiteral;
@@ -23,7 +23,7 @@ export class UnicodeStringLiteral implements SlangNode {
   ) {
     const metadata = getNodeMetadata(ast, offset);
 
-    this.variant = ast.variant.text;
+    this.variant = ast.variant.unparse();
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

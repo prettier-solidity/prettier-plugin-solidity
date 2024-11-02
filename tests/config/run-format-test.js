@@ -5,6 +5,7 @@ import url from "node:url";
 import createEsmUtils from "esm-utils";
 
 import getPrettier from "./get-prettier.js";
+import getPlugins from "./get-plugins.js";
 import compileContract from "./utils/compile-contract.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
@@ -13,7 +14,7 @@ import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-const { FULL_TEST, TEST_STANDALONE } = process.env;
+const { FULL_TEST } = process.env;
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
@@ -189,9 +190,6 @@ function runFormatTest(fixtures, parsers, options) {
 
     describe(title, () => {
       const formatOptions = {
-        plugins: TEST_STANDALONE
-          ? []
-          : [path.join(__dirname, "../../src/index.js")],
         printWidth: 80,
         ...options,
         filepath: filename,
@@ -380,9 +378,12 @@ function shouldSkipEolTest(code, options) {
 
 async function parse(source, options) {
   const prettier = await getPrettier();
-  const { ast } = await prettier.__debug.parse(source, options, {
-    massage: true,
-  });
+
+  const { ast } = await prettier.__debug.parse(
+    source,
+    { ...options, plugins: await getPlugins() },
+    { massage: true },
+  );
   return ast;
 }
 
@@ -436,7 +437,7 @@ async function format(originalText, originalOptions) {
 
   const { formatted: output, cursorOffset } = await prettier.formatWithCursor(
     input,
-    options,
+    { ...options, plugins: await getPlugins() },
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);

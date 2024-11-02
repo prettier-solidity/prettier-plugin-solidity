@@ -1,11 +1,11 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class OverridePaths implements SlangNode {
   readonly kind = NonterminalKind.OverridePaths;
@@ -25,7 +25,7 @@ export class OverridePaths implements SlangNode {
     this.items = ast.items.map(
       (item, index) => new IdentifierPath(item, offsets[index])
     );
-    this.separators = ast.separators.map((separator) => separator.text);
+    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

@@ -1,5 +1,5 @@
 import { coerce, satisfies } from 'semver';
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunction } from '../slang-printers/print-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { FunctionName } from './FunctionName.js';
@@ -10,8 +10,8 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class FunctionDefinition implements SlangNode {
   readonly kind = NonterminalKind.FunctionDefinition;

@@ -1,12 +1,11 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
+import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TypeName } from './TypeName.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class UsingTarget implements SlangNode {
   readonly kind = NonterminalKind.UsingTarget;
@@ -27,7 +26,7 @@ export class UsingTarget implements SlangNode {
 
     this.variant =
       ast.variant instanceof TerminalNode
-        ? ast.variant.text
+        ? ast.variant.unparse()
         : new TypeName(ast.variant, offsets[0], options);
 
     metadata = updateMetadata(

@@ -1,10 +1,10 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
-import type { SlangNode } from '../types';
+import type { SlangNode } from '../types.d.ts';
 
 export class AddressType implements SlangNode {
   readonly kind = NonterminalKind.AddressType;
@@ -18,7 +18,7 @@ export class AddressType implements SlangNode {
   constructor(ast: ast.AddressType, offset: number) {
     const metadata = getNodeMetadata(ast, offset);
 
-    this.payableKeyword = ast.payableKeyword?.text;
+    this.payableKeyword = ast.payableKeyword?.unparse();
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

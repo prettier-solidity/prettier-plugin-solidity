@@ -5,7 +5,7 @@ const ignoredProperties = new Set([
   'comments',
   // this function is defined at constructor time so it won't pass AST
   // comparisons.
-  'cleanModifierInvocationArguments'
+  'isEmpty'
 ]);
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 function clean(/* ast, newObj, parent */): void {}

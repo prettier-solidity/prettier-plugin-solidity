@@ -1,7 +1,4 @@
-import {
-  NonterminalKind,
-  TerminalKind
-} from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
 import { isBinaryOperation } from './is-binary-operation.js';
 import { Expression } from '../slang-nodes/Expression.js';
 import { TupleExpression } from '../slang-nodes/TupleExpression.js';

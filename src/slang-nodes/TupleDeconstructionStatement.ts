@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
@@ -6,8 +6,8 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indentIfBreak } = doc.builders;
 
@@ -32,7 +32,7 @@ export class TupleDeconstructionStatement implements SlangNode {
     let metadata = getNodeMetadata(ast, offset);
     const { offsets } = metadata;
 
-    this.varKeyword = ast.varKeyword?.text;
+    this.varKeyword = ast.varKeyword?.unparse();
     this.elements = new TupleDeconstructionElements(
       ast.elements,
       offsets[0],

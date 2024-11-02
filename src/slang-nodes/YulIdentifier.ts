@@ -1,9 +1,8 @@
-import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
-import { TerminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 
 import type { Doc } from 'prettier';
-import type { Location, SlangNode } from '../types';
-import type { Comment } from '.';
+import type { Location, SlangNode } from '../types.d.ts';
+import type { Comment } from './types.d.ts';
 
 export class YulIdentifier implements SlangNode {
   readonly kind = TerminalKind.YulIdentifier;
@@ -15,7 +14,7 @@ export class YulIdentifier implements SlangNode {
   value: string;
 
   constructor(ast: TerminalNode, offset: number) {
-    this.value = ast.text;
+    this.value = ast.unparse();
 
     this.comments = [];
     this.loc = {

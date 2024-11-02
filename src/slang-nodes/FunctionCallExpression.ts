@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { isLabel } from '../slang-utils/is-label.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
@@ -7,8 +7,8 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indentIfBreak, label } = doc.builders;
 
@@ -54,10 +54,7 @@ export class FunctionCallExpression implements SlangNode {
       operandDoc = group(operandDoc.contents, {
         id: Symbol('FunctionCallExpression.operand')
       });
-
-      argumentsDoc = indentIfBreak(argumentsDoc, {
-        groupId: operandDoc.id!
-      });
+      argumentsDoc = indentIfBreak(argumentsDoc, { groupId: operandDoc.id! });
       // We wrap the expression in a label in case there is an IndexAccess or
       // a FunctionCall following this IndexAccess.
       return label('MemberAccessChain', [operandDoc, argumentsDoc]);

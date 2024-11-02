@@ -1,12 +1,12 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ErrorParameter } from './ErrorParameter.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ErrorParameters implements SlangNode {
   readonly kind = NonterminalKind.ErrorParameters;
@@ -30,7 +30,7 @@ export class ErrorParameters implements SlangNode {
     this.items = ast.items.map(
       (item, index) => new ErrorParameter(item, offsets[index], options)
     );
-    this.separators = ast.separators.map((separator) => separator.text);
+    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

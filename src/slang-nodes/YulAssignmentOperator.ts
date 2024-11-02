@@ -1,11 +1,10 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { TerminalNode } from '@nomicfoundation/slang/cst/index.js';
+import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulColonAndEqual } from './YulColonAndEqual.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class YulAssignmentOperator implements SlangNode {
   readonly kind = NonterminalKind.YulAssignmentOperator;
@@ -22,7 +21,7 @@ export class YulAssignmentOperator implements SlangNode {
 
     this.variant =
       ast.variant instanceof TerminalNode
-        ? ast.variant.text
+        ? ast.variant.unparse()
         : new YulColonAndEqual(ast.variant, offsets[0]);
 
     metadata = updateMetadata(

@@ -1,46 +1,43 @@
 // https://prettier.io/docs/en/plugins.html#parsers
-// import parser from '@solidity-parser/parser';
-import { Language } from '@nomicfoundation/slang/language/index.js';
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast/index.js';
+import { Parser } from '@nomicfoundation/slang/parser';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
 import { maxSatisfying } from 'semver';
-import { inferLanguage } from './slang-utils/infer-language.js';
+import { createParser } from './slang-utils/create-parser.js';
 import { printWarning } from './slang-utils/print-warning.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
-import type { NonterminalNode } from '@nomicfoundation/slang/cst';
-import type { Parser, ParserOptions } from 'prettier';
-import type { AstNode } from './slang-nodes/index.js';
+import type { ParserOptions } from 'prettier';
+import type { AstNode } from './slang-nodes/types.d.ts';
 
-const supportedVersions = Language.supportedVersions();
+const supportedVersions = Parser.supportedVersions();
 
 export default function parse(
   text: string,
-  _parsers: Parser[] | ParserOptions<AstNode>,
-  options = _parsers as ParserOptions<AstNode>
+  options: ParserOptions<AstNode>
 ): AstNode {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
 
-  const language =
+  const parser =
     compiler && supportedVersions.includes(compiler)
-      ? new Language(compiler)
-      : inferLanguage(text);
+      ? Parser.create(compiler)
+      : createParser(text);
 
-  const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
+  const parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
   printWarning(
     compiler
-      ? `Using version ${language.version} based on the compiler option provided.`
-      : `Inferred version ${language.version} based on the pragma statements in the code.`
+      ? `Using version ${parser.version} based on the compiler option provided.`
+      : `Inferred version ${parser.version} based on the pragma statements in the code.`
   );
 
-  if (parseOutput.isValid) {
+  if (parseOutput.isValid()) {
     // We update the compiler version by the inferred one.
-    options.compiler = language.version;
+    options.compiler = parser.version;
     return new SourceUnit(
-      new SlangSourceUnit(parseOutput.tree() as NonterminalNode),
+      new SlangSourceUnit(parseOutput.tree.asNonterminalNode()!),
       0,
       options
     );
   }
-  throw new Error(parseOutput.errors()[0].message());
+  throw new Error(parseOutput.errors[0].message);
 }

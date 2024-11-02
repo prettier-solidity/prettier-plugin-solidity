@@ -1,14 +1,14 @@
 import { doc } from 'prettier';
 import { coerce, satisfies } from 'semver';
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ImportDeconstructionSymbol } from './ImportDeconstructionSymbol.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { line, softline } = doc.builders;
 
@@ -30,7 +30,7 @@ export class ImportDeconstructionSymbols implements SlangNode {
     this.items = ast.items.map(
       (item, index) => new ImportDeconstructionSymbol(item, offsets[index])
     );
-    this.separators = ast.separators.map((separator) => separator.text);
+    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

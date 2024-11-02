@@ -1,12 +1,12 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TupleDeconstructionElement } from './TupleDeconstructionElement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class TupleDeconstructionElements implements SlangNode {
   readonly kind = NonterminalKind.TupleDeconstructionElements;
@@ -31,7 +31,7 @@ export class TupleDeconstructionElements implements SlangNode {
       (item, index) =>
         new TupleDeconstructionElement(item, offsets[index], options)
     );
-    this.separators = ast.separators.map((separator) => separator.text);
+    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

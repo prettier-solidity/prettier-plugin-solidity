@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { StringLiteral } from './StringLiteral.js';
 import { StringLiterals } from './StringLiterals.js';
@@ -8,8 +8,8 @@ import { UnicodeStringLiterals } from './UnicodeStringLiterals.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class StringExpression implements SlangNode {
   readonly kind = NonterminalKind.StringExpression;
@@ -55,7 +55,6 @@ export class StringExpression implements SlangNode {
           options
         );
         break;
-
       case NonterminalKind.HexStringLiterals:
         this.variant = new HexStringLiterals(
           ast.variant as ast.HexStringLiterals,

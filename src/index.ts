@@ -16,7 +16,7 @@ import type {
   RequiredOptions,
   SupportLanguage
 } from 'prettier';
-import type { AstNode } from './slang-nodes';
+import type { AstNode } from './slang-nodes/types.d.ts';
 
 const slangParserId = 'slang-solidity';
 const antlrParserId = 'solidity-parse';
@@ -94,12 +94,4 @@ const defaultOptions: Partial<RequiredOptions> = {
   tabWidth: 4
 };
 
-const plugin = {
-  languages,
-  parsers,
-  printers,
-  options,
-  defaultOptions
-};
-
-export default plugin;
+export default { languages, parsers, printers, options, defaultOptions };

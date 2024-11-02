@@ -23,18 +23,8 @@ const warnDeprecation = once(() => {
   return true;
 });
 
-const prettierVersionCheck = once(() => {
-  if (!prettierVersionSatisfies('>=2.3.0')) {
-    throw new Error(
-      'The version of prettier in your node-modules does not satisfy the required ">=2.3.0" constraint. Please update the version of Prettier.'
-    );
-  }
-  return true;
-});
-
 function genericPrint(path, options, print) {
   warnDeprecation();
-  prettierVersionCheck();
 
   const node = path.getValue();
   if (node === null) {

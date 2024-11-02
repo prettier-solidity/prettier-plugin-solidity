@@ -1,14 +1,14 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
-import { doc } from 'prettier';
-import {
-  isLast,
-  isNextLineEmpty
-} from '../slang-utils/backward-compatibility.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc, util } from 'prettier';
 import { locEnd } from '../slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, CollectionNode, StrictAstNode } from '../slang-nodes';
-import type { PrintFunction } from '../types';
+import type {
+  AstNode,
+  CollectionNode,
+  StrictAstNode
+} from '../slang-nodes/types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { hardline } = doc.builders;
 
@@ -17,12 +17,12 @@ export function printPreservingEmptyLines(
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  return path.map((childPath, index) => {
+  return path.map((childPath) => {
     const node = childPath.getNode() as StrictAstNode;
 
     return [
       // Only attempt to prepend an empty line if `node` is not the first item
-      index > 0 &&
+      !childPath.isFirst &&
       // YulLabel adds a dedented line so we don't have to prepend a hardline.
       (node.kind !== NonterminalKind.YulStatement ||
         node.variant.kind !== NonterminalKind.YulLabel)
@@ -30,10 +30,10 @@ export function printPreservingEmptyLines(
         : '',
       print(childPath),
       // Only attempt to append an empty line if `node` is not the last item
-      !isLast(childPath, index) &&
+      !childPath.isLast &&
       // Append an empty line if the original text already had an one after the
       // current `node`
-      isNextLineEmpty(options.originalText, locEnd(node))
+      util.isNextLineEmpty(options.originalText, locEnd(node))
         ? hardline
         : ''
     ];

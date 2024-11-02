@@ -1,11 +1,15 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, BinaryOperation, StrictAstNode } from '../slang-nodes';
+import type {
+  AstNode,
+  BinaryOperation,
+  StrictAstNode
+} from '../slang-nodes/types.d.ts';
 
 const { group, indent } = doc.builders;
 

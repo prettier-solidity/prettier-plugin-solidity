@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 
 import type { Doc } from 'prettier';
-import type { PrintSeparatedOptions } from './types';
+import type { PrintSeparatedOptions } from './types.d.ts';
 
 const { group, indent, softline } = doc.builders;
 

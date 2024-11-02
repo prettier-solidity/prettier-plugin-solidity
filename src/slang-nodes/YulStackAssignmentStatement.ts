@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
@@ -7,7 +7,7 @@ import { YulIdentifier } from './YulIdentifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { line } = doc.builders;
 

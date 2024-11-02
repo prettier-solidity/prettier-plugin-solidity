@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { PathImport } from './PathImport.js';
 import { NamedImport } from './NamedImport.js';
@@ -6,8 +6,8 @@ import { ImportDeconstruction } from './ImportDeconstruction.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ImportClause implements SlangNode {
   readonly kind = NonterminalKind.ImportClause;
@@ -48,7 +48,6 @@ export class ImportClause implements SlangNode {
           options
         );
         break;
-
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }

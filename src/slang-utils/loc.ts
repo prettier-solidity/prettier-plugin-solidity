@@ -1,4 +1,4 @@
-import type { AstNode } from '../slang-nodes';
+import type { AstNode } from '../slang-nodes/types.d.ts';
 
 export function locStart(node: AstNode): number {
   if (typeof node === 'string' || typeof node === 'undefined') return -1;

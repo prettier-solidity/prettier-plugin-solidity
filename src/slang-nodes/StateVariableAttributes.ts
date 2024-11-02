@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
@@ -6,7 +6,7 @@ import { StateVariableAttribute } from './StateVariableAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { line } = doc.builders;
 

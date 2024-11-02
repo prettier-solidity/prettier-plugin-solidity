@@ -1,12 +1,12 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class YulArguments implements SlangNode {
   readonly kind = NonterminalKind.YulArguments;
@@ -30,7 +30,7 @@ export class YulArguments implements SlangNode {
     this.items = ast.items.map(
       (item, index) => new YulExpression(item, offsets[index], options)
     );
-    this.separators = ast.separators.map((separator) => separator.text);
+    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

@@ -1,9 +1,9 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
-import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
+import { locEnd } from '../../slang-utils/loc.js';
 import addCollectionNodeLastComment from './add-collection-node-last-comment.js';
 
-import type { HandlerParams } from './types';
+import type { HandlerParams } from './types.d.ts';
 
 const { addLeadingComment, addTrailingComment } = util;
 
@@ -18,7 +18,10 @@ export default function handleContractDefinitionComments({
     return false;
   }
 
-  const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment);
+  const nextCharacter = util.getNextNonSpaceNonCommentCharacter(
+    text,
+    locEnd(comment)
+  );
 
   // Everything before the InheritanceSpecifier is pushed onto the beginning of
   // the ContractDefinition.

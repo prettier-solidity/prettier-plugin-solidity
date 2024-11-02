@@ -1,13 +1,11 @@
-import type { util } from 'prettier';
-import type { ConstructorAttribute } from '../slang-nodes/ConstructorAttribute';
-import type { FallbackFunctionAttribute } from '../slang-nodes/FallbackFunctionAttribute';
-import type { FunctionAttribute } from '../slang-nodes/FunctionAttribute';
-import type { FunctionTypeAttribute } from '../slang-nodes/FunctionTypeAttribute';
-import type { ModifierAttribute } from '../slang-nodes/ModifierAttribute';
-import type { ReceiveFunctionAttribute } from '../slang-nodes/ReceiveFunctionAttribute';
-import type { StateVariableAttribute } from '../slang-nodes/StateVariableAttribute';
-import type { UnnamedFunctionAttribute } from '../slang-nodes/UnnamedFunctionAttribute';
-import type { AstNode } from '../slang-nodes';
+import type { ConstructorAttribute } from '../slang-nodes/ConstructorAttribute.ts';
+import type { FallbackFunctionAttribute } from '../slang-nodes/FallbackFunctionAttribute.ts';
+import type { FunctionAttribute } from '../slang-nodes/FunctionAttribute.ts';
+import type { FunctionTypeAttribute } from '../slang-nodes/FunctionTypeAttribute.ts';
+import type { ModifierAttribute } from '../slang-nodes/ModifierAttribute.ts';
+import type { ReceiveFunctionAttribute } from '../slang-nodes/ReceiveFunctionAttribute.ts';
+import type { StateVariableAttribute } from '../slang-nodes/StateVariableAttribute.ts';
+import type { UnnamedFunctionAttribute } from '../slang-nodes/UnnamedFunctionAttribute.ts';
 
 type SortableAttribute =
   | ConstructorAttribute
@@ -18,15 +16,3 @@ type SortableAttribute =
   | ReceiveFunctionAttribute
   | StateVariableAttribute
   | UnnamedFunctionAttribute;
-
-declare namespace utilV2Functions {
-  function getNextNonSpaceNonCommentCharacterIndex(
-    text: string,
-    node: AstNode,
-    locEnd: (node: AstNode) => number
-  ): number | false;
-
-  function isNextLineEmptyAfterIndex(text: string, startIndex: number): boolean;
-}
-
-type utilV2 = typeof util & typeof utilV2Functions;

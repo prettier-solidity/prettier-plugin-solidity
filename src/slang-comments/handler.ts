@@ -1,7 +1,7 @@
 import handlers from './handlers/index.js';
 
 import type { ParserOptions } from 'prettier';
-import type { AstNode, Comment } from '../slang-nodes';
+import type { AstNode, Comment } from '../slang-nodes/types.d.ts';
 
 function ownLine(
   comment: Comment,
@@ -66,8 +66,4 @@ function remaining(
   return handlers.some((handler) => handler(handlerArguments));
 }
 
-export const handleComments = {
-  ownLine,
-  endOfLine,
-  remaining
-};
+export const handleComments = { ownLine, endOfLine, remaining };

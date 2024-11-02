@@ -1,9 +1,9 @@
-import type { Node } from '@nomicfoundation/slang/cst';
 import type {
+  Node,
   NonterminalKind,
   TerminalKind
-} from '@nomicfoundation/slang/kinds';
-import type { StrictAstNode } from '../slang-nodes';
+} from '@nomicfoundation/slang/cst';
+import type { StrictAstNode } from '../slang-nodes/types.d.ts';
 
 export function createKindCheckFunction(
   kindsArray: (keyof typeof TerminalKind | keyof typeof NonterminalKind)[]

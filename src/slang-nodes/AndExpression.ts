@@ -1,12 +1,12 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printLogicalOperation } from '../slang-printers/print-logical-operation.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class AndExpression implements SlangNode {
   readonly kind = NonterminalKind.AndExpression;
@@ -30,7 +30,7 @@ export class AndExpression implements SlangNode {
     const { offsets } = metadata;
 
     this.leftOperand = new Expression(ast.leftOperand, offsets[0], options);
-    this.operator = ast.operator.text;
+    this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, offsets[1], options);
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);

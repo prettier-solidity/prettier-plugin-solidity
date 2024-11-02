@@ -1,12 +1,12 @@
 import { doc } from 'prettier';
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ModifierAttribute } from './ModifierAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { line } = doc.builders;
 

@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 import { UsingClause } from './UsingClause.js';
@@ -6,8 +6,8 @@ import { UsingTarget } from './UsingTarget.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class UsingDirective implements SlangNode {
   readonly kind = NonterminalKind.UsingDirective;
@@ -32,7 +32,7 @@ export class UsingDirective implements SlangNode {
 
     this.clause = new UsingClause(ast.clause, offsets[0]);
     this.target = new UsingTarget(ast.target, offsets[1], options);
-    this.globalKeyword = ast.globalKeyword?.text;
+    this.globalKeyword = ast.globalKeyword?.unparse();
 
     metadata = updateMetadata(metadata, [this.clause, this.target]);
 

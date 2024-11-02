@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { printSeparatedItem } from './print-separated-item.js';
 
 import type { Doc } from 'prettier';
-import type { PrintSeparatedOptions } from './types';
+import type { PrintSeparatedOptions } from './types.d.ts';
 
 const { join, line } = doc.builders;
 

@@ -1,9 +1,9 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
-import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/backward-compatibility.js';
+import { locEnd } from '../../slang-utils/loc.js';
 import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
 
-import type { HandlerParams } from './types';
+import type { HandlerParams } from './types.d.ts';
 
 const { addLeadingComment, addTrailingComment } = util;
 
@@ -23,7 +23,10 @@ export default function handleIfStatementComments({
   //   if (a /* comment */) {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
-  const nextCharacter = getNextNonSpaceNonCommentCharacter(text, comment);
+  const nextCharacter = util.getNextNonSpaceNonCommentCharacter(
+    text,
+    locEnd(comment)
+  );
   if (nextCharacter === ')') {
     addTrailingComment(precedingNode, comment);
     return true;

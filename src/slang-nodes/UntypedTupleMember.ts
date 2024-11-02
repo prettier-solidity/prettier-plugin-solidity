@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -6,7 +6,7 @@ import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class UntypedTupleMember implements SlangNode {
   readonly kind = NonterminalKind.UntypedTupleMember;

@@ -1,12 +1,12 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { SourceUnitMember } from './SourceUnitMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class SourceUnitMembers implements SlangNode {
   readonly kind = NonterminalKind.SourceUnitMembers;

@@ -1,13 +1,13 @@
-import { NonterminalKind } from '@nomicfoundation/slang/kinds/index.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
-import { ABICoderPragma } from './ABICoderPragma.js';
+import { AbicoderPragma } from './AbicoderPragma.js';
 import { ExperimentalPragma } from './ExperimentalPragma.js';
 import { VersionPragma } from './VersionPragma.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes';
-import type { PrintFunction, SlangNode } from '../types';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class Pragma implements SlangNode {
   readonly kind = NonterminalKind.Pragma;
@@ -16,7 +16,7 @@ export class Pragma implements SlangNode {
 
   loc;
 
-  variant: ABICoderPragma | ExperimentalPragma | VersionPragma;
+  variant: AbicoderPragma | ExperimentalPragma | VersionPragma;
 
   constructor(
     ast: ast.Pragma,
@@ -27,9 +27,9 @@ export class Pragma implements SlangNode {
     const { offsets } = metadata;
 
     switch (ast.variant.cst.kind) {
-      case NonterminalKind.ABICoderPragma:
-        this.variant = new ABICoderPragma(
-          ast.variant as ast.ABICoderPragma,
+      case NonterminalKind.AbicoderPragma:
+        this.variant = new AbicoderPragma(
+          ast.variant as ast.AbicoderPragma,
           offsets[0]
         );
         break;

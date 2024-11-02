@@ -23,26 +23,8 @@ jobs:
       - name: lint
         run: npm run lint
 
-  # test_bundle:
-  #   name: Test production
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #         cache: 'npm'
-  #     - name: Install
-  #       run: npm install
-  #     - name: Build
-  #       run: npm run build
-  #     - name: Build test app
-  #       run: npm run build:test
-  #     - name: Run tests
-  #       run: npm run test:standalone
-
-  test_prettier_v2:
-    name: Prettier V2
+  test_bundle:
+    name: Test production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -52,14 +34,12 @@ jobs:
           cache: 'npm'
       - name: Install
         run: npm install
-      - name: Build with Prettier V3
+      - name: Build
         run: npm run build
-      - name: Downgrade Prettier to V2
-        run: npm install prettier@2.8.8
-      # - name: Build test app
-      #   run: npm run build:test
-      # - name: Run standalone tests
-      #   run: npm run test:standalone
+      - name: Build test app
+        run: npm run build:test
+      - name: Run tests
+        run: npm run test:standalone -- --runInBand
 
   test_linux:
     name: Test on Linux with Node ${{ matrix.node }}
@@ -76,7 +56,7 @@ jobs:
       - name: Install
         run: npm install
       - name: Run tests
-        run: npm run test:all
+        run: npm run test:all -- --runInBand
 
   test_macos:
     name: Test on MacOS with Node 16
@@ -90,7 +70,7 @@ jobs:
       - name: Install
         run: npm install
       - name: Run tests
-        run: npm run test:all
+        run: npm run test:all -- --runInBand
 
   test_windows:
     name: Test on Windows with Node 16
@@ -104,4 +84,4 @@ jobs:
       - name: Install
         run: npm install
       - name: Run tests
-        run: npm run test:all
+        run: npm run test:all -- --runInBand

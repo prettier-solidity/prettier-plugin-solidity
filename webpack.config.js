@@ -1,7 +1,15 @@
 import path from 'node:path';
 import createEsmUtils from 'esm-utils';
+import webpack from 'webpack';
 
 const { __dirname } = createEsmUtils(import.meta);
+
+const globalObject = `
+  typeof globalThis !== 'undefined' ? globalThis
+  : typeof global !== 'undefined' ? global
+  : typeof self !== 'undefined' ? self
+  : this || {}
+`;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -12,26 +20,37 @@ export default (webpackEnv) => {
     entry: './src/index.js',
 
     // Avoid bundling Prettier
+    externalsType: 'global',
     externals: {
-      prettier: {
-        // use 'prettier/standalone' in case the project importing this file is
-        // bundling for the browser.
-        amd: 'prettier/standalone',
-        commonjs: 'prettier/standalone',
-        commonjs2: 'prettier/standalone',
-        root: 'prettier' // global variable if it was loaded by the browser
-      }
+      prettier: 'prettier',
+      'fs/promises': 'fs/promises'
     },
 
+    plugins: [
+      // TODO: investigate a cleaner way to populate the global variable
+      // prettierPlugins in a browser.
+      new webpack.BannerPlugin({
+        banner: `
+var root = ${globalObject};
+root["prettierPlugins"] = root["prettierPlugins"] || {}, root["prettierPlugins"]["solidity"] = __webpack_exports__default;
+`,
+        footer: true,
+        raw: true
+      })
+    ],
     mode: isEnvProduction ? 'production' : 'development',
     bail: isEnvProduction,
     devtool: 'source-map',
 
     resolve: {
       extensions: ['.ts', '.js'],
-      extensionAlias: {
-        '.js': ['.js', '.ts']
-      }
+      extensionAlias: { '.js': ['.js', '.ts'] }
+    },
+
+    experiments: {
+      asyncWebAssembly: true,
+      topLevelAwait: true,
+      outputModule: true
     },
 
     module: {
@@ -44,28 +63,15 @@ export default (webpackEnv) => {
       ]
     },
 
-    optimization: {
-      minimize: isEnvProduction
-    },
+    optimization: { minimize: isEnvProduction },
     target: ['browserslist'],
     output: {
+      globalObject,
+      chunkFormat: false,
       path: path.resolve(__dirname, 'dist'),
-      filename: 'standalone.cjs',
+      filename: 'standalone.js',
       clean: true,
-      globalObject: `
-        typeof globalThis !== 'undefined' ? globalThis
-        : typeof global !== 'undefined' ? global
-        : typeof self !== 'undefined' ? self
-        : this || {}
-      `,
-      library: {
-        export: 'default',
-        name: {
-          commonjs: 'prettierPluginSolidity',
-          root: ['prettierPlugins', 'solidity']
-        },
-        type: 'umd2'
-      }
+      library: { type: 'module' }
     },
     performance: {
       maxEntrypointSize: 1024 * 1024,
