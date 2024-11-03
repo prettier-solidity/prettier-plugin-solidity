@@ -20,10 +20,9 @@ export default (webpackEnv) => {
     entry: './src/index.js',
 
     // Avoid bundling Prettier
-    externalsType: 'global',
     externals: {
-      prettier: 'prettier',
-      'fs/promises': 'fs/promises'
+      prettier: 'global prettier',
+      'fs/promises': 'import fs/promises'
     },
 
     plugins: [
