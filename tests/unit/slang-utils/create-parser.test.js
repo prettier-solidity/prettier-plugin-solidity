@@ -87,7 +87,7 @@ describe('inferLanguage', function () {
       version: latestSupportedVersion
     },
     {
-      description: 'broken by new lines, whitespace and comments',
+      description: 'broken by new lines, whitespaces, and comments',
       source: `pragma solidity 0.
       // comment 1
                          7.
