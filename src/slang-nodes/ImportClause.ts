@@ -18,33 +18,19 @@ export class ImportClause implements SlangNode {
 
   variant: PathImport | NamedImport | ImportDeconstruction;
 
-  constructor(
-    ast: ast.ImportClause,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ImportClause, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.PathImport:
-        this.variant = new PathImport(
-          ast.variant as ast.PathImport,
-          offsets[0],
-          options
-        );
+        this.variant = new PathImport(ast.variant as ast.PathImport, options);
         break;
       case NonterminalKind.NamedImport:
-        this.variant = new NamedImport(
-          ast.variant as ast.NamedImport,
-          offsets[0],
-          options
-        );
+        this.variant = new NamedImport(ast.variant as ast.NamedImport, options);
         break;
       case NonterminalKind.ImportDeconstruction:
         this.variant = new ImportDeconstruction(
           ast.variant as ast.ImportDeconstruction,
-          offsets[0],
           options
         );
         break;

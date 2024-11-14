@@ -16,15 +16,10 @@ export class NewExpression implements SlangNode {
 
   typeName: TypeName;
 
-  constructor(
-    ast: ast.NewExpression,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.NewExpression, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, offsets[0], options);
+    this.typeName = new TypeName(ast.typeName, options);
 
     metadata = updateMetadata(metadata, [this.typeName]);
 

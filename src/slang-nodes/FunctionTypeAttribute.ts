@@ -14,8 +14,8 @@ export class FunctionTypeAttribute implements SlangNode {
 
   variant: string;
 
-  constructor(ast: ast.FunctionTypeAttribute, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.FunctionTypeAttribute) {
+    const metadata = getNodeMetadata(ast);
 
     this.variant = ast.variant.unparse();
 

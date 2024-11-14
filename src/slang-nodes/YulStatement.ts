@@ -41,95 +41,75 @@ export class YulStatement implements SlangNode {
     | YulLabel
     | YulExpression;
 
-  constructor(
-    ast: ast.YulStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.YulBlock:
-        this.variant = new YulBlock(
-          ast.variant as ast.YulBlock,
-          offsets[0],
-          options
-        );
+        this.variant = new YulBlock(ast.variant as ast.YulBlock, options);
         break;
       case NonterminalKind.YulFunctionDefinition:
         this.variant = new YulFunctionDefinition(
           ast.variant as ast.YulFunctionDefinition,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.YulVariableDeclarationStatement:
         this.variant = new YulVariableDeclarationStatement(
           ast.variant as ast.YulVariableDeclarationStatement,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.YulVariableAssignmentStatement:
         this.variant = new YulVariableAssignmentStatement(
           ast.variant as ast.YulVariableAssignmentStatement,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.YulStackAssignmentStatement:
         this.variant = new YulStackAssignmentStatement(
-          ast.variant as ast.YulStackAssignmentStatement,
-          offsets[0]
+          ast.variant as ast.YulStackAssignmentStatement
         );
         break;
       case NonterminalKind.YulIfStatement:
         this.variant = new YulIfStatement(
           ast.variant as ast.YulIfStatement,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.YulForStatement:
         this.variant = new YulForStatement(
           ast.variant as ast.YulForStatement,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.YulSwitchStatement:
         this.variant = new YulSwitchStatement(
           ast.variant as ast.YulSwitchStatement,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.YulLeaveStatement:
         this.variant = new YulLeaveStatement(
-          ast.variant as ast.YulLeaveStatement,
-          offsets[0]
+          ast.variant as ast.YulLeaveStatement
         );
         break;
       case NonterminalKind.YulBreakStatement:
         this.variant = new YulBreakStatement(
-          ast.variant as ast.YulBreakStatement,
-          offsets[0]
+          ast.variant as ast.YulBreakStatement
         );
         break;
       case NonterminalKind.YulContinueStatement:
         this.variant = new YulContinueStatement(
-          ast.variant as ast.YulContinueStatement,
-          offsets[0]
+          ast.variant as ast.YulContinueStatement
         );
         break;
       case NonterminalKind.YulLabel:
-        this.variant = new YulLabel(ast.variant as ast.YulLabel, offsets[0]);
+        this.variant = new YulLabel(ast.variant as ast.YulLabel);
         break;
       case NonterminalKind.YulExpression:
         this.variant = new YulExpression(
           ast.variant as ast.YulExpression,
-          offsets[0],
           options
         );
         break;

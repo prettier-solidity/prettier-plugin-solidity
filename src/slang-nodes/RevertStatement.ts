@@ -20,24 +20,13 @@ export class RevertStatement implements SlangNode {
 
   arguments: ArgumentsDeclaration;
 
-  constructor(
-    ast: ast.RevertStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.RevertStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    let i = 0;
     if (ast.error) {
-      this.error = new IdentifierPath(ast.error, offsets[i]);
-      i += 1;
+      this.error = new IdentifierPath(ast.error);
     }
-    this.arguments = new ArgumentsDeclaration(
-      ast.arguments,
-      offsets[i],
-      options
-    );
+    this.arguments = new ArgumentsDeclaration(ast.arguments, options);
 
     metadata = updateMetadata(metadata, [this.error, this.arguments]);
 

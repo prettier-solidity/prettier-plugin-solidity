@@ -1,4 +1,5 @@
 import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type { Doc } from 'prettier';
 import type { Location, SlangNode } from '../types.d.ts';
@@ -13,14 +14,13 @@ export class YulIdentifier implements SlangNode {
 
   value: string;
 
-  constructor(ast: TerminalNode, offset: number) {
+  constructor(ast: TerminalNode) {
+    const metadata = getNodeMetadata(ast);
+
     this.value = ast.unparse();
 
-    this.comments = [];
-    this.loc = {
-      start: offset,
-      end: offset + ast.textLength.utf16
-    };
+    this.comments = metadata.comments;
+    this.loc = metadata.loc;
   }
 
   print(): Doc {

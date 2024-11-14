@@ -22,18 +22,13 @@ export class EventParameter implements SlangNode {
 
   name?: Identifier;
 
-  constructor(
-    ast: ast.EventParameter,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.EventParameter, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, offsets[0], options);
+    this.typeName = new TypeName(ast.typeName, options);
     this.indexedKeyword = ast.indexedKeyword?.unparse();
     if (ast.name) {
-      this.name = new Identifier(ast.name, offsets[1]);
+      this.name = new Identifier(ast.name);
     }
 
     metadata = updateMetadata(metadata, [this.typeName]);

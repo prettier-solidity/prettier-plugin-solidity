@@ -16,21 +16,16 @@ export class UsingClause implements SlangNode {
 
   variant: IdentifierPath | UsingDeconstruction;
 
-  constructor(ast: ast.UsingClause, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.UsingClause) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(
-          ast.variant as ast.IdentifierPath,
-          offsets[0]
-        );
+        this.variant = new IdentifierPath(ast.variant as ast.IdentifierPath);
         break;
       case NonterminalKind.UsingDeconstruction:
         this.variant = new UsingDeconstruction(
-          ast.variant as ast.UsingDeconstruction,
-          offsets[0]
+          ast.variant as ast.UsingDeconstruction
         );
         break;
       default:

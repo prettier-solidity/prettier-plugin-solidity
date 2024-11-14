@@ -16,15 +16,10 @@ export class YulBlock implements SlangNode {
 
   statements: YulStatements;
 
-  constructor(
-    ast: ast.YulBlock,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulBlock, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.statements = new YulStatements(ast.statements, offsets[0], options);
+    this.statements = new YulStatements(ast.statements, options);
 
     metadata = updateMetadata(metadata, [this.statements]);
 

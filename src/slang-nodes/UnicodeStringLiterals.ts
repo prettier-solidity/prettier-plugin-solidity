@@ -19,16 +19,11 @@ export class UnicodeStringLiterals implements SlangNode {
 
   items: UnicodeStringLiteral[];
 
-  constructor(
-    ast: ast.UnicodeStringLiterals,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.UnicodeStringLiterals, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map(
-      (item, index) => new UnicodeStringLiteral(item, offsets[index], options)
+      (item) => new UnicodeStringLiteral(item, options)
     );
 
     metadata = updateMetadata(metadata, [this.items]);

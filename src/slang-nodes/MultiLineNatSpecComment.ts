@@ -1,5 +1,6 @@
 import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { getNodeMetadata } from '../slang-utils/metadata.js';
 import { isIndentableBlockComment } from '../slang-utils/is-indentable-block-comment.js';
 import { printIndentableBlockComment } from '../slang-printers/print-indentable-block-comment.js';
 
@@ -30,13 +31,12 @@ export class MultiLineNatSpecComment implements SlangNode, BaseComment {
 
   followingNode?: StrictAstNode;
 
-  constructor(ast: TerminalNode, offset: number) {
+  constructor(ast: TerminalNode) {
+    const metadata = getNodeMetadata(ast);
+
     this.value = ast.unparse();
 
-    this.loc = {
-      start: offset,
-      end: offset + ast.textLength.utf16
-    };
+    this.loc = metadata.loc;
   }
 
   print(): Doc {

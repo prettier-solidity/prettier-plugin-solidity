@@ -18,16 +18,11 @@ export class PrefixExpression implements SlangNode {
 
   operand: Expression;
 
-  constructor(
-    ast: ast.PrefixExpression,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.PrefixExpression, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     this.operator = ast.operator.unparse();
-    this.operand = new Expression(ast.operand, offsets[0], options);
+    this.operand = new Expression(ast.operand, options);
 
     metadata = updateMetadata(metadata, [this.operand]);
 

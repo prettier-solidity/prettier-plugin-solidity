@@ -16,22 +16,15 @@ export class MappingKeyType implements SlangNode {
 
   variant: ElementaryType | IdentifierPath;
 
-  constructor(ast: ast.MappingKeyType, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.MappingKeyType) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ElementaryType:
-        this.variant = new ElementaryType(
-          ast.variant as ast.ElementaryType,
-          offsets[0]
-        );
+        this.variant = new ElementaryType(ast.variant as ast.ElementaryType);
         break;
       case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(
-          ast.variant as ast.IdentifierPath,
-          offsets[0]
-        );
+        this.variant = new IdentifierPath(ast.variant as ast.IdentifierPath);
         break;
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);

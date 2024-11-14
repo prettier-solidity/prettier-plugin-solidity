@@ -12,8 +12,8 @@ export class YulBreakStatement implements SlangNode {
 
   loc;
 
-  constructor(ast: ast.YulBreakStatement, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.YulBreakStatement) {
+    const metadata = getNodeMetadata(ast);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

@@ -17,13 +17,8 @@ export class FunctionAttribute implements SlangNode {
 
   variant: ModifierInvocation | OverrideSpecifier | string;
 
-  constructor(
-    ast: ast.FunctionAttribute,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.FunctionAttribute, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
@@ -32,14 +27,12 @@ export class FunctionAttribute implements SlangNode {
         case NonterminalKind.ModifierInvocation:
           this.variant = new ModifierInvocation(
             ast.variant as ast.ModifierInvocation,
-            offsets[0],
             options
           );
           break;
         case NonterminalKind.OverrideSpecifier:
           this.variant = new OverrideSpecifier(
-            ast.variant as ast.OverrideSpecifier,
-            offsets[0]
+            ast.variant as ast.OverrideSpecifier
           );
           break;
         default:

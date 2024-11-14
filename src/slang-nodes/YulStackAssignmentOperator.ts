@@ -15,14 +15,13 @@ export class YulStackAssignmentOperator implements SlangNode {
 
   variant: YulEqualAndColon | string;
 
-  constructor(ast: ast.YulStackAssignmentOperator, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulStackAssignmentOperator) {
+    let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
-        : new YulEqualAndColon(ast.variant, offsets[0]);
+        : new YulEqualAndColon(ast.variant);
 
     metadata = updateMetadata(
       metadata,

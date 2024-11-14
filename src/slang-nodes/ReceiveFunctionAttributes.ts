@@ -22,15 +22,12 @@ export class ReceiveFunctionAttributes implements SlangNode {
 
   constructor(
     ast: ast.ReceiveFunctionAttributes,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map(
-      (item, index) =>
-        new ReceiveFunctionAttribute(item, offsets[index], options)
+      (item) => new ReceiveFunctionAttribute(item, options)
     );
 
     metadata = updateMetadata(metadata, [this.items]);

@@ -21,17 +21,11 @@ export class PositionalArgumentsDeclaration implements SlangNode {
 
   constructor(
     ast: ast.PositionalArgumentsDeclaration,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.arguments = new PositionalArguments(
-      ast.arguments,
-      offsets[0],
-      options
-    );
+    this.arguments = new PositionalArguments(ast.arguments, options);
 
     metadata = updateMetadata(metadata, [this.arguments]);
 

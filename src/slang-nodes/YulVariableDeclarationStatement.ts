@@ -22,19 +22,13 @@ export class YulVariableDeclarationStatement implements SlangNode {
 
   constructor(
     ast: ast.YulVariableDeclarationStatement,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.variables = new YulVariableNames(ast.variables, offsets[0]);
+    this.variables = new YulVariableNames(ast.variables);
     if (ast.value) {
-      this.value = new YulVariableDeclarationValue(
-        ast.value,
-        offsets[1],
-        options
-      );
+      this.value = new YulVariableDeclarationValue(ast.value, options);
     }
 
     metadata = updateMetadata(metadata, [this.value]);

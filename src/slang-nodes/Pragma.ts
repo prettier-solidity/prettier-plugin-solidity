@@ -18,33 +18,21 @@ export class Pragma implements SlangNode {
 
   variant: AbicoderPragma | ExperimentalPragma | VersionPragma;
 
-  constructor(
-    ast: ast.Pragma,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.Pragma, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.AbicoderPragma:
-        this.variant = new AbicoderPragma(
-          ast.variant as ast.AbicoderPragma,
-          offsets[0]
-        );
+        this.variant = new AbicoderPragma(ast.variant as ast.AbicoderPragma);
         break;
       case NonterminalKind.ExperimentalPragma:
         this.variant = new ExperimentalPragma(
           ast.variant as ast.ExperimentalPragma,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.VersionPragma:
-        this.variant = new VersionPragma(
-          ast.variant as ast.VersionPragma,
-          offsets[0]
-        );
+        this.variant = new VersionPragma(ast.variant as ast.VersionPragma);
         break;
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);

@@ -128,14 +128,12 @@ export class MemberAccessExpression implements SlangNode {
 
   constructor(
     ast: ast.MemberAccessExpression,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.operand = new Expression(ast.operand, offsets[0], options);
-    this.member = new Identifier(ast.member, offsets[1]);
+    this.operand = new Expression(ast.operand, options);
+    this.member = new Identifier(ast.member);
 
     metadata = updateMetadata(metadata, [this.operand]);
 

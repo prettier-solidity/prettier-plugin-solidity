@@ -16,15 +16,10 @@ export class UncheckedBlock implements SlangNode {
 
   block: Block;
 
-  constructor(
-    ast: ast.UncheckedBlock,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.UncheckedBlock, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.block = new Block(ast.block, offsets[0], options);
+    this.block = new Block(ast.block, options);
 
     metadata = updateMetadata(metadata, [this.block]);
 

@@ -15,11 +15,10 @@ export class YulPathComponent implements SlangNode {
 
   variant: YulIdentifier;
 
-  constructor(ast: ast.YulPathComponent, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulPathComponent) {
+    const metadata = getNodeMetadata(ast);
 
-    this.variant = new YulIdentifier(ast.variant, offsets[0]);
+    this.variant = new YulIdentifier(ast.variant);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

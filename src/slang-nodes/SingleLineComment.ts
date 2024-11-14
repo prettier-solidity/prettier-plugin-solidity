@@ -1,4 +1,5 @@
 import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type { Doc } from 'prettier';
 import type { BaseComment, Location, SlangNode } from '../types.d.ts';
@@ -25,13 +26,12 @@ export class SingleLineComment implements SlangNode, BaseComment {
 
   followingNode?: StrictAstNode;
 
-  constructor(ast: TerminalNode, offset: number) {
+  constructor(ast: TerminalNode) {
+    const metadata = getNodeMetadata(ast);
+
     this.value = ast.unparse();
 
-    this.loc = {
-      start: offset,
-      end: offset + ast.textLength.utf16
-    };
+    this.loc = metadata.loc;
   }
 
   print(): Doc {

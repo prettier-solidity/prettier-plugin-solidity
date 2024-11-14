@@ -15,11 +15,10 @@ export class UsingDeconstruction implements SlangNode {
 
   symbols: UsingDeconstructionSymbols;
 
-  constructor(ast: ast.UsingDeconstruction, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.UsingDeconstruction) {
+    let metadata = getNodeMetadata(ast);
 
-    this.symbols = new UsingDeconstructionSymbols(ast.symbols, offsets[0]);
+    this.symbols = new UsingDeconstructionSymbols(ast.symbols);
 
     metadata = updateMetadata(metadata, [this.symbols]);
 

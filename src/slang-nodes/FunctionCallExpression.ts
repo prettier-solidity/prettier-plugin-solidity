@@ -25,18 +25,12 @@ export class FunctionCallExpression implements SlangNode {
 
   constructor(
     ast: ast.FunctionCallExpression,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.operand = new Expression(ast.operand, offsets[0], options);
-    this.arguments = new ArgumentsDeclaration(
-      ast.arguments,
-      offsets[1],
-      options
-    );
+    this.operand = new Expression(ast.operand, options);
+    this.arguments = new ArgumentsDeclaration(ast.arguments, options);
 
     metadata = updateMetadata(metadata, [this.operand, this.arguments]);
 

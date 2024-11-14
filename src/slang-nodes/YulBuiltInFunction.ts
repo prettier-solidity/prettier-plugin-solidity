@@ -14,8 +14,8 @@ export class YulBuiltInFunction implements SlangNode {
 
   variant: string;
 
-  constructor(ast: ast.YulBuiltInFunction, offset: number) {
-    const metadata = getNodeMetadata(ast, offset);
+  constructor(ast: ast.YulBuiltInFunction) {
+    const metadata = getNodeMetadata(ast);
 
     this.variant = ast.variant.unparse();
 

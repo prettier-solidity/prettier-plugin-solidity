@@ -15,14 +15,13 @@ export class ModifierAttribute implements SlangNode {
 
   variant: OverrideSpecifier | string;
 
-  constructor(ast: ast.ModifierAttribute, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ModifierAttribute) {
+    let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
-        : new OverrideSpecifier(ast.variant, offsets[0]);
+        : new OverrideSpecifier(ast.variant);
 
     metadata = updateMetadata(
       metadata,

@@ -22,15 +22,12 @@ export class FallbackFunctionAttributes implements SlangNode {
 
   constructor(
     ast: ast.FallbackFunctionAttributes,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map(
-      (item, index) =>
-        new FallbackFunctionAttribute(item, offsets[index], options)
+      (item) => new FallbackFunctionAttribute(item, options)
     );
 
     metadata = updateMetadata(metadata, [this.items]);

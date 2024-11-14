@@ -18,13 +18,12 @@ export class UsingDeconstructionSymbol implements SlangNode {
 
   alias?: UsingAlias;
 
-  constructor(ast: ast.UsingDeconstructionSymbol, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.UsingDeconstructionSymbol) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new IdentifierPath(ast.name, offsets[0]);
+    this.name = new IdentifierPath(ast.name);
     if (ast.alias) {
-      this.alias = new UsingAlias(ast.alias, offsets[1]);
+      this.alias = new UsingAlias(ast.alias);
     }
 
     metadata = updateMetadata(metadata, [this.name, this.alias]);

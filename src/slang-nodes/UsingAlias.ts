@@ -15,11 +15,10 @@ export class UsingAlias implements SlangNode {
 
   operator: UsingOperator;
 
-  constructor(ast: ast.UsingAlias, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.UsingAlias) {
+    let metadata = getNodeMetadata(ast);
 
-    this.operator = new UsingOperator(ast.operator, offsets[0]);
+    this.operator = new UsingOperator(ast.operator);
 
     metadata = updateMetadata(metadata, [this.operator]);
 

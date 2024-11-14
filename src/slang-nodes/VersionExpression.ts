@@ -16,22 +16,15 @@ export class VersionExpression implements SlangNode {
 
   variant: VersionRange | VersionTerm;
 
-  constructor(ast: ast.VersionExpression, offset: number) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.VersionExpression) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.VersionRange:
-        this.variant = new VersionRange(
-          ast.variant as ast.VersionRange,
-          offsets[0]
-        );
+        this.variant = new VersionRange(ast.variant as ast.VersionRange);
         break;
       case NonterminalKind.VersionTerm:
-        this.variant = new VersionTerm(
-          ast.variant as ast.VersionTerm,
-          offsets[0]
-        );
+        this.variant = new VersionTerm(ast.variant as ast.VersionTerm);
         break;
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);

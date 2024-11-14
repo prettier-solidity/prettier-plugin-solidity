@@ -20,17 +20,10 @@ export class TupleValues implements SlangNode {
 
   separators: string[];
 
-  constructor(
-    ast: ast.TupleValues,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.TupleValues, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new TupleValue(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new TupleValue(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);

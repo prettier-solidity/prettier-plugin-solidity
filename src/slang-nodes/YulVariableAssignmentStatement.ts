@@ -27,15 +27,13 @@ export class YulVariableAssignmentStatement implements SlangNode {
 
   constructor(
     ast: ast.YulVariableAssignmentStatement,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
-    this.variables = new YulPaths(ast.variables, offsets[0]);
-    this.assignment = new YulAssignmentOperator(ast.assignment, offsets[1]);
-    this.expression = new YulExpression(ast.expression, offsets[2], options);
+    this.variables = new YulPaths(ast.variables);
+    this.assignment = new YulAssignmentOperator(ast.assignment);
+    this.expression = new YulExpression(ast.expression, options);
 
     metadata = updateMetadata(metadata, [
       this.variables,

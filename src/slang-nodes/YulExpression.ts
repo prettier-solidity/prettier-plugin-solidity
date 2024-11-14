@@ -23,37 +23,26 @@ export class YulExpression implements SlangNode {
     | YulBuiltInFunction
     | YulPath;
 
-  constructor(
-    ast: ast.YulExpression,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.YulExpression, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.YulFunctionCallExpression:
         this.variant = new YulFunctionCallExpression(
           ast.variant as ast.YulFunctionCallExpression,
-          offsets[0],
           options
         );
         break;
       case NonterminalKind.YulLiteral:
-        this.variant = new YulLiteral(
-          ast.variant as ast.YulLiteral,
-          offsets[0],
-          options
-        );
+        this.variant = new YulLiteral(ast.variant as ast.YulLiteral, options);
         break;
       case NonterminalKind.YulBuiltInFunction:
         this.variant = new YulBuiltInFunction(
-          ast.variant as ast.YulBuiltInFunction,
-          offsets[0]
+          ast.variant as ast.YulBuiltInFunction
         );
         break;
       case NonterminalKind.YulPath:
-        this.variant = new YulPath(ast.variant as ast.YulPath, offsets[0]);
+        this.variant = new YulPath(ast.variant as ast.YulPath);
         break;
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);

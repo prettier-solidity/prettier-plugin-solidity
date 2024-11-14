@@ -21,17 +21,12 @@ export class ComparisonExpression implements SlangNode {
 
   rightOperand: Expression;
 
-  constructor(
-    ast: ast.ComparisonExpression,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ComparisonExpression, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.leftOperand = new Expression(ast.leftOperand, offsets[0], options);
+    this.leftOperand = new Expression(ast.leftOperand, options);
     this.operator = ast.operator.unparse();
-    this.rightOperand = new Expression(ast.rightOperand, offsets[1], options);
+    this.rightOperand = new Expression(ast.rightOperand, options);
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);
 

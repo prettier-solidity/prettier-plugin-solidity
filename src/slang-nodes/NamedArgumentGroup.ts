@@ -16,15 +16,10 @@ export class NamedArgumentGroup implements SlangNode {
 
   arguments: NamedArguments;
 
-  constructor(
-    ast: ast.NamedArgumentGroup,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.NamedArgumentGroup, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.arguments = new NamedArguments(ast.arguments, offsets[0], options);
+    this.arguments = new NamedArguments(ast.arguments, options);
 
     metadata = updateMetadata(metadata, [this.arguments]);
 

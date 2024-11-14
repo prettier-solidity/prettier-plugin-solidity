@@ -21,18 +21,13 @@ export class ExperimentalFeature implements SlangNode {
 
   variant: StringLiteral | Identifier;
 
-  constructor(
-    ast: ast.ExperimentalFeature,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ExperimentalFeature, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
-        ? new Identifier(ast.variant, offsets[0])
-        : new StringLiteral(ast.variant, offsets[0], options);
+        ? new Identifier(ast.variant)
+        : new StringLiteral(ast.variant, options);
 
     metadata = updateMetadata(
       metadata,

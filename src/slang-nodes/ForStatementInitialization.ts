@@ -24,11 +24,9 @@ export class ForStatementInitialization implements SlangNode {
 
   constructor(
     ast: ast.ForStatementInitialization,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
@@ -37,21 +35,18 @@ export class ForStatementInitialization implements SlangNode {
         case NonterminalKind.ExpressionStatement:
           this.variant = new ExpressionStatement(
             ast.variant as ast.ExpressionStatement,
-            offsets[0],
             options
           );
           break;
         case NonterminalKind.VariableDeclarationStatement:
           this.variant = new VariableDeclarationStatement(
             ast.variant as ast.VariableDeclarationStatement,
-            offsets[0],
             options
           );
           break;
         case NonterminalKind.TupleDeconstructionStatement:
           this.variant = new TupleDeconstructionStatement(
             ast.variant as ast.TupleDeconstructionStatement,
-            offsets[0],
             options
           );
           break;

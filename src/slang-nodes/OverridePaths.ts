@@ -18,13 +18,10 @@ export class OverridePaths implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.OverridePaths, offset: number) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.OverridePaths) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new IdentifierPath(item, offsets[index])
-    );
+    this.items = ast.items.map((item) => new IdentifierPath(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);

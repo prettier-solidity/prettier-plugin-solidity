@@ -19,20 +19,11 @@ export class ErrorDefinition implements SlangNode {
 
   members: ErrorParametersDeclaration;
 
-  constructor(
-    ast: ast.ErrorDefinition,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ErrorDefinition, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.name = new Identifier(ast.name, offsets[0]);
-    this.members = new ErrorParametersDeclaration(
-      ast.members,
-      offsets[1],
-      options
-    );
+    this.name = new Identifier(ast.name);
+    this.members = new ErrorParametersDeclaration(ast.members, options);
 
     metadata = updateMetadata(metadata, [this.members]);
 

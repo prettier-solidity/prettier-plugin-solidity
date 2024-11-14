@@ -16,15 +16,10 @@ export class ExpressionStatement implements SlangNode {
 
   expression: Expression;
 
-  constructor(
-    ast: ast.ExpressionStatement,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset);
-    const { offsets } = metadata;
+  constructor(ast: ast.ExpressionStatement, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast);
 
-    this.expression = new Expression(ast.expression, offsets[0], options);
+    this.expression = new Expression(ast.expression, options);
 
     metadata = updateMetadata(metadata, [this.expression]);
 

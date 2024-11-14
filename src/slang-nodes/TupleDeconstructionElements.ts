@@ -21,15 +21,12 @@ export class TupleDeconstructionElements implements SlangNode {
 
   constructor(
     ast: ast.TupleDeconstructionElements,
-    offset: number,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+    let metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map(
-      (item, index) =>
-        new TupleDeconstructionElement(item, offsets[index], options)
+      (item) => new TupleDeconstructionElement(item, options)
     );
     this.separators = ast.separators.map((separator) => separator.unparse());
 

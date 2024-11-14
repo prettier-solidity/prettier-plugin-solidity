@@ -22,17 +22,10 @@ export class CallOptions implements SlangNode {
 
   separators: string[];
 
-  constructor(
-    ast: ast.CallOptions,
-    offset: number,
-    options: ParserOptions<AstNode>
-  ) {
-    let metadata = getNodeMetadata(ast, offset, true);
-    const { offsets } = metadata;
+  constructor(ast: ast.CallOptions, options: ParserOptions<AstNode>) {
+    let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item, index) => new NamedArgument(item, offsets[index], options)
-    );
+    this.items = ast.items.map((item) => new NamedArgument(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
