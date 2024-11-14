@@ -75,7 +75,7 @@ function tryToCollectPragmas(text: string, version: string): string[] {
     );
     ranges.push(
       // Replace all comments that could be in the expression with whitespace
-      new VersionExpressionSets(versionRange, 0).comments.reduce(
+      new VersionExpressionSets(versionRange).comments.reduce(
         (range, comment) => range.replace(comment.value, ' '),
         versionRange.cst.unparse()
       )
