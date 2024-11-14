@@ -95,6 +95,16 @@ describe('inferLanguage', function () {
     });
   }
 
+  test('should throw when a pragma is broken by new lines, whitespace and comments', function () {
+    expect(() =>
+      createParser(`pragma solidity 0.
+    // comment 1
+                       7.
+    /* comment 2*/
+           3;`)
+    ).toThrow();
+  });
+
   test.skip('should throw an error if there are incompatible ranges', function () {
     expect(() =>
       createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`)
