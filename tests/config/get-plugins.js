@@ -15,7 +15,6 @@ if (process.env.TEST_STANDALONE) {
           ? self
           : this || {};
   root.prettier = await getPrettier();
-  root["fs/promises"] = await import("fs/promises");
 }
 
 function getPluginsInternal() {
