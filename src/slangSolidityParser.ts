@@ -22,7 +22,7 @@ export default function parse(
   const parser =
     compiler && supportedVersions.includes(compiler)
       ? Parser.create(compiler)
-      : createParser(text);
+      : createParser(text, options.filepath);
 
   const parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
   printWarning(

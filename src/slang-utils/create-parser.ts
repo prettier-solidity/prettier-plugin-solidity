@@ -33,7 +33,7 @@ const query = Query.parse(
 // TODO if we ended up selecting the same version that the pragmas were parsed with,
 // should we be able to reuse/just return the already parsed CST, instead of
 // returning a Parser and forcing user to parse it again?
-export function createParser(text: string): Parser {
+export function createParser(text: string, filepath: string): Parser {
   let inferredRanges: string[] = [];
 
   for (const version of milestoneVersions) {
@@ -47,7 +47,7 @@ export function createParser(text: string): Parser {
     (versions, inferredRange) => {
       if (!validRange(inferredRange)) {
         throw new Error(
-          "Couldn't infer any version from the ranges in the pragmas."
+          `Couldn't infer any version from the ranges in the pragmas for file ${filepath}`
         );
       }
       return versions.filter((supportedVersion) =>

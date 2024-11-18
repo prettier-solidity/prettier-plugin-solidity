@@ -90,24 +90,29 @@ describe('inferLanguage', function () {
 
   for (const { description, source, version } of fixtures) {
     test(description, function () {
-      const parser = createParser(source);
+      const parser = createParser(source, 'test.sol');
       expect(parser.version).toEqual(version);
     });
   }
 
   test('should throw when a pragma is broken by new lines, whitespace and comments', function () {
     expect(() =>
-      createParser(`pragma solidity 0.
+      createParser(
+        `pragma solidity 0.
     // comment 1
                        7.
     /* comment 2*/
-           3;`)
-    ).toThrow();
+           3;`,
+        'test.sol'
+      )
+    ).toThrow(
+      "Couldn't infer any version from the ranges in the pragmas for file test.sol"
+    );
   });
 
   test.skip('should throw an error if there are incompatible ranges', function () {
     expect(() =>
-      createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`)
+      createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`, 'test.sol')
     ).toThrow();
   });
 });
