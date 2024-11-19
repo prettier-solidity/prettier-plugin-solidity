@@ -11,6 +11,8 @@ import {
 } from 'semver';
 import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
 
+import type { ParserOptions } from 'prettier';
+
 const supportedVersions = Parser.supportedVersions();
 
 const milestoneVersions = Array.from(
@@ -33,7 +35,7 @@ const query = Query.parse(
 // TODO if we ended up selecting the same version that the pragmas were parsed with,
 // should we be able to reuse/just return the already parsed CST, instead of
 // returning a Parser and forcing user to parse it again?
-export function createParser(text: string, filepath: string): Parser {
+export function createParser(text: string, options: ParserOptions): Parser {
   let inferredRanges: string[] = [];
 
   for (const version of milestoneVersions) {
@@ -47,7 +49,7 @@ export function createParser(text: string, filepath: string): Parser {
     (versions, inferredRange) => {
       if (!validRange(inferredRange)) {
         throw new Error(
-          `Couldn't infer any version from the ranges in the pragmas for file ${filepath}`
+          `Couldn't infer any version from the ranges in the pragmas${options.filepath ? ` for file ${options.filepath}` : ''}`
         );
       }
       return versions.filter((supportedVersion) =>
