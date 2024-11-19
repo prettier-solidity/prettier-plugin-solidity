@@ -5,6 +5,7 @@ describe('inferLanguage', function () {
   const supportedVersions = Parser.supportedVersions();
   const latestSupportedVersion =
     supportedVersions[supportedVersions.length - 1];
+  const options = { filepath: 'test.sol' };
 
   const fixtures = [
     {
@@ -90,14 +91,39 @@ describe('inferLanguage', function () {
 
   for (const { description, source, version } of fixtures) {
     test(description, function () {
-      const parser = createParser(source);
+      const parser = createParser(source, options);
       expect(parser.version).toEqual(version);
     });
   }
 
+  test('should throw when a pragma is broken by new lines, whitespace and comments', function () {
+    expect(() =>
+      createParser(
+        `pragma solidity 0.
+    // comment 1
+                       7.
+    /* comment 2*/
+           3;`,
+        options
+      )
+    ).toThrow(
+      "Couldn't infer any version from the ranges in the pragmas for file test.sol"
+    );
+    expect(() =>
+      createParser(
+        `pragma solidity 0.
+    // comment 1
+                       7.
+    /* comment 2*/
+           3;`,
+        {}
+      )
+    ).toThrow("Couldn't infer any version from the ranges in the pragmas");
+  });
+
   test.skip('should throw an error if there are incompatible ranges', function () {
     expect(() =>
-      createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`)
+      createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`, options)
     ).toThrow();
   });
 });

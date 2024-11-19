@@ -1,6 +1,6 @@
+import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfoundation/slang/ast';
 import { NonterminalKind, Query } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
-import strip from 'strip-comments';
 import {
   maxSatisfying,
   minSatisfying,
@@ -9,6 +9,9 @@ import {
   satisfies,
   validRange
 } from 'semver';
+import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
+
+import type { ParserOptions } from 'prettier';
 
 const supportedVersions = Parser.supportedVersions();
 
@@ -25,10 +28,14 @@ const milestoneVersions = Array.from(
     return versions;
   }, []);
 
+const query = Query.parse(
+  '[VersionPragma @versionRanges [VersionExpressionSets]]'
+);
+
 // TODO if we ended up selecting the same version that the pragmas were parsed with,
 // should we be able to reuse/just return the already parsed CST, instead of
 // returning a Parser and forcing user to parse it again?
-export function createParser(text: string): Parser {
+export function createParser(text: string, options: ParserOptions): Parser {
   let inferredRanges: string[] = [];
 
   for (const version of milestoneVersions) {
@@ -42,7 +49,7 @@ export function createParser(text: string): Parser {
     (versions, inferredRange) => {
       if (!validRange(inferredRange)) {
         throw new Error(
-          "Couldn't infer any version from the ranges in the pragmas."
+          `Couldn't infer any version from the ranges in the pragmas${options.filepath ? ` for file ${options.filepath}` : ''}`
         );
       }
       return versions.filter((supportedVersion) =>
@@ -60,18 +67,20 @@ export function createParser(text: string): Parser {
 function tryToCollectPragmas(text: string, version: string): string[] {
   const language = Parser.create(version);
   const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
-  const query = Query.parse(
-    '[VersionPragma @versionRanges [VersionExpressionSets]]'
-  );
   const matches = parseOutput.createTreeCursor().query([query]);
   const ranges: string[] = [];
 
   let match;
   while ((match = matches.next())) {
+    const versionRange = new SlangVersionExpressionSets(
+      match.captures.versionRanges[0].node.asNonterminalNode()!
+    );
     ranges.push(
-      strip(match.captures.versionRanges[0].node.unparse(), {
-        keepProtected: true
-      })
+      // Replace all comments that could be in the expression with whitespace
+      new VersionExpressionSets(versionRange).comments.reduce(
+        (range, comment) => range.replace(comment.value, ' '),
+        versionRange.cst.unparse()
+      )
     );
   }
 
