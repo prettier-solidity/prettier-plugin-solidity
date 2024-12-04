@@ -91,7 +91,7 @@ describe('inferLanguage', function () {
 
   for (const { description, source, version } of fixtures) {
     test(description, function () {
-      const parser = createParser(source, options);
+      const [parser] = createParser(source, options);
       expect(parser.version).toEqual(version);
     });
   }

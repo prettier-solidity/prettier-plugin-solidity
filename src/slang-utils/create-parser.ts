@@ -11,7 +11,9 @@ import {
 } from 'semver';
 import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
 
+import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
+import type { AstNode } from '../slang-nodes/types.js';
 
 const supportedVersions = Parser.supportedVersions();
 
@@ -32,17 +34,36 @@ const query = Query.parse(
   '[VersionPragma @versionRanges [VersionExpressionSets]]'
 );
 
-// TODO if we ended up selecting the same version that the pragmas were parsed with,
-// should we be able to reuse/just return the already parsed CST, instead of
-// returning a Parser and forcing user to parse it again?
-export function createParser(text: string, options: ParserOptions): Parser {
+export function createParser(
+  text: string,
+  options: ParserOptions<AstNode>
+): [Parser, ParseOutput] {
+  const compiler = maxSatisfying(supportedVersions, options.compiler);
+  let parser: Parser;
+  if (compiler) {
+    parser = Parser.create(compiler);
+    return [parser, parser.parse(NonterminalKind.SourceUnit, text)];
+  }
+
+  parser = Parser.create(milestoneVersions[0]);
+  let parseOutput;
   let inferredRanges: string[] = [];
 
-  for (const version of milestoneVersions) {
-    try {
-      inferredRanges = tryToCollectPragmas(text, version);
-      break;
-    } catch {}
+  try {
+    parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
+    inferredRanges = tryToCollectPragmas(parseOutput, parser);
+  } catch {
+    for (let i = 1; i <= milestoneVersions.length; i += 1) {
+      try {
+        const version = milestoneVersions[i];
+        parser = Parser.create(version);
+        parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
+        inferredRanges = tryToCollectPragmas(parseOutput, parser);
+        break;
+      } catch {
+        continue;
+      }
+    }
   }
 
   const satisfyingVersions = inferredRanges.reduce(
@@ -59,14 +80,24 @@ export function createParser(text: string, options: ParserOptions): Parser {
     supportedVersions
   );
 
-  return satisfyingVersions.length > 0
-    ? Parser.create(satisfyingVersions[satisfyingVersions.length - 1])
-    : Parser.create(supportedVersions[supportedVersions.length - 1]);
+  const inferredVersion =
+    satisfyingVersions.length > 0
+      ? satisfyingVersions[satisfyingVersions.length - 1]
+      : supportedVersions[supportedVersions.length - 1];
+
+  if (inferredVersion !== parser.version) {
+    parser = Parser.create(inferredVersion);
+    parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  return [parser, parseOutput!];
 }
 
-function tryToCollectPragmas(text: string, version: string): string[] {
-  const language = Parser.create(version);
-  const parseOutput = language.parse(NonterminalKind.SourceUnit, text);
+function tryToCollectPragmas(
+  parseOutput: ParseOutput,
+  parser: Parser
+): string[] {
   const matches = parseOutput.createTreeCursor().query([query]);
   const ranges: string[] = [];
 
@@ -87,11 +118,11 @@ function tryToCollectPragmas(text: string, version: string): string[] {
   if (ranges.length === 0) {
     // If we didn't find pragmas but succeeded parsing the source we keep it.
     if (parseOutput.isValid()) {
-      return [version];
+      return [parser.version];
     }
     // Otherwise we throw.
     throw new Error(
-      `Using version ${version} did not find any pragma statement and does not parse without errors.`
+      `Using version ${parser.version} did not find any pragma statement and does not parse without errors.`
     );
   }
 
