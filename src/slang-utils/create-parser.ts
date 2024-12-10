@@ -34,18 +34,21 @@ const query = Query.parse(
   '[VersionPragma @versionRanges [VersionExpressionSets]]'
 );
 
+let parser: Parser;
+
 export function createParser(
   text: string,
   options: ParserOptions<AstNode>
 ): [Parser, ParseOutput] {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
-  let parser: Parser;
   if (compiler) {
-    parser = Parser.create(compiler);
+    if (parser?.version !== compiler) {
+      parser = Parser.create(compiler);
+    }
     return [parser, parser.parse(NonterminalKind.SourceUnit, text)];
   }
 
-  parser = Parser.create(milestoneVersions[0]);
+  parser = parser ?? Parser.create(milestoneVersions[0]);
   let parseOutput;
   let inferredRanges: string[] = [];
 
@@ -53,7 +56,11 @@ export function createParser(
     parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
     inferredRanges = tryToCollectPragmas(parseOutput, parser);
   } catch {
-    for (let i = 1; i <= milestoneVersions.length; i += 1) {
+    for (
+      let i = parser.version === milestoneVersions[0] ? 1 : 0;
+      i <= milestoneVersions.length;
+      i += 1
+    ) {
       try {
         const version = milestoneVersions[i];
         parser = Parser.create(version);
