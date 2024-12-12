@@ -42,7 +42,7 @@ export function createParser(
 ): [Parser, ParseOutput] {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
   if (compiler) {
-    if (parser?.version !== compiler) {
+    if (!parser || parser.version !== compiler) {
       parser = Parser.create(compiler);
     }
     return [parser, parser.parse(NonterminalKind.SourceUnit, text)];
