@@ -71,17 +71,6 @@ describe('inferLanguage', function () {
       version: '0.8.2'
     },
     {
-      description: 'should use the latest version if the source has no pragmas',
-      source: `contract Foo {}`,
-      version: latestSupportedVersion
-    },
-    {
-      description:
-        'should use the latest valid version if the source has no pragmas and the syntax is old',
-      source: `contract Foo {byte bar;}`,
-      version: '0.7.6'
-    },
-    {
       description:
         'should use the latest version if the range is outside the supported versions',
       source: `pragma solidity ^0.8.27;`,
@@ -91,10 +80,38 @@ describe('inferLanguage', function () {
 
   for (const { description, source, version } of fixtures) {
     test(description, function () {
-      const parser = createParser(source, options);
+      const [parser] = createParser(source, options);
       expect(parser.version).toEqual(version);
     });
   }
+
+  test('should use the latest successful version if the source has no pragmas', function () {
+    createParser(`pragma solidity 0.8.28;`, options);
+    let [parser] = createParser(`contract Foo {}`, options);
+    expect(parser.version).toEqual('0.8.28');
+
+    createParser(`pragma solidity 0.8.2;`, options);
+    [parser] = createParser(`contract Foo {}`, options);
+    expect(parser.version).toEqual('0.8.28');
+
+    [parser] = createParser(`contract Foo {byte bar;}`, options);
+    expect(parser.version).toEqual('0.7.6');
+  });
+
+  test('should use compiler option if given', function () {
+    let [parser] = createParser(`pragma solidity ^0.8.0;`, {
+      compiler: '0.8.20'
+    });
+    expect(parser.version).toEqual('0.8.20');
+
+    [parser] = createParser(`pragma solidity ^0.8.0;`, {
+      compiler: '0.8.2'
+    });
+    expect(parser.version).toEqual('0.8.2');
+
+    [parser] = createParser(`pragma solidity ^0.8.0;`, {});
+    expect(parser.version).toEqual(latestSupportedVersion);
+  });
 
   test('should throw when a pragma is broken by new lines, whitespace and comments', function () {
     expect(() =>
