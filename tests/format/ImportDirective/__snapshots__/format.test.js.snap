@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImportDirectives.sol - {"bracketSpacing":true,"compiler":"0.8.28"} format 1`] = `
+exports[`ImportDirectives.sol - {"bracketSpacing":true} format 1`] = `
 ====================================options=====================================
 bracketSpacing: true
-compiler: "0.8.28"
 parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
@@ -29,7 +28,7 @@ import {
 ================================================================================
 `;
 
-exports[`ImportDirectives.sol - {"bracketSpacing":true} format 1`] = `
+exports[`ImportDirectives.sol - {"bracketSpacing":true} format 2`] = `
 ====================================options=====================================
 bracketSpacing: true
 parsers: ["solidity-parse"]
@@ -52,9 +51,8 @@ import { symbol1 as alias1, symbol2 as alias2, symbol3 as alias3, symbol4 } from
 ================================================================================
 `;
 
-exports[`ImportDirectives.sol - {"compiler":"0.8.28"} format 1`] = `
+exports[`ImportDirectives.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.8.28"
 parsers: ["slang-solidity"]
 printWidth: 80
                                                                                 | printWidth
@@ -80,7 +78,7 @@ import {
 ================================================================================
 `;
 
-exports[`ImportDirectives.sol format 1`] = `
+exports[`ImportDirectives.sol format 2`] = `
 ====================================options=====================================
 parsers: ["solidity-parse"]
 printWidth: 80

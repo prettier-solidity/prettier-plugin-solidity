@@ -48,16 +48,22 @@ export function createParser(
     return [parser, parser.parse(NonterminalKind.SourceUnit, text)];
   }
 
-  parser = parser ?? Parser.create(milestoneVersions[0]);
+  let isCachedParser = false;
+  if (parser) {
+    isCachedParser = true;
+  } else {
+    parser = Parser.create(milestoneVersions[0]);
+  }
+
   let parseOutput;
   let inferredRanges: string[] = [];
 
   try {
     parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
-    inferredRanges = tryToCollectPragmas(parseOutput, parser);
+    inferredRanges = tryToCollectPragmas(parseOutput, parser, isCachedParser);
   } catch {
     for (
-      let i = parser.version === milestoneVersions[0] ? 1 : 0;
+      let i = isCachedParser ? 0 : 1;
       i <= milestoneVersions.length;
       i += 1
     ) {
@@ -103,7 +109,8 @@ export function createParser(
 
 function tryToCollectPragmas(
   parseOutput: ParseOutput,
-  parser: Parser
+  parser: Parser,
+  isCachedParser = false
 ): string[] {
   const matches = parseOutput.createTreeCursor().query([query]);
   const ranges: string[] = [];
@@ -124,7 +131,7 @@ function tryToCollectPragmas(
 
   if (ranges.length === 0) {
     // If we didn't find pragmas but succeeded parsing the source we keep it.
-    if (parseOutput.isValid()) {
+    if (!isCachedParser && parseOutput.isValid()) {
       return [parser.version];
     }
     // Otherwise we throw.
