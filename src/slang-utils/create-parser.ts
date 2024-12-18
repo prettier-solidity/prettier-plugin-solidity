@@ -30,9 +30,9 @@ const milestoneVersions = Array.from(
     return versions;
   }, []);
 
-const query = Query.parse(
-  '[VersionPragma @versionRanges [VersionExpressionSets]]'
-);
+const queries = [
+  Query.parse('[VersionPragma @versionRanges [VersionExpressionSets]]')
+];
 
 let parser: Parser;
 
@@ -112,7 +112,7 @@ function tryToCollectPragmas(
   parser: Parser,
   isCachedParser = false
 ): string[] {
-  const matches = parseOutput.createTreeCursor().query([query]);
+  const matches = parseOutput.createTreeCursor().query(queries);
   const ranges: string[] = [];
 
   let match;
