@@ -13,10 +13,10 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - name: Install
         run: npm install
@@ -27,10 +27,10 @@ jobs:
     name: Test production
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - name: Install
         run: npm install
@@ -45,10 +45,10 @@ jobs:
     name: Prettier V2
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - name: Install
         run: npm install
@@ -66,10 +66,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [16, 18, 20]
+        node: [18, 20, 22]
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: 'npm'
@@ -79,13 +79,13 @@ jobs:
         run: npm run test:all
 
   test_macos:
-    name: Test on MacOS with Node 16
+    name: Test on MacOS with Node 18
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - name: Install
         run: npm install
@@ -93,13 +93,13 @@ jobs:
         run: npm run test:all
 
   test_windows:
-    name: Test on Windows with Node 16
+    name: Test on Windows with Node 18
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - name: Install
         run: npm install
