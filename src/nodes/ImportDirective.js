@@ -12,8 +12,15 @@ export const ImportDirective = {
     let document;
 
     if (node.unitAlias) {
-      // import "./Foo.sol" as Foo;
-      document = [importPath, ' as ', node.unitAlias];
+      // First we look for '*' between the beginning of the import and the
+      // beginning of the importPath
+      document = options.originalText
+        .slice(options.locStart(node), options.locStart(node.pathLiteral))
+        .includes('*')
+        ? // import * as Bar from "./Bar.sol";
+          ['* as ', node.unitAlias, ' from ', importPath]
+        : // import "./Foo.sol" as Foo;
+          [importPath, ' as ', node.unitAlias];
     } else if (node.symbolAliases) {
       // import { Foo, Bar as Qux } from "./Foo.sol";
       const compiler = coerce(options.compiler);
