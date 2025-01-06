@@ -19,6 +19,8 @@ const storageLocation = (node) =>
 
 const immutable = (node) => (node.isImmutable ? ' immutable' : '');
 
+const transient = (node) => (node.isTransient ? ' transient' : '');
+
 const override = (node, path, print) => {
   if (!node.override) return '';
   if (node.override.length === 0) return [line, 'override'];
@@ -43,6 +45,7 @@ export const VariableDeclaration = {
             constantKeyword(node),
             storageLocation(node),
             immutable(node),
+            transient(node),
             override(node, path, print),
             name(node)
           ])
