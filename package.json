@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A Prettier Plugin for automatically formatting your Solidity code.",
   "type": "module",
   "main": "./src/index.js",
