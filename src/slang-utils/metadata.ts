@@ -54,7 +54,7 @@ export function getNodeMetadata(
     };
   }
 
-  const children = ast.cst.children.map((child) => {
+  const children = ast.cst.children().map((child) => {
     return child.node;
   });
 

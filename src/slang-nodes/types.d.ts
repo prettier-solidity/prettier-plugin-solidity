@@ -207,7 +207,6 @@ import type { YulLiteral } from './YulLiteral.ts';
 import type { YulParameters } from './YulParameters.ts';
 import type { YulParametersDeclaration } from './YulParametersDeclaration.ts';
 import type { YulPath } from './YulPath.ts';
-import type { YulPathComponent } from './YulPathComponent.ts';
 import type { YulPaths } from './YulPaths.ts';
 import type { YulReturnsDeclaration } from './YulReturnsDeclaration.ts';
 import type { YulStackAssignmentOperator } from './YulStackAssignmentOperator.ts';
@@ -410,7 +409,6 @@ export type StrictAstNode =
   | YulAssignmentOperator
   | YulSwitchCase
   | YulExpression
-  | YulPathComponent
   | YulBuiltInFunction
   | YulLiteral
   | SourceUnitMembers

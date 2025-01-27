@@ -1,10 +1,8 @@
-import { Parser } from '@nomicfoundation/slang/parser';
+import { LanguageFacts } from '@nomicfoundation/slang/utils';
 import { createParser } from '../../../src/slang-utils/create-parser.js';
 
 describe('inferLanguage', function () {
-  const supportedVersions = Parser.supportedVersions();
-  const latestSupportedVersion =
-    supportedVersions[supportedVersions.length - 1];
+  const latestSupportedVersion = LanguageFacts.latestVersion();
   const options = { filepath: 'test.sol' };
 
   const fixtures = [
@@ -81,36 +79,36 @@ describe('inferLanguage', function () {
   for (const { description, source, version } of fixtures) {
     test(description, function () {
       const [parser] = createParser(source, options);
-      expect(parser.version).toEqual(version);
+      expect(parser.languageVersion).toEqual(version);
     });
   }
 
   test('should use the latest successful version if the source has no pragmas', function () {
     createParser(`pragma solidity 0.8.28;`, options);
     let [parser] = createParser(`contract Foo {}`, options);
-    expect(parser.version).toEqual('0.8.28');
+    expect(parser.languageVersion).toEqual('0.8.28');
 
     createParser(`pragma solidity 0.8.2;`, options);
     [parser] = createParser(`contract Foo {}`, options);
-    expect(parser.version).toEqual('0.8.28');
+    expect(parser.languageVersion).toEqual('0.8.28');
 
     [parser] = createParser(`contract Foo {byte bar;}`, options);
-    expect(parser.version).toEqual('0.7.6');
+    expect(parser.languageVersion).toEqual('0.7.6');
   });
 
   test('should use compiler option if given', function () {
     let [parser] = createParser(`pragma solidity ^0.8.0;`, {
       compiler: '0.8.20'
     });
-    expect(parser.version).toEqual('0.8.20');
+    expect(parser.languageVersion).toEqual('0.8.20');
 
     [parser] = createParser(`pragma solidity ^0.8.0;`, {
       compiler: '0.8.2'
     });
-    expect(parser.version).toEqual('0.8.2');
+    expect(parser.languageVersion).toEqual('0.8.2');
 
     [parser] = createParser(`pragma solidity ^0.8.0;`, {});
-    expect(parser.version).toEqual(latestSupportedVersion);
+    expect(parser.languageVersion).toEqual(latestSupportedVersion);
   });
 
   test('should throw when a pragma is broken by new lines, whitespace and comments', function () {

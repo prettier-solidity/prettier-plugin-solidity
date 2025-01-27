@@ -1,6 +1,7 @@
 import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfoundation/slang/ast';
 import { NonterminalKind, Query } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
+import { LanguageFacts } from '@nomicfoundation/slang/utils';
 import {
   maxSatisfying,
   minSatisfying,
@@ -15,7 +16,7 @@ import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from '../slang-nodes/types.js';
 
-const supportedVersions = Parser.supportedVersions();
+const supportedVersions = LanguageFacts.allVersions();
 
 const milestoneVersions = Array.from(
   supportedVersions.reduce((minorRanges, version) => {
@@ -31,7 +32,7 @@ const milestoneVersions = Array.from(
   }, []);
 
 const queries = [
-  Query.parse('[VersionPragma @versionRanges [VersionExpressionSets]]')
+  Query.create('[VersionPragma @versionRanges [VersionExpressionSets]]')
 ];
 
 let parser: Parser;
@@ -42,10 +43,10 @@ export function createParser(
 ): [Parser, ParseOutput] {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
   if (compiler) {
-    if (!parser || parser.version !== compiler) {
+    if (!parser || parser.languageVersion !== compiler) {
       parser = Parser.create(compiler);
     }
-    return [parser, parser.parse(NonterminalKind.SourceUnit, text)];
+    return [parser, parser.parseNonterminal(NonterminalKind.SourceUnit, text)];
   }
 
   let isCachedParser = false;
@@ -59,7 +60,7 @@ export function createParser(
   let inferredRanges: string[] = [];
 
   try {
-    parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
+    parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
     inferredRanges = tryToCollectPragmas(parseOutput, parser, isCachedParser);
   } catch {
     for (
@@ -70,7 +71,7 @@ export function createParser(
       try {
         const version = milestoneVersions[i];
         parser = Parser.create(version);
-        parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
+        parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
         inferredRanges = tryToCollectPragmas(parseOutput, parser);
         break;
       } catch {
@@ -98,9 +99,9 @@ export function createParser(
       ? satisfyingVersions[satisfyingVersions.length - 1]
       : supportedVersions[supportedVersions.length - 1];
 
-  if (inferredVersion !== parser.version) {
+  if (inferredVersion !== parser.languageVersion) {
     parser = Parser.create(inferredVersion);
-    parseOutput = parser.parse(NonterminalKind.SourceUnit, text);
+    parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -132,11 +133,11 @@ function tryToCollectPragmas(
   if (ranges.length === 0) {
     // If we didn't find pragmas but succeeded parsing the source we keep it.
     if (!isCachedParser && parseOutput.isValid()) {
-      return [parser.version];
+      return [parser.languageVersion];
     }
     // Otherwise we throw.
     throw new Error(
-      `Using version ${parser.version} did not find any pragma statement and does not parse without errors.`
+      `Using version ${parser.languageVersion} did not find any pragma statement and does not parse without errors.`
     );
   }
 

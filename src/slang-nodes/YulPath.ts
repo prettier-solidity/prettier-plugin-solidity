@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
-import { YulPathComponent } from './YulPathComponent.js';
+import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { YulIdentifier } from './YulIdentifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -13,17 +13,15 @@ export class YulPath implements SlangNode {
 
   loc;
 
-  items: YulPathComponent[];
+  items: YulIdentifier[];
 
   separators: string[];
 
   constructor(ast: ast.YulPath) {
-    let metadata = getNodeMetadata(ast, true);
+    const metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new YulPathComponent(item));
+    this.items = ast.items.map((item) => new YulIdentifier(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
-
-    metadata = updateMetadata(metadata, [this.items]);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;

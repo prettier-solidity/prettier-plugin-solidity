@@ -230,7 +230,6 @@ export type SlangAstNode =
   | ast.YulAssignmentOperator
   | ast.YulSwitchCase
   | ast.YulExpression
-  | ast.YulPathComponent
   | ast.YulBuiltInFunction
   | ast.YulLiteral
   | ast.SourceUnitMembers
