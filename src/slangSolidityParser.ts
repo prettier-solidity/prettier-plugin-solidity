@@ -15,13 +15,13 @@ export default function parse(
 
   if (parseOutput.isValid()) {
     // We update the compiler version by the inferred one.
-    options.compiler = parser.version;
+    options.compiler = parser.languageVersion;
     const parsed = new SourceUnit(
-      new SlangSourceUnit(parseOutput.tree.asNonterminalNode()!),
+      new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
       options
     );
     clearOffsets();
     return parsed;
   }
-  throw new Error(parseOutput.errors[0].message);
+  throw new Error(parseOutput.errors()[0].message);
 }
