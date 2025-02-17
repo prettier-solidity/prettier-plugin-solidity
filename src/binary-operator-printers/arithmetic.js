@@ -14,7 +14,7 @@ const groupIfNecessaryBuilder = (path) => (document) => {
   return group(document);
 };
 
-const indentIfNecessaryBuilder = (path) => (document) => {
+export const indentIfNecessaryBuilder = (path) => (document) => {
   let node = path.getNode();
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
