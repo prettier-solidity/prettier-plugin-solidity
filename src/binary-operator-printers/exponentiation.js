@@ -1,13 +1,13 @@
 import { doc } from 'prettier';
-import { indentIfNecessaryBuilder } from './arithmetic.js';
+import { indentIfNecessaryBuilder, rightOperand } from './arithmetic.js';
 
 const { group, line } = doc.builders;
 
 export const exponentiation = {
   match: (op) => op === '**',
-  print: (node, path, print) => {
+  print: (node, path, print, options) => {
     const indentIfNecessary = indentIfNecessaryBuilder(path);
-    const right = [' ', node.operator, line, path.call(print, 'right')];
+    const right = rightOperand(node, path, print, options);
     // If it's a single binary operation, avoid having a small right
     // operand like - 1 on its own line
     const shouldGroup =

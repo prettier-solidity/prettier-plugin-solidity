@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { rightOperand } from './arithmetic.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -18,10 +19,10 @@ const indentIfNecessaryBuilder = (path) => (document) => {
 
 export const comparison = {
   match: (op) => ['<', '>', '<=', '>=', '==', '!='].includes(op),
-  print: (node, path, print) => {
+  print: (node, path, print, options) => {
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
-    const right = [node.operator, line, path.call(print, 'right')];
+    const right = rightOperand(node, path, print, options);
     // If it's a single binary operation, avoid having a small right
     // operand like - 1 on its own line
     const shouldGroup =
@@ -29,7 +30,6 @@ export const comparison = {
       path.getParentNode().type !== 'BinaryOperation';
     return group([
       path.call(print, 'left'),
-      ' ',
       indentIfNecessary(shouldGroup ? group(right) : right)
     ]);
   }

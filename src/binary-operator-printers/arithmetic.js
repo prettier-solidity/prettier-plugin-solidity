@@ -30,13 +30,18 @@ export const indentIfNecessaryBuilder = (path) => (document) => {
   }
 };
 
+export const rightOperand = (node, path, print, options) =>
+  options.experimentalOperatorPosition === 'end'
+    ? [' ', node.operator, line, path.call(print, 'right')]
+    : [line, node.operator, ' ', path.call(print, 'right')];
+
 export const arithmetic = {
   match: (op) => ['+', '-', '*', '/', '%'].includes(op),
-  print: (node, path, print) => {
+  print: (node, path, print, options) => {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
-    const right = [node.operator, line, path.call(print, 'right')];
+    const right = rightOperand(node, path, print, options);
     // If it's a single binary operation, avoid having a small right
     // operand like - 1 on its own line
     const shouldGroup =
@@ -44,7 +49,6 @@ export const arithmetic = {
       path.getParentNode().type !== 'BinaryOperation';
     return groupIfNecessary([
       path.call(print, 'left'),
-      ' ',
       indentIfNecessary(shouldGroup ? group(right) : right)
     ]);
   }
