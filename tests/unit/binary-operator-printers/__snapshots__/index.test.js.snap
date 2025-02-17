@@ -2,12 +2,13 @@
 
 exports[`binary operators printers to match snapshot 1`] = `
 [
-  "arithmetic",
+  "addition",
   "assignment",
   "bit",
   "comparison",
   "exponentiation",
   "logical",
+  "multiplication",
   "shift",
 ]
 `;

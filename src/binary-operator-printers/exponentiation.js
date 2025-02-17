@@ -1,19 +1,24 @@
 import { doc } from 'prettier';
+import {
+  createBinaryOperationPrinter,
+  createIndentIfNecessaryBuilder
+} from './printers/create-binary-operation-printer.js';
+import { addition } from './addition.js';
+import { multiplication } from './multiplication.js';
 
-const { group, indent, line } = doc.builders;
+const { group } = doc.builders;
+
+const exponentiationPrinter = createBinaryOperationPrinter(
+  () => (document) => group(document), // always group
+  createIndentIfNecessaryBuilder([
+    addition,
+    multiplication
+    // `bit` and `shift` should technically be here but they are properly
+    // parenthesised before reaching this point.
+  ])
+);
 
 export const exponentiation = {
   match: (op) => op === '**',
-  print: (node, path, print) => {
-    const right = [' ', node.operator, line, path.call(print, 'right')];
-    // If it's a single binary operation, avoid having a small right
-    // operand like - 1 on its own line
-    const shouldGroup =
-      node.left.type !== 'BinaryOperation' &&
-      path.getParentNode().type !== 'BinaryOperation';
-    return group([
-      path.call(print, 'left'),
-      indent(shouldGroup ? group(right) : right)
-    ]);
-  }
+  print: exponentiationPrinter
 };
