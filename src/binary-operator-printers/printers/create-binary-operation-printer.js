@@ -1,8 +1,9 @@
 import { doc } from 'prettier';
 import { assignment } from '../assignment.js';
 import { comparison } from '../comparison.js';
+import { rightOperandPrinter } from './right-operand-printer.js';
 
-const { group, indent, line } = doc.builders;
+const { group, indent } = doc.builders;
 
 const shouldGroupOrIndent = (node, matchers) =>
   matchers.some((matcher) => matcher.match(node.operator));
@@ -41,11 +42,11 @@ export const createIndentIfNecessaryBuilder =
 
 export const createBinaryOperationPrinter =
   (groupIfNecessaryBuilder, indentIfNecessaryBuilder) =>
-  (node, path, print) => {
+  (node, path, print, options) => {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
-    const right = [' ', node.operator, line, path.call(print, 'right')];
+    const right = rightOperandPrinter(node, path, print, options);
     // If it's a single binary operation, avoid having a small right
     // operand like - 1 on its own line
     const parent = path.getParentNode();
