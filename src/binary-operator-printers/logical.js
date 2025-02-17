@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
+import { rightOperandPrinter } from './printers/right-operand-printer.js';
 
-const { group, line, indent } = doc.builders;
+const { group, indent } = doc.builders;
 
 const groupIfNecessaryBuilder = (path) => (document) =>
   path.getParentNode().type === 'BinaryOperation' ? document : group(document);
@@ -30,7 +31,7 @@ export const logical = {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path, options);
 
-    const right = [node.operator, line, path.call(print, 'right')];
+    const right = rightOperandPrinter(node, path, print, options);
     // If it's a single binary operation, avoid having a small right
     // operand like - 1 on its own line
     const shouldGroup =
@@ -38,7 +39,6 @@ export const logical = {
       path.getParentNode().type !== 'BinaryOperation';
     return groupIfNecessary([
       path.call(print, 'left'),
-      ' ',
       indentIfNecessary(shouldGroup ? group(right) : right)
     ]);
   }
