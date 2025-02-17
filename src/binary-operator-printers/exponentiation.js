@@ -1,7 +1,8 @@
 import { doc } from 'prettier';
-import { indentIfNecessaryBuilder, rightOperand } from './arithmetic.js';
+import { indentIfNecessaryBuilder } from './arithmetic.js';
+import { rightOperand } from './right-operand.js';
 
-const { group, line } = doc.builders;
+const { group } = doc.builders;
 
 export const exponentiation = {
   match: (op) => op === '**',
