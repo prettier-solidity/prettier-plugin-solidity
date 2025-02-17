@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
-import { rightOperand } from './arithmetic.js';
+import { rightOperand } from './right-operand.js';
 
-const { group, indent, line } = doc.builders;
+const { group, indent } = doc.builders;
 
 const indentIfNecessaryBuilder = (path) => (document) => {
   let node = path.getNode();
