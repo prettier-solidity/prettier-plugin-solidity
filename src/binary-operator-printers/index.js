@@ -1,4 +1,4 @@
-export * from './arithmetic.js';
+export { arithmetic } from './arithmetic.js';
 export * from './assignment.js';
 export * from './bit.js';
 export * from './comparison.js';
