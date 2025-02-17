@@ -1,7 +1,8 @@
 import { doc } from 'prettier';
 import { comparison } from './comparison.js';
+import { rightOperand } from './right-operand.js';
 
-const { group, line, indent } = doc.builders;
+const { group, indent } = doc.builders;
 
 const groupIfNecessaryBuilder = (path) => (document) => {
   const parentNode = path.getParentNode();
@@ -29,11 +30,6 @@ export const indentIfNecessaryBuilder = (path) => (document) => {
     node = parentNode;
   }
 };
-
-export const rightOperand = (node, path, print, options) =>
-  options.experimentalOperatorPosition === 'end'
-    ? [' ', node.operator, line, path.call(print, 'right')]
-    : [line, node.operator, ' ', path.call(print, 'right')];
 
 export const arithmetic = {
   match: (op) => ['+', '-', '*', '/', '%'].includes(op),

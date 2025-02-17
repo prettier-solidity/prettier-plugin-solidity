@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
-import { rightOperand } from './arithmetic.js';
+import { rightOperand } from './right-operand.js';
 
-const { group, line, indent } = doc.builders;
+const { group, indent } = doc.builders;
 
 const groupIfNecessaryBuilder = (path) => (document) =>
   path.getParentNode().type === 'BinaryOperation' ? document : group(document);
