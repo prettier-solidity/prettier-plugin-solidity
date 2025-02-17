@@ -1,6 +1,8 @@
-import { arithmetic } from './arithmetic.js';
+import { defaultBinaryOperationPrinter } from './printers/create-binary-operation-printer.js';
 
 export const shift = {
   match: (op) => ['<<', '>>'].includes(op),
-  print: arithmetic.print
+  print: defaultBinaryOperationPrinter
+  // grouping and indenting before `bit` should technically be here but they
+  // are properly parenthesised before reaching this point.
 };
