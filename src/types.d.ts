@@ -8,6 +8,7 @@ declare module 'prettier' {
   interface ParserOptions {
     compiler: string;
     experimentalTernaries: boolean;
+    experimentalOperatorPosition: 'start' | 'end';
   }
 }
 
