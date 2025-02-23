@@ -38,7 +38,7 @@ const binaryGroupRulesBuilder =
     return group(document);
   };
 
-const binaryIndentRulesBuilder =
+export const binaryIndentRulesBuilder =
   (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
     let node = path.getNode() as StrictAstNode;

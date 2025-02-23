@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.js';
+import { binaryIndentRulesBuilder } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
@@ -10,7 +11,7 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
-const { group, indent } = doc.builders;
+const { group } = doc.builders;
 
 const tryToHug = createHugFunction(['**']);
 
@@ -18,9 +19,7 @@ const printExponentiationExpression = createBinaryOperationPrinter(
   () =>
     (document: Doc): Doc =>
       group(document), // always group
-  () =>
-    (document: Doc): Doc =>
-      indent(document) // always indent
+  binaryIndentRulesBuilder // indent as a binary operation
 );
 
 export class ExponentiationExpression implements SlangNode {
