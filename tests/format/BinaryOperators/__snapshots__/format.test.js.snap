@@ -307,10 +307,10 @@ contract ArithmeticOperators {
             * veryVeryVeryVeryVeryLongVariableCalledB;
         a =
             veryVeryVeryVeryVeryLongVariableCalledA
-                ** veryVeryVeryVeryVeryLongVariableCalledB;
+            ** veryVeryVeryVeryVeryLongVariableCalledB;
         a =
             veryVeryVeryVeryVeryLongVariableCalledA
-                ** veryVeryVeryVeryVeryLongVariableCalledB
+            ** veryVeryVeryVeryVeryLongVariableCalledB
             * c;
         if (
             veryVeryVeryVeryVeryLongVariableCalledA
@@ -325,13 +325,13 @@ contract ArithmeticOperators {
         for (
             a =
                 veryVeryVeryVeryVeryLongVariableCalledA
-                    ** veryVeryVeryVeryVeryLongVariableCalledB;
+                ** veryVeryVeryVeryVeryLongVariableCalledB;
             a
             <= veryVeryVeryVeryVeryLongVariableCalledA
                 ** veryVeryVeryVeryVeryLongVariableCalledB;
             a +=
                 veryVeryVeryVeryVeryLongVariableCalledA
-                    ** veryVeryVeryVeryVeryLongVariableCalledB
+                ** veryVeryVeryVeryVeryLongVariableCalledB
         ) {}
         a(
             veryVeryVeryVeryVeryLongVariableCalledA
@@ -339,7 +339,7 @@ contract ArithmeticOperators {
         );
         return
             veryVeryVeryVeryVeryLongVariableCalledA
-                ** veryVeryVeryVeryVeryLongVariableCalledB;
+            ** veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongFunctionCalledA(
             veryVeryVeryVeryVeryLongVariableCalledB
         ) ** c;
@@ -350,12 +350,12 @@ contract ArithmeticOperators {
             * veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             )
-                ** d;
+            ** d;
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             )
-                ** c;
+            ** c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
@@ -992,10 +992,10 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongVariableCalledB;
         a =
             veryVeryVeryVeryVeryLongVariableCalledA **
-                veryVeryVeryVeryVeryLongVariableCalledB;
+            veryVeryVeryVeryVeryLongVariableCalledB;
         a =
             veryVeryVeryVeryVeryLongVariableCalledA **
-                veryVeryVeryVeryVeryLongVariableCalledB *
+            veryVeryVeryVeryVeryLongVariableCalledB *
             c;
         if (
             veryVeryVeryVeryVeryLongVariableCalledA **
@@ -1010,13 +1010,13 @@ contract ArithmeticOperators {
         for (
             a =
                 veryVeryVeryVeryVeryLongVariableCalledA **
-                    veryVeryVeryVeryVeryLongVariableCalledB;
+                veryVeryVeryVeryVeryLongVariableCalledB;
             a <=
             veryVeryVeryVeryVeryLongVariableCalledA **
                 veryVeryVeryVeryVeryLongVariableCalledB;
             a +=
                 veryVeryVeryVeryVeryLongVariableCalledA **
-                    veryVeryVeryVeryVeryLongVariableCalledB
+                veryVeryVeryVeryVeryLongVariableCalledB
         ) {}
         a(
             veryVeryVeryVeryVeryLongVariableCalledA **
@@ -1024,7 +1024,7 @@ contract ArithmeticOperators {
         );
         return
             veryVeryVeryVeryVeryLongVariableCalledA **
-                veryVeryVeryVeryVeryLongVariableCalledB;
+            veryVeryVeryVeryVeryLongVariableCalledB;
         veryVeryVeryVeryVeryLongFunctionCalledA(
             veryVeryVeryVeryVeryLongVariableCalledB
         ) ** c;
@@ -1035,12 +1035,12 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             ) **
-                d;
+            d;
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             ) **
-                c;
+            c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB

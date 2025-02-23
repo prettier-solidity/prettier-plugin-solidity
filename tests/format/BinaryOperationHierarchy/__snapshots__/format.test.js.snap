@@ -376,7 +376,7 @@ contract Group {
     function exp() public {
         resultUint256 =
             veryVeryVeryLongUint256A **
-                (veryVeryVeryLongUint256B ** veryVeryVeryLongUint256C);
+            (veryVeryVeryLongUint256B ** veryVeryVeryLongUint256C);
         resultUint256 =
             veryVeryVeryLongUint256A ** veryVeryVeryLongUint256B *
             veryVeryVeryLongUint256C;
@@ -1691,27 +1691,27 @@ contract Indent {
     function exp() public {
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A **
-                (veryVeryVeryExtremelyExtremelyLongUint256B **
-                    veryVeryVeryExtremelyExtremelyLongUint256C);
+            (veryVeryVeryExtremelyExtremelyLongUint256B **
+                veryVeryVeryExtremelyExtremelyLongUint256C);
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A **
-                veryVeryVeryExtremelyExtremelyLongUint256B *
+            veryVeryVeryExtremelyExtremelyLongUint256B *
             veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A **
-                veryVeryVeryExtremelyExtremelyLongUint256B /
+            veryVeryVeryExtremelyExtremelyLongUint256B /
             veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A **
-                veryVeryVeryExtremelyExtremelyLongUint256B %
+            veryVeryVeryExtremelyExtremelyLongUint256B %
             veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A **
-                veryVeryVeryExtremelyExtremelyLongUint256B +
+            veryVeryVeryExtremelyExtremelyLongUint256B +
             veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A **
-                veryVeryVeryExtremelyExtremelyLongUint256B -
+            veryVeryVeryExtremelyExtremelyLongUint256B -
             veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             (veryVeryVeryExtremelyExtremelyLongUint256A **
@@ -1763,7 +1763,7 @@ contract Indent {
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A *
             veryVeryVeryExtremelyExtremelyLongUint256B **
-                veryVeryVeryExtremelyExtremelyLongUint256C;
+            veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A *
             veryVeryVeryExtremelyExtremelyLongUint256B *
@@ -1834,7 +1834,7 @@ contract Indent {
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A /
             veryVeryVeryExtremelyExtremelyLongUint256B **
-                veryVeryVeryExtremelyExtremelyLongUint256C;
+            veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             (veryVeryVeryExtremelyExtremelyLongUint256A /
                 veryVeryVeryExtremelyExtremelyLongUint256B) *
@@ -1905,7 +1905,7 @@ contract Indent {
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A %
             veryVeryVeryExtremelyExtremelyLongUint256B **
-                veryVeryVeryExtremelyExtremelyLongUint256C;
+            veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             (veryVeryVeryExtremelyExtremelyLongUint256A %
                 veryVeryVeryExtremelyExtremelyLongUint256B) *
@@ -1976,7 +1976,7 @@ contract Indent {
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A +
             veryVeryVeryExtremelyExtremelyLongUint256B **
-                veryVeryVeryExtremelyExtremelyLongUint256C;
+            veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A +
             veryVeryVeryExtremelyExtremelyLongUint256B *
@@ -2047,7 +2047,7 @@ contract Indent {
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A -
             veryVeryVeryExtremelyExtremelyLongUint256B **
-                veryVeryVeryExtremelyExtremelyLongUint256C;
+            veryVeryVeryExtremelyExtremelyLongUint256C;
         resultUint256 =
             veryVeryVeryExtremelyExtremelyLongUint256A -
             veryVeryVeryExtremelyExtremelyLongUint256B *
