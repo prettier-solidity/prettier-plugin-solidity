@@ -258,9 +258,9 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongVariableCalledB
         )
             + c
-            * veryVeryVeryVeryVeryLongFunctionCalledA(
-                veryVeryVeryVeryVeryLongVariableCalledB
-            )
+                * veryVeryVeryVeryVeryLongFunctionCalledA(
+                    veryVeryVeryVeryVeryLongVariableCalledB
+                )
             - d;
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
@@ -310,7 +310,7 @@ contract ArithmeticOperators {
             ** veryVeryVeryVeryVeryLongVariableCalledB;
         a =
             veryVeryVeryVeryVeryLongVariableCalledA
-            ** veryVeryVeryVeryVeryLongVariableCalledB
+                ** veryVeryVeryVeryVeryLongVariableCalledB
             * c;
         if (
             veryVeryVeryVeryVeryLongVariableCalledA
@@ -350,7 +350,7 @@ contract ArithmeticOperators {
             * veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             )
-            ** d;
+                ** d;
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
@@ -943,9 +943,9 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongVariableCalledB
         ) +
             c *
-            veryVeryVeryVeryVeryLongFunctionCalledA(
-                veryVeryVeryVeryVeryLongVariableCalledB
-            ) -
+                veryVeryVeryVeryVeryLongFunctionCalledA(
+                    veryVeryVeryVeryVeryLongVariableCalledB
+                ) -
             d;
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
@@ -995,7 +995,7 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongVariableCalledB;
         a =
             veryVeryVeryVeryVeryLongVariableCalledA **
-            veryVeryVeryVeryVeryLongVariableCalledB *
+                veryVeryVeryVeryVeryLongVariableCalledB *
             c;
         if (
             veryVeryVeryVeryVeryLongVariableCalledA **
@@ -1035,7 +1035,7 @@ contract ArithmeticOperators {
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             ) **
-            d;
+                d;
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
