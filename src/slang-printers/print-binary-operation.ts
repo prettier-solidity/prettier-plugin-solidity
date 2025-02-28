@@ -37,6 +37,7 @@ export const binaryGroupRulesBuilder =
   };
 
 export const binaryIndentRulesBuilder =
+  (shouldIndent: (node: BinaryOperationWithoutComparison) => boolean) =>
   (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
     let node = path.getNode() as StrictAstNode;
@@ -46,6 +47,7 @@ export const binaryIndentRulesBuilder =
       if (!isBinaryOperationWithoutComparison(grandparentNode)) {
         return indent(document);
       }
+      if (shouldIndent(grandparentNode)) return indent(document);
       if (node === grandparentNode.rightOperand.variant) break;
       node = grandparentNode;
     }
@@ -54,5 +56,5 @@ export const binaryIndentRulesBuilder =
 
 export const printBinaryOperation = createBinaryOperationPrinter(
   binaryGroupRulesBuilder(() => false), // Don't force grouping
-  binaryIndentRulesBuilder
+  binaryIndentRulesBuilder(() => false) // Don't force indentation
 );
