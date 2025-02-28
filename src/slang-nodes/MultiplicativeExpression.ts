@@ -18,7 +18,7 @@ const multiplicationTryToHug = createHugFunction(['/', '%']);
 const divisionTryToHug = createHugFunction(['*', '%']);
 const moduloTryToHug = createHugFunction(['*', '/', '%']);
 
-const shouldGroup = createKindCheckFunction([
+const shouldGroupAndIndent = createKindCheckFunction([
   NonterminalKind.AdditiveExpression,
   NonterminalKind.BitwiseAndExpression,
   NonterminalKind.BitwiseOrExpression,
@@ -27,8 +27,8 @@ const shouldGroup = createKindCheckFunction([
 ]);
 
 export const printBinaryOperation = createBinaryOperationPrinter(
-  binaryGroupRulesBuilder(shouldGroup),
-  binaryIndentRulesBuilder
+  binaryGroupRulesBuilder(shouldGroupAndIndent),
+  binaryIndentRulesBuilder(shouldGroupAndIndent)
 );
 
 export class MultiplicativeExpression implements SlangNode {

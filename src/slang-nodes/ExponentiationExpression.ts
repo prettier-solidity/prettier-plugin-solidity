@@ -3,6 +3,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.js';
 import { binaryIndentRulesBuilder } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
+import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
@@ -15,11 +16,16 @@ const { group } = doc.builders;
 
 const tryToHug = createHugFunction(['**']);
 
+const shouldIndent = createKindCheckFunction([
+  NonterminalKind.AdditiveExpression,
+  NonterminalKind.MultiplicativeExpression
+]);
+
 const printExponentiationExpression = createBinaryOperationPrinter(
   () =>
     (document: Doc): Doc =>
       group(document), // always group
-  binaryIndentRulesBuilder // indent as a binary operation
+  binaryIndentRulesBuilder(shouldIndent) // indent as a binary operation with some exceptions
 );
 
 export class ExponentiationExpression implements SlangNode {
