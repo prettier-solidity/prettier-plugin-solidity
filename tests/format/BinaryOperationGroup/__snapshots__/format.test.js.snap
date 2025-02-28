@@ -1,0 +1,3442 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract AddGroup {
+    function addAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function addSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function addMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function addDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function addMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function addExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function addShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function addShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function addBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function addBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function addBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function addEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function addNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA + veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract AddGroup {
+    function addAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA +
+            veryVeryVeryLongParameterB +
+            veryVeryVeryLongParameterC;
+    }
+
+    function addSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA +
+            veryVeryVeryLongParameterB -
+            veryVeryVeryLongParameterC;
+    }
+
+    function addMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA +
+            veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function addDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA +
+            veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function addMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA +
+            (veryVeryVeryLongParameterB % veryVeryVeryLongParameterC);
+    }
+
+    function addExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA +
+            veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function addShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA + veryVeryVeryLongParameterB) <<
+            veryVeryVeryLongParameterC;
+    }
+
+    function addShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA + veryVeryVeryLongParameterB) >>
+            veryVeryVeryLongParameterC;
+    }
+
+    function addBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA + veryVeryVeryLongParameterB) &
+            veryVeryVeryLongParameterC;
+    }
+
+    function addBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA + veryVeryVeryLongParameterB) |
+            veryVeryVeryLongParameterC;
+    }
+
+    function addBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA + veryVeryVeryLongParameterB) ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function addEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA + veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function addNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA + veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`BitAndGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract BitAndGroup {
+    function bitAndAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function bitAndSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function bitAndMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function bitAndDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function bitAndMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function bitAndExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function bitAndShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function bitAndShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function bitAndBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function bitAndBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function bitAndBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function bitAndEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function bitAndNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA & veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract BitAndGroup {
+    function bitAndAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA &
+            (veryVeryVeryLongParameterB + veryVeryVeryLongParameterC);
+    }
+
+    function bitAndSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA &
+            (veryVeryVeryLongParameterB - veryVeryVeryLongParameterC);
+    }
+
+    function bitAndMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA &
+            (veryVeryVeryLongParameterB * veryVeryVeryLongParameterC);
+    }
+
+    function bitAndDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA &
+            (veryVeryVeryLongParameterB / veryVeryVeryLongParameterC);
+    }
+
+    function bitAndMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA &
+            veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function bitAndExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA &
+            (veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC);
+    }
+
+    function bitAndShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA &
+            (veryVeryVeryLongParameterB << veryVeryVeryLongParameterC);
+    }
+
+    function bitAndShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA &
+            (veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC);
+    }
+
+    function bitAndBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA &
+            veryVeryVeryLongParameterB &
+            veryVeryVeryLongParameterC;
+    }
+
+    function bitAndBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA & veryVeryVeryLongParameterB) |
+            veryVeryVeryLongParameterC;
+    }
+
+    function bitAndBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA & veryVeryVeryLongParameterB) ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function bitAndEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA & veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function bitAndNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA & veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`BitOrGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract BitOrGroup {
+    function bitOrAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function bitOrSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function bitOrMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function bitOrDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function bitOrMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function bitOrExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function bitOrShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function bitOrShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function bitOrBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function bitOrBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function bitOrBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function bitOrEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function bitOrNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA | veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract BitOrGroup {
+    function bitOrAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            (veryVeryVeryLongParameterB + veryVeryVeryLongParameterC);
+    }
+
+    function bitOrSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            (veryVeryVeryLongParameterB - veryVeryVeryLongParameterC);
+    }
+
+    function bitOrMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            (veryVeryVeryLongParameterB * veryVeryVeryLongParameterC);
+    }
+
+    function bitOrDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            (veryVeryVeryLongParameterB / veryVeryVeryLongParameterC);
+    }
+
+    function bitOrMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function bitOrExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            (veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC);
+    }
+
+    function bitOrShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            (veryVeryVeryLongParameterB << veryVeryVeryLongParameterC);
+    }
+
+    function bitOrShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            (veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC);
+    }
+
+    function bitOrBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            (veryVeryVeryLongParameterB & veryVeryVeryLongParameterC);
+    }
+
+    function bitOrBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            veryVeryVeryLongParameterB |
+            veryVeryVeryLongParameterC;
+    }
+
+    function bitOrBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA |
+            (veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC);
+    }
+
+    function bitOrEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA | veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function bitOrNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA | veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`BitXorGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract BitXorGroup {
+    function bitXorAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function bitXorSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function bitXorMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function bitXorDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function bitXorMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function bitXorExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function bitXorShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function bitXorShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function bitXorBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function bitXorBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function bitXorBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function bitXorEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function bitXorNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract BitXorGroup {
+    function bitXorAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            (veryVeryVeryLongParameterB + veryVeryVeryLongParameterC);
+    }
+
+    function bitXorSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            (veryVeryVeryLongParameterB - veryVeryVeryLongParameterC);
+    }
+
+    function bitXorMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            (veryVeryVeryLongParameterB * veryVeryVeryLongParameterC);
+    }
+
+    function bitXorDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            (veryVeryVeryLongParameterB / veryVeryVeryLongParameterC);
+    }
+
+    function bitXorMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function bitXorExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            (veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC);
+    }
+
+    function bitXorShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            (veryVeryVeryLongParameterB << veryVeryVeryLongParameterC);
+    }
+
+    function bitXorShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            (veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC);
+    }
+
+    function bitXorBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            (veryVeryVeryLongParameterB & veryVeryVeryLongParameterC);
+    }
+
+    function bitXorBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB) |
+            veryVeryVeryLongParameterC;
+    }
+
+    function bitXorBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ^
+            veryVeryVeryLongParameterB ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function bitXorEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function bitXorNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ^ veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`DivGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract DivGroup {
+    function divAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function divSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function divMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function divDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function divMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function divExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function divShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function divShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function divBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function divBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function divBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function divEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function divNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA / veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract DivGroup {
+    function divAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA / veryVeryVeryLongParameterB +
+            veryVeryVeryLongParameterC;
+    }
+
+    function divSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA / veryVeryVeryLongParameterB -
+            veryVeryVeryLongParameterC;
+    }
+
+    function divMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA / veryVeryVeryLongParameterB) *
+            veryVeryVeryLongParameterC;
+    }
+
+    function divDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA /
+            veryVeryVeryLongParameterB /
+            veryVeryVeryLongParameterC;
+    }
+
+    function divMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA / veryVeryVeryLongParameterB) %
+            veryVeryVeryLongParameterC;
+    }
+
+    function divExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA /
+            veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function divShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA / veryVeryVeryLongParameterB) <<
+            veryVeryVeryLongParameterC;
+    }
+
+    function divShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA / veryVeryVeryLongParameterB) >>
+            veryVeryVeryLongParameterC;
+    }
+
+    function divBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA / veryVeryVeryLongParameterB) &
+            veryVeryVeryLongParameterC;
+    }
+
+    function divBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA / veryVeryVeryLongParameterB) |
+            veryVeryVeryLongParameterC;
+    }
+
+    function divBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA / veryVeryVeryLongParameterB) ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function divEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA / veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function divNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA / veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`EqualGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract EqualGroup {
+    function equalAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function equalSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function equalMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function equalDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function equalMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function equalExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function equalShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function equalShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function equalBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function equalBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function equalBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function equalEqual(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function equalNotEqual(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA == veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract EqualGroup {
+    function equalAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function equalSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function equalMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function equalDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function equalMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function equalExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function equalShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function equalShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function equalBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function equalBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function equalBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ==
+            veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function equalEqual(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            (veryVeryVeryLongParameterA == veryVeryVeryLongParameterB) ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function equalNotEqual(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            (veryVeryVeryLongParameterA == veryVeryVeryLongParameterB) !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`ExpGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract ExpGroup {
+    function expAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function expSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function expMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function expDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function expMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function expExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function expShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function expShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function expBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function expBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function expBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function expEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function expNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract ExpGroup {
+    function expAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB +
+            veryVeryVeryLongParameterC;
+    }
+
+    function expSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB -
+            veryVeryVeryLongParameterC;
+    }
+
+    function expMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB *
+            veryVeryVeryLongParameterC;
+    }
+
+    function expDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB /
+            veryVeryVeryLongParameterC;
+    }
+
+    function expMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB %
+            veryVeryVeryLongParameterC;
+    }
+
+    function expExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA **
+            (veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC);
+    }
+
+    function expShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB) <<
+            veryVeryVeryLongParameterC;
+    }
+
+    function expShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB) >>
+            veryVeryVeryLongParameterC;
+    }
+
+    function expBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB) &
+            veryVeryVeryLongParameterC;
+    }
+
+    function expBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB) |
+            veryVeryVeryLongParameterC;
+    }
+
+    function expBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB) ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function expEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function expNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ** veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`LogicGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract LogicGroup {
+    function orOr(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC) public pure returns (bool) {
+        return veryVeryVeryLongParameterA || veryVeryVeryLongParameterB || veryVeryVeryLongParameterC;
+    }
+
+    function orAnd(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC) public pure returns (bool) {
+        return veryVeryVeryLongParameterA || veryVeryVeryLongParameterB && veryVeryVeryLongParameterC;
+    }
+
+    function orEqual(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC) public pure returns (bool) {
+        return veryVeryVeryLongParameterA || veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function orNotEqual(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC) public pure returns (bool) {
+        return veryVeryVeryLongParameterA || veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+
+    function andOr(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC) public pure returns (bool) {
+        return veryVeryVeryLongParameterA && veryVeryVeryLongParameterB || veryVeryVeryLongParameterC;
+    }
+
+    function andAnd(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC) public pure returns (bool) {
+        return veryVeryVeryLongParameterA && veryVeryVeryLongParameterB && veryVeryVeryLongParameterC;
+    }
+
+    function andEqual(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC) public pure returns (bool) {
+        return veryVeryVeryLongParameterA && veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function andNotEqual(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC) public pure returns (bool) {
+        return veryVeryVeryLongParameterA && veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract LogicGroup {
+    function orOr(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ||
+            veryVeryVeryLongParameterB ||
+            veryVeryVeryLongParameterC;
+    }
+
+    function orAnd(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ||
+            (veryVeryVeryLongParameterB && veryVeryVeryLongParameterC);
+    }
+
+    function orEqual(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ||
+            veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function orNotEqual(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA ||
+            veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+
+    function andOr(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            (veryVeryVeryLongParameterA && veryVeryVeryLongParameterB) ||
+            veryVeryVeryLongParameterC;
+    }
+
+    function andAnd(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA &&
+            veryVeryVeryLongParameterB &&
+            veryVeryVeryLongParameterC;
+    }
+
+    function andEqual(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA &&
+            veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function andNotEqual(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA &&
+            veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`ModGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract ModGroup {
+    function modAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function modSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function modMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function modDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function modMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function modExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function modShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function modShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function modBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function modBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function modBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function modEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function modNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA % veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract ModGroup {
+    function modAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA % veryVeryVeryLongParameterB) +
+            veryVeryVeryLongParameterC;
+    }
+
+    function modSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA % veryVeryVeryLongParameterB) -
+            veryVeryVeryLongParameterC;
+    }
+
+    function modMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA % veryVeryVeryLongParameterB) *
+            veryVeryVeryLongParameterC;
+    }
+
+    function modDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA % veryVeryVeryLongParameterB) /
+            veryVeryVeryLongParameterC;
+    }
+
+    function modMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA % veryVeryVeryLongParameterB) %
+            veryVeryVeryLongParameterC;
+    }
+
+    function modExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA %
+            veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function modShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA % veryVeryVeryLongParameterB <<
+            veryVeryVeryLongParameterC;
+    }
+
+    function modShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA % veryVeryVeryLongParameterB >>
+            veryVeryVeryLongParameterC;
+    }
+
+    function modBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA % veryVeryVeryLongParameterB &
+            veryVeryVeryLongParameterC;
+    }
+
+    function modBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA % veryVeryVeryLongParameterB |
+            veryVeryVeryLongParameterC;
+    }
+
+    function modBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA % veryVeryVeryLongParameterB ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function modEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA % veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function modNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA % veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`MulGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract MulGroup {
+    function mulAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function mulSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function mulMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function mulDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function mulMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function mulExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function mulShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function mulShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function mulBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function mulBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function mulBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function mulEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function mulNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA * veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract MulGroup {
+    function mulAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA * veryVeryVeryLongParameterB +
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA * veryVeryVeryLongParameterB -
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA *
+            veryVeryVeryLongParameterB *
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA * veryVeryVeryLongParameterB) /
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA * veryVeryVeryLongParameterB) %
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA *
+            veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function mulShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA * veryVeryVeryLongParameterB) <<
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA * veryVeryVeryLongParameterB) >>
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA * veryVeryVeryLongParameterB) &
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA * veryVeryVeryLongParameterB) |
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA * veryVeryVeryLongParameterB) ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA * veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function mulNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA * veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`NotEqualGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract NotEqualGroup {
+    function notEqualAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function notEqualSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function notEqualMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function notEqualDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function notEqualMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function notEqualExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function notEqualShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function notEqualShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function notEqualBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function notEqualBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function notEqualBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function notEqualEqual(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function notEqualNotEqual(bool veryVeryVeryLongParameterA, bool veryVeryVeryLongParameterB, bool veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA != veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract NotEqualGroup {
+    function notEqualAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function notEqualSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function notEqualMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function notEqualDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function notEqualMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function notEqualExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function notEqualShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function notEqualShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function notEqualBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function notEqualBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function notEqualBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA !=
+            veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function notEqualEqual(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            (veryVeryVeryLongParameterA != veryVeryVeryLongParameterB) ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function notEqualNotEqual(
+        bool veryVeryVeryLongParameterA,
+        bool veryVeryVeryLongParameterB,
+        bool veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            (veryVeryVeryLongParameterA != veryVeryVeryLongParameterB) !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`ShiftLGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract ShiftLGroup {
+    function shiftLAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function shiftLSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function shiftLMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function shiftLDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function shiftLMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function shiftLExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function shiftLShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function shiftLShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function shiftLBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function shiftLBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function shiftLBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function shiftLEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function shiftLNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA << veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract ShiftLGroup {
+    function shiftLAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA <<
+            (veryVeryVeryLongParameterB + veryVeryVeryLongParameterC);
+    }
+
+    function shiftLSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA <<
+            (veryVeryVeryLongParameterB - veryVeryVeryLongParameterC);
+    }
+
+    function shiftLMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA <<
+            (veryVeryVeryLongParameterB * veryVeryVeryLongParameterC);
+    }
+
+    function shiftLDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA <<
+            (veryVeryVeryLongParameterB / veryVeryVeryLongParameterC);
+    }
+
+    function shiftLMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA <<
+            veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function shiftLExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA <<
+            (veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC);
+    }
+
+    function shiftLShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA << veryVeryVeryLongParameterB) <<
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftLShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA << veryVeryVeryLongParameterB) >>
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftLBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA << veryVeryVeryLongParameterB) &
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftLBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA << veryVeryVeryLongParameterB) |
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftLBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA << veryVeryVeryLongParameterB) ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftLEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA << veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftLNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA << veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`ShiftRGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract ShiftRGroup {
+    function shiftRAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function shiftRSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function shiftRMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function shiftRDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function shiftRMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function shiftRExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function shiftRShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function shiftRShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function shiftRBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function shiftRBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function shiftRBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function shiftREqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function shiftRNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract ShiftRGroup {
+    function shiftRAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA >>
+            (veryVeryVeryLongParameterB + veryVeryVeryLongParameterC);
+    }
+
+    function shiftRSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA >>
+            (veryVeryVeryLongParameterB - veryVeryVeryLongParameterC);
+    }
+
+    function shiftRMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA >>
+            (veryVeryVeryLongParameterB * veryVeryVeryLongParameterC);
+    }
+
+    function shiftRDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA >>
+            (veryVeryVeryLongParameterB / veryVeryVeryLongParameterC);
+    }
+
+    function shiftRMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA >>
+            veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function shiftRExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA >>
+            (veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC);
+    }
+
+    function shiftRShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB) <<
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftRShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB) >>
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftRBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB) &
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftRBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB) |
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftRBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB) ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftREqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function shiftRNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA >> veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
+
+exports[`SubGroup.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract SubGroup {
+    function subAdd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB + veryVeryVeryLongParameterC;
+    }
+
+    function subSub(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB - veryVeryVeryLongParameterC;
+    }
+
+    function subMul(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function subDiv(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function subMod(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB % veryVeryVeryLongParameterC;
+    }
+
+    function subExp(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function subShiftL(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB << veryVeryVeryLongParameterC;
+    }
+
+    function subShiftR(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB >> veryVeryVeryLongParameterC;
+    }
+
+    function subBitAnd(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB & veryVeryVeryLongParameterC;
+    }
+
+    function subBitOr(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB | veryVeryVeryLongParameterC;
+    }
+
+    function subBitXor(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (uint256)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB ^ veryVeryVeryLongParameterC;
+    }
+
+    function subEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB == veryVeryVeryLongParameterC;
+    }
+
+    function subNotEqual(uint256 veryVeryVeryLongParameterA, uint256 veryVeryVeryLongParameterB, uint256 veryVeryVeryLongParameterC)
+        public
+        pure
+        returns (bool)
+    {
+        return veryVeryVeryLongParameterA - veryVeryVeryLongParameterB != veryVeryVeryLongParameterC;
+    }
+}
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract SubGroup {
+    function subAdd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA -
+            veryVeryVeryLongParameterB +
+            veryVeryVeryLongParameterC;
+    }
+
+    function subSub(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA -
+            veryVeryVeryLongParameterB -
+            veryVeryVeryLongParameterC;
+    }
+
+    function subMul(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA -
+            veryVeryVeryLongParameterB * veryVeryVeryLongParameterC;
+    }
+
+    function subDiv(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA -
+            veryVeryVeryLongParameterB / veryVeryVeryLongParameterC;
+    }
+
+    function subMod(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA -
+            (veryVeryVeryLongParameterB % veryVeryVeryLongParameterC);
+    }
+
+    function subExp(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            veryVeryVeryLongParameterA -
+            veryVeryVeryLongParameterB ** veryVeryVeryLongParameterC;
+    }
+
+    function subShiftL(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA - veryVeryVeryLongParameterB) <<
+            veryVeryVeryLongParameterC;
+    }
+
+    function subShiftR(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA - veryVeryVeryLongParameterB) >>
+            veryVeryVeryLongParameterC;
+    }
+
+    function subBitAnd(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA - veryVeryVeryLongParameterB) &
+            veryVeryVeryLongParameterC;
+    }
+
+    function subBitOr(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA - veryVeryVeryLongParameterB) |
+            veryVeryVeryLongParameterC;
+    }
+
+    function subBitXor(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (uint256) {
+        return
+            (veryVeryVeryLongParameterA - veryVeryVeryLongParameterB) ^
+            veryVeryVeryLongParameterC;
+    }
+
+    function subEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA - veryVeryVeryLongParameterB ==
+            veryVeryVeryLongParameterC;
+    }
+
+    function subNotEqual(
+        uint256 veryVeryVeryLongParameterA,
+        uint256 veryVeryVeryLongParameterB,
+        uint256 veryVeryVeryLongParameterC
+    ) public pure returns (bool) {
+        return
+            veryVeryVeryLongParameterA - veryVeryVeryLongParameterB !=
+            veryVeryVeryLongParameterC;
+    }
+}
+
+================================================================================
+`;
