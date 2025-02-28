@@ -467,11 +467,6 @@ export type BinaryOperation = Extract<
   }
 >;
 
-export type BinaryOperationWithoutComparison = Exclude<
-  BinaryOperation,
-  ComparisonExpression | EqualityExpression
->;
-
 export type AstNode =
   | StrictAstNode
   | Comment
