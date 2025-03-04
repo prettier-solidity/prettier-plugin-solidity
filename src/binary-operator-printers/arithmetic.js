@@ -1,7 +1,8 @@
 import { doc } from 'prettier';
 import { comparison } from './comparison.js';
+import { rightOperand } from './right-operand.js';
 
-const { group, line, indent } = doc.builders;
+const { group, indent } = doc.builders;
 
 const groupIfNecessaryBuilder = (path) => (document) => {
   const parentNode = path.getParentNode();
@@ -14,7 +15,7 @@ const groupIfNecessaryBuilder = (path) => (document) => {
   return group(document);
 };
 
-const indentIfNecessaryBuilder = (path) => (document) => {
+export const indentIfNecessaryBuilder = (path) => (document) => {
   let node = path.getNode();
   for (let i = 0; ; i += 1) {
     const parentNode = path.getParentNode(i);
@@ -32,11 +33,11 @@ const indentIfNecessaryBuilder = (path) => (document) => {
 
 export const arithmetic = {
   match: (op) => ['+', '-', '*', '/', '%'].includes(op),
-  print: (node, path, print) => {
+  print: (node, path, print, options) => {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
-    const right = [node.operator, line, path.call(print, 'right')];
+    const right = rightOperand(node, path, print, options);
     // If it's a single binary operation, avoid having a small right
     // operand like - 1 on its own line
     const shouldGroup =
@@ -44,7 +45,6 @@ export const arithmetic = {
       path.getParentNode().type !== 'BinaryOperation';
     return groupIfNecessary([
       path.call(print, 'left'),
-      ' ',
       indentIfNecessary(shouldGroup ? group(right) : right)
     ]);
   }
