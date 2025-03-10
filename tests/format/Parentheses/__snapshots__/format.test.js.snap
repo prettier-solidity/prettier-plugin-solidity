@@ -980,6 +980,229 @@ contract DivNoParentheses {
 ================================================================================
 `;
 
+exports[`EqualParentheses.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract EqualParentheses {
+    function notEqualAdd(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b + c;
+    }
+
+    function notEqualSub(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b - c;
+    }
+
+    function notEqualMul(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b * c;
+    }
+
+    function notEqualDiv(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b / c;
+    }
+
+    function notEqualMod(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b % c;
+    }
+
+    function notEqualExp(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b ** c;
+    }
+
+    function notEqualShiftL(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b << c;
+    }
+
+    function notEqualShiftR(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b >> c;
+    }
+
+    function notEqualBitAnd(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b & c;
+    }
+
+    function notEqualBitOr(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b | c;
+    }
+
+    function notEqualBitXor(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b ^ c;
+    }
+
+    function notEqualEqual(bool a, bool b, bool c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b == c;
+    }
+
+    function notEqualNotEqual(bool a, bool b, bool c)
+        public
+        pure
+        returns (bool)
+    {
+        return a == b != c;
+    }
+}
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract EqualParentheses {
+    function notEqualAdd(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b + c;
+    }
+
+    function notEqualSub(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b - c;
+    }
+
+    function notEqualMul(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b * c;
+    }
+
+    function notEqualDiv(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b / c;
+    }
+
+    function notEqualMod(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b % c;
+    }
+
+    function notEqualExp(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b ** c;
+    }
+
+    function notEqualShiftL(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b << c;
+    }
+
+    function notEqualShiftR(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b >> c;
+    }
+
+    function notEqualBitAnd(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b & c;
+    }
+
+    function notEqualBitOr(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b | c;
+    }
+
+    function notEqualBitXor(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a == b ^ c;
+    }
+
+    function notEqualEqual(bool a, bool b, bool c) public pure returns (bool) {
+        return (a == b) == c;
+    }
+
+    function notEqualNotEqual(
+        bool a,
+        bool b,
+        bool c
+    ) public pure returns (bool) {
+        return (a == b) != c;
+    }
+}
+
+================================================================================
+`;
+
 exports[`ExpNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
@@ -1201,6 +1424,22 @@ contract LogicNoParentheses {
     function andAnd(bool a, bool b, bool c) public pure returns (bool) {
         return a && b && c;
     }
+
+    function equalEqual(bool a, bool b, bool c) public pure returns (bool) {
+        return a == b == c;
+    }
+
+    function equalNotEqual(bool a, bool b, bool c) public pure returns (bool) {
+        return a == b != c;
+    }
+
+    function notEqualEqual(bool a, bool b, bool c) public pure returns (bool) {
+        return a != b == c;
+    }
+
+    function notEqualNotEqual(bool a, bool b, bool c) public pure returns (bool) {
+        return a != b != c;
+    }
 }
 
 =====================================output=====================================
@@ -1222,6 +1461,26 @@ contract LogicNoParentheses {
 
     function andAnd(bool a, bool b, bool c) public pure returns (bool) {
         return a && b && c;
+    }
+
+    function equalEqual(bool a, bool b, bool c) public pure returns (bool) {
+        return (a == b) == c;
+    }
+
+    function equalNotEqual(bool a, bool b, bool c) public pure returns (bool) {
+        return (a == b) != c;
+    }
+
+    function notEqualEqual(bool a, bool b, bool c) public pure returns (bool) {
+        return (a != b) == c;
+    }
+
+    function notEqualNotEqual(
+        bool a,
+        bool b,
+        bool c
+    ) public pure returns (bool) {
+        return (a != b) != c;
     }
 }
 
@@ -1614,6 +1873,229 @@ contract MulNoParentheses {
         uint256 c
     ) public pure returns (uint256) {
         return (a * b) ^ c;
+    }
+}
+
+================================================================================
+`;
+
+exports[`NotEqualParentheses.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang-solidity"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract NotEqualParentheses {
+    function notEqualAdd(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b + c;
+    }
+
+    function notEqualSub(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b - c;
+    }
+
+    function notEqualMul(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b * c;
+    }
+
+    function notEqualDiv(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b / c;
+    }
+
+    function notEqualMod(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b % c;
+    }
+
+    function notEqualExp(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b ** c;
+    }
+
+    function notEqualShiftL(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b << c;
+    }
+
+    function notEqualShiftR(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b >> c;
+    }
+
+    function notEqualBitAnd(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b & c;
+    }
+
+    function notEqualBitOr(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b | c;
+    }
+
+    function notEqualBitXor(uint256 a, uint256 b, uint256 c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b ^ c;
+    }
+
+    function notEqualEqual(bool a, bool b, bool c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b == c;
+    }
+
+    function notEqualNotEqual(bool a, bool b, bool c)
+        public
+        pure
+        returns (bool)
+    {
+        return a != b != c;
+    }
+}
+=====================================output=====================================
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
+
+contract NotEqualParentheses {
+    function notEqualAdd(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b + c;
+    }
+
+    function notEqualSub(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b - c;
+    }
+
+    function notEqualMul(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b * c;
+    }
+
+    function notEqualDiv(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b / c;
+    }
+
+    function notEqualMod(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b % c;
+    }
+
+    function notEqualExp(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b ** c;
+    }
+
+    function notEqualShiftL(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b << c;
+    }
+
+    function notEqualShiftR(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b >> c;
+    }
+
+    function notEqualBitAnd(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b & c;
+    }
+
+    function notEqualBitOr(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b | c;
+    }
+
+    function notEqualBitXor(
+        uint256 a,
+        uint256 b,
+        uint256 c
+    ) public pure returns (bool) {
+        return a != b ^ c;
+    }
+
+    function notEqualEqual(bool a, bool b, bool c) public pure returns (bool) {
+        return (a != b) == c;
+    }
+
+    function notEqualNotEqual(
+        bool a,
+        bool b,
+        bool c
+    ) public pure returns (bool) {
+        return (a != b) != c;
     }
 }
 
