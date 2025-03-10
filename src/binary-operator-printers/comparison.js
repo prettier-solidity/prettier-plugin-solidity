@@ -1,4 +1,5 @@
 import { doc } from 'prettier';
+import { logical } from './logical.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -11,6 +12,7 @@ const indentIfNecessaryBuilder = (path) => (document) => {
     if (parentNode.type === 'ForStatement') return document;
     if (parentNode.type === 'WhileStatement') return document;
     if (parentNode.type !== 'BinaryOperation') return indent(document);
+    if (logical.match(parentNode.operator)) return indent(document);
     if (node === parentNode.right) return document;
     node = parentNode;
   }
