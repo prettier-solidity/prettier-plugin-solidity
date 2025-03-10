@@ -2507,19 +2507,19 @@ contract Indent {
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA ==
             veryVeryVeryExtremelyExtremelyLongUint256B <
-            veryVeryVeryExtremelyExtremelyLongUint256C;
+                veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA ==
             veryVeryVeryExtremelyExtremelyLongUint256B <=
-            veryVeryVeryExtremelyExtremelyLongUint256C;
+                veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA ==
             veryVeryVeryExtremelyExtremelyLongUint256B >
-            veryVeryVeryExtremelyExtremelyLongUint256C;
+                veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA ==
             veryVeryVeryExtremelyExtremelyLongUint256B >=
-            veryVeryVeryExtremelyExtremelyLongUint256C;
+                veryVeryVeryExtremelyExtremelyLongUint256C;
     }
 
     function notEqual() public {
@@ -2578,19 +2578,19 @@ contract Indent {
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA !=
             veryVeryVeryExtremelyExtremelyLongUint256B <
-            veryVeryVeryExtremelyExtremelyLongUint256C;
+                veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA !=
             veryVeryVeryExtremelyExtremelyLongUint256B <=
-            veryVeryVeryExtremelyExtremelyLongUint256C;
+                veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA !=
             veryVeryVeryExtremelyExtremelyLongUint256B >
-            veryVeryVeryExtremelyExtremelyLongUint256C;
+                veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA !=
             veryVeryVeryExtremelyExtremelyLongUint256B >=
-            veryVeryVeryExtremelyExtremelyLongUint256C;
+                veryVeryVeryExtremelyExtremelyLongUint256C;
     }
 
     function lessThan() public {
@@ -2640,11 +2640,11 @@ contract Indent {
                 veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongUint256A <
-            veryVeryVeryExtremelyExtremelyLongUint256B ==
+                veryVeryVeryExtremelyExtremelyLongUint256B ==
             veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongUint256A <
-            veryVeryVeryExtremelyExtremelyLongUint256B !=
+                veryVeryVeryExtremelyExtremelyLongUint256B !=
             veryVeryVeryExtremelyExtremelyLongBooleanC;
     }
 
@@ -2695,11 +2695,11 @@ contract Indent {
                 veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongUint256A <=
-            veryVeryVeryExtremelyExtremelyLongUint256B ==
+                veryVeryVeryExtremelyExtremelyLongUint256B ==
             veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongUint256A <=
-            veryVeryVeryExtremelyExtremelyLongUint256B !=
+                veryVeryVeryExtremelyExtremelyLongUint256B !=
             veryVeryVeryExtremelyExtremelyLongBooleanC;
     }
 
@@ -2750,11 +2750,11 @@ contract Indent {
                 veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongUint256A >
-            veryVeryVeryExtremelyExtremelyLongUint256B ==
+                veryVeryVeryExtremelyExtremelyLongUint256B ==
             veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongUint256A >
-            veryVeryVeryExtremelyExtremelyLongUint256B !=
+                veryVeryVeryExtremelyExtremelyLongUint256B !=
             veryVeryVeryExtremelyExtremelyLongBooleanC;
     }
 
@@ -2805,11 +2805,11 @@ contract Indent {
                 veryVeryVeryExtremelyExtremelyLongUint256C;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongUint256A >=
-            veryVeryVeryExtremelyExtremelyLongUint256B ==
+                veryVeryVeryExtremelyExtremelyLongUint256B ==
             veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongUint256A >=
-            veryVeryVeryExtremelyExtremelyLongUint256B !=
+                veryVeryVeryExtremelyExtremelyLongUint256B !=
             veryVeryVeryExtremelyExtremelyLongBooleanC;
     }
 
