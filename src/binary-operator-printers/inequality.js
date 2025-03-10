@@ -1,12 +1,14 @@
-import {
-  createComparisonOperationPrinter,
-  createIndentIfNecessaryBuilder
-} from './printers/create-comparison-operation-printer.js';
+import { doc } from 'prettier';
+import { createBinaryOperationPrinter } from './printers/create-binary-operation-printer.js';
+import { createComparisonIndentIfNecessaryBuilder } from './printers/create-indent-if-necessary-builder.js';
 import { logical } from './logical.js';
 import { equality } from './equality.js';
 
-const inequalityPrinter = createComparisonOperationPrinter(
-  createIndentIfNecessaryBuilder([logical, equality])
+const { group } = doc.builders;
+
+const inequalityPrinter = createBinaryOperationPrinter(
+  () => (document) => group(document), // always group
+  createComparisonIndentIfNecessaryBuilder([logical, equality])
 );
 
 export const inequality = {

@@ -1,4 +1,4 @@
-import { defaultBinaryOperationPrinter } from './printers/create-binary-operation-printer.js';
+import { defaultBinaryOperationPrinter } from './printers/default-binary-operation-printer.js';
 
 export const shift = {
   match: (op) => ['<<', '>>'].includes(op),
