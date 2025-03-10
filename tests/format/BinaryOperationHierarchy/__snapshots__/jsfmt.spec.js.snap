@@ -2825,11 +2825,11 @@ contract Indent {
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA ||
             veryVeryVeryExtremelyExtremelyLongBooleanB ==
-            veryVeryVeryExtremelyExtremelyLongBooleanC;
+                veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA ||
             veryVeryVeryExtremelyExtremelyLongBooleanB !=
-            veryVeryVeryExtremelyExtremelyLongBooleanC;
+                veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             (veryVeryVeryExtremelyExtremelyLongBooleanA &&
                 veryVeryVeryExtremelyExtremelyLongBooleanB) ||
@@ -2841,26 +2841,26 @@ contract Indent {
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA &&
             veryVeryVeryExtremelyExtremelyLongBooleanB ==
-            veryVeryVeryExtremelyExtremelyLongBooleanC;
+                veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA &&
             veryVeryVeryExtremelyExtremelyLongBooleanB !=
+                veryVeryVeryExtremelyExtremelyLongBooleanC;
+        resultBoolean =
+            veryVeryVeryExtremelyExtremelyLongBooleanA ==
+                veryVeryVeryExtremelyExtremelyLongBooleanB ||
             veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA ==
-            veryVeryVeryExtremelyExtremelyLongBooleanB ||
-            veryVeryVeryExtremelyExtremelyLongBooleanC;
-        resultBoolean =
-            veryVeryVeryExtremelyExtremelyLongBooleanA ==
-            veryVeryVeryExtremelyExtremelyLongBooleanB &&
+                veryVeryVeryExtremelyExtremelyLongBooleanB &&
             veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA !=
-            veryVeryVeryExtremelyExtremelyLongBooleanB ||
+                veryVeryVeryExtremelyExtremelyLongBooleanB ||
             veryVeryVeryExtremelyExtremelyLongBooleanC;
         resultBoolean =
             veryVeryVeryExtremelyExtremelyLongBooleanA !=
-            veryVeryVeryExtremelyExtremelyLongBooleanB &&
+                veryVeryVeryExtremelyExtremelyLongBooleanB &&
             veryVeryVeryExtremelyExtremelyLongBooleanC;
     }
 }
