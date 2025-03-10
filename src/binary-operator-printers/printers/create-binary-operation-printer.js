@@ -1,5 +1,4 @@
 import { doc } from 'prettier';
-import { assignment } from '../assignment.js';
 import { comparison } from '../comparison.js';
 import { rightOperandPrinter } from './right-operand-printer.js';
 
@@ -46,16 +45,9 @@ export const createBinaryOperationPrinter =
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path);
 
-    const right = rightOperandPrinter(node, path, print, options);
-    // If it's a single binary operation, avoid having a small right
-    // operand like - 1 on its own line
-    const parent = path.getParentNode();
-    const shouldGroup =
-      node.left.type !== 'BinaryOperation' &&
-      (parent.type !== 'BinaryOperation' || assignment.match(parent.operator));
     return groupIfNecessary([
       path.call(print, 'left'),
-      indentIfNecessary(shouldGroup ? group(right) : right)
+      indentIfNecessary(rightOperandPrinter(node, path, print, options))
     ]);
   };
 

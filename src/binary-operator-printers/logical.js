@@ -31,15 +31,9 @@ export const logical = {
     const groupIfNecessary = groupIfNecessaryBuilder(path);
     const indentIfNecessary = indentIfNecessaryBuilder(path, options);
 
-    const right = rightOperandPrinter(node, path, print, options);
-    // If it's a single binary operation, avoid having a small right
-    // operand like - 1 on its own line
-    const shouldGroup =
-      node.left.type !== 'BinaryOperation' &&
-      path.getParentNode().type !== 'BinaryOperation';
     return groupIfNecessary([
       path.call(print, 'left'),
-      indentIfNecessary(shouldGroup ? group(right) : right)
+      indentIfNecessary(rightOperandPrinter(node, path, print, options))
     ]);
   }
 };
