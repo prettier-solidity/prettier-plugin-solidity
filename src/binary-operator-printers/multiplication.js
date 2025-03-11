@@ -1,5 +1,5 @@
 import { createBinaryOperationPrinter } from './printers/create-binary-operation-printer.js';
-import { createArithmeticGroupIfNecessaryBuilder } from './printers/create-group-if-necessary-builder.js';
+import { createGroupIfNecessaryBuilder } from './printers/create-group-if-necessary-builder.js';
 import { createArithmeticIndentIfNecessaryBuilder } from './printers/create-indent-if-necessary-builder.js';
 import { addition } from './addition.js';
 import { bit } from './bit.js';
@@ -10,7 +10,7 @@ import { shift } from './shift.js';
 const matchers = [addition, bit, equality, inequality, shift];
 
 const multiplicationPrinter = createBinaryOperationPrinter(
-  createArithmeticGroupIfNecessaryBuilder(matchers),
+  createGroupIfNecessaryBuilder(matchers),
   createArithmeticIndentIfNecessaryBuilder(matchers)
 );
 
