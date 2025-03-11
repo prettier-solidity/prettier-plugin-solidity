@@ -1,15 +1,11 @@
-import { doc } from 'prettier';
-import { createBinaryOperationPrinter } from './printers/create-binary-operation-printer.js';
+import { createGroupedBinaryOperationPrinter } from './printers/create-grouped-binary-operation-printer.js';
 import { createArithmeticIndentIfNecessaryBuilder } from './printers/create-indent-if-necessary-builder.js';
 import { addition } from './addition.js';
 import { equality } from './equality.js';
 import { inequality } from './inequality.js';
 import { multiplication } from './multiplication.js';
 
-const { group } = doc.builders;
-
-const exponentiationPrinter = createBinaryOperationPrinter(
-  () => (document) => group(document), // always group
+const exponentiationPrinter = createGroupedBinaryOperationPrinter(
   createArithmeticIndentIfNecessaryBuilder([
     addition,
     equality,
