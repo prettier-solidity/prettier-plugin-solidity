@@ -1,10 +1,8 @@
 import { doc } from 'prettier';
-import { rightOperandPrinter } from './printers/right-operand-printer.js';
+import { createBinaryOperationPrinter } from './printers/create-binary-operation-printer.js';
+import { createGroupIfNecessaryBuilder } from './printers/create-group-if-necessary-builder.js';
 
-const { group, indent } = doc.builders;
-
-const groupIfNecessaryBuilder = (path) => (document) =>
-  path.getParentNode().type === 'BinaryOperation' ? document : group(document);
+const { indent } = doc.builders;
 
 const indentIfNecessaryBuilder = (path, options) => (document) => {
   let node = path.getNode();
@@ -25,15 +23,12 @@ const indentIfNecessaryBuilder = (path, options) => (document) => {
   }
 };
 
+const logicalPrinter = createBinaryOperationPrinter(
+  createGroupIfNecessaryBuilder([]),
+  indentIfNecessaryBuilder
+);
+
 export const logical = {
   match: (op) => ['&&', '||'].includes(op),
-  print: (node, path, print, options) => {
-    const groupIfNecessary = groupIfNecessaryBuilder(path);
-    const indentIfNecessary = indentIfNecessaryBuilder(path, options);
-
-    return groupIfNecessary([
-      path.call(print, 'left'),
-      indentIfNecessary(rightOperandPrinter(node, path, print, options))
-    ]);
-  }
+  print: logicalPrinter
 };
