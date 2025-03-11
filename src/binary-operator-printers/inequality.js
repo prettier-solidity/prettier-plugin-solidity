@@ -1,13 +1,9 @@
-import { doc } from 'prettier';
-import { createBinaryOperationPrinter } from './printers/create-binary-operation-printer.js';
+import { createGroupedBinaryOperationPrinter } from './printers/create-grouped-binary-operation-printer.js';
 import { createComparisonIndentIfNecessaryBuilder } from './printers/create-indent-if-necessary-builder.js';
 import { logical } from './logical.js';
 import { equality } from './equality.js';
 
-const { group } = doc.builders;
-
-const inequalityPrinter = createBinaryOperationPrinter(
-  () => (document) => group(document), // always group
+const inequalityPrinter = createGroupedBinaryOperationPrinter(
   createComparisonIndentIfNecessaryBuilder([logical, equality])
 );
 
