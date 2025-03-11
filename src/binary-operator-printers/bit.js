@@ -1,6 +1,9 @@
-import { defaultBinaryOperationPrinter } from './printers/default-binary-operation-printer.js';
+import { binaryOperationPrinter } from './printers/binary-operation-printer.js';
+import { inequality } from './inequality.js';
+import { equality } from './equality.js';
+import { logical } from './logical.js';
 
 export const bit = {
   match: (op) => ['&', '|', '^'].includes(op),
-  print: defaultBinaryOperationPrinter
+  print: binaryOperationPrinter([inequality, equality, logical])
 };

@@ -23,12 +23,10 @@ const indentIfNecessaryBuilder = (path, options) => (document) => {
   }
 };
 
-const logicalPrinter = createBinaryOperationPrinter(
-  createGroupIfNecessaryBuilder([]),
-  indentIfNecessaryBuilder
-);
-
 export const logical = {
   match: (op) => ['&&', '||'].includes(op),
-  print: logicalPrinter
+  print: createBinaryOperationPrinter(
+    createGroupIfNecessaryBuilder([]),
+    indentIfNecessaryBuilder
+  )
 };

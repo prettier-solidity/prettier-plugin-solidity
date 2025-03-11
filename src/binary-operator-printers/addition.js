@@ -1,8 +1,11 @@
-import { defaultBinaryOperationPrinter } from './printers/default-binary-operation-printer.js';
+import { binaryOperationPrinter } from './printers/binary-operation-printer.js';
+import { bit } from './bit.js';
+import { shift } from './shift.js';
+import { inequality } from './inequality.js';
+import { equality } from './equality.js';
+import { logical } from './logical.js';
 
 export const addition = {
   match: (op) => ['+', '-'].includes(op),
-  print: defaultBinaryOperationPrinter
-  // grouping and indenting before `bit` and `shift` should technically be here
-  // but they are properly parenthesised before reaching this point.
+  print: binaryOperationPrinter([shift, bit, inequality, equality, logical])
 };
