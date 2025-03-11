@@ -3,7 +3,7 @@ import { shouldGroupOrIndent } from '../utils/should-group-or-indent.js';
 
 const { indent } = doc.builders;
 
-const createIndentIfNecessaryBuilder =
+export const createIndentIfNecessaryBuilder =
   (notIndentParentTypes) => (shouldIndentMatchers) => (path) => (document) => {
     let node = path.getNode();
     for (let i = 0; ; i += 1) {
@@ -15,14 +15,3 @@ const createIndentIfNecessaryBuilder =
       node = parentNode;
     }
   };
-
-export const createArithmeticIndentIfNecessaryBuilder =
-  createIndentIfNecessaryBuilder(['ReturnStatement']);
-
-export const createComparisonIndentIfNecessaryBuilder =
-  createIndentIfNecessaryBuilder([
-    'ReturnStatement',
-    'IfStatement',
-    'ForStatement',
-    'WhileStatement'
-  ]);

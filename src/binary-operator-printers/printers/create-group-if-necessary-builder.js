@@ -4,8 +4,9 @@ import { shouldGroupOrIndent } from '../utils/should-group-or-indent.js';
 const { group } = doc.builders;
 
 export const createGroupIfNecessaryBuilder =
-  (matchers) => (path) => (document) => {
+  (shouldIndentMatchers) => (path) => (document) => {
     const parentNode = path.getParentNode();
-    if (shouldGroupOrIndent(parentNode, matchers)) return group(document);
+    if (shouldGroupOrIndent(parentNode, shouldIndentMatchers))
+      return group(document);
     return document;
   };

@@ -1,8 +1,10 @@
-import { defaultBinaryOperationPrinter } from './printers/default-binary-operation-printer.js';
+import { binaryOperationPrinter } from './printers/binary-operation-printer.js';
+import { bit } from './bit.js';
+import { inequality } from './inequality.js';
+import { equality } from './equality.js';
+import { logical } from './logical.js';
 
 export const shift = {
   match: (op) => ['<<', '>>'].includes(op),
-  print: defaultBinaryOperationPrinter
-  // grouping and indenting before `bit` should technically be here but they
-  // are properly parenthesised before reaching this point.
+  print: binaryOperationPrinter([bit, inequality, equality, logical])
 };
