@@ -23,6 +23,8 @@ const shouldGroupAndIndent = createKindCheckFunction([
   NonterminalKind.BitwiseAndExpression,
   NonterminalKind.BitwiseOrExpression,
   NonterminalKind.BitwiseXorExpression,
+  NonterminalKind.InequalityExpression,
+  NonterminalKind.EqualityExpression,
   NonterminalKind.ShiftExpression
 ]);
 
