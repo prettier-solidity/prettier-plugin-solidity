@@ -22,7 +22,7 @@ export default (webpackEnv) => {
     // Avoid bundling Prettier
     externals: {
       prettier: 'global prettier',
-      'fs/promises': 'import fs/promises'
+      'node:fs/promises': 'import node:fs/promises'
     },
 
     plugins: [
