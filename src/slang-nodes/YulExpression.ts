@@ -2,7 +2,6 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulFunctionCallExpression } from './YulFunctionCallExpression.js';
 import { YulLiteral } from './YulLiteral.js';
-import { YulBuiltInFunction } from './YulBuiltInFunction.js';
 import { YulPath } from './YulPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -17,11 +16,7 @@ export class YulExpression implements SlangNode {
 
   loc;
 
-  variant:
-    | YulFunctionCallExpression
-    | YulLiteral
-    | YulBuiltInFunction
-    | YulPath;
+  variant: YulFunctionCallExpression | YulLiteral | YulPath;
 
   constructor(ast: ast.YulExpression, options: ParserOptions<AstNode>) {
     let metadata = getNodeMetadata(ast);
@@ -35,11 +30,6 @@ export class YulExpression implements SlangNode {
         break;
       case NonterminalKind.YulLiteral:
         this.variant = new YulLiteral(ast.variant as ast.YulLiteral, options);
-        break;
-      case NonterminalKind.YulBuiltInFunction:
-        this.variant = new YulBuiltInFunction(
-          ast.variant as ast.YulBuiltInFunction
-        );
         break;
       case NonterminalKind.YulPath:
         this.variant = new YulPath(ast.variant as ast.YulPath);
