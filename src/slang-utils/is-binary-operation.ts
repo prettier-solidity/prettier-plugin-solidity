@@ -11,8 +11,8 @@ export const isBinaryOperation = createKindCheckFunction([
   NonterminalKind.BitwiseAndExpression,
   NonterminalKind.BitwiseOrExpression,
   NonterminalKind.BitwiseXorExpression,
-  NonterminalKind.ComparisonExpression,
   NonterminalKind.EqualityExpression,
+  NonterminalKind.InequalityExpression,
   NonterminalKind.AndExpression,
   NonterminalKind.OrExpression,
   NonterminalKind.ShiftExpression
