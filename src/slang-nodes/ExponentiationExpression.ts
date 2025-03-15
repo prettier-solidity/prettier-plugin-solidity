@@ -18,6 +18,8 @@ const tryToHug = createHugFunction(['**']);
 
 const shouldIndent = createKindCheckFunction([
   NonterminalKind.AdditiveExpression,
+  NonterminalKind.InequalityExpression,
+  NonterminalKind.EqualityExpression,
   NonterminalKind.MultiplicativeExpression
 ]);
 
