@@ -1475,8 +1475,7 @@ library strings {
                     ptr,
                     needle._len,
                     needle._ptr
-                ) +
-                needle._len;
+                ) + needle._len;
         }
     }
 
