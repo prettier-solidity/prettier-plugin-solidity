@@ -10,7 +10,7 @@ const rightOperandPrinter = (node, path, print) => {
   // operand like - 1 on its own line
   const parent = path.getParentNode();
   return node.left.type !== 'BinaryOperation' &&
-    parent.type !== 'BinaryOperation'
+    (parent.type !== 'BinaryOperation' || assignment.match(parent.operator))
     ? group(right)
     : right;
 };
