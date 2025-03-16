@@ -1,11 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import {
-  binaryGroupRulesBuilder,
-  binaryIndentRulesBuilder
-} from '../slang-printers/print-binary-operation.js';
+import { printBinaryOperation } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
-import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
@@ -18,19 +14,18 @@ const multiplicationTryToHug = createHugFunction(['/', '%']);
 const divisionTryToHug = createHugFunction(['*', '%']);
 const moduloTryToHug = createHugFunction(['*', '/', '%']);
 
-const shouldGroupAndIndent = createKindCheckFunction([
-  NonterminalKind.AdditiveExpression,
-  NonterminalKind.BitwiseAndExpression,
-  NonterminalKind.BitwiseOrExpression,
-  NonterminalKind.BitwiseXorExpression,
-  NonterminalKind.InequalityExpression,
-  NonterminalKind.EqualityExpression,
-  NonterminalKind.ShiftExpression
-]);
-
-export const printMultiplicativeExpression = createBinaryOperationPrinter(
-  binaryGroupRulesBuilder(shouldGroupAndIndent),
-  binaryIndentRulesBuilder(shouldGroupAndIndent)
+export const printMultiplicativeExpression = printBinaryOperation(
+  createKindCheckFunction([
+    NonterminalKind.AdditiveExpression,
+    NonterminalKind.ShiftExpression,
+    NonterminalKind.BitwiseAndExpression,
+    NonterminalKind.BitwiseOrExpression,
+    NonterminalKind.BitwiseXorExpression,
+    NonterminalKind.InequalityExpression,
+    NonterminalKind.EqualityExpression,
+    NonterminalKind.AndExpression,
+    NonterminalKind.OrExpression
+  ])
 );
 
 export class MultiplicativeExpression implements SlangNode {
