@@ -264,8 +264,7 @@ contract ArithmeticOperators {
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            ) +
-            c;
+            ) + c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
@@ -353,8 +352,7 @@ contract ArithmeticOperators {
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            ) **
-            c;
+            ) ** c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
@@ -509,8 +507,7 @@ contract ComparisonOperators {
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            ) ==
-            c;
+            ) == c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
@@ -663,8 +660,7 @@ contract LogicalOperators {
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            ) ||
-            c;
+            ) || c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB

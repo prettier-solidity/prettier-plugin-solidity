@@ -1,4 +1,4 @@
-import { TerminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
@@ -24,11 +24,15 @@ function rightOperandPrint(
   ];
   // If it's a single binary operation, avoid having a small right
   // operand like - 1 on its own line
+  const leftOperand = node.leftOperand.variant;
+  const grandparentNode = path.getNode(2) as StrictAstNode;
   const shouldGroup =
     !(
-      node.leftOperand.variant.kind !== TerminalKind.Identifier &&
-      isBinaryOperation(node.leftOperand.variant)
-    ) && !isBinaryOperation(path.getNode(2) as StrictAstNode);
+      leftOperand.kind !== TerminalKind.Identifier &&
+      isBinaryOperation(leftOperand)
+    ) &&
+    (!isBinaryOperation(grandparentNode) ||
+      grandparentNode.kind === NonterminalKind.AssignmentExpression);
 
   return shouldGroup ? group(rightOperand) : rightOperand;
 }
