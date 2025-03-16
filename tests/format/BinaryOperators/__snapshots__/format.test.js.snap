@@ -506,7 +506,7 @@ contract ComparisonOperators {
             || veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             )
-            > d;
+                > d;
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
@@ -1191,7 +1191,7 @@ contract ComparisonOperators {
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
             ) >
-            d;
+                d;
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
