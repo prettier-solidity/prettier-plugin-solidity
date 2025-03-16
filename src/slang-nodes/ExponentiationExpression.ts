@@ -17,10 +17,16 @@ const { group } = doc.builders;
 const tryToHug = createHugFunction(['**']);
 
 const shouldIndent = createKindCheckFunction([
+  NonterminalKind.MultiplicativeExpression,
   NonterminalKind.AdditiveExpression,
+  NonterminalKind.ShiftExpression,
+  NonterminalKind.BitwiseAndExpression,
+  NonterminalKind.BitwiseOrExpression,
+  NonterminalKind.BitwiseXorExpression,
   NonterminalKind.ComparisonExpression,
   NonterminalKind.EqualityExpression,
-  NonterminalKind.MultiplicativeExpression
+  NonterminalKind.AndExpression,
+  NonterminalKind.OrExpression
 ]);
 
 const printExponentiationExpression = createBinaryOperationPrinter(

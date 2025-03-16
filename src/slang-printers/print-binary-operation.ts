@@ -4,8 +4,13 @@ import { createBinaryOperationPrinter } from './create-binary-operation-printer.
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
-import type { AstPath, Doc } from 'prettier';
-import type { BinaryOperation, StrictAstNode } from '../slang-nodes/types.d.ts';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type {
+  AstNode,
+  BinaryOperation,
+  StrictAstNode
+} from '../slang-nodes/types.d.ts';
+import type { PrintFunction } from '../types.js';
 
 const { group, indent } = doc.builders;
 
@@ -19,6 +24,22 @@ export const binaryGroupRulesBuilder =
     return document;
   };
 
+const isStatementWithoutIndentedOperation = createKindCheckFunction([
+  NonterminalKind.ReturnStatement,
+  NonterminalKind.IfStatement,
+  NonterminalKind.WhileStatement
+]);
+
+export const shouldNotIndent = (
+  node: StrictAstNode,
+  path: AstPath<BinaryOperation>,
+  index: number
+): boolean =>
+  isStatementWithoutIndentedOperation(node) ||
+  (node.kind === NonterminalKind.ExpressionStatement &&
+    (path.getNode(index + 1) as StrictAstNode).kind ===
+      NonterminalKind.ForStatementCondition);
+
 export const binaryIndentRulesBuilder =
   (shouldIndent: (node: BinaryOperation) => boolean) =>
   (path: AstPath<BinaryOperation>) =>
@@ -26,7 +47,7 @@ export const binaryIndentRulesBuilder =
     let node = path.getNode() as StrictAstNode;
     for (let i = 2; ; i += 2) {
       const grandparentNode = path.getNode(i) as StrictAstNode;
-      if (grandparentNode.kind === NonterminalKind.ReturnStatement) break;
+      if (shouldNotIndent(grandparentNode, path, i)) break;
       if (!isBinaryOperation(grandparentNode)) return indent(document);
       if (shouldIndent(grandparentNode)) return indent(document);
       if (node === grandparentNode.rightOperand.variant) break;
@@ -35,14 +56,15 @@ export const binaryIndentRulesBuilder =
     return document;
   };
 
-// By default group and indent binary operations only if grandparent is
-// `ComparisonExpression` or `EqualityExpression`
-const shouldGroupAndIndent = createKindCheckFunction([
-  NonterminalKind.ComparisonExpression,
-  NonterminalKind.EqualityExpression
-]);
-
-export const printBinaryOperation = createBinaryOperationPrinter(
-  binaryGroupRulesBuilder(shouldGroupAndIndent),
-  binaryIndentRulesBuilder(shouldGroupAndIndent)
-);
+export const printBinaryOperation = (
+  shouldGroupAndIndent: (node: StrictAstNode) => boolean
+): ((
+  node: BinaryOperation,
+  path: AstPath<BinaryOperation>,
+  print: PrintFunction,
+  options: ParserOptions<AstNode>
+) => Doc) =>
+  createBinaryOperationPrinter(
+    binaryGroupRulesBuilder(shouldGroupAndIndent),
+    binaryIndentRulesBuilder(shouldGroupAndIndent)
+  );
