@@ -9,7 +9,7 @@ import { ConditionalExpression } from './ConditionalExpression.js';
 import { OrExpression } from './OrExpression.js';
 import { AndExpression } from './AndExpression.js';
 import { EqualityExpression } from './EqualityExpression.js';
-import { ComparisonExpression } from './ComparisonExpression.js';
+import { InequalityExpression } from './InequalityExpression.js';
 import { BitwiseOrExpression } from './BitwiseOrExpression.js';
 import { BitwiseXorExpression } from './BitwiseXorExpression.js';
 import { BitwiseAndExpression } from './BitwiseAndExpression.js';
@@ -51,7 +51,7 @@ export class Expression implements SlangNode {
     | OrExpression
     | AndExpression
     | EqualityExpression
-    | ComparisonExpression
+    | InequalityExpression
     | BitwiseOrExpression
     | BitwiseXorExpression
     | BitwiseAndExpression
@@ -112,9 +112,9 @@ export class Expression implements SlangNode {
             options
           );
           break;
-        case NonterminalKind.ComparisonExpression:
-          this.variant = new ComparisonExpression(
-            ast.variant as ast.ComparisonExpression,
+        case NonterminalKind.InequalityExpression:
+          this.variant = new InequalityExpression(
+            ast.variant as ast.InequalityExpression,
             options
           );
           break;

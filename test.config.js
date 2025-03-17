@@ -11,7 +11,7 @@ export default {
   optimization: { minimize: false },
   target: ['browserslist'],
 
-  externals: { 'fs/promises': 'import fs/promises' },
+  externals: { 'node:fs/promises': 'import node:fs/promises' },
 
   experiments: {
     asyncWebAssembly: true,

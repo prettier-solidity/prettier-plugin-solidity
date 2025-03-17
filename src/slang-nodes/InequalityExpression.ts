@@ -8,8 +8,8 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
-export class ComparisonExpression implements SlangNode {
-  readonly kind = NonterminalKind.ComparisonExpression;
+export class InequalityExpression implements SlangNode {
+  readonly kind = NonterminalKind.InequalityExpression;
 
   comments;
 
@@ -21,7 +21,7 @@ export class ComparisonExpression implements SlangNode {
 
   rightOperand: Expression;
 
-  constructor(ast: ast.ComparisonExpression, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.InequalityExpression, options: ParserOptions<AstNode>) {
     let metadata = getNodeMetadata(ast);
 
     this.leftOperand = new Expression(ast.leftOperand, options);
@@ -35,7 +35,7 @@ export class ComparisonExpression implements SlangNode {
   }
 
   print(
-    path: AstPath<ComparisonExpression>,
+    path: AstPath<InequalityExpression>,
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
