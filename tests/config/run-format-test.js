@@ -1,9 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-
 import createEsmUtils from "esm-utils";
-
 import getPrettier from "./get-prettier.js";
 import getPlugins from "./get-plugins.js";
 import compileContract from "./utils/compile-contract.js";
@@ -11,6 +9,7 @@ import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import { createParser } from "../../src/slang-utils/create-parser.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -65,6 +64,22 @@ const testsWithAstChanges = new Map(
   }),
 );
 
+const unstableAntlrTests = new Map(
+  [
+    // Better placement of comments in Slang.
+    "BasicIterator/BasicIterator.sol",
+    "Comments/Comments.sol",
+    "IndexOf/IndexOf.sol",
+    // Syntax for `pragma solidity 0.5.0 - 0.6.0;` not supported by ANTLR
+    "Pragma/Pragma.sol",
+  ].map((fixture) => {
+    const [file, compareBytecode = () => true] = Array.isArray(fixture)
+      ? fixture
+      : [fixture];
+    return [path.join(__dirname, "../format/", file), compareBytecode];
+  }),
+);
+
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
 
@@ -77,6 +92,16 @@ const isUnstable = (filename, options) => {
 
 const isAstUnstable = (filename, options) => {
   const testFunction = unstableAstTests.get(filename);
+
+  if (!testFunction) {
+    return false;
+  }
+
+  return testFunction(options);
+};
+
+const isAntlrUnstable = (filename, options) => {
+  const testFunction = unstableAntlrTests.get(filename);
 
   if (!testFunction) {
     return false;
@@ -119,6 +144,12 @@ function runFormatTest(fixtures, parsers, options) {
   let { importMeta, snippets = [] } = fixtures.importMeta
     ? fixtures
     : { importMeta: fixtures };
+
+  const filename = path.basename(new URL(importMeta.url).pathname);
+  if (filename !== "format.test.js") {
+    throw new Error(`Format test should run in file named 'format.test.js'.`);
+  }
+
   const dirname = path.dirname(url.fileURLToPath(importMeta.url));
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
@@ -288,6 +319,25 @@ async function runTest({
 
   if (!FULL_TEST) {
     return;
+  }
+
+  if (
+    formatOptions.parser === "slang-solidity" &&
+    !isAntlrUnstable(filename, formatOptions)
+  ) {
+    // Compare with ANTLR's format
+    const prettier = await getPrettier();
+    const { formatted: antlrOutput } = await prettier.formatWithCursor(code, {
+      ...formatOptions,
+      // Since Slang forces us to decide on a compiler version, we need to do the
+      // same for ANTLR unless it was already given as an option.
+      compiler:
+        formatOptions.compiler ||
+        createParser(code, formatOptions)[0].languageVersion,
+      parser: "solidity-parse",
+      plugins: await getPlugins(),
+    });
+    expect(antlrOutput).toEqual(formatResult.output);
   }
 
   const isUnstableTest = isUnstable(filename, formatOptions);
