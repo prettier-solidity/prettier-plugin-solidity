@@ -4,7 +4,10 @@ import createEsmUtils from 'esm-utils';
 const { __dirname } = createEsmUtils(import.meta);
 
 export default {
-  entry: './tests/integration/test-app.js',
+  entry: {
+    test: './tests/integration/test-app.js',
+    'create-parser': './src/slang-utils/create-parser.js'
+  },
   mode: 'production',
   bail: true,
 
@@ -13,14 +16,25 @@ export default {
 
   externals: { 'node:fs/promises': 'import node:fs/promises' },
 
-  experiments: {
-    asyncWebAssembly: true,
-    topLevelAwait: true,
-    outputModule: true
+  resolve: {
+    extensions: ['.ts', '.js'],
+    extensionAlias: { '.js': ['.js', '.ts'] }
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+
+  experiments: { outputModule: true },
+
   output: {
-    filename: 'test.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     library: { type: 'module' }
   },

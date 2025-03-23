@@ -3,13 +3,13 @@ import path from "node:path";
 import url from "node:url";
 import createEsmUtils from "esm-utils";
 import getPrettier from "./get-prettier.js";
+import getCreateParser from "./get-create-parser.js";
 import getPlugins from "./get-plugins.js";
 import compileContract from "./utils/compile-contract.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
-import { createParser } from "../../src/slang-utils/create-parser.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -327,6 +327,7 @@ async function runTest({
   ) {
     // Compare with ANTLR's format
     const prettier = await getPrettier();
+    const createParser = await getCreateParser();
     const { formatted: antlrOutput } = await prettier.formatWithCursor(code, {
       ...formatOptions,
       // Since Slang forces us to decide on a compiler version, we need to do the
