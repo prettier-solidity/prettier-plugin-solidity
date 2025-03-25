@@ -9,9 +9,13 @@ git pull
 
 npm i
 
+npm run lint
+
 npm run test:all
 
 npm run build
+
+npm run build:test
 
 npm run test:standalone
 ```
