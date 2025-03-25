@@ -142,7 +142,7 @@ export type SlangAstNode =
   | ast.OrExpression
   | ast.AndExpression
   | ast.EqualityExpression
-  | ast.ComparisonExpression
+  | ast.InequalityExpression
   | ast.BitwiseOrExpression
   | ast.BitwiseXorExpression
   | ast.BitwiseAndExpression
@@ -230,7 +230,6 @@ export type SlangAstNode =
   | ast.YulAssignmentOperator
   | ast.YulSwitchCase
   | ast.YulExpression
-  | ast.YulBuiltInFunction
   | ast.YulLiteral
   | ast.SourceUnitMembers
   | ast.VersionExpressionSet

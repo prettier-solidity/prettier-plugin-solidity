@@ -20,7 +20,6 @@ import type { CallOptionsExpression } from './CallOptionsExpression.ts';
 import type { CatchClause } from './CatchClause.ts';
 import type { CatchClauseError } from './CatchClauseError.ts';
 import type { CatchClauses } from './CatchClauses.ts';
-import type { ComparisonExpression } from './ComparisonExpression.ts';
 import type { ConditionalExpression } from './ConditionalExpression.ts';
 import type { ConstantDefinition } from './ConstantDefinition.ts';
 import type { ConstructorAttribute } from './ConstructorAttribute.ts';
@@ -80,6 +79,7 @@ import type { ImportDeconstructionSymbols } from './ImportDeconstructionSymbols.
 import type { ImportDirective } from './ImportDirective.ts';
 import type { IndexAccessEnd } from './IndexAccessEnd.ts';
 import type { IndexAccessExpression } from './IndexAccessExpression.ts';
+import type { InequalityExpression } from './InequalityExpression.ts';
 import type { InheritanceSpecifier } from './InheritanceSpecifier.ts';
 import type { InheritanceType } from './InheritanceType.ts';
 import type { InheritanceTypes } from './InheritanceTypes.ts';
@@ -190,7 +190,6 @@ import type { YulArguments } from './YulArguments.ts';
 import type { YulAssignmentOperator } from './YulAssignmentOperator.ts';
 import type { YulBlock } from './YulBlock.ts';
 import type { YulBreakStatement } from './YulBreakStatement.ts';
-import type { YulBuiltInFunction } from './YulBuiltInFunction.ts';
 import type { YulColonAndEqual } from './YulColonAndEqual.ts';
 import type { YulContinueStatement } from './YulContinueStatement.ts';
 import type { YulDefaultCase } from './YulDefaultCase.ts';
@@ -321,7 +320,7 @@ export type StrictAstNode =
   | OrExpression
   | AndExpression
   | EqualityExpression
-  | ComparisonExpression
+  | InequalityExpression
   | BitwiseOrExpression
   | BitwiseXorExpression
   | BitwiseAndExpression
@@ -409,7 +408,6 @@ export type StrictAstNode =
   | YulAssignmentOperator
   | YulSwitchCase
   | YulExpression
-  | YulBuiltInFunction
   | YulLiteral
   | SourceUnitMembers
   | VersionExpressionSet
