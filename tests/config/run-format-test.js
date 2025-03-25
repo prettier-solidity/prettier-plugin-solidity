@@ -64,7 +64,7 @@ const testsWithAstChanges = new Map(
   }),
 );
 
-const unstableAntlrTests = new Map(
+const antlrMismatchTests = new Map(
   [
     // Better placement of comments in Slang.
     "BasicIterator/BasicIterator.sol",
@@ -100,8 +100,8 @@ const isAstUnstable = (filename, options) => {
   return testFunction(options);
 };
 
-const isAntlrUnstable = (filename, options) => {
-  const testFunction = unstableAntlrTests.get(filename);
+const isAntlrMismatch = (filename, options) => {
+  const testFunction = antlrMismatchTests.get(filename);
 
   if (!testFunction) {
     return false;
@@ -323,7 +323,7 @@ async function runTest({
 
   if (
     formatOptions.parser === "slang-solidity" &&
-    !isAntlrUnstable(filename, formatOptions)
+    !isAntlrMismatch(filename, formatOptions)
   ) {
     // Compare with ANTLR's format
     const prettier = await getPrettier();
