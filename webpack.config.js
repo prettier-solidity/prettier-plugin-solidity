@@ -4,12 +4,10 @@ import webpack from 'webpack';
 
 const { __dirname } = createEsmUtils(import.meta);
 
-const globalObject = `
-  typeof globalThis !== 'undefined' ? globalThis
+const globalObject = `typeof globalThis !== 'undefined' ? globalThis
   : typeof global !== 'undefined' ? global
   : typeof self !== 'undefined' ? self
-  : this || {}
-`;
+  : this || {}`;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -29,10 +27,8 @@ export default (webpackEnv) => {
       // TODO: investigate a cleaner way to populate the global variable
       // prettierPlugins in a browser.
       new webpack.BannerPlugin({
-        banner: `
-var root = ${globalObject};
-root["prettierPlugins"] = root["prettierPlugins"] || {}, root["prettierPlugins"]["solidity"] = __webpack_exports__default;
-`,
+        banner: `var root = ${globalObject};
+root["prettierPlugins"] = root["prettierPlugins"] || {}, root["prettierPlugins"]["solidity"] = __webpack_exports__default;`,
         footer: true,
         raw: true
       })
@@ -46,12 +42,6 @@ root["prettierPlugins"] = root["prettierPlugins"] || {}, root["prettierPlugins"]
       extensionAlias: { '.js': ['.js', '.ts'] }
     },
 
-    experiments: {
-      asyncWebAssembly: true,
-      topLevelAwait: true,
-      outputModule: true
-    },
-
     module: {
       rules: [
         {
@@ -61,6 +51,8 @@ root["prettierPlugins"] = root["prettierPlugins"] || {}, root["prettierPlugins"]
         }
       ]
     },
+
+    experiments: { outputModule: true },
 
     optimization: { minimize: isEnvProduction },
     target: ['browserslist'],
