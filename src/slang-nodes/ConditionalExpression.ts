@@ -29,16 +29,13 @@ function experimentalTernaries(
   const isNestedAsTrueExpression =
     isNested && grandparent.trueExpression.variant === node;
   const falseExpressionInSameLine =
-    typeof node.falseExpression.variant !== 'string' &&
-    (node.falseExpression.variant.kind === NonterminalKind.TupleExpression ||
-      node.falseExpression.variant.kind ===
-        NonterminalKind.ConditionalExpression);
+    node.falseExpression.variant.kind === NonterminalKind.TupleExpression ||
+    node.falseExpression.variant.kind === NonterminalKind.ConditionalExpression;
 
   // If the `condition` breaks into multiple lines, we add parentheses,
   // unless it already is a `TupleExpression`.
   const operand = path.call(print, 'operand');
   const operandDoc = group([
-    typeof node.operand.variant !== 'string' &&
     node.operand.variant.kind === NonterminalKind.TupleExpression
       ? operand
       : ifBreak(['(', printSeparatedItem(operand), ')'], operand),
@@ -137,13 +134,10 @@ export class ConditionalExpression implements SlangNode {
       // `condition` must be a single `bool` value.
       const operandLoc = this.operand.loc;
       while (
-        typeof this.operand.variant !== 'string' &&
         this.operand.variant.kind === NonterminalKind.TupleExpression &&
         this.operand.variant.items.items.length === 1 &&
-        (typeof this.operand.variant.items.items[0].expression!.variant ===
-          'string' ||
-          this.operand.variant.items.items[0].expression!.variant.kind !==
-            NonterminalKind.ConditionalExpression)
+        this.operand.variant.items.items[0].expression!.variant.kind !==
+          NonterminalKind.ConditionalExpression
       ) {
         this.operand = this.operand.variant.items.items[0].expression!;
       }
