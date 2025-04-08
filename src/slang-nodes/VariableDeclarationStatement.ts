@@ -57,6 +57,7 @@ export class VariableDeclarationStatement implements SlangNode {
     path: AstPath<VariableDeclarationStatement>,
     print: PrintFunction
   ): Doc {
+    const groupId = Symbol('Slang.VariableDeclarationStatement.variables');
     const declarationDoc = group(
       [
         path.call(print, 'variableType'),
@@ -68,12 +69,12 @@ export class VariableDeclarationStatement implements SlangNode {
           path.call(print, 'name')
         ])
       ],
-      { id: Symbol('Slang.VariableDeclarationStatement.variables') }
+      { id: groupId }
     );
 
     return [
       declarationDoc,
-      indentIfBreak(path.call(print, 'value'), { groupId: declarationDoc.id! }),
+      indentIfBreak(path.call(print, 'value'), { groupId }),
       ';'
     ];
   }
