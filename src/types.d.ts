@@ -7,7 +7,6 @@ import type { AstNode, Comment, StrictAstNode } from './slang-nodes/types.d.ts';
 declare module 'prettier' {
   interface ParserOptions {
     compiler: string;
-    experimentalTernaries: boolean;
   }
 }
 
