@@ -51,7 +51,7 @@ const parsers = {
   [antlrParserId]: antlrParser
 };
 
-const solidityCanAttachComment = (node: { type: string }): boolean =>
+const antlrCanAttachComment = (node: { type: string }): boolean =>
   typeof node.type === 'string' &&
   node.type !== 'BlockComment' &&
   node.type !== 'LineComment';
@@ -63,7 +63,7 @@ const canAttachComment = (node: AstNode): boolean =>
 
 // https://prettier.io/docs/en/plugins.html#printers
 const antlrPrinter = {
-  canAttachComment: solidityCanAttachComment,
+  canAttachComment: antlrCanAttachComment,
   handleComments: {
     ownLine: comments.solidityHandleOwnLineComment,
     endOfLine: comments.solidityHandleEndOfLineComment,

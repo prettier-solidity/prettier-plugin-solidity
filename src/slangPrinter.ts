@@ -20,10 +20,9 @@ function hasNodeIgnoreComment(node: StrictAstNode): boolean {
 }
 
 function ignoreComments(path: AstPath<AstNode>): void {
-  // TODO: remove undefined once we stop supporting prettier 2
   const node = path.getNode();
   // We ignore anything that is not an object
-  if (node === null || node === undefined || typeof node !== 'object') return;
+  if (node === null || typeof node !== 'object') return;
 
   const keys = Object.keys(node) as (keyof StrictAstNode)[];
   for (const key of keys) {
@@ -64,7 +63,7 @@ function genericPrint(
 ): Doc {
   const node = path.getNode();
 
-  if (typeof node === 'undefined' || node === null) {
+  if (node === null) {
     return '';
   }
 
