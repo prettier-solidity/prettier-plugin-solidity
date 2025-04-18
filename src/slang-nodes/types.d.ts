@@ -29,6 +29,8 @@ import type { ContinueStatement } from './ContinueStatement.ts';
 import type { ContractDefinition } from './ContractDefinition.ts';
 import type { ContractMember } from './ContractMember.ts';
 import type { ContractMembers } from './ContractMembers.ts';
+import type { ContractSpecifier } from './ContractSpecifier.ts';
+import type { ContractSpecifiers } from './ContractSpecifiers.ts';
 import type { DecimalNumberExpression } from './DecimalNumberExpression.ts';
 import type { DoWhileStatement } from './DoWhileStatement.ts';
 import type { ElementaryType } from './ElementaryType.ts';
@@ -139,6 +141,7 @@ import type { StateVariableAttribute } from './StateVariableAttribute.ts';
 import type { StateVariableAttributes } from './StateVariableAttributes.ts';
 import type { StateVariableDefinition } from './StateVariableDefinition.ts';
 import type { StateVariableDefinitionValue } from './StateVariableDefinitionValue.ts';
+import type { StorageLayoutSpecifier } from './StorageLayoutSpecifier.ts';
 import type { StorageLocation } from './StorageLocation.ts';
 import type { StringExpression } from './StringExpression.ts';
 import type { StringLiteral } from './StringLiteral.ts';
@@ -257,6 +260,7 @@ export type StrictAstNode =
   | ContractDefinition
   | InheritanceSpecifier
   | InheritanceType
+  | StorageLayoutSpecifier
   | InterfaceDefinition
   | LibraryDefinition
   | StructDefinition
@@ -411,6 +415,8 @@ export type StrictAstNode =
   | YulLiteral
   | SourceUnitMembers
   | VersionExpressionSet
+  | ContractSpecifier
+  | ContractSpecifiers
   | ContractMembers
   | InterfaceMembers
   | LibraryMembers

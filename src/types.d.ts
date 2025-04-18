@@ -77,6 +77,7 @@ export type SlangAstNode =
   | ast.UsingDeconstructionSymbol
   | ast.UsingAlias
   | ast.ContractDefinition
+  | ast.StorageLayoutSpecifier
   | ast.InheritanceSpecifier
   | ast.InheritanceType
   | ast.InterfaceDefinition
@@ -199,6 +200,8 @@ export type SlangAstNode =
   | ast.UsingClause
   | ast.UsingOperator
   | ast.UsingTarget
+  | ast.ContractSpecifier
+  | ast.ContractSpecifiers
   | ast.ContractMember
   | ast.StateVariableAttribute
   | ast.FunctionName

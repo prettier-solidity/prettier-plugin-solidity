@@ -3,7 +3,7 @@ import { coerce, satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Identifier } from './Identifier.js';
-import { InheritanceSpecifier } from './InheritanceSpecifier.js';
+import { ContractSpecifiers } from './ContractSpecifiers.js';
 import { ContractMembers } from './ContractMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -24,7 +24,7 @@ export class ContractDefinition implements SlangNode {
 
   name: Identifier;
 
-  inheritance?: InheritanceSpecifier;
+  specifiers: ContractSpecifiers;
 
   members: ContractMembers;
 
@@ -33,12 +33,10 @@ export class ContractDefinition implements SlangNode {
 
     this.abstractKeyword = ast.abstractKeyword?.unparse();
     this.name = new Identifier(ast.name);
-    if (ast.inheritance) {
-      this.inheritance = new InheritanceSpecifier(ast.inheritance, options);
-    }
+    this.specifiers = new ContractSpecifiers(ast.specifiers, options);
     this.members = new ContractMembers(ast.members, options);
 
-    metadata = updateMetadata(metadata, [this.inheritance, this.members]);
+    metadata = updateMetadata(metadata, [this.specifiers, this.members]);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
@@ -68,7 +66,8 @@ export class ContractDefinition implements SlangNode {
         this.abstractKeyword ? 'abstract ' : '',
         'contract ',
         path.call(print, 'name'),
-        this.inheritance ? [' ', path.call(print, 'inheritance')] : line,
+        path.call(print, 'specifiers'),
+        this.specifiers.items.length > 0 ? '' : line,
         '{'
       ]),
       path.call(print, 'members'),
