@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.4.29;
 
 
 contract Comments1 {
@@ -10,7 +10,7 @@ bytes32 private _CACHED_DOMAIN_SEPARATOR;
 /* solhint-enable var-name-mixedcase */
 
 
-    function() {
+    function hello() {
         // solhint-disable-previous-line no-empty-blocks
     }
 
