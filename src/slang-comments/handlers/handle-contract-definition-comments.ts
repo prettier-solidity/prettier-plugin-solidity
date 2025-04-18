@@ -23,10 +23,10 @@ export default function handleContractDefinitionComments({
     locEnd(comment)
   );
 
-  // Everything before the InheritanceSpecifier is pushed onto the beginning of
+  // Everything before the ContractSpecifiers is pushed onto the beginning of
   // the ContractDefinition.
   if (
-    followingNode?.kind === NonterminalKind.InheritanceSpecifier ||
+    followingNode?.kind === NonterminalKind.ContractSpecifiers ||
     (followingNode?.kind === NonterminalKind.ContractMembers &&
       nextCharacter !== '{')
   ) {
@@ -42,16 +42,25 @@ export default function handleContractDefinitionComments({
 
   // The last comments before the body.
   if (nextCharacter === '{') {
-    // If there's an InheritanceSpecifier, the comment is appended to the last
-    // InheritanceType.
-    if (
-      precedingNode?.kind === NonterminalKind.InheritanceSpecifier &&
-      precedingNode.types.items.length > 0
-    ) {
-      addTrailingComment(
-        precedingNode.types.items[precedingNode.types.items.length - 1],
-        comment
-      );
+    if (precedingNode?.kind === NonterminalKind.ContractSpecifiers) {
+      if (precedingNode.items.length === 0) {
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+      const lastContractSpecifier =
+        precedingNode.items[precedingNode.items.length - 1].variant;
+      // If the last ContractSpecifier's an InheritanceSpecifier, the comment
+      // is appended to the last InheritanceType.
+      if (lastContractSpecifier.kind === NonterminalKind.InheritanceSpecifier) {
+        addTrailingComment(
+          lastContractSpecifier.types.items[
+            lastContractSpecifier.types.items.length - 1
+          ],
+          comment
+        );
+        return true;
+      }
+      addTrailingComment(lastContractSpecifier, comment);
       return true;
     }
   }
