@@ -38,6 +38,18 @@ contract Comments4 is Interface1, Interface2, Interface3, Interface4, Interface5
   // solhint-disable-previous-line no-empty-blocks
 }
 
+contract Comments4a is Interface1, Interface2, Interface3, Interface4, Interface5, Interface6 /*why we used Interface6*/ layout /*where should this go?*/at 123/*why we used this layout*/ {
+  // solhint-disable-previous-line no-empty-blocks
+}
+
+contract Comments4b is Interface1, Interface2, Interface3, Interface4, Interface5, Interface6 /*why we used Interface6*/ layout /*where should this go?*/at 123 + 456/*why we used this layout*/ {
+  // solhint-disable-previous-line no-empty-blocks
+}
+
+contract Comments4c is Interface1, Interface2, Interface3, Interface4, Interface5, Interface6 /*why we used Interface6*/ layout /*where should this go?*/at f(123 + 456)/*why we used this layout*/ {
+  // solhint-disable-previous-line no-empty-blocks
+}
+
 contract Comments5 /*nice name*/ {
   // solhint-disable-previous-line no-empty-blocks
 }
