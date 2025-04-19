@@ -27,10 +27,19 @@ function handleContractDefinitionComments({
   );
 
   // The comment is behind the start of the Block `{}` or behind a base contract
-  if (followingNode?.type === 'InheritanceSpecifier' || nextCharacter === '{') {
+  if (
+    (followingNode &&
+      (followingNode.type === 'InheritanceSpecifier' ||
+        followingNode === enclosingNode.storageLayout)) ||
+    nextCharacter === '{'
+  ) {
     // In this scenario the comment belongs to a base contract.
     //   contract A is B, /* comment for B */ C /* comment for C */ {}
-    if (precedingNode?.type === 'InheritanceSpecifier') {
+    if (
+      precedingNode &&
+      (precedingNode.type === 'InheritanceSpecifier' ||
+        precedingNode === enclosingNode.storageLayout)
+    ) {
       addTrailingComment(precedingNode, comment);
       return true;
     }
