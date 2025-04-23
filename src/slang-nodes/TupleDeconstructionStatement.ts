@@ -44,16 +44,15 @@ export class TupleDeconstructionStatement implements SlangNode {
     path: AstPath<TupleDeconstructionStatement>,
     print: PrintFunction
   ): Doc {
+    const groupId = Symbol('Slang.VariableDeclarationStatement.variables');
     const declarationDoc = group(
       [this.varKeyword ? 'var (' : '(', path.call(print, 'elements'), ')'],
-      { id: Symbol('Slang.VariableDeclarationStatement.variables') }
+      { id: groupId }
     );
 
     return [
       declarationDoc,
-      indentIfBreak([' = ', path.call(print, 'expression'), ';'], {
-        groupId: declarationDoc.id!
-      })
+      indentIfBreak([' = ', path.call(print, 'expression'), ';'], { groupId })
     ];
   }
 }

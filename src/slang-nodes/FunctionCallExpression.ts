@@ -45,10 +45,9 @@ export class FunctionCallExpression implements SlangNode {
     // If we are at the end of a MemberAccessChain we should indent the
     // arguments accordingly.
     if (isLabel(operandDoc) && operandDoc.label === 'MemberAccessChain') {
-      operandDoc = group(operandDoc.contents, {
-        id: Symbol('FunctionCallExpression.operand')
-      });
-      argumentsDoc = indentIfBreak(argumentsDoc, { groupId: operandDoc.id! });
+      const groupId = Symbol('Slang.FunctionCallExpression.operand');
+      operandDoc = group(operandDoc.contents, { id: groupId });
+      argumentsDoc = indentIfBreak(argumentsDoc, { groupId });
       // We wrap the expression in a label in case there is an IndexAccess or
       // a FunctionCall following this IndexAccess.
       return label('MemberAccessChain', [operandDoc, argumentsDoc]);

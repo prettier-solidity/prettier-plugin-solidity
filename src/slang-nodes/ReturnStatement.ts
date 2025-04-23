@@ -17,11 +17,9 @@ function printExpression(
   options: ParserOptions<AstNode>
 ): Doc {
   if (node.expression) {
-    return typeof node.expression.variant !== 'string' &&
-      (node.expression.variant.kind === NonterminalKind.TupleExpression ||
-        (options.experimentalTernaries &&
-          node.expression.variant.kind ===
-            NonterminalKind.ConditionalExpression))
+    return node.expression.variant.kind === NonterminalKind.TupleExpression ||
+      (options.experimentalTernaries &&
+        node.expression.variant.kind === NonterminalKind.ConditionalExpression)
       ? [' ', path.call(print, 'expression')]
       : group(indent([line, path.call(print, 'expression')]));
   }
