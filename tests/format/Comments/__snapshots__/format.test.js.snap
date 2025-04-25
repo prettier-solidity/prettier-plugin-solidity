@@ -240,8 +240,8 @@ contract Comments4a
         Interface3,
         Interface4,
         Interface5,
-        Interface6 /*why we used Interface6*/ /*where should this go?*/
-    layout at 123 /*why we used this layout*/
+        Interface6 /*why we used Interface6*/
+    layout at /*where should this go?*/ 123 /*why we used this layout*/
 {
     // solhint-disable-previous-line no-empty-blocks
 }
@@ -253,8 +253,8 @@ contract Comments4b
         Interface3,
         Interface4,
         Interface5,
-        Interface6 /*why we used Interface6*/ /*where should this go?*/
-    layout at 123 + 456 /*why we used this layout*/
+        Interface6 /*why we used Interface6*/
+    layout at /*where should this go?*/ 123 + 456 /*why we used this layout*/
 {
     // solhint-disable-previous-line no-empty-blocks
 }
@@ -266,13 +266,15 @@ contract Comments4c
         Interface3,
         Interface4,
         Interface5,
-        Interface6 /*why we used Interface6*/ /*where should this go?*/
-    layout at f(123 + 456) /*why we used this layout*/
+        Interface6 /*why we used Interface6*/
+    layout at
+        /*where should this go?*/ f(123 + 456) /*why we used this layout*/
+
 {
     // solhint-disable-previous-line no-empty-blocks
 }
 
-/*nice name*/ contract Comments5 {
+contract Comments5 /*nice name*/ {
     // solhint-disable-previous-line no-empty-blocks
 }
 

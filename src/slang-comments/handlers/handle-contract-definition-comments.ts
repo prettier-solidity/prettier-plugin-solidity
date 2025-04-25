@@ -52,16 +52,15 @@ export default function handleContractDefinitionComments({
       // If the last ContractSpecifier's an InheritanceSpecifier, the comment
       // is appended to the last InheritanceType.
       if (lastContractSpecifier.kind === NonterminalKind.InheritanceSpecifier) {
-        addTrailingComment(
-          lastContractSpecifier.types.items[
-            lastContractSpecifier.types.items.length - 1
-          ],
-          comment
-        );
+        addCollectionNodeLastComment(lastContractSpecifier.types, comment);
         return true;
       }
-      addTrailingComment(lastContractSpecifier, comment);
-      return true;
+      if (
+        lastContractSpecifier.kind === NonterminalKind.StorageLayoutSpecifier
+      ) {
+        addTrailingComment(lastContractSpecifier.expression, comment);
+        return true;
+      }
     }
   }
 
