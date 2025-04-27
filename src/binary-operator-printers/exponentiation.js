@@ -1,19 +1,28 @@
 import { doc } from 'prettier';
+import { createBinaryOperationPrinter } from './printers/create-binary-operation-printer.js';
+import { createIndentIfNecessaryBuilder } from './printers/create-indent-if-necessary-builder.js';
+import { multiplication } from './multiplication.js';
+import { addition } from './addition.js';
+import { shift } from './shift.js';
+import { bit } from './bit.js';
+import { inequality } from './inequality.js';
+import { equality } from './equality.js';
+import { logical } from './logical.js';
 
-const { group, indent, line } = doc.builders;
+const { group } = doc.builders;
 
 export const exponentiation = {
   match: (op) => op === '**',
-  print: (node, path, print) => {
-    const right = [' ', node.operator, line, path.call(print, 'right')];
-    // If it's a single binary operation, avoid having a small right
-    // operand like - 1 on its own line
-    const shouldGroup =
-      node.left.type !== 'BinaryOperation' &&
-      path.getParentNode().type !== 'BinaryOperation';
-    return group([
-      path.call(print, 'left'),
-      indent(shouldGroup ? group(right) : right)
-    ]);
-  }
+  print: createBinaryOperationPrinter(
+    () => (document) => group(document), // always group
+    createIndentIfNecessaryBuilder([
+      multiplication,
+      addition,
+      shift,
+      bit,
+      inequality,
+      equality,
+      logical
+    ])
+  )
 };
