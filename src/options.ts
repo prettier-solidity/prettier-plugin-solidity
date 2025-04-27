@@ -48,6 +48,22 @@ const options: SupportOptions = {
     oppositeDescription:
       'Default behavior of ternaries; keep question marks on the same line as the consequent.'
   },
+  experimentalOperatorPosition: {
+    category: CATEGORY_JAVASCRIPT,
+    type: 'choice',
+    default: 'end',
+    description: 'Where to print operators when binary expressions wrap lines.',
+    choices: [
+      {
+        value: 'start',
+        description: 'Print operators at the start of new lines.'
+      },
+      {
+        value: 'end',
+        description: 'Print operators at the end of previous lines.'
+      }
+    ]
+  },
   compiler: {
     category: CATEGORY_SOLIDITY,
     type: 'string',

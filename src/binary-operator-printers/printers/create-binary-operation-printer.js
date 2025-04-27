@@ -3,8 +3,11 @@ import { assignment } from '../assignment.js';
 
 const { group, line } = doc.builders;
 
-const rightOperandPrinter = (node, path, print) => {
-  const right = [' ', node.operator, line, path.call(print, 'right')];
+const rightOperandPrinter = (node, path, print, options) => {
+  const right =
+    options.experimentalOperatorPosition === 'end'
+      ? [' ', node.operator, line, path.call(print, 'right')]
+      : [line, node.operator, ' ', path.call(print, 'right')];
 
   // If it's a single binary operation, avoid having a small right
   // operand like - 1 on its own line
@@ -23,6 +26,6 @@ export const createBinaryOperationPrinter =
 
     return groupIfNecessary([
       path.call(print, 'left'),
-      indentIfNecessary(rightOperandPrinter(node, path, print))
+      indentIfNecessary(rightOperandPrinter(node, path, print, options))
     ]);
   };
