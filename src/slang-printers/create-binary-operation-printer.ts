@@ -17,8 +17,11 @@ function rightOperandPrint(
   path: AstPath<BinaryOperation>,
   print: PrintFunction
 ): Doc {
-  const rightOperand = [line, path.call(print, 'rightOperand')];
-
+  const rightOperand = [
+    ` ${node.operator}`,
+    line,
+    path.call(print, 'rightOperand')
+  ];
   // If it's a single binary operation, avoid having a small right
   // operand like - 1 on its own line
   const shouldGroup =
@@ -51,7 +54,6 @@ export const createBinaryOperationPrinter =
 
     return groupRules([
       path.call(print, 'leftOperand'),
-      ` ${node.operator}`,
       indentRules(rightOperandPrint(node, path, print))
     ]);
   };

@@ -409,7 +409,7 @@ contract Conditional {
    (
     bifornCringerMoshedPerplexSawder == 2 / askTrovenaBeenaDependsRowans &&
     glimseGlyphsHazardNoopsTieTie >=
-    averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
+     averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
    ) ?
     "foo"
    : "bar";
@@ -420,7 +420,7 @@ contract Conditional {
    (
     bifornCringerMoshedPerplexSawder == 2 / askTrovenaBeenaDependsRowans &&
     glimseGlyphsHazardNoopsTieTie >=
-    averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
+     averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
    ) ?
     "foo"
    : anotherCondition ? "bar"
@@ -920,8 +920,8 @@ contract Conditional {
 				bifornCringerMoshedPerplexSawder ==
 					2 / askTrovenaBeenaDependsRowans &&
 				glimseGlyphsHazardNoopsTieTie >=
-				averredBathersBoxroomBuggyNurl()
-					.anodyneCondosMalateOverateRetinol()
+					averredBathersBoxroomBuggyNurl()
+						.anodyneCondosMalateOverateRetinol()
 			) ?
 				"foo"
 			:	"bar";
@@ -933,8 +933,8 @@ contract Conditional {
 				bifornCringerMoshedPerplexSawder ==
 					2 / askTrovenaBeenaDependsRowans &&
 				glimseGlyphsHazardNoopsTieTie >=
-				averredBathersBoxroomBuggyNurl()
-					.anodyneCondosMalateOverateRetinol()
+					averredBathersBoxroomBuggyNurl()
+						.anodyneCondosMalateOverateRetinol()
 			) ?
 				"foo"
 			: anotherCondition ? "bar"
@@ -1433,8 +1433,8 @@ contract Conditional {
                 bifornCringerMoshedPerplexSawder ==
                     2 / askTrovenaBeenaDependsRowans &&
                 glimseGlyphsHazardNoopsTieTie >=
-                averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol()
+                    averredBathersBoxroomBuggyNurl()
+                        .anodyneCondosMalateOverateRetinol()
             ) ?
                 "foo"
             :   "bar";
@@ -1446,8 +1446,8 @@ contract Conditional {
                 bifornCringerMoshedPerplexSawder ==
                     2 / askTrovenaBeenaDependsRowans &&
                 glimseGlyphsHazardNoopsTieTie >=
-                averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol()
+                    averredBathersBoxroomBuggyNurl()
+                        .anodyneCondosMalateOverateRetinol()
             ) ?
                 "foo"
             : anotherCondition ? "bar"
@@ -1945,8 +1945,8 @@ contract Conditional {
         string storage longConditional = (bifornCringerMoshedPerplexSawder ==
             2 / askTrovenaBeenaDependsRowans &&
             glimseGlyphsHazardNoopsTieTie >=
-            averredBathersBoxroomBuggyNurl()
-                .anodyneCondosMalateOverateRetinol())
+                averredBathersBoxroomBuggyNurl()
+                    .anodyneCondosMalateOverateRetinol())
             ? "foo"
             : "bar";
 
@@ -1956,8 +1956,8 @@ contract Conditional {
             storage longConditionalChained = (bifornCringerMoshedPerplexSawder ==
                 2 / askTrovenaBeenaDependsRowans &&
                 glimseGlyphsHazardNoopsTieTie >=
-                averredBathersBoxroomBuggyNurl()
-                    .anodyneCondosMalateOverateRetinol())
+                    averredBathersBoxroomBuggyNurl()
+                        .anodyneCondosMalateOverateRetinol())
                 ? "foo"
                 : anotherCondition
                     ? "bar"
