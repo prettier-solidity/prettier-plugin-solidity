@@ -2,7 +2,7 @@
 
 exports[`BinaryOperators.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -687,7 +687,7 @@ contract LogicalOperators {
 
 exports[`Parentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

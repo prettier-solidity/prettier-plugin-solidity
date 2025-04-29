@@ -18,10 +18,10 @@ import type {
 } from 'prettier';
 import type { AstNode } from './slang-nodes/types.d.ts';
 
-const slangParserId = 'slang-solidity';
-const antlrParserId = 'solidity-parse';
+const slangParserId = 'slang';
+const antlrParserId = 'antlr';
 const slangAstId = 'slang-ast';
-const antlrAstId = 'solidity-ast';
+const antlrAstId = 'antlr-ast';
 
 // https://prettier.io/docs/en/plugins.html#languages
 // https://github.com/github-linguist/linguist/blob/master/lib/linguist/languages.yml

@@ -3,7 +3,7 @@
 exports[`NameValueExpression.sol - {"bracketSpacing":true} format 1`] = `
 ====================================options=====================================
 bracketSpacing: true
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -35,7 +35,7 @@ contract NameValueExpression {
 
 exports[`NameValueExpression.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

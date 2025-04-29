@@ -3,7 +3,7 @@
 exports[`ImportDirectives.sol - {"bracketSpacing":true} format 1`] = `
 ====================================options=====================================
 bracketSpacing: true
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -30,7 +30,7 @@ import {
 
 exports[`ImportDirectives.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

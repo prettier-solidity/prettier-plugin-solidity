@@ -18,7 +18,7 @@ function once(factory) {
 
 const warnDeprecation = once(() => {
   printWarning(
-    `'solidity-parse' has been deprecated, please use 'slang-solidity'.`
+    `The 'antlr' parser has been deprecated, please use 'slang' instead.`
   );
   return true;
 });

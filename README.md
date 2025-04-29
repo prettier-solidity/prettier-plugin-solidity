@@ -14,9 +14,9 @@ A [Prettier plugin](https://prettier.io/docs/en/plugins.html) for automatically 
 
 Nomic Foundation has put a lot of effort in providing a set of compiler APIs that helped us rethink our approach to parsing and rely on their flexibility, detail oriented solution and continuos support of new and old Solidity syntaxes.
 
-Since v2.0.0 this package will ship with the Slang parser and this change must be implemented in existing configurations by replacing `parser: 'solidity-parse'` with `parser: 'slang-solidity'`.
+Since v2.0.0 this package will ship with the Slang parser and this change must be implemented in existing configurations by replacing `parser: 'antlr'` with `parser: 'slang'`.
 
-The `antlr4` parser (`solidity-parse`) is still supported for the time being and will trigger a deprecation warning, since Slang gives us a much more powerful tool, is faster, allowed us to fully transition into typescript (minimizing the introduction of mismatching type bugs), and allows prettier to format the code in a much more decoupled way and position comments with a greater precision.
+The `antlr4` parser (`antlr`) is still supported for the time being and will trigger a deprecation warning, since Slang gives us a much more powerful tool, is faster, allowed us to fully transition into typescript (minimizing the introduction of mismatching type bugs), and allows prettier to format the code in a much more decoupled way and position comments with a greater precision.
 
 ## Installation and usage
 
@@ -73,7 +73,7 @@ We follow Prettier's strategy for populating their plugins in the object `pretti
 
   async function format(code) {
     return await prettier.format(code, {
-      parser: 'slang-solidity',
+      parser: 'slang',
       plugins: [solidityPlugin]
     });
   }
@@ -97,7 +97,7 @@ import solidityPlugin from 'prettier-plugin-solidity/standalone';
 
 async function format(code) {
   return await prettier.format(code, {
-    parser: "slang-solidity",
+    parser: "slang",
     plugins: [solidityPlugin],
   });
 }
@@ -118,7 +118,7 @@ The following is the default configuration internally used by this plugin.
     {
       "files": "*.sol",
       "options": {
-        "parser": "slang-solidity",
+        "parser": "slang",
         "printWidth": 80,
         "tabWidth": 4,
         "useTabs": false,
