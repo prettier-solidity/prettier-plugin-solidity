@@ -84,13 +84,15 @@ describe('inferLanguage', function () {
   }
 
   test('should use the latest successful version if the source has no pragmas', function () {
-    createParser(`pragma solidity 0.8.28;`, options);
+    // This is to create in memory the latest parser and review the behaviour
+    createParser(`pragma solidity ${latestSupportedVersion};`, options);
     let [parser] = createParser(`contract Foo {}`, options);
-    expect(parser.languageVersion).toEqual('0.8.28');
+    expect(parser.languageVersion).toEqual(latestSupportedVersion);
 
+    // This is to create in memory an old parser and review the behaviour
     createParser(`pragma solidity 0.8.2;`, options);
     [parser] = createParser(`contract Foo {}`, options);
-    expect(parser.languageVersion).toEqual('0.8.28');
+    expect(parser.languageVersion).toEqual(latestSupportedVersion);
 
     [parser] = createParser(`contract Foo {byte bar;}`, options);
     expect(parser.languageVersion).toEqual('0.7.6');

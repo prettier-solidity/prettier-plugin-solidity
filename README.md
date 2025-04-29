@@ -16,6 +16,8 @@ Nomic Foundation has put a lot of effort in providing a set of compiler APIs tha
 
 Since v2.0.0 this package will ship with the Slang parser and this change must be implemented in existing configurations by replacing `parser: 'solidity-parse'` with `parser: 'slang-solidity'`.
 
+The `antlr4` parser (`solidity-parse`) is still supported for the time being and will trigger a deprecation warning, since Slang gives us a much more powerful tool, is faster, allowed us to fully transition into typescript (minimizing the introduction of mismatching type bugs), and allows prettier to format the code in a much more decoupled way and position comments with a greater precision.
+
 ## Installation and usage
 
 ### Using in NodeJS
