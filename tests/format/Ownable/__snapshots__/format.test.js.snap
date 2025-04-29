@@ -2,7 +2,7 @@
 
 exports[`Ownable.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

@@ -2,7 +2,7 @@
 
 exports[`Group.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1317,7 +1317,7 @@ contract Group {
 
 exports[`Indent.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

@@ -322,7 +322,7 @@ async function runTest({
   }
 
   if (
-    formatOptions.parser === "slang-solidity" &&
+    formatOptions.parser === "slang" &&
     !isAntlrMismatch(filename, formatOptions)
   ) {
     // Compare with ANTLR's format
@@ -335,7 +335,7 @@ async function runTest({
       compiler:
         formatOptions.compiler ||
         createParser(code, formatOptions)[0].languageVersion,
-      parser: "solidity-parse",
+      parser: "antlr",
       plugins: await getPlugins(),
     });
     expect(antlrOutput).toEqual(formatResult.output);

@@ -1,2 +1,2 @@
-runFormatTest(import.meta, ['slang-solidity']);
-runFormatTest(import.meta, ['slang-solidity'], { bracketSpacing: true });
+runFormatTest(import.meta, ['slang']);
+runFormatTest(import.meta, ['slang'], { bracketSpacing: true });

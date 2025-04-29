@@ -3,7 +3,7 @@
 exports[`BreakingChangesV0.8.0.sol - {"compiler":"0.7.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.7.0"
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -91,7 +91,7 @@ contract BreakingChangesV080 {
 exports[`BreakingChangesV0.8.0.sol - {"compiler":"0.8.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.8.0"
-parsers: ["solidity-parse"]
+parsers: ["antlr"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -178,7 +178,7 @@ contract BreakingChangesV080 {
 
 exports[`BreakingChangesV0.8.0.sol format 1`] = `
 ====================================options=====================================
-parsers: ["solidity-parse"]
+parsers: ["antlr"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

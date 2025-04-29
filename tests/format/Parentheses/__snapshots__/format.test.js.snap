@@ -2,7 +2,7 @@
 
 exports[`AddNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -198,7 +198,7 @@ contract AddNoParentheses {
 
 exports[`BitAndNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -394,7 +394,7 @@ contract BitAndNoParentheses {
 
 exports[`BitOrNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -590,7 +590,7 @@ contract BitOrNoParentheses {
 
 exports[`BitXorNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -786,7 +786,7 @@ contract BitXorNoParentheses {
 
 exports[`DivNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -982,7 +982,7 @@ contract DivNoParentheses {
 
 exports[`ExpNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1178,7 +1178,7 @@ contract ExpNoParentheses {
 
 exports[`LogicNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1230,7 +1230,7 @@ contract LogicNoParentheses {
 
 exports[`ModNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1426,7 +1426,7 @@ contract ModNoParentheses {
 
 exports[`MulNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1622,7 +1622,7 @@ contract MulNoParentheses {
 
 exports[`ShiftLNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1818,7 +1818,7 @@ contract ShiftLNoParentheses {
 
 exports[`ShiftRNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2014,7 +2014,7 @@ contract ShiftRNoParentheses {
 
 exports[`SubNoParentheses.sol format 1`] = `
 ====================================options=====================================
-parsers: ["slang-solidity"]
+parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
