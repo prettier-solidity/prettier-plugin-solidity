@@ -8,6 +8,14 @@
   <img width="375" height="375" src="https://user-images.githubusercontent.com/1022054/59317198-f1149b80-8d15-11e9-9b0f-0c5e7d4b8b81.png">
 </p>
 
+> ℹ️ This README is for the new major version of Prettier Plugin Solidity.
+>
+> The differences from v1 are minimal, but there are some breaking changes.
+>
+> To migrate from v1, follow the [migration guide](#migrating-from-v1).
+>
+> If you're looking for the previous version, check out the [v1 branch](https://github.com/prettier-solidity/prettier-plugin-solidity/tree/v1).
+
 A [Prettier](https://prettier.io/) plugin for automatically formatting your [Solidity](https://docs.soliditylang.org/en/latest/) code.
 
 ## Installation and usage
@@ -379,6 +387,26 @@ contract Foo is Bar {
 ```
 
 Notice that the unnecessary parentheses in `modifier2` were removed in the function but not in the constructor.
+
+## Migrating from v1
+
+In most cases, upgrading to v2 of Prettier Solidity should be as easy as installing the latest version:
+
+```bash
+npm install prettier-plugin-solidity@latest
+```
+
+If you had the parser explicitly set in your config, you'll get this error:
+
+```
+[error] Couldn't resolve parser "solidity-parse".
+```
+
+To fix it, simply update the `parser` option in your `.prettierrc`:
+
+```
+"parser": "slang",
+```
 
 ## Contributing
 
