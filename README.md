@@ -8,15 +8,15 @@
   <img width="375" height="375" src="https://user-images.githubusercontent.com/1022054/59317198-f1149b80-8d15-11e9-9b0f-0c5e7d4b8b81.png">
 </p>
 
-A [Prettier plugin](https://prettier.io/docs/en/plugins.html) for automatically formatting your [Solidity](https://github.com/ethereum/solidity) code.
+> ℹ️ This README is for the new major version of Prettier Plugin Solidity.
+>
+> The differences from v1 are minimal, but there are some breaking changes.
+>
+> To migrate from v1, follow the [migration guide](#migrating-from-v1).
+>
+> If you're looking for the previous version, check out the [v1 branch](https://github.com/prettier-solidity/prettier-plugin-solidity/tree/v1).
 
-## Nomic Foundation's Slang
-
-Nomic Foundation has put a lot of effort in providing a set of compiler APIs that helped us rethink our approach to parsing and rely on their flexibility, detail oriented solution and continuos support of new and old Solidity syntaxes.
-
-Since v2.0.0 this package will ship with the Slang parser and this change must be implemented in existing configurations by replacing `parser: 'antlr'` with `parser: 'slang'`.
-
-The `antlr4` parser (`antlr`) is still supported for the time being and will trigger a deprecation warning, since Slang gives us a much more powerful tool, is faster, allowed us to fully transition into typescript (minimizing the introduction of mismatching type bugs), and allows prettier to format the code in a much more decoupled way and position comments with a greater precision.
+A [Prettier](https://prettier.io/) plugin for automatically formatting your [Solidity](https://docs.soliditylang.org/en/latest/) code.
 
 ## Installation and usage
 
@@ -28,15 +28,13 @@ Install both `prettier` and `prettier-plugin-solidity`:
 npm install --save-dev prettier prettier-plugin-solidity
 ```
 
-> :package: ** Make sure `prettier`'s version is at least `3.0.0`**
-
-Run prettier in your contracts:
+Run prettier on your contracts:
 
 ```Bash
 npx prettier --write --plugin=prettier-plugin-solidity 'contracts/**/*.sol'
 ```
 
-You can add a script for running prettier on all your contracts:
+You can add an npm script to run prettier on all your contracts:
 
 ```
 "prettier": "prettier --write --plugin=prettier-plugin-solidity 'contracts/**/*.sol'"
@@ -52,13 +50,11 @@ Or you can use it as part of your linting to check that all your code is prettif
 
 ### Using in the Browser
 
-_Added in v1.1.0_
-
 To use this package in the browser, you need to load Prettier's standalone bundle before loading the build provided in this package.
 
 Prettier's unpkg field points to `https://unpkg.com/prettier/standalone.js`, in a similar way this plugin points to `https://unpkg.com/prettier-plugin-solidity/dist/standalone.js`.
 
-Once the scripts are loaded you will have access the globals `prettier` and `prettierPlugins`.
+Once the scripts are loaded you will have access to the globals `prettier` and `prettierPlugins`.
 
 We follow Prettier's strategy for populating their plugins in the object `prettierPlugins`, you can load other plugins like `https://unpkg.com/prettier@2.8.0/parser-markdown.js` and Prettier will have access to multiple parsers.
 
@@ -83,17 +79,15 @@ We follow Prettier's strategy for populating their plugins in the object `pretti
 </script>
 ```
 
-For more details and please have a look at [Prettier's documentation](https://prettier.io/docs/en/browser.html).
+For more details, have a look at [Prettier's documentation](https://prettier.io/docs/en/browser.html).
 
 ### Creating a package for the Browser
-
-_Added in v1.2.0_
 
 If you are creating your own package to be run in a browser, you might want to import the standalone files directly.
 
 ```Javascript
-import prettier from 'prettier/standalone';
-import solidityPlugin from 'prettier-plugin-solidity/standalone';
+import prettier from "prettier/standalone";
+import solidityPlugin from "prettier-plugin-solidity/standalone";
 
 async function format(code) {
   return await prettier.format(code, {
@@ -102,7 +96,7 @@ async function format(code) {
   });
 }
 
-const originalCode = 'contract Foo {}';
+const originalCode = "contract Foo {}";
 const formattedCode = format(originalCode);
 ```
 
@@ -138,7 +132,7 @@ Most options are described in Prettier's [documentation](https://prettier.io/doc
 
 ### Compiler
 
-Many versions of the Solidity compiler have changes that affect how the code should be formatted. This plugin, by default, tries to format the code in the most compatible way that it's possible, but you can use the `compiler` option to nudge it in the right direction.
+Many versions of the Solidity compiler have changes that affect how the code should be formatted. This plugin, by default, tries to format the code in the most compatible way that is possible, but you can use the `compiler` option to nudge it in the right direction.
 
 One example of this is import directives. Before `0.7.4`, the compiler didn't accept multi-line import statements, so we always format them in a single line. But if you use the `compiler` option to indicate that you are using a version greater or equal than `0.7.4`, the plugin will use multi-line imports when it makes sense.
 
@@ -218,9 +212,18 @@ You might have a multi-version project, where different files are compiled with 
 | ------- | --------------------- | ---------------------- |
 | None    | `--compiler <string>` | `compiler: "<string>"` |
 
-### Experimental Ternaries
+### Parser
 
-_Added in v1.3.0_
+You can configure the parser used by Prettier Solidity. Two Solidity parsers are supported:
+
+- [Slang](https://nomicfoundation.github.io/slang) (the default), a more powerful and correct parser that results in better formatting for some edge cases, especially when comments are involved.
+- [Solidity Parser for JavaScript](https://github.com/solidity-parser/parser/), an [ANTLR](https://www.antlr.org/)-based parser. This is the version that Prettier Solidity v1 used by default. This parser is still supported in v2, but it's deprecated and will be removed in the next major version. You can use this parser by setting `parser: "antlr"` in your Prettier configuration.
+
+| Default | CLI Override        | API Override         |
+| ------- | ------------------- | -------------------- |
+| `slang` | `--parser <string>` | `parser: "<string>"` |
+
+### Experimental Ternaries
 
 Mimicking prettier's [new ternary formatting](https://prettier.io/blog/2023/11/13/curious-ternaries) for the community to try.
 
@@ -262,8 +265,7 @@ Plug 'prettier/vim-prettier', {
     \ 'solidity'] }
 ```
 
-We modified the `do` instruction to also install this plugin. Then you'll have to configure the plugin to always use the
-version installed in the vim plugin's directory. The vim-plug directory depends on value you use in `call plug#begin('~/.vim/<dir>')`:
+We modified the `do` instruction to also install this plugin. Then you'll have to configure the plugin to always use the version installed in the vim plugin's directory. The vim-plug directory depends on the value you use in `call plug#begin('~/.vim/<dir>')`:
 
 ```vim
 let g:prettier#exec_cmd_path = '~/.vim/plugged/vim-prettier/node_modules/.bin/prettier'
@@ -282,34 +284,29 @@ Now Prettier will be run every time the file is saved.
 
 ### VSCode
 
-VSCode is not familiar with the Solidity language.
-There are 2 extensions that you can install to provide support for Solidity:
+VSCode is not familiar with the Solidity language. There are two extensions that you can install to provide support for Solidity:
 
-- [`solidity`](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity)
 - [`hardhat-solidity`](https://marketplace.visualstudio.com/items?itemName=NomicFoundation.hardhat-solidity)
+- [`solidity`](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity)
+
+We recommend using the `hardhat-solidity` extension:
 
 ```Bash
-code --install-extension JuanBlanco.solidity
-# or
 code --install-extension NomicFoundation.hardhat-solidity
 ```
 
-> :warning: **These 2 extensions offer similar functionality and will clash with each other**: Please choose which one matches your projects better.
-
 These extensions provide basic integration with Prettier; in most cases, no further action is needed.
 
-Make sure your editor has format on save set to true.
-When you save VSCode will ask you what formatter would you like to use for the Solidity language, you can choose `JuanBlanco.solidity` or `NomicFoundation.hardhat-solidity`.
+Make sure your editor has format-on-save set to true. When you save, VSCode will ask you what formatter would you like to use for the Solidity language. We recommend choosing `NomicFoundation.hardhat-solidity`.
 
 At this point VSCode's `settings.json` should have a configuration similar to this:
 
-```JSON
+```JSON5
 {
   "editor.formatOnSave": true,
   "solidity.formatter": "prettier", // This is the default so it might be missing.
   "[solidity]": {
-    // "editor.defaultFormatter": "JuanBlanco.solidity"
-    // "editor.defaultFormatter": "NomicFoundation.hardhat-solidity"
+    "editor.defaultFormatter": "NomicFoundation.hardhat-solidity"
   }
 }
 ```
@@ -320,7 +317,7 @@ If you want more control over other details, you should proceed to install [`pre
 code --install-extension esbenp.prettier-vscode
 ```
 
-To interact with 3rd party plugins, `prettier-vscode` will look in the project's npm modules, so you'll need to have `prettier` and `prettier-plugin-solidity` in your `package.json`
+To interact with third-party plugins, `prettier-vscode` will look in the project's npm modules, so you'll need to have `prettier` and `prettier-plugin-solidity` in your `package.json`
 
 ```Bash
 npm install --save-dev prettier prettier-plugin-solidity
@@ -328,7 +325,7 @@ npm install --save-dev prettier prettier-plugin-solidity
 
 This will allow you to specify the version of the plugin in case you want to use the latest version of the plugin or need to freeze the formatting since new versions of this plugin will implement tweaks on the possible formats.
 
-You'll have to let VSCode what formatter you prefer.
+You'll have to let VSCode know what formatter you prefer.
 This can be done by opening the command palette and executing:
 
 ```
@@ -351,7 +348,7 @@ Now VSCode's `settings.json` should have this:
 
 Note: By design, Prettier prioritizes a local over a global configuration. If you have a `.prettierrc` file in your project, your VSCode's default settings or rules in `settings.json` are ignored ([prettier/prettier-vscode#1079](https://github.com/prettier/prettier-vscode/issues/1079)).
 
-### Pnpm
+### pnpm
 
 To make Prettier Solidity work in your project, you have to add a `.prettierrc` file as shown [here](#configuration-file).
 
@@ -391,6 +388,26 @@ contract Foo is Bar {
 
 Notice that the unnecessary parentheses in `modifier2` were removed in the function but not in the constructor.
 
+## Migrating from v1
+
+In most cases, upgrading to v2 of Prettier Solidity should be as easy as installing the latest version:
+
+```bash
+npm install prettier-plugin-solidity@latest
+```
+
+If you had the parser explicitly set in your config, you'll get this error:
+
+```
+[error] Couldn't resolve parser "solidity-parse".
+```
+
+To fix it, simply update the `parser` option in your `.prettierrc`:
+
+```
+"parser": "slang",
+```
+
 ## Contributing
 
 1. [Fork it](https://github.com/prettier-solidity/prettier-plugin-solidity/fork)
@@ -399,21 +416,6 @@ Notice that the unnecessary parentheses in `modifier2` were removed in the funct
 4. All existing tests and coverage must pass (`npm run test:all`), if coverage drops below 100% add missing tests.
 5. Push to the branch (`git push origin feature/fooBar`)
 6. Create a new Pull Request
-
-## Who's using it?
-
-These are some of the projects using Prettier Solidity:
-
-- [Bancor](https://app.bancor.network)
-- [Gelato](https://gelato.network/)
-- [Gnosis Protocol](https://docs.gnosis.io/protocol/)
-- [PieDAO](https://www.piedao.org/)
-- [Sablier](https://sablier.finance/)
-- [Synthetix](https://www.synthetix.io)
-- [The Sandbox](https://www.sandbox.game/en/)
-- [UMA](https://umaproject.org/)
-- [Uniswap](https://uniswap.org)
-- [Zora](https://zora.co)
 
 ## License
 
