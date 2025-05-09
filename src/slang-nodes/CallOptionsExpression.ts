@@ -4,8 +4,7 @@ import { Expression } from './Expression.js';
 import { CallOptions } from './CallOptions.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class CallOptionsExpression implements SlangNode {
@@ -19,11 +18,11 @@ export class CallOptionsExpression implements SlangNode {
 
   options: CallOptions;
 
-  constructor(ast: ast.CallOptionsExpression, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.CallOptionsExpression) {
     let metadata = getNodeMetadata(ast);
 
-    this.operand = new Expression(ast.operand, options);
-    this.options = new CallOptions(ast.options, options);
+    this.operand = new Expression(ast.operand);
+    this.options = new CallOptions(ast.options);
 
     metadata = updateMetadata(metadata, [this.operand, this.options]);
 

@@ -5,8 +5,7 @@ import { Identifier } from './Identifier.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group } = doc.builders;
@@ -22,13 +21,13 @@ export class CatchClauseError implements SlangNode {
 
   parameters: ParametersDeclaration;
 
-  constructor(ast: ast.CatchClauseError, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.CatchClauseError) {
     let metadata = getNodeMetadata(ast);
 
     if (ast.name) {
       this.name = new Identifier(ast.name);
     }
-    this.parameters = new ParametersDeclaration(ast.parameters, options);
+    this.parameters = new ParametersDeclaration(ast.parameters);
 
     metadata = updateMetadata(metadata, [this.parameters]);
 

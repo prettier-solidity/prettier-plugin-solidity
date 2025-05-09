@@ -22,10 +22,10 @@ export class Statements implements SlangNode {
 
   items: Statement[];
 
-  constructor(ast: ast.Statements, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.Statements) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new Statement(item, options));
+    this.items = ast.items.map((item) => new Statement(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

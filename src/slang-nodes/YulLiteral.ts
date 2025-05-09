@@ -4,8 +4,7 @@ import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class YulLiteral implements SlangNode {
@@ -17,7 +16,7 @@ export class YulLiteral implements SlangNode {
 
   variant: HexStringLiteral | StringLiteral | string;
 
-  constructor(ast: ast.YulLiteral, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.YulLiteral) {
     let metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
@@ -26,15 +25,11 @@ export class YulLiteral implements SlangNode {
       switch (ast.variant.cst.kind) {
         case NonterminalKind.HexStringLiteral:
           this.variant = new HexStringLiteral(
-            ast.variant as ast.HexStringLiteral,
-            options
+            ast.variant as ast.HexStringLiteral
           );
           break;
         case NonterminalKind.StringLiteral:
-          this.variant = new StringLiteral(
-            ast.variant as ast.StringLiteral,
-            options
-          );
+          this.variant = new StringLiteral(ast.variant as ast.StringLiteral);
           break;
         default:
           throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);

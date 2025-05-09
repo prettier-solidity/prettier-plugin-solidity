@@ -4,8 +4,7 @@ import { TypedTupleMember } from './TypedTupleMember.js';
 import { UntypedTupleMember } from './UntypedTupleMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class TupleMember implements SlangNode {
@@ -17,14 +16,13 @@ export class TupleMember implements SlangNode {
 
   variant: TypedTupleMember | UntypedTupleMember;
 
-  constructor(ast: ast.TupleMember, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.TupleMember) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.TypedTupleMember:
         this.variant = new TypedTupleMember(
-          ast.variant as ast.TypedTupleMember,
-          options
+          ast.variant as ast.TypedTupleMember
         );
         break;
       case NonterminalKind.UntypedTupleMember:

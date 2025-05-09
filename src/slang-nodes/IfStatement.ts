@@ -8,8 +8,7 @@ import { Statement } from './Statement.js';
 import { ElseBranch } from './ElseBranch.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, hardline, indent, line } = doc.builders;
@@ -27,13 +26,13 @@ export class IfStatement implements SlangNode {
 
   elseBranch?: ElseBranch;
 
-  constructor(ast: ast.IfStatement, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.IfStatement) {
     let metadata = getNodeMetadata(ast);
 
-    this.condition = new Expression(ast.condition, options);
-    this.body = new Statement(ast.body, options);
+    this.condition = new Expression(ast.condition);
+    this.body = new Statement(ast.body);
     if (ast.elseBranch) {
-      this.elseBranch = new ElseBranch(ast.elseBranch, options);
+      this.elseBranch = new ElseBranch(ast.elseBranch);
     }
 
     metadata = updateMetadata(metadata, [

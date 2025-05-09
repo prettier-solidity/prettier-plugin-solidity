@@ -5,8 +5,7 @@ import { YulLiteral } from './YulLiteral.js';
 import { YulPath } from './YulPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class YulExpression implements SlangNode {
@@ -18,18 +17,17 @@ export class YulExpression implements SlangNode {
 
   variant: YulFunctionCallExpression | YulLiteral | YulPath;
 
-  constructor(ast: ast.YulExpression, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.YulExpression) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.YulFunctionCallExpression:
         this.variant = new YulFunctionCallExpression(
-          ast.variant as ast.YulFunctionCallExpression,
-          options
+          ast.variant as ast.YulFunctionCallExpression
         );
         break;
       case NonterminalKind.YulLiteral:
-        this.variant = new YulLiteral(ast.variant as ast.YulLiteral, options);
+        this.variant = new YulLiteral(ast.variant as ast.YulLiteral);
         break;
       case NonterminalKind.YulPath:
         this.variant = new YulPath(ast.variant as ast.YulPath);

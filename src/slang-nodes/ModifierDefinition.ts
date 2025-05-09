@@ -8,8 +8,7 @@ import { ModifierAttributes } from './ModifierAttributes.js';
 import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ModifierDefinition implements SlangNode {
@@ -27,15 +26,15 @@ export class ModifierDefinition implements SlangNode {
 
   body: FunctionBody;
 
-  constructor(ast: ast.ModifierDefinition, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ModifierDefinition) {
     let metadata = getNodeMetadata(ast);
 
     this.name = new Identifier(ast.name);
     if (ast.parameters) {
-      this.parameters = new ParametersDeclaration(ast.parameters, options);
+      this.parameters = new ParametersDeclaration(ast.parameters);
     }
     this.attributes = new ModifierAttributes(ast.attributes);
-    this.body = new FunctionBody(ast.body, options);
+    this.body = new FunctionBody(ast.body);
 
     metadata = updateMetadata(metadata, [
       this.parameters,

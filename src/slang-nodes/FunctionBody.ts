@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Block } from './Block.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class FunctionBody implements SlangNode {
@@ -16,13 +15,13 @@ export class FunctionBody implements SlangNode {
 
   variant: Block | string;
 
-  constructor(ast: ast.FunctionBody, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.FunctionBody) {
     let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
-        : new Block(ast.variant, options);
+        : new Block(ast.variant);
 
     metadata = updateMetadata(
       metadata,

@@ -4,8 +4,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { UnicodeStringLiteral } from './UnicodeStringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { join, hardline } = doc.builders;
@@ -19,12 +18,10 @@ export class UnicodeStringLiterals implements SlangNode {
 
   items: UnicodeStringLiteral[];
 
-  constructor(ast: ast.UnicodeStringLiterals, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.UnicodeStringLiterals) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item) => new UnicodeStringLiteral(item, options)
-    );
+    this.items = ast.items.map((item) => new UnicodeStringLiteral(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

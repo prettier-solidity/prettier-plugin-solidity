@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { InheritanceTypes } from './InheritanceTypes.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class InheritanceSpecifier implements SlangNode {
@@ -16,10 +15,10 @@ export class InheritanceSpecifier implements SlangNode {
 
   types: InheritanceTypes;
 
-  constructor(ast: ast.InheritanceSpecifier, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.InheritanceSpecifier) {
     let metadata = getNodeMetadata(ast);
 
-    this.types = new InheritanceTypes(ast.types, options);
+    this.types = new InheritanceTypes(ast.types);
 
     metadata = updateMetadata(metadata, [this.types]);
 

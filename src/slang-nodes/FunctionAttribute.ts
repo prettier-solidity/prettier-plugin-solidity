@@ -4,8 +4,7 @@ import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class FunctionAttribute implements SlangNode {
@@ -17,7 +16,7 @@ export class FunctionAttribute implements SlangNode {
 
   variant: ModifierInvocation | OverrideSpecifier | string;
 
-  constructor(ast: ast.FunctionAttribute, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.FunctionAttribute) {
     let metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
@@ -26,8 +25,7 @@ export class FunctionAttribute implements SlangNode {
       switch (ast.variant.cst.kind) {
         case NonterminalKind.ModifierInvocation:
           this.variant = new ModifierInvocation(
-            ast.variant as ast.ModifierInvocation,
-            options
+            ast.variant as ast.ModifierInvocation
           );
           break;
         case NonterminalKind.OverrideSpecifier:

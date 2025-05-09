@@ -6,8 +6,7 @@ import { FunctionTypeAttributes } from './FunctionTypeAttributes.js';
 import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class FunctionType implements SlangNode {
@@ -23,13 +22,13 @@ export class FunctionType implements SlangNode {
 
   returns?: ReturnsDeclaration;
 
-  constructor(ast: ast.FunctionType, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.FunctionType) {
     let metadata = getNodeMetadata(ast);
 
-    this.parameters = new ParametersDeclaration(ast.parameters, options);
+    this.parameters = new ParametersDeclaration(ast.parameters);
     this.attributes = new FunctionTypeAttributes(ast.attributes);
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, options);
+      this.returns = new ReturnsDeclaration(ast.returns);
     }
 
     metadata = updateMetadata(metadata, [

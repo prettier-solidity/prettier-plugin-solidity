@@ -6,8 +6,7 @@ import { Expression } from './Expression.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indentIfBreak, label } = doc.builders;
@@ -23,14 +22,11 @@ export class FunctionCallExpression implements SlangNode {
 
   arguments: ArgumentsDeclaration;
 
-  constructor(
-    ast: ast.FunctionCallExpression,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.FunctionCallExpression) {
     let metadata = getNodeMetadata(ast);
 
-    this.operand = new Expression(ast.operand, options);
-    this.arguments = new ArgumentsDeclaration(ast.arguments, options);
+    this.operand = new Expression(ast.operand);
+    this.arguments = new ArgumentsDeclaration(ast.arguments);
 
     metadata = updateMetadata(metadata, [this.operand, this.arguments]);
 

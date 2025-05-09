@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { AssemblyFlags } from './AssemblyFlags.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class AssemblyFlagsDeclaration implements SlangNode {
@@ -16,13 +15,10 @@ export class AssemblyFlagsDeclaration implements SlangNode {
 
   flags: AssemblyFlags;
 
-  constructor(
-    ast: ast.AssemblyFlagsDeclaration,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.AssemblyFlagsDeclaration) {
     let metadata = getNodeMetadata(ast);
 
-    this.flags = new AssemblyFlags(ast.flags, options);
+    this.flags = new AssemblyFlags(ast.flags);
 
     metadata = updateMetadata(metadata, [this.flags]);
 

@@ -6,8 +6,7 @@ import { YulReturnsDeclaration } from './YulReturnsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class YulFunctionDefinition implements SlangNode {
@@ -25,7 +24,7 @@ export class YulFunctionDefinition implements SlangNode {
 
   body: YulBlock;
 
-  constructor(ast: ast.YulFunctionDefinition, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.YulFunctionDefinition) {
     let metadata = getNodeMetadata(ast);
 
     this.name = new YulIdentifier(ast.name);
@@ -33,7 +32,7 @@ export class YulFunctionDefinition implements SlangNode {
     if (ast.returns) {
       this.returns = new YulReturnsDeclaration(ast.returns);
     }
-    this.body = new YulBlock(ast.body, options);
+    this.body = new YulBlock(ast.body);
 
     metadata = updateMetadata(metadata, [
       this.parameters,

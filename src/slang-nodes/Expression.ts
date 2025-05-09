@@ -34,8 +34,7 @@ import { ElementaryType } from './ElementaryType.js';
 import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class Expression implements SlangNode {
@@ -75,7 +74,7 @@ export class Expression implements SlangNode {
     | ElementaryType
     | Identifier;
 
-  constructor(ast: ast.Expression, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.Expression) {
     let metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
@@ -84,140 +83,109 @@ export class Expression implements SlangNode {
       switch (ast.variant.cst.kind) {
         case NonterminalKind.AssignmentExpression:
           this.variant = new AssignmentExpression(
-            ast.variant as ast.AssignmentExpression,
-            options
+            ast.variant as ast.AssignmentExpression
           );
           break;
         case NonterminalKind.ConditionalExpression:
           this.variant = new ConditionalExpression(
-            ast.variant as ast.ConditionalExpression,
-            options
+            ast.variant as ast.ConditionalExpression
           );
           break;
         case NonterminalKind.OrExpression:
-          this.variant = new OrExpression(
-            ast.variant as ast.OrExpression,
-            options
-          );
+          this.variant = new OrExpression(ast.variant as ast.OrExpression);
           break;
         case NonterminalKind.AndExpression:
-          this.variant = new AndExpression(
-            ast.variant as ast.AndExpression,
-            options
-          );
+          this.variant = new AndExpression(ast.variant as ast.AndExpression);
           break;
         case NonterminalKind.EqualityExpression:
           this.variant = new EqualityExpression(
-            ast.variant as ast.EqualityExpression,
-            options
+            ast.variant as ast.EqualityExpression
           );
           break;
         case NonterminalKind.InequalityExpression:
           this.variant = new InequalityExpression(
-            ast.variant as ast.InequalityExpression,
-            options
+            ast.variant as ast.InequalityExpression
           );
           break;
         case NonterminalKind.BitwiseOrExpression:
           this.variant = new BitwiseOrExpression(
-            ast.variant as ast.BitwiseOrExpression,
-            options
+            ast.variant as ast.BitwiseOrExpression
           );
           break;
         case NonterminalKind.BitwiseXorExpression:
           this.variant = new BitwiseXorExpression(
-            ast.variant as ast.BitwiseXorExpression,
-            options
+            ast.variant as ast.BitwiseXorExpression
           );
           break;
         case NonterminalKind.BitwiseAndExpression:
           this.variant = new BitwiseAndExpression(
-            ast.variant as ast.BitwiseAndExpression,
-            options
+            ast.variant as ast.BitwiseAndExpression
           );
           break;
         case NonterminalKind.ShiftExpression:
           this.variant = new ShiftExpression(
-            ast.variant as ast.ShiftExpression,
-            options
+            ast.variant as ast.ShiftExpression
           );
           break;
         case NonterminalKind.AdditiveExpression:
           this.variant = new AdditiveExpression(
-            ast.variant as ast.AdditiveExpression,
-            options
+            ast.variant as ast.AdditiveExpression
           );
           break;
         case NonterminalKind.MultiplicativeExpression:
           this.variant = new MultiplicativeExpression(
-            ast.variant as ast.MultiplicativeExpression,
-            options
+            ast.variant as ast.MultiplicativeExpression
           );
           break;
         case NonterminalKind.ExponentiationExpression:
           this.variant = new ExponentiationExpression(
-            ast.variant as ast.ExponentiationExpression,
-            options
+            ast.variant as ast.ExponentiationExpression
           );
           break;
         case NonterminalKind.PostfixExpression:
           this.variant = new PostfixExpression(
-            ast.variant as ast.PostfixExpression,
-            options
+            ast.variant as ast.PostfixExpression
           );
           break;
         case NonterminalKind.PrefixExpression:
           this.variant = new PrefixExpression(
-            ast.variant as ast.PrefixExpression,
-            options
+            ast.variant as ast.PrefixExpression
           );
           break;
         case NonterminalKind.FunctionCallExpression:
           this.variant = new FunctionCallExpression(
-            ast.variant as ast.FunctionCallExpression,
-            options
+            ast.variant as ast.FunctionCallExpression
           );
           break;
         case NonterminalKind.CallOptionsExpression:
           this.variant = new CallOptionsExpression(
-            ast.variant as ast.CallOptionsExpression,
-            options
+            ast.variant as ast.CallOptionsExpression
           );
           break;
         case NonterminalKind.MemberAccessExpression:
           this.variant = new MemberAccessExpression(
-            ast.variant as ast.MemberAccessExpression,
-            options
+            ast.variant as ast.MemberAccessExpression
           );
           break;
         case NonterminalKind.IndexAccessExpression:
           this.variant = new IndexAccessExpression(
-            ast.variant as ast.IndexAccessExpression,
-            options
+            ast.variant as ast.IndexAccessExpression
           );
           break;
         case NonterminalKind.NewExpression:
-          this.variant = new NewExpression(
-            ast.variant as ast.NewExpression,
-            options
-          );
+          this.variant = new NewExpression(ast.variant as ast.NewExpression);
           break;
         case NonterminalKind.TupleExpression:
           this.variant = new TupleExpression(
-            ast.variant as ast.TupleExpression,
-            options
+            ast.variant as ast.TupleExpression
           );
           break;
         case NonterminalKind.TypeExpression:
-          this.variant = new TypeExpression(
-            ast.variant as ast.TypeExpression,
-            options
-          );
+          this.variant = new TypeExpression(ast.variant as ast.TypeExpression);
           break;
         case NonterminalKind.ArrayExpression:
           this.variant = new ArrayExpression(
-            ast.variant as ast.ArrayExpression,
-            options
+            ast.variant as ast.ArrayExpression
           );
           break;
         case NonterminalKind.HexNumberExpression:
@@ -232,8 +200,7 @@ export class Expression implements SlangNode {
           break;
         case NonterminalKind.StringExpression:
           this.variant = new StringExpression(
-            ast.variant as ast.StringExpression,
-            options
+            ast.variant as ast.StringExpression
           );
           break;
         case NonterminalKind.ElementaryType:

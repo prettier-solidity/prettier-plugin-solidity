@@ -6,8 +6,7 @@ import { Statement } from './Statement.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indent, line } = doc.builders;
@@ -23,11 +22,11 @@ export class DoWhileStatement implements SlangNode {
 
   condition: Expression;
 
-  constructor(ast: ast.DoWhileStatement, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.DoWhileStatement) {
     let metadata = getNodeMetadata(ast);
 
-    this.body = new Statement(ast.body, options);
-    this.condition = new Expression(ast.condition, options);
+    this.body = new Statement(ast.body);
+    this.condition = new Expression(ast.condition);
 
     metadata = updateMetadata(metadata, [this.body, this.condition]);
 

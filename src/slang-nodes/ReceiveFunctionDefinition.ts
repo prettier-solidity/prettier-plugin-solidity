@@ -6,8 +6,7 @@ import { ReceiveFunctionAttributes } from './ReceiveFunctionAttributes.js';
 import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ReceiveFunctionDefinition implements SlangNode {
@@ -23,15 +22,12 @@ export class ReceiveFunctionDefinition implements SlangNode {
 
   body: FunctionBody;
 
-  constructor(
-    ast: ast.ReceiveFunctionDefinition,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.ReceiveFunctionDefinition) {
     let metadata = getNodeMetadata(ast);
 
-    this.parameters = new ParametersDeclaration(ast.parameters, options);
-    this.attributes = new ReceiveFunctionAttributes(ast.attributes, options);
-    this.body = new FunctionBody(ast.body, options);
+    this.parameters = new ParametersDeclaration(ast.parameters);
+    this.attributes = new ReceiveFunctionAttributes(ast.attributes);
+    this.body = new FunctionBody(ast.body);
 
     metadata = updateMetadata(metadata, [
       this.parameters,

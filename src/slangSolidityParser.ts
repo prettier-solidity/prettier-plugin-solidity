@@ -3,6 +3,7 @@ import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
 import { clearOffsets } from './slang-utils/metadata.js';
 import { createParser } from './slang-utils/create-parser.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
+import optionsStore from './options-store.js';
 
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from './slang-nodes/types.d.ts';
@@ -16,9 +17,9 @@ export default function parse(
   if (parseOutput.isValid()) {
     // We update the compiler version by the inferred one.
     options.compiler = parser.languageVersion;
+    optionsStore.set('options', options);
     const parsed = new SourceUnit(
-      new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
-      options
+      new SlangSourceUnit(parseOutput.tree.asNonterminalNode())
     );
     clearOffsets();
     return parsed;

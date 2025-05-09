@@ -22,10 +22,10 @@ export class ContractMembers implements SlangNode {
 
   items: ContractMember[];
 
-  constructor(ast: ast.ContractMembers, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ContractMembers) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new ContractMember(item, options));
+    this.items = ast.items.map((item) => new ContractMember(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

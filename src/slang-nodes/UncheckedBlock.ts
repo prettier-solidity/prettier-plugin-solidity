@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Block } from './Block.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class UncheckedBlock implements SlangNode {
@@ -16,10 +15,10 @@ export class UncheckedBlock implements SlangNode {
 
   block: Block;
 
-  constructor(ast: ast.UncheckedBlock, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.UncheckedBlock) {
     let metadata = getNodeMetadata(ast);
 
-    this.block = new Block(ast.block, options);
+    this.block = new Block(ast.block);
 
     metadata = updateMetadata(metadata, [this.block]);
 

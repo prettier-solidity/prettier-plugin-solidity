@@ -6,8 +6,7 @@ import { StorageLocation } from './StorageLocation.js';
 import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class TypedTupleMember implements SlangNode {
@@ -23,10 +22,10 @@ export class TypedTupleMember implements SlangNode {
 
   name: Identifier;
 
-  constructor(ast: ast.TypedTupleMember, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.TypedTupleMember) {
     let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, options);
+    this.typeName = new TypeName(ast.typeName);
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(ast.storageLocation);
     }

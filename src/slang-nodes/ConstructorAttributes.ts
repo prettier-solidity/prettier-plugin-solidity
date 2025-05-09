@@ -5,8 +5,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ConstructorAttribute } from './ConstructorAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { line } = doc.builders;
@@ -20,12 +19,10 @@ export class ConstructorAttributes implements SlangNode {
 
   items: ConstructorAttribute[];
 
-  constructor(ast: ast.ConstructorAttributes, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ConstructorAttributes) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item) => new ConstructorAttribute(item, options)
-    );
+    this.items = ast.items.map((item) => new ConstructorAttribute(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

@@ -8,8 +8,7 @@ import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indent, line } = doc.builders;
@@ -29,18 +28,15 @@ export class ForStatement implements SlangNode {
 
   body: Statement;
 
-  constructor(ast: ast.ForStatement, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ForStatement) {
     let metadata = getNodeMetadata(ast);
 
-    this.initialization = new ForStatementInitialization(
-      ast.initialization,
-      options
-    );
-    this.condition = new ForStatementCondition(ast.condition, options);
+    this.initialization = new ForStatementInitialization(ast.initialization);
+    this.condition = new ForStatementCondition(ast.condition);
     if (ast.iterator) {
-      this.iterator = new Expression(ast.iterator, options);
+      this.iterator = new Expression(ast.iterator);
     }
-    this.body = new Statement(ast.body, options);
+    this.body = new Statement(ast.body);
 
     metadata = updateMetadata(metadata, [
       this.initialization,

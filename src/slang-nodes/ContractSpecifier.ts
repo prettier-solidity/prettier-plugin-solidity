@@ -4,8 +4,7 @@ import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { StorageLayoutSpecifier } from './StorageLayoutSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.js';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.js';
 
 export class ContractSpecifier implements SlangNode {
@@ -17,20 +16,18 @@ export class ContractSpecifier implements SlangNode {
 
   variant: InheritanceSpecifier | StorageLayoutSpecifier;
 
-  constructor(ast: ast.ContractSpecifier, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ContractSpecifier) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.InheritanceSpecifier:
         this.variant = new InheritanceSpecifier(
-          ast.variant as ast.InheritanceSpecifier,
-          options
+          ast.variant as ast.InheritanceSpecifier
         );
         break;
       case NonterminalKind.StorageLayoutSpecifier:
         this.variant = new StorageLayoutSpecifier(
-          ast.variant as ast.StorageLayoutSpecifier,
-          options
+          ast.variant as ast.StorageLayoutSpecifier
         );
         break;
       default:

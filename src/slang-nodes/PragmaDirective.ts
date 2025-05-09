@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Pragma } from './Pragma.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class PragmaDirective implements SlangNode {
@@ -16,10 +15,10 @@ export class PragmaDirective implements SlangNode {
 
   pragma: Pragma;
 
-  constructor(ast: ast.PragmaDirective, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.PragmaDirective) {
     let metadata = getNodeMetadata(ast);
 
-    this.pragma = new Pragma(ast.pragma, options);
+    this.pragma = new Pragma(ast.pragma);
 
     metadata = updateMetadata(metadata, [this.pragma]);
 

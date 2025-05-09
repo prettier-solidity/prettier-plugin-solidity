@@ -4,8 +4,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class YulArguments implements SlangNode {
@@ -19,10 +18,10 @@ export class YulArguments implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.YulArguments, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.YulArguments) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new YulExpression(item, options));
+    this.items = ast.items.map((item) => new YulExpression(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);

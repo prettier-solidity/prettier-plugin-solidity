@@ -15,8 +15,7 @@ import { YulLabel } from './YulLabel.js';
 import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class YulStatement implements SlangNode {
@@ -41,29 +40,26 @@ export class YulStatement implements SlangNode {
     | YulLabel
     | YulExpression;
 
-  constructor(ast: ast.YulStatement, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.YulStatement) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.YulBlock:
-        this.variant = new YulBlock(ast.variant as ast.YulBlock, options);
+        this.variant = new YulBlock(ast.variant as ast.YulBlock);
         break;
       case NonterminalKind.YulFunctionDefinition:
         this.variant = new YulFunctionDefinition(
-          ast.variant as ast.YulFunctionDefinition,
-          options
+          ast.variant as ast.YulFunctionDefinition
         );
         break;
       case NonterminalKind.YulVariableDeclarationStatement:
         this.variant = new YulVariableDeclarationStatement(
-          ast.variant as ast.YulVariableDeclarationStatement,
-          options
+          ast.variant as ast.YulVariableDeclarationStatement
         );
         break;
       case NonterminalKind.YulVariableAssignmentStatement:
         this.variant = new YulVariableAssignmentStatement(
-          ast.variant as ast.YulVariableAssignmentStatement,
-          options
+          ast.variant as ast.YulVariableAssignmentStatement
         );
         break;
       case NonterminalKind.YulStackAssignmentStatement:
@@ -72,21 +68,14 @@ export class YulStatement implements SlangNode {
         );
         break;
       case NonterminalKind.YulIfStatement:
-        this.variant = new YulIfStatement(
-          ast.variant as ast.YulIfStatement,
-          options
-        );
+        this.variant = new YulIfStatement(ast.variant as ast.YulIfStatement);
         break;
       case NonterminalKind.YulForStatement:
-        this.variant = new YulForStatement(
-          ast.variant as ast.YulForStatement,
-          options
-        );
+        this.variant = new YulForStatement(ast.variant as ast.YulForStatement);
         break;
       case NonterminalKind.YulSwitchStatement:
         this.variant = new YulSwitchStatement(
-          ast.variant as ast.YulSwitchStatement,
-          options
+          ast.variant as ast.YulSwitchStatement
         );
         break;
       case NonterminalKind.YulLeaveStatement:
@@ -108,10 +97,7 @@ export class YulStatement implements SlangNode {
         this.variant = new YulLabel(ast.variant as ast.YulLabel);
         break;
       case NonterminalKind.YulExpression:
-        this.variant = new YulExpression(
-          ast.variant as ast.YulExpression,
-          options
-        );
+        this.variant = new YulExpression(ast.variant as ast.YulExpression);
         break;
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);

@@ -4,8 +4,7 @@ import { Identifier } from './Identifier.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class NamedArgument implements SlangNode {
@@ -19,11 +18,11 @@ export class NamedArgument implements SlangNode {
 
   value: Expression;
 
-  constructor(ast: ast.NamedArgument, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.NamedArgument) {
     let metadata = getNodeMetadata(ast);
 
     this.name = new Identifier(ast.name);
-    this.value = new Expression(ast.value, options);
+    this.value = new Expression(ast.value);
 
     metadata = updateMetadata(metadata, [this.value]);
 

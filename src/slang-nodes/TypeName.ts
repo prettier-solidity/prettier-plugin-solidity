@@ -7,8 +7,7 @@ import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class TypeName implements SlangNode {
@@ -25,24 +24,18 @@ export class TypeName implements SlangNode {
     | ElementaryType
     | IdentifierPath;
 
-  constructor(ast: ast.TypeName, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.TypeName) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ArrayTypeName:
-        this.variant = new ArrayTypeName(
-          ast.variant as ast.ArrayTypeName,
-          options
-        );
+        this.variant = new ArrayTypeName(ast.variant as ast.ArrayTypeName);
         break;
       case NonterminalKind.FunctionType:
-        this.variant = new FunctionType(
-          ast.variant as ast.FunctionType,
-          options
-        );
+        this.variant = new FunctionType(ast.variant as ast.FunctionType);
         break;
       case NonterminalKind.MappingType:
-        this.variant = new MappingType(ast.variant as ast.MappingType, options);
+        this.variant = new MappingType(ast.variant as ast.MappingType);
         break;
       case NonterminalKind.ElementaryType:
         this.variant = new ElementaryType(ast.variant as ast.ElementaryType);

@@ -5,8 +5,7 @@ import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.js';
 import { YulVariableNames } from './YulVariableNames.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class YulVariableDeclarationStatement implements SlangNode {
@@ -20,15 +19,12 @@ export class YulVariableDeclarationStatement implements SlangNode {
 
   value?: YulVariableDeclarationValue;
 
-  constructor(
-    ast: ast.YulVariableDeclarationStatement,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.YulVariableDeclarationStatement) {
     let metadata = getNodeMetadata(ast);
 
     this.variables = new YulVariableNames(ast.variables);
     if (ast.value) {
-      this.value = new YulVariableDeclarationValue(ast.value, options);
+      this.value = new YulVariableDeclarationValue(ast.value);
     }
 
     metadata = updateMetadata(metadata, [this.value]);

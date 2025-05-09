@@ -15,8 +15,7 @@ import { ErrorDefinition } from './ErrorDefinition.js';
 import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ContractMember implements SlangNode {
@@ -41,78 +40,61 @@ export class ContractMember implements SlangNode {
     | ErrorDefinition
     | UserDefinedValueTypeDefinition;
 
-  constructor(ast: ast.ContractMember, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ContractMember) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.UsingDirective:
-        this.variant = new UsingDirective(
-          ast.variant as ast.UsingDirective,
-          options
-        );
+        this.variant = new UsingDirective(ast.variant as ast.UsingDirective);
         break;
       case NonterminalKind.FunctionDefinition:
         this.variant = new FunctionDefinition(
-          ast.variant as ast.FunctionDefinition,
-          options
+          ast.variant as ast.FunctionDefinition
         );
         break;
       case NonterminalKind.ConstructorDefinition:
         this.variant = new ConstructorDefinition(
-          ast.variant as ast.ConstructorDefinition,
-          options
+          ast.variant as ast.ConstructorDefinition
         );
         break;
       case NonterminalKind.ReceiveFunctionDefinition:
         this.variant = new ReceiveFunctionDefinition(
-          ast.variant as ast.ReceiveFunctionDefinition,
-          options
+          ast.variant as ast.ReceiveFunctionDefinition
         );
         break;
       case NonterminalKind.FallbackFunctionDefinition:
         this.variant = new FallbackFunctionDefinition(
-          ast.variant as ast.FallbackFunctionDefinition,
-          options
+          ast.variant as ast.FallbackFunctionDefinition
         );
         break;
       case NonterminalKind.UnnamedFunctionDefinition:
         this.variant = new UnnamedFunctionDefinition(
-          ast.variant as ast.UnnamedFunctionDefinition,
-          options
+          ast.variant as ast.UnnamedFunctionDefinition
         );
         break;
       case NonterminalKind.ModifierDefinition:
         this.variant = new ModifierDefinition(
-          ast.variant as ast.ModifierDefinition,
-          options
+          ast.variant as ast.ModifierDefinition
         );
         break;
       case NonterminalKind.StructDefinition:
         this.variant = new StructDefinition(
-          ast.variant as ast.StructDefinition,
-          options
+          ast.variant as ast.StructDefinition
         );
         break;
       case NonterminalKind.EnumDefinition:
         this.variant = new EnumDefinition(ast.variant as ast.EnumDefinition);
         break;
       case NonterminalKind.EventDefinition:
-        this.variant = new EventDefinition(
-          ast.variant as ast.EventDefinition,
-          options
-        );
+        this.variant = new EventDefinition(ast.variant as ast.EventDefinition);
         break;
       case NonterminalKind.StateVariableDefinition:
         this.variant = new StateVariableDefinition(
-          ast.variant as ast.StateVariableDefinition,
-          options
+          ast.variant as ast.StateVariableDefinition
         );
         break;
       case NonterminalKind.ErrorDefinition:
-        this.variant = new ErrorDefinition(
-          ast.variant as ast.ErrorDefinition,
-          options
-        );
+        this.variant = new ErrorDefinition(ast.variant as ast.ErrorDefinition);
         break;
       case NonterminalKind.UserDefinedValueTypeDefinition:
         this.variant = new UserDefinedValueTypeDefinition(

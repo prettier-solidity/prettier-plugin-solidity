@@ -7,8 +7,7 @@ import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class FallbackFunctionDefinition implements SlangNode {
@@ -26,18 +25,15 @@ export class FallbackFunctionDefinition implements SlangNode {
 
   body: FunctionBody;
 
-  constructor(
-    ast: ast.FallbackFunctionDefinition,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.FallbackFunctionDefinition) {
     let metadata = getNodeMetadata(ast);
 
-    this.parameters = new ParametersDeclaration(ast.parameters, options);
-    this.attributes = new FallbackFunctionAttributes(ast.attributes, options);
+    this.parameters = new ParametersDeclaration(ast.parameters);
+    this.attributes = new FallbackFunctionAttributes(ast.attributes);
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, options);
+      this.returns = new ReturnsDeclaration(ast.returns);
     }
-    this.body = new FunctionBody(ast.body, options);
+    this.body = new FunctionBody(ast.body);
 
     metadata = updateMetadata(metadata, [
       this.parameters,

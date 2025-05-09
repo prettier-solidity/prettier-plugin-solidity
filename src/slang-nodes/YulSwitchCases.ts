@@ -4,8 +4,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { YulSwitchCase } from './YulSwitchCase.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { hardline, join } = doc.builders;
@@ -19,10 +18,10 @@ export class YulSwitchCases implements SlangNode {
 
   items: YulSwitchCase[];
 
-  constructor(ast: ast.YulSwitchCases, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.YulSwitchCases) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new YulSwitchCase(item, options));
+    this.items = ast.items.map((item) => new YulSwitchCase(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

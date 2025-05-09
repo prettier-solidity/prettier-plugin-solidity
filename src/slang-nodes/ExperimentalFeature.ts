@@ -8,8 +8,7 @@ import { StringLiteral } from './StringLiteral.js';
 import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ExperimentalFeature implements SlangNode {
@@ -21,13 +20,13 @@ export class ExperimentalFeature implements SlangNode {
 
   variant: StringLiteral | Identifier;
 
-  constructor(ast: ast.ExperimentalFeature, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ExperimentalFeature) {
     let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? new Identifier(ast.variant)
-        : new StringLiteral(ast.variant, options);
+        : new StringLiteral(ast.variant);
 
     metadata = updateMetadata(
       metadata,

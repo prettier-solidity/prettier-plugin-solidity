@@ -5,8 +5,7 @@ import { UsingClause } from './UsingClause.js';
 import { UsingTarget } from './UsingTarget.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class UsingDirective implements SlangNode {
@@ -22,11 +21,11 @@ export class UsingDirective implements SlangNode {
 
   globalKeyword?: string;
 
-  constructor(ast: ast.UsingDirective, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.UsingDirective) {
     let metadata = getNodeMetadata(ast);
 
     this.clause = new UsingClause(ast.clause);
-    this.target = new UsingTarget(ast.target, options);
+    this.target = new UsingTarget(ast.target);
     this.globalKeyword = ast.globalKeyword?.unparse();
 
     metadata = updateMetadata(metadata, [this.clause, this.target]);

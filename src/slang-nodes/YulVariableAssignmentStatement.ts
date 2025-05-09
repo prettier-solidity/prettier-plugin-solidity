@@ -6,8 +6,7 @@ import { YulAssignmentOperator } from './YulAssignmentOperator.js';
 import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { join } = doc.builders;
@@ -25,15 +24,12 @@ export class YulVariableAssignmentStatement implements SlangNode {
 
   expression: YulExpression;
 
-  constructor(
-    ast: ast.YulVariableAssignmentStatement,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.YulVariableAssignmentStatement) {
     let metadata = getNodeMetadata(ast);
 
     this.variables = new YulPaths(ast.variables);
     this.assignment = new YulAssignmentOperator(ast.assignment);
-    this.expression = new YulExpression(ast.expression, options);
+    this.expression = new YulExpression(ast.expression);
 
     metadata = updateMetadata(metadata, [
       this.variables,

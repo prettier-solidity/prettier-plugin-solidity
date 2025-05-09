@@ -35,11 +35,11 @@ export class ReturnStatement implements SlangNode {
 
   expression?: Expression;
 
-  constructor(ast: ast.ReturnStatement, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ReturnStatement) {
     let metadata = getNodeMetadata(ast);
 
     if (ast.expression) {
-      this.expression = new Expression(ast.expression, options);
+      this.expression = new Expression(ast.expression);
     }
 
     metadata = updateMetadata(metadata, [this.expression]);

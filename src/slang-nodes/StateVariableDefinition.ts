@@ -7,8 +7,7 @@ import { Identifier } from './Identifier.js';
 import { StateVariableDefinitionValue } from './StateVariableDefinitionValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indent, indentIfBreak } = doc.builders;
@@ -28,17 +27,14 @@ export class StateVariableDefinition implements SlangNode {
 
   value?: StateVariableDefinitionValue;
 
-  constructor(
-    ast: ast.StateVariableDefinition,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.StateVariableDefinition) {
     let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, options);
+    this.typeName = new TypeName(ast.typeName);
     this.attributes = new StateVariableAttributes(ast.attributes);
     this.name = new Identifier(ast.name);
     if (ast.value) {
-      this.value = new StateVariableDefinitionValue(ast.value, options);
+      this.value = new StateVariableDefinitionValue(ast.value);
     }
 
     metadata = updateMetadata(metadata, [

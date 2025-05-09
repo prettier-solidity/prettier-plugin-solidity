@@ -4,8 +4,7 @@ import { isBlockComment } from '../slang-utils/is-comment.js';
 import { PositionalArguments } from './PositionalArguments.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class PositionalArgumentsDeclaration implements SlangNode {
@@ -19,13 +18,10 @@ export class PositionalArgumentsDeclaration implements SlangNode {
 
   arguments: PositionalArguments;
 
-  constructor(
-    ast: ast.PositionalArgumentsDeclaration,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.PositionalArgumentsDeclaration) {
     let metadata = getNodeMetadata(ast);
 
-    this.arguments = new PositionalArguments(ast.arguments, options);
+    this.arguments = new PositionalArguments(ast.arguments);
 
     metadata = updateMetadata(metadata, [this.arguments]);
 

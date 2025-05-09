@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Parameters } from './Parameters.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ParametersDeclaration implements SlangNode {
@@ -16,10 +15,10 @@ export class ParametersDeclaration implements SlangNode {
 
   parameters: Parameters;
 
-  constructor(ast: ast.ParametersDeclaration, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ParametersDeclaration) {
     let metadata = getNodeMetadata(ast);
 
-    this.parameters = new Parameters(ast.parameters, options);
+    this.parameters = new Parameters(ast.parameters);
 
     metadata = updateMetadata(metadata, [this.parameters]);
 

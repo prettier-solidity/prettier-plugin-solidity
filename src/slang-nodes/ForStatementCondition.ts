@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ForStatementCondition implements SlangNode {
@@ -16,13 +15,13 @@ export class ForStatementCondition implements SlangNode {
 
   variant: ExpressionStatement | string;
 
-  constructor(ast: ast.ForStatementCondition, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ForStatementCondition) {
     let metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
-        : new ExpressionStatement(ast.variant, options);
+        : new ExpressionStatement(ast.variant);
 
     metadata = updateMetadata(
       metadata,

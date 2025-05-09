@@ -7,8 +7,7 @@ import { HexStringLiterals } from './HexStringLiterals.js';
 import { UnicodeStringLiterals } from './UnicodeStringLiterals.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class StringExpression implements SlangNode {
@@ -25,38 +24,29 @@ export class StringExpression implements SlangNode {
     | HexStringLiterals
     | UnicodeStringLiterals;
 
-  constructor(ast: ast.StringExpression, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.StringExpression) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.StringLiteral:
-        this.variant = new StringLiteral(
-          ast.variant as ast.StringLiteral,
-          options
-        );
+        this.variant = new StringLiteral(ast.variant as ast.StringLiteral);
         break;
       case NonterminalKind.StringLiterals:
-        this.variant = new StringLiterals(
-          ast.variant as ast.StringLiterals,
-          options
-        );
+        this.variant = new StringLiterals(ast.variant as ast.StringLiterals);
         break;
       case NonterminalKind.HexStringLiteral:
         this.variant = new HexStringLiteral(
-          ast.variant as ast.HexStringLiteral,
-          options
+          ast.variant as ast.HexStringLiteral
         );
         break;
       case NonterminalKind.HexStringLiterals:
         this.variant = new HexStringLiterals(
-          ast.variant as ast.HexStringLiterals,
-          options
+          ast.variant as ast.HexStringLiterals
         );
         break;
       case NonterminalKind.UnicodeStringLiterals:
         this.variant = new UnicodeStringLiterals(
-          ast.variant as ast.UnicodeStringLiterals,
-          options
+          ast.variant as ast.UnicodeStringLiterals
         );
         break;
       default:

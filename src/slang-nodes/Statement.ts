@@ -19,8 +19,7 @@ import { Block } from './Block.js';
 import { UncheckedBlock } from './UncheckedBlock.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class Statement implements SlangNode {
@@ -49,47 +48,37 @@ export class Statement implements SlangNode {
     | Block
     | UncheckedBlock;
 
-  constructor(ast: ast.Statement, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.Statement) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ExpressionStatement:
         this.variant = new ExpressionStatement(
-          ast.variant as ast.ExpressionStatement,
-          options
+          ast.variant as ast.ExpressionStatement
         );
         break;
       case NonterminalKind.VariableDeclarationStatement:
         this.variant = new VariableDeclarationStatement(
-          ast.variant as ast.VariableDeclarationStatement,
-          options
+          ast.variant as ast.VariableDeclarationStatement
         );
         break;
       case NonterminalKind.TupleDeconstructionStatement:
         this.variant = new TupleDeconstructionStatement(
-          ast.variant as ast.TupleDeconstructionStatement,
-          options
+          ast.variant as ast.TupleDeconstructionStatement
         );
         break;
       case NonterminalKind.IfStatement:
-        this.variant = new IfStatement(ast.variant as ast.IfStatement, options);
+        this.variant = new IfStatement(ast.variant as ast.IfStatement);
         break;
       case NonterminalKind.ForStatement:
-        this.variant = new ForStatement(
-          ast.variant as ast.ForStatement,
-          options
-        );
+        this.variant = new ForStatement(ast.variant as ast.ForStatement);
         break;
       case NonterminalKind.WhileStatement:
-        this.variant = new WhileStatement(
-          ast.variant as ast.WhileStatement,
-          options
-        );
+        this.variant = new WhileStatement(ast.variant as ast.WhileStatement);
         break;
       case NonterminalKind.DoWhileStatement:
         this.variant = new DoWhileStatement(
-          ast.variant as ast.DoWhileStatement,
-          options
+          ast.variant as ast.DoWhileStatement
         );
         break;
       case NonterminalKind.ContinueStatement:
@@ -101,46 +90,30 @@ export class Statement implements SlangNode {
         this.variant = new BreakStatement(ast.variant as ast.BreakStatement);
         break;
       case NonterminalKind.ReturnStatement:
-        this.variant = new ReturnStatement(
-          ast.variant as ast.ReturnStatement,
-          options
-        );
+        this.variant = new ReturnStatement(ast.variant as ast.ReturnStatement);
         break;
       case NonterminalKind.ThrowStatement:
         this.variant = new ThrowStatement(ast.variant as ast.ThrowStatement);
         break;
       case NonterminalKind.EmitStatement:
-        this.variant = new EmitStatement(
-          ast.variant as ast.EmitStatement,
-          options
-        );
+        this.variant = new EmitStatement(ast.variant as ast.EmitStatement);
         break;
       case NonterminalKind.TryStatement:
-        this.variant = new TryStatement(
-          ast.variant as ast.TryStatement,
-          options
-        );
+        this.variant = new TryStatement(ast.variant as ast.TryStatement);
         break;
       case NonterminalKind.RevertStatement:
-        this.variant = new RevertStatement(
-          ast.variant as ast.RevertStatement,
-          options
-        );
+        this.variant = new RevertStatement(ast.variant as ast.RevertStatement);
         break;
       case NonterminalKind.AssemblyStatement:
         this.variant = new AssemblyStatement(
-          ast.variant as ast.AssemblyStatement,
-          options
+          ast.variant as ast.AssemblyStatement
         );
         break;
       case NonterminalKind.Block:
-        this.variant = new Block(ast.variant as ast.Block, options);
+        this.variant = new Block(ast.variant as ast.Block);
         break;
       case NonterminalKind.UncheckedBlock:
-        this.variant = new UncheckedBlock(
-          ast.variant as ast.UncheckedBlock,
-          options
-        );
+        this.variant = new UncheckedBlock(ast.variant as ast.UncheckedBlock);
         break;
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);

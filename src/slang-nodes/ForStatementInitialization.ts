@@ -5,8 +5,7 @@ import { VariableDeclarationStatement } from './VariableDeclarationStatement.js'
 import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ForStatementInitialization implements SlangNode {
@@ -22,10 +21,7 @@ export class ForStatementInitialization implements SlangNode {
     | TupleDeconstructionStatement
     | string;
 
-  constructor(
-    ast: ast.ForStatementInitialization,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.ForStatementInitialization) {
     let metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
@@ -34,20 +30,17 @@ export class ForStatementInitialization implements SlangNode {
       switch (ast.variant.cst.kind) {
         case NonterminalKind.ExpressionStatement:
           this.variant = new ExpressionStatement(
-            ast.variant as ast.ExpressionStatement,
-            options
+            ast.variant as ast.ExpressionStatement
           );
           break;
         case NonterminalKind.VariableDeclarationStatement:
           this.variant = new VariableDeclarationStatement(
-            ast.variant as ast.VariableDeclarationStatement,
-            options
+            ast.variant as ast.VariableDeclarationStatement
           );
           break;
         case NonterminalKind.TupleDeconstructionStatement:
           this.variant = new TupleDeconstructionStatement(
-            ast.variant as ast.TupleDeconstructionStatement,
-            options
+            ast.variant as ast.TupleDeconstructionStatement
           );
           break;
         default:

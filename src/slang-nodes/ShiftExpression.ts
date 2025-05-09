@@ -33,12 +33,12 @@ export class ShiftExpression implements SlangNode {
 
   rightOperand: Expression;
 
-  constructor(ast: ast.ShiftExpression, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ShiftExpression) {
     let metadata = getNodeMetadata(ast);
 
-    this.leftOperand = new Expression(ast.leftOperand, options);
+    this.leftOperand = new Expression(ast.leftOperand);
     this.operator = ast.operator.unparse();
-    this.rightOperand = new Expression(ast.rightOperand, options);
+    this.rightOperand = new Expression(ast.rightOperand);
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);
 

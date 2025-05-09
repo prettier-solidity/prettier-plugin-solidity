@@ -5,8 +5,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ReceiveFunctionAttribute } from './ReceiveFunctionAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { line } = doc.builders;
@@ -20,15 +19,10 @@ export class ReceiveFunctionAttributes implements SlangNode {
 
   items: ReceiveFunctionAttribute[];
 
-  constructor(
-    ast: ast.ReceiveFunctionAttributes,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.ReceiveFunctionAttributes) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map(
-      (item) => new ReceiveFunctionAttribute(item, options)
-    );
+    this.items = ast.items.map((item) => new ReceiveFunctionAttribute(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

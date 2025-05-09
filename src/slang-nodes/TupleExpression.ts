@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TupleValues } from './TupleValues.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class TupleExpression implements SlangNode {
@@ -16,10 +15,10 @@ export class TupleExpression implements SlangNode {
 
   items: TupleValues;
 
-  constructor(ast: ast.TupleExpression, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.TupleExpression) {
     let metadata = getNodeMetadata(ast);
 
-    this.items = new TupleValues(ast.items, options);
+    this.items = new TupleValues(ast.items);
 
     metadata = updateMetadata(metadata, [this.items]);
 

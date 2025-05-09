@@ -6,8 +6,7 @@ import { AssemblyFlagsDeclaration } from './AssemblyFlagsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class AssemblyStatement implements SlangNode {
@@ -23,16 +22,16 @@ export class AssemblyStatement implements SlangNode {
 
   body: YulBlock;
 
-  constructor(ast: ast.AssemblyStatement, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.AssemblyStatement) {
     let metadata = getNodeMetadata(ast);
 
     if (ast.label) {
-      this.label = new StringLiteral(ast.label, options);
+      this.label = new StringLiteral(ast.label);
     }
     if (ast.flags) {
-      this.flags = new AssemblyFlagsDeclaration(ast.flags, options);
+      this.flags = new AssemblyFlagsDeclaration(ast.flags);
     }
-    this.body = new YulBlock(ast.body, options);
+    this.body = new YulBlock(ast.body);
 
     metadata = updateMetadata(metadata, [this.label, this.flags, this.body]);
 

@@ -22,10 +22,10 @@ export class YulStatements implements SlangNode {
 
   items: YulStatement[];
 
-  constructor(ast: ast.YulStatements, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.YulStatements) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new YulStatement(item, options));
+    this.items = ast.items.map((item) => new YulStatement(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

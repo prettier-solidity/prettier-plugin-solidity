@@ -19,10 +19,10 @@ export class SourceUnit implements SlangNode {
 
   members: SourceUnitMembers;
 
-  constructor(ast: ast.SourceUnit, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.SourceUnit) {
     let metadata = getNodeMetadata(ast);
 
-    this.members = new SourceUnitMembers(ast.members, options);
+    this.members = new SourceUnitMembers(ast.members);
 
     metadata = updateMetadata(metadata, [this.members]);
 

@@ -15,8 +15,7 @@ import { UsingDirective } from './UsingDirective.js';
 import { EventDefinition } from './EventDefinition.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class SourceUnitMember implements SlangNode {
@@ -41,44 +40,34 @@ export class SourceUnitMember implements SlangNode {
     | UsingDirective
     | EventDefinition;
 
-  constructor(ast: ast.SourceUnitMember, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.SourceUnitMember) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.PragmaDirective:
-        this.variant = new PragmaDirective(
-          ast.variant as ast.PragmaDirective,
-          options
-        );
+        this.variant = new PragmaDirective(ast.variant as ast.PragmaDirective);
         break;
       case NonterminalKind.ImportDirective:
-        this.variant = new ImportDirective(
-          ast.variant as ast.ImportDirective,
-          options
-        );
+        this.variant = new ImportDirective(ast.variant as ast.ImportDirective);
         break;
       case NonterminalKind.ContractDefinition:
         this.variant = new ContractDefinition(
-          ast.variant as ast.ContractDefinition,
-          options
+          ast.variant as ast.ContractDefinition
         );
         break;
       case NonterminalKind.InterfaceDefinition:
         this.variant = new InterfaceDefinition(
-          ast.variant as ast.InterfaceDefinition,
-          options
+          ast.variant as ast.InterfaceDefinition
         );
         break;
       case NonterminalKind.LibraryDefinition:
         this.variant = new LibraryDefinition(
-          ast.variant as ast.LibraryDefinition,
-          options
+          ast.variant as ast.LibraryDefinition
         );
         break;
       case NonterminalKind.StructDefinition:
         this.variant = new StructDefinition(
-          ast.variant as ast.StructDefinition,
-          options
+          ast.variant as ast.StructDefinition
         );
         break;
       case NonterminalKind.EnumDefinition:
@@ -86,21 +75,16 @@ export class SourceUnitMember implements SlangNode {
         break;
       case NonterminalKind.FunctionDefinition:
         this.variant = new FunctionDefinition(
-          ast.variant as ast.FunctionDefinition,
-          options
+          ast.variant as ast.FunctionDefinition
         );
         break;
       case NonterminalKind.ConstantDefinition:
         this.variant = new ConstantDefinition(
-          ast.variant as ast.ConstantDefinition,
-          options
+          ast.variant as ast.ConstantDefinition
         );
         break;
       case NonterminalKind.ErrorDefinition:
-        this.variant = new ErrorDefinition(
-          ast.variant as ast.ErrorDefinition,
-          options
-        );
+        this.variant = new ErrorDefinition(ast.variant as ast.ErrorDefinition);
         break;
       case NonterminalKind.UserDefinedValueTypeDefinition:
         this.variant = new UserDefinedValueTypeDefinition(
@@ -108,16 +92,10 @@ export class SourceUnitMember implements SlangNode {
         );
         break;
       case NonterminalKind.UsingDirective:
-        this.variant = new UsingDirective(
-          ast.variant as ast.UsingDirective,
-          options
-        );
+        this.variant = new UsingDirective(ast.variant as ast.UsingDirective);
         break;
       case NonterminalKind.EventDefinition:
-        this.variant = new EventDefinition(
-          ast.variant as ast.EventDefinition,
-          options
-        );
+        this.variant = new EventDefinition(ast.variant as ast.EventDefinition);
         break;
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);

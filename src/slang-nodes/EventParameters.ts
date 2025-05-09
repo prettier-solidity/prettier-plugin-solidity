@@ -4,8 +4,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { EventParameter } from './EventParameter.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class EventParameters implements SlangNode {
@@ -19,10 +18,10 @@ export class EventParameters implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.EventParameters, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.EventParameters) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new EventParameter(item, options));
+    this.items = ast.items.map((item) => new EventParameter(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);

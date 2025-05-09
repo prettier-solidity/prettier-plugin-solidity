@@ -1,5 +1,6 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import optionsStore from '../options-store.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
@@ -113,12 +114,12 @@ export class ConditionalExpression implements SlangNode {
 
   falseExpression: Expression;
 
-  constructor(ast: ast.ConditionalExpression, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ConditionalExpression) {
     let metadata = getNodeMetadata(ast);
 
-    this.operand = new Expression(ast.operand, options);
-    this.trueExpression = new Expression(ast.trueExpression, options);
-    this.falseExpression = new Expression(ast.falseExpression, options);
+    this.operand = new Expression(ast.operand);
+    this.trueExpression = new Expression(ast.trueExpression);
+    this.falseExpression = new Expression(ast.falseExpression);
 
     metadata = updateMetadata(metadata, [
       this.operand,
@@ -129,7 +130,7 @@ export class ConditionalExpression implements SlangNode {
     this.comments = metadata.comments;
     this.loc = metadata.loc;
 
-    if (options.experimentalTernaries) {
+    if (optionsStore.get('options')!.experimentalTernaries) {
       // We can remove parentheses only because we are sure that the
       // `condition` must be a single `bool` value.
       const operandLoc = this.operand.loc;

@@ -5,8 +5,7 @@ import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indentIfBreak } = doc.builders;
@@ -24,15 +23,12 @@ export class TupleDeconstructionStatement implements SlangNode {
 
   expression: Expression;
 
-  constructor(
-    ast: ast.TupleDeconstructionStatement,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.TupleDeconstructionStatement) {
     let metadata = getNodeMetadata(ast);
 
     this.varKeyword = ast.varKeyword?.unparse();
-    this.elements = new TupleDeconstructionElements(ast.elements, options);
-    this.expression = new Expression(ast.expression, options);
+    this.elements = new TupleDeconstructionElements(ast.elements);
+    this.expression = new Expression(ast.expression);
 
     metadata = updateMetadata(metadata, [this.elements, this.expression]);
 

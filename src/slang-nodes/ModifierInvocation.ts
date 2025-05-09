@@ -4,8 +4,7 @@ import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ModifierInvocation implements SlangNode {
@@ -19,12 +18,12 @@ export class ModifierInvocation implements SlangNode {
 
   arguments?: ArgumentsDeclaration;
 
-  constructor(ast: ast.ModifierInvocation, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ModifierInvocation) {
     let metadata = getNodeMetadata(ast);
 
     this.name = new IdentifierPath(ast.name);
     if (ast.arguments) {
-      this.arguments = new ArgumentsDeclaration(ast.arguments, options);
+      this.arguments = new ArgumentsDeclaration(ast.arguments);
     }
 
     metadata = updateMetadata(metadata, [this.name, this.arguments]);

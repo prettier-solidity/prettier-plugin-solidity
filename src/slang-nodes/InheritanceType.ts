@@ -4,8 +4,7 @@ import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class InheritanceType implements SlangNode {
@@ -19,12 +18,12 @@ export class InheritanceType implements SlangNode {
 
   arguments?: ArgumentsDeclaration;
 
-  constructor(ast: ast.InheritanceType, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.InheritanceType) {
     let metadata = getNodeMetadata(ast);
 
     this.typeName = new IdentifierPath(ast.typeName);
     if (ast.arguments) {
-      this.arguments = new ArgumentsDeclaration(ast.arguments, options);
+      this.arguments = new ArgumentsDeclaration(ast.arguments);
     }
 
     metadata = updateMetadata(metadata, [this.typeName, this.arguments]);

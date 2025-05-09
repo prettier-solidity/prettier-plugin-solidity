@@ -6,8 +6,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ContractSpecifier } from './ContractSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.js';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.js';
 
 const { group, ifBreak, line, softline } = doc.builders;
@@ -21,10 +20,10 @@ export class ContractSpecifiers implements SlangNode {
 
   items: ContractSpecifier[];
 
-  constructor(ast: ast.ContractSpecifiers, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ContractSpecifiers) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new ContractSpecifier(item, options));
+    this.items = ast.items.map((item) => new ContractSpecifier(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

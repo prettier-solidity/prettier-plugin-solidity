@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { TypeName } from './TypeName.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class NewExpression implements SlangNode {
@@ -16,10 +15,10 @@ export class NewExpression implements SlangNode {
 
   typeName: TypeName;
 
-  constructor(ast: ast.NewExpression, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.NewExpression) {
     let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, options);
+    this.typeName = new TypeName(ast.typeName);
 
     metadata = updateMetadata(metadata, [this.typeName]);
 

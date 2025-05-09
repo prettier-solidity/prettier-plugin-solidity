@@ -5,8 +5,7 @@ import { ExperimentalPragma } from './ExperimentalPragma.js';
 import { VersionPragma } from './VersionPragma.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class Pragma implements SlangNode {
@@ -18,7 +17,7 @@ export class Pragma implements SlangNode {
 
   variant: AbicoderPragma | ExperimentalPragma | VersionPragma;
 
-  constructor(ast: ast.Pragma, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.Pragma) {
     let metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
@@ -27,8 +26,7 @@ export class Pragma implements SlangNode {
         break;
       case NonterminalKind.ExperimentalPragma:
         this.variant = new ExperimentalPragma(
-          ast.variant as ast.ExperimentalPragma,
-          options
+          ast.variant as ast.ExperimentalPragma
         );
         break;
       case NonterminalKind.VersionPragma:

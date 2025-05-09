@@ -5,8 +5,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indent, line } = doc.builders;
@@ -25,10 +24,10 @@ export class ElseBranch implements SlangNode {
 
   body: Statement;
 
-  constructor(ast: ast.ElseBranch, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ElseBranch) {
     let metadata = getNodeMetadata(ast);
 
-    this.body = new Statement(ast.body, options);
+    this.body = new Statement(ast.body);
 
     metadata = updateMetadata(metadata, [this.body]);
 

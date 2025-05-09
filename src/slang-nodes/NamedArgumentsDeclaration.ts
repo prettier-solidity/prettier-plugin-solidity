@@ -3,8 +3,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { NamedArgumentGroup } from './NamedArgumentGroup.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class NamedArgumentsDeclaration implements SlangNode {
@@ -16,14 +15,11 @@ export class NamedArgumentsDeclaration implements SlangNode {
 
   arguments?: NamedArgumentGroup;
 
-  constructor(
-    ast: ast.NamedArgumentsDeclaration,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.NamedArgumentsDeclaration) {
     let metadata = getNodeMetadata(ast);
 
     if (ast.arguments) {
-      this.arguments = new NamedArgumentGroup(ast.arguments, options);
+      this.arguments = new NamedArgumentGroup(ast.arguments);
     }
 
     metadata = updateMetadata(metadata, [this.arguments]);

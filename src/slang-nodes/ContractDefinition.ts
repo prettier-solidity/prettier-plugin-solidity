@@ -1,5 +1,6 @@
 import { doc } from 'prettier';
 import { coerce, satisfies } from 'semver';
+import optionsStore from '../options-store.js';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Identifier } from './Identifier.js';
@@ -7,8 +8,7 @@ import { ContractSpecifiers } from './ContractSpecifiers.js';
 import { ContractMembers } from './ContractMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, line } = doc.builders;
@@ -28,26 +28,26 @@ export class ContractDefinition implements SlangNode {
 
   members: ContractMembers;
 
-  constructor(ast: ast.ContractDefinition, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ContractDefinition) {
     let metadata = getNodeMetadata(ast);
 
     this.abstractKeyword = ast.abstractKeyword?.unparse();
     this.name = new Identifier(ast.name);
-    this.specifiers = new ContractSpecifiers(ast.specifiers, options);
-    this.members = new ContractMembers(ast.members, options);
+    this.specifiers = new ContractSpecifiers(ast.specifiers);
+    this.members = new ContractMembers(ast.members);
 
     metadata = updateMetadata(metadata, [this.specifiers, this.members]);
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
 
-    this.cleanModifierInvocationArguments(options);
+    this.cleanModifierInvocationArguments();
   }
 
-  cleanModifierInvocationArguments(options: ParserOptions<AstNode>): void {
+  cleanModifierInvocationArguments(): void {
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
-    const compiler = coerce(options.compiler);
+    const compiler = coerce(optionsStore.get('options')!.compiler);
     if (compiler && !satisfies(compiler, '>=0.5.0')) {
       for (const member of this.members.items) {
         if (

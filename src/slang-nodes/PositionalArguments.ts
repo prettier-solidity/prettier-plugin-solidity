@@ -6,8 +6,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class PositionalArguments implements SlangNode {
@@ -21,10 +20,10 @@ export class PositionalArguments implements SlangNode {
 
   separators;
 
-  constructor(ast: ast.PositionalArguments, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.PositionalArguments) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new Expression(item, options));
+    this.items = ast.items.map((item) => new Expression(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);

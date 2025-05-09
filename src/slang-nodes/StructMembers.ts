@@ -5,8 +5,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { StructMember } from './StructMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { hardline } = doc.builders;
@@ -20,10 +19,10 @@ export class StructMembers implements SlangNode {
 
   items: StructMember[];
 
-  constructor(ast: ast.StructMembers, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.StructMembers) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new StructMember(item, options));
+    this.items = ast.items.map((item) => new StructMember(item));
 
     metadata = updateMetadata(metadata, [this.items]);
 

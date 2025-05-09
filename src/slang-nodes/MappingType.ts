@@ -4,8 +4,7 @@ import { MappingKey } from './MappingKey.js';
 import { MappingValue } from './MappingValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class MappingType implements SlangNode {
@@ -19,11 +18,11 @@ export class MappingType implements SlangNode {
 
   valueType: MappingValue;
 
-  constructor(ast: ast.MappingType, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.MappingType) {
     let metadata = getNodeMetadata(ast);
 
     this.keyType = new MappingKey(ast.keyType);
-    this.valueType = new MappingValue(ast.valueType, options);
+    this.valueType = new MappingValue(ast.valueType);
 
     metadata = updateMetadata(metadata, [this.keyType, this.valueType]);
 

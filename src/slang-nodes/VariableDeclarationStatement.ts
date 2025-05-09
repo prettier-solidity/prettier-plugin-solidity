@@ -7,8 +7,7 @@ import { Identifier } from './Identifier.js';
 import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indent, indentIfBreak, line } = doc.builders;
@@ -28,19 +27,16 @@ export class VariableDeclarationStatement implements SlangNode {
 
   value?: VariableDeclarationValue;
 
-  constructor(
-    ast: ast.VariableDeclarationStatement,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.VariableDeclarationStatement) {
     let metadata = getNodeMetadata(ast);
 
-    this.variableType = new VariableDeclarationType(ast.variableType, options);
+    this.variableType = new VariableDeclarationType(ast.variableType);
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(ast.storageLocation);
     }
     this.name = new Identifier(ast.name);
     if (ast.value) {
-      this.value = new VariableDeclarationValue(ast.value, options);
+      this.value = new VariableDeclarationValue(ast.value);
     }
 
     metadata = updateMetadata(metadata, [

@@ -4,8 +4,7 @@ import { TypeName } from './TypeName.js';
 import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class StructMember implements SlangNode {
@@ -19,10 +18,10 @@ export class StructMember implements SlangNode {
 
   name: Identifier;
 
-  constructor(ast: ast.StructMember, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.StructMember) {
     let metadata = getNodeMetadata(ast);
 
-    this.typeName = new TypeName(ast.typeName, options);
+    this.typeName = new TypeName(ast.typeName);
     this.name = new Identifier(ast.name);
 
     metadata = updateMetadata(metadata, [this.typeName]);

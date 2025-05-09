@@ -3,8 +3,7 @@ import { printString } from '../slang-printers/print-string.js';
 import { getNodeMetadata } from '../slang-utils/metadata.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { Doc } from 'prettier';
 import type { SlangNode } from '../types.d.ts';
 
 export class HexStringLiteral implements SlangNode {
@@ -16,7 +15,7 @@ export class HexStringLiteral implements SlangNode {
 
   variant: string;
 
-  constructor(ast: ast.HexStringLiteral, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.HexStringLiteral) {
     const metadata = getNodeMetadata(ast);
 
     this.variant = ast.variant.unparse();
@@ -24,7 +23,7 @@ export class HexStringLiteral implements SlangNode {
     this.comments = metadata.comments;
     this.loc = metadata.loc;
 
-    this.variant = `hex${printString(this.variant.slice(4, -1), options)}`;
+    this.variant = `hex${printString(this.variant.slice(4, -1))}`;
   }
 
   print(): Doc {

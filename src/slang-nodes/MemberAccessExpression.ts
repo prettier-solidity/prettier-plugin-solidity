@@ -7,8 +7,8 @@ import { Expression } from './Expression.js';
 import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, StrictAstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
+import type { StrictAstNode } from './types.d.ts';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
@@ -126,13 +126,10 @@ export class MemberAccessExpression implements SlangNode {
 
   member: Identifier;
 
-  constructor(
-    ast: ast.MemberAccessExpression,
-    options: ParserOptions<AstNode>
-  ) {
+  constructor(ast: ast.MemberAccessExpression) {
     let metadata = getNodeMetadata(ast);
 
-    this.operand = new Expression(ast.operand, options);
+    this.operand = new Expression(ast.operand);
     this.member = new Identifier(ast.member);
 
     metadata = updateMetadata(metadata, [this.operand]);

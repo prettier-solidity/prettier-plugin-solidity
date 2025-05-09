@@ -4,8 +4,7 @@ import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { ErrorParameter } from './ErrorParameter.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 export class ErrorParameters implements SlangNode {
@@ -19,10 +18,10 @@ export class ErrorParameters implements SlangNode {
 
   separators: string[];
 
-  constructor(ast: ast.ErrorParameters, options: ParserOptions<AstNode>) {
+  constructor(ast: ast.ErrorParameters) {
     let metadata = getNodeMetadata(ast, true);
 
-    this.items = ast.items.map((item) => new ErrorParameter(item, options));
+    this.items = ast.items.map((item) => new ErrorParameter(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
