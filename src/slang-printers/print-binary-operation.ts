@@ -2,59 +2,69 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
+import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
-import type { AstPath, Doc } from 'prettier';
-import type { BinaryOperation, StrictAstNode } from '../slang-nodes/types.d.ts';
-import type { EqualityExpression } from '../slang-nodes/EqualityExpression.ts';
-import type { InequalityExpression } from '../slang-nodes/InequalityExpression.ts';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type {
+  AstNode,
+  BinaryOperation,
+  StrictAstNode
+} from '../slang-nodes/types.d.ts';
+import type { PrintFunction } from '../types.js';
 
 const { group, indent } = doc.builders;
 
-const isBinaryOperationWithoutComparison = createKindCheckFunction([
-  NonterminalKind.AdditiveExpression,
-  NonterminalKind.MultiplicativeExpression,
-  NonterminalKind.ExponentiationExpression,
-  NonterminalKind.AssignmentExpression,
-  NonterminalKind.BitwiseAndExpression,
-  NonterminalKind.BitwiseOrExpression,
-  NonterminalKind.BitwiseXorExpression,
-  NonterminalKind.AndExpression,
-  NonterminalKind.OrExpression,
-  NonterminalKind.ShiftExpression
-]) as (
-  node: StrictAstNode
-) => node is Exclude<
-  BinaryOperation,
-  EqualityExpression | InequalityExpression
->;
-
-const binaryGroupRulesBuilder =
+export const binaryGroupRulesBuilder =
+  (shouldGroup: (node: BinaryOperation) => boolean) =>
   (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
     const grandparentNode = path.getNode(2) as StrictAstNode;
-    if (isBinaryOperationWithoutComparison(grandparentNode)) {
-      return document;
-    }
-    return group(document);
+    if (!isBinaryOperation(grandparentNode)) return group(document);
+    if (shouldGroup(grandparentNode)) return group(document);
+    return document;
   };
 
-const binaryIndentRulesBuilder =
+const isStatementWithoutIndentedOperation = createKindCheckFunction([
+  NonterminalKind.ReturnStatement,
+  NonterminalKind.IfStatement,
+  NonterminalKind.WhileStatement
+]);
+
+export const shouldNotIndent = (
+  node: StrictAstNode,
+  path: AstPath<BinaryOperation>,
+  index: number
+): boolean =>
+  isStatementWithoutIndentedOperation(node) ||
+  (node.kind === NonterminalKind.ExpressionStatement &&
+    (path.getNode(index + 1) as StrictAstNode).kind ===
+      NonterminalKind.ForStatementCondition);
+
+export const binaryIndentRulesBuilder =
+  (shouldIndent: (node: BinaryOperation) => boolean) =>
   (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
     let node = path.getNode() as StrictAstNode;
     for (let i = 2; ; i += 2) {
       const grandparentNode = path.getNode(i) as StrictAstNode;
-      if (grandparentNode.kind === NonterminalKind.ReturnStatement) break;
-      if (!isBinaryOperationWithoutComparison(grandparentNode)) {
-        return indent(document);
-      }
+      if (shouldNotIndent(grandparentNode, path, i)) break;
+      if (!isBinaryOperation(grandparentNode)) return indent(document);
+      if (shouldIndent(grandparentNode)) return indent(document);
       if (node === grandparentNode.rightOperand.variant) break;
       node = grandparentNode;
     }
     return document;
   };
 
-export const printBinaryOperation = createBinaryOperationPrinter(
-  binaryGroupRulesBuilder,
-  binaryIndentRulesBuilder
-);
+export const printBinaryOperation = (
+  shouldGroupAndIndent: (node: StrictAstNode) => boolean
+): ((
+  node: BinaryOperation,
+  path: AstPath<BinaryOperation>,
+  print: PrintFunction,
+  options: ParserOptions<AstNode>
+) => Doc) =>
+  createBinaryOperationPrinter(
+    binaryGroupRulesBuilder(shouldGroupAndIndent),
+    binaryIndentRulesBuilder(shouldGroupAndIndent)
+  );
