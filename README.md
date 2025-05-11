@@ -417,6 +417,25 @@ To fix it, simply update the `parser` option in your `.prettierrc`:
 5. Push to the branch (`git push origin feature/fooBar`)
 6. Create a new Pull Request
 
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Janther"><img src="https://avatars.githubusercontent.com/u/1022054?v=4" width="100px;" alt="Janther"/><br /><sub><b>Klaus Hott Vidal
+Janther</b></sub></a><br /></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mattiaerre"><img src="https://avatars.githubusercontent.com/u/6423261?v=4" width="100px;" alt="Mattia Richetto"/><br /><sub><b>Mattia Richetto
+mattiaerre</b></sub></a><br /></td>
+      </tr>
+  </tbody>
+</table>
+
+
 ## License
 
 Distributed under the MIT license. See [LICENSE](LICENSE) for more information.
