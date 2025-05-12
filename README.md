@@ -1,7 +1,8 @@
 # prettier-plugin-solidity
 
+[![CI](https://github.com/prettier-solidity/prettier-plugin-solidity/actions/workflows/CI.yml/badge.svg)](https://github.com/prettier-solidity/prettier-plugin-solidity/actions)
 [![Telegram](/assets/telegram-badge.svg)](https://t.me/+kgTgkFgIwJkwMjcx)
-[![Twitter Follow](https://img.shields.io/twitter/follow/PrettierSol.svg?style=social)](https://twitter.com/PrettierSol)
+[![Twitter Follow](https://img.shields.io/twitter/follow/PrettierSol.svg?style=social)](https://x.com/PrettierSol)
 [![GitPOAP Badge](https://public-api.gitpoap.io/v1/repo/prettier-solidity/prettier-plugin-solidity/badge)](https://www.gitpoap.io/gh/prettier-solidity/prettier-plugin-solidity)
 
 <p align="center">
