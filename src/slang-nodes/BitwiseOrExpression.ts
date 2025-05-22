@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
+import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
@@ -20,6 +21,15 @@ const tryToHug = createHugFunction([
   '&',
   '^'
 ]);
+
+const printBitwiseOrExpression = printBinaryOperation(
+  createKindCheckFunction([
+    NonterminalKind.InequalityExpression,
+    NonterminalKind.EqualityExpression,
+    NonterminalKind.AndExpression,
+    NonterminalKind.OrExpression
+  ])
+);
 
 export class BitwiseOrExpression implements SlangNode {
   readonly kind = NonterminalKind.BitwiseOrExpression;
@@ -55,6 +65,6 @@ export class BitwiseOrExpression implements SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    return printBinaryOperation(this, path, print, options);
+    return printBitwiseOrExpression(this, path, print, options);
   }
 }
