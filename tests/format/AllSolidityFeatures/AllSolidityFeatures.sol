@@ -1,8 +1,4 @@
 // Examples taken from the Solidity documentation online.
-
-// for pragma version numbers, see https://docs.npmjs.com/misc/semver#versions
-pragma solidity 0.4.0;
-pragma solidity ^0.4.0;
 pragma experimental ABIEncoderV2;
 
 import "SomeFile.sol";
