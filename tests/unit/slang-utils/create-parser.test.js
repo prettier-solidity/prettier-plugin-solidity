@@ -19,12 +19,24 @@ describe('inferLanguage', function () {
     {
       description: 'With nightly commit',
       source: `pragma solidity 0.8.18-ci.2023.1.17+commit.e7b959af;`,
-      version: '0.8.18'
+      version: '0.8.18',
+      // TODO: unskip this test when addresses this issue
+      // https://github.com/NomicFoundation/slang/issues/1346
+      skip: true
     },
     {
       description: 'Caret range and pinned version',
       source: `pragma solidity ^0.8.0; pragma solidity 0.8.2;`,
       version: '0.8.2'
+    },
+    {
+      description: 'pragma is broken by new lines, whitespace and comments',
+      source: `pragma solidity 0.
+    // comment 1
+                       7.
+    /* comment 2*/
+           3;`,
+      version: '0.7.3'
     },
     {
       description: 'With multiline comment before the range',
@@ -76,8 +88,8 @@ describe('inferLanguage', function () {
     }
   ];
 
-  for (const { description, source, version } of fixtures) {
-    test(description, function () {
+  for (const { description, source, version, skip } of fixtures) {
+    (skip ? test.skip : test)(description, function () {
       const [parser] = createParser(source, options);
       expect(parser.languageVersion).toEqual(version);
     });
@@ -113,32 +125,7 @@ describe('inferLanguage', function () {
     expect(parser.languageVersion).toEqual(latestSupportedVersion);
   });
 
-  test('should throw when a pragma is broken by new lines, whitespace and comments', function () {
-    expect(() =>
-      createParser(
-        `pragma solidity 0.
-    // comment 1
-                       7.
-    /* comment 2*/
-           3;`,
-        options
-      )
-    ).toThrow(
-      "Couldn't infer any version from the ranges in the pragmas for file test.sol"
-    );
-    expect(() =>
-      createParser(
-        `pragma solidity 0.
-    // comment 1
-                       7.
-    /* comment 2*/
-           3;`,
-        {}
-      )
-    ).toThrow("Couldn't infer any version from the ranges in the pragmas");
-  });
-
-  test.skip('should throw an error if there are incompatible ranges', function () {
+  test('should throw an error if there are incompatible ranges', function () {
     expect(() =>
       createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`, options)
     ).toThrow();
