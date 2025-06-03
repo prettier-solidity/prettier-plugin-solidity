@@ -43,7 +43,15 @@ const milestoneVersions = [
   '0.8.22',
   '0.8.27',
   '0.8.29'
-].map((milestone) => maxSatisfying(supportedVersions, `<${milestone}`)!);
+].map(
+  // Since we are aiming to find the highest compatible Language version, we
+  // define a milestone as the highest possible supported version that is
+  // smaller than the original milestone taken from the documentation.
+  // This has an extra cost in execution time and the actual list could be
+  // hardcoded, but the calculation is done only once and it's easier to
+  // maintain.
+  (milestone) => maxSatisfying(supportedVersions, `<${milestone}`)!
+);
 
 export function createParser(
   text: string,
@@ -71,7 +79,7 @@ export function createParser(
     inferredRanges.includes(milestone)
   );
 
-  for (let i = inferredMilestones.length - 1; i > 0; i -= 1) {
+  for (let i = inferredMilestones.length - 1; i >= 0; i -= 1) {
     const version = inferredMilestones[i];
     result.parser = Parser.create(version);
     result.parseOutput = result.parser.parseNonterminal(
