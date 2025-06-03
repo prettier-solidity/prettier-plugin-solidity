@@ -80,8 +80,7 @@ export function createParser(
   );
 
   for (let i = inferredMilestones.length - 1; i >= 0; i -= 1) {
-    const version = inferredMilestones[i];
-    result.parser = Parser.create(version);
+    result.parser = Parser.create(inferredMilestones[i]);
     result.parseOutput = result.parser.parseNonterminal(
       NonterminalKind.SourceUnit,
       text
