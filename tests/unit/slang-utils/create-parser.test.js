@@ -90,38 +90,34 @@ describe('inferLanguage', function () {
 
   for (const { description, source, version, skip } of fixtures) {
     (skip ? test.skip : test)(description, function () {
-      const [parser] = createParser(source, options);
+      const { parser } = createParser(source, options);
       expect(parser.languageVersion).toEqual(version);
     });
   }
 
   test('should use the latest successful version if the source has no pragmas', function () {
-    // This is to create in memory the latest parser and review the behaviour
-    createParser(`pragma solidity ${latestSupportedVersion};`, options);
-    let [parser] = createParser(`contract Foo {}`, options);
+    let { parser } = createParser(`contract Foo {}`, options);
     expect(parser.languageVersion).toEqual(latestSupportedVersion);
 
-    // This is to create in memory an old parser and review the behaviour
-    createParser(`pragma solidity 0.8.2;`, options);
-    [parser] = createParser(`contract Foo {}`, options);
+    ({ parser } = createParser(`contract Foo {}`, options));
     expect(parser.languageVersion).toEqual(latestSupportedVersion);
 
-    [parser] = createParser(`contract Foo {byte bar;}`, options);
+    ({ parser } = createParser(`contract Foo {byte bar;}`, options));
     expect(parser.languageVersion).toEqual('0.7.6');
   });
 
   test('should use compiler option if given', function () {
-    let [parser] = createParser(`pragma solidity ^0.8.0;`, {
+    let { parser } = createParser(`pragma solidity ^0.8.0;`, {
       compiler: '0.8.20'
     });
     expect(parser.languageVersion).toEqual('0.8.20');
 
-    [parser] = createParser(`pragma solidity ^0.8.0;`, {
+    ({ parser } = createParser(`pragma solidity ^0.8.0;`, {
       compiler: '0.8.2'
-    });
+    }));
     expect(parser.languageVersion).toEqual('0.8.2');
 
-    [parser] = createParser(`pragma solidity ^0.8.0;`, {});
+    ({ parser } = createParser(`pragma solidity ^0.8.0;`, {}));
     expect(parser.languageVersion).toEqual(latestSupportedVersion);
   });
 

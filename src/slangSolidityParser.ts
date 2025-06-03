@@ -11,7 +11,7 @@ export default function parse(
   text: string,
   options: ParserOptions<AstNode>
 ): AstNode {
-  const [parser, parseOutput] = createParser(text, options);
+  const { parser, parseOutput } = createParser(text, options);
 
   if (parseOutput.isValid()) {
     // We update the compiler version by the inferred one.

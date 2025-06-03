@@ -48,21 +48,24 @@ const milestoneVersions = [
 export function createParser(
   text: string,
   options: ParserOptions<AstNode>
-): [Parser, ParseOutput] {
-  let parser: Parser;
+): { parser: Parser; parseOutput: ParseOutput } {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
   if (compiler) {
-    parser = Parser.create(compiler);
-    return [parser, parser.parseNonterminal(NonterminalKind.SourceUnit, text)];
+    const parser = Parser.create(compiler);
+    return {
+      parser,
+      parseOutput: parser.parseNonterminal(NonterminalKind.SourceUnit, text)
+    };
   }
 
-  let parseOutput;
-
   const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
-  parser = Parser.create(inferredRanges[inferredRanges.length - 1]);
-  parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
+  const parser = Parser.create(inferredRanges[inferredRanges.length - 1]);
+  const result = {
+    parser,
+    parseOutput: parser.parseNonterminal(NonterminalKind.SourceUnit, text)
+  };
 
-  if (parseOutput.isValid()) return [parser, parseOutput];
+  if (result.parseOutput.isValid()) return result;
 
   const inferredMilestones = milestoneVersions.filter((milestone) =>
     inferredRanges.includes(milestone)
@@ -70,10 +73,13 @@ export function createParser(
 
   for (let i = inferredMilestones.length - 1; i > 0; i -= 1) {
     const version = inferredMilestones[i];
-    parser = Parser.create(version);
-    parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
-    if (parseOutput.isValid()) break;
+    result.parser = Parser.create(version);
+    result.parseOutput = result.parser.parseNonterminal(
+      NonterminalKind.SourceUnit,
+      text
+    );
+    if (result.parseOutput.isValid()) break;
   }
 
-  return [parser, parseOutput];
+  return result;
 }
