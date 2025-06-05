@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
+import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
@@ -12,6 +13,20 @@ import type { PrintFunction, SlangNode } from '../types.d.ts';
 const multiplicationTryToHug = createHugFunction(['/', '%']);
 const divisionTryToHug = createHugFunction(['*', '%']);
 const moduloTryToHug = createHugFunction(['*', '/', '%']);
+
+export const printMultiplicativeExpression = printBinaryOperation(
+  createKindCheckFunction([
+    NonterminalKind.AdditiveExpression,
+    NonterminalKind.ShiftExpression,
+    NonterminalKind.BitwiseAndExpression,
+    NonterminalKind.BitwiseOrExpression,
+    NonterminalKind.BitwiseXorExpression,
+    NonterminalKind.InequalityExpression,
+    NonterminalKind.EqualityExpression,
+    NonterminalKind.AndExpression,
+    NonterminalKind.OrExpression
+  ])
+);
 
 export class MultiplicativeExpression implements SlangNode {
   readonly kind = NonterminalKind.MultiplicativeExpression;
@@ -61,6 +76,6 @@ export class MultiplicativeExpression implements SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    return printBinaryOperation(this, path, print, options);
+    return printMultiplicativeExpression(this, path, print, options);
   }
 }
