@@ -176,6 +176,10 @@ function parse(text, _parsers, options = _parsers) {
             '&'
           ]);
           break;
+        case '==':
+        case '!=':
+          ctx.left = tryHug(ctx.left, ['==', '!=']);
+          break;
         case '||':
           ctx.left = tryHug(ctx.left, ['&&']);
           ctx.right = tryHug(ctx.right, ['&&']);

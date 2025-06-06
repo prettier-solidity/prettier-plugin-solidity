@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printComparisonOperation } from '../slang-printers/print-comparison-operation.js';
+import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Expression } from './Expression.js';
 
@@ -7,6 +8,8 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
+
+const tryToHug = createHugFunction(['==', '!=']);
 
 export class EqualityExpression implements SlangNode {
   readonly kind = NonterminalKind.EqualityExpression;
@@ -32,6 +35,8 @@ export class EqualityExpression implements SlangNode {
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
+
+    this.leftOperand = tryToHug(this.leftOperand);
   }
 
   print(
