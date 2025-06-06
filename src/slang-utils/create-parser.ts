@@ -1,16 +1,7 @@
-import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfoundation/slang/ast';
-import { NonterminalKind, Query } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
-import {
-  maxSatisfying,
-  minSatisfying,
-  minor,
-  major,
-  satisfies,
-  validRange
-} from 'semver';
-import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
+import { maxSatisfying } from 'semver';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
@@ -18,128 +9,81 @@ import type { AstNode } from '../slang-nodes/types.js';
 
 const supportedVersions = LanguageFacts.allVersions();
 
-const milestoneVersions = Array.from(
-  supportedVersions.reduce((minorRanges, version) => {
-    minorRanges.add(`^${major(version)}.${minor(version)}.0`);
-    return minorRanges;
-  }, new Set<string>())
-)
-  .reverse()
-  .reduce((versions: string[], range) => {
-    versions.push(maxSatisfying(supportedVersions, range)!);
-    versions.push(minSatisfying(supportedVersions, range)!);
-    return versions;
-  }, []);
+// This list was retrieved from Slang's documentation.
+// https://nomicfoundation.github.io/slang/latest/solidity-grammar/supported-versions/
+// TODO: use the run-time functionality if NomicFoundation decides to expose
+// this information directly.
+const milestoneVersions = [
+  '0.4.14',
+  '0.4.16',
+  '0.4.21',
+  '0.4.22',
+  '0.4.25',
+  '0.5.0',
+  '0.5.3',
+  '0.5.5',
+  '0.5.8',
+  '0.5.10',
+  '0.5.14',
+  '0.6.0',
+  '0.6.2',
+  '0.6.5',
+  '0.6.7',
+  '0.6.8',
+  '0.6.11',
+  '0.7.0',
+  '0.7.1',
+  '0.7.4',
+  '0.8.0',
+  '0.8.4',
+  '0.8.8',
+  '0.8.13',
+  '0.8.18',
+  '0.8.19',
+  '0.8.22',
+  '0.8.27',
+  '0.8.29'
+].map(
+  // Since we are aiming to find the highest compatible Language version, we
+  // define a milestone as the highest possible supported version that is
+  // smaller than the original milestone taken from the documentation.
+  // This has an extra cost in execution time and the actual list could be
+  // hardcoded, but the calculation is done only once and it's easier to
+  // maintain.
+  (milestone) => maxSatisfying(supportedVersions, `<${milestone}`)!
+);
 
-const queries = [
-  Query.create('[VersionPragma @versionRanges [VersionExpressionSets]]')
-];
-
-let parser: Parser;
+function parserAndOutput(
+  text: string,
+  version: string
+): { parser: Parser; parseOutput: ParseOutput } {
+  const parser = Parser.create(version);
+  return {
+    parser,
+    parseOutput: parser.parseNonterminal(NonterminalKind.SourceUnit, text)
+  };
+}
 
 export function createParser(
   text: string,
   options: ParserOptions<AstNode>
-): [Parser, ParseOutput] {
+): { parser: Parser; parseOutput: ParseOutput } {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
-  if (compiler) {
-    if (!parser || parser.languageVersion !== compiler) {
-      parser = Parser.create(compiler);
-    }
-    return [parser, parser.parseNonterminal(NonterminalKind.SourceUnit, text)];
-  }
+  if (compiler) return parserAndOutput(text, compiler);
 
-  let isCachedParser = false;
-  if (parser) {
-    isCachedParser = true;
-  } else {
-    parser = Parser.create(milestoneVersions[0]);
-  }
+  const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
 
-  let parseOutput;
-  let inferredRanges: string[] = [];
+  let result = parserAndOutput(text, inferredRanges[inferredRanges.length - 1]);
+  if (result.parseOutput.isValid()) return result;
 
-  try {
-    parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
-    inferredRanges = tryToCollectPragmas(parseOutput, parser, isCachedParser);
-  } catch {
-    for (
-      let i = isCachedParser ? 0 : 1;
-      i <= milestoneVersions.length;
-      i += 1
-    ) {
-      try {
-        const version = milestoneVersions[i];
-        parser = Parser.create(version);
-        parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
-        inferredRanges = tryToCollectPragmas(parseOutput, parser);
-        break;
-      } catch {
-        continue;
-      }
-    }
-  }
-
-  const satisfyingVersions = inferredRanges.reduce(
-    (versions, inferredRange) => {
-      if (!validRange(inferredRange)) {
-        throw new Error(
-          `Couldn't infer any version from the ranges in the pragmas${options.filepath ? ` for file ${options.filepath}` : ''}`
-        );
-      }
-      return versions.filter((supportedVersion) =>
-        satisfies(supportedVersion, inferredRange)
-      );
-    },
-    supportedVersions
+  const inferredMilestones = milestoneVersions.filter((milestone) =>
+    inferredRanges.includes(milestone)
   );
 
-  const inferredVersion =
-    satisfyingVersions.length > 0
-      ? satisfyingVersions[satisfyingVersions.length - 1]
-      : supportedVersions[supportedVersions.length - 1];
-
-  if (inferredVersion !== parser.languageVersion) {
-    parser = Parser.create(inferredVersion);
-    parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
+  for (let i = inferredMilestones.length - 1; i >= 0; i -= 1) {
+    result = parserAndOutput(text, inferredMilestones[i]);
+    if (result.parseOutput.isValid()) break;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  return [parser, parseOutput!];
-}
-
-function tryToCollectPragmas(
-  parseOutput: ParseOutput,
-  parser: Parser,
-  isCachedParser = false
-): string[] {
-  const matches = parseOutput.createTreeCursor().query(queries);
-  const ranges: string[] = [];
-
-  let match;
-  while ((match = matches.next())) {
-    const versionRange = new SlangVersionExpressionSets(
-      match.captures.versionRanges[0].node.asNonterminalNode()!
-    );
-    ranges.push(
-      // Replace all comments that could be in the expression with whitespace
-      new VersionExpressionSets(versionRange).comments.reduce(
-        (range, comment) => range.replace(comment.value, ' '),
-        versionRange.cst.unparse()
-      )
-    );
-  }
-
-  if (ranges.length === 0) {
-    // If we didn't find pragmas but succeeded parsing the source we keep it.
-    if (!isCachedParser && parseOutput.isValid()) {
-      return [parser.languageVersion];
-    }
-    // Otherwise we throw.
-    throw new Error(
-      `Using version ${parser.languageVersion} did not find any pragma statement and does not parse without errors.`
-    );
-  }
-
-  return ranges;
+  return result;
 }

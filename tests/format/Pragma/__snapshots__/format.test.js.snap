@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Pragma.sol format 1`] = `
+exports[`Pragma.sol - {"compiler":"0.8.0"} format 1`] = `
 ====================================options=====================================
+compiler: "0.8.0"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
