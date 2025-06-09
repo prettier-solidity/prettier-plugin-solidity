@@ -1,8 +1,11 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
+import {
+  binaryGroupRulesBuilder,
+  shouldNotIndent
+} from './print-binary-operation.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type {
@@ -11,20 +14,9 @@ import type {
   StrictAstNode
 } from '../slang-nodes/types.d.ts';
 
-const { group, indent } = doc.builders;
+const { indent } = doc.builders;
 
-const isStatementWithoutIndentedOperation = createKindCheckFunction([
-  NonterminalKind.ReturnStatement,
-  NonterminalKind.IfStatement,
-  NonterminalKind.WhileStatement
-]);
-
-const logicalGroupRulesBuilder =
-  (path: AstPath<BinaryOperation>) =>
-  (document: Doc): Doc =>
-    isBinaryOperation(path.getNode(2) as StrictAstNode)
-      ? document
-      : group(document);
+const logicalGroupRulesBuilder = binaryGroupRulesBuilder(() => false);
 
 const logicalIndentRulesBuilder =
   (path: AstPath<BinaryOperation>, options: ParserOptions<AstNode>) =>
@@ -32,7 +24,7 @@ const logicalIndentRulesBuilder =
     let node = path.getNode() as StrictAstNode;
     for (let i = 2; ; i += 2) {
       const grandparentNode = path.getNode(i) as StrictAstNode;
-      if (isStatementWithoutIndentedOperation(grandparentNode)) break;
+      if (shouldNotIndent(grandparentNode, path, i)) break;
       if (
         options.experimentalTernaries &&
         grandparentNode.kind === NonterminalKind.ConditionalExpression &&
