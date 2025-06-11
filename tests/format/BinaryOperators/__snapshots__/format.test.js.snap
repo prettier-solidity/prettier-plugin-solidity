@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`BinaryOperators.sol - {"experimentalOperatorPosition":"start"} format 1`] = `
 ====================================options=====================================
@@ -265,8 +265,7 @@ contract ArithmeticOperators {
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            )
-            + c;
+            ) + c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
@@ -354,8 +353,7 @@ contract ArithmeticOperators {
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            )
-            ** c;
+            ) ** c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
@@ -510,8 +508,7 @@ contract ComparisonOperators {
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            )
-            == c;
+            ) == c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
@@ -664,8 +661,7 @@ contract LogicalOperators {
         a =
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
-            )
-            || c;
+            ) || c;
         if (
             veryVeryVeryVeryVeryLongFunctionCalledA(
                 veryVeryVeryVeryVeryLongVariableCalledB
