@@ -15,13 +15,14 @@ const { group, line } = doc.builders;
 function rightOperandPrint(
   node: BinaryOperation,
   path: AstPath<BinaryOperation>,
-  print: PrintFunction
+  print: PrintFunction,
+  options: ParserOptions<AstNode>
 ): Doc {
-  const rightOperand = [
-    ` ${node.operator}`,
-    line,
-    path.call(print, 'rightOperand')
-  ];
+  const rightOperand =
+    options.experimentalOperatorPosition === 'end'
+      ? [` ${node.operator}`, line, path.call(print, 'rightOperand')]
+      : [line, `${node.operator} `, path.call(print, 'rightOperand')];
+
   // If it's a single binary operation, avoid having a small right
   // operand like - 1 on its own line
   const leftOperand = node.leftOperand.variant;
@@ -58,6 +59,6 @@ export const createBinaryOperationPrinter =
 
     return groupRules([
       path.call(print, 'leftOperand'),
-      indentRules(rightOperandPrint(node, path, print))
+      indentRules(rightOperandPrint(node, path, print, options))
     ]);
   };
