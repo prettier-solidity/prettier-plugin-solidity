@@ -50,9 +50,10 @@ function experimentalTernaries(
     path.call(print, 'trueExpression')
   ]);
 
+  const groupId = Symbol('Slang.ConditionalExpression.trueExpression');
   const conditionAndTrueExpressionGroup = group(
     [operandDoc, trueExpressionDoc],
-    { id: Symbol('Slang.ConditionalExpression.trueExpression') }
+    { id: groupId }
   );
 
   const falseExpression = path.call(print, 'falseExpression');
@@ -64,10 +65,9 @@ function experimentalTernaries(
       : ifBreak(
           [fillTab(options), indent(falseExpression)],
           [' ', falseExpression],
-          {
-            // We only add `fillTab` if we are sure the trueExpression is indented
-            groupId: conditionAndTrueExpressionGroup.id
-          }
+          // We only add `fillTab` if we are sure the trueExpression is
+          // indented.
+          { groupId }
         )
   ];
 
