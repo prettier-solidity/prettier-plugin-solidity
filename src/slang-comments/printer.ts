@@ -4,7 +4,7 @@ import type { AstPath, Doc } from 'prettier';
 import type { AstNode } from '../slang-nodes/types.d.ts';
 
 export function printComment(commentPath: AstPath<AstNode>): Doc {
-  const comment = commentPath.getNode()!;
+  const comment = commentPath.node;
 
   if (isComment(comment)) {
     return comment.print();

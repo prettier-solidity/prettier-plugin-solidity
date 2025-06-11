@@ -26,7 +26,7 @@ function rightOperandPrint(
   // If it's a single binary operation, avoid having a small right
   // operand like - 1 on its own line
   const leftOperand = node.leftOperand.variant;
-  const grandparentNode = path.getNode(2) as StrictAstNode;
+  const grandparentNode = path.grandparent as StrictAstNode;
   const shouldGroup =
     !(
       leftOperand.kind !== TerminalKind.Identifier &&

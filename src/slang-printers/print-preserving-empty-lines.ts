@@ -18,7 +18,7 @@ export function printPreservingEmptyLines(
   options: ParserOptions<AstNode>
 ): Doc {
   return path.map((childPath) => {
-    const node = childPath.getNode() as StrictAstNode;
+    const node = childPath.node as StrictAstNode;
 
     return [
       // Only attempt to prepend an empty line if `node` is not the first item

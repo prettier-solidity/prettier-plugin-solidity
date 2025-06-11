@@ -24,7 +24,7 @@ function experimentalTernaries(
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const grandparent = path.getNode(2) as StrictAstNode;
+  const grandparent = path.grandparent as StrictAstNode;
   const isNested = grandparent.kind === NonterminalKind.ConditionalExpression;
   const isNestedAsTrueExpression =
     isNested && grandparent.trueExpression.variant === node;
@@ -87,7 +87,7 @@ function traditionalTernaries(
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
       // line
-      (path.getNode(2) as StrictAstNode).kind ===
+      (path.grandparent as StrictAstNode).kind ===
       NonterminalKind.ConditionalExpression
         ? hardline
         : line,
