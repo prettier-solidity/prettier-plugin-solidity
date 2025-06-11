@@ -20,7 +20,7 @@ function hasNodeIgnoreComment(node: StrictAstNode): boolean {
 }
 
 function ignoreComments(path: AstPath<AstNode>): void {
-  const node = path.node;
+  const { node } = path;
   // We ignore anything that is not an object
   if (node === null || typeof node !== 'object') return;
 
@@ -36,7 +36,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
       // The key `comments` will contain every comment for this node
       case 'comments':
         path.each((commentPath) => {
-          const comment = commentPath.node;
+          const { node: comment } = commentPath;
           comment.printed = true;
         }, 'comments');
         break;
@@ -61,7 +61,7 @@ function genericPrint(
   options: ParserOptions<AstNode>,
   print: PrintFunction
 ): Doc {
-  const node = path.node;
+  const { node } = path;
 
   if (node === null) {
     return '';
