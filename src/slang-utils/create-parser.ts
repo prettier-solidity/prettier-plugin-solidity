@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
 import { maxSatisfying } from 'semver';
+import { slangParserId, slangYulParserId } from '../constants.js';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
@@ -55,13 +56,26 @@ const milestoneVersions = [
 
 function parserAndOutput(
   text: string,
-  version: string
+  version: string,
+  options: ParserOptions<AstNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
   const parser = Parser.create(version);
-  return {
-    parser,
-    parseOutput: parser.parseNonterminal(NonterminalKind.SourceUnit, text)
-  };
+  let rootKind;
+
+  switch (options.parser) {
+    case slangParserId:
+      rootKind = NonterminalKind.SourceUnit;
+      break;
+    case slangYulParserId:
+      rootKind = NonterminalKind.YulBlock;
+      break;
+    default:
+      throw new Error(
+        `Parser '${options.parser as string}' is not supported for Language Inference.`
+      );
+  }
+
+  return { parser, parseOutput: parser.parseNonterminal(rootKind, text) };
 }
 
 export function createParser(
@@ -69,11 +83,15 @@ export function createParser(
   options: ParserOptions<AstNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
-  if (compiler) return parserAndOutput(text, compiler);
+  if (compiler) return parserAndOutput(text, compiler, options);
 
   const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
 
-  let result = parserAndOutput(text, inferredRanges[inferredRanges.length - 1]);
+  let result = parserAndOutput(
+    text,
+    inferredRanges[inferredRanges.length - 1],
+    options
+  );
   if (result.parseOutput.isValid()) return result;
 
   const inferredMilestones = milestoneVersions.filter((milestone) =>
@@ -81,7 +99,7 @@ export function createParser(
   );
 
   for (let i = inferredMilestones.length - 1; i >= 0; i -= 1) {
-    result = parserAndOutput(text, inferredMilestones[i]);
+    result = parserAndOutput(text, inferredMilestones[i], options);
     if (result.parseOutput.isValid()) break;
   }
 
