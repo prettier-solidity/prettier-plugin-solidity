@@ -13,15 +13,12 @@ export default function parse(
 ): AstNode {
   const { parser, parseOutput } = createParser(text, options);
 
-  if (parseOutput.isValid()) {
-    // We update the compiler version by the inferred one.
-    options.compiler = parser.languageVersion;
-    const parsed = new SourceUnit(
-      new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
-      options
-    );
-    clearOffsets();
-    return parsed;
-  }
-  throw new Error(parseOutput.errors()[0].message);
+  // We update the compiler version by the inferred one.
+  options.compiler = parser.languageVersion;
+  const parsed = new SourceUnit(
+    new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
+    options
+  );
+  clearOffsets();
+  return parsed;
 }

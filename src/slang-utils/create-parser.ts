@@ -25,19 +25,34 @@ export function createParser(
   options: ParserOptions<AstNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
-  if (compiler) return parserAndOutput(text, compiler);
+  if (compiler) {
+    const result = parserAndOutput(text, compiler);
 
+    if (!result.parseOutput.isValid())
+      throw new Error(
+        'We encoutered the following syntax error:\n\n\t' +
+          result.parseOutput.errors()[0].message +
+          '\n\nBased on the compiler option provided, we inferred your code to be using Solidity version ' +
+          result.parser.languageVersion +
+          '. If you would like to change that, specify a different version in your `.prettierrc` file.'
+      );
+
+    return result;
+  }
   const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
 
   const result = parserAndOutput(
     text,
     inferredRanges[inferredRanges.length - 1]
   );
+
   if (!result.parseOutput.isValid())
     throw new Error(
-      `Based on the pragma statements, we inferred your code to be using Solidity version ${
-        result.parser.languageVersion
-      }. If you would like to change that, update the pragmas in your source file, or specify a version in \`.prettierrc\` or VSCode's \`settings.json\`.`
+      'We encoutered the following syntax error:\n\n\t' +
+        result.parseOutput.errors()[0].message +
+        '\n\nBased on the pragma statements, we inferred your code to be using Solidity version ' +
+        result.parser.languageVersion +
+        '. If you would like to change that, update the pragmas in your source file, or specify a version in your `.prettierrc` file.'
     );
 
   return result;
