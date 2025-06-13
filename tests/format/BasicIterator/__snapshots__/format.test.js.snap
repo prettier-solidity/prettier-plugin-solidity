@@ -1,7 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`BasicIterator.sol format 1`] = `
+exports[`BasicIterator.sol - {"compiler":"0.4.26"} format 1`] = `
 ====================================options=====================================
+compiler: "0.4.26"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
