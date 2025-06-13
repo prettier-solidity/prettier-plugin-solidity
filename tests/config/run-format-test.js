@@ -334,7 +334,7 @@ async function runTest({
       // same for ANTLR unless it was already given as an option.
       compiler:
         formatOptions.compiler ||
-        createParser(code, formatOptions)[0].languageVersion,
+        createParser(code, formatOptions).parser.languageVersion,
       parser: "antlr",
       plugins: await getPlugins(),
     });
