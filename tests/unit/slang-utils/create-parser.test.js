@@ -9,7 +9,7 @@ describe('inferLanguage', function () {
     {
       description: 'Caret range',
       source: `pragma solidity ^0.7.0;`,
-      version: '0.7.6'
+      version: '0.7.0'
     },
     {
       description: 'Pinned version',
@@ -83,8 +83,10 @@ describe('inferLanguage', function () {
     {
       description:
         'should use the latest version if the range is outside the supported versions',
-      source: `pragma solidity ^0.8.27;`,
-      version: latestSupportedVersion
+      source: `pragma solidity ^10.0.0;`,
+      version: latestSupportedVersion,
+      // TODO: unskip this test when slack fixes the error with ranges outside the supported versions.
+      skip: true
     }
   ];
 
@@ -97,9 +99,6 @@ describe('inferLanguage', function () {
 
   test('should use the latest successful version if the source has no pragmas', function () {
     let { parser } = createParser(`contract Foo {}`, options);
-    expect(parser.languageVersion).toEqual(latestSupportedVersion);
-
-    ({ parser } = createParser(`contract Foo {}`, options));
     expect(parser.languageVersion).toEqual(latestSupportedVersion);
 
     // ({ parser } = createParser(`contract Foo {byte bar;}`, options));
@@ -118,7 +117,7 @@ describe('inferLanguage', function () {
     expect(parser.languageVersion).toEqual('0.8.2');
 
     ({ parser } = createParser(`pragma solidity ^0.8.0;`, {}));
-    expect(parser.languageVersion).toEqual(latestSupportedVersion);
+    expect(parser.languageVersion).toEqual('0.8.0');
   });
 
   test('should throw an error if there are incompatible ranges', function () {

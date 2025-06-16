@@ -1,13 +1,14 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
-import { maxSatisfying } from 'semver';
+import { minSatisfying } from 'semver';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from '../slang-nodes/types.js';
 
 const supportedVersions = LanguageFacts.allVersions();
+const supportedLength = supportedVersions.length;
 
 function parserAndOutput(
   text: string,
@@ -24,7 +25,7 @@ export function createParser(
   text: string,
   options: ParserOptions<AstNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
-  const compiler = maxSatisfying(supportedVersions, options.compiler);
+  const compiler = minSatisfying(supportedVersions, options.compiler);
   if (compiler) {
     const result = parserAndOutput(text, compiler);
 
@@ -40,10 +41,11 @@ export function createParser(
     return result;
   }
   const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
+  const inferredLength = inferredRanges.length;
 
   const result = parserAndOutput(
     text,
-    inferredRanges[inferredRanges.length - 1]
+    inferredRanges[inferredLength === supportedLength ? inferredLength - 1 : 0]
   );
 
   if (!result.parseOutput.isValid())
