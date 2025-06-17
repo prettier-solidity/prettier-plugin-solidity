@@ -31,11 +31,11 @@ export function createParser(
 
     if (!result.parseOutput.isValid())
       throw new Error(
-        'We encoutered the following syntax error:\n\n\t' +
-          result.parseOutput.errors()[0].message +
-          '\n\nBased on the compiler option provided, we inferred your code to be using Solidity version ' +
-          result.parser.languageVersion +
-          '. If you would like to change that, specify a different version in your `.prettierrc` file.'
+        `We encountered the following syntax error:\n\n\t${
+          result.parseOutput.errors()[0].message
+        }\n\nBased on the compiler option provided, we inferred your code to be using Solidity version ${
+          result.parser.languageVersion
+        }. If you would like to change that, specify a different version in your \`.prettierrc\` file.`
       );
 
     return result;
@@ -43,6 +43,11 @@ export function createParser(
   const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
   const inferredLength = inferredRanges.length;
 
+  if (inferredLength === 0) {
+    throw new Error(
+      `We couldn't infer a Solidity version base on the pragma statements in your code. If you would like to change that, update the pragmas in your source file, or specify a version in your \`.prettierrc\` file.`
+    );
+  }
   const result = parserAndOutput(
     text,
     inferredRanges[inferredLength === supportedLength ? inferredLength - 1 : 0]
@@ -50,11 +55,11 @@ export function createParser(
 
   if (!result.parseOutput.isValid())
     throw new Error(
-      'We encoutered the following syntax error:\n\n\t' +
-        result.parseOutput.errors()[0].message +
-        '\n\nBased on the pragma statements, we inferred your code to be using Solidity version ' +
-        result.parser.languageVersion +
-        '. If you would like to change that, update the pragmas in your source file, or specify a version in your `.prettierrc` file.'
+      `We encountered the following syntax error:\n\n\t${
+        result.parseOutput.errors()[0].message
+      }\n\nBased on the pragma statements, we inferred your code to be using Solidity version ${
+        result.parser.languageVersion
+      }. If you would like to change that, update the pragmas in your source file, or specify a version in your \`.prettierrc\` file.`
     );
 
   return result;
