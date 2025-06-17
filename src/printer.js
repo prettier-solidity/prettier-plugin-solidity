@@ -1,9 +1,6 @@
 import * as nodes from './nodes/index.js';
 import { printWarning } from './common/print-warning.js';
-import {
-  hasNodeIgnoreComment,
-  prettierVersionSatisfies
-} from './common/util.js';
+import { hasNodeIgnoreComment } from './common/util.js';
 import ignoreComments from './comments/ignore.js';
 
 function once(factory) {

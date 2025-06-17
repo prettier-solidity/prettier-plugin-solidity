@@ -1,11 +1,7 @@
-import { doc } from 'prettier';
-import {
-  isLast,
-  isNextLineEmpty,
-  isPrettier2
-} from './backward-compatibility.js';
+import { doc, util } from 'prettier';
 
 const { group, indent, join, line, softline, hardline } = doc.builders;
+const { isNextLineEmpty } = util;
 
 export const printComments = (node, path, options, filter = () => true) => {
   if (!node.comments) return '';
@@ -26,14 +22,7 @@ export const printComments = (node, path, options, filter = () => true) => {
       .filter(Boolean)
   );
 
-  // The following if statement will never be 100% covered in a single run
-  // since it depends on the version of Prettier being used.
-  // Mocking the behaviour will introduce a lot of maintenance in the tests.
-  /* c8 ignore start */
-  return isPrettier2
-    ? document.parts // Prettier V2
-    : document; // Prettier V3
-  /* c8 ignore stop */
+  return document;
 };
 
 export function printPreservingEmptyLines(path, key, options, print) {
@@ -56,7 +45,7 @@ export function printPreservingEmptyLines(path, key, options, print) {
 
     // Only attempt to append an empty line if `node` is not the last item
     if (
-      !isLast(childPath, key, index) &&
+      !childPath.isLast &&
       isNextLineEmpty(options.originalText, options.locEnd(node) + 1)
     ) {
       // Append an empty line if the original text already had an one after

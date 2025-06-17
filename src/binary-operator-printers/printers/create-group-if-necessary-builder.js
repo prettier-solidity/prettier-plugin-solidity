@@ -5,8 +5,8 @@ const { group } = doc.builders;
 
 export const createGroupIfNecessaryBuilder =
   (shouldIndentMatchers) => (path) => (document) => {
-    const parentNode = path.getParentNode();
-    if (shouldGroupOrIndent(parentNode, shouldIndentMatchers))
+    const { parent } = path;
+    if (shouldGroupOrIndent(parent, shouldIndentMatchers))
       return group(document);
     return document;
   };
