@@ -1,5 +1,4 @@
-import { doc } from 'prettier';
-import { getNextNonSpaceNonCommentCharacter } from '../common/backward-compatibility.js';
+import { doc, util } from 'prettier';
 import {
   printComments,
   printSeparatedItem,
@@ -7,6 +6,7 @@ import {
 } from '../common/printer-helpers.js';
 
 const { dedent, group, indent, join, line } = doc.builders;
+const { getNextNonSpaceNonCommentCharacter } = util;
 
 const functionName = (node, options) => {
   if (node.isConstructor && !node.name) return 'constructor';
@@ -40,8 +40,7 @@ const parameters = (parametersType, node, path, print, options) => {
       (comment) =>
         getNextNonSpaceNonCommentCharacter(
           options.originalText,
-          comment,
-          options.locEnd
+          options.locEnd(comment)
         ) === ')'
     );
     return parameterComments.length > 0

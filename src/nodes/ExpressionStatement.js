@@ -7,7 +7,7 @@ export const ExpressionStatement = {
   print: ({ node, options, path, print }) => {
     const parts = [];
 
-    const parent = path.getParentNode();
+    const { parent } = path;
 
     if (parent.type === 'IfStatement') {
       if (node.comments?.length) {
