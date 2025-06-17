@@ -1,7 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`FunctionDefinitions.sol format 1`] = `
+exports[`FunctionDefinitions.sol - {"compiler":"0.5.17"} format 1`] = `
 ====================================options=====================================
+compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth

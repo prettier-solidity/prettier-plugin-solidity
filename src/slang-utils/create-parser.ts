@@ -1,145 +1,66 @@
-import { VersionExpressionSets as SlangVersionExpressionSets } from '@nomicfoundation/slang/ast';
-import { NonterminalKind, Query } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
-import {
-  maxSatisfying,
-  minSatisfying,
-  minor,
-  major,
-  satisfies,
-  validRange
-} from 'semver';
-import { VersionExpressionSets } from '../slang-nodes/VersionExpressionSets.js';
+import { minSatisfying } from 'semver';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from '../slang-nodes/types.js';
 
 const supportedVersions = LanguageFacts.allVersions();
+const supportedLength = supportedVersions.length;
 
-const milestoneVersions = Array.from(
-  supportedVersions.reduce((minorRanges, version) => {
-    minorRanges.add(`^${major(version)}.${minor(version)}.0`);
-    return minorRanges;
-  }, new Set<string>())
-)
-  .reverse()
-  .reduce((versions: string[], range) => {
-    versions.push(maxSatisfying(supportedVersions, range)!);
-    versions.push(minSatisfying(supportedVersions, range)!);
-    return versions;
-  }, []);
-
-const queries = [
-  Query.create('[VersionPragma @versionRanges [VersionExpressionSets]]')
-];
-
-let parser: Parser;
+function parserAndOutput(
+  text: string,
+  version: string
+): { parser: Parser; parseOutput: ParseOutput } {
+  const parser = Parser.create(version);
+  return {
+    parser,
+    parseOutput: parser.parseNonterminal(NonterminalKind.SourceUnit, text)
+  };
+}
 
 export function createParser(
   text: string,
   options: ParserOptions<AstNode>
-): [Parser, ParseOutput] {
-  const compiler = maxSatisfying(supportedVersions, options.compiler);
+): { parser: Parser; parseOutput: ParseOutput } {
+  const compiler = minSatisfying(supportedVersions, options.compiler);
   if (compiler) {
-    if (!parser || parser.languageVersion !== compiler) {
-      parser = Parser.create(compiler);
-    }
-    return [parser, parser.parseNonterminal(NonterminalKind.SourceUnit, text)];
-  }
+    const result = parserAndOutput(text, compiler);
 
-  let isCachedParser = false;
-  if (parser) {
-    isCachedParser = true;
-  } else {
-    parser = Parser.create(milestoneVersions[0]);
-  }
-
-  let parseOutput;
-  let inferredRanges: string[] = [];
-
-  try {
-    parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
-    inferredRanges = tryToCollectPragmas(parseOutput, parser, isCachedParser);
-  } catch {
-    for (
-      let i = isCachedParser ? 0 : 1;
-      i <= milestoneVersions.length;
-      i += 1
-    ) {
-      try {
-        const version = milestoneVersions[i];
-        parser = Parser.create(version);
-        parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
-        inferredRanges = tryToCollectPragmas(parseOutput, parser);
-        break;
-      } catch {
-        continue;
-      }
-    }
-  }
-
-  const satisfyingVersions = inferredRanges.reduce(
-    (versions, inferredRange) => {
-      if (!validRange(inferredRange)) {
-        throw new Error(
-          `Couldn't infer any version from the ranges in the pragmas${options.filepath ? ` for file ${options.filepath}` : ''}`
-        );
-      }
-      return versions.filter((supportedVersion) =>
-        satisfies(supportedVersion, inferredRange)
+    if (!result.parseOutput.isValid())
+      throw new Error(
+        `We encountered the following syntax error:\n\n\t${
+          result.parseOutput.errors()[0].message
+        }\n\nBased on the compiler option provided, we inferred your code to be using Solidity version ${
+          result.parser.languageVersion
+        }. If you would like to change that, specify a different version in your \`.prettierrc\` file.`
       );
-    },
-    supportedVersions
+
+    return result;
+  }
+  const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
+  const inferredLength = inferredRanges.length;
+
+  if (inferredLength === 0) {
+    throw new Error(
+      `We couldn't infer a Solidity version base on the pragma statements in your code. If you would like to change that, update the pragmas in your source file, or specify a version in your \`.prettierrc\` file.`
+    );
+  }
+  const result = parserAndOutput(
+    text,
+    inferredRanges[inferredLength === supportedLength ? inferredLength - 1 : 0]
   );
 
-  const inferredVersion =
-    satisfyingVersions.length > 0
-      ? satisfyingVersions[satisfyingVersions.length - 1]
-      : supportedVersions[supportedVersions.length - 1];
-
-  if (inferredVersion !== parser.languageVersion) {
-    parser = Parser.create(inferredVersion);
-    parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  return [parser, parseOutput!];
-}
-
-function tryToCollectPragmas(
-  parseOutput: ParseOutput,
-  parser: Parser,
-  isCachedParser = false
-): string[] {
-  const matches = parseOutput.createTreeCursor().query(queries);
-  const ranges: string[] = [];
-
-  let match;
-  while ((match = matches.next())) {
-    const versionRange = new SlangVersionExpressionSets(
-      match.captures.versionRanges[0].node.asNonterminalNode()!
-    );
-    ranges.push(
-      // Replace all comments that could be in the expression with whitespace
-      new VersionExpressionSets(versionRange).comments.reduce(
-        (range, comment) => range.replace(comment.value, ' '),
-        versionRange.cst.unparse()
-      )
-    );
-  }
-
-  if (ranges.length === 0) {
-    // If we didn't find pragmas but succeeded parsing the source we keep it.
-    if (!isCachedParser && parseOutput.isValid()) {
-      return [parser.languageVersion];
-    }
-    // Otherwise we throw.
+  if (!result.parseOutput.isValid())
     throw new Error(
-      `Using version ${parser.languageVersion} did not find any pragma statement and does not parse without errors.`
+      `We encountered the following syntax error:\n\n\t${
+        result.parseOutput.errors()[0].message
+      }\n\nBased on the pragma statements, we inferred your code to be using Solidity version ${
+        result.parser.languageVersion
+      }. If you would like to change that, update the pragmas in your source file, or specify a version in your \`.prettierrc\` file.`
     );
-  }
 
-  return ranges;
+  return result;
 }

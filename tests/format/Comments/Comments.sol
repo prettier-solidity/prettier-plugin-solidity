@@ -1,6 +1,3 @@
-pragma solidity ^0.4.29;
-
-
 contract Comments1 {
   /* solhint-disable var-name-mixedcase */
 IEIP712DomainSeparator private EIP712domainSeparator;
