@@ -35,10 +35,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
         break;
       // The key `comments` will contain every comment for this node
       case 'comments':
-        path.each((commentPath) => {
-          const { node: comment } = commentPath;
-          comment.printed = true;
-        }, 'comments');
+        path.each((commentPath) => (commentPath.node.printed = true), key);
         break;
       default:
         // If the value for that key is an Array or an Object we go deeper.
