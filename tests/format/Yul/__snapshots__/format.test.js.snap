@@ -1,10 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`example1.yul format 1`] = `
 ====================================options=====================================
 parsers: ["slang-yul"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
     function power(base, exponent) -> result
@@ -45,8 +44,7 @@ printWidth: 80
 exports[`example2.yul format 1`] = `
 ====================================options=====================================
 parsers: ["slang-yul"]
-printWidth: 80
-                                                                                | printWidth
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 {
       function power(base, exponent) -> result

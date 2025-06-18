@@ -10,7 +10,7 @@ import type { Comment, PrintableNode } from './slang-nodes/types.d.ts';
 export default function parse(
   text: string,
   options: ParserOptions<PrintableNode>
-): PrintableNode {
+): SourceUnit {
   const { parser, parseOutput } = createParser(text, options);
 
   // We update the compiler version with the inferred one.
