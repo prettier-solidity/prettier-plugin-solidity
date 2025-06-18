@@ -12,8 +12,7 @@ export const notIndentParentTypes = [
 
 export const createIndentIfNecessaryBuilder =
   (shouldIndentMatchers) => (path) => (document) => {
-    let { node } = path;
-    for (let i = 0; ; i += 1) {
+    for (let i = 0, { node } = path; ; i += 1) {
       const parentNode = path.getParentNode(i);
       if (notIndentParentTypes.includes(parentNode.type)) return document;
       if (shouldGroupOrIndent(parentNode, shouldIndentMatchers))
