@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
 import { minSatisfying } from 'semver';
+import { slangParserId, slangYulParserId } from '../constants.js';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
@@ -12,13 +13,26 @@ const supportedLength = supportedVersions.length;
 
 function parserAndOutput(
   text: string,
-  version: string
+  version: string,
+  options: ParserOptions<AstNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
   const parser = Parser.create(version);
-  return {
-    parser,
-    parseOutput: parser.parseNonterminal(NonterminalKind.SourceUnit, text)
-  };
+  let rootKind;
+
+  switch (options.parser) {
+    case slangParserId:
+      rootKind = NonterminalKind.SourceUnit;
+      break;
+    case slangYulParserId:
+      rootKind = NonterminalKind.YulBlock;
+      break;
+    default:
+      throw new Error(
+        `Parser '${options.parser as string}' is not supported for Language Inference.`
+      );
+  }
+
+  return { parser, parseOutput: parser.parseNonterminal(rootKind, text) };
 }
 
 export function createParser(
@@ -27,7 +41,7 @@ export function createParser(
 ): { parser: Parser; parseOutput: ParseOutput } {
   const compiler = minSatisfying(supportedVersions, options.compiler);
   if (compiler) {
-    const result = parserAndOutput(text, compiler);
+    const result = parserAndOutput(text, compiler, options);
 
     if (!result.parseOutput.isValid())
       throw new Error(
@@ -50,7 +64,8 @@ export function createParser(
   }
   const result = parserAndOutput(
     text,
-    inferredRanges[inferredLength === supportedLength ? inferredLength - 1 : 0]
+    inferredRanges[inferredLength === supportedLength ? inferredLength - 1 : 0],
+    options
   );
 
   if (!result.parseOutput.isValid())
