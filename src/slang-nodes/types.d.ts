@@ -460,6 +460,11 @@ export type StrictAstNode =
   | YulPaths
   | YulPath;
 
+export type PrintableCollectionNode = Extract<
+  StrictAstNode,
+  { items: StrictAstNode[] }
+>;
+
 export type CollectionNode = Extract<StrictAstNode, { items: unknown[] }>;
 
 export type BinaryOperation = Extract<
