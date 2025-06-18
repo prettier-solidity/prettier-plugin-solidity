@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
-import addCollectionNodeLastComment from './add-collection-node-last-comment.js';
+import addCollectionFirstComment from './add-collection-first-comment.js';
+import addCollectionLastComment from './add-collection-last-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
 
@@ -15,12 +15,12 @@ export default function handleBlockComments({
   }
 
   if (precedingNode?.kind === NonterminalKind.Statements) {
-    addCollectionNodeLastComment(precedingNode, comment);
+    addCollectionLastComment(precedingNode, comment);
     return true;
   }
 
   if (followingNode?.kind === NonterminalKind.Statements) {
-    addCollectionNodeFirstComment(followingNode, comment);
+    addCollectionFirstComment(followingNode, comment);
     return true;
   }
 
