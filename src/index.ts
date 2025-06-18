@@ -10,6 +10,13 @@ import yulParse from './slangYulParser.js';
 import slangPrint from './slangPrinter.js';
 import { isBlockComment, isComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
+import {
+  slangParserId,
+  slangYulParserId,
+  antlrParserId,
+  slangAstId,
+  antlrAstId
+} from './constants.js';
 
 import type {
   Parser,
@@ -18,12 +25,6 @@ import type {
   SupportLanguage
 } from 'prettier';
 import type { AstNode } from './slang-nodes/types.d.ts';
-
-const slangParserId = 'slang';
-const slangYulParserId = 'slang-yul';
-const antlrParserId = 'antlr';
-const slangAstId = 'slang-ast';
-const antlrAstId = 'antlr-ast';
 
 // https://prettier.io/docs/en/plugins.html#languages
 // https://github.com/github-linguist/linguist/blob/master/lib/linguist/languages.yml
