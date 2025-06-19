@@ -23,15 +23,13 @@ function rightOperandPrint(
       ? [` ${node.operator}`, line, path.call(print, 'rightOperand')]
       : [line, `${node.operator} `, path.call(print, 'rightOperand')];
 
-  // If it's a single binary operation, avoid having a small right
-  // operand like - 1 on its own line
+  // If there's only a single binary expression, we want to create a group in
+  // order to avoid having a small right part like -1 be on its own line.
   const leftOperand = node.leftOperand.variant;
-  const grandparentNode = path.getNode(2) as StrictAstNode;
+  const grandparentNode = path.grandparent as StrictAstNode;
   const shouldGroup =
-    !(
-      leftOperand.kind !== TerminalKind.Identifier &&
-      isBinaryOperation(leftOperand)
-    ) &&
+    (leftOperand.kind === TerminalKind.Identifier ||
+      !isBinaryOperation(leftOperand)) &&
     (!isBinaryOperation(grandparentNode) ||
       grandparentNode.kind === NonterminalKind.AssignmentExpression);
 

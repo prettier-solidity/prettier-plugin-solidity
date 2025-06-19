@@ -24,7 +24,7 @@ function experimentalTernaries(
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const grandparent = path.getNode(2) as StrictAstNode;
+  const grandparent = path.grandparent as StrictAstNode;
   const isNested = grandparent.kind === NonterminalKind.ConditionalExpression;
   const isNestedAsTrueExpression =
     isNested && grandparent.trueExpression.variant === node;
@@ -50,9 +50,10 @@ function experimentalTernaries(
     path.call(print, 'trueExpression')
   ]);
 
+  const groupId = Symbol('Slang.ConditionalExpression.trueExpression');
   const conditionAndTrueExpressionGroup = group(
     [operandDoc, trueExpressionDoc],
-    { id: Symbol('Slang.ConditionalExpression.trueExpression') }
+    { id: groupId }
   );
 
   const falseExpression = path.call(print, 'falseExpression');
@@ -64,10 +65,9 @@ function experimentalTernaries(
       : ifBreak(
           [fillTab(options), indent(falseExpression)],
           [' ', falseExpression],
-          {
-            // We only add `fillTab` if we are sure the trueExpression is indented
-            groupId: conditionAndTrueExpressionGroup.id
-          }
+          // We only add `fillTab` if we are sure the trueExpression is
+          // indented.
+          { groupId }
         )
   ];
 
@@ -87,7 +87,7 @@ function traditionalTernaries(
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
       // line
-      (path.getNode(2) as StrictAstNode).kind ===
+      (path.grandparent as StrictAstNode).kind ===
       NonterminalKind.ConditionalExpression
         ? hardline
         : line,
