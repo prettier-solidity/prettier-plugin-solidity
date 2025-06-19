@@ -5,7 +5,7 @@
   "functions": 90,
   "statements": 90,
   "exclude": ["/node_modules/"],
-  "include": ["src/**/*.ts", "!src/slang-utils/backward-compatibility.ts"],
+  "include": ["src/**/*.ts"],
   "reporter": ["lcov", "text"],
   "temp-dir": "./coverage/"
 }

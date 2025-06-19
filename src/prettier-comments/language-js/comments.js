@@ -1,12 +1,13 @@
 import { util } from "prettier";
-import { getNextNonSpaceNonCommentCharacter } from "../../common/backward-compatibility.js";
 
 const {
   addLeadingComment,
   addTrailingComment,
   addDanglingComment,
   hasNewline,
-  hasNewlineInRange
+  hasNewlineInRange,
+  getNextNonSpaceNonCommentCharacter,
+  getNextNonSpaceNonCommentCharacterIndex
 } = util
 
 export function handleOwnLineComment(comment, text, options, ast, isLastComment) {
@@ -242,8 +243,7 @@ function handleIfStatementComments(
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    comment,
-    options.locEnd
+    options.locEnd(comment)
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -311,8 +311,7 @@ function handleWhileComments(
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    comment,
-    options.locEnd
+    options.locEnd(comment)
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -470,8 +469,7 @@ function handleMethodNameComments(
     // comment should be attached to value instead of key
     getNextNonSpaceNonCommentCharacter(
       text,
-      precedingNode,
-      options.locEnd
+      options.locEnd(precedingNode)
     ) !== ":"
   ) {
     addTrailingComment(precedingNode, comment);
@@ -507,8 +505,7 @@ function handleFunctionNameComments(
   if (
     getNextNonSpaceNonCommentCharacter(
       text,
-      comment,
-      options.locEnd
+      options.locEnd(comment)
     ) !== "("
   ) {
     return false;
@@ -536,8 +533,7 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
 
   const index = getNextNonSpaceNonCommentCharacterIndex(
     text,
-    comment,
-    options
+    options.locEnd(comment)
   );
   if (text.substr(index, 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
@@ -551,8 +547,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   if (
     getNextNonSpaceNonCommentCharacter(
       text,
-      comment,
-      options.locEnd
+      options.locEnd(comment)
     ) !== ")"
   ) {
     return false;
@@ -622,8 +617,7 @@ function handleLastFunctionArgComments(
       enclosingNode.type === "ClassMethod") &&
     getNextNonSpaceNonCommentCharacter(
       text,
-      comment,
-      options.locEnd
+      options.locEnd(comment)
     ) === ")"
   ) {
     addTrailingComment(precedingNode, comment);

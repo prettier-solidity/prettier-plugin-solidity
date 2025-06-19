@@ -4,7 +4,7 @@ import { printSeparatedItem } from '../common/printer-helpers.js';
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
 const experimentalTernaries = (node, path, print, options) => {
-  const parent = path.getParentNode();
+  const { parent } = path;
   const isNested = parent.type === 'Conditional';
   const isNestedAsTrueExpression = isNested && parent.trueExpression === node;
   const falseExpressionIsNested = node.falseExpression.type === 'Conditional';
@@ -68,7 +68,7 @@ const traditionalTernaries = (path, print) =>
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
       // line
-      path.getParentNode().type === 'Conditional' ? hardline : line,
+      path.parent.type === 'Conditional' ? hardline : line,
       '? ',
       path.call(print, 'trueExpression'),
       line,
