@@ -17,14 +17,6 @@ describe('inferLanguage', function () {
       version: '0.8.1'
     },
     {
-      description: 'With nightly commit',
-      source: `pragma solidity 0.8.18-ci.2023.1.17+commit.e7b959af;`,
-      version: '0.8.18',
-      // TODO: unskip this test when addresses this issue
-      // https://github.com/NomicFoundation/slang/issues/1346
-      skip: true
-    },
-    {
       description: 'Caret range and pinned version',
       source: `pragma solidity ^0.8.0; pragma solidity 0.8.2;`,
       version: '0.8.2'
