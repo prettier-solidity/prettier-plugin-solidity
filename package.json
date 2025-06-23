@@ -102,7 +102,7 @@
     "jest-snapshot-serializer-raw": "^2.0.0",
     "jest-watch-typeahead": "^3.0.1",
     "lines-and-columns": "^2.0.4",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.0",
     "solc": "^0.8.30",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
