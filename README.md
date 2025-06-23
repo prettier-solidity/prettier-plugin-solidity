@@ -158,7 +158,6 @@ The Solidity versions taken into consideration during formatting are:
   ```
 
 - `v0.8.0`: Introduced these [changes](https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html)
-
   - The type `byte` has been removed. It was an alias of `bytes1`.
   - Exponentiation is right associative, i.e., the expression `a**b**c` is parsed as `a**(b**c)`. Before 0.8.0, it was parsed as `(a**b)**c`.
 

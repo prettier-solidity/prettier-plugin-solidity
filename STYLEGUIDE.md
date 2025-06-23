@@ -146,7 +146,6 @@ function() external {
 ## Control Structures
 
 - [x] The braces denoting the body of a contract, library, functions and structs should:
-
   - open on the same line as the declaration
   - close on their own line at the same indentation level as the beginning of the declaration.
   - The opening brace should be proceeded by a single space.
