@@ -30,7 +30,11 @@ export const ImportDirective = {
       let firstSeparator;
       let separator;
 
-      if (compiler && satisfies(compiler, '>=0.7.4')) {
+      if (
+        compiler &&
+        satisfies(compiler, '>=0.7.4') &&
+        symbolAliases.length > 1
+      ) {
         // if the compiler exists and is greater than or equal to 0.7.4 we will
         // split the ImportDirective.
         firstSeparator = options.bracketSpacing ? line : softline;
