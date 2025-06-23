@@ -7,8 +7,7 @@ import { shouldGroupOrIndent } from './utils/should-group-or-indent.js';
 const { indent } = doc.builders;
 
 const indentIfNecessaryBuilder = (path, options) => (document) => {
-  let node = path.getNode();
-  for (let i = 0; ; i += 1) {
+  for (let i = 0, { node } = path; ; i += 1) {
     const parentNode = path.getParentNode(i);
     if (notIndentParentTypes.includes(parentNode.type)) return document;
     if (

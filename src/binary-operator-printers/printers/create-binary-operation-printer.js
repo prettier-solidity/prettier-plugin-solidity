@@ -11,7 +11,7 @@ const rightOperandPrinter = (node, path, print, options) => {
 
   // If it's a single binary operation, avoid having a small right
   // operand like - 1 on its own line
-  const parent = path.getParentNode();
+  const { parent } = path;
   return node.left.type !== 'BinaryOperation' &&
     (parent.type !== 'BinaryOperation' || assignment.match(parent.operator))
     ? group(right)

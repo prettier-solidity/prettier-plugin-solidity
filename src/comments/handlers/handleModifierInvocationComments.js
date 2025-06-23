@@ -1,7 +1,11 @@
 import { util } from 'prettier';
-import { getNextNonSpaceNonCommentCharacter } from '../../common/backward-compatibility.js';
 
-const { addLeadingComment, addTrailingComment, addDanglingComment } = util;
+const {
+  addLeadingComment,
+  addTrailingComment,
+  addDanglingComment,
+  getNextNonSpaceNonCommentCharacter
+} = util;
 
 function handleModifierInvocationComments({
   text,
@@ -21,8 +25,7 @@ function handleModifierInvocationComments({
   // it is a ().
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    comment,
-    options.locEnd
+    options.locEnd(comment)
   );
 
   // The comment is behind the start of the Parentheses `()`
