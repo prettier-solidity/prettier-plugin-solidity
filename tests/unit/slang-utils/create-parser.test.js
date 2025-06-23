@@ -17,14 +17,6 @@ describe('inferLanguage', function () {
       version: '0.8.1'
     },
     {
-      description: 'With nightly commit',
-      source: `pragma solidity 0.8.18-ci.2023.1.17+commit.e7b959af;`,
-      version: '0.8.18',
-      // TODO: unskip this test when addresses this issue
-      // https://github.com/NomicFoundation/slang/issues/1346
-      skip: true
-    },
-    {
       description: 'Caret range and pinned version',
       source: `pragma solidity ^0.8.0; pragma solidity 0.8.2;`,
       version: '0.8.2'
@@ -84,9 +76,7 @@ describe('inferLanguage', function () {
       description:
         'should use the latest version if the range is outside the supported versions',
       source: `pragma solidity ^10.0.0;`,
-      version: latestSupportedVersion,
-      // TODO: unskip this test when slack fixes the error with ranges outside the supported versions.
-      skip: true
+      version: latestSupportedVersion
     }
   ];
 
@@ -120,9 +110,44 @@ describe('inferLanguage', function () {
     expect(parser.languageVersion).toEqual('0.8.0');
   });
 
-  test('should throw an error if there are incompatible ranges', function () {
+  test('should throw if compiler option does not match the syntax', function () {
     expect(() =>
-      createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`, options)
-    ).toThrow();
+      createParser(`contract Foo {byte bar;}`, { compiler: '0.8.0' })
+    ).toThrow(
+      'Based on the compiler option provided, we inferred your code to be using Solidity version'
+    );
+  });
+
+  test('should throw if pragma is outside the supported version and the syntax does not match with the latest supported version', function () {
+    expect(() =>
+      createParser(`pragma solidity 10.0.0;contract Foo {byte bar;}`, options)
+    ).toThrow(
+      "We couldn't infer a Solidity version based on the pragma statements"
+    );
+  });
+
+  test('should throw if there is no pragma and the syntax does not match with the latest supported version', function () {
+    expect(() => createParser(`contract Foo {byte bar;}`, options)).toThrow(
+      "We couldn't infer a Solidity version based on the pragma statements"
+    );
+  });
+
+  test('should throw an error if there are incompatible ranges and the syntax does not match with the latest supported version', function () {
+    expect(() =>
+      createParser(
+        `pragma solidity ^0.8.0; pragma solidity 0.7.6;contract Foo {byte bar;}`,
+        options
+      )
+    ).toThrow(
+      "We couldn't infer a Solidity version based on the pragma statements"
+    );
+  });
+
+  test('should throw an error if the pragma statement is and the syntax do not match', function () {
+    expect(() =>
+      createParser(`pragma solidity ^0.8.0;contract Foo {byte bar;}`, options)
+    ).toThrow(
+      'Based on the pragma statements, we inferred your code to be using Solidity version'
+    );
   });
 });
