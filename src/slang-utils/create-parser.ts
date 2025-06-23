@@ -40,18 +40,28 @@ export function createParser(
 
     return result;
   }
+
   const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
   const inferredLength = inferredRanges.length;
 
-  if (inferredLength === 0) {
-    throw new Error(
-      `We couldn't infer a Solidity version base on the pragma statements in your code. If you would like to change that, update the pragmas in your source file, or specify a version in your \`.prettierrc\` file.`
+  if (inferredLength === 0 || inferredLength === supportedLength) {
+    const result = parserAndOutput(
+      text,
+      supportedVersions[supportedLength - 1]
     );
+
+    if (!result.parseOutput.isValid())
+      throw new Error(
+        `We encountered the following syntax error:\n\n\t${
+          result.parseOutput.errors()[0].message
+        }\n\nWe couldn't infer a Solidity version base on the pragma statements in your code so we defaulted to ${
+          result.parser.languageVersion
+        }. You might be attempting to use a syntax not yet supported by Slang or you might want to specify a version in your \`.prettierrc\` file.`
+      );
+    return result;
   }
-  const result = parserAndOutput(
-    text,
-    inferredRanges[inferredLength === supportedLength ? inferredLength - 1 : 0]
-  );
+
+  const result = parserAndOutput(text, inferredRanges[0]);
 
   if (!result.parseOutput.isValid())
     throw new Error(

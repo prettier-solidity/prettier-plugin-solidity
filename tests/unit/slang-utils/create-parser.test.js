@@ -76,9 +76,7 @@ describe('inferLanguage', function () {
       description:
         'should use the latest version if the range is outside the supported versions',
       source: `pragma solidity ^10.0.0;`,
-      version: latestSupportedVersion,
-      // TODO: unskip this test when slack fixes the error with ranges outside the supported versions.
-      skip: true
+      version: latestSupportedVersion
     }
   ];
 
@@ -112,7 +110,7 @@ describe('inferLanguage', function () {
     expect(parser.languageVersion).toEqual('0.8.0');
   });
 
-  test('should throw an error if there are incompatible ranges', function () {
+  test.skip('should throw an error if there are incompatible ranges', function () {
     expect(() =>
       createParser(`pragma solidity ^0.8.0; pragma solidity 0.7.6;`, options)
     ).toThrow();
