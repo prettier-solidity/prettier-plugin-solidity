@@ -39,12 +39,8 @@ import {
     symbol3 as alias3,
     symbol4
 } from "File2.sol";
-import {
-    GovernorVotesSuperQuorumFraction
-} from "../../../contracts/governance/extensions/GovernorVotesSuperQuorumFraction.sol";
-import {
-    IAccessControl
-} from "@openzeppelin/contracts/access/IAccessControl.sol";
+import { GovernorVotesSuperQuorumFraction } from "../../../contracts/governance/extensions/GovernorVotesSuperQuorumFraction.sol";
+import { IAccessControl } from "@openzeppelin/contracts/access/IAccessControl.sol";
 import {
     IERC7579Module,
     IERC7579Validator,
@@ -138,12 +134,8 @@ import {
     symbol3 as alias3,
     symbol4
 } from "File2.sol";
-import {
-    GovernorVotesSuperQuorumFraction
-} from "../../../contracts/governance/extensions/GovernorVotesSuperQuorumFraction.sol";
-import {
-    IAccessControl
-} from "@openzeppelin/contracts/access/IAccessControl.sol";
+import {GovernorVotesSuperQuorumFraction} from "../../../contracts/governance/extensions/GovernorVotesSuperQuorumFraction.sol";
+import {IAccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol";
 import {
     IERC7579Module,
     IERC7579Validator,
