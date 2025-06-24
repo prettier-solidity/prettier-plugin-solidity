@@ -166,3 +166,16 @@ contract Comments13 {
       {
   }
 }
+
+
+
+contract Comments14 {
+    struct AssetStore // use 0 for non-EVM chains
+    {
+        uint chainId;
+        uint assetStoreIndex;
+        string assetStoreAddress; // we assume all addresses are strings and the front-end will cast correctly
+    //string shortName; // usually an asset shortName `eth:` or `st:` for a stealth address
+    }
+
+}
