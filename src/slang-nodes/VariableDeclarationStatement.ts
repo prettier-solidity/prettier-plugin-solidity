@@ -58,22 +58,20 @@ export class VariableDeclarationStatement implements SlangNode {
     print: PrintFunction
   ): Doc {
     const groupId = Symbol('Slang.VariableDeclarationStatement.variables');
-    const declarationDoc = group(
-      [
-        path.call(print, 'variableType'),
-        indent([
-          this.storageLocation
-            ? [line, path.call(print, 'storageLocation')]
-            : '',
-          ' ',
-          path.call(print, 'name')
-        ])
-      ],
-      { id: groupId }
-    );
-
     return [
-      declarationDoc,
+      group(
+        [
+          path.call(print, 'variableType'),
+          indent([
+            this.storageLocation
+              ? [line, path.call(print, 'storageLocation')]
+              : '',
+            ' ',
+            path.call(print, 'name')
+          ])
+        ],
+        { id: groupId }
+      ),
       indentIfBreak(path.call(print, 'value'), { groupId }),
       ';'
     ];
