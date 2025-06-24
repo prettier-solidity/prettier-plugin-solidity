@@ -49,12 +49,12 @@ export class ContractDefinition implements SlangNode {
     // the same name as the contract.
     const compiler = coerce(options.compiler);
     if (compiler && !satisfies(compiler, '>=0.5.0')) {
-      for (const member of this.members.items) {
+      for (const { variant: member } of this.members.items) {
         if (
-          member.variant.kind === NonterminalKind.FunctionDefinition &&
-          member.variant.name.variant.value !== this.name.value
+          member.kind === NonterminalKind.FunctionDefinition &&
+          member.name.variant.value !== this.name.value
         ) {
-          member.variant.cleanModifierInvocationArguments();
+          member.cleanModifierInvocationArguments();
         }
       }
     }
