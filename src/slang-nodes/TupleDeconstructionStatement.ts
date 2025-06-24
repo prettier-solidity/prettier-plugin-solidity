@@ -45,13 +45,11 @@ export class TupleDeconstructionStatement implements SlangNode {
     print: PrintFunction
   ): Doc {
     const groupId = Symbol('Slang.VariableDeclarationStatement.variables');
-    const declarationDoc = group(
-      [this.varKeyword ? 'var (' : '(', path.call(print, 'elements'), ')'],
-      { id: groupId }
-    );
-
     return [
-      declarationDoc,
+      group(
+        [this.varKeyword ? 'var (' : '(', path.call(print, 'elements'), ')'],
+        { id: groupId }
+      ),
       indentIfBreak([' = ', path.call(print, 'expression'), ';'], { groupId })
     ];
   }

@@ -43,8 +43,8 @@ export class IndexAccessExpression implements SlangNode {
   }
 
   print(path: AstPath<IndexAccessExpression>, print: PrintFunction): Doc {
-    let operandDoc: Doc = path.call(print, 'operand');
-    let indexDoc: Doc = group([
+    const operandDoc: Doc = path.call(print, 'operand');
+    const indexDoc: Doc = group([
       '[',
       indent([softline, path.call(print, 'start'), path.call(print, 'end')]),
       softline,
@@ -55,12 +55,12 @@ export class IndexAccessExpression implements SlangNode {
     // arguments accordingly.
     if (isLabel(operandDoc) && operandDoc.label === 'MemberAccessChain') {
       const groupId = Symbol('Slang.IndexAccessExpression.operand');
-      operandDoc = group(operandDoc.contents, { id: groupId });
-
-      indexDoc = indentIfBreak(indexDoc, { groupId });
       // We wrap the expression in a label in case there is an IndexAccess or
       // a FunctionCall following this IndexAccess.
-      return label('MemberAccessChain', [operandDoc, indexDoc]);
+      return label('MemberAccessChain', [
+        group(operandDoc.contents, { id: groupId }),
+        indentIfBreak(indexDoc, { groupId })
+      ]);
     }
 
     return [operandDoc, indexDoc].flat();

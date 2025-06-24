@@ -39,18 +39,19 @@ export class FunctionCallExpression implements SlangNode {
   }
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {
-    let operandDoc = path.call(print, 'operand');
-    let argumentsDoc = path.call(print, 'arguments');
+    const operandDoc = path.call(print, 'operand');
+    const argumentsDoc = path.call(print, 'arguments');
 
     // If we are at the end of a MemberAccessChain we should indent the
     // arguments accordingly.
     if (isLabel(operandDoc) && operandDoc.label === 'MemberAccessChain') {
       const groupId = Symbol('Slang.FunctionCallExpression.operand');
-      operandDoc = group(operandDoc.contents, { id: groupId });
-      argumentsDoc = indentIfBreak(argumentsDoc, { groupId });
       // We wrap the expression in a label in case there is an IndexAccess or
       // a FunctionCall following this IndexAccess.
-      return label('MemberAccessChain', [operandDoc, argumentsDoc]);
+      return label('MemberAccessChain', [
+        group(operandDoc.contents, { id: groupId }),
+        indentIfBreak(argumentsDoc, { groupId })
+      ]);
     }
 
     return [operandDoc, argumentsDoc].flat();
