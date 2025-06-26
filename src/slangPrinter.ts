@@ -5,12 +5,12 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode, StrictAstNode } from './slang-nodes/types.d.ts';
 import type { PrintFunction } from './types.d.ts';
 
-function hasNodeIgnoreComment(node: StrictAstNode): boolean {
+function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
   // to each node.
   return (
-    node.comments &&
-    node.comments.some(
+    comments &&
+    comments.some(
       (comment) =>
         comment.value
           .slice(2, isBlockComment(comment) ? -2 : undefined)

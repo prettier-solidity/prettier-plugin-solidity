@@ -10,13 +10,13 @@ export function createHugFunction(
 ): (node: Expression) => Expression {
   const operators = new Set(huggableOperators);
   return (node: Expression): Expression => {
+    const { variant } = node;
     if (
-      node.variant.kind !== TerminalKind.Identifier &&
-      isBinaryOperation(node.variant) &&
-      operators.has(node.variant.operator)
+      variant.kind !== TerminalKind.Identifier &&
+      isBinaryOperation(variant) &&
+      operators.has(variant.operator)
     ) {
       const { loc } = node;
-
       return Object.assign(Object.create(Expression.prototype) as Expression, {
         kind: NonterminalKind.Expression,
         loc: { ...loc },
