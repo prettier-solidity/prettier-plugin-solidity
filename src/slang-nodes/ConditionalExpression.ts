@@ -11,11 +11,11 @@ import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
-function fillTab(options: ParserOptions<AstNode>): Doc {
-  if (options.useTabs) return '\t';
+function fillTab({ useTabs, tabWidth }: ParserOptions<AstNode>): Doc {
+  if (useTabs) return '\t';
   // For the odd case of `tabWidth` of 1 or 0 we initiate `fillTab` as a single
   // space.
-  return options.tabWidth > 2 ? ' '.repeat(options.tabWidth - 1) : ' ';
+  return tabWidth > 2 ? ' '.repeat(tabWidth - 1) : ' ';
 }
 
 function experimentalTernaries(

@@ -3,21 +3,18 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import type { ContractSpecifier } from '../slang-nodes/ContractSpecifier.js';
 
 export function sortContractSpecifiers(
-  a: ContractSpecifier,
-  b: ContractSpecifier
+  { variant: { kind: aKind } }: ContractSpecifier,
+  { variant: { kind: bKind } }: ContractSpecifier
 ): number {
-  const aVariant = a.variant;
-  const bVariant = b.variant;
-
   // OverrideSpecifiers before ModifierInvocation
   if (
-    aVariant.kind === NonterminalKind.InheritanceSpecifier &&
-    bVariant.kind === NonterminalKind.StorageLayoutSpecifier
+    aKind === NonterminalKind.InheritanceSpecifier &&
+    bKind === NonterminalKind.StorageLayoutSpecifier
   )
     return -1;
   if (
-    bVariant.kind === NonterminalKind.InheritanceSpecifier &&
-    aVariant.kind === NonterminalKind.StorageLayoutSpecifier
+    bKind === NonterminalKind.InheritanceSpecifier &&
+    aKind === NonterminalKind.StorageLayoutSpecifier
   )
     return 1;
 

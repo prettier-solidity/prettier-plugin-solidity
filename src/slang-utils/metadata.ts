@@ -144,11 +144,11 @@ export function updateMetadata(
     for (const childNode of childNodes) {
       if (typeof childNode === 'undefined' || Array.isArray(childNode))
         continue;
-      const childLoc = childNode.loc;
+      const { leadingOffset, start } = childNode.loc;
 
-      if (childLoc.start - childLoc.leadingOffset === loc.start) {
-        loc.leadingOffset = childLoc.leadingOffset;
-        loc.start += childLoc.leadingOffset;
+      if (start - leadingOffset === loc.start) {
+        loc.leadingOffset = leadingOffset;
+        loc.start += leadingOffset;
         break;
       }
     }
@@ -158,11 +158,11 @@ export function updateMetadata(
     for (const childNode of childNodes.reverse()) {
       if (typeof childNode === 'undefined' || Array.isArray(childNode))
         continue;
-      const childLoc = childNode.loc;
+      const { trailingOffset, end } = childNode.loc;
 
-      if (childLoc.end + childLoc.trailingOffset === loc.end) {
-        loc.trailingOffset = childLoc.trailingOffset;
-        loc.end -= childLoc.trailingOffset;
+      if (end + trailingOffset === loc.end) {
+        loc.trailingOffset = trailingOffset;
+        loc.end -= trailingOffset;
         break;
       }
     }
