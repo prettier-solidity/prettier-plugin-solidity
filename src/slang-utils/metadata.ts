@@ -1,5 +1,6 @@
 import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from './create-kind-check-function.js';
+import { isComment } from './is-comment.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
@@ -8,7 +9,6 @@ import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecCommen
 import type { Node } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { Metadata, SlangAstNode } from '../types.d.ts';
-import { isComment } from './is-comment.js';
 
 const isCommentOrWhiteSpace = createKindCheckFunction([
   TerminalKind.MultiLineComment,
