@@ -20,7 +20,7 @@ npm run build:test
 npm run test:standalone
 ```
 
-- Create a branch with the name of the new version number, e.g.: `git checkout -b 1.1.0`
+- Create a branch with the name of the new version number, e.g.: `git checkout -b 2.1.0`
 
 - Bump the version in the package.json file
 
