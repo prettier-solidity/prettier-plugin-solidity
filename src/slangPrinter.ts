@@ -8,14 +8,11 @@ import type { PrintFunction } from './types.d.ts';
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
   // to each node.
-  return (
-    comments &&
-    comments.some(
-      (comment) =>
-        comment.value
-          .slice(2, isBlockComment(comment) ? -2 : undefined)
-          .trim() === 'prettier-ignore'
-    )
+  return comments?.some(
+    (comment) =>
+      comment.value
+        .slice(2, isBlockComment(comment) ? -2 : undefined)
+        .trim() === 'prettier-ignore'
   );
 }
 
