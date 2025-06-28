@@ -1,5 +1,6 @@
 // https://prettier.io/docs/en/plugins.html#parsers
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
+import { coerce } from 'semver';
 import { clearOffsets } from './slang-utils/metadata.js';
 import { createParser } from './slang-utils/create-parser.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
@@ -14,7 +15,7 @@ export default function parse(
   const { parser, parseOutput } = createParser(text, options);
 
   // We update the compiler version by the inferred one.
-  options.compiler = parser.languageVersion;
+  options.compiler = coerce(parser.languageVersion);
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
     options

@@ -34,19 +34,25 @@ export function createParser(
   text: string,
   options: ParserOptions<AstNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
-  const compiler = minSatisfying(supportedVersions, options.compiler);
+  const compiler = options.compiler;
   if (compiler) {
-    const result = parserAndOutput(text, compiler);
+    const version = minSatisfying(
+      supportedVersions,
+      typeof compiler === 'string' ? compiler : compiler.version
+    );
+    if (version) {
+      const result = parserAndOutput(text, version);
 
-    if (!result.parseOutput.isValid())
-      throw createError(
-        result,
-        `Based on the compiler option provided, we inferred your code to be using Solidity version ${
-          result.parser.languageVersion
-        }. If you would like to change that, specify a different version in your \`.prettierrc\` file.`
-      );
+      if (!result.parseOutput.isValid())
+        throw createError(
+          result,
+          `Based on the compiler option provided, we inferred your code to be using Solidity version ${
+            result.parser.languageVersion
+          }. If you would like to change that, specify a different version in your \`.prettierrc\` file.`
+        );
 
-    return result;
+      return result;
+    }
   }
 
   const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);

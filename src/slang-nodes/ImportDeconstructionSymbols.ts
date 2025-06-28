@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { coerce, satisfies } from 'semver';
+import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
@@ -40,7 +40,7 @@ export class ImportDeconstructionSymbols implements SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    const compiler = coerce(options.compiler);
+    const compiler = options.compiler;
     return printSeparatedList(
       path.map(print, 'items'),
       compiler && satisfies(compiler, '>=0.7.4')
