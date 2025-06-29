@@ -1,5 +1,6 @@
 import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from './create-kind-check-function.js';
+import { isComment } from './is-comment.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
@@ -8,7 +9,6 @@ import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecCommen
 import type { Node } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { Metadata, SlangAstNode } from '../types.d.ts';
-import { isComment } from './is-comment.js';
 
 const isCommentOrWhiteSpace = createKindCheckFunction([
   TerminalKind.MultiLineComment,
@@ -132,23 +132,22 @@ function collectComments(
 }
 
 export function updateMetadata(
-  metadata: Metadata,
+  { comments, loc }: Metadata,
   childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
 ): Metadata {
   // Collect comments
-  const comments = childNodes.reduce(collectComments, metadata.comments);
+  comments = childNodes.reduce(collectComments, comments);
 
   // calculate correct loc object
-  const { loc } = metadata;
   if (loc.leadingOffset === 0) {
     for (const childNode of childNodes) {
       if (typeof childNode === 'undefined' || Array.isArray(childNode))
         continue;
-      const childLoc = childNode.loc;
+      const { leadingOffset, start } = childNode.loc;
 
-      if (childLoc.start - childLoc.leadingOffset === loc.start) {
-        loc.leadingOffset = childLoc.leadingOffset;
-        loc.start += childLoc.leadingOffset;
+      if (start - leadingOffset === loc.start) {
+        loc.leadingOffset = leadingOffset;
+        loc.start += leadingOffset;
         break;
       }
     }
@@ -158,11 +157,11 @@ export function updateMetadata(
     for (const childNode of childNodes.reverse()) {
       if (typeof childNode === 'undefined' || Array.isArray(childNode))
         continue;
-      const childLoc = childNode.loc;
+      const { trailingOffset, end } = childNode.loc;
 
-      if (childLoc.end + childLoc.trailingOffset === loc.end) {
-        loc.trailingOffset = childLoc.trailingOffset;
-        loc.end -= childLoc.trailingOffset;
+      if (end + trailingOffset === loc.end) {
+        loc.trailingOffset = trailingOffset;
+        loc.end -= trailingOffset;
         break;
       }
     }
