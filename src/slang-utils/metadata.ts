@@ -132,14 +132,13 @@ function collectComments(
 }
 
 export function updateMetadata(
-  metadata: Metadata,
+  { comments, loc }: Metadata,
   childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
 ): Metadata {
   // Collect comments
-  const comments = childNodes.reduce(collectComments, metadata.comments);
+  comments = childNodes.reduce(collectComments, comments);
 
   // calculate correct loc object
-  const { loc } = metadata;
   if (loc.leadingOffset === 0) {
     for (const childNode of childNodes) {
       if (typeof childNode === 'undefined' || Array.isArray(childNode))
