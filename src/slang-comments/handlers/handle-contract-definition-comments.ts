@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
 import { locEnd } from '../../slang-utils/loc.js';
-import addCollectionNodeLastComment from './add-collection-node-last-comment.js';
+import addCollectionLastComment from './add-collection-last-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
 
@@ -36,7 +36,7 @@ export default function handleContractDefinitionComments({
 
   // The comment is at the end of the body of the ContractDefinition.
   if (precedingNode?.kind === NonterminalKind.ContractMembers) {
-    addCollectionNodeLastComment(precedingNode, comment);
+    addCollectionLastComment(precedingNode, comment);
     return true;
   }
 
@@ -52,7 +52,7 @@ export default function handleContractDefinitionComments({
       // If the last ContractSpecifier's an InheritanceSpecifier, the comment
       // is appended to the last InheritanceType.
       if (lastContractSpecifier.kind === NonterminalKind.InheritanceSpecifier) {
-        addCollectionNodeLastComment(lastContractSpecifier.types, comment);
+        addCollectionLastComment(lastContractSpecifier.types, comment);
         return true;
       }
       if (

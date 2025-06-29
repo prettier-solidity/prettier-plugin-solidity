@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
 import { locEnd } from '../../slang-utils/loc.js';
-import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
+import addCollectionFirstComment from './add-collection-first-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
 
@@ -34,7 +34,7 @@ export default function handleModifierInvocationComments({
     if (followingNode.variant.arguments.items.length === 0) {
       addTrailingComment(enclosingNode, comment);
     } else {
-      addCollectionNodeFirstComment(followingNode.variant.arguments, comment);
+      addCollectionFirstComment(followingNode.variant.arguments, comment);
     }
     return true;
   }
