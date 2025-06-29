@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
-import addCollectionNodeLastComment from './add-collection-node-last-comment.js';
+import addCollectionLastComment from './add-collection-last-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
 
@@ -20,7 +20,7 @@ export default function handleContractSpecifiersComments({
     precedingNode.kind === NonterminalKind.ContractSpecifier
   ) {
     if (precedingNode.variant.kind === NonterminalKind.InheritanceSpecifier) {
-      addCollectionNodeLastComment(precedingNode.variant.types, comment);
+      addCollectionLastComment(precedingNode.variant.types, comment);
       return true;
     }
     if (precedingNode.variant.kind === NonterminalKind.StorageLayoutSpecifier) {

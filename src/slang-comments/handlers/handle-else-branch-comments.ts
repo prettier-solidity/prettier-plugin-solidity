@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
-import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
+import addCollectionFirstComment from './add-collection-first-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
 
@@ -20,7 +20,7 @@ export default function handleElseBranchComments({
     followingNode.variant.kind === NonterminalKind.IfStatement
   ) {
     if (followingNode.variant.body.variant.kind === NonterminalKind.Block) {
-      addCollectionNodeFirstComment(
+      addCollectionFirstComment(
         followingNode.variant.body.variant.statements,
         comment
       );

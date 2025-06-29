@@ -3,16 +3,13 @@ import { doc, util } from 'prettier';
 import { locEnd } from '../slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  PrintableCollectionNode
-} from '../slang-nodes/types.d.ts';
+import type { AstNode, NodeCollection } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
 const { hardline } = doc.builders;
 
 export function printPreservingEmptyLines(
-  path: AstPath<PrintableCollectionNode>,
+  path: AstPath<NodeCollection>,
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
