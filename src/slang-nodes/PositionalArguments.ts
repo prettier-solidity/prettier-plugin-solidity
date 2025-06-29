@@ -17,9 +17,9 @@ export class PositionalArguments implements SlangNode {
 
   loc;
 
-  items;
+  items: Expression[];
 
-  separators;
+  separators: string[];
 
   constructor(ast: ast.PositionalArguments, options: ParserOptions<AstNode>) {
     let metadata = getNodeMetadata(ast, true);
