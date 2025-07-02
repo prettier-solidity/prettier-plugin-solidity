@@ -1,9 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { util } from 'prettier';
+import addCollectionLastComment from './add-collection-last-comment.js';
+import addCollectionFirstComment from './add-collection-first-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
-
-const { addLeadingComment, addDanglingComment } = util;
 
 export default function handleYulBlockComments({
   precedingNode,
@@ -15,19 +14,13 @@ export default function handleYulBlockComments({
     return false;
   }
 
-  if (
-    precedingNode?.kind === NonterminalKind.YulStatements &&
-    precedingNode.items.length === 0
-  ) {
-    addDanglingComment(precedingNode, comment, false);
+  if (precedingNode?.kind === NonterminalKind.YulStatements) {
+    addCollectionFirstComment(precedingNode, comment);
     return true;
   }
 
-  if (
-    followingNode?.kind === NonterminalKind.YulStatements &&
-    followingNode.items.length > 0
-  ) {
-    addLeadingComment(followingNode.items[0], comment);
+  if (followingNode?.kind === NonterminalKind.YulStatements) {
+    addCollectionLastComment(followingNode, comment);
     return true;
   }
 
