@@ -20,7 +20,7 @@ export class AssemblyFlags implements SlangNode {
   separators: string[];
 
   constructor(ast: ast.AssemblyFlags, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    let metadata = getNodeMetadata(ast);
 
     this.items = ast.items.map((item) => new StringLiteral(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());

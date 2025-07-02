@@ -20,7 +20,7 @@ export class YulArguments implements SlangNode {
   separators: string[];
 
   constructor(ast: ast.YulArguments, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    let metadata = getNodeMetadata(ast);
 
     this.items = ast.items.map((item) => new YulExpression(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());

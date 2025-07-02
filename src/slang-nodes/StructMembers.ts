@@ -21,7 +21,7 @@ export class StructMembers implements SlangNode {
   items: StructMember[];
 
   constructor(ast: ast.StructMembers, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    let metadata = getNodeMetadata(ast);
 
     this.items = ast.items.map((item) => new StructMember(item, options));
 

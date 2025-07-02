@@ -24,7 +24,7 @@ export class UnnamedFunctionAttributes implements SlangNode {
     ast: ast.UnnamedFunctionAttributes,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, true);
+    let metadata = getNodeMetadata(ast);
 
     this.items = ast.items.map(
       (item) => new UnnamedFunctionAttribute(item, options)

@@ -1,6 +1,11 @@
-import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import {
+  NonterminalKind,
+  TerminalKind,
+  TerminalNode
+} from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from './create-kind-check-function.js';
 import { isComment } from './is-comment.js';
+import { isNodeCollection } from './is-node-collection.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
@@ -24,7 +29,13 @@ export function clearOffsets(): void {
   offsets.clear();
 }
 
-function getLeadingOffset(children: Node[]): number {
+function getLeadingOffset(parent: Node, children: Node[]): number {
+  if (
+    isNodeCollection(parent) &&
+    parent.kind !== NonterminalKind.IdentifierPath
+  ) {
+    return 0;
+  }
   let offset = 0;
   for (const child of children) {
     if (child.isNonterminalNode() || !isCommentOrWhiteSpace(child)) {
@@ -37,10 +48,7 @@ function getLeadingOffset(children: Node[]): number {
   return offset;
 }
 
-export function getNodeMetadata(
-  ast: SlangAstNode | TerminalNode,
-  enclosePeripheralComments = false
-): Metadata {
+export function getNodeMetadata(ast: SlangAstNode | TerminalNode): Metadata {
   if (ast instanceof TerminalNode) {
     const offset = offsets.get(ast.id) || 0;
     return {
@@ -54,11 +62,10 @@ export function getNodeMetadata(
     };
   }
 
-  const children = ast.cst.children().map((child) => {
-    return child.node;
-  });
+  const parent = ast.cst;
+  const children = parent.children().map((child) => child.node);
 
-  const initialOffset = offsets.get(ast.cst.id) || 0;
+  const initialOffset = offsets.get(parent.id) || 0;
   let offset = initialOffset;
 
   const comments = children.reduce((commentsArray: Comment[], child) => {
@@ -100,12 +107,9 @@ export function getNodeMetadata(
     return commentsArray;
   }, []);
 
-  const leadingOffset = enclosePeripheralComments
-    ? 0
-    : getLeadingOffset(children);
-  const trailingOffset = enclosePeripheralComments
-    ? 0
-    : getLeadingOffset(children.reverse());
+  const leadingOffset = getLeadingOffset(parent, children);
+  const trailingOffset = getLeadingOffset(parent, children.reverse());
+
   const loc = {
     start: initialOffset + leadingOffset,
     end: initialOffset + ast.cst.textLength.utf16 - trailingOffset,

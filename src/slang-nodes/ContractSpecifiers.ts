@@ -22,7 +22,7 @@ export class ContractSpecifiers implements SlangNode {
   items: ContractSpecifier[];
 
   constructor(ast: ast.ContractSpecifiers, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    let metadata = getNodeMetadata(ast);
 
     this.items = ast.items.map((item) => new ContractSpecifier(item, options));
 

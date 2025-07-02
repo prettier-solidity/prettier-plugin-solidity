@@ -19,7 +19,7 @@ export class YulParameters implements SlangNode {
   separators: string[];
 
   constructor(ast: ast.YulParameters) {
-    const metadata = getNodeMetadata(ast, true);
+    const metadata = getNodeMetadata(ast);
 
     this.items = ast.items.map((item) => new YulIdentifier(item));
     this.separators = ast.separators.map((separator) => separator.unparse());

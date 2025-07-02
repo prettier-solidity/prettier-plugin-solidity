@@ -20,7 +20,7 @@ export class FunctionTypeAttributes implements SlangNode {
   items: FunctionTypeAttribute[];
 
   constructor(ast: ast.FunctionTypeAttributes) {
-    let metadata = getNodeMetadata(ast, true);
+    let metadata = getNodeMetadata(ast);
 
     this.items = ast.items.map((item) => new FunctionTypeAttribute(item));
 

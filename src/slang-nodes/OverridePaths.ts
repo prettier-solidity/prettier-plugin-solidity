@@ -19,7 +19,7 @@ export class OverridePaths implements SlangNode {
   separators: string[];
 
   constructor(ast: ast.OverridePaths) {
-    let metadata = getNodeMetadata(ast, true);
+    let metadata = getNodeMetadata(ast);
 
     this.items = ast.items.map((item) => new IdentifierPath(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
