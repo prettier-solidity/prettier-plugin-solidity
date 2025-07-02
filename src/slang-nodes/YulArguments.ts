@@ -14,7 +14,7 @@ export class YulArguments extends SlangNode {
   items: YulExpression[];
 
   constructor(ast: ast.YulArguments, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new YulExpression(item, options));
 

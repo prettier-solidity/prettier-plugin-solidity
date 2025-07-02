@@ -10,7 +10,7 @@ export class SimpleVersionLiteral extends SlangNode {
   items: string[];
 
   constructor(ast: ast.SimpleVersionLiteral) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => item.unparse());
   }

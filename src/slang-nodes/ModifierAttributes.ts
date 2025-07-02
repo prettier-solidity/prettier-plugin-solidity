@@ -16,7 +16,7 @@ export class ModifierAttributes extends SlangNode {
   items: ModifierAttribute[];
 
   constructor(ast: ast.ModifierAttributes) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new ModifierAttribute(item));
 

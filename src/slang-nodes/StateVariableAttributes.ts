@@ -16,7 +16,7 @@ export class StateVariableAttributes extends SlangNode {
   items: StateVariableAttribute[];
 
   constructor(ast: ast.StateVariableAttributes) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new StateVariableAttribute(item));
 

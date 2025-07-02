@@ -18,7 +18,7 @@ export class ContractSpecifiers extends SlangNode {
   items: ContractSpecifier[];
 
   constructor(ast: ast.ContractSpecifiers, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new ContractSpecifier(item, options));
 

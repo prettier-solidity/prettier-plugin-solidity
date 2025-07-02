@@ -19,7 +19,7 @@ export class Statements extends SlangNode {
   items: Statement[];
 
   constructor(ast: ast.Statements, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new Statement(item, options));
 

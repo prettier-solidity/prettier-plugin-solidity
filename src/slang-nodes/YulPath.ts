@@ -15,7 +15,7 @@ export class YulPath extends SlangNode {
   items: YulIdentifier[];
 
   constructor(ast: ast.YulPath) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new YulIdentifier(item));
   }

@@ -13,7 +13,7 @@ export class YulParameters extends SlangNode {
   items: YulIdentifier[];
 
   constructor(ast: ast.YulParameters) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new YulIdentifier(item));
   }
