@@ -18,7 +18,7 @@ export class Parameters extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.Parameters, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new Parameter(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());

@@ -15,7 +15,7 @@ export class YulParameters extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.YulParameters) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new YulIdentifier(item));
     this.separators = ast.separators.map((separator) => separator.unparse());

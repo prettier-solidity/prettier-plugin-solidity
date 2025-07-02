@@ -16,7 +16,7 @@ export class ArrayValues extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.ArrayValues, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new Expression(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());

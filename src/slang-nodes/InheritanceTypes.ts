@@ -19,7 +19,7 @@ export class InheritanceTypes extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.InheritanceTypes, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new InheritanceType(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());

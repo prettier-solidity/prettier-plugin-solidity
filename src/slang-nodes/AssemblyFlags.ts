@@ -16,7 +16,7 @@ export class AssemblyFlags extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.AssemblyFlags, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new StringLiteral(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());

@@ -1,5 +1,6 @@
-import { TerminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
+import { isNodeCollection } from '../slang-utils/is-node-collection.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
@@ -37,7 +38,14 @@ function reversedIterator<T>(children: T[]): Iterable<T> {
   };
 }
 
-function getOffset(children: Edge[] | Iterable<Edge>): number {
+function getOffset(parent: Node, children: Edge[] | Iterable<Edge>): number {
+  if (
+    parent.kind !== NonterminalKind.IdentifierPath &&
+    isNodeCollection(parent)
+  ) {
+    return 0;
+  }
+
   let offset = 0;
   for (const { node } of children) {
     if (node.isNonterminalNode() || !isCommentOrWhiteSpace(node)) {
@@ -70,7 +78,7 @@ export class SlangNode {
 
   loc: AstLocation;
 
-  constructor({ cst }: { cst: Node }, enclosePeripheralComments = false) {
+  constructor({ cst }: { cst: Node }) {
     if (cst.isTerminalNode()) {
       const offset = offsets.get(cst.id) || 0;
       this.loc = {
@@ -122,9 +130,8 @@ export class SlangNode {
       offset += textLength.utf16;
     }
 
-    const [leadingOffset, trailingOffset] = enclosePeripheralComments
-      ? [0, 0]
-      : [getOffset(children), getOffset(reversedIterator(children))];
+    const leadingOffset = getOffset(cst, children);
+    const trailingOffset = getOffset(cst, reversedIterator(children));
 
     this.loc = {
       start: initialOffset + leadingOffset,

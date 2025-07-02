@@ -15,7 +15,7 @@ export class OverridePaths extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.OverridePaths) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new IdentifierPath(item));
     this.separators = ast.separators.map((separator) => separator.unparse());

@@ -16,7 +16,7 @@ export class EventParameters extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.EventParameters, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new EventParameter(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());

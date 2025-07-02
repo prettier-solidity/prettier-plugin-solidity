@@ -18,7 +18,7 @@ export class EnumMembers extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.EnumMembers) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new Identifier(item));
     this.separators = ast.separators.map((separator) => separator.unparse());

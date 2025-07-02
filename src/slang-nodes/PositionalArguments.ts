@@ -18,7 +18,7 @@ export class PositionalArguments extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.PositionalArguments, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new Expression(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());

@@ -19,7 +19,7 @@ export class NamedArguments extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.NamedArguments, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new NamedArgument(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());

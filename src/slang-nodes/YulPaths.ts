@@ -14,7 +14,7 @@ export class YulPaths extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.YulPaths) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new YulPath(item));
     this.separators = ast.separators.map((separator) => separator.unparse());

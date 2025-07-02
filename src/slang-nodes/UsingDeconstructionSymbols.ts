@@ -19,7 +19,7 @@ export class UsingDeconstructionSymbols extends SlangNode {
   separators: string[];
 
   constructor(ast: ast.UsingDeconstructionSymbols) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new UsingDeconstructionSymbol(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
