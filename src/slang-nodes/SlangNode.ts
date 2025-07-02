@@ -1,14 +1,16 @@
 import {
+  NonterminalKind,
   TerminalKind,
   TerminalKindExtensions,
   TerminalNode
 } from '@nomicfoundation/slang/cst';
+import { isNodeCollection } from '../slang-utils/is-node-collection.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
 
-import type { Edge, Node } from '@nomicfoundation/slang/cst';
+import type { Edge, Node, NonterminalNode } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { AstLocation, SlangAstNode } from '../types.d.ts';
 
@@ -37,7 +39,17 @@ function isNonTriviaNode(node: Node): boolean {
   );
 }
 
-function getOffset(children: Edge[] | Iterable<Edge>): number {
+function getOffset(
+  parent: NonterminalNode,
+  children: Edge[] | Iterable<Edge>
+): number {
+  if (
+    parent.kind !== NonterminalKind.IdentifierPath &&
+    isNodeCollection(parent)
+  ) {
+    return 0;
+  }
+
   let offset = 0;
   for (const { node } of children) {
     if (isNonTriviaNode(node)) {
@@ -70,10 +82,7 @@ export class SlangNode {
 
   loc: AstLocation;
 
-  constructor(
-    ast: SlangAstNode | TerminalNode,
-    enclosePeripheralComments = false
-  ) {
+  constructor(ast: SlangAstNode | TerminalNode) {
     if (ast instanceof TerminalNode) {
       const offset = offsets.get(ast.id) || 0;
       this.loc = {
@@ -119,9 +128,8 @@ export class SlangNode {
       offset += node.textLength.utf16;
     }
 
-    const [leadingOffset, trailingOffset] = enclosePeripheralComments
-      ? [0, 0]
-      : [getOffset(children), getOffset(reversedIterator(children))];
+    const leadingOffset = getOffset(parent, children);
+    const trailingOffset = getOffset(parent, reversedIterator(children));
 
     this.loc = {
       start: initialOffset + leadingOffset,

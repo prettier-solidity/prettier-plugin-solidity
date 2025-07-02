@@ -17,7 +17,7 @@ export class CallOptions extends SlangNode {
   items: NamedArgument[];
 
   constructor(ast: ast.CallOptions, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new NamedArgument(item, options));
 

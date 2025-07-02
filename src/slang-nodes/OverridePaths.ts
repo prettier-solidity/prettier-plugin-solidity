@@ -13,7 +13,7 @@ export class OverridePaths extends SlangNode {
   items: IdentifierPath[];
 
   constructor(ast: ast.OverridePaths) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new IdentifierPath(item));
 

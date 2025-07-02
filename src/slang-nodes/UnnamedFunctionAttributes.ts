@@ -20,7 +20,7 @@ export class UnnamedFunctionAttributes extends SlangNode {
     ast: ast.UnnamedFunctionAttributes,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map(
       (item) => new UnnamedFunctionAttribute(item, options)

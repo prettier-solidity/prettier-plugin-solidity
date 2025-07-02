@@ -15,7 +15,7 @@ export class VersionExpressionSets extends SlangNode {
   items: VersionExpressionSet[];
 
   constructor(ast: ast.VersionExpressionSets) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new VersionExpressionSet(item));
 

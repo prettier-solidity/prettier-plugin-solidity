@@ -17,7 +17,7 @@ export class ConstructorAttributes extends SlangNode {
   items: ConstructorAttribute[];
 
   constructor(ast: ast.ConstructorAttributes, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map(
       (item) => new ConstructorAttribute(item, options)

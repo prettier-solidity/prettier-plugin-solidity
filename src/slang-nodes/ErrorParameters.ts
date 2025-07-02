@@ -14,7 +14,7 @@ export class ErrorParameters extends SlangNode {
   items: ErrorParameter[];
 
   constructor(ast: ast.ErrorParameters, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new ErrorParameter(item, options));
 

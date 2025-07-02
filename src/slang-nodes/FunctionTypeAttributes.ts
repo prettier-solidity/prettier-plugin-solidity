@@ -16,7 +16,7 @@ export class FunctionTypeAttributes extends SlangNode {
   items: FunctionTypeAttribute[];
 
   constructor(ast: ast.FunctionTypeAttributes) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new FunctionTypeAttribute(item));
 

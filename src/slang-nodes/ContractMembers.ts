@@ -18,7 +18,7 @@ export class ContractMembers extends SlangNode {
   items: ContractMember[];
 
   constructor(ast: ast.ContractMembers, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new ContractMember(item, options));
 

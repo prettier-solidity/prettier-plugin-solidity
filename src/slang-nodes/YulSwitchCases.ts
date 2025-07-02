@@ -16,7 +16,7 @@ export class YulSwitchCases extends SlangNode {
   items: YulSwitchCase[];
 
   constructor(ast: ast.YulSwitchCases, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new YulSwitchCase(item, options));
 

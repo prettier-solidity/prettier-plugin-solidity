@@ -16,7 +16,7 @@ export class YulVariableNames extends SlangNode {
   items: TerminalNode[];
 
   constructor(ast: ast.YulVariableNames) {
-    super(ast, true);
+    super(ast);
 
     this.items = ast.items.map((item) => new TerminalNode(item));
   }
