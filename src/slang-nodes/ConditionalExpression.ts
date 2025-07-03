@@ -133,13 +133,22 @@ export class ConditionalExpression implements SlangNode {
       // We can remove parentheses only because we are sure that the
       // `condition` must be a single `bool` value.
       const operandLoc = this.operand.loc;
-      while (
-        this.operand.variant.kind === NonterminalKind.TupleExpression &&
-        this.operand.variant.items.items.length === 1 &&
-        this.operand.variant.items.items[0].expression!.variant.kind !==
-          NonterminalKind.ConditionalExpression
+
+      const getOperandSingleExpression = (): Expression | undefined => {
+        const operandVariant = this.operand.variant;
+        return operandVariant.kind === NonterminalKind.TupleExpression
+          ? operandVariant.items.getSingleExpression()
+          : undefined;
+      };
+
+      for (
+        let operandSingleExpression = getOperandSingleExpression();
+        operandSingleExpression &&
+        operandSingleExpression.variant.kind !==
+          NonterminalKind.ConditionalExpression;
+        operandSingleExpression = getOperandSingleExpression()
       ) {
-        this.operand = this.operand.variant.items.items[0].expression!;
+        this.operand = operandSingleExpression;
       }
       this.operand.loc = operandLoc;
     }
