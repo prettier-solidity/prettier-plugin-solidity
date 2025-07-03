@@ -47,19 +47,20 @@ export class IfStatement implements SlangNode {
   }
 
   print(path: AstPath<IfStatement>, print: PrintFunction): Doc {
+    const { kind: bodyKind, comments: bodyComments } = this.body.variant;
     return [
       'if (',
       printSeparatedItem(path.call(print, 'condition')),
       ')',
-      this.body.variant.kind === NonterminalKind.Block
+      bodyKind === NonterminalKind.Block
         ? [' ', path.call(print, 'body')]
         : group(indent([line, path.call(print, 'body')]), {
-            shouldBreak: this.body.variant.kind === NonterminalKind.IfStatement // `if` within `if`
+            shouldBreak: bodyKind === NonterminalKind.IfStatement // `if` within `if`
           }),
       this.elseBranch
         ? [
-            this.body.variant.kind !== NonterminalKind.Block || // else on a new line if body is not a block
-            this.body.variant.comments.some(
+            bodyKind !== NonterminalKind.Block || // else on a new line if body is not a block
+            bodyComments.some(
               (comment) =>
                 !isBlockComment(comment) || comment.placement === 'ownLine'
             ) // or if body has trailing single line comments or a block comment on a new line

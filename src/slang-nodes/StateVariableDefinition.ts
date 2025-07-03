@@ -53,13 +53,9 @@ export class StateVariableDefinition implements SlangNode {
 
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {
     const groupId = Symbol('Slang.StateVariableDefinition.attributes');
-    const attributesDoc = group(indent(path.call(print, 'attributes')), {
-      id: groupId
-    });
-
     return [
       path.call(print, 'typeName'),
-      attributesDoc,
+      group(indent(path.call(print, 'attributes')), { id: groupId }),
       ' ',
       path.call(print, 'name'),
       this.value ? indentIfBreak(path.call(print, 'value'), { groupId }) : '',

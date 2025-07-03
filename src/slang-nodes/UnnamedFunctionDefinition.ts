@@ -46,9 +46,9 @@ export class UnnamedFunctionDefinition implements SlangNode {
   }
 
   cleanModifierInvocationArguments(): void {
-    for (const attribute of this.attributes.items) {
-      if (typeof attribute.variant !== 'string') {
-        attribute.variant.cleanModifierInvocationArguments();
+    for (const { variant: attribute } of this.attributes.items) {
+      if (typeof attribute !== 'string') {
+        attribute.cleanModifierInvocationArguments();
       }
     }
   }
