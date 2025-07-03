@@ -8,6 +8,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { Expression } from './Expression.js';
 
 export class TupleValues implements SlangNode {
   readonly kind = NonterminalKind.TupleValues;
@@ -32,11 +33,15 @@ export class TupleValues implements SlangNode {
     this.loc = metadata.loc;
   }
 
+  getSingleExpression(): Expression | undefined {
+    return this.items.length === 1 ? this.items[0].expression : undefined;
+  }
+
   print(path: AstPath<TupleValues>, print: PrintFunction): Doc {
-    return this.items.length === 1 &&
-      this.items[0].expression &&
-      this.items[0].expression.variant.kind !== TerminalKind.Identifier &&
-      isBinaryOperation(this.items[0].expression.variant)
+    const singleExpression = this.getSingleExpression();
+    return singleExpression &&
+      singleExpression.variant.kind !== TerminalKind.Identifier &&
+      isBinaryOperation(singleExpression.variant)
       ? path.map(print, 'items')
       : printSeparatedList(path.map(print, 'items'));
   }
