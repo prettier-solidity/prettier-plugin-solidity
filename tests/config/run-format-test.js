@@ -332,9 +332,7 @@ async function runTest({
       ...formatOptions,
       // Since Slang forces us to decide on a compiler version, we need to do the
       // same for ANTLR unless it was already given as an option.
-      compiler:
-        formatOptions.compiler ||
-        createParser(code, formatOptions).parser.languageVersion,
+      compiler: createParser(code, formatOptions).parser.languageVersion,
       parser: "antlr",
       plugins: await getPlugins(),
     });
@@ -353,6 +351,12 @@ async function runTest({
       formatOptions,
     );
     if (isUnstableTest) {
+      if (secondOutput === firstOutput) {
+        throw new Error(
+          `Unstable file '${filename}' is stable now, please remove from the 'unstableTests' list.`,
+        );
+      }
+
       // To keep eye on failed tests, this assert never supposed to pass,
       // if it fails, just remove the file from `unstableTests`
       expect(secondOutput).not.toEqual(firstOutput);
@@ -368,6 +372,11 @@ async function runTest({
     const originalAst = await parse(input, formatOptions);
     const formattedAst = await parse(output, formatOptions);
     if (isAstUnstableTest) {
+      if (formattedAst === originalAst) {
+        throw new Error(
+          `Unstable file '${filename}' is stable now, please remove from the 'unstableAstTests' list.`,
+        );
+      }
       expect(formattedAst).not.toEqual(originalAst);
     } else {
       expect(formattedAst).toEqual(originalAst);
@@ -412,8 +421,8 @@ function shouldSkipEolTest(code, options) {
   if (code.includes("\r")) {
     return true;
   }
-  const { requirePragma, rangeStart, rangeEnd } = options;
-  if (requirePragma) {
+  const { requirePragma, checkIgnorePragma, rangeStart, rangeEnd } = options;
+  if (requirePragma || checkIgnorePragma) {
     return true;
   }
 
