@@ -20,8 +20,20 @@ const isCommentOrWhiteSpace = createKindCheckFunction([
 ]);
 
 const offsets = new Map<number, number>();
+const childNodes = new Map<number, Edge[]>();
 export function clearOffsets(): void {
   offsets.clear();
+  childNodes.clear();
+}
+
+function getChildren(node: Node): Edge[] {
+  const id = node.id;
+  if (childNodes.has(id)) {
+    return childNodes.get(id)!;
+  }
+  const children = node.children();
+  childNodes.set(id, children);
+  return children;
 }
 
 function reversedIterator<T>(children: T[]): Iterable<T> {
@@ -52,7 +64,7 @@ function getOffset(parent: Node, children: Edge[], isLeading = true): number {
       // When we find the first non-terminal token, we continue looking for the
       // offset within the this token.
       if (offset > 0) break;
-      return getOffset(node, node.children(), isLeading);
+      return getOffset(node, getChildren(node), isLeading);
     }
     if (!isCommentOrWhiteSpace(node)) {
       // The node's content starts when we find the first non-comment,
@@ -93,7 +105,7 @@ export class SlangNode {
       };
       return;
     }
-    const children = cst.children();
+    const children = getChildren(cst);
 
     const initialOffset = offsets.get(cst.id) || 0;
     let offset = initialOffset;
