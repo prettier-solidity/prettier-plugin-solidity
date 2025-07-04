@@ -10,7 +10,7 @@ import type {
   BinaryOperation,
   StrictAstNode
 } from '../slang-nodes/types.d.ts';
-import type { PrintFunction } from '../types.js';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, indent } = doc.builders;
 

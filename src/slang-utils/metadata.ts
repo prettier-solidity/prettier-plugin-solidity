@@ -53,22 +53,21 @@ export function getNodeMetadata(
       }
     };
   }
+  const { cst: parent } = ast;
+  const children = parent.children().map(({ node }) => node);
 
-  const children = ast.cst.children().map((child) => {
-    return child.node;
-  });
-
-  const initialOffset = offsets.get(ast.cst.id) || 0;
+  const initialOffset = offsets.get(parent.id) || 0;
   let offset = initialOffset;
 
   const comments = children.reduce((commentsArray: Comment[], child) => {
+    const { id, kind, textLength } = child;
     if (child.isNonterminalNode()) {
-      offsets.set(child.id, offset);
+      offsets.set(id, offset);
     } else {
       if (isComment(child)) {
-        offsets.set(child.id, offset);
+        offsets.set(id, offset);
       }
-      switch (child.kind) {
+      switch (kind) {
         // Since the fetching the comments and calculating offsets are both done
         // as we iterate over the children and the comment also depends on the
         // offset, it's hard to separate these responsibilities into different
@@ -91,12 +90,12 @@ export function getNodeMetadata(
           // functions, etc...
           // Since a user can add comments to this section of the code as well,
           // we need to track the offsets.
-          offsets.set(child.id, offset);
+          offsets.set(id, offset);
           break;
       }
     }
 
-    offset += child.textLength.utf16;
+    offset += textLength.utf16;
     return commentsArray;
   }, []);
 
@@ -108,7 +107,7 @@ export function getNodeMetadata(
     : getLeadingOffset(children.reverse());
   const loc = {
     start: initialOffset + leadingOffset,
-    end: initialOffset + ast.cst.textLength.utf16 - trailingOffset,
+    end: initialOffset + parent.textLength.utf16 - trailingOffset,
     leadingOffset,
     trailingOffset
   };

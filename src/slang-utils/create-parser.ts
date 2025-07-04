@@ -5,7 +5,7 @@ import { minSatisfying } from 'semver';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes/types.js';
+import type { AstNode } from '../slang-nodes/types.d.ts';
 
 const supportedVersions = LanguageFacts.allVersions();
 const supportedLength = supportedVersions.length;
