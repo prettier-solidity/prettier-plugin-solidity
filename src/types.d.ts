@@ -14,11 +14,6 @@ interface Location {
   end: number;
 }
 
-interface AstLocation extends Location {
-  leadingOffset: number;
-  trailingOffset: number;
-}
-
 type PrintFunction = (path: AstPath<AstNode>) => Doc;
 
 // This the union of all the types in the namespace `ast`.
