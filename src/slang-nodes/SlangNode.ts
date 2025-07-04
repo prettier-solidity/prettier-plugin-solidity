@@ -8,7 +8,7 @@ import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecCommen
 
 import type { Edge, Node } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
-import type { AstLocation } from '../types.d.ts';
+import type { Location } from '../types.d.ts';
 
 const isCommentOrWhiteSpace = createKindCheckFunction([
   TerminalKind.MultiLineComment,
@@ -38,7 +38,7 @@ function reversedIterator<T>(children: T[]): Iterable<T> {
   };
 }
 
-function getOffset(parent: Node, children: Edge[] | Iterable<Edge>): number {
+function getOffset(parent: Node, children: Edge[], isLeading = true): number {
   if (
     parent.kind !== NonterminalKind.IdentifierPath &&
     isNodeCollection(parent)
@@ -47,10 +47,16 @@ function getOffset(parent: Node, children: Edge[] | Iterable<Edge>): number {
   }
 
   let offset = 0;
-  for (const { node } of children) {
-    if (node.isNonterminalNode() || !isCommentOrWhiteSpace(node)) {
-      // The node's content starts when we find the first non-terminal token,
-      // or if we find a non-comment, non-whitespace token.
+  for (const { node } of isLeading ? children : reversedIterator(children)) {
+    if (node.isNonterminalNode()) {
+      // When we find the first non-terminal token, we continue looking for the
+      // offset within the this token.
+      if (offset > 0) break;
+      return getOffset(node, node.children(), isLeading);
+    }
+    if (!isCommentOrWhiteSpace(node)) {
+      // The node's content starts when we find the first non-comment,
+      // non-whitespace token.
       break;
     }
     offset += node.textLength.utf16;
@@ -76,16 +82,14 @@ function collectComments(
 export class SlangNode {
   comments: Comment[] = [];
 
-  loc: AstLocation;
+  loc: Location;
 
   constructor({ cst }: { cst: Node }) {
     if (cst.isTerminalNode()) {
       const offset = offsets.get(cst.id) || 0;
       this.loc = {
         start: offset,
-        end: offset + cst.textLength.utf16,
-        leadingOffset: 0,
-        trailingOffset: 0
+        end: offset + cst.textLength.utf16
       };
       return;
     }
@@ -131,51 +135,18 @@ export class SlangNode {
     }
 
     const leadingOffset = getOffset(cst, children);
-    const trailingOffset = getOffset(cst, reversedIterator(children));
+    const trailingOffset = getOffset(cst, children, false);
 
     this.loc = {
       start: initialOffset + leadingOffset,
-      end: offset - trailingOffset,
-      leadingOffset,
-      trailingOffset
+      end: offset - trailingOffset
     };
   }
 
   updateMetadata(
     ...childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
   ): void {
-    const { comments, loc } = this;
     // Collect comments
-    this.comments = childNodes.reduce(collectComments, comments);
-
-    // calculate correct loc object
-    if (loc.leadingOffset === 0) {
-      for (const childNode of childNodes) {
-        if (typeof childNode === 'undefined' || Array.isArray(childNode))
-          continue;
-        const { leadingOffset, start } = childNode.loc;
-
-        if (start - leadingOffset === loc.start) {
-          loc.leadingOffset = leadingOffset;
-          loc.start += leadingOffset;
-          break;
-        }
-      }
-    }
-
-    if (loc.trailingOffset === 0) {
-      for (const childNode of reversedIterator(childNodes)) {
-        if (typeof childNode === 'undefined' || Array.isArray(childNode))
-          continue;
-        const { trailingOffset, end } = childNode.loc;
-
-        if (end + trailingOffset === loc.end) {
-          loc.trailingOffset = trailingOffset;
-          loc.end -= trailingOffset;
-          break;
-        }
-      }
-    }
-    this.loc = loc;
+    this.comments = childNodes.reduce(collectComments, this.comments);
   }
 }
