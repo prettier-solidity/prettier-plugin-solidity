@@ -21,8 +21,8 @@ function ignoreComments(path: AstPath<AstNode>): void {
   // We ignore anything that is not an object
   if (node === null || typeof node !== 'object') return;
 
-  const keys = Object.keys(node) as (keyof StrictAstNode)[];
-  for (const key of keys) {
+  let key: keyof StrictAstNode;
+  for (key in node) {
     switch (key) {
       // We ignore `kind`, `loc`, and comments since these are added by the
       // parser
