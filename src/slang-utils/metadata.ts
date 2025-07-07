@@ -99,12 +99,10 @@ export function getNodeMetadata(
     offset += textLength.utf16;
   }
 
-  const leadingOffset = enclosePeripheralComments
-    ? 0
-    : getLeadingOffset(children);
-  const trailingOffset = enclosePeripheralComments
-    ? 0
-    : getLeadingOffset(children.reverse());
+  const [leadingOffset, trailingOffset] = enclosePeripheralComments
+    ? [0, 0]
+    : [getLeadingOffset(children), getLeadingOffset(children.reverse())];
+
   const loc = {
     start: initialOffset + leadingOffset,
     end: offset - trailingOffset,
