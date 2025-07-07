@@ -58,8 +58,9 @@ export function getNodeMetadata(
 
   const initialOffset = offsets.get(parent.id) || 0;
   let offset = initialOffset;
+  const comments: Comment[] = [];
 
-  const comments = children.reduce((commentsArray: Comment[], child) => {
+  for (const child of children) {
     const { id, kind, textLength } = child;
     if (child.isNonterminalNode()) {
       offsets.set(id, offset);
@@ -73,16 +74,16 @@ export function getNodeMetadata(
         // offset, it's hard to separate these responsibilities into different
         // functions without doing the iteration twice.
         case TerminalKind.MultiLineComment:
-          commentsArray.push(new MultiLineComment(child));
+          comments.push(new MultiLineComment(child));
           break;
         case TerminalKind.MultiLineNatSpecComment:
-          commentsArray.push(new MultiLineNatSpecComment(child));
+          comments.push(new MultiLineNatSpecComment(child));
           break;
         case TerminalKind.SingleLineComment:
-          commentsArray.push(new SingleLineComment(child));
+          comments.push(new SingleLineComment(child));
           break;
         case TerminalKind.SingleLineNatSpecComment:
-          commentsArray.push(new SingleLineNatSpecComment(child));
+          comments.push(new SingleLineNatSpecComment(child));
           break;
         case TerminalKind.Identifier:
         case TerminalKind.YulIdentifier:
@@ -96,8 +97,7 @@ export function getNodeMetadata(
     }
 
     offset += textLength.utf16;
-    return commentsArray;
-  }, []);
+  }
 
   const leadingOffset = enclosePeripheralComments
     ? 0
@@ -107,7 +107,7 @@ export function getNodeMetadata(
     : getLeadingOffset(children.reverse());
   const loc = {
     start: initialOffset + leadingOffset,
-    end: initialOffset + parent.textLength.utf16 - trailingOffset,
+    end: offset - trailingOffset,
     leadingOffset,
     trailingOffset
   };
