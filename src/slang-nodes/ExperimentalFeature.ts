@@ -1,8 +1,4 @@
-import {
-  NonterminalKind,
-  TerminalKind,
-  TerminalNode
-} from '@nomicfoundation/slang/cst';
+import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { Identifier } from './Identifier.js';
@@ -20,13 +16,13 @@ export class ExperimentalFeature extends SlangNode {
   constructor(ast: ast.ExperimentalFeature, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.variant =
-      ast.variant instanceof TerminalNode
-        ? new Identifier(ast.variant)
-        : new StringLiteral(ast.variant, options);
+    if (ast.variant instanceof TerminalNode) {
+      this.variant = new Identifier(ast.variant);
+      return;
+    }
+    this.variant = new StringLiteral(ast.variant, options);
 
-    if (this.variant.kind !== TerminalKind.Identifier)
-      this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ExperimentalFeature>, print: PrintFunction): Doc {

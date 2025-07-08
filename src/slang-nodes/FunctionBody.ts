@@ -15,12 +15,13 @@ export class FunctionBody extends SlangNode {
   constructor(ast: ast.FunctionBody, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.variant =
-      ast.variant instanceof TerminalNode
-        ? ast.variant.unparse()
-        : new Block(ast.variant, options);
+    if (ast.variant instanceof TerminalNode) {
+      this.variant = ast.variant.unparse();
+      return;
+    }
+    this.variant = new Block(ast.variant, options);
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<FunctionBody>, print: PrintFunction): Doc {
