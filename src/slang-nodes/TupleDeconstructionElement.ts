@@ -20,13 +20,13 @@ export class TupleDeconstructionElement implements SlangNode {
     ast: ast.TupleDeconstructionElement,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     if (ast.member) {
       this.member = new TupleMember(ast.member, options);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.member]);
+    updateMetadata(this.loc, this.comments, [this.member]);
   }
 
   print(path: AstPath<TupleDeconstructionElement>, print: PrintFunction): Doc {

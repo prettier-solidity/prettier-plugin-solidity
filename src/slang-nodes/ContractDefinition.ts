@@ -29,17 +29,14 @@ export class ContractDefinition implements SlangNode {
   members: ContractMembers;
 
   constructor(ast: ast.ContractDefinition, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.abstractKeyword = ast.abstractKeyword?.unparse();
     this.name = new Identifier(ast.name);
     this.specifiers = new ContractSpecifiers(ast.specifiers, options);
     this.members = new ContractMembers(ast.members, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.specifiers,
-      this.members
-    ]);
+    updateMetadata(this.loc, this.comments, [this.specifiers, this.members]);
 
     this.cleanModifierInvocationArguments(options);
   }

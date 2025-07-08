@@ -28,16 +28,13 @@ export class TupleDeconstructionStatement implements SlangNode {
     ast: ast.TupleDeconstructionStatement,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.varKeyword = ast.varKeyword?.unparse();
     this.elements = new TupleDeconstructionElements(ast.elements, options);
     this.expression = new Expression(ast.expression, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.elements,
-      this.expression
-    ]);
+    updateMetadata(this.loc, this.comments, [this.elements, this.expression]);
   }
 
   print(

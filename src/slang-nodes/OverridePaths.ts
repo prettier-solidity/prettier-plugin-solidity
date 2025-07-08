@@ -17,11 +17,11 @@ export class OverridePaths implements SlangNode {
   items: IdentifierPath[];
 
   constructor(ast: ast.OverridePaths) {
-    const metadata = getNodeMetadata(ast, true);
+    [this.loc, this.comments] = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new IdentifierPath(item));
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
+    updateMetadata(this.loc, this.comments, [this.items]);
   }
 
   print(path: AstPath<OverridePaths>, print: PrintFunction): Doc {

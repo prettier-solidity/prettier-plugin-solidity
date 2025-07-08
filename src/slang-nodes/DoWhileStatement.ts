@@ -24,15 +24,12 @@ export class DoWhileStatement implements SlangNode {
   condition: Expression;
 
   constructor(ast: ast.DoWhileStatement, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.body = new Statement(ast.body, options);
     this.condition = new Expression(ast.condition, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.body,
-      this.condition
-    ]);
+    updateMetadata(this.loc, this.comments, [this.body, this.condition]);
   }
 
   print(path: AstPath<DoWhileStatement>, print: PrintFunction): Doc {

@@ -20,14 +20,14 @@ export class MappingKey implements SlangNode {
   name?: Identifier;
 
   constructor(ast: ast.MappingKey) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.keyType = new MappingKeyType(ast.keyType);
     if (ast.name) {
       this.name = new Identifier(ast.name);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.keyType]);
+    updateMetadata(this.loc, this.comments, [this.keyType]);
   }
 
   print(path: AstPath<MappingKey>, print: PrintFunction): Doc {

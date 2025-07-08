@@ -17,11 +17,11 @@ export class PragmaDirective implements SlangNode {
   pragma: Pragma;
 
   constructor(ast: ast.PragmaDirective, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.pragma = new Pragma(ast.pragma, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.pragma]);
+    updateMetadata(this.loc, this.comments, [this.pragma]);
   }
 
   print(path: AstPath<PragmaDirective>, print: PrintFunction): Doc {

@@ -17,11 +17,11 @@ export class TupleExpression implements SlangNode {
   items: TupleValues;
 
   constructor(ast: ast.TupleExpression, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.items = new TupleValues(ast.items, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
+    updateMetadata(this.loc, this.comments, [this.items]);
   }
 
   print(path: AstPath<TupleExpression>, print: PrintFunction): Doc {

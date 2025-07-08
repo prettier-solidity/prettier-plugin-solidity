@@ -19,12 +19,12 @@ export class PostfixExpression implements SlangNode {
   operator: string;
 
   constructor(ast: ast.PostfixExpression, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.operand = new Expression(ast.operand, options);
     this.operator = ast.operator.unparse();
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.operand]);
+    updateMetadata(this.loc, this.comments, [this.operand]);
   }
 
   print(path: AstPath<PostfixExpression>, print: PrintFunction): Doc {

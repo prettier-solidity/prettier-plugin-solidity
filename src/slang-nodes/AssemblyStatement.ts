@@ -24,7 +24,7 @@ export class AssemblyStatement implements SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.AssemblyStatement, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     if (ast.label) {
       this.label = new StringLiteral(ast.label, options);
@@ -34,7 +34,7 @@ export class AssemblyStatement implements SlangNode {
     }
     this.body = new YulBlock(ast.body, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.label,
       this.flags,
       this.body

@@ -19,11 +19,11 @@ export class VersionExpressionSets implements SlangNode {
   items: VersionExpressionSet[];
 
   constructor(ast: ast.VersionExpressionSets) {
-    const metadata = getNodeMetadata(ast, true);
+    [this.loc, this.comments] = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new VersionExpressionSet(item));
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
+    updateMetadata(this.loc, this.comments, [this.items]);
   }
 
   print(path: AstPath<VersionExpressionSets>, print: PrintFunction): Doc {

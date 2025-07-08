@@ -17,7 +17,7 @@ export class MappingKeyType implements SlangNode {
   variant: ElementaryType | IdentifierPath;
 
   constructor(ast: ast.MappingKeyType) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ElementaryType:
@@ -30,7 +30,7 @@ export class MappingKeyType implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
+    updateMetadata(this.loc, this.comments, [this.variant]);
   }
 
   print(path: AstPath<MappingKeyType>, print: PrintFunction): Doc {

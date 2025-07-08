@@ -17,11 +17,11 @@ export class NamedArgumentGroup implements SlangNode {
   arguments: NamedArguments;
 
   constructor(ast: ast.NamedArgumentGroup, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.arguments = new NamedArguments(ast.arguments, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.arguments]);
+    updateMetadata(this.loc, this.comments, [this.arguments]);
   }
 
   print(path: AstPath<NamedArgumentGroup>, print: PrintFunction): Doc {

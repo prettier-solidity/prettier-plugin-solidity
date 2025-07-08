@@ -26,7 +26,7 @@ export class TypeName implements SlangNode {
     | IdentifierPath;
 
   constructor(ast: ast.TypeName, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ArrayTypeName:
@@ -54,7 +54,7 @@ export class TypeName implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
+    updateMetadata(this.loc, this.comments, [this.variant]);
   }
 
   print(path: AstPath<TypeName>, print: PrintFunction): Doc {

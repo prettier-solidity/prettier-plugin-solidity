@@ -19,7 +19,7 @@ export class ImportClause implements SlangNode {
   variant: PathImport | NamedImport | ImportDeconstruction;
 
   constructor(ast: ast.ImportClause, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.PathImport:
@@ -38,7 +38,7 @@ export class ImportClause implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
+    updateMetadata(this.loc, this.comments, [this.variant]);
   }
 
   print(path: AstPath<ImportClause>, print: PrintFunction): Doc {

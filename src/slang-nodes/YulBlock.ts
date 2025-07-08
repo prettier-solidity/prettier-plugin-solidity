@@ -17,11 +17,11 @@ export class YulBlock implements SlangNode {
   statements: YulStatements;
 
   constructor(ast: ast.YulBlock, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.statements = new YulStatements(ast.statements, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.statements]);
+    updateMetadata(this.loc, this.comments, [this.statements]);
   }
 
   print(path: AstPath<YulBlock>, print: PrintFunction): Doc {

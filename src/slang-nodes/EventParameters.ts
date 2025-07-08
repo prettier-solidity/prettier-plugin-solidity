@@ -18,11 +18,11 @@ export class EventParameters implements SlangNode {
   items: EventParameter[];
 
   constructor(ast: ast.EventParameters, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast, true);
+    [this.loc, this.comments] = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new EventParameter(item, options));
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
+    updateMetadata(this.loc, this.comments, [this.items]);
   }
 
   print(path: AstPath<EventParameters>, print: PrintFunction): Doc {

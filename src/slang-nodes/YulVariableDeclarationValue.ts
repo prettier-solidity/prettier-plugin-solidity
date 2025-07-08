@@ -23,15 +23,12 @@ export class YulVariableDeclarationValue implements SlangNode {
     ast: ast.YulVariableDeclarationValue,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.assignment = new YulAssignmentOperator(ast.assignment);
     this.expression = new YulExpression(ast.expression, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.assignment,
-      this.expression
-    ]);
+    updateMetadata(this.loc, this.comments, [this.assignment, this.expression]);
   }
 
   print(path: AstPath<YulVariableDeclarationValue>, print: PrintFunction): Doc {

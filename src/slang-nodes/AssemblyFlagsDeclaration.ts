@@ -20,11 +20,11 @@ export class AssemblyFlagsDeclaration implements SlangNode {
     ast: ast.AssemblyFlagsDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.flags = new AssemblyFlags(ast.flags, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.flags]);
+    updateMetadata(this.loc, this.comments, [this.flags]);
   }
 
   print(path: AstPath<AssemblyFlagsDeclaration>, print: PrintFunction): Doc {

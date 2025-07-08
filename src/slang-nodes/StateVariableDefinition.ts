@@ -32,7 +32,7 @@ export class StateVariableDefinition implements SlangNode {
     ast: ast.StateVariableDefinition,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.typeName = new TypeName(ast.typeName, options);
     this.attributes = new StateVariableAttributes(ast.attributes);
@@ -41,7 +41,7 @@ export class StateVariableDefinition implements SlangNode {
       this.value = new StateVariableDefinitionValue(ast.value, options);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.typeName,
       this.attributes,
       this.value

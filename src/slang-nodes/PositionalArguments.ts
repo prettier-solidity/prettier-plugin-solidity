@@ -20,11 +20,11 @@ export class PositionalArguments implements SlangNode {
   items: Expression[];
 
   constructor(ast: ast.PositionalArguments, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast, true);
+    [this.loc, this.comments] = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new Expression(item, options));
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
+    updateMetadata(this.loc, this.comments, [this.items]);
   }
 
   print(path: AstPath<PositionalArguments>, print: PrintFunction): Doc {

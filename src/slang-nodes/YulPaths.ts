@@ -19,11 +19,11 @@ export class YulPaths implements SlangNode {
   items: YulPath[];
 
   constructor(ast: ast.YulPaths) {
-    const metadata = getNodeMetadata(ast, true);
+    [this.loc, this.comments] = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new YulPath(item));
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
+    updateMetadata(this.loc, this.comments, [this.items]);
   }
 
   print(path: AstPath<YulPaths>, print: PrintFunction): Doc {

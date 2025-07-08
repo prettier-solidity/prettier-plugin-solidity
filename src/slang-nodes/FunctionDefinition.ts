@@ -31,7 +31,7 @@ export class FunctionDefinition implements SlangNode {
   body: FunctionBody;
 
   constructor(ast: ast.FunctionDefinition, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.name = new FunctionName(ast.name);
     this.parameters = new ParametersDeclaration(ast.parameters, options);
@@ -41,7 +41,7 @@ export class FunctionDefinition implements SlangNode {
     }
     this.body = new FunctionBody(ast.body, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.name,
       this.parameters,
       this.attributes,

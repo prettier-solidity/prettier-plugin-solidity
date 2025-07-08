@@ -21,7 +21,7 @@ export class ReceiveFunctionAttribute implements SlangNode {
     ast: ast.ReceiveFunctionAttribute,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
@@ -43,8 +43,9 @@ export class ReceiveFunctionAttribute implements SlangNode {
       }
     }
 
-    [this.loc, this.comments] = updateMetadata(
-      metadata,
+    updateMetadata(
+      this.loc,
+      this.comments,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
   }

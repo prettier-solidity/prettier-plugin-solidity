@@ -16,15 +16,16 @@ export class ElementaryType implements SlangNode {
   variant: AddressType | string;
 
   constructor(ast: ast.ElementaryType) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new AddressType(ast.variant);
 
-    [this.loc, this.comments] = updateMetadata(
-      metadata,
+    updateMetadata(
+      this.loc,
+      this.comments,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
   }

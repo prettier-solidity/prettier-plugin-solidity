@@ -20,17 +20,14 @@ export class InheritanceType implements SlangNode {
   arguments?: ArgumentsDeclaration;
 
   constructor(ast: ast.InheritanceType, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.typeName = new IdentifierPath(ast.typeName);
     if (ast.arguments) {
       this.arguments = new ArgumentsDeclaration(ast.arguments, options);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.typeName,
-      this.arguments
-    ]);
+    updateMetadata(this.loc, this.comments, [this.typeName, this.arguments]);
   }
 
   print(path: AstPath<InheritanceType>, print: PrintFunction): Doc {

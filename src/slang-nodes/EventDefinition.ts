@@ -22,13 +22,13 @@ export class EventDefinition implements SlangNode {
   anonymousKeyword?: string;
 
   constructor(ast: ast.EventDefinition, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.name = new Identifier(ast.name);
     this.parameters = new EventParametersDeclaration(ast.parameters, options);
     this.anonymousKeyword = ast.anonymousKeyword?.unparse();
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.parameters]);
+    updateMetadata(this.loc, this.comments, [this.parameters]);
   }
 
   print(path: AstPath<EventDefinition>, print: PrintFunction): Doc {

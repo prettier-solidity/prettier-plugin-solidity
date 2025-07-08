@@ -20,11 +20,11 @@ export class YulReturnsDeclaration implements SlangNode {
   variables: YulVariableNames;
 
   constructor(ast: ast.YulReturnsDeclaration) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.variables = new YulVariableNames(ast.variables);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.variables]);
+    updateMetadata(this.loc, this.comments, [this.variables]);
   }
 
   print(path: AstPath<YulReturnsDeclaration>, print: PrintFunction): Doc {

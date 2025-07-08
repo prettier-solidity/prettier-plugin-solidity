@@ -18,7 +18,7 @@ export class YulSwitchCase implements SlangNode {
   variant: YulDefaultCase | YulValueCase;
 
   constructor(ast: ast.YulSwitchCase, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.YulDefaultCase:
@@ -37,7 +37,7 @@ export class YulSwitchCase implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
+    updateMetadata(this.loc, this.comments, [this.variant]);
   }
 
   print(path: AstPath<YulSwitchCase>, print: PrintFunction): Doc {

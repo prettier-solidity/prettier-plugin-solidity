@@ -18,15 +18,12 @@ export class VersionRange implements SlangNode {
   end: VersionLiteral;
 
   constructor(ast: ast.VersionRange) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.start = new VersionLiteral(ast.start);
     this.end = new VersionLiteral(ast.end);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.start,
-      this.end
-    ]);
+    updateMetadata(this.loc, this.comments, [this.start, this.end]);
   }
 
   print(path: AstPath<VersionRange>, print: PrintFunction): Doc {

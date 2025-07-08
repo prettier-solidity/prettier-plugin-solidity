@@ -16,15 +16,16 @@ export class ModifierAttribute implements SlangNode {
   variant: OverrideSpecifier | string;
 
   constructor(ast: ast.ModifierAttribute) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new OverrideSpecifier(ast.variant);
 
-    [this.loc, this.comments] = updateMetadata(
-      metadata,
+    updateMetadata(
+      this.loc,
+      this.comments,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
   }

@@ -17,11 +17,11 @@ export class ParametersDeclaration implements SlangNode {
   parameters: Parameters;
 
   constructor(ast: ast.ParametersDeclaration, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.parameters = new Parameters(ast.parameters, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.parameters]);
+    updateMetadata(this.loc, this.comments, [this.parameters]);
   }
 
   print(path: AstPath<ParametersDeclaration>, print: PrintFunction): Doc {

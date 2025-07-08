@@ -50,7 +50,7 @@ export class Statement implements SlangNode {
     | UncheckedBlock;
 
   constructor(ast: ast.Statement, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ExpressionStatement:
@@ -146,7 +146,7 @@ export class Statement implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
+    updateMetadata(this.loc, this.comments, [this.variant]);
   }
 
   print(path: AstPath<Statement>, print: PrintFunction): Doc {

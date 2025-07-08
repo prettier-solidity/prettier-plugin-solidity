@@ -27,13 +27,13 @@ export class UnnamedFunctionDefinition implements SlangNode {
     ast: ast.UnnamedFunctionDefinition,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new UnnamedFunctionAttributes(ast.attributes, options);
     this.body = new FunctionBody(ast.body, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.parameters,
       this.attributes,
       this.body
