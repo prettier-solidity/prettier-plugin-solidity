@@ -1,4 +1,5 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { AddressType } from './AddressType.js';
 
@@ -24,8 +25,6 @@ export class ElementaryType extends SlangNode {
   }
 
   print(path: AstPath<ElementaryType>, print: PrintFunction): Doc {
-    return typeof this.variant === 'string'
-      ? this.variant
-      : path.call(print, 'variant');
+    return printVariant(this, path, print);
   }
 }

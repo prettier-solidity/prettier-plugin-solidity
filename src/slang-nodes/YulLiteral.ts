@@ -1,4 +1,5 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
@@ -41,8 +42,6 @@ export class YulLiteral extends SlangNode {
   }
 
   print(path: AstPath<YulLiteral>, print: PrintFunction): Doc {
-    return typeof this.variant === 'string'
-      ? this.variant
-      : path.call(print, 'variant');
+    return printVariant(this, path, print);
   }
 }
