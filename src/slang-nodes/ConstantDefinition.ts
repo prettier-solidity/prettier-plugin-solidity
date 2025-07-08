@@ -25,7 +25,7 @@ export class ConstantDefinition extends SlangNode {
     this.name = new Identifier(ast.name);
     this.value = new Expression(ast.value, options);
 
-    this.updateMetadata([this.typeName, this.value]);
+    this.updateMetadata(this.typeName, this.value);
   }
 
   print(path: AstPath<ConstantDefinition>, print: PrintFunction): Doc {

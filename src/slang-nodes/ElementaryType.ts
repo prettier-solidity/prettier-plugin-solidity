@@ -19,7 +19,7 @@ export class ElementaryType extends SlangNode {
         ? ast.variant.unparse()
         : new AddressType(ast.variant);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ElementaryType>, print: PrintFunction): Doc {

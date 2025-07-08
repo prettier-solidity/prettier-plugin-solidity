@@ -19,7 +19,7 @@ export class VersionExpressionSets extends SlangNode {
 
     this.items = ast.items.map((item) => new VersionExpressionSet(item));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<VersionExpressionSets>, print: PrintFunction): Doc {

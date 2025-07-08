@@ -33,7 +33,7 @@ export class ModifierDefinition extends SlangNode {
     this.attributes = new ModifierAttributes(ast.attributes);
     this.body = new FunctionBody(ast.body, options);
 
-    this.updateMetadata([this.parameters, this.attributes, this.body]);
+    this.updateMetadata(this.parameters, this.attributes, this.body);
 
     if (!this.parameters) {
       const parametersOffset =

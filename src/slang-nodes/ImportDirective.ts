@@ -17,7 +17,7 @@ export class ImportDirective extends SlangNode {
 
     this.clause = new ImportClause(ast.clause, options);
 
-    this.updateMetadata([this.clause]);
+    this.updateMetadata(this.clause);
   }
 
   print(path: AstPath<ImportDirective>, print: PrintFunction): Doc {

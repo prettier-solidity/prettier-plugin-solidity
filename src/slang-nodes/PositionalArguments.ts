@@ -20,7 +20,7 @@ export class PositionalArguments extends SlangNode {
 
     this.items = ast.items.map((item) => new Expression(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<PositionalArguments>, print: PrintFunction): Doc {

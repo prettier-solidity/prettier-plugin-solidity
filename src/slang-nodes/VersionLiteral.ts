@@ -19,7 +19,7 @@ export class VersionLiteral extends SlangNode {
         ? ast.variant.unparse()
         : new SimpleVersionLiteral(ast.variant);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<VersionLiteral>, print: PrintFunction): Doc {

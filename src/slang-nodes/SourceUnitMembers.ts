@@ -18,7 +18,7 @@ export class SourceUnitMembers extends SlangNode {
 
     this.items = ast.items.map((item) => new SourceUnitMember(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(

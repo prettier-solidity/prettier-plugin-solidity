@@ -22,7 +22,7 @@ export class UnicodeStringLiterals extends SlangNode {
       (item) => new UnicodeStringLiteral(item, options)
     );
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<UnicodeStringLiterals>, print: PrintFunction): Doc {

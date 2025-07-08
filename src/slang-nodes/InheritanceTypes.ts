@@ -21,7 +21,7 @@ export class InheritanceTypes extends SlangNode {
 
     this.items = ast.items.map((item) => new InheritanceType(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<InheritanceTypes>, print: PrintFunction): Doc {

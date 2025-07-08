@@ -31,7 +31,7 @@ export class YulVariableAssignmentStatement extends SlangNode {
     this.assignment = new YulAssignmentOperator(ast.assignment);
     this.expression = new YulExpression(ast.expression, options);
 
-    this.updateMetadata([this.variables, this.assignment, this.expression]);
+    this.updateMetadata(this.variables, this.assignment, this.expression);
   }
 
   print(

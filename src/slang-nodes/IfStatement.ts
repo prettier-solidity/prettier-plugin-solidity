@@ -32,7 +32,7 @@ export class IfStatement extends SlangNode {
       this.elseBranch = new ElseBranch(ast.elseBranch, options);
     }
 
-    this.updateMetadata([this.condition, this.body, this.elseBranch]);
+    this.updateMetadata(this.condition, this.body, this.elseBranch);
   }
 
   print(path: AstPath<IfStatement>, print: PrintFunction): Doc {

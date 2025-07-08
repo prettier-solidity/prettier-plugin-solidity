@@ -23,7 +23,7 @@ export class UnnamedFunctionAttribute extends SlangNode {
         ? ast.variant.unparse()
         : new ModifierInvocation(ast.variant, options);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<UnnamedFunctionAttribute>, print: PrintFunction): Doc {

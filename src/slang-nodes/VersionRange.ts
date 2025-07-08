@@ -19,7 +19,7 @@ export class VersionRange extends SlangNode {
     this.start = new VersionLiteral(ast.start);
     this.end = new VersionLiteral(ast.end);
 
-    this.updateMetadata([this.start, this.end]);
+    this.updateMetadata(this.start, this.end);
   }
 
   print(path: AstPath<VersionRange>, print: PrintFunction): Doc {

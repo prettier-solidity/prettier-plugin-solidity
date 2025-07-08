@@ -25,7 +25,7 @@ export class WhileStatement extends SlangNode {
     this.condition = new Expression(ast.condition, options);
     this.body = new Statement(ast.body, options);
 
-    this.updateMetadata([this.condition, this.body]);
+    this.updateMetadata(this.condition, this.body);
   }
 
   print(path: AstPath<WhileStatement>, print: PrintFunction): Doc {

@@ -21,7 +21,7 @@ export class UsingDeconstructionSymbols extends SlangNode {
 
     this.items = ast.items.map((item) => new UsingDeconstructionSymbol(item));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(

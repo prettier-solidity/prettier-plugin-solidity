@@ -20,7 +20,7 @@ export class UsingTarget extends SlangNode {
         ? ast.variant.unparse()
         : new TypeName(ast.variant, options);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<UsingTarget>, print: PrintFunction): Doc {

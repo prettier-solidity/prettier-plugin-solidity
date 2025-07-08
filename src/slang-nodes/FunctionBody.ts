@@ -20,7 +20,7 @@ export class FunctionBody extends SlangNode {
         ? ast.variant.unparse()
         : new Block(ast.variant, options);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<FunctionBody>, print: PrintFunction): Doc {

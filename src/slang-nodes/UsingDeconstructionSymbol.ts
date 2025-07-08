@@ -22,7 +22,7 @@ export class UsingDeconstructionSymbol extends SlangNode {
       this.alias = new UsingAlias(ast.alias);
     }
 
-    this.updateMetadata([this.name, this.alias]);
+    this.updateMetadata(this.name, this.alias);
   }
 
   print(path: AstPath<UsingDeconstructionSymbol>, print: PrintFunction): Doc {

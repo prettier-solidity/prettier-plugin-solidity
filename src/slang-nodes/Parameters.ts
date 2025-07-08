@@ -20,7 +20,7 @@ export class Parameters extends SlangNode {
 
     this.items = ast.items.map((item) => new Parameter(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<Parameters>, print: PrintFunction): Doc {

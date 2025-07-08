@@ -28,7 +28,7 @@ export class FunctionType extends SlangNode {
       this.returns = new ReturnsDeclaration(ast.returns, options);
     }
 
-    this.updateMetadata([this.parameters, this.attributes, this.returns]);
+    this.updateMetadata(this.parameters, this.attributes, this.returns);
   }
 
   print(path: AstPath<FunctionType>, print: PrintFunction): Doc {

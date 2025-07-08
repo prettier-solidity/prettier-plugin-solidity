@@ -23,7 +23,7 @@ export class ConstructorAttributes extends SlangNode {
       (item) => new ConstructorAttribute(item, options)
     );
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

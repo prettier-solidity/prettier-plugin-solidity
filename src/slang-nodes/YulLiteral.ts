@@ -37,7 +37,7 @@ export class YulLiteral extends SlangNode {
       }
     }
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<YulLiteral>, print: PrintFunction): Doc {

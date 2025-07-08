@@ -20,7 +20,7 @@ export class SourceUnit extends SlangNode {
 
     this.members = new SourceUnitMembers(ast.members, options);
 
-    this.updateMetadata([this.members]);
+    this.updateMetadata(this.members);
 
     // Because of comments being extracted like a russian doll, the order needs
     // to be fixed at the end.

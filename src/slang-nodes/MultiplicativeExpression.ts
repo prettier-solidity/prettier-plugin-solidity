@@ -47,7 +47,7 @@ export class MultiplicativeExpression extends SlangNode {
     this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, options);
 
-    this.updateMetadata([this.leftOperand, this.rightOperand]);
+    this.updateMetadata(this.leftOperand, this.rightOperand);
 
     switch (this.operator) {
       case '*':

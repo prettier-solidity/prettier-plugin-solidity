@@ -17,7 +17,7 @@ export class InheritanceSpecifier extends SlangNode {
 
     this.types = new InheritanceTypes(ast.types, options);
 
-    this.updateMetadata([this.types]);
+    this.updateMetadata(this.types);
   }
 
   print(path: AstPath<InheritanceSpecifier>, print: PrintFunction): Doc {

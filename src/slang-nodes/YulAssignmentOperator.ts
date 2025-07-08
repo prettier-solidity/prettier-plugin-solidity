@@ -19,7 +19,7 @@ export class YulAssignmentOperator extends SlangNode {
         ? ast.variant.unparse()
         : new YulColonAndEqual(ast.variant);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<YulAssignmentOperator>, print: PrintFunction): Doc {

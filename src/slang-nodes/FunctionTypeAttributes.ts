@@ -20,7 +20,7 @@ export class FunctionTypeAttributes extends SlangNode {
 
     this.items = ast.items.map((item) => new FunctionTypeAttribute(item));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

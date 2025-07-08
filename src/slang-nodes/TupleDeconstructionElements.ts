@@ -23,7 +23,7 @@ export class TupleDeconstructionElements extends SlangNode {
       (item) => new TupleDeconstructionElement(item, options)
     );
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<TupleDeconstructionElements>, print: PrintFunction): Doc {

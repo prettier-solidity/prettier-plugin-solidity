@@ -39,7 +39,7 @@ export class FallbackFunctionAttribute extends SlangNode {
       }
     }
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<FallbackFunctionAttribute>, print: PrintFunction): Doc {

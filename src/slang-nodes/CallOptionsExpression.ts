@@ -21,7 +21,7 @@ export class CallOptionsExpression extends SlangNode {
     this.operand = new Expression(ast.operand, options);
     this.options = new CallOptions(ast.options, options);
 
-    this.updateMetadata([this.operand, this.options]);
+    this.updateMetadata(this.operand, this.options);
   }
 
   print(path: AstPath<CallOptionsExpression>, print: PrintFunction): Doc {

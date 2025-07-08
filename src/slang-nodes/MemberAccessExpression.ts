@@ -127,7 +127,7 @@ export class MemberAccessExpression extends SlangNode {
     this.operand = new Expression(ast.operand, options);
     this.member = new Identifier(ast.member);
 
-    this.updateMetadata([this.operand]);
+    this.updateMetadata(this.operand);
   }
 
   print(path: AstPath<MemberAccessExpression>, print: PrintFunction): Doc {

@@ -23,7 +23,7 @@ export class VariableDeclarationType extends SlangNode {
         ? ast.variant.unparse()
         : new TypeName(ast.variant, options);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<VariableDeclarationType>, print: PrintFunction): Doc {

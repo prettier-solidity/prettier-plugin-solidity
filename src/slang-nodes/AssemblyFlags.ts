@@ -18,7 +18,7 @@ export class AssemblyFlags extends SlangNode {
 
     this.items = ast.items.map((item) => new StringLiteral(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<AssemblyFlags>, print: PrintFunction): Doc {

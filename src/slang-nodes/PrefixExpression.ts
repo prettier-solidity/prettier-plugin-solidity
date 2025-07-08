@@ -20,7 +20,7 @@ export class PrefixExpression extends SlangNode {
     this.operator = ast.operator.unparse();
     this.operand = new Expression(ast.operand, options);
 
-    this.updateMetadata([this.operand]);
+    this.updateMetadata(this.operand);
 
     if (this.operator === 'delete') {
       this.operator = `${this.operator} `;

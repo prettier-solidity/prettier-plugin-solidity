@@ -22,7 +22,7 @@ export class LibraryMembers extends SlangNode {
 
     this.items = ast.items.map((item) => new ContractMember(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(

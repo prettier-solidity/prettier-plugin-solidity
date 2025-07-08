@@ -32,7 +32,7 @@ export class ContractDefinition extends SlangNode {
     this.specifiers = new ContractSpecifiers(ast.specifiers, options);
     this.members = new ContractMembers(ast.members, options);
 
-    this.updateMetadata([this.specifiers, this.members]);
+    this.updateMetadata(this.specifiers, this.members);
 
     this.cleanModifierInvocationArguments(options);
   }

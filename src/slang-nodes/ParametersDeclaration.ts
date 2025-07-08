@@ -17,7 +17,7 @@ export class ParametersDeclaration extends SlangNode {
 
     this.parameters = new Parameters(ast.parameters, options);
 
-    this.updateMetadata([this.parameters]);
+    this.updateMetadata(this.parameters);
   }
 
   print(path: AstPath<ParametersDeclaration>, print: PrintFunction): Doc {

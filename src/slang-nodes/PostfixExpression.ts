@@ -20,7 +20,7 @@ export class PostfixExpression extends SlangNode {
     this.operand = new Expression(ast.operand, options);
     this.operator = ast.operator.unparse();
 
-    this.updateMetadata([this.operand]);
+    this.updateMetadata(this.operand);
   }
 
   print(path: AstPath<PostfixExpression>, print: PrintFunction): Doc {

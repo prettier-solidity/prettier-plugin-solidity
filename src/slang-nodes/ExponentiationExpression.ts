@@ -55,7 +55,7 @@ export class ExponentiationExpression extends SlangNode {
     this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, options);
 
-    this.updateMetadata([this.leftOperand, this.rightOperand]);
+    this.updateMetadata(this.leftOperand, this.rightOperand);
 
     this.rightOperand = tryToHug(this.rightOperand);
     this.leftOperand = tryToHug(this.leftOperand);

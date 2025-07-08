@@ -25,7 +25,7 @@ export class DoWhileStatement extends SlangNode {
     this.body = new Statement(ast.body, options);
     this.condition = new Expression(ast.condition, options);
 
-    this.updateMetadata([this.body, this.condition]);
+    this.updateMetadata(this.body, this.condition);
   }
 
   print(path: AstPath<DoWhileStatement>, print: PrintFunction): Doc {

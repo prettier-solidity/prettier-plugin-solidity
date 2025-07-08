@@ -17,7 +17,7 @@ export class Block extends SlangNode {
 
     this.statements = new Statements(ast.statements, options);
 
-    this.updateMetadata([this.statements]);
+    this.updateMetadata(this.statements);
   }
 
   print(path: AstPath<Block>, print: PrintFunction): Doc {

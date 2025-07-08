@@ -23,7 +23,7 @@ export class MappingKey extends SlangNode {
       this.name = new Identifier(ast.name);
     }
 
-    this.updateMetadata([this.keyType]);
+    this.updateMetadata(this.keyType);
   }
 
   print(path: AstPath<MappingKey>, print: PrintFunction): Doc {

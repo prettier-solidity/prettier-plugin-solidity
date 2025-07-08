@@ -240,9 +240,8 @@ export class Expression extends SlangNode {
       }
     }
 
-    this.updateMetadata(
-      this.variant.kind === TerminalKind.Identifier ? [] : [this.variant]
-    );
+    if (this.variant.kind !== TerminalKind.Identifier)
+      this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<Expression>, print: PrintFunction): Doc {

@@ -23,7 +23,7 @@ export class UntypedTupleMember extends SlangNode {
     }
     this.name = new Identifier(ast.name);
 
-    this.updateMetadata([this.storageLocation]);
+    this.updateMetadata(this.storageLocation);
   }
 
   print(path: AstPath<UntypedTupleMember>, print: PrintFunction): Doc {

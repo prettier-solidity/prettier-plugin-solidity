@@ -124,11 +124,11 @@ export class ConditionalExpression extends SlangNode {
     this.trueExpression = new Expression(ast.trueExpression, options);
     this.falseExpression = new Expression(ast.falseExpression, options);
 
-    this.updateMetadata([
+    this.updateMetadata(
       this.operand,
       this.trueExpression,
       this.falseExpression
-    ]);
+    );
 
     if (options.experimentalTernaries) {
       // We can remove parentheses only because we are sure that the

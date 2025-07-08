@@ -23,7 +23,7 @@ export class StateVariableDefinitionValue extends SlangNode {
 
     this.value = new Expression(ast.value, options);
 
-    this.updateMetadata([this.value]);
+    this.updateMetadata(this.value);
   }
 
   print(

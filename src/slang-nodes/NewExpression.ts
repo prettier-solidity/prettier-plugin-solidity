@@ -17,7 +17,7 @@ export class NewExpression extends SlangNode {
 
     this.typeName = new TypeName(ast.typeName, options);
 
-    this.updateMetadata([this.typeName]);
+    this.updateMetadata(this.typeName);
   }
 
   print(path: AstPath<NewExpression>, print: PrintFunction): Doc {

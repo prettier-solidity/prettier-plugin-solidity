@@ -33,7 +33,7 @@ export class Parameter extends SlangNode {
       this.name = new Identifier(ast.name);
     }
 
-    this.updateMetadata([this.typeName, this.storageLocation]);
+    this.updateMetadata(this.typeName, this.storageLocation);
   }
 
   print(path: AstPath<Parameter>, print: PrintFunction): Doc {

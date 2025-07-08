@@ -18,7 +18,7 @@ export class YulArguments extends SlangNode {
 
     this.items = ast.items.map((item) => new YulExpression(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<YulArguments>, print: PrintFunction): Doc {

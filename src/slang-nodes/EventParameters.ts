@@ -18,7 +18,7 @@ export class EventParameters extends SlangNode {
 
     this.items = ast.items.map((item) => new EventParameter(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<EventParameters>, print: PrintFunction): Doc {

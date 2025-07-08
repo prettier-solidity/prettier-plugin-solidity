@@ -33,7 +33,7 @@ export class IndexAccessExpression extends SlangNode {
       this.end = new IndexAccessEnd(ast.end, options);
     }
 
-    this.updateMetadata([this.operand, this.start, this.end]);
+    this.updateMetadata(this.operand, this.start, this.end);
   }
 
   print(path: AstPath<IndexAccessExpression>, print: PrintFunction): Doc {

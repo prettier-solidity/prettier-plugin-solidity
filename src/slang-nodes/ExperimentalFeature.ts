@@ -25,9 +25,8 @@ export class ExperimentalFeature extends SlangNode {
         ? new Identifier(ast.variant)
         : new StringLiteral(ast.variant, options);
 
-    this.updateMetadata(
-      this.variant.kind === TerminalKind.Identifier ? [] : [this.variant]
-    );
+    if (this.variant.kind !== TerminalKind.Identifier)
+      this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ExperimentalFeature>, print: PrintFunction): Doc {

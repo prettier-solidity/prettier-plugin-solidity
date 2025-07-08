@@ -20,7 +20,7 @@ export class ErrorParametersDeclaration extends SlangNode {
 
     this.parameters = new ErrorParameters(ast.parameters, options);
 
-    this.updateMetadata([this.parameters]);
+    this.updateMetadata(this.parameters);
   }
 
   print(path: AstPath<ErrorParametersDeclaration>, print: PrintFunction): Doc {

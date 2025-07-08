@@ -24,7 +24,7 @@ export class MappingValue extends SlangNode {
       this.name = new Identifier(ast.name);
     }
 
-    this.updateMetadata([this.typeName]);
+    this.updateMetadata(this.typeName);
   }
 
   print(path: AstPath<MappingValue>, print: PrintFunction): Doc {

@@ -20,7 +20,7 @@ export class AssemblyFlagsDeclaration extends SlangNode {
 
     this.flags = new AssemblyFlags(ast.flags, options);
 
-    this.updateMetadata([this.flags]);
+    this.updateMetadata(this.flags);
   }
 
   print(path: AstPath<AssemblyFlagsDeclaration>, print: PrintFunction): Doc {

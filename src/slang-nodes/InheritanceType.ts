@@ -23,7 +23,7 @@ export class InheritanceType extends SlangNode {
       this.arguments = new ArgumentsDeclaration(ast.arguments, options);
     }
 
-    this.updateMetadata([this.typeName, this.arguments]);
+    this.updateMetadata(this.typeName, this.arguments);
   }
 
   print(path: AstPath<InheritanceType>, print: PrintFunction): Doc {

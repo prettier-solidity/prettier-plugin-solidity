@@ -22,7 +22,7 @@ export class VersionTerm extends SlangNode {
     }
     this.literal = new VersionLiteral(ast.literal);
 
-    this.updateMetadata([this.operator, this.literal]);
+    this.updateMetadata(this.operator, this.literal);
   }
 
   print(path: AstPath<VersionTerm>, print: PrintFunction): Doc {

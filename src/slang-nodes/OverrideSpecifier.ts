@@ -18,7 +18,7 @@ export class OverrideSpecifier extends SlangNode {
       this.overridden = new OverridePathsDeclaration(ast.overridden);
     }
 
-    this.updateMetadata([this.overridden]);
+    this.updateMetadata(this.overridden);
   }
 
   print(path: AstPath<OverrideSpecifier>, print: PrintFunction): Doc {

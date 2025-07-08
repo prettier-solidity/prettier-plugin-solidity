@@ -142,7 +142,7 @@ export class Statement extends SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    this.updateMetadata([this.variant]);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<Statement>, print: PrintFunction): Doc {

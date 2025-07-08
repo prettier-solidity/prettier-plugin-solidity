@@ -23,7 +23,7 @@ export class ArrayTypeName extends SlangNode {
       this.index = new Expression(ast.index, options);
     }
 
-    this.updateMetadata([this.operand, this.index]);
+    this.updateMetadata(this.operand, this.index);
   }
 
   print(path: AstPath<ArrayTypeName>, print: PrintFunction): Doc {

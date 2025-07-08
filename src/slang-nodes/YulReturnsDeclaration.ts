@@ -20,7 +20,7 @@ export class YulReturnsDeclaration extends SlangNode {
 
     this.variables = new YulVariableNames(ast.variables);
 
-    this.updateMetadata([this.variables]);
+    this.updateMetadata(this.variables);
   }
 
   print(path: AstPath<YulReturnsDeclaration>, print: PrintFunction): Doc {

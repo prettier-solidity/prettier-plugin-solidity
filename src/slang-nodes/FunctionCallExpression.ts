@@ -28,7 +28,7 @@ export class FunctionCallExpression extends SlangNode {
     this.operand = new Expression(ast.operand, options);
     this.arguments = new ArgumentsDeclaration(ast.arguments, options);
 
-    this.updateMetadata([this.operand, this.arguments]);
+    this.updateMetadata(this.operand, this.arguments);
   }
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {

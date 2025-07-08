@@ -23,7 +23,7 @@ export class CatchClause extends SlangNode {
     }
     this.body = new Block(ast.body, options);
 
-    this.updateMetadata([this.error, this.body]);
+    this.updateMetadata(this.error, this.body);
   }
 
   print(path: AstPath<CatchClause>, print: PrintFunction): Doc {
