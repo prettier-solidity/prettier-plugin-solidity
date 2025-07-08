@@ -20,17 +20,14 @@ export class ModifierInvocation implements SlangNode {
   arguments?: ArgumentsDeclaration;
 
   constructor(ast: ast.ModifierInvocation, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.name = new IdentifierPath(ast.name);
     if (ast.arguments) {
       this.arguments = new ArgumentsDeclaration(ast.arguments, options);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.name,
-      this.arguments
-    ]);
+    updateMetadata(this.loc, this.comments, [this.name, this.arguments]);
   }
 
   cleanModifierInvocationArguments(): void {

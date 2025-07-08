@@ -28,7 +28,7 @@ export class IfStatement implements SlangNode {
   elseBranch?: ElseBranch;
 
   constructor(ast: ast.IfStatement, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.condition = new Expression(ast.condition, options);
     this.body = new Statement(ast.body, options);
@@ -36,7 +36,7 @@ export class IfStatement implements SlangNode {
       this.elseBranch = new ElseBranch(ast.elseBranch, options);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.condition,
       this.body,
       this.elseBranch

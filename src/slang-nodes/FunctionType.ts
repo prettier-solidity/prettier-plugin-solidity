@@ -24,7 +24,7 @@ export class FunctionType implements SlangNode {
   returns?: ReturnsDeclaration;
 
   constructor(ast: ast.FunctionType, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new FunctionTypeAttributes(ast.attributes);
@@ -32,7 +32,7 @@ export class FunctionType implements SlangNode {
       this.returns = new ReturnsDeclaration(ast.returns, options);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.parameters,
       this.attributes,
       this.returns

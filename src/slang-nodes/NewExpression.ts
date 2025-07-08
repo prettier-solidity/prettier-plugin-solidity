@@ -17,11 +17,11 @@ export class NewExpression implements SlangNode {
   typeName: TypeName;
 
   constructor(ast: ast.NewExpression, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.typeName = new TypeName(ast.typeName, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.typeName]);
+    updateMetadata(this.loc, this.comments, [this.typeName]);
   }
 
   print(path: AstPath<NewExpression>, print: PrintFunction): Doc {

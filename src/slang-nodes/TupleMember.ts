@@ -18,7 +18,7 @@ export class TupleMember implements SlangNode {
   variant: TypedTupleMember | UntypedTupleMember;
 
   constructor(ast: ast.TupleMember, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.TypedTupleMember:
@@ -36,7 +36,7 @@ export class TupleMember implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
+    updateMetadata(this.loc, this.comments, [this.variant]);
   }
 
   print(path: AstPath<TupleMember>, print: PrintFunction): Doc {

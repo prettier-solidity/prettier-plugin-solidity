@@ -24,7 +24,7 @@ export class TypedTupleMember implements SlangNode {
   name: Identifier;
 
   constructor(ast: ast.TypedTupleMember, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.typeName = new TypeName(ast.typeName, options);
     if (ast.storageLocation) {
@@ -32,7 +32,7 @@ export class TypedTupleMember implements SlangNode {
     }
     this.name = new Identifier(ast.name);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.typeName,
       this.storageLocation
     ]);

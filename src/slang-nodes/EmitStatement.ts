@@ -20,15 +20,12 @@ export class EmitStatement implements SlangNode {
   arguments: ArgumentsDeclaration;
 
   constructor(ast: ast.EmitStatement, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.event = new IdentifierPath(ast.event);
     this.arguments = new ArgumentsDeclaration(ast.arguments, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.event,
-      this.arguments
-    ]);
+    updateMetadata(this.loc, this.comments, [this.event, this.arguments]);
   }
 
   print(path: AstPath<EmitStatement>, print: PrintFunction): Doc {

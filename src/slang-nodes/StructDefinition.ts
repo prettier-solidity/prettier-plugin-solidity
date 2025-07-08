@@ -20,12 +20,12 @@ export class StructDefinition implements SlangNode {
   members: StructMembers;
 
   constructor(ast: ast.StructDefinition, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.name = new Identifier(ast.name);
     this.members = new StructMembers(ast.members, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.members]);
+    updateMetadata(this.loc, this.comments, [this.members]);
   }
 
   print(path: AstPath<StructDefinition>, print: PrintFunction): Doc {

@@ -8,7 +8,7 @@ import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecCommen
 
 import type { Node } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
-import type { Metadata, SlangAstNode } from '../types.d.ts';
+import type { AstLocation, SlangAstNode } from '../types.d.ts';
 
 const isCommentOrWhiteSpace = createKindCheckFunction([
   TerminalKind.MultiLineComment,
@@ -40,7 +40,7 @@ function getLeadingOffset(children: Node[]): number {
 export function getNodeMetadata(
   ast: SlangAstNode | TerminalNode,
   enclosePeripheralComments = false
-): Metadata {
+): [AstLocation, Comment[]] {
   if (ast instanceof TerminalNode) {
     const offset = offsets.get(ast.id) || 0;
     return [
@@ -129,11 +129,12 @@ function collectComments(
 }
 
 export function updateMetadata(
-  [loc, comments]: Metadata,
+  loc: AstLocation,
+  comments: Comment[],
   childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
-): Metadata {
+): void {
   // Collect comments
-  comments = childNodes.reduce(collectComments, comments);
+  childNodes.reduce(collectComments, comments);
 
   // calculate correct loc object
   if (loc.leadingOffset === 0) {
@@ -163,6 +164,4 @@ export function updateMetadata(
       }
     }
   }
-
-  return [loc, comments];
 }

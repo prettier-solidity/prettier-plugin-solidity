@@ -20,15 +20,12 @@ export class YulValueCase implements SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.YulValueCase, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.value = new YulLiteral(ast.value, options);
     this.body = new YulBlock(ast.body, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.value,
-      this.body
-    ]);
+    updateMetadata(this.loc, this.comments, [this.value, this.body]);
   }
 
   print(path: AstPath<YulValueCase>, print: PrintFunction): Doc {

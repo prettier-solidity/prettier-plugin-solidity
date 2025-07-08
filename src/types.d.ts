@@ -32,8 +32,6 @@ interface BaseComment {
   followingNode?: StrictAstNode;
 }
 
-type Metadata = [AstLocation, Comment[]];
-
 interface SlangNode {
   kind:
     | NonterminalKind

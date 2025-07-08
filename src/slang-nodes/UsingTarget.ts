@@ -17,15 +17,16 @@ export class UsingTarget implements SlangNode {
   variant: TypeName | string;
 
   constructor(ast: ast.UsingTarget, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new TypeName(ast.variant, options);
 
-    [this.loc, this.comments] = updateMetadata(
-      metadata,
+    updateMetadata(
+      this.loc,
+      this.comments,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
   }

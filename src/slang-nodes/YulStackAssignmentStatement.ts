@@ -23,12 +23,12 @@ export class YulStackAssignmentStatement implements SlangNode {
   variable: YulIdentifier;
 
   constructor(ast: ast.YulStackAssignmentStatement) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.assignment = new YulStackAssignmentOperator(ast.assignment);
     this.variable = new YulIdentifier(ast.variable);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.assignment]);
+    updateMetadata(this.loc, this.comments, [this.assignment]);
   }
 
   print(path: AstPath<YulStackAssignmentStatement>, print: PrintFunction): Doc {

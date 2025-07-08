@@ -18,7 +18,7 @@ export class ContractSpecifier implements SlangNode {
   variant: InheritanceSpecifier | StorageLayoutSpecifier;
 
   constructor(ast: ast.ContractSpecifier, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.InheritanceSpecifier:
@@ -36,7 +36,7 @@ export class ContractSpecifier implements SlangNode {
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
-    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
+    updateMetadata(this.loc, this.comments, [this.variant]);
   }
 
   print(path: AstPath<ContractSpecifier>, print: PrintFunction): Doc {

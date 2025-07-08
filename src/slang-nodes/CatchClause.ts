@@ -20,17 +20,14 @@ export class CatchClause implements SlangNode {
   body: Block;
 
   constructor(ast: ast.CatchClause, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     if (ast.error) {
       this.error = new CatchClauseError(ast.error, options);
     }
     this.body = new Block(ast.body, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.error,
-      this.body
-    ]);
+    updateMetadata(this.loc, this.comments, [this.error, this.body]);
   }
 
   print(path: AstPath<CatchClause>, print: PrintFunction): Doc {

@@ -19,12 +19,12 @@ export class UserDefinedValueTypeDefinition implements SlangNode {
   valueType: ElementaryType;
 
   constructor(ast: ast.UserDefinedValueTypeDefinition) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.name = new Identifier(ast.name);
     this.valueType = new ElementaryType(ast.valueType);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.valueType]);
+    updateMetadata(this.loc, this.comments, [this.valueType]);
   }
 
   print(

@@ -27,14 +27,14 @@ export class YulForStatement implements SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.YulForStatement, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.initialization = new YulBlock(ast.initialization, options);
     this.condition = new YulExpression(ast.condition, options);
     this.iterator = new YulBlock(ast.iterator, options);
     this.body = new YulBlock(ast.body, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.initialization,
       this.condition,
       this.iterator,

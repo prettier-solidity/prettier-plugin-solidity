@@ -20,11 +20,11 @@ export class VariableDeclarationValue implements SlangNode {
     ast: ast.VariableDeclarationValue,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.expression = new Expression(ast.expression, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.expression]);
+    updateMetadata(this.loc, this.comments, [this.expression]);
   }
 
   print(path: AstPath<VariableDeclarationValue>, print: PrintFunction): Doc {

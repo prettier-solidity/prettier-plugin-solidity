@@ -20,17 +20,14 @@ export class PathImport implements SlangNode {
   alias?: ImportAlias;
 
   constructor(ast: ast.PathImport, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.path = new StringLiteral(ast.path, options);
     if (ast.alias) {
       this.alias = new ImportAlias(ast.alias);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.path,
-      this.alias
-    ]);
+    updateMetadata(this.loc, this.comments, [this.path, this.alias]);
   }
 
   print(path: AstPath<PathImport>, print: PrintFunction): Doc {

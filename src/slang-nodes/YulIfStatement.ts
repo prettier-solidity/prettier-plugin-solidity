@@ -20,15 +20,12 @@ export class YulIfStatement implements SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.YulIfStatement, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.condition = new YulExpression(ast.condition, options);
     this.body = new YulBlock(ast.body, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
-      this.condition,
-      this.body
-    ]);
+    updateMetadata(this.loc, this.comments, [this.condition, this.body]);
   }
 
   print(path: AstPath<YulIfStatement>, print: PrintFunction): Doc {

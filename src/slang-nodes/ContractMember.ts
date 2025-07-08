@@ -42,7 +42,7 @@ export class ContractMember implements SlangNode {
     | UserDefinedValueTypeDefinition;
 
   constructor(ast: ast.ContractMember, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.UsingDirective:
@@ -123,7 +123,7 @@ export class ContractMember implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
+    updateMetadata(this.loc, this.comments, [this.variant]);
   }
 
   print(path: AstPath<ContractMember>, print: PrintFunction): Doc {

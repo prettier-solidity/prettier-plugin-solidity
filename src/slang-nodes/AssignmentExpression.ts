@@ -25,13 +25,13 @@ export class AssignmentExpression implements SlangNode {
   rightOperand: Expression;
 
   constructor(ast: ast.AssignmentExpression, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.leftOperand = new Expression(ast.leftOperand, options);
     this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.leftOperand,
       this.rightOperand
     ]);

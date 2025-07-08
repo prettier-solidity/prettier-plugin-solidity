@@ -16,11 +16,11 @@ export class UsingAlias implements SlangNode {
   operator: UsingOperator;
 
   constructor(ast: ast.UsingAlias) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.operator = new UsingOperator(ast.operator);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.operator]);
+    updateMetadata(this.loc, this.comments, [this.operator]);
   }
 
   print(path: AstPath<UsingAlias>, print: PrintFunction): Doc {

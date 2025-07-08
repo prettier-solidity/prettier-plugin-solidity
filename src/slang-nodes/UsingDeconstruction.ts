@@ -16,11 +16,11 @@ export class UsingDeconstruction implements SlangNode {
   symbols: UsingDeconstructionSymbols;
 
   constructor(ast: ast.UsingDeconstruction) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.symbols = new UsingDeconstructionSymbols(ast.symbols);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.symbols]);
+    updateMetadata(this.loc, this.comments, [this.symbols]);
   }
 
   print(path: AstPath<UsingDeconstruction>, print: PrintFunction): Doc {

@@ -32,7 +32,7 @@ export class VariableDeclarationStatement implements SlangNode {
     ast: ast.VariableDeclarationStatement,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.variableType = new VariableDeclarationType(ast.variableType, options);
     if (ast.storageLocation) {
@@ -43,7 +43,7 @@ export class VariableDeclarationStatement implements SlangNode {
       this.value = new VariableDeclarationValue(ast.value, options);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [
+    updateMetadata(this.loc, this.comments, [
       this.variableType,
       this.storageLocation,
       this.value

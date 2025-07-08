@@ -20,13 +20,12 @@ export class SourceUnit implements SlangNode {
   members: SourceUnitMembers;
 
   constructor(ast: ast.SourceUnit, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.members = new SourceUnitMembers(ast.members, options);
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.members]);
+    updateMetadata(this.loc, this.comments, [this.members]);
 
-    [this.loc, this.comments] = metadata;
     // Because of comments being extracted like a russian doll, the order needs
     // to be fixed at the end.
     this.comments = this.comments.sort((a, b) => a.loc.start - b.loc.start);

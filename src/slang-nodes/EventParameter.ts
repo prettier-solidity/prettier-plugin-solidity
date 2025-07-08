@@ -23,7 +23,7 @@ export class EventParameter implements SlangNode {
   name?: Identifier;
 
   constructor(ast: ast.EventParameter, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.typeName = new TypeName(ast.typeName, options);
     this.indexedKeyword = ast.indexedKeyword?.unparse();
@@ -31,7 +31,7 @@ export class EventParameter implements SlangNode {
       this.name = new Identifier(ast.name);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.typeName]);
+    updateMetadata(this.loc, this.comments, [this.typeName]);
   }
 
   print(path: AstPath<EventParameter>, print: PrintFunction): Doc {

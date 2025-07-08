@@ -20,13 +20,13 @@ export class NamedArgumentsDeclaration implements SlangNode {
     ast: ast.NamedArgumentsDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     if (ast.arguments) {
       this.arguments = new NamedArgumentGroup(ast.arguments, options);
     }
 
-    [this.loc, this.comments] = updateMetadata(metadata, [this.arguments]);
+    updateMetadata(this.loc, this.comments, [this.arguments]);
   }
 
   print(path: AstPath<NamedArgumentsDeclaration>, print: PrintFunction): Doc {
