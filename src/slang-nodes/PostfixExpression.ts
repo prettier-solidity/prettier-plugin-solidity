@@ -1,30 +1,26 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class PostfixExpression implements SlangNode {
+export class PostfixExpression extends SlangNode {
   readonly kind = NonterminalKind.PostfixExpression;
-
-  comments;
-
-  loc;
 
   operand: Expression;
 
   operator: string;
 
   constructor(ast: ast.PostfixExpression, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.operand = new Expression(ast.operand, options);
     this.operator = ast.operator.unparse();
 
-    updateMetadata(this.loc, this.comments, [this.operand]);
+    this.updateMetadata([this.operand]);
   }
 
   print(path: AstPath<PostfixExpression>, print: PrintFunction): Doc {

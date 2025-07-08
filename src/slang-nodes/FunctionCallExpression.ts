@@ -1,23 +1,19 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { isLabel } from '../slang-utils/is-label.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, indentIfBreak, label } = doc.builders;
 
-export class FunctionCallExpression implements SlangNode {
+export class FunctionCallExpression extends SlangNode {
   readonly kind = NonterminalKind.FunctionCallExpression;
-
-  comments;
-
-  loc;
 
   operand: Expression;
 
@@ -27,12 +23,12 @@ export class FunctionCallExpression implements SlangNode {
     ast: ast.FunctionCallExpression,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.operand = new Expression(ast.operand, options);
     this.arguments = new ArgumentsDeclaration(ast.arguments, options);
 
-    updateMetadata(this.loc, this.comments, [this.operand, this.arguments]);
+    this.updateMetadata([this.operand, this.arguments]);
   }
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {

@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 import { Expression } from './Expression.js';
 import { ReturnsDeclaration } from './ReturnsDeclaration.js';
@@ -11,16 +11,12 @@ import { CatchClauses } from './CatchClauses.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
-export class TryStatement implements SlangNode {
+export class TryStatement extends SlangNode {
   readonly kind = NonterminalKind.TryStatement;
-
-  comments;
-
-  loc;
 
   expression: Expression;
 
@@ -31,7 +27,7 @@ export class TryStatement implements SlangNode {
   catchClauses: CatchClauses;
 
   constructor(ast: ast.TryStatement, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.expression = new Expression(ast.expression, options);
     if (ast.returns) {
@@ -40,7 +36,7 @@ export class TryStatement implements SlangNode {
     this.body = new Block(ast.body, options);
     this.catchClauses = new CatchClauses(ast.catchClauses, options);
 
-    updateMetadata(this.loc, this.comments, [
+    this.updateMetadata([
       this.expression,
       this.returns,
       this.body,

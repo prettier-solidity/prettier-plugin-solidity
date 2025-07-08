@@ -1,19 +1,15 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { YulAssignmentOperator } from './YulAssignmentOperator.js';
 import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class YulVariableDeclarationValue implements SlangNode {
+export class YulVariableDeclarationValue extends SlangNode {
   readonly kind = NonterminalKind.YulVariableDeclarationValue;
-
-  comments;
-
-  loc;
 
   assignment: YulAssignmentOperator;
 
@@ -23,12 +19,12 @@ export class YulVariableDeclarationValue implements SlangNode {
     ast: ast.YulVariableDeclarationValue,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.assignment = new YulAssignmentOperator(ast.assignment);
     this.expression = new YulExpression(ast.expression, options);
 
-    updateMetadata(this.loc, this.comments, [this.assignment, this.expression]);
+    this.updateMetadata([this.assignment, this.expression]);
   }
 
   print(path: AstPath<YulVariableDeclarationValue>, print: PrintFunction): Doc {

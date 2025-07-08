@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
 import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
@@ -10,16 +10,12 @@ import { ElseBranch } from './ElseBranch.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, hardline, indent, line } = doc.builders;
 
-export class IfStatement implements SlangNode {
+export class IfStatement extends SlangNode {
   readonly kind = NonterminalKind.IfStatement;
-
-  comments;
-
-  loc;
 
   condition: Expression;
 
@@ -28,7 +24,7 @@ export class IfStatement implements SlangNode {
   elseBranch?: ElseBranch;
 
   constructor(ast: ast.IfStatement, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.condition = new Expression(ast.condition, options);
     this.body = new Statement(ast.body, options);
@@ -36,11 +32,7 @@ export class IfStatement implements SlangNode {
       this.elseBranch = new ElseBranch(ast.elseBranch, options);
     }
 
-    updateMetadata(this.loc, this.comments, [
-      this.condition,
-      this.body,
-      this.elseBranch
-    ]);
+    this.updateMetadata([this.condition, this.body, this.elseBranch]);
   }
 
   print(path: AstPath<IfStatement>, print: PrintFunction): Doc {

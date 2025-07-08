@@ -1,33 +1,25 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ModifierAttribute implements SlangNode {
+export class ModifierAttribute extends SlangNode {
   readonly kind = NonterminalKind.ModifierAttribute;
-
-  comments;
-
-  loc;
 
   variant: OverrideSpecifier | string;
 
   constructor(ast: ast.ModifierAttribute) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new OverrideSpecifier(ast.variant);
 
-    updateMetadata(
-      this.loc,
-      this.comments,
-      typeof this.variant === 'string' ? [] : [this.variant]
-    );
+    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
   }
 
   print(path: AstPath<ModifierAttribute>, print: PrintFunction): Doc {

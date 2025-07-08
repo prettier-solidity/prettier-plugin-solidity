@@ -1,33 +1,29 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 import { StorageLocation } from './StorageLocation.js';
 import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class UntypedTupleMember implements SlangNode {
+export class UntypedTupleMember extends SlangNode {
   readonly kind = NonterminalKind.UntypedTupleMember;
-
-  comments;
-
-  loc;
 
   storageLocation?: StorageLocation;
 
   name: Identifier;
 
   constructor(ast: ast.UntypedTupleMember) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(ast.storageLocation);
     }
     this.name = new Identifier(ast.name);
 
-    updateMetadata(this.loc, this.comments, [this.storageLocation]);
+    this.updateMetadata([this.storageLocation]);
   }
 
   print(path: AstPath<UntypedTupleMember>, print: PrintFunction): Doc {

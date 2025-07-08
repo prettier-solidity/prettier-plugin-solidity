@@ -1,30 +1,26 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
 import { StateVariableAttribute } from './StateVariableAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
-export class StateVariableAttributes implements SlangNode {
+export class StateVariableAttributes extends SlangNode {
   readonly kind = NonterminalKind.StateVariableAttributes;
-
-  comments;
-
-  loc;
 
   items: StateVariableAttribute[];
 
   constructor(ast: ast.StateVariableAttributes) {
-    [this.loc, this.comments] = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map((item) => new StateVariableAttribute(item));
 
-    updateMetadata(this.loc, this.comments, [this.items]);
+    this.updateMetadata([this.items]);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

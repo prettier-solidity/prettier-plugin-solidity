@@ -1,6 +1,6 @@
 // https://prettier.io/docs/en/plugins.html#parsers
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
-import { clearOffsets } from './slang-utils/metadata.js';
+import { clearOffsets } from './slang-nodes/SlangNode.js';
 import { createParser } from './slang-utils/create-parser.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 

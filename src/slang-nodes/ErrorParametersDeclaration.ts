@@ -1,18 +1,14 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ErrorParameters } from './ErrorParameters.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ErrorParametersDeclaration implements SlangNode {
+export class ErrorParametersDeclaration extends SlangNode {
   readonly kind = NonterminalKind.ErrorParametersDeclaration;
-
-  comments;
-
-  loc;
 
   parameters: ErrorParameters;
 
@@ -20,11 +16,11 @@ export class ErrorParametersDeclaration implements SlangNode {
     ast: ast.ErrorParametersDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.parameters = new ErrorParameters(ast.parameters, options);
 
-    updateMetadata(this.loc, this.comments, [this.parameters]);
+    this.updateMetadata([this.parameters]);
   }
 
   print(path: AstPath<ErrorParametersDeclaration>, print: PrintFunction): Doc {

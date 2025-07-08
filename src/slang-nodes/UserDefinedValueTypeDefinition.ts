@@ -1,30 +1,26 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Identifier } from './Identifier.js';
 import { ElementaryType } from './ElementaryType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class UserDefinedValueTypeDefinition implements SlangNode {
+export class UserDefinedValueTypeDefinition extends SlangNode {
   readonly kind = NonterminalKind.UserDefinedValueTypeDefinition;
-
-  comments;
-
-  loc;
 
   name: Identifier;
 
   valueType: ElementaryType;
 
   constructor(ast: ast.UserDefinedValueTypeDefinition) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.name = new Identifier(ast.name);
     this.valueType = new ElementaryType(ast.valueType);
 
-    updateMetadata(this.loc, this.comments, [this.valueType]);
+    this.updateMetadata([this.valueType]);
   }
 
   print(

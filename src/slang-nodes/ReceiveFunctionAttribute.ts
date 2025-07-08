@@ -1,19 +1,15 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ReceiveFunctionAttribute implements SlangNode {
+export class ReceiveFunctionAttribute extends SlangNode {
   readonly kind = NonterminalKind.ReceiveFunctionAttribute;
-
-  comments;
-
-  loc;
 
   variant: ModifierInvocation | OverrideSpecifier | string;
 
@@ -21,7 +17,7 @@ export class ReceiveFunctionAttribute implements SlangNode {
     ast: ast.ReceiveFunctionAttribute,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
@@ -43,11 +39,7 @@ export class ReceiveFunctionAttribute implements SlangNode {
       }
     }
 
-    updateMetadata(
-      this.loc,
-      this.comments,
-      typeof this.variant === 'string' ? [] : [this.variant]
-    );
+    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
   }
 
   print(path: AstPath<ReceiveFunctionAttribute>, print: PrintFunction): Doc {

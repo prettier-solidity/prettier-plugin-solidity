@@ -1,28 +1,24 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { SourceUnitMember } from './SourceUnitMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class SourceUnitMembers implements SlangNode {
+export class SourceUnitMembers extends SlangNode {
   readonly kind = NonterminalKind.SourceUnitMembers;
-
-  comments;
-
-  loc;
 
   items: SourceUnitMember[];
 
   constructor(ast: ast.SourceUnitMembers, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map((item) => new SourceUnitMember(item, options));
 
-    updateMetadata(this.loc, this.comments, [this.items]);
+    this.updateMetadata([this.items]);
   }
 
   print(

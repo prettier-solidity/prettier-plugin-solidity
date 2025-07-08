@@ -1,18 +1,14 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class UnnamedFunctionAttribute implements SlangNode {
+export class UnnamedFunctionAttribute extends SlangNode {
   readonly kind = NonterminalKind.UnnamedFunctionAttribute;
-
-  comments;
-
-  loc;
 
   variant: ModifierInvocation | string;
 
@@ -20,18 +16,14 @@ export class UnnamedFunctionAttribute implements SlangNode {
     ast: ast.UnnamedFunctionAttribute,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new ModifierInvocation(ast.variant, options);
 
-    updateMetadata(
-      this.loc,
-      this.comments,
-      typeof this.variant === 'string' ? [] : [this.variant]
-    );
+    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
   }
 
   print(path: AstPath<UnnamedFunctionAttribute>, print: PrintFunction): Doc {

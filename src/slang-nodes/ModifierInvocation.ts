@@ -1,33 +1,29 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ModifierInvocation implements SlangNode {
+export class ModifierInvocation extends SlangNode {
   readonly kind = NonterminalKind.ModifierInvocation;
-
-  comments;
-
-  loc;
 
   name: IdentifierPath;
 
   arguments?: ArgumentsDeclaration;
 
   constructor(ast: ast.ModifierInvocation, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.name = new IdentifierPath(ast.name);
     if (ast.arguments) {
       this.arguments = new ArgumentsDeclaration(ast.arguments, options);
     }
 
-    updateMetadata(this.loc, this.comments, [this.name, this.arguments]);
+    this.updateMetadata([this.name, this.arguments]);
   }
 
   cleanModifierInvocationArguments(): void {

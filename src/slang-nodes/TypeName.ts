@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ArrayTypeName } from './ArrayTypeName.js';
 import { FunctionType } from './FunctionType.js';
 import { MappingType } from './MappingType.js';
@@ -9,14 +9,10 @@ import { IdentifierPath } from './IdentifierPath.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class TypeName implements SlangNode {
+export class TypeName extends SlangNode {
   readonly kind = NonterminalKind.TypeName;
-
-  comments;
-
-  loc;
 
   variant:
     | ArrayTypeName
@@ -26,7 +22,7 @@ export class TypeName implements SlangNode {
     | IdentifierPath;
 
   constructor(ast: ast.TypeName, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ArrayTypeName:
@@ -54,7 +50,7 @@ export class TypeName implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    updateMetadata(this.loc, this.comments, [this.variant]);
+    this.updateMetadata([this.variant]);
   }
 
   print(path: AstPath<TypeName>, print: PrintFunction): Doc {
