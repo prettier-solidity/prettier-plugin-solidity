@@ -1,4 +1,5 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 
@@ -24,8 +25,6 @@ export class ModifierAttribute extends SlangNode {
   }
 
   print(path: AstPath<ModifierAttribute>, print: PrintFunction): Doc {
-    return typeof this.variant === 'string'
-      ? this.variant
-      : path.call(print, 'variant');
+    return printVariant(this, path, print);
   }
 }

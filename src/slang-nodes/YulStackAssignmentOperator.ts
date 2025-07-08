@@ -1,4 +1,5 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulEqualAndColon } from './YulEqualAndColon.js';
 
@@ -24,8 +25,6 @@ export class YulStackAssignmentOperator extends SlangNode {
   }
 
   print(path: AstPath<YulStackAssignmentOperator>, print: PrintFunction): Doc {
-    return typeof this.variant === 'string'
-      ? this.variant
-      : path.call(print, 'variant');
+    return printVariant(this, path, print);
   }
 }

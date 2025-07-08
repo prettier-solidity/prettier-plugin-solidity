@@ -470,6 +470,8 @@ export type Collection = Extract<
   { items: StrictAstNode[] | Identifier[] | YulIdentifier[] | string[] }
 >;
 
+export type PolymorphicNode = Extract<StrictAstNode, { variant: unknown }>;
+
 export type BinaryOperation = Extract<
   StrictAstNode,
   {
