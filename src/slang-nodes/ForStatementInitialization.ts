@@ -26,32 +26,32 @@ export class ForStatementInitialization extends SlangNode {
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
-    } else {
-      switch (ast.variant.cst.kind) {
-        case NonterminalKind.ExpressionStatement:
-          this.variant = new ExpressionStatement(
-            ast.variant as ast.ExpressionStatement,
-            options
-          );
-          break;
-        case NonterminalKind.VariableDeclarationStatement:
-          this.variant = new VariableDeclarationStatement(
-            ast.variant as ast.VariableDeclarationStatement,
-            options
-          );
-          break;
-        case NonterminalKind.TupleDeconstructionStatement:
-          this.variant = new TupleDeconstructionStatement(
-            ast.variant as ast.TupleDeconstructionStatement,
-            options
-          );
-          break;
-        default:
-          throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-      }
+      return;
+    }
+    switch (ast.variant.cst.kind) {
+      case NonterminalKind.ExpressionStatement:
+        this.variant = new ExpressionStatement(
+          ast.variant as ast.ExpressionStatement,
+          options
+        );
+        break;
+      case NonterminalKind.VariableDeclarationStatement:
+        this.variant = new VariableDeclarationStatement(
+          ast.variant as ast.VariableDeclarationStatement,
+          options
+        );
+        break;
+      case NonterminalKind.TupleDeconstructionStatement:
+        this.variant = new TupleDeconstructionStatement(
+          ast.variant as ast.TupleDeconstructionStatement,
+          options
+        );
+        break;
+      default:
+        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ForStatementInitialization>, print: PrintFunction): Doc {

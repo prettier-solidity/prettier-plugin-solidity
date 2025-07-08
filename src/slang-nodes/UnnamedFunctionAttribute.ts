@@ -18,12 +18,13 @@ export class UnnamedFunctionAttribute extends SlangNode {
   ) {
     super(ast);
 
-    this.variant =
-      ast.variant instanceof TerminalNode
-        ? ast.variant.unparse()
-        : new ModifierInvocation(ast.variant, options);
+    if (ast.variant instanceof TerminalNode) {
+      this.variant = ast.variant.unparse();
+      return;
+    }
+    this.variant = new ModifierInvocation(ast.variant, options);
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<UnnamedFunctionAttribute>, print: PrintFunction): Doc {

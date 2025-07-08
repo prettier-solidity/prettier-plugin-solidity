@@ -18,25 +18,25 @@ export class FunctionAttribute extends SlangNode {
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
-    } else {
-      switch (ast.variant.cst.kind) {
-        case NonterminalKind.ModifierInvocation:
-          this.variant = new ModifierInvocation(
-            ast.variant as ast.ModifierInvocation,
-            options
-          );
-          break;
-        case NonterminalKind.OverrideSpecifier:
-          this.variant = new OverrideSpecifier(
-            ast.variant as ast.OverrideSpecifier
-          );
-          break;
-        default:
-          throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-      }
+      return;
+    }
+    switch (ast.variant.cst.kind) {
+      case NonterminalKind.ModifierInvocation:
+        this.variant = new ModifierInvocation(
+          ast.variant as ast.ModifierInvocation,
+          options
+        );
+        break;
+      case NonterminalKind.OverrideSpecifier:
+        this.variant = new OverrideSpecifier(
+          ast.variant as ast.OverrideSpecifier
+        );
+        break;
+      default:
+        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<FunctionAttribute>, print: PrintFunction): Doc {
