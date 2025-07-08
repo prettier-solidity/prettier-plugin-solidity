@@ -1,24 +1,20 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { TypedTupleMember } from './TypedTupleMember.js';
 import { UntypedTupleMember } from './UntypedTupleMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class TupleMember implements SlangNode {
+export class TupleMember extends SlangNode {
   readonly kind = NonterminalKind.TupleMember;
-
-  comments;
-
-  loc;
 
   variant: TypedTupleMember | UntypedTupleMember;
 
   constructor(ast: ast.TupleMember, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.TypedTupleMember:
@@ -36,7 +32,7 @@ export class TupleMember implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    updateMetadata(this.loc, this.comments, [this.variant]);
+    this.updateMetadata([this.variant]);
   }
 
   print(path: AstPath<TupleMember>, print: PrintFunction): Doc {

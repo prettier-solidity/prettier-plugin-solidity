@@ -2,14 +2,14 @@ import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { isLabel } from '../slang-utils/is-label.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { Identifier } from './Identifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode, StrictAstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
 
@@ -111,12 +111,8 @@ function processChain(chain: Doc[]): Doc {
   ]);
 }
 
-export class MemberAccessExpression implements SlangNode {
+export class MemberAccessExpression extends SlangNode {
   readonly kind = NonterminalKind.MemberAccessExpression;
-
-  comments;
-
-  loc;
 
   operand: Expression;
 
@@ -126,12 +122,12 @@ export class MemberAccessExpression implements SlangNode {
     ast: ast.MemberAccessExpression,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.operand = new Expression(ast.operand, options);
     this.member = new Identifier(ast.member);
 
-    updateMetadata(this.loc, this.comments, [this.operand]);
+    this.updateMetadata([this.operand]);
   }
 
   print(path: AstPath<MemberAccessExpression>, print: PrintFunction): Doc {

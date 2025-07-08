@@ -1,29 +1,25 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class IndexAccessEnd implements SlangNode {
+export class IndexAccessEnd extends SlangNode {
   readonly kind = NonterminalKind.IndexAccessEnd;
-
-  comments;
-
-  loc;
 
   end?: Expression;
 
   constructor(ast: ast.IndexAccessEnd, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     if (ast.end) {
       this.end = new Expression(ast.end, options);
     }
 
-    updateMetadata(this.loc, this.comments, [this.end]);
+    this.updateMetadata([this.end]);
   }
 
   print(path: AstPath<IndexAccessEnd>, print: PrintFunction): Doc {

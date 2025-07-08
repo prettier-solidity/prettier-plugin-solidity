@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { AbicoderPragma } from './AbicoderPragma.js';
 import { ExperimentalPragma } from './ExperimentalPragma.js';
 import { VersionPragma } from './VersionPragma.js';
@@ -7,19 +7,15 @@ import { VersionPragma } from './VersionPragma.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class Pragma implements SlangNode {
+export class Pragma extends SlangNode {
   readonly kind = NonterminalKind.Pragma;
-
-  comments;
-
-  loc;
 
   variant: AbicoderPragma | ExperimentalPragma | VersionPragma;
 
   constructor(ast: ast.Pragma, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.AbicoderPragma:
@@ -38,7 +34,7 @@ export class Pragma implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    updateMetadata(this.loc, this.comments, [this.variant]);
+    this.updateMetadata([this.variant]);
   }
 
   print(path: AstPath<Pragma>, print: PrintFunction): Doc {

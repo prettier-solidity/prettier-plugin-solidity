@@ -4,13 +4,13 @@ import { createBinaryOperationPrinter } from '../slang-printers/create-binary-op
 import { binaryIndentRulesBuilder } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group } = doc.builders;
 
@@ -36,12 +36,8 @@ const printExponentiationExpression = createBinaryOperationPrinter(
   binaryIndentRulesBuilder(shouldIndent) // indent as a binary operation with some exceptions
 );
 
-export class ExponentiationExpression implements SlangNode {
+export class ExponentiationExpression extends SlangNode {
   readonly kind = NonterminalKind.ExponentiationExpression;
-
-  comments;
-
-  loc;
 
   leftOperand: Expression;
 
@@ -53,16 +49,13 @@ export class ExponentiationExpression implements SlangNode {
     ast: ast.ExponentiationExpression,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.leftOperand = new Expression(ast.leftOperand, options);
     this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, options);
 
-    updateMetadata(this.loc, this.comments, [
-      this.leftOperand,
-      this.rightOperand
-    ]);
+    this.updateMetadata([this.leftOperand, this.rightOperand]);
 
     this.rightOperand = tryToHug(this.rightOperand);
     this.leftOperand = tryToHug(this.leftOperand);

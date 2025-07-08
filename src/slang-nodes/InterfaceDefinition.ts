@@ -1,6 +1,6 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Identifier } from './Identifier.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { InterfaceMembers } from './InterfaceMembers.js';
@@ -8,16 +8,12 @@ import { InterfaceMembers } from './InterfaceMembers.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, line } = doc.builders;
 
-export class InterfaceDefinition implements SlangNode {
+export class InterfaceDefinition extends SlangNode {
   readonly kind = NonterminalKind.InterfaceDefinition;
-
-  comments;
-
-  loc;
 
   name: Identifier;
 
@@ -26,7 +22,7 @@ export class InterfaceDefinition implements SlangNode {
   members: InterfaceMembers;
 
   constructor(ast: ast.InterfaceDefinition, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.name = new Identifier(ast.name);
     if (ast.inheritance) {
@@ -34,7 +30,7 @@ export class InterfaceDefinition implements SlangNode {
     }
     this.members = new InterfaceMembers(ast.members, options);
 
-    updateMetadata(this.loc, this.comments, [this.inheritance, this.members]);
+    this.updateMetadata([this.inheritance, this.members]);
   }
 
   print(path: AstPath<InterfaceDefinition>, print: PrintFunction): Doc {

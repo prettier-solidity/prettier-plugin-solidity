@@ -1,27 +1,23 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { NamedArguments } from './NamedArguments.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class NamedArgumentGroup implements SlangNode {
+export class NamedArgumentGroup extends SlangNode {
   readonly kind = NonterminalKind.NamedArgumentGroup;
-
-  comments;
-
-  loc;
 
   arguments: NamedArguments;
 
   constructor(ast: ast.NamedArgumentGroup, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.arguments = new NamedArguments(ast.arguments, options);
 
-    updateMetadata(this.loc, this.comments, [this.arguments]);
+    this.updateMetadata([this.arguments]);
   }
 
   print(path: AstPath<NamedArgumentGroup>, print: PrintFunction): Doc {

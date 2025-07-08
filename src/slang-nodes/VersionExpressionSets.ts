@@ -1,29 +1,25 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { VersionExpressionSet } from './VersionExpressionSet.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { join } = doc.builders;
 
-export class VersionExpressionSets implements SlangNode {
+export class VersionExpressionSets extends SlangNode {
   readonly kind = NonterminalKind.VersionExpressionSets;
-
-  comments;
-
-  loc;
 
   items: VersionExpressionSet[];
 
   constructor(ast: ast.VersionExpressionSets) {
-    [this.loc, this.comments] = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map((item) => new VersionExpressionSet(item));
 
-    updateMetadata(this.loc, this.comments, [this.items]);
+    this.updateMetadata([this.items]);
   }
 
   print(path: AstPath<VersionExpressionSets>, print: PrintFunction): Doc {

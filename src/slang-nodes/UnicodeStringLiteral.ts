@@ -1,23 +1,18 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printString } from '../slang-printers/print-string.js';
-import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { SlangNode } from '../types.d.ts';
 
-export class UnicodeStringLiteral implements SlangNode {
+export class UnicodeStringLiteral extends SlangNode {
   readonly kind = NonterminalKind.UnicodeStringLiteral;
-
-  comments;
-
-  loc;
 
   variant: string;
 
   constructor(ast: ast.UnicodeStringLiteral, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.variant = ast.variant.unparse();
 

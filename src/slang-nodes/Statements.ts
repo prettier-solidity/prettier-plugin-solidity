@@ -3,31 +3,27 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printComments } from '../slang-printers/print-comments.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { hardline } = doc.builders;
 
-export class Statements implements SlangNode {
+export class Statements extends SlangNode {
   readonly kind = NonterminalKind.Statements;
-
-  comments;
-
-  loc;
 
   items: Statement[];
 
   constructor(ast: ast.Statements, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map((item) => new Statement(item, options));
 
-    updateMetadata(this.loc, this.comments, [this.items]);
+    this.updateMetadata([this.items]);
   }
 
   print(

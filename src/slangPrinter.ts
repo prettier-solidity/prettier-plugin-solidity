@@ -29,6 +29,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
       case 'kind':
       case 'loc':
       case 'print':
+      case 'updateMetadata':
         break;
       // The key `comments` will contain every comment for this node
       case 'comments':

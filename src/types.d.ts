@@ -1,7 +1,6 @@
-import type { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, Comment, StrictAstNode } from './slang-nodes/types.d.ts';
+import type { AstPath, Doc } from 'prettier';
+import type { AstNode } from './slang-nodes/types.d.ts';
 
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {
@@ -18,36 +17,6 @@ interface Location {
 interface AstLocation extends Location {
   leadingOffset: number;
   trailingOffset: number;
-}
-
-interface BaseComment {
-  value: string;
-  loc: Location;
-  leading?: boolean;
-  trailing?: boolean;
-  printed?: boolean;
-  placement?: 'endOfLine' | 'ownLine' | 'remaining';
-  precedingNode?: StrictAstNode;
-  enclosingNode?: StrictAstNode;
-  followingNode?: StrictAstNode;
-}
-
-interface SlangNode {
-  kind:
-    | NonterminalKind
-    | typeof TerminalKind.Identifier
-    | typeof TerminalKind.YulIdentifier
-    | typeof TerminalKind.MultiLineComment
-    | typeof TerminalKind.MultiLineNatSpecComment
-    | typeof TerminalKind.SingleLineComment
-    | typeof TerminalKind.SingleLineNatSpecComment;
-  comments?: Comment[];
-  loc: AstLocation | Location;
-  print(
-    path: AstPath<AstNode>,
-    print: (path: AstPath<AstNode>) => Doc,
-    options: ParserOptions
-  ): Doc;
 }
 
 type PrintFunction = (path: AstPath<AstNode>) => Doc;

@@ -1,23 +1,19 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class MappingKeyType implements SlangNode {
+export class MappingKeyType extends SlangNode {
   readonly kind = NonterminalKind.MappingKeyType;
-
-  comments;
-
-  loc;
 
   variant: ElementaryType | IdentifierPath;
 
   constructor(ast: ast.MappingKeyType) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ElementaryType:
@@ -30,7 +26,7 @@ export class MappingKeyType implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    updateMetadata(this.loc, this.comments, [this.variant]);
+    this.updateMetadata([this.variant]);
   }
 
   print(path: AstPath<MappingKeyType>, print: PrintFunction): Doc {

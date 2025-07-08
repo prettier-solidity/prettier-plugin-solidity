@@ -1,5 +1,5 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
 import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js';
@@ -7,14 +7,10 @@ import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js'
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ForStatementInitialization implements SlangNode {
+export class ForStatementInitialization extends SlangNode {
   readonly kind = NonterminalKind.ForStatementInitialization;
-
-  comments;
-
-  loc;
 
   variant:
     | ExpressionStatement
@@ -26,7 +22,7 @@ export class ForStatementInitialization implements SlangNode {
     ast: ast.ForStatementInitialization,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
@@ -55,11 +51,7 @@ export class ForStatementInitialization implements SlangNode {
       }
     }
 
-    updateMetadata(
-      this.loc,
-      this.comments,
-      typeof this.variant === 'string' ? [] : [this.variant]
-    );
+    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
   }
 
   print(path: AstPath<ForStatementInitialization>, print: PrintFunction): Doc {

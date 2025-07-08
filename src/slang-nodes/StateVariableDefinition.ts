@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StateVariableAttributes } from './StateVariableAttributes.js';
 import { Identifier } from './Identifier.js';
@@ -9,16 +9,12 @@ import { StateVariableDefinitionValue } from './StateVariableDefinitionValue.js'
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, indent, indentIfBreak } = doc.builders;
 
-export class StateVariableDefinition implements SlangNode {
+export class StateVariableDefinition extends SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinition;
-
-  comments;
-
-  loc;
 
   typeName: TypeName;
 
@@ -32,7 +28,7 @@ export class StateVariableDefinition implements SlangNode {
     ast: ast.StateVariableDefinition,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.typeName = new TypeName(ast.typeName, options);
     this.attributes = new StateVariableAttributes(ast.attributes);
@@ -41,11 +37,7 @@ export class StateVariableDefinition implements SlangNode {
       this.value = new StateVariableDefinitionValue(ast.value, options);
     }
 
-    updateMetadata(this.loc, this.comments, [
-      this.typeName,
-      this.attributes,
-      this.value
-    ]);
+    this.updateMetadata([this.typeName, this.attributes, this.value]);
   }
 
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {

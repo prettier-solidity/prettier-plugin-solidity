@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { PathImport } from './PathImport.js';
 import { NamedImport } from './NamedImport.js';
 import { ImportDeconstruction } from './ImportDeconstruction.js';
@@ -7,19 +7,15 @@ import { ImportDeconstruction } from './ImportDeconstruction.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ImportClause implements SlangNode {
+export class ImportClause extends SlangNode {
   readonly kind = NonterminalKind.ImportClause;
-
-  comments;
-
-  loc;
 
   variant: PathImport | NamedImport | ImportDeconstruction;
 
   constructor(ast: ast.ImportClause, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.PathImport:
@@ -38,7 +34,7 @@ export class ImportClause implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    updateMetadata(this.loc, this.comments, [this.variant]);
+    this.updateMetadata([this.variant]);
   }
 
   print(path: AstPath<ImportClause>, print: PrintFunction): Doc {

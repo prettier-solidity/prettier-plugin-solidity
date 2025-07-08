@@ -1,22 +1,18 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { UnnamedFunctionAttribute } from './UnnamedFunctionAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
-export class UnnamedFunctionAttributes implements SlangNode {
+export class UnnamedFunctionAttributes extends SlangNode {
   readonly kind = NonterminalKind.UnnamedFunctionAttributes;
-
-  comments;
-
-  loc;
 
   items: UnnamedFunctionAttribute[];
 
@@ -24,13 +20,13 @@ export class UnnamedFunctionAttributes implements SlangNode {
     ast: ast.UnnamedFunctionAttributes,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map(
       (item) => new UnnamedFunctionAttribute(item, options)
     );
 
-    updateMetadata(this.loc, this.comments, [this.items]);
+    this.updateMetadata([this.items]);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

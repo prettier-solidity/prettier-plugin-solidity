@@ -1,22 +1,18 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
-export class StorageLayoutSpecifier implements SlangNode {
+export class StorageLayoutSpecifier extends SlangNode {
   readonly kind = NonterminalKind.StorageLayoutSpecifier;
-
-  comments;
-
-  loc;
 
   expression: Expression;
 
@@ -24,11 +20,11 @@ export class StorageLayoutSpecifier implements SlangNode {
     ast: ast.StorageLayoutSpecifier,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.expression = new Expression(ast.expression, options);
 
-    updateMetadata(this.loc, this.comments, [this.expression]);
+    this.updateMetadata([this.expression]);
   }
 
   print(path: AstPath<StorageLayoutSpecifier>, print: PrintFunction): Doc {

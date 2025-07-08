@@ -1,32 +1,28 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 import { NumberUnit } from './NumberUnit.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class HexNumberExpression implements SlangNode {
+export class HexNumberExpression extends SlangNode {
   readonly kind = NonterminalKind.HexNumberExpression;
-
-  comments;
-
-  loc;
 
   literal: string;
 
   unit?: NumberUnit;
 
   constructor(ast: ast.HexNumberExpression) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.literal = ast.literal.unparse();
     if (ast.unit) {
       this.unit = new NumberUnit(ast.unit);
     }
 
-    updateMetadata(this.loc, this.comments, [this.unit]);
+    this.updateMetadata([this.unit]);
   }
 
   print(path: AstPath<HexNumberExpression>, print: PrintFunction): Doc {

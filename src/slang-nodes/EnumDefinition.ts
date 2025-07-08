@@ -1,30 +1,26 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Identifier } from './Identifier.js';
 import { EnumMembers } from './EnumMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class EnumDefinition implements SlangNode {
+export class EnumDefinition extends SlangNode {
   readonly kind = NonterminalKind.EnumDefinition;
-
-  comments;
-
-  loc;
 
   name: Identifier;
 
   members: EnumMembers;
 
   constructor(ast: ast.EnumDefinition) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.name = new Identifier(ast.name);
     this.members = new EnumMembers(ast.members);
 
-    updateMetadata(this.loc, this.comments, [this.members]);
+    this.updateMetadata([this.members]);
   }
 
   print(path: AstPath<EnumDefinition>, print: PrintFunction): Doc {

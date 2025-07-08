@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { UsingDirective } from './UsingDirective.js';
 import { FunctionDefinition } from './FunctionDefinition.js';
 import { ConstructorDefinition } from './ConstructorDefinition.js';
@@ -17,14 +17,10 @@ import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ContractMember implements SlangNode {
+export class ContractMember extends SlangNode {
   readonly kind = NonterminalKind.ContractMember;
-
-  comments;
-
-  loc;
 
   variant:
     | UsingDirective
@@ -42,7 +38,7 @@ export class ContractMember implements SlangNode {
     | UserDefinedValueTypeDefinition;
 
   constructor(ast: ast.ContractMember, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.UsingDirective:
@@ -123,7 +119,7 @@ export class ContractMember implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    updateMetadata(this.loc, this.comments, [this.variant]);
+    this.updateMetadata([this.variant]);
   }
 
   print(path: AstPath<ContractMember>, print: PrintFunction): Doc {

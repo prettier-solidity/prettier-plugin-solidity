@@ -1,18 +1,14 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { AssemblyFlags } from './AssemblyFlags.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class AssemblyFlagsDeclaration implements SlangNode {
+export class AssemblyFlagsDeclaration extends SlangNode {
   readonly kind = NonterminalKind.AssemblyFlagsDeclaration;
-
-  comments;
-
-  loc;
 
   flags: AssemblyFlags;
 
@@ -20,11 +16,11 @@ export class AssemblyFlagsDeclaration implements SlangNode {
     ast: ast.AssemblyFlagsDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.flags = new AssemblyFlags(ast.flags, options);
 
-    updateMetadata(this.loc, this.comments, [this.flags]);
+    this.updateMetadata([this.flags]);
   }
 
   print(path: AstPath<AssemblyFlagsDeclaration>, print: PrintFunction): Doc {

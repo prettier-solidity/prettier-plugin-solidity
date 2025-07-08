@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunction } from '../slang-printers/print-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { ConstructorAttributes } from './ConstructorAttributes.js';
 import { Block } from './Block.js';
@@ -8,14 +8,10 @@ import { Block } from './Block.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ConstructorDefinition implements SlangNode {
+export class ConstructorDefinition extends SlangNode {
   readonly kind = NonterminalKind.ConstructorDefinition;
-
-  comments;
-
-  loc;
 
   parameters: ParametersDeclaration;
 
@@ -24,17 +20,13 @@ export class ConstructorDefinition implements SlangNode {
   body: Block;
 
   constructor(ast: ast.ConstructorDefinition, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new ConstructorAttributes(ast.attributes, options);
     this.body = new Block(ast.body, options);
 
-    updateMetadata(this.loc, this.comments, [
-      this.parameters,
-      this.attributes,
-      this.body
-    ]);
+    this.updateMetadata([this.parameters, this.attributes, this.body]);
   }
 
   print(path: AstPath<ConstructorDefinition>, print: PrintFunction): Doc {

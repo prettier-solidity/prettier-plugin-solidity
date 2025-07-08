@@ -1,31 +1,27 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { CallOptions } from './CallOptions.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class CallOptionsExpression implements SlangNode {
+export class CallOptionsExpression extends SlangNode {
   readonly kind = NonterminalKind.CallOptionsExpression;
-
-  comments;
-
-  loc;
 
   operand: Expression;
 
   options: CallOptions;
 
   constructor(ast: ast.CallOptionsExpression, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.operand = new Expression(ast.operand, options);
     this.options = new CallOptions(ast.options, options);
 
-    updateMetadata(this.loc, this.comments, [this.operand, this.options]);
+    this.updateMetadata([this.operand, this.options]);
   }
 
   print(path: AstPath<CallOptionsExpression>, print: PrintFunction): Doc {

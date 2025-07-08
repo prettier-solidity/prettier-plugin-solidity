@@ -1,22 +1,18 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { FallbackFunctionAttribute } from './FallbackFunctionAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
-export class FallbackFunctionAttributes implements SlangNode {
+export class FallbackFunctionAttributes extends SlangNode {
   readonly kind = NonterminalKind.FallbackFunctionAttributes;
-
-  comments;
-
-  loc;
 
   items: FallbackFunctionAttribute[];
 
@@ -24,13 +20,13 @@ export class FallbackFunctionAttributes implements SlangNode {
     ast: ast.FallbackFunctionAttributes,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map(
       (item) => new FallbackFunctionAttribute(item, options)
     );
 
-    updateMetadata(this.loc, this.comments, [this.items]);
+    this.updateMetadata([this.items]);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

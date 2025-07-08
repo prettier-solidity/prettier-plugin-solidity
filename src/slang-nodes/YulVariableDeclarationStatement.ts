@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.js';
 import { YulVariableNames } from './YulVariableNames.js';
@@ -7,14 +7,10 @@ import { YulVariableNames } from './YulVariableNames.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class YulVariableDeclarationStatement implements SlangNode {
+export class YulVariableDeclarationStatement extends SlangNode {
   readonly kind = NonterminalKind.YulVariableDeclarationStatement;
-
-  comments;
-
-  loc;
 
   variables: YulVariableNames;
 
@@ -24,14 +20,14 @@ export class YulVariableDeclarationStatement implements SlangNode {
     ast: ast.YulVariableDeclarationStatement,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.variables = new YulVariableNames(ast.variables);
     if (ast.value) {
       this.value = new YulVariableDeclarationValue(ast.value, options);
     }
 
-    updateMetadata(this.loc, this.comments, [this.value]);
+    this.updateMetadata([this.value]);
   }
 
   print(

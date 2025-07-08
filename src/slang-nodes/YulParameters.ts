@@ -1,23 +1,19 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { YulIdentifier } from './YulIdentifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class YulParameters implements SlangNode {
+export class YulParameters extends SlangNode {
   readonly kind = NonterminalKind.YulParameters;
-
-  comments;
-
-  loc;
 
   items: YulIdentifier[];
 
   constructor(ast: ast.YulParameters) {
-    [this.loc, this.comments] = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map((item) => new YulIdentifier(item));
   }

@@ -1,21 +1,16 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
-import type { SlangNode } from '../types.d.ts';
 
-export class NumberUnit implements SlangNode {
+export class NumberUnit extends SlangNode {
   readonly kind = NonterminalKind.NumberUnit;
-
-  comments;
-
-  loc;
 
   variant: string;
 
   constructor(ast: ast.NumberUnit) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.variant = ast.variant.unparse();
   }

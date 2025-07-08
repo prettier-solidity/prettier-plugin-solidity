@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Identifier } from './Identifier.js';
 import { ContractSpecifiers } from './ContractSpecifiers.js';
 import { ContractMembers } from './ContractMembers.js';
@@ -9,16 +9,12 @@ import { ContractMembers } from './ContractMembers.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, line } = doc.builders;
 
-export class ContractDefinition implements SlangNode {
+export class ContractDefinition extends SlangNode {
   readonly kind = NonterminalKind.ContractDefinition;
-
-  comments;
-
-  loc;
 
   abstractKeyword?: string;
 
@@ -29,14 +25,14 @@ export class ContractDefinition implements SlangNode {
   members: ContractMembers;
 
   constructor(ast: ast.ContractDefinition, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.abstractKeyword = ast.abstractKeyword?.unparse();
     this.name = new Identifier(ast.name);
     this.specifiers = new ContractSpecifiers(ast.specifiers, options);
     this.members = new ContractMembers(ast.members, options);
 
-    updateMetadata(this.loc, this.comments, [this.specifiers, this.members]);
+    this.updateMetadata([this.specifiers, this.members]);
 
     this.cleanModifierInvocationArguments(options);
   }

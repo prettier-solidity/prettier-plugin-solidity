@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { PragmaDirective } from './PragmaDirective.js';
 import { ImportDirective } from './ImportDirective.js';
 import { ContractDefinition } from './ContractDefinition.js';
@@ -17,14 +17,10 @@ import { EventDefinition } from './EventDefinition.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class SourceUnitMember implements SlangNode {
+export class SourceUnitMember extends SlangNode {
   readonly kind = NonterminalKind.SourceUnitMember;
-
-  comments;
-
-  loc;
 
   variant:
     | PragmaDirective
@@ -42,7 +38,7 @@ export class SourceUnitMember implements SlangNode {
     | EventDefinition;
 
   constructor(ast: ast.SourceUnitMember, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.PragmaDirective:
@@ -123,7 +119,7 @@ export class SourceUnitMember implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    updateMetadata(this.loc, this.comments, [this.variant]);
+    this.updateMetadata([this.variant]);
   }
 
   print(path: AstPath<SourceUnitMember>, print: PrintFunction): Doc {

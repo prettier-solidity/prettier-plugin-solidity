@@ -1,33 +1,25 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { SimpleVersionLiteral } from './SimpleVersionLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class VersionLiteral implements SlangNode {
+export class VersionLiteral extends SlangNode {
   readonly kind = NonterminalKind.VersionLiteral;
-
-  comments;
-
-  loc;
 
   variant: SimpleVersionLiteral | string;
 
   constructor(ast: ast.VersionLiteral) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new SimpleVersionLiteral(ast.variant);
 
-    updateMetadata(
-      this.loc,
-      this.comments,
-      typeof this.variant === 'string' ? [] : [this.variant]
-    );
+    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
   }
 
   print(path: AstPath<VersionLiteral>, print: PrintFunction): Doc {

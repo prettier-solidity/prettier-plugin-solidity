@@ -1,19 +1,15 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printLogicalOperation } from '../slang-printers/print-logical-operation.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class AndExpression implements SlangNode {
+export class AndExpression extends SlangNode {
   readonly kind = NonterminalKind.AndExpression;
-
-  comments;
-
-  loc;
 
   leftOperand: Expression;
 
@@ -22,16 +18,13 @@ export class AndExpression implements SlangNode {
   rightOperand: Expression;
 
   constructor(ast: ast.AndExpression, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.leftOperand = new Expression(ast.leftOperand, options);
     this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, options);
 
-    updateMetadata(this.loc, this.comments, [
-      this.leftOperand,
-      this.rightOperand
-    ]);
+    this.updateMetadata([this.leftOperand, this.rightOperand]);
   }
 
   print(

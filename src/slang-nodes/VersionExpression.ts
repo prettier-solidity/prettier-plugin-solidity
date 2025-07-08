@@ -1,23 +1,19 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { VersionRange } from './VersionRange.js';
 import { VersionTerm } from './VersionTerm.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class VersionExpression implements SlangNode {
+export class VersionExpression extends SlangNode {
   readonly kind = NonterminalKind.VersionExpression;
-
-  comments;
-
-  loc;
 
   variant: VersionRange | VersionTerm;
 
   constructor(ast: ast.VersionExpression) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.VersionRange:
@@ -30,7 +26,7 @@ export class VersionExpression implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    updateMetadata(this.loc, this.comments, [this.variant]);
+    this.updateMetadata([this.variant]);
   }
 
   print(path: AstPath<VersionExpression>, print: PrintFunction): Doc {

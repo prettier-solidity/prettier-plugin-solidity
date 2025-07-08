@@ -1,19 +1,15 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
 import { PositionalArguments } from './PositionalArguments.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class PositionalArgumentsDeclaration implements SlangNode {
+export class PositionalArgumentsDeclaration extends SlangNode {
   readonly kind = NonterminalKind.PositionalArgumentsDeclaration;
-
-  comments;
-
-  loc;
 
   isEmpty;
 
@@ -23,11 +19,11 @@ export class PositionalArgumentsDeclaration implements SlangNode {
     ast: ast.PositionalArgumentsDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.arguments = new PositionalArguments(ast.arguments, options);
 
-    updateMetadata(this.loc, this.comments, [this.arguments]);
+    this.updateMetadata([this.arguments]);
 
     // We need to check the comments at this point because they will be removed
     // from this node into the root node.

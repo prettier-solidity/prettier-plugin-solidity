@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { YulIdentifier } from './YulIdentifier.js';
 import { YulParametersDeclaration } from './YulParametersDeclaration.js';
 import { YulReturnsDeclaration } from './YulReturnsDeclaration.js';
@@ -8,14 +8,10 @@ import { YulBlock } from './YulBlock.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class YulFunctionDefinition implements SlangNode {
+export class YulFunctionDefinition extends SlangNode {
   readonly kind = NonterminalKind.YulFunctionDefinition;
-
-  comments;
-
-  loc;
 
   name: YulIdentifier;
 
@@ -26,7 +22,7 @@ export class YulFunctionDefinition implements SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.YulFunctionDefinition, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.name = new YulIdentifier(ast.name);
     this.parameters = new YulParametersDeclaration(ast.parameters);
@@ -35,11 +31,7 @@ export class YulFunctionDefinition implements SlangNode {
     }
     this.body = new YulBlock(ast.body, options);
 
-    updateMetadata(this.loc, this.comments, [
-      this.parameters,
-      this.returns,
-      this.body
-    ]);
+    this.updateMetadata([this.parameters, this.returns, this.body]);
   }
 
   print(path: AstPath<YulFunctionDefinition>, print: PrintFunction): Doc {

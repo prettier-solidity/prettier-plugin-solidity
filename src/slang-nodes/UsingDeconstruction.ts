@@ -1,26 +1,22 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { UsingDeconstructionSymbols } from './UsingDeconstructionSymbols.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class UsingDeconstruction implements SlangNode {
+export class UsingDeconstruction extends SlangNode {
   readonly kind = NonterminalKind.UsingDeconstruction;
-
-  comments;
-
-  loc;
 
   symbols: UsingDeconstructionSymbols;
 
   constructor(ast: ast.UsingDeconstruction) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.symbols = new UsingDeconstructionSymbols(ast.symbols);
 
-    updateMetadata(this.loc, this.comments, [this.symbols]);
+    this.updateMetadata([this.symbols]);
   }
 
   print(path: AstPath<UsingDeconstruction>, print: PrintFunction): Doc {

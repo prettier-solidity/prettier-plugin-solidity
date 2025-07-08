@@ -1,31 +1,27 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Identifier } from './Identifier.js';
 import { StructMembers } from './StructMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class StructDefinition implements SlangNode {
+export class StructDefinition extends SlangNode {
   readonly kind = NonterminalKind.StructDefinition;
-
-  comments;
-
-  loc;
 
   name: Identifier;
 
   members: StructMembers;
 
   constructor(ast: ast.StructDefinition, options: ParserOptions<AstNode>) {
-    [this.loc, this.comments] = getNodeMetadata(ast);
+    super(ast);
 
     this.name = new Identifier(ast.name);
     this.members = new StructMembers(ast.members, options);
 
-    updateMetadata(this.loc, this.comments, [this.members]);
+    this.updateMetadata([this.members]);
   }
 
   print(path: AstPath<StructDefinition>, print: PrintFunction): Doc {
