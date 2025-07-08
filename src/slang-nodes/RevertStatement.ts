@@ -30,8 +30,7 @@ export class RevertStatement implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.error, this.arguments]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<RevertStatement>, print: PrintFunction): Doc {

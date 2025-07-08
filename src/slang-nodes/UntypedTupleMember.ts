@@ -29,8 +29,7 @@ export class UntypedTupleMember implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.storageLocation]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<UntypedTupleMember>, print: PrintFunction): Doc {

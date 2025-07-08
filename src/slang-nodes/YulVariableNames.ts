@@ -24,8 +24,7 @@ export class YulVariableNames implements SlangNode {
 
     this.items = ast.items.map((item) => new YulIdentifier(item));
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulVariableNames>, print: PrintFunction): Doc {

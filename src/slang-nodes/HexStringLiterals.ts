@@ -26,8 +26,7 @@ export class HexStringLiterals implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.items]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<HexStringLiterals>, print: PrintFunction): Doc {

@@ -134,8 +134,7 @@ export class ConditionalExpression implements SlangNode {
       this.falseExpression
     ]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     if (options.experimentalTernaries) {
       // We can remove parentheses only because we are sure that the

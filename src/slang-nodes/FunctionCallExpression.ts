@@ -34,8 +34,7 @@ export class FunctionCallExpression implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.operand, this.arguments]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {

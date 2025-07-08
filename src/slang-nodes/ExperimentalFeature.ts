@@ -34,8 +34,7 @@ export class ExperimentalFeature implements SlangNode {
       this.variant.kind === TerminalKind.Identifier ? [] : [this.variant]
     );
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ExperimentalFeature>, print: PrintFunction): Doc {

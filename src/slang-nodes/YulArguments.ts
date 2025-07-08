@@ -24,8 +24,7 @@ export class YulArguments implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.items]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulArguments>, print: PrintFunction): Doc {

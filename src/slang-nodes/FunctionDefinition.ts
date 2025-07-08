@@ -49,8 +49,7 @@ export class FunctionDefinition implements SlangNode {
       this.body
     ]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.

@@ -25,8 +25,7 @@ export class IndexAccessEnd implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.end]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<IndexAccessEnd>, print: PrintFunction): Doc {

@@ -31,8 +31,7 @@ export class UsingDirective implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.clause, this.target]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<UsingDirective>, print: PrintFunction): Doc {

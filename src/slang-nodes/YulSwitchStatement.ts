@@ -30,8 +30,7 @@ export class YulSwitchStatement implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.expression, this.cases]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulSwitchStatement>, print: PrintFunction): Doc {

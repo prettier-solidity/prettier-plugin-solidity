@@ -53,8 +53,7 @@ export class MultiplicativeExpression implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     switch (this.operator) {
       case '*':

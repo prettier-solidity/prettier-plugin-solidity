@@ -26,8 +26,7 @@ export class AssemblyFlagsDeclaration implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.flags]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<AssemblyFlagsDeclaration>, print: PrintFunction): Doc {

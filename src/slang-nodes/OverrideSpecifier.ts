@@ -24,8 +24,7 @@ export class OverrideSpecifier implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.overridden]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<OverrideSpecifier>, print: PrintFunction): Doc {

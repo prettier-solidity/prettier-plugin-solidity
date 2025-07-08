@@ -30,8 +30,7 @@ export class ErrorParameter implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.typeName]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ErrorParameter>, print: PrintFunction): Doc {

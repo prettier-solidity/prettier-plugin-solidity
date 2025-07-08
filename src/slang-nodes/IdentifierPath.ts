@@ -23,8 +23,7 @@ export class IdentifierPath implements SlangNode {
 
     this.items = ast.items.map((item) => new Identifier(item));
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<IdentifierPath>, print: PrintFunction): Doc {

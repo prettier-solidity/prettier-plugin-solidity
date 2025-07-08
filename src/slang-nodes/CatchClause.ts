@@ -29,8 +29,7 @@ export class CatchClause implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.error, this.body]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<CatchClause>, print: PrintFunction): Doc {

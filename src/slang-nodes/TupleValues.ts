@@ -26,8 +26,7 @@ export class TupleValues implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.items]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   getSingleExpression(): Expression | undefined {

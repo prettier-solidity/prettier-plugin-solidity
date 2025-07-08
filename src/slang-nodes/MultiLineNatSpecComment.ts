@@ -36,7 +36,7 @@ export class MultiLineNatSpecComment implements SlangNode, BaseComment {
 
     this.value = ast.unparse();
 
-    this.loc = metadata.loc;
+    [this.loc] = metadata;
   }
 
   print(): Doc {

@@ -26,8 +26,7 @@ export class EnumDefinition implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.members]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<EnumDefinition>, print: PrintFunction): Doc {

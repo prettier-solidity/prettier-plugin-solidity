@@ -49,8 +49,7 @@ export class VariableDeclarationStatement implements SlangNode {
       this.value
     ]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(

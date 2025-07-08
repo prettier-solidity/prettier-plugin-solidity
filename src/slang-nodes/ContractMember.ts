@@ -125,8 +125,7 @@ export class ContractMember implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.variant]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ContractMember>, print: PrintFunction): Doc {

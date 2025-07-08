@@ -27,8 +27,7 @@ export class CallOptionsExpression implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.operand, this.options]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<CallOptionsExpression>, print: PrintFunction): Doc {

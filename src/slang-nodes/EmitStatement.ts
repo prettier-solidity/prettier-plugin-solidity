@@ -27,8 +27,7 @@ export class EmitStatement implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.event, this.arguments]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<EmitStatement>, print: PrintFunction): Doc {

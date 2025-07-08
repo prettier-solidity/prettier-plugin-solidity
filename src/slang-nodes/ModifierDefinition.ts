@@ -43,8 +43,7 @@ export class ModifierDefinition implements SlangNode {
       this.body
     ]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     if (!this.parameters) {
       const parametersOffset =

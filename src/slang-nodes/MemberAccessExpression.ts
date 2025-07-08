@@ -133,8 +133,7 @@ export class MemberAccessExpression implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.operand]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<MemberAccessExpression>, print: PrintFunction): Doc {

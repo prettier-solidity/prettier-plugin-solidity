@@ -23,8 +23,7 @@ export class ExperimentalPragma implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.feature]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ExperimentalPragma>, print: PrintFunction): Doc {

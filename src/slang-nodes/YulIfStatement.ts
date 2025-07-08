@@ -27,8 +27,7 @@ export class YulIfStatement implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.condition, this.body]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulIfStatement>, print: PrintFunction): Doc {

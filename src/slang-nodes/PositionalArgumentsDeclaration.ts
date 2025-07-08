@@ -29,8 +29,7 @@ export class PositionalArgumentsDeclaration implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.arguments]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     // We need to check the comments at this point because they will be removed
     // from this node into the root node.

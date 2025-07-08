@@ -5,7 +5,7 @@ import { SourceUnitMembers } from './SourceUnitMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { AstNode, Comment } from './types.d.ts';
 import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { line } = doc.builders;
@@ -13,7 +13,7 @@ const { line } = doc.builders;
 export class SourceUnit implements SlangNode {
   readonly kind = NonterminalKind.SourceUnit;
 
-  comments;
+  comments: Comment[];
 
   loc;
 
@@ -26,10 +26,10 @@ export class SourceUnit implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.members]);
 
+    [this.loc, this.comments] = metadata;
     // Because of comments being extracted like a russian doll, the order needs
     // to be fixed at the end.
-    this.comments = metadata.comments.sort((a, b) => a.loc.start - b.loc.start);
-    this.loc = metadata.loc;
+    this.comments = this.comments.sort((a, b) => a.loc.start - b.loc.start);
   }
 
   print(

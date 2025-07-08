@@ -22,8 +22,7 @@ export class UsingAlias implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.operator]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<UsingAlias>, print: PrintFunction): Doc {

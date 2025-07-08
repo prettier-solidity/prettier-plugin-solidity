@@ -36,8 +36,7 @@ export class AssemblyStatement implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.label, this.flags, this.body]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<AssemblyStatement>, print: PrintFunction): Doc {
