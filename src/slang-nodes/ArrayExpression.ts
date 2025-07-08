@@ -20,13 +20,11 @@ export class ArrayExpression implements SlangNode {
   items: ArrayValues;
 
   constructor(ast: ast.ArrayExpression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.items = new ArrayValues(ast.items, options);
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
   }
 
   print(path: AstPath<ArrayExpression>, print: PrintFunction): Doc {

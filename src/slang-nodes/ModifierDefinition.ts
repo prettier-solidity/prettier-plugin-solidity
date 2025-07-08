@@ -28,7 +28,7 @@ export class ModifierDefinition implements SlangNode {
   body: FunctionBody;
 
   constructor(ast: ast.ModifierDefinition, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.name = new Identifier(ast.name);
     if (ast.parameters) {
@@ -37,13 +37,11 @@ export class ModifierDefinition implements SlangNode {
     this.attributes = new ModifierAttributes(ast.attributes);
     this.body = new FunctionBody(ast.body, options);
 
-    metadata = updateMetadata(metadata, [
+    [this.loc, this.comments] = updateMetadata(metadata, [
       this.parameters,
       this.attributes,
       this.body
     ]);
-
-    [this.loc, this.comments] = metadata;
 
     if (!this.parameters) {
       const parametersOffset =

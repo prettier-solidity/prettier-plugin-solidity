@@ -13,9 +13,7 @@ export class ContinueStatement implements SlangNode {
   loc;
 
   constructor(ast: ast.ContinueStatement) {
-    const metadata = getNodeMetadata(ast);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = getNodeMetadata(ast);
   }
 
   print(): Doc {

@@ -20,13 +20,11 @@ export class ReturnsDeclaration implements SlangNode {
   variables: ParametersDeclaration;
 
   constructor(ast: ast.ReturnsDeclaration, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.variables = new ParametersDeclaration(ast.variables, options);
 
-    metadata = updateMetadata(metadata, [this.variables]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.variables]);
   }
 
   print(path: AstPath<ReturnsDeclaration>, print: PrintFunction): Doc {

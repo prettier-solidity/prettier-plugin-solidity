@@ -26,7 +26,7 @@ export class StringExpression implements SlangNode {
     | UnicodeStringLiterals;
 
   constructor(ast: ast.StringExpression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.StringLiteral:
@@ -63,9 +63,7 @@ export class StringExpression implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    metadata = updateMetadata(metadata, [this.variant]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
   }
 
   print(path: AstPath<StringExpression>, print: PrintFunction): Doc {

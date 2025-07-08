@@ -19,11 +19,9 @@ export class YulLabel implements SlangNode {
   label: YulIdentifier;
 
   constructor(ast: ast.YulLabel) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.label = new YulIdentifier(ast.label);
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulLabel>, print: PrintFunction): Doc {

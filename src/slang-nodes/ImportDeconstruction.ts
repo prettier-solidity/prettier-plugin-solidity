@@ -20,14 +20,15 @@ export class ImportDeconstruction implements SlangNode {
   path: StringLiteral;
 
   constructor(ast: ast.ImportDeconstruction, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.symbols = new ImportDeconstructionSymbols(ast.symbols);
     this.path = new StringLiteral(ast.path, options);
 
-    metadata = updateMetadata(metadata, [this.symbols, this.path]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.symbols,
+      this.path
+    ]);
   }
 
   print(path: AstPath<ImportDeconstruction>, print: PrintFunction): Doc {

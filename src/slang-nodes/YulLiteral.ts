@@ -18,7 +18,7 @@ export class YulLiteral implements SlangNode {
   variant: HexStringLiteral | StringLiteral | string;
 
   constructor(ast: ast.YulLiteral, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
@@ -41,12 +41,10 @@ export class YulLiteral implements SlangNode {
       }
     }
 
-    metadata = updateMetadata(
+    [this.loc, this.comments] = updateMetadata(
       metadata,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulLiteral>, print: PrintFunction): Doc {

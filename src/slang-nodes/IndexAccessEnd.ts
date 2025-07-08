@@ -17,15 +17,13 @@ export class IndexAccessEnd implements SlangNode {
   end?: Expression;
 
   constructor(ast: ast.IndexAccessEnd, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     if (ast.end) {
       this.end = new Expression(ast.end, options);
     }
 
-    metadata = updateMetadata(metadata, [this.end]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.end]);
   }
 
   print(path: AstPath<IndexAccessEnd>, print: PrintFunction): Doc {

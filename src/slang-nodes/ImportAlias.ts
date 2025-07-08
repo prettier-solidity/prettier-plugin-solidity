@@ -16,11 +16,9 @@ export class ImportAlias implements SlangNode {
   identifier: Identifier;
 
   constructor(ast: ast.ImportAlias) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.identifier = new Identifier(ast.identifier);
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ImportAlias>, print: PrintFunction): Doc {

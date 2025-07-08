@@ -24,15 +24,13 @@ export class ReceiveFunctionAttributes implements SlangNode {
     ast: ast.ReceiveFunctionAttributes,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, true);
+    const metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map(
       (item) => new ReceiveFunctionAttribute(item, options)
     );
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

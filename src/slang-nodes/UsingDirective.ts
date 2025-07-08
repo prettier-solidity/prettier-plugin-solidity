@@ -23,15 +23,16 @@ export class UsingDirective implements SlangNode {
   globalKeyword?: string;
 
   constructor(ast: ast.UsingDirective, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.clause = new UsingClause(ast.clause);
     this.target = new UsingTarget(ast.target, options);
     this.globalKeyword = ast.globalKeyword?.unparse();
 
-    metadata = updateMetadata(metadata, [this.clause, this.target]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.clause,
+      this.target
+    ]);
   }
 
   print(path: AstPath<UsingDirective>, print: PrintFunction): Doc {

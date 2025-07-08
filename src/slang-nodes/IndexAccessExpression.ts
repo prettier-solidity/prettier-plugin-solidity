@@ -27,7 +27,7 @@ export class IndexAccessExpression implements SlangNode {
   end?: IndexAccessEnd;
 
   constructor(ast: ast.IndexAccessExpression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.operand = new Expression(ast.operand, options);
     if (ast.start) {
@@ -37,9 +37,11 @@ export class IndexAccessExpression implements SlangNode {
       this.end = new IndexAccessEnd(ast.end, options);
     }
 
-    metadata = updateMetadata(metadata, [this.operand, this.start, this.end]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.operand,
+      this.start,
+      this.end
+    ]);
   }
 
   print(path: AstPath<IndexAccessExpression>, print: PrintFunction): Doc {

@@ -30,7 +30,7 @@ export class FallbackFunctionDefinition implements SlangNode {
     ast: ast.FallbackFunctionDefinition,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new FallbackFunctionAttributes(ast.attributes, options);
@@ -39,14 +39,12 @@ export class FallbackFunctionDefinition implements SlangNode {
     }
     this.body = new FunctionBody(ast.body, options);
 
-    metadata = updateMetadata(metadata, [
+    [this.loc, this.comments] = updateMetadata(metadata, [
       this.parameters,
       this.attributes,
       this.returns,
       this.body
     ]);
-
-    [this.loc, this.comments] = metadata;
 
     this.cleanModifierInvocationArguments();
   }

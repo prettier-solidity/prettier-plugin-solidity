@@ -26,13 +26,11 @@ export class ElseBranch implements SlangNode {
   body: Statement;
 
   constructor(ast: ast.ElseBranch, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.body = new Statement(ast.body, options);
 
-    metadata = updateMetadata(metadata, [this.body]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.body]);
   }
 
   print(path: AstPath<ElseBranch>, print: PrintFunction): Doc {

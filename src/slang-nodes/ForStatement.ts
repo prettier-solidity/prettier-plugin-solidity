@@ -30,7 +30,7 @@ export class ForStatement implements SlangNode {
   body: Statement;
 
   constructor(ast: ast.ForStatement, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.initialization = new ForStatementInitialization(
       ast.initialization,
@@ -42,14 +42,12 @@ export class ForStatement implements SlangNode {
     }
     this.body = new Statement(ast.body, options);
 
-    metadata = updateMetadata(metadata, [
+    [this.loc, this.comments] = updateMetadata(metadata, [
       this.initialization,
       this.condition,
       this.iterator,
       this.body
     ]);
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ForStatement>, print: PrintFunction): Doc {

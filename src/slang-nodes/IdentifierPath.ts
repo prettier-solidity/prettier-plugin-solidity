@@ -19,11 +19,9 @@ export class IdentifierPath implements SlangNode {
   items: Identifier[];
 
   constructor(ast: ast.IdentifierPath) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.items = ast.items.map((item) => new Identifier(item));
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<IdentifierPath>, print: PrintFunction): Doc {

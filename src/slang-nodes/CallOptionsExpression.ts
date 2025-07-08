@@ -20,14 +20,15 @@ export class CallOptionsExpression implements SlangNode {
   options: CallOptions;
 
   constructor(ast: ast.CallOptionsExpression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.operand = new Expression(ast.operand, options);
     this.options = new CallOptions(ast.options, options);
 
-    metadata = updateMetadata(metadata, [this.operand, this.options]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.operand,
+      this.options
+    ]);
   }
 
   print(path: AstPath<CallOptionsExpression>, print: PrintFunction): Doc {

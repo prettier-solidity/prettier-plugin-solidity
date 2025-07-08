@@ -16,19 +16,17 @@ export class VersionLiteral implements SlangNode {
   variant: SimpleVersionLiteral | string;
 
   constructor(ast: ast.VersionLiteral) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new SimpleVersionLiteral(ast.variant);
 
-    metadata = updateMetadata(
+    [this.loc, this.comments] = updateMetadata(
       metadata,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<VersionLiteral>, print: PrintFunction): Doc {

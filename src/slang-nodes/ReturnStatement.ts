@@ -37,15 +37,13 @@ export class ReturnStatement implements SlangNode {
   expression?: Expression;
 
   constructor(ast: ast.ReturnStatement, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     if (ast.expression) {
       this.expression = new Expression(ast.expression, options);
     }
 
-    metadata = updateMetadata(metadata, [this.expression]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.expression]);
   }
 
   print(

@@ -22,13 +22,11 @@ export class ImportDeconstructionSymbols implements SlangNode {
   items: ImportDeconstructionSymbol[];
 
   constructor(ast: ast.ImportDeconstructionSymbols) {
-    let metadata = getNodeMetadata(ast, true);
+    const metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new ImportDeconstructionSymbol(item));
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
   }
 
   print(

@@ -20,11 +20,9 @@ export class EnumMembers implements SlangNode {
   items: Identifier[];
 
   constructor(ast: ast.EnumMembers) {
-    const metadata = getNodeMetadata(ast, true);
+    [this.loc, this.comments] = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new Identifier(item));
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<EnumMembers>, print: PrintFunction): Doc {

@@ -18,13 +18,11 @@ export class ArrayValues implements SlangNode {
   items: Expression[];
 
   constructor(ast: ast.ArrayValues, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    const metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new Expression(item, options));
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
   }
 
   print(path: AstPath<ArrayValues>, print: PrintFunction): Doc {

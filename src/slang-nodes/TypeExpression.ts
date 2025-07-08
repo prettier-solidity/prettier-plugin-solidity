@@ -17,13 +17,11 @@ export class TypeExpression implements SlangNode {
   typeName: TypeName;
 
   constructor(ast: ast.TypeExpression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.typeName = new TypeName(ast.typeName, options);
 
-    metadata = updateMetadata(metadata, [this.typeName]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.typeName]);
   }
 
   print(path: AstPath<TypeExpression>, print: PrintFunction): Doc {

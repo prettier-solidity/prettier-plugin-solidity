@@ -76,7 +76,7 @@ export class Expression implements SlangNode {
     | Identifier;
 
   constructor(ast: ast.Expression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = new Identifier(ast.variant);
@@ -244,12 +244,10 @@ export class Expression implements SlangNode {
       }
     }
 
-    metadata = updateMetadata(
+    [this.loc, this.comments] = updateMetadata(
       metadata,
       this.variant.kind === TerminalKind.Identifier ? [] : [this.variant]
     );
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<Expression>, print: PrintFunction): Doc {

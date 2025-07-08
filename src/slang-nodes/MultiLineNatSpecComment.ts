@@ -32,11 +32,9 @@ export class MultiLineNatSpecComment implements SlangNode, BaseComment {
   followingNode?: StrictAstNode;
 
   constructor(ast: TerminalNode) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc] = getNodeMetadata(ast);
 
     this.value = ast.unparse();
-
-    [this.loc] = metadata;
   }
 
   print(): Doc {

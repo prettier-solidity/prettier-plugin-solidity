@@ -16,19 +16,17 @@ export class YulAssignmentOperator implements SlangNode {
   variant: YulColonAndEqual | string;
 
   constructor(ast: ast.YulAssignmentOperator) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new YulColonAndEqual(ast.variant);
 
-    metadata = updateMetadata(
+    [this.loc, this.comments] = updateMetadata(
       metadata,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulAssignmentOperator>, print: PrintFunction): Doc {

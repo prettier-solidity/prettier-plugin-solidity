@@ -19,14 +19,12 @@ export class EnumDefinition implements SlangNode {
   members: EnumMembers;
 
   constructor(ast: ast.EnumDefinition) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.name = new Identifier(ast.name);
     this.members = new EnumMembers(ast.members);
 
-    metadata = updateMetadata(metadata, [this.members]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.members]);
   }
 
   print(path: AstPath<EnumDefinition>, print: PrintFunction): Doc {

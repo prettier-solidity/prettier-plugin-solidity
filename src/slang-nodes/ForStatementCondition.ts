@@ -17,19 +17,17 @@ export class ForStatementCondition implements SlangNode {
   variant: ExpressionStatement | string;
 
   constructor(ast: ast.ForStatementCondition, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new ExpressionStatement(ast.variant, options);
 
-    metadata = updateMetadata(
+    [this.loc, this.comments] = updateMetadata(
       metadata,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ForStatementCondition>, print: PrintFunction): Doc {

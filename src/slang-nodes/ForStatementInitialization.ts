@@ -26,7 +26,7 @@ export class ForStatementInitialization implements SlangNode {
     ast: ast.ForStatementInitialization,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
@@ -55,12 +55,10 @@ export class ForStatementInitialization implements SlangNode {
       }
     }
 
-    metadata = updateMetadata(
+    [this.loc, this.comments] = updateMetadata(
       metadata,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ForStatementInitialization>, print: PrintFunction): Doc {

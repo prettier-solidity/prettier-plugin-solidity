@@ -122,19 +122,17 @@ export class ConditionalExpression implements SlangNode {
   falseExpression: Expression;
 
   constructor(ast: ast.ConditionalExpression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.operand = new Expression(ast.operand, options);
     this.trueExpression = new Expression(ast.trueExpression, options);
     this.falseExpression = new Expression(ast.falseExpression, options);
 
-    metadata = updateMetadata(metadata, [
+    [this.loc, this.comments] = updateMetadata(metadata, [
       this.operand,
       this.trueExpression,
       this.falseExpression
     ]);
-
-    [this.loc, this.comments] = metadata;
 
     if (options.experimentalTernaries) {
       // We can remove parentheses only because we are sure that the

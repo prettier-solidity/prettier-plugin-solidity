@@ -19,16 +19,14 @@ export class HexNumberExpression implements SlangNode {
   unit?: NumberUnit;
 
   constructor(ast: ast.HexNumberExpression) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.literal = ast.literal.unparse();
     if (ast.unit) {
       this.unit = new NumberUnit(ast.unit);
     }
 
-    metadata = updateMetadata(metadata, [this.unit]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.unit]);
   }
 
   print(path: AstPath<HexNumberExpression>, print: PrintFunction): Doc {

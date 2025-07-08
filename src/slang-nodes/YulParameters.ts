@@ -17,11 +17,9 @@ export class YulParameters implements SlangNode {
   items: YulIdentifier[];
 
   constructor(ast: ast.YulParameters) {
-    const metadata = getNodeMetadata(ast, true);
+    [this.loc, this.comments] = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new YulIdentifier(item));
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulParameters>, print: PrintFunction): Doc {

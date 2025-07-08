@@ -15,11 +15,9 @@ export class VersionOperator implements SlangNode {
   variant: string;
 
   constructor(ast: ast.VersionOperator) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.variant = ast.variant.unparse();
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(): Doc {

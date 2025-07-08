@@ -17,13 +17,11 @@ export class InheritanceSpecifier implements SlangNode {
   types: InheritanceTypes;
 
   constructor(ast: ast.InheritanceSpecifier, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.types = new InheritanceTypes(ast.types, options);
 
-    metadata = updateMetadata(metadata, [this.types]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.types]);
   }
 
   print(path: AstPath<InheritanceSpecifier>, print: PrintFunction): Doc {

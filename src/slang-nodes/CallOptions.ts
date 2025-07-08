@@ -21,13 +21,11 @@ export class CallOptions implements SlangNode {
   items: NamedArgument[];
 
   constructor(ast: ast.CallOptions, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    const metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new NamedArgument(item, options));
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
   }
 
   print(

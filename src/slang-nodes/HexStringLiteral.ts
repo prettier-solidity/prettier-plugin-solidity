@@ -17,11 +17,9 @@ export class HexStringLiteral implements SlangNode {
   variant: string;
 
   constructor(ast: ast.HexStringLiteral, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.variant = ast.variant.unparse();
-
-    [this.loc, this.comments] = metadata;
 
     this.variant = `hex${printString(this.variant.slice(4, -1), options)}`;
   }

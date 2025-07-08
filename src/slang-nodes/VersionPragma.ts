@@ -16,13 +16,11 @@ export class VersionPragma implements SlangNode {
   sets: VersionExpressionSets;
 
   constructor(ast: ast.VersionPragma) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.sets = new VersionExpressionSets(ast.sets);
 
-    metadata = updateMetadata(metadata, [this.sets]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.sets]);
   }
 
   print(path: AstPath<VersionPragma>, print: PrintFunction): Doc {

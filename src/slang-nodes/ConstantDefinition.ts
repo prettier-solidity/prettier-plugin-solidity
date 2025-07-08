@@ -23,15 +23,16 @@ export class ConstantDefinition implements SlangNode {
   value: Expression;
 
   constructor(ast: ast.ConstantDefinition, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.typeName = new TypeName(ast.typeName, options);
     this.name = new Identifier(ast.name);
     this.value = new Expression(ast.value, options);
 
-    metadata = updateMetadata(metadata, [this.typeName, this.value]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.typeName,
+      this.value
+    ]);
   }
 
   print(path: AstPath<ConstantDefinition>, print: PrintFunction): Doc {

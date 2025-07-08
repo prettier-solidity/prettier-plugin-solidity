@@ -17,11 +17,9 @@ export class UnicodeStringLiteral implements SlangNode {
   variant: string;
 
   constructor(ast: ast.UnicodeStringLiteral, options: ParserOptions<AstNode>) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.variant = ast.variant.unparse();
-
-    [this.loc, this.comments] = metadata;
 
     this.variant = `unicode${printString(this.variant.slice(8, -1), options)}`;
   }

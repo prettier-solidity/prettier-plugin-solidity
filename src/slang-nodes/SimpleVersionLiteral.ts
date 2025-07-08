@@ -15,11 +15,9 @@ export class SimpleVersionLiteral implements SlangNode {
   items: string[];
 
   constructor(ast: ast.SimpleVersionLiteral) {
-    const metadata = getNodeMetadata(ast, true);
+    [this.loc, this.comments] = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => item.unparse());
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(): Doc {

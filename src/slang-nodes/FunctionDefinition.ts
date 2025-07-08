@@ -31,7 +31,7 @@ export class FunctionDefinition implements SlangNode {
   body: FunctionBody;
 
   constructor(ast: ast.FunctionDefinition, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.name = new FunctionName(ast.name);
     this.parameters = new ParametersDeclaration(ast.parameters, options);
@@ -41,15 +41,13 @@ export class FunctionDefinition implements SlangNode {
     }
     this.body = new FunctionBody(ast.body, options);
 
-    metadata = updateMetadata(metadata, [
+    [this.loc, this.comments] = updateMetadata(metadata, [
       this.name,
       this.parameters,
       this.attributes,
       this.returns,
       this.body
     ]);
-
-    [this.loc, this.comments] = metadata;
 
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
