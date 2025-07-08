@@ -23,8 +23,7 @@ export class YulBlock implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.statements]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulBlock>, print: PrintFunction): Doc {

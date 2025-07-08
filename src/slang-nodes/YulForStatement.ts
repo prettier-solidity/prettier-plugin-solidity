@@ -41,8 +41,7 @@ export class YulForStatement implements SlangNode {
       this.body
     ]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulForStatement>, print: PrintFunction): Doc {

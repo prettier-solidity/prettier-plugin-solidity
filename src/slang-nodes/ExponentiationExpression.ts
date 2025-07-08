@@ -61,8 +61,7 @@ export class ExponentiationExpression implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     this.rightOperand = tryToHug(this.rightOperand);
     this.leftOperand = tryToHug(this.leftOperand);

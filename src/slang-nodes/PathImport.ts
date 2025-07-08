@@ -29,8 +29,7 @@ export class PathImport implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.path, this.alias]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<PathImport>, print: PrintFunction): Doc {

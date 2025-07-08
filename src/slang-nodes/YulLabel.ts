@@ -23,8 +23,7 @@ export class YulLabel implements SlangNode {
 
     this.label = new YulIdentifier(ast.label);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulLabel>, print: PrintFunction): Doc {

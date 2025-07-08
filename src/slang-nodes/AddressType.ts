@@ -20,8 +20,7 @@ export class AddressType implements SlangNode {
 
     this.payableKeyword = ast.payableKeyword?.unparse();
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(): Doc {

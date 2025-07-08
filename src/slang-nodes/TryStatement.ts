@@ -47,8 +47,7 @@ export class TryStatement implements SlangNode {
       this.catchClauses
     ]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<TryStatement>, print: PrintFunction): Doc {

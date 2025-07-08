@@ -125,8 +125,7 @@ export class SourceUnitMember implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.variant]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<SourceUnitMember>, print: PrintFunction): Doc {

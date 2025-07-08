@@ -32,10 +32,7 @@ interface BaseComment {
   followingNode?: StrictAstNode;
 }
 
-interface Metadata {
-  comments: Comment[];
-  loc: AstLocation;
-}
+type Metadata = [AstLocation, Comment[]];
 
 interface SlangNode {
   kind:

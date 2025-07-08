@@ -23,8 +23,7 @@ export class ImportDirective implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.clause]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ImportDirective>, print: PrintFunction): Doc {

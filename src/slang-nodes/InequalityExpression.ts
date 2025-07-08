@@ -39,8 +39,7 @@ export class InequalityExpression implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(

@@ -47,8 +47,7 @@ export class StateVariableDefinition implements SlangNode {
       this.value
     ]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {

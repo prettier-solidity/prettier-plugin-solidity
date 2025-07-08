@@ -22,8 +22,7 @@ export class OverridePathsDeclaration implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.paths]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<OverridePathsDeclaration>, print: PrintFunction): Doc {

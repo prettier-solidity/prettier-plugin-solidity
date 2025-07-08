@@ -15,8 +15,7 @@ export class BreakStatement implements SlangNode {
   constructor(ast: ast.BreakStatement) {
     const metadata = getNodeMetadata(ast);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(): Doc {

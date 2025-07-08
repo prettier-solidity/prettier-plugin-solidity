@@ -23,8 +23,7 @@ export class PragmaDirective implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.pragma]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<PragmaDirective>, print: PrintFunction): Doc {

@@ -31,8 +31,7 @@ export class ConstantDefinition implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.typeName, this.value]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ConstantDefinition>, print: PrintFunction): Doc {

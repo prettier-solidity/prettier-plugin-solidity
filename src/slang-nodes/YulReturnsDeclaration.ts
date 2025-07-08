@@ -26,8 +26,7 @@ export class YulReturnsDeclaration implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.variables]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulReturnsDeclaration>, print: PrintFunction): Doc {

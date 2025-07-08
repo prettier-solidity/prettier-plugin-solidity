@@ -43,15 +43,15 @@ export function getNodeMetadata(
 ): Metadata {
   if (ast instanceof TerminalNode) {
     const offset = offsets.get(ast.id) || 0;
-    return {
-      comments: [],
-      loc: {
+    return [
+      {
         start: offset,
         end: offset + ast.textLength.utf16,
         leadingOffset: 0,
         trailingOffset: 0
-      }
-    };
+      },
+      []
+    ];
   }
   const { cst: parent } = ast;
   const children = parent.children().map(({ node }) => node);
@@ -110,7 +110,7 @@ export function getNodeMetadata(
     trailingOffset
   };
 
-  return { comments, loc };
+  return [loc, comments];
 }
 
 function collectComments(
@@ -129,7 +129,7 @@ function collectComments(
 }
 
 export function updateMetadata(
-  { comments, loc }: Metadata,
+  [loc, comments]: Metadata,
   childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
 ): Metadata {
   // Collect comments
@@ -164,5 +164,5 @@ export function updateMetadata(
     }
   }
 
-  return { comments, loc };
+  return [loc, comments];
 }

@@ -38,8 +38,7 @@ export class ContractDefinition implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.specifiers, this.members]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     this.cleanModifierInvocationArguments(options);
   }

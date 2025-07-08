@@ -34,8 +34,7 @@ export class UsingClause implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.variant]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<UsingClause>, print: PrintFunction): Doc {

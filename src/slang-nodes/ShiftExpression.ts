@@ -55,8 +55,7 @@ export class ShiftExpression implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     this.leftOperand = tryToHugLeftOperand(this.leftOperand);
     this.rightOperand = tryToHugRightOperand(this.rightOperand);

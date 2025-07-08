@@ -46,8 +46,7 @@ export class FallbackFunctionDefinition implements SlangNode {
       this.body
     ]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     this.cleanModifierInvocationArguments();
   }

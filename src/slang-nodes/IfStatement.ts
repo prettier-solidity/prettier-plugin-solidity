@@ -42,8 +42,7 @@ export class IfStatement implements SlangNode {
       this.elseBranch
     ]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<IfStatement>, print: PrintFunction): Doc {

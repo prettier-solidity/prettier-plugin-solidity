@@ -19,8 +19,7 @@ export class Identifier implements SlangNode {
 
     this.value = ast.unparse();
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(): Doc {

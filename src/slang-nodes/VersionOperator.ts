@@ -19,8 +19,7 @@ export class VersionOperator implements SlangNode {
 
     this.variant = ast.variant.unparse();
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(): Doc {

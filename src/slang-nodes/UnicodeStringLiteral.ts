@@ -21,8 +21,7 @@ export class UnicodeStringLiteral implements SlangNode {
 
     this.variant = ast.variant.unparse();
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     this.variant = `unicode${printString(this.variant.slice(8, -1), options)}`;
   }

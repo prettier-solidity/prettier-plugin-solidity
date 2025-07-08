@@ -24,8 +24,7 @@ export class YulParameters implements SlangNode {
     this.items = ast.items.map((item) => new YulIdentifier(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<YulParameters>, print: PrintFunction): Doc {

@@ -27,8 +27,7 @@ export class NamedArgument implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.value]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<NamedArgument>, print: PrintFunction): Doc {

@@ -31,8 +31,7 @@ export class DoWhileStatement implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.body, this.condition]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<DoWhileStatement>, print: PrintFunction): Doc {

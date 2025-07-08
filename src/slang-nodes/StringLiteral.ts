@@ -21,8 +21,7 @@ export class StringLiteral implements SlangNode {
 
     this.variant = ast.variant.unparse();
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     this.variant = printString(this.variant.slice(1, -1), options);
   }

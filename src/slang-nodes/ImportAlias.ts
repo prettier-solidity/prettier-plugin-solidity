@@ -20,8 +20,7 @@ export class ImportAlias implements SlangNode {
 
     this.identifier = new Identifier(ast.identifier);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ImportAlias>, print: PrintFunction): Doc {

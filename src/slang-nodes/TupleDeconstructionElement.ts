@@ -28,8 +28,7 @@ export class TupleDeconstructionElement implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.member]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<TupleDeconstructionElement>, print: PrintFunction): Doc {

@@ -28,8 +28,7 @@ export class ImportDeconstructionSymbol implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.alias]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ImportDeconstructionSymbol>, print: PrintFunction): Doc {

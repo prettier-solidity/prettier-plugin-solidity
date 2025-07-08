@@ -26,8 +26,7 @@ export class PrefixExpression implements SlangNode {
 
     metadata = updateMetadata(metadata, [this.operand]);
 
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    [this.loc, this.comments] = metadata;
 
     if (this.operator === 'delete') {
       this.operator = `${this.operator} `;
