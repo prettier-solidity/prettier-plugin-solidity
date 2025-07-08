@@ -20,13 +20,11 @@ export class HexStringLiterals implements SlangNode {
   items: HexStringLiteral[];
 
   constructor(ast: ast.HexStringLiterals, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    const metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new HexStringLiteral(item, options));
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
   }
 
   print(path: AstPath<HexStringLiterals>, print: PrintFunction): Doc {

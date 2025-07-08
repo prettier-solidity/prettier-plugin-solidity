@@ -24,14 +24,15 @@ export class WhileStatement implements SlangNode {
   body: Statement;
 
   constructor(ast: ast.WhileStatement, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.condition = new Expression(ast.condition, options);
     this.body = new Statement(ast.body, options);
 
-    metadata = updateMetadata(metadata, [this.condition, this.body]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.condition,
+      this.body
+    ]);
   }
 
   print(path: AstPath<WhileStatement>, print: PrintFunction): Doc {

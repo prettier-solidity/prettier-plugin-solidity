@@ -27,14 +27,15 @@ export class FunctionCallExpression implements SlangNode {
     ast: ast.FunctionCallExpression,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.operand = new Expression(ast.operand, options);
     this.arguments = new ArgumentsDeclaration(ast.arguments, options);
 
-    metadata = updateMetadata(metadata, [this.operand, this.arguments]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.operand,
+      this.arguments
+    ]);
   }
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {

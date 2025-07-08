@@ -22,19 +22,17 @@ export class ExperimentalFeature implements SlangNode {
   variant: StringLiteral | Identifier;
 
   constructor(ast: ast.ExperimentalFeature, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? new Identifier(ast.variant)
         : new StringLiteral(ast.variant, options);
 
-    metadata = updateMetadata(
+    [this.loc, this.comments] = updateMetadata(
       metadata,
       this.variant.kind === TerminalKind.Identifier ? [] : [this.variant]
     );
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ExperimentalFeature>, print: PrintFunction): Doc {

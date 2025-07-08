@@ -42,7 +42,7 @@ export class SourceUnitMember implements SlangNode {
     | EventDefinition;
 
   constructor(ast: ast.SourceUnitMember, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.PragmaDirective:
@@ -123,9 +123,7 @@ export class SourceUnitMember implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    metadata = updateMetadata(metadata, [this.variant]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
   }
 
   print(path: AstPath<SourceUnitMember>, print: PrintFunction): Doc {

@@ -17,19 +17,17 @@ export class ConstructorAttribute implements SlangNode {
   variant: ModifierInvocation | string;
 
   constructor(ast: ast.ConstructorAttribute, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new ModifierInvocation(ast.variant, options);
 
-    metadata = updateMetadata(
+    [this.loc, this.comments] = updateMetadata(
       metadata,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<ConstructorAttribute>, print: PrintFunction): Doc {

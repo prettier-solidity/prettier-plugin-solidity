@@ -19,7 +19,7 @@ export class Pragma implements SlangNode {
   variant: AbicoderPragma | ExperimentalPragma | VersionPragma;
 
   constructor(ast: ast.Pragma, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.AbicoderPragma:
@@ -38,9 +38,7 @@ export class Pragma implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    metadata = updateMetadata(metadata, [this.variant]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
   }
 
   print(path: AstPath<Pragma>, print: PrintFunction): Doc {

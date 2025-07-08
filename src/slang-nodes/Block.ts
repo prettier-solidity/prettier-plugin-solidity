@@ -17,13 +17,11 @@ export class Block implements SlangNode {
   statements: Statements;
 
   constructor(ast: ast.Block, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.statements = new Statements(ast.statements, options);
 
-    metadata = updateMetadata(metadata, [this.statements]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.statements]);
   }
 
   print(path: AstPath<Block>, print: PrintFunction): Doc {

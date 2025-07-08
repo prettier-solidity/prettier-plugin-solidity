@@ -23,13 +23,11 @@ export class StateVariableDefinitionValue implements SlangNode {
     ast: ast.StateVariableDefinitionValue,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.value = new Expression(ast.value, options);
 
-    metadata = updateMetadata(metadata, [this.value]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.value]);
   }
 
   print(

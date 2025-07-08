@@ -19,16 +19,14 @@ export class ImportDeconstructionSymbol implements SlangNode {
   alias?: ImportAlias;
 
   constructor(ast: ast.ImportDeconstructionSymbol) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.name = new Identifier(ast.name);
     if (ast.alias) {
       this.alias = new ImportAlias(ast.alias);
     }
 
-    metadata = updateMetadata(metadata, [this.alias]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.alias]);
   }
 
   print(path: AstPath<ImportDeconstructionSymbol>, print: PrintFunction): Doc {

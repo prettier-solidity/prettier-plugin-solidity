@@ -20,13 +20,11 @@ export class ErrorParametersDeclaration implements SlangNode {
     ast: ast.ErrorParametersDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.parameters = new ErrorParameters(ast.parameters, options);
 
-    metadata = updateMetadata(metadata, [this.parameters]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.parameters]);
   }
 
   print(path: AstPath<ErrorParametersDeclaration>, print: PrintFunction): Doc {

@@ -45,15 +45,16 @@ export class MultiplicativeExpression implements SlangNode {
     ast: ast.MultiplicativeExpression,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.leftOperand = new Expression(ast.leftOperand, options);
     this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, options);
 
-    metadata = updateMetadata(metadata, [this.leftOperand, this.rightOperand]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.leftOperand,
+      this.rightOperand
+    ]);
 
     switch (this.operator) {
       case '*':

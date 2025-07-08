@@ -23,14 +23,12 @@ export class InheritanceTypes implements SlangNode {
   separators: string[];
 
   constructor(ast: ast.InheritanceTypes, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    const metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new InheritanceType(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.items]);
   }
 
   print(path: AstPath<InheritanceTypes>, print: PrintFunction): Doc {

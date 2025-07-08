@@ -17,13 +17,11 @@ export class ExperimentalPragma implements SlangNode {
   feature: ExperimentalFeature;
 
   constructor(ast: ast.ExperimentalPragma, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.feature = new ExperimentalFeature(ast.feature, options);
 
-    metadata = updateMetadata(metadata, [this.feature]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.feature]);
   }
 
   print(path: AstPath<ExperimentalPragma>, print: PrintFunction): Doc {

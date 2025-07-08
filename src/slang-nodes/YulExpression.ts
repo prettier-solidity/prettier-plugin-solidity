@@ -19,7 +19,7 @@ export class YulExpression implements SlangNode {
   variant: YulFunctionCallExpression | YulLiteral | YulPath;
 
   constructor(ast: ast.YulExpression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.YulFunctionCallExpression:
@@ -38,9 +38,7 @@ export class YulExpression implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    metadata = updateMetadata(metadata, [this.variant]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.variant]);
   }
 
   print(path: AstPath<YulExpression>, print: PrintFunction): Doc {

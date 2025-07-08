@@ -16,11 +16,9 @@ export class AbicoderPragma implements SlangNode {
   version: Identifier;
 
   constructor(ast: ast.AbicoderPragma) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.version = new Identifier(ast.version);
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<AbicoderPragma>, print: PrintFunction): Doc {

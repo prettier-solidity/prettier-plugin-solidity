@@ -19,16 +19,17 @@ export class VersionTerm implements SlangNode {
   literal: VersionLiteral;
 
   constructor(ast: ast.VersionTerm) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     if (ast.operator) {
       this.operator = new VersionOperator(ast.operator);
     }
     this.literal = new VersionLiteral(ast.literal);
 
-    metadata = updateMetadata(metadata, [this.operator, this.literal]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.operator,
+      this.literal
+    ]);
   }
 
   print(path: AstPath<VersionTerm>, print: PrintFunction): Doc {

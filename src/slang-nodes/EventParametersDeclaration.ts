@@ -20,13 +20,11 @@ export class EventParametersDeclaration implements SlangNode {
     ast: ast.EventParametersDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.parameters = new EventParameters(ast.parameters, options);
 
-    metadata = updateMetadata(metadata, [this.parameters]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.parameters]);
   }
 
   print(path: AstPath<EventParametersDeclaration>, print: PrintFunction): Doc {

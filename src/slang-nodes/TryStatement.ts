@@ -31,7 +31,7 @@ export class TryStatement implements SlangNode {
   catchClauses: CatchClauses;
 
   constructor(ast: ast.TryStatement, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.expression = new Expression(ast.expression, options);
     if (ast.returns) {
@@ -40,14 +40,12 @@ export class TryStatement implements SlangNode {
     this.body = new Block(ast.body, options);
     this.catchClauses = new CatchClauses(ast.catchClauses, options);
 
-    metadata = updateMetadata(metadata, [
+    [this.loc, this.comments] = updateMetadata(metadata, [
       this.expression,
       this.returns,
       this.body,
       this.catchClauses
     ]);
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<TryStatement>, print: PrintFunction): Doc {

@@ -26,7 +26,7 @@ export class InterfaceDefinition implements SlangNode {
   members: InterfaceMembers;
 
   constructor(ast: ast.InterfaceDefinition, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.name = new Identifier(ast.name);
     if (ast.inheritance) {
@@ -34,9 +34,10 @@ export class InterfaceDefinition implements SlangNode {
     }
     this.members = new InterfaceMembers(ast.members, options);
 
-    metadata = updateMetadata(metadata, [this.inheritance, this.members]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.inheritance,
+      this.members
+    ]);
   }
 
   print(path: AstPath<InterfaceDefinition>, print: PrintFunction): Doc {

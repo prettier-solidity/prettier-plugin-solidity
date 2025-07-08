@@ -16,11 +16,9 @@ export class FunctionName implements SlangNode {
   variant: Identifier;
 
   constructor(ast: ast.FunctionName) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.variant = new Identifier(ast.variant);
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<FunctionName>, print: PrintFunction): Doc {

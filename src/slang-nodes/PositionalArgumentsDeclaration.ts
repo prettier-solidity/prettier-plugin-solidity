@@ -23,13 +23,11 @@ export class PositionalArgumentsDeclaration implements SlangNode {
     ast: ast.PositionalArgumentsDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.arguments = new PositionalArguments(ast.arguments, options);
 
-    metadata = updateMetadata(metadata, [this.arguments]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.arguments]);
 
     // We need to check the comments at this point because they will be removed
     // from this node into the root node.

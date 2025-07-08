@@ -17,13 +17,11 @@ export class ExpressionStatement implements SlangNode {
   expression: Expression;
 
   constructor(ast: ast.ExpressionStatement, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.expression = new Expression(ast.expression, options);
 
-    metadata = updateMetadata(metadata, [this.expression]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.expression]);
   }
 
   print(path: AstPath<ExpressionStatement>, print: PrintFunction): Doc {

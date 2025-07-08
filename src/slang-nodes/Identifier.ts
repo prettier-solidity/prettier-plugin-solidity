@@ -15,11 +15,9 @@ export class Identifier implements SlangNode {
   value: string;
 
   constructor(ast: TerminalNode) {
-    const metadata = getNodeMetadata(ast);
+    [this.loc, this.comments] = getNodeMetadata(ast);
 
     this.value = ast.unparse();
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(): Doc {

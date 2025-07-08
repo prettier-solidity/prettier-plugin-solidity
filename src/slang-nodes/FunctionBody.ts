@@ -17,19 +17,17 @@ export class FunctionBody implements SlangNode {
   variant: Block | string;
 
   constructor(ast: ast.FunctionBody, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new Block(ast.variant, options);
 
-    metadata = updateMetadata(
+    [this.loc, this.comments] = updateMetadata(
       metadata,
       typeof this.variant === 'string' ? [] : [this.variant]
     );
-
-    [this.loc, this.comments] = metadata;
   }
 
   print(path: AstPath<FunctionBody>, print: PrintFunction): Doc {

@@ -23,14 +23,15 @@ export class YulFunctionCallExpression implements SlangNode {
     ast: ast.YulFunctionCallExpression,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.operand = new YulExpression(ast.operand, options);
     this.arguments = new YulArguments(ast.arguments, options);
 
-    metadata = updateMetadata(metadata, [this.operand, this.arguments]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [
+      this.operand,
+      this.arguments
+    ]);
   }
 
   print(path: AstPath<YulFunctionCallExpression>, print: PrintFunction): Doc {

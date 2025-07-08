@@ -16,13 +16,11 @@ export class YulParametersDeclaration implements SlangNode {
   parameters: YulParameters;
 
   constructor(ast: ast.YulParametersDeclaration) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.parameters = new YulParameters(ast.parameters);
 
-    metadata = updateMetadata(metadata, [this.parameters]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.parameters]);
   }
 
   print(path: AstPath<YulParametersDeclaration>, print: PrintFunction): Doc {

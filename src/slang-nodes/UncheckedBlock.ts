@@ -17,13 +17,11 @@ export class UncheckedBlock implements SlangNode {
   block: Block;
 
   constructor(ast: ast.UncheckedBlock, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    const metadata = getNodeMetadata(ast);
 
     this.block = new Block(ast.block, options);
 
-    metadata = updateMetadata(metadata, [this.block]);
-
-    [this.loc, this.comments] = metadata;
+    [this.loc, this.comments] = updateMetadata(metadata, [this.block]);
   }
 
   print(path: AstPath<UncheckedBlock>, print: PrintFunction): Doc {
