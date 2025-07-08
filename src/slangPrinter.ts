@@ -57,10 +57,6 @@ function genericPrint(
 ): Doc {
   const { node } = path;
 
-  if (node === null) {
-    return '';
-  }
-
   if (hasNodeIgnoreComment(node)) {
     ignoreComments(path);
 
