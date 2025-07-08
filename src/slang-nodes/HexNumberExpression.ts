@@ -22,7 +22,7 @@ export class HexNumberExpression extends SlangNode {
       this.unit = new NumberUnit(ast.unit);
     }
 
-    this.updateMetadata([this.unit]);
+    this.updateMetadata(this.unit);
   }
 
   print(path: AstPath<HexNumberExpression>, print: PrintFunction): Doc {

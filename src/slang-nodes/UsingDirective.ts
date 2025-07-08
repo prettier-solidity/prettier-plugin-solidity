@@ -25,7 +25,7 @@ export class UsingDirective extends SlangNode {
     this.target = new UsingTarget(ast.target, options);
     this.globalKeyword = ast.globalKeyword?.unparse();
 
-    this.updateMetadata([this.clause, this.target]);
+    this.updateMetadata(this.clause, this.target);
   }
 
   print(path: AstPath<UsingDirective>, print: PrintFunction): Doc {

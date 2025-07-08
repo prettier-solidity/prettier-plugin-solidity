@@ -17,7 +17,7 @@ export class ExperimentalPragma extends SlangNode {
 
     this.feature = new ExperimentalFeature(ast.feature, options);
 
-    this.updateMetadata([this.feature]);
+    this.updateMetadata(this.feature);
   }
 
   print(path: AstPath<ExperimentalPragma>, print: PrintFunction): Doc {

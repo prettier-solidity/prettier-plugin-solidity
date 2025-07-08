@@ -17,7 +17,7 @@ export class YulBlock extends SlangNode {
 
     this.statements = new YulStatements(ast.statements, options);
 
-    this.updateMetadata([this.statements]);
+    this.updateMetadata(this.statements);
   }
 
   print(path: AstPath<YulBlock>, print: PrintFunction): Doc {

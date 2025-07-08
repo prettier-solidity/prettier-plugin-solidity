@@ -17,7 +17,7 @@ export class ExpressionStatement extends SlangNode {
 
     this.expression = new Expression(ast.expression, options);
 
-    this.updateMetadata([this.expression]);
+    this.updateMetadata(this.expression);
   }
 
   print(path: AstPath<ExpressionStatement>, print: PrintFunction): Doc {

@@ -30,7 +30,7 @@ export class InterfaceDefinition extends SlangNode {
     }
     this.members = new InterfaceMembers(ast.members, options);
 
-    this.updateMetadata([this.inheritance, this.members]);
+    this.updateMetadata(this.inheritance, this.members);
   }
 
   print(path: AstPath<InterfaceDefinition>, print: PrintFunction): Doc {

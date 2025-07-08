@@ -35,12 +35,12 @@ export class FallbackFunctionDefinition extends SlangNode {
     }
     this.body = new FunctionBody(ast.body, options);
 
-    this.updateMetadata([
+    this.updateMetadata(
       this.parameters,
       this.attributes,
       this.returns,
       this.body
-    ]);
+    );
 
     this.cleanModifierInvocationArguments();
   }

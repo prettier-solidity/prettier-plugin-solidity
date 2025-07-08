@@ -30,7 +30,7 @@ export class AssemblyStatement extends SlangNode {
     }
     this.body = new YulBlock(ast.body, options);
 
-    this.updateMetadata([this.label, this.flags, this.body]);
+    this.updateMetadata(this.label, this.flags, this.body);
   }
 
   print(path: AstPath<AssemblyStatement>, print: PrintFunction): Doc {

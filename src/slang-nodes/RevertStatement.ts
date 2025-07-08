@@ -24,7 +24,7 @@ export class RevertStatement extends SlangNode {
     }
     this.arguments = new ArgumentsDeclaration(ast.arguments, options);
 
-    this.updateMetadata([this.error, this.arguments]);
+    this.updateMetadata(this.error, this.arguments);
   }
 
   print(path: AstPath<RevertStatement>, print: PrintFunction): Doc {

@@ -26,7 +26,7 @@ export class ElseBranch extends SlangNode {
 
     this.body = new Statement(ast.body, options);
 
-    this.updateMetadata([this.body]);
+    this.updateMetadata(this.body);
   }
 
   print(path: AstPath<ElseBranch>, print: PrintFunction): Doc {

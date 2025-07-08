@@ -20,7 +20,7 @@ export class ReturnsDeclaration extends SlangNode {
 
     this.variables = new ParametersDeclaration(ast.variables, options);
 
-    this.updateMetadata([this.variables]);
+    this.updateMetadata(this.variables);
   }
 
   print(path: AstPath<ReturnsDeclaration>, print: PrintFunction): Doc {

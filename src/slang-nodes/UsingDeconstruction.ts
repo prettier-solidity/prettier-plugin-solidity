@@ -16,7 +16,7 @@ export class UsingDeconstruction extends SlangNode {
 
     this.symbols = new UsingDeconstructionSymbols(ast.symbols);
 
-    this.updateMetadata([this.symbols]);
+    this.updateMetadata(this.symbols);
   }
 
   print(path: AstPath<UsingDeconstruction>, print: PrintFunction): Doc {

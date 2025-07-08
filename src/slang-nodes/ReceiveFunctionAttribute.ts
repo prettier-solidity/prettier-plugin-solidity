@@ -39,7 +39,7 @@ export class ReceiveFunctionAttribute extends SlangNode {
       }
     }
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ReceiveFunctionAttribute>, print: PrintFunction): Doc {

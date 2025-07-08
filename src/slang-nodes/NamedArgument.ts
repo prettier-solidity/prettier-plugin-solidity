@@ -21,7 +21,7 @@ export class NamedArgument extends SlangNode {
     this.name = new Identifier(ast.name);
     this.value = new Expression(ast.value, options);
 
-    this.updateMetadata([this.value]);
+    this.updateMetadata(this.value);
   }
 
   print(path: AstPath<NamedArgument>, print: PrintFunction): Doc {

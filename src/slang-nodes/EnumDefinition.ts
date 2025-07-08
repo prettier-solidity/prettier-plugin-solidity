@@ -20,7 +20,7 @@ export class EnumDefinition extends SlangNode {
     this.name = new Identifier(ast.name);
     this.members = new EnumMembers(ast.members);
 
-    this.updateMetadata([this.members]);
+    this.updateMetadata(this.members);
   }
 
   print(path: AstPath<EnumDefinition>, print: PrintFunction): Doc {

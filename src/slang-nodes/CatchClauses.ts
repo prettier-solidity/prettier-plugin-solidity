@@ -20,7 +20,7 @@ export class CatchClauses extends SlangNode {
 
     this.items = ast.items.map((item) => new CatchClause(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<CatchClauses>, print: PrintFunction): Doc {

@@ -29,7 +29,7 @@ export class ReceiveFunctionDefinition extends SlangNode {
     this.attributes = new ReceiveFunctionAttributes(ast.attributes, options);
     this.body = new FunctionBody(ast.body, options);
 
-    this.updateMetadata([this.parameters, this.attributes, this.body]);
+    this.updateMetadata(this.parameters, this.attributes, this.body);
 
     this.cleanModifierInvocationArguments();
   }

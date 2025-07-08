@@ -30,12 +30,12 @@ export class YulForStatement extends SlangNode {
     this.iterator = new YulBlock(ast.iterator, options);
     this.body = new YulBlock(ast.body, options);
 
-    this.updateMetadata([
+    this.updateMetadata(
       this.initialization,
       this.condition,
       this.iterator,
       this.body
-    ]);
+    );
   }
 
   print(path: AstPath<YulForStatement>, print: PrintFunction): Doc {

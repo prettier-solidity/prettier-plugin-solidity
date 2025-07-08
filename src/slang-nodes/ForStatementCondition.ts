@@ -20,7 +20,7 @@ export class ForStatementCondition extends SlangNode {
         ? ast.variant.unparse()
         : new ExpressionStatement(ast.variant, options);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ForStatementCondition>, print: PrintFunction): Doc {

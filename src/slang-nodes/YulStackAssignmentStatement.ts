@@ -24,7 +24,7 @@ export class YulStackAssignmentStatement extends SlangNode {
     this.assignment = new YulStackAssignmentOperator(ast.assignment);
     this.variable = new YulIdentifier(ast.variable);
 
-    this.updateMetadata([this.assignment]);
+    this.updateMetadata(this.assignment);
   }
 
   print(path: AstPath<YulStackAssignmentStatement>, print: PrintFunction): Doc {

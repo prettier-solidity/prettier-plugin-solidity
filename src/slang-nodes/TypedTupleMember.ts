@@ -28,7 +28,7 @@ export class TypedTupleMember extends SlangNode {
     }
     this.name = new Identifier(ast.name);
 
-    this.updateMetadata([this.typeName, this.storageLocation]);
+    this.updateMetadata(this.typeName, this.storageLocation);
   }
 
   print(path: AstPath<TypedTupleMember>, print: PrintFunction): Doc {

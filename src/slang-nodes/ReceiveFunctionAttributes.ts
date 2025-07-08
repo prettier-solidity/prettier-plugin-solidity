@@ -26,7 +26,7 @@ export class ReceiveFunctionAttributes extends SlangNode {
       (item) => new ReceiveFunctionAttribute(item, options)
     );
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

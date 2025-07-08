@@ -24,7 +24,7 @@ export class YulFunctionCallExpression extends SlangNode {
     this.operand = new YulExpression(ast.operand, options);
     this.arguments = new YulArguments(ast.arguments, options);
 
-    this.updateMetadata([this.operand, this.arguments]);
+    this.updateMetadata(this.operand, this.arguments);
   }
 
   print(path: AstPath<YulFunctionCallExpression>, print: PrintFunction): Doc {

@@ -21,7 +21,7 @@ export class EmitStatement extends SlangNode {
     this.event = new IdentifierPath(ast.event);
     this.arguments = new ArgumentsDeclaration(ast.arguments, options);
 
-    this.updateMetadata([this.event, this.arguments]);
+    this.updateMetadata(this.event, this.arguments);
   }
 
   print(path: AstPath<EmitStatement>, print: PrintFunction): Doc {

@@ -22,7 +22,7 @@ export class NamedArgumentsDeclaration extends SlangNode {
       this.arguments = new NamedArgumentGroup(ast.arguments, options);
     }
 
-    this.updateMetadata([this.arguments]);
+    this.updateMetadata(this.arguments);
   }
 
   print(path: AstPath<NamedArgumentsDeclaration>, print: PrintFunction): Doc {

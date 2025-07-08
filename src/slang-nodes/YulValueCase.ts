@@ -21,7 +21,7 @@ export class YulValueCase extends SlangNode {
     this.value = new YulLiteral(ast.value, options);
     this.body = new YulBlock(ast.body, options);
 
-    this.updateMetadata([this.value, this.body]);
+    this.updateMetadata(this.value, this.body);
   }
 
   print(path: AstPath<YulValueCase>, print: PrintFunction): Doc {

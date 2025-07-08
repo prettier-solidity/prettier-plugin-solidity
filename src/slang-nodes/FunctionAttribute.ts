@@ -36,7 +36,7 @@ export class FunctionAttribute extends SlangNode {
       }
     }
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<FunctionAttribute>, print: PrintFunction): Doc {

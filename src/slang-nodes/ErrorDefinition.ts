@@ -21,7 +21,7 @@ export class ErrorDefinition extends SlangNode {
     this.name = new Identifier(ast.name);
     this.members = new ErrorParametersDeclaration(ast.members, options);
 
-    this.updateMetadata([this.members]);
+    this.updateMetadata(this.members);
   }
 
   print(path: AstPath<ErrorDefinition>, print: PrintFunction): Doc {

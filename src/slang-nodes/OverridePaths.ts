@@ -20,7 +20,7 @@ export class OverridePaths extends SlangNode {
     this.items = ast.items.map((item) => new IdentifierPath(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<OverridePaths>, print: PrintFunction): Doc {

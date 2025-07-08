@@ -24,7 +24,7 @@ export class YulSwitchStatement extends SlangNode {
     this.expression = new YulExpression(ast.expression, options);
     this.cases = new YulSwitchCases(ast.cases, options);
 
-    this.updateMetadata([this.expression, this.cases]);
+    this.updateMetadata(this.expression, this.cases);
   }
 
   print(path: AstPath<YulSwitchStatement>, print: PrintFunction): Doc {

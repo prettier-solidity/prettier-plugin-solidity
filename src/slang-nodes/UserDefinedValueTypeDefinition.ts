@@ -20,7 +20,7 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
     this.name = new Identifier(ast.name);
     this.valueType = new ElementaryType(ast.valueType);
 
-    this.updateMetadata([this.valueType]);
+    this.updateMetadata(this.valueType);
   }
 
   print(

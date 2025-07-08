@@ -32,7 +32,7 @@ export class ContractSpecifier extends SlangNode {
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
-    this.updateMetadata([this.variant]);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ContractSpecifier>, print: PrintFunction): Doc {

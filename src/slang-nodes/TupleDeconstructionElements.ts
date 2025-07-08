@@ -26,7 +26,7 @@ export class TupleDeconstructionElements extends SlangNode {
     );
     this.separators = ast.separators.map((separator) => separator.unparse());
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<TupleDeconstructionElements>, print: PrintFunction): Doc {

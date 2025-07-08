@@ -24,7 +24,7 @@ export class NamedArguments extends SlangNode {
     this.items = ast.items.map((item) => new NamedArgument(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(

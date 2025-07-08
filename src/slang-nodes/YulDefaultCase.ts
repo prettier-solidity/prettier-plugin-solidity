@@ -17,7 +17,7 @@ export class YulDefaultCase extends SlangNode {
 
     this.body = new YulBlock(ast.body, options);
 
-    this.updateMetadata([this.body]);
+    this.updateMetadata(this.body);
   }
 
   print(path: AstPath<YulDefaultCase>, print: PrintFunction): Doc {

@@ -20,7 +20,7 @@ export class EventParametersDeclaration extends SlangNode {
 
     this.parameters = new EventParameters(ast.parameters, options);
 
-    this.updateMetadata([this.parameters]);
+    this.updateMetadata(this.parameters);
   }
 
   print(path: AstPath<EventParametersDeclaration>, print: PrintFunction): Doc {

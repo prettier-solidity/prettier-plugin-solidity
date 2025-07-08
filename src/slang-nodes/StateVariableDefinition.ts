@@ -37,7 +37,7 @@ export class StateVariableDefinition extends SlangNode {
       this.value = new StateVariableDefinitionValue(ast.value, options);
     }
 
-    this.updateMetadata([this.typeName, this.attributes, this.value]);
+    this.updateMetadata(this.typeName, this.attributes, this.value);
   }
 
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {

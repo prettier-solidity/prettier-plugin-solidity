@@ -17,7 +17,7 @@ export class UncheckedBlock extends SlangNode {
 
     this.block = new Block(ast.block, options);
 
-    this.updateMetadata([this.block]);
+    this.updateMetadata(this.block);
   }
 
   print(path: AstPath<UncheckedBlock>, print: PrintFunction): Doc {

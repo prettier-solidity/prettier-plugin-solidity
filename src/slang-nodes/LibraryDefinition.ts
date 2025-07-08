@@ -24,7 +24,7 @@ export class LibraryDefinition extends SlangNode {
     this.name = new Identifier(ast.name);
     this.members = new LibraryMembers(ast.members, options);
 
-    this.updateMetadata([this.members]);
+    this.updateMetadata(this.members);
   }
 
   print(path: AstPath<LibraryDefinition>, print: PrintFunction): Doc {

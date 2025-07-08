@@ -24,7 +24,7 @@ export class EventDefinition extends SlangNode {
     this.parameters = new EventParametersDeclaration(ast.parameters, options);
     this.anonymousKeyword = ast.anonymousKeyword?.unparse();
 
-    this.updateMetadata([this.parameters]);
+    this.updateMetadata(this.parameters);
   }
 
   print(path: AstPath<EventDefinition>, print: PrintFunction): Doc {

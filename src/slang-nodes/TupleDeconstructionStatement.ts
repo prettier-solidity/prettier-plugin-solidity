@@ -30,7 +30,7 @@ export class TupleDeconstructionStatement extends SlangNode {
     this.elements = new TupleDeconstructionElements(ast.elements, options);
     this.expression = new Expression(ast.expression, options);
 
-    this.updateMetadata([this.elements, this.expression]);
+    this.updateMetadata(this.elements, this.expression);
   }
 
   print(

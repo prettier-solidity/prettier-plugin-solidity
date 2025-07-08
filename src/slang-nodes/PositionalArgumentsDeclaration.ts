@@ -23,7 +23,7 @@ export class PositionalArgumentsDeclaration extends SlangNode {
 
     this.arguments = new PositionalArguments(ast.arguments, options);
 
-    this.updateMetadata([this.arguments]);
+    this.updateMetadata(this.arguments);
 
     // We need to check the comments at this point because they will be removed
     // from this node into the root node.

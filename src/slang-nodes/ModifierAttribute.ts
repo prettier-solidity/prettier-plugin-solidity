@@ -19,7 +19,7 @@ export class ModifierAttribute extends SlangNode {
         ? ast.variant.unparse()
         : new OverrideSpecifier(ast.variant);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ModifierAttribute>, print: PrintFunction): Doc {

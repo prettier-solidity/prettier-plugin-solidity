@@ -125,7 +125,7 @@ export class SlangNode {
   }
 
   updateMetadata(
-    childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
+    ...childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
   ): void {
     const { comments, loc } = this;
     // Collect comments

@@ -19,7 +19,7 @@ export class StateVariableAttribute extends SlangNode {
         ? ast.variant.unparse()
         : new OverrideSpecifier(ast.variant);
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<StateVariableAttribute>, print: PrintFunction): Doc {

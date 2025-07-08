@@ -23,7 +23,7 @@ export class PathImport extends SlangNode {
       this.alias = new ImportAlias(ast.alias);
     }
 
-    this.updateMetadata([this.path, this.alias]);
+    this.updateMetadata(this.path, this.alias);
   }
 
   print(path: AstPath<PathImport>, print: PrintFunction): Doc {

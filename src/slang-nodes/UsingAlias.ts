@@ -16,7 +16,7 @@ export class UsingAlias extends SlangNode {
 
     this.operator = new UsingOperator(ast.operator);
 
-    this.updateMetadata([this.operator]);
+    this.updateMetadata(this.operator);
   }
 
   print(path: AstPath<UsingAlias>, print: PrintFunction): Doc {

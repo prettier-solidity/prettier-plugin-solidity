@@ -51,7 +51,7 @@ export class ForStatementInitialization extends SlangNode {
       }
     }
 
-    this.updateMetadata(typeof this.variant === 'string' ? [] : [this.variant]);
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ForStatementInitialization>, print: PrintFunction): Doc {

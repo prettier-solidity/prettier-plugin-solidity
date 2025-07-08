@@ -26,7 +26,7 @@ export class FallbackFunctionAttributes extends SlangNode {
       (item) => new FallbackFunctionAttribute(item, options)
     );
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
 
     this.items = this.items.sort(sortFunctionAttributes);
   }

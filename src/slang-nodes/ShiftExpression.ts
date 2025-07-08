@@ -49,7 +49,7 @@ export class ShiftExpression extends SlangNode {
     this.operator = ast.operator.unparse();
     this.rightOperand = new Expression(ast.rightOperand, options);
 
-    this.updateMetadata([this.leftOperand, this.rightOperand]);
+    this.updateMetadata(this.leftOperand, this.rightOperand);
 
     this.leftOperand = tryToHugLeftOperand(this.leftOperand);
     this.rightOperand = tryToHugRightOperand(this.rightOperand);

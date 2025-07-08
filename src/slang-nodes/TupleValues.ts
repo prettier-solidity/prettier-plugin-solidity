@@ -22,7 +22,7 @@ export class TupleValues extends SlangNode {
     this.items = ast.items.map((item) => new TupleValue(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<TupleValues>, print: PrintFunction): Doc {

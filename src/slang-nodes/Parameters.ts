@@ -23,7 +23,7 @@ export class Parameters extends SlangNode {
     this.items = ast.items.map((item) => new Parameter(item, options));
     this.separators = ast.separators.map((separator) => separator.unparse());
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<Parameters>, print: PrintFunction): Doc {

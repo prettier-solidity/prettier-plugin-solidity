@@ -26,7 +26,7 @@ export class CatchClauseError extends SlangNode {
     }
     this.parameters = new ParametersDeclaration(ast.parameters, options);
 
-    this.updateMetadata([this.parameters]);
+    this.updateMetadata(this.parameters);
   }
 
   print(path: AstPath<CatchClauseError>, print: PrintFunction): Doc {

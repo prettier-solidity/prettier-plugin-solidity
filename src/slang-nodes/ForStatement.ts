@@ -38,12 +38,12 @@ export class ForStatement extends SlangNode {
     }
     this.body = new Statement(ast.body, options);
 
-    this.updateMetadata([
+    this.updateMetadata(
       this.initialization,
       this.condition,
       this.iterator,
       this.body
-    ]);
+    );
   }
 
   print(path: AstPath<ForStatement>, print: PrintFunction): Doc {

@@ -36,12 +36,12 @@ export class TryStatement extends SlangNode {
     this.body = new Block(ast.body, options);
     this.catchClauses = new CatchClauses(ast.catchClauses, options);
 
-    this.updateMetadata([
+    this.updateMetadata(
       this.expression,
       this.returns,
       this.body,
       this.catchClauses
-    ]);
+    );
   }
 
   print(path: AstPath<TryStatement>, print: PrintFunction): Doc {

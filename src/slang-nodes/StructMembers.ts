@@ -21,7 +21,7 @@ export class StructMembers extends SlangNode {
 
     this.items = ast.items.map((item) => new StructMember(item, options));
 
-    this.updateMetadata([this.items]);
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<StructMembers>, print: PrintFunction): Doc {
