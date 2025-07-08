@@ -14,12 +14,13 @@ export class ElementaryType extends SlangNode {
   constructor(ast: ast.ElementaryType) {
     super(ast);
 
-    this.variant =
-      ast.variant instanceof TerminalNode
-        ? ast.variant.unparse()
-        : new AddressType(ast.variant);
+    if (ast.variant instanceof TerminalNode) {
+      this.variant = ast.variant.unparse();
+      return;
+    }
+    this.variant = new AddressType(ast.variant);
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ElementaryType>, print: PrintFunction): Doc {

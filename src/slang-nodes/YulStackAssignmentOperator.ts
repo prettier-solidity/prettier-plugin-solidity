@@ -14,12 +14,13 @@ export class YulStackAssignmentOperator extends SlangNode {
   constructor(ast: ast.YulStackAssignmentOperator) {
     super(ast);
 
-    this.variant =
-      ast.variant instanceof TerminalNode
-        ? ast.variant.unparse()
-        : new YulEqualAndColon(ast.variant);
+    if (ast.variant instanceof TerminalNode) {
+      this.variant = ast.variant.unparse();
+      return;
+    }
+    this.variant = new YulEqualAndColon(ast.variant);
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<YulStackAssignmentOperator>, print: PrintFunction): Doc {

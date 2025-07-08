@@ -14,12 +14,13 @@ export class StateVariableAttribute extends SlangNode {
   constructor(ast: ast.StateVariableAttribute) {
     super(ast);
 
-    this.variant =
-      ast.variant instanceof TerminalNode
-        ? ast.variant.unparse()
-        : new OverrideSpecifier(ast.variant);
+    if (ast.variant instanceof TerminalNode) {
+      this.variant = ast.variant.unparse();
+      return;
+    }
+    this.variant = new OverrideSpecifier(ast.variant);
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<StateVariableAttribute>, print: PrintFunction): Doc {
