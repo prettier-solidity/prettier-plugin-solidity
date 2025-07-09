@@ -25,31 +25,33 @@ export class ForStatementInitialization extends SlangNode {
   ) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
       return;
     }
-    switch (ast.variant.cst.kind) {
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.ExpressionStatement:
         this.variant = new ExpressionStatement(
-          ast.variant as ast.ExpressionStatement,
+          variant as ast.ExpressionStatement,
           options
         );
         break;
       case NonterminalKind.VariableDeclarationStatement:
         this.variant = new VariableDeclarationStatement(
-          ast.variant as ast.VariableDeclarationStatement,
+          variant as ast.VariableDeclarationStatement,
           options
         );
         break;
       case NonterminalKind.TupleDeconstructionStatement:
         this.variant = new TupleDeconstructionStatement(
-          ast.variant as ast.TupleDeconstructionStatement,
+          variant as ast.TupleDeconstructionStatement,
           options
         );
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);
