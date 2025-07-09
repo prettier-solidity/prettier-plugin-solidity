@@ -24,39 +24,38 @@ export class StringExpression extends SlangNode {
   constructor(ast: ast.StringExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.StringLiteral:
-        this.variant = new StringLiteral(
-          ast.variant as ast.StringLiteral,
-          options
-        );
+        this.variant = new StringLiteral(variant as ast.StringLiteral, options);
         break;
       case NonterminalKind.StringLiterals:
         this.variant = new StringLiterals(
-          ast.variant as ast.StringLiterals,
+          variant as ast.StringLiterals,
           options
         );
         break;
       case NonterminalKind.HexStringLiteral:
         this.variant = new HexStringLiteral(
-          ast.variant as ast.HexStringLiteral,
+          variant as ast.HexStringLiteral,
           options
         );
         break;
       case NonterminalKind.HexStringLiterals:
         this.variant = new HexStringLiterals(
-          ast.variant as ast.HexStringLiterals,
+          variant as ast.HexStringLiterals,
           options
         );
         break;
       case NonterminalKind.UnicodeStringLiterals:
         this.variant = new UnicodeStringLiterals(
-          ast.variant as ast.UnicodeStringLiterals,
+          variant as ast.UnicodeStringLiterals,
           options
         );
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

@@ -16,11 +16,12 @@ export class ExperimentalFeature extends SlangNode {
   constructor(ast: ast.ExperimentalFeature, options: ParserOptions<AstNode>) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = new Identifier(ast.variant);
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = new Identifier(variant);
       return;
     }
-    this.variant = new StringLiteral(ast.variant, options);
+    this.variant = new StringLiteral(variant, options);
 
     this.updateMetadata(this.variant);
   }

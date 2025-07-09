@@ -15,11 +15,12 @@ export class ModifierAttribute extends SlangNode {
   constructor(ast: ast.ModifierAttribute) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
       return;
     }
-    this.variant = new OverrideSpecifier(ast.variant);
+    this.variant = new OverrideSpecifier(variant);
 
     this.updateMetadata(this.variant);
   }

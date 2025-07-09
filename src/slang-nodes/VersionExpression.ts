@@ -15,15 +15,17 @@ export class VersionExpression extends SlangNode {
   constructor(ast: ast.VersionExpression) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.VersionRange:
-        this.variant = new VersionRange(ast.variant as ast.VersionRange);
+        this.variant = new VersionRange(variant as ast.VersionRange);
         break;
       case NonterminalKind.VersionTerm:
-        this.variant = new VersionTerm(ast.variant as ast.VersionTerm);
+        this.variant = new VersionTerm(variant as ast.VersionTerm);
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

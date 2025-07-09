@@ -17,21 +17,23 @@ export class ImportClause extends SlangNode {
   constructor(ast: ast.ImportClause, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.PathImport:
-        this.variant = new PathImport(ast.variant as ast.PathImport, options);
+        this.variant = new PathImport(variant as ast.PathImport, options);
         break;
       case NonterminalKind.NamedImport:
-        this.variant = new NamedImport(ast.variant as ast.NamedImport, options);
+        this.variant = new NamedImport(variant as ast.NamedImport, options);
         break;
       case NonterminalKind.ImportDeconstruction:
         this.variant = new ImportDeconstruction(
-          ast.variant as ast.ImportDeconstruction,
+          variant as ast.ImportDeconstruction,
           options
         );
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);
