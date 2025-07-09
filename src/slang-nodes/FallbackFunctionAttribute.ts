@@ -20,24 +20,24 @@ export class FallbackFunctionAttribute extends SlangNode {
   ) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
       return;
     }
-    switch (ast.variant.cst.kind) {
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.ModifierInvocation:
         this.variant = new ModifierInvocation(
-          ast.variant as ast.ModifierInvocation,
+          variant as ast.ModifierInvocation,
           options
         );
         break;
       case NonterminalKind.OverrideSpecifier:
-        this.variant = new OverrideSpecifier(
-          ast.variant as ast.OverrideSpecifier
-        );
+        this.variant = new OverrideSpecifier(variant as ast.OverrideSpecifier);
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

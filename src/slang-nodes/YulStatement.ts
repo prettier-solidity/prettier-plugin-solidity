@@ -40,77 +40,72 @@ export class YulStatement extends SlangNode {
   constructor(ast: ast.YulStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.YulBlock:
-        this.variant = new YulBlock(ast.variant as ast.YulBlock, options);
+        this.variant = new YulBlock(variant as ast.YulBlock, options);
         break;
       case NonterminalKind.YulFunctionDefinition:
         this.variant = new YulFunctionDefinition(
-          ast.variant as ast.YulFunctionDefinition,
+          variant as ast.YulFunctionDefinition,
           options
         );
         break;
       case NonterminalKind.YulVariableDeclarationStatement:
         this.variant = new YulVariableDeclarationStatement(
-          ast.variant as ast.YulVariableDeclarationStatement,
+          variant as ast.YulVariableDeclarationStatement,
           options
         );
         break;
       case NonterminalKind.YulVariableAssignmentStatement:
         this.variant = new YulVariableAssignmentStatement(
-          ast.variant as ast.YulVariableAssignmentStatement,
+          variant as ast.YulVariableAssignmentStatement,
           options
         );
         break;
       case NonterminalKind.YulStackAssignmentStatement:
         this.variant = new YulStackAssignmentStatement(
-          ast.variant as ast.YulStackAssignmentStatement
+          variant as ast.YulStackAssignmentStatement
         );
         break;
       case NonterminalKind.YulIfStatement:
         this.variant = new YulIfStatement(
-          ast.variant as ast.YulIfStatement,
+          variant as ast.YulIfStatement,
           options
         );
         break;
       case NonterminalKind.YulForStatement:
         this.variant = new YulForStatement(
-          ast.variant as ast.YulForStatement,
+          variant as ast.YulForStatement,
           options
         );
         break;
       case NonterminalKind.YulSwitchStatement:
         this.variant = new YulSwitchStatement(
-          ast.variant as ast.YulSwitchStatement,
+          variant as ast.YulSwitchStatement,
           options
         );
         break;
       case NonterminalKind.YulLeaveStatement:
-        this.variant = new YulLeaveStatement(
-          ast.variant as ast.YulLeaveStatement
-        );
+        this.variant = new YulLeaveStatement(variant as ast.YulLeaveStatement);
         break;
       case NonterminalKind.YulBreakStatement:
-        this.variant = new YulBreakStatement(
-          ast.variant as ast.YulBreakStatement
-        );
+        this.variant = new YulBreakStatement(variant as ast.YulBreakStatement);
         break;
       case NonterminalKind.YulContinueStatement:
         this.variant = new YulContinueStatement(
-          ast.variant as ast.YulContinueStatement
+          variant as ast.YulContinueStatement
         );
         break;
       case NonterminalKind.YulLabel:
-        this.variant = new YulLabel(ast.variant as ast.YulLabel);
+        this.variant = new YulLabel(variant as ast.YulLabel);
         break;
       case NonterminalKind.YulExpression:
-        this.variant = new YulExpression(
-          ast.variant as ast.YulExpression,
-          options
-        );
+        this.variant = new YulExpression(variant as ast.YulExpression, options);
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

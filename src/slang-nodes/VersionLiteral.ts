@@ -15,11 +15,12 @@ export class VersionLiteral extends SlangNode {
   constructor(ast: ast.VersionLiteral) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
       return;
     }
-    this.variant = new SimpleVersionLiteral(ast.variant);
+    this.variant = new SimpleVersionLiteral(variant);
 
     this.updateMetadata(this.variant);
   }

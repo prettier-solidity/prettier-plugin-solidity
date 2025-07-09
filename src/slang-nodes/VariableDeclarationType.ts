@@ -19,11 +19,12 @@ export class VariableDeclarationType extends SlangNode {
   ) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
       return;
     }
-    this.variant = new TypeName(ast.variant, options);
+    this.variant = new TypeName(variant, options);
 
     this.updateMetadata(this.variant);
   }

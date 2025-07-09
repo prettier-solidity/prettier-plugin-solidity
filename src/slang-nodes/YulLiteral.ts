@@ -17,25 +17,24 @@ export class YulLiteral extends SlangNode {
   constructor(ast: ast.YulLiteral, options: ParserOptions<AstNode>) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
       return;
     }
-    switch (ast.variant.cst.kind) {
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.HexStringLiteral:
         this.variant = new HexStringLiteral(
-          ast.variant as ast.HexStringLiteral,
+          variant as ast.HexStringLiteral,
           options
         );
         break;
       case NonterminalKind.StringLiteral:
-        this.variant = new StringLiteral(
-          ast.variant as ast.StringLiteral,
-          options
-        );
+        this.variant = new StringLiteral(variant as ast.StringLiteral, options);
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

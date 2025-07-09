@@ -15,11 +15,12 @@ export class YulAssignmentOperator extends SlangNode {
   constructor(ast: ast.YulAssignmentOperator) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
       return;
     }
-    this.variant = new YulColonAndEqual(ast.variant);
+    this.variant = new YulColonAndEqual(variant);
 
     this.updateMetadata(this.variant);
   }

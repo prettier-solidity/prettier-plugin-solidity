@@ -24,30 +24,26 @@ export class TypeName extends SlangNode {
   constructor(ast: ast.TypeName, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.ArrayTypeName:
-        this.variant = new ArrayTypeName(
-          ast.variant as ast.ArrayTypeName,
-          options
-        );
+        this.variant = new ArrayTypeName(variant as ast.ArrayTypeName, options);
         break;
       case NonterminalKind.FunctionType:
-        this.variant = new FunctionType(
-          ast.variant as ast.FunctionType,
-          options
-        );
+        this.variant = new FunctionType(variant as ast.FunctionType, options);
         break;
       case NonterminalKind.MappingType:
-        this.variant = new MappingType(ast.variant as ast.MappingType, options);
+        this.variant = new MappingType(variant as ast.MappingType, options);
         break;
       case NonterminalKind.ElementaryType:
-        this.variant = new ElementaryType(ast.variant as ast.ElementaryType);
+        this.variant = new ElementaryType(variant as ast.ElementaryType);
         break;
       case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(ast.variant as ast.IdentifierPath);
+        this.variant = new IdentifierPath(variant as ast.IdentifierPath);
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

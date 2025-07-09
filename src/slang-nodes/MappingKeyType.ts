@@ -15,15 +15,17 @@ export class MappingKeyType extends SlangNode {
   constructor(ast: ast.MappingKeyType) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.ElementaryType:
-        this.variant = new ElementaryType(ast.variant as ast.ElementaryType);
+        this.variant = new ElementaryType(variant as ast.ElementaryType);
         break;
       case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(ast.variant as ast.IdentifierPath);
+        this.variant = new IdentifierPath(variant as ast.IdentifierPath);
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

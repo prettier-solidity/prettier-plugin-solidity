@@ -15,17 +15,19 @@ export class UsingClause extends SlangNode {
   constructor(ast: ast.UsingClause) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(ast.variant as ast.IdentifierPath);
+        this.variant = new IdentifierPath(variant as ast.IdentifierPath);
         break;
       case NonterminalKind.UsingDeconstruction:
         this.variant = new UsingDeconstruction(
-          ast.variant as ast.UsingDeconstruction
+          variant as ast.UsingDeconstruction
         );
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

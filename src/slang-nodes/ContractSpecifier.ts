@@ -16,21 +16,23 @@ export class ContractSpecifier extends SlangNode {
   constructor(ast: ast.ContractSpecifier, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.InheritanceSpecifier:
         this.variant = new InheritanceSpecifier(
-          ast.variant as ast.InheritanceSpecifier,
+          variant as ast.InheritanceSpecifier,
           options
         );
         break;
       case NonterminalKind.StorageLayoutSpecifier:
         this.variant = new StorageLayoutSpecifier(
-          ast.variant as ast.StorageLayoutSpecifier,
+          variant as ast.StorageLayoutSpecifier,
           options
         );
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
     this.updateMetadata(this.variant);
   }

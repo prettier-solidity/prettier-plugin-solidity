@@ -16,21 +16,23 @@ export class ArgumentsDeclaration extends SlangNode {
   constructor(ast: ast.ArgumentsDeclaration, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.PositionalArgumentsDeclaration:
         this.variant = new PositionalArgumentsDeclaration(
-          ast.variant as ast.PositionalArgumentsDeclaration,
+          variant as ast.PositionalArgumentsDeclaration,
           options
         );
         break;
       case NonterminalKind.NamedArgumentsDeclaration:
         this.variant = new NamedArgumentsDeclaration(
-          ast.variant as ast.NamedArgumentsDeclaration,
+          variant as ast.NamedArgumentsDeclaration,
           options
         );
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

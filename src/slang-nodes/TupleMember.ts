@@ -16,20 +16,22 @@ export class TupleMember extends SlangNode {
   constructor(ast: ast.TupleMember, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
+    const variant = ast.variant;
+    const variantKind = variant.cst.kind;
+    switch (variantKind) {
       case NonterminalKind.TypedTupleMember:
         this.variant = new TypedTupleMember(
-          ast.variant as ast.TypedTupleMember,
+          variant as ast.TypedTupleMember,
           options
         );
         break;
       case NonterminalKind.UntypedTupleMember:
         this.variant = new UntypedTupleMember(
-          ast.variant as ast.UntypedTupleMember
+          variant as ast.UntypedTupleMember
         );
         break;
       default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
+        throw new Error(`Unexpected variant: ${variantKind}`);
     }
 
     this.updateMetadata(this.variant);

@@ -16,11 +16,12 @@ export class ConstructorAttribute extends SlangNode {
   constructor(ast: ast.ConstructorAttribute, options: ParserOptions<AstNode>) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
       return;
     }
-    this.variant = new ModifierInvocation(ast.variant, options);
+    this.variant = new ModifierInvocation(variant, options);
 
     this.updateMetadata(this.variant);
   }

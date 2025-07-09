@@ -15,11 +15,12 @@ export class ElementaryType extends SlangNode {
   constructor(ast: ast.ElementaryType) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
       return;
     }
-    this.variant = new AddressType(ast.variant);
+    this.variant = new AddressType(variant);
 
     this.updateMetadata(this.variant);
   }
