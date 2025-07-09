@@ -22,11 +22,11 @@ function parserAndOutput(
 }
 
 function createError(
-  { parseOutput }: { parseOutput: ParseOutput },
+  result: { parseOutput: ParseOutput },
   reason: string
 ): Error {
   return new Error(
-    `We encountered the following syntax error:\n\n\t${parseOutput.errors()[0].message}\n\n${reason}`
+    `We encountered the following syntax error:\n\n\t${result.parseOutput.errors()[0].message}\n\n${reason}`
   );
 }
 

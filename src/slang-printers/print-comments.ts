@@ -12,7 +12,7 @@ export function printComments(path: AstPath<AstNode>): Doc[] {
   const document = joinExisting(
     line,
     path.map((commentPath) => {
-      const { node: comment } = commentPath;
+      const comment = commentPath.node;
       if (comment.trailing || comment.leading || comment.printed) {
         return '';
       }

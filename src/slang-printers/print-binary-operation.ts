@@ -44,7 +44,7 @@ export const binaryIndentRulesBuilder =
   (shouldIndent: (node: BinaryOperation) => boolean) =>
   (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
-    for (let i = 2, { node } = path; ; i += 2) {
+    for (let i = 2, node = path.node; ; i += 2) {
       const grandparentNode = path.getNode(i) as StrictAstNode;
       if (shouldNotIndent(grandparentNode, path, i)) break;
       if (!isBinaryOperation(grandparentNode)) return indent(document);
