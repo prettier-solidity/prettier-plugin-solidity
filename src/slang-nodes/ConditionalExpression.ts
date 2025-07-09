@@ -100,6 +100,14 @@ function traditionalTernaries(
   ]);
 }
 
+function getOperandSingleExpression({
+  variant
+}: Expression): Expression | undefined {
+  return variant.kind === NonterminalKind.TupleExpression
+    ? variant.items.getSingleExpression()
+    : undefined;
+}
+
 export class ConditionalExpression implements SlangNode {
   readonly kind = NonterminalKind.ConditionalExpression;
 
@@ -133,20 +141,12 @@ export class ConditionalExpression implements SlangNode {
       // We can remove parentheses only because we are sure that the
       // `condition` must be a single `bool` value.
       const operandLoc = this.operand.loc;
-
-      const getOperandSingleExpression = (): Expression | undefined => {
-        const operandVariant = this.operand.variant;
-        return operandVariant.kind === NonterminalKind.TupleExpression
-          ? operandVariant.items.getSingleExpression()
-          : undefined;
-      };
-
       for (
-        let operandSingleExpression = getOperandSingleExpression();
+        let operandSingleExpression = getOperandSingleExpression(this.operand);
         operandSingleExpression &&
         operandSingleExpression.variant.kind !==
           NonterminalKind.ConditionalExpression;
-        operandSingleExpression = getOperandSingleExpression()
+        operandSingleExpression = getOperandSingleExpression(this.operand)
       ) {
         this.operand = operandSingleExpression;
       }
