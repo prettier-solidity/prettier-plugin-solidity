@@ -131,13 +131,8 @@ export class MemberAccessExpression extends SlangNode {
   }
 
   print(path: AstPath<MemberAccessExpression>, print: PrintFunction): Doc {
-    let operandDoc = path.call(print, 'operand');
-    if (Array.isArray(operandDoc)) {
-      operandDoc = operandDoc.flat();
-    }
-
     const document = [
-      operandDoc,
+      path.call(print, 'operand'),
       label('separator', [softline, '.']),
       path.call(print, 'member')
     ].flat();
