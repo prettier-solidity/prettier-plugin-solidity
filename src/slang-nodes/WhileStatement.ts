@@ -29,13 +29,14 @@ export class WhileStatement extends SlangNode {
   }
 
   print(path: AstPath<WhileStatement>, print: PrintFunction): Doc {
+    const body = path.call(print, 'body');
     return [
       'while (',
       printSeparatedItem(path.call(print, 'condition')),
       ')',
       this.body.variant.kind === NonterminalKind.Block
-        ? [' ', path.call(print, 'body')]
-        : group(indent([line, path.call(print, 'body')]))
+        ? [' ', body]
+        : group(indent([line, body]))
     ];
   }
 }
