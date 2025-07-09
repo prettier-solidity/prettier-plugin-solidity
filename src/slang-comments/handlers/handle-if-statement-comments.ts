@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
 import { locEnd } from '../../slang-utils/loc.js';
-import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
+import addCollectionFirstComment from './add-collection-first-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
 
@@ -45,10 +45,7 @@ export default function handleIfStatementComments({
 
   if (followingNode.kind === NonterminalKind.IfStatement) {
     if (followingNode.body.variant.kind === NonterminalKind.Block) {
-      addCollectionNodeFirstComment(
-        followingNode.body.variant.statements,
-        comment
-      );
+      addCollectionFirstComment(followingNode.body.variant.statements, comment);
     } else {
       addLeadingComment(followingNode.body.variant, comment);
     }
@@ -60,7 +57,7 @@ export default function handleIfStatementComments({
   // if (a) /* comment */ true
   if (enclosingNode.body === followingNode) {
     if (followingNode.variant.kind === NonterminalKind.Block) {
-      addCollectionNodeFirstComment(followingNode.variant.statements, comment);
+      addCollectionFirstComment(followingNode.variant.statements, comment);
     } else {
       addLeadingComment(followingNode, comment);
     }

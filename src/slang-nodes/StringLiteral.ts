@@ -14,7 +14,7 @@ export class StringLiteral implements SlangNode {
 
   loc;
 
-  variant;
+  variant: string;
 
   constructor(ast: ast.StringLiteral, options: ParserOptions<AstNode>) {
     const metadata = getNodeMetadata(ast);

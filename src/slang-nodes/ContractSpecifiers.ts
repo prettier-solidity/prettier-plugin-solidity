@@ -7,8 +7,8 @@ import { ContractSpecifier } from './ContractSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.js';
-import type { PrintFunction, SlangNode } from '../types.js';
+import type { AstNode } from './types.d.ts';
+import type { PrintFunction, SlangNode } from '../types.d.ts';
 
 const { group, ifBreak, line, softline } = doc.builders;
 

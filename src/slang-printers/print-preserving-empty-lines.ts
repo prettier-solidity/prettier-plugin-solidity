@@ -3,22 +3,18 @@ import { doc, util } from 'prettier';
 import { locEnd } from '../slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  CollectionNode,
-  StrictAstNode
-} from '../slang-nodes/types.d.ts';
+import type { AstNode, NodeCollection } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
 const { hardline } = doc.builders;
 
 export function printPreservingEmptyLines(
-  path: AstPath<CollectionNode>,
+  path: AstPath<NodeCollection>,
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
   return path.map((childPath) => {
-    const node = childPath.getNode() as StrictAstNode;
+    const node = childPath.node;
 
     return [
       // Only attempt to prepend an empty line if `node` is not the first item

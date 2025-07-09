@@ -24,30 +24,26 @@ function isEndOfChain(
   path: AstPath<StrictAstNode>
 ): boolean {
   for (
-    let i = 0,
-      currentNode: StrictAstNode = node,
-      grandparentNode = path.getNode(i + 2)!;
-    isChainableExpression(grandparentNode);
-    i += 2,
-      currentNode = grandparentNode,
-      grandparentNode = path.getNode(i + 2)!
+    let i = 2, current: StrictAstNode = node, grandparent = path.getNode(i)!;
+    isChainableExpression(grandparent);
+    i += 2, current = grandparent, grandparent = path.getNode(i)!
   ) {
-    switch (grandparentNode.kind) {
+    switch (grandparent.kind) {
       case NonterminalKind.MemberAccessExpression:
-        // If direct ParentNode is a MemberAccess we are not at the end of the
-        // chain.
+        // If `grandparent` is a MemberAccessExpression we are not at the end
+        // of the chain.
         return false;
       case NonterminalKind.IndexAccessExpression:
-        // If direct ParentNode is an IndexAccess and currentNode is not the
-        // operand then it must be the start or the end in which case it is the
-        // end of the chain.
-        if (currentNode !== grandparentNode.operand.variant) return true;
+        // If `grandparent` is an IndexAccessExpression and `current` is not
+        // the operand then it must be the start or the end in which case it is
+        // the end of the chain.
+        if (current !== grandparent.operand.variant) return true;
         break;
       case NonterminalKind.FunctionCallExpression:
-        // If direct ParentNode is a FunctionCall and currentNode is not the
-        // operand then it must be and argument in which case it is the end
+        // If `grandparent` is a FunctionCallExpression and `current` is not
+        // the operand then it must be and argument in which case it is the end
         // of the chain.
-        if (currentNode !== grandparentNode.operand.variant) return true;
+        if (current !== grandparent.operand.variant) return true;
         break;
     }
   }

@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { util } from 'prettier';
 import { locEnd } from '../../slang-utils/loc.js';
-import addCollectionNodeFirstComment from './add-collection-node-first-comment.js';
-import addCollectionNodeLastComment from './add-collection-node-last-comment.js';
+import addCollectionFirstComment from './add-collection-first-comment.js';
+import addCollectionLastComment from './add-collection-last-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
 
@@ -24,7 +24,7 @@ export default function handleLibraryDefinitionComments({
 
   // The comment is at the end of the body of the ContractDefinition.
   if (precedingNode?.kind === NonterminalKind.LibraryMembers) {
-    addCollectionNodeLastComment(precedingNode, comment);
+    addCollectionLastComment(precedingNode, comment);
     return true;
   }
 
@@ -33,7 +33,7 @@ export default function handleLibraryDefinitionComments({
     nextCharacter === '{' &&
     followingNode?.kind === NonterminalKind.LibraryMembers
   ) {
-    addCollectionNodeFirstComment(followingNode, comment);
+    addCollectionFirstComment(followingNode, comment);
     return true;
   }
 

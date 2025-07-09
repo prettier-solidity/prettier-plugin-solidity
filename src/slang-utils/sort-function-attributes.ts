@@ -12,12 +12,9 @@ const visibilityKeyWords = new Set([
 const mutabilityKeyWords = new Set(['pure', 'constant', 'payable', 'view']);
 
 export function sortFunctionAttributes(
-  a: SortableAttribute,
-  b: SortableAttribute
+  { variant: aVariant }: SortableAttribute,
+  { variant: bVariant }: SortableAttribute
 ): number {
-  const aVariant = a.variant;
-  const bVariant = b.variant;
-
   const aIsString = typeof aVariant === 'string';
   const bIsString = typeof bVariant === 'string';
 

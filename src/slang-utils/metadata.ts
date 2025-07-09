@@ -1,5 +1,6 @@
 import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from './create-kind-check-function.js';
+import { isComment } from './is-comment.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
@@ -8,7 +9,6 @@ import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecCommen
 import type { Node } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { Metadata, SlangAstNode } from '../types.d.ts';
-import { isComment } from './is-comment.js';
 
 const isCommentOrWhiteSpace = createKindCheckFunction([
   TerminalKind.MultiLineComment,
@@ -53,37 +53,37 @@ export function getNodeMetadata(
       }
     };
   }
+  const { cst: parent } = ast;
+  const children = parent.children().map(({ node }) => node);
 
-  const children = ast.cst.children().map((child) => {
-    return child.node;
-  });
-
-  const initialOffset = offsets.get(ast.cst.id) || 0;
+  const initialOffset = offsets.get(parent.id) || 0;
   let offset = initialOffset;
+  const comments: Comment[] = [];
 
-  const comments = children.reduce((commentsArray: Comment[], child) => {
+  for (const child of children) {
+    const { id, kind, textLength } = child;
     if (child.isNonterminalNode()) {
-      offsets.set(child.id, offset);
+      offsets.set(id, offset);
     } else {
       if (isComment(child)) {
-        offsets.set(child.id, offset);
+        offsets.set(id, offset);
       }
-      switch (child.kind) {
+      switch (kind) {
         // Since the fetching the comments and calculating offsets are both done
         // as we iterate over the children and the comment also depends on the
         // offset, it's hard to separate these responsibilities into different
         // functions without doing the iteration twice.
         case TerminalKind.MultiLineComment:
-          commentsArray.push(new MultiLineComment(child));
+          comments.push(new MultiLineComment(child));
           break;
         case TerminalKind.MultiLineNatSpecComment:
-          commentsArray.push(new MultiLineNatSpecComment(child));
+          comments.push(new MultiLineNatSpecComment(child));
           break;
         case TerminalKind.SingleLineComment:
-          commentsArray.push(new SingleLineComment(child));
+          comments.push(new SingleLineComment(child));
           break;
         case TerminalKind.SingleLineNatSpecComment:
-          commentsArray.push(new SingleLineNatSpecComment(child));
+          comments.push(new SingleLineNatSpecComment(child));
           break;
         case TerminalKind.Identifier:
         case TerminalKind.YulIdentifier:
@@ -91,24 +91,21 @@ export function getNodeMetadata(
           // functions, etc...
           // Since a user can add comments to this section of the code as well,
           // we need to track the offsets.
-          offsets.set(child.id, offset);
+          offsets.set(id, offset);
           break;
       }
     }
 
-    offset += child.textLength.utf16;
-    return commentsArray;
-  }, []);
+    offset += textLength.utf16;
+  }
 
-  const leadingOffset = enclosePeripheralComments
-    ? 0
-    : getLeadingOffset(children);
-  const trailingOffset = enclosePeripheralComments
-    ? 0
-    : getLeadingOffset(children.reverse());
+  const [leadingOffset, trailingOffset] = enclosePeripheralComments
+    ? [0, 0]
+    : [getLeadingOffset(children), getLeadingOffset(children.reverse())];
+
   const loc = {
     start: initialOffset + leadingOffset,
-    end: initialOffset + ast.cst.textLength.utf16 - trailingOffset,
+    end: offset - trailingOffset,
     leadingOffset,
     trailingOffset
   };
@@ -132,23 +129,22 @@ function collectComments(
 }
 
 export function updateMetadata(
-  metadata: Metadata,
+  { comments, loc }: Metadata,
   childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
 ): Metadata {
   // Collect comments
-  const comments = childNodes.reduce(collectComments, metadata.comments);
+  comments = childNodes.reduce(collectComments, comments);
 
   // calculate correct loc object
-  const { loc } = metadata;
   if (loc.leadingOffset === 0) {
     for (const childNode of childNodes) {
       if (typeof childNode === 'undefined' || Array.isArray(childNode))
         continue;
-      const childLoc = childNode.loc;
+      const { leadingOffset, start } = childNode.loc;
 
-      if (childLoc.start - childLoc.leadingOffset === loc.start) {
-        loc.leadingOffset = childLoc.leadingOffset;
-        loc.start += childLoc.leadingOffset;
+      if (start - leadingOffset === loc.start) {
+        loc.leadingOffset = leadingOffset;
+        loc.start += leadingOffset;
         break;
       }
     }
@@ -158,11 +154,11 @@ export function updateMetadata(
     for (const childNode of childNodes.reverse()) {
       if (typeof childNode === 'undefined' || Array.isArray(childNode))
         continue;
-      const childLoc = childNode.loc;
+      const { trailingOffset, end } = childNode.loc;
 
-      if (childLoc.end + childLoc.trailingOffset === loc.end) {
-        loc.trailingOffset = childLoc.trailingOffset;
-        loc.end -= childLoc.trailingOffset;
+      if (end + trailingOffset === loc.end) {
+        loc.trailingOffset = trailingOffset;
+        loc.end -= trailingOffset;
         break;
       }
     }

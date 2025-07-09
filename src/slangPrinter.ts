@@ -5,27 +5,24 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode, StrictAstNode } from './slang-nodes/types.d.ts';
 import type { PrintFunction } from './types.d.ts';
 
-function hasNodeIgnoreComment(node: StrictAstNode): boolean {
+function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
   // to each node.
-  return (
-    node.comments &&
-    node.comments.some(
-      (comment) =>
-        comment.value
-          .slice(2, isBlockComment(comment) ? -2 : undefined)
-          .trim() === 'prettier-ignore'
-    )
+  return comments?.some(
+    (comment) =>
+      comment.value
+        .slice(2, isBlockComment(comment) ? -2 : undefined)
+        .trim() === 'prettier-ignore'
   );
 }
 
 function ignoreComments(path: AstPath<AstNode>): void {
-  const node = path.getNode();
+  const node = path.node;
   // We ignore anything that is not an object
   if (node === null || typeof node !== 'object') return;
 
-  const keys = Object.keys(node) as (keyof StrictAstNode)[];
-  for (const key of keys) {
+  let key: keyof StrictAstNode;
+  for (key in node) {
     switch (key) {
       // We ignore `kind`, `loc`, and comments since these are added by the
       // parser
@@ -35,10 +32,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
         break;
       // The key `comments` will contain every comment for this node
       case 'comments':
-        path.each((commentPath) => {
-          const comment = commentPath.getNode()!;
-          comment.printed = true;
-        }, 'comments');
+        path.each((commentPath) => (commentPath.node.printed = true), key);
         break;
       default:
         // If the value for that key is an Array or an Object we go deeper.
@@ -61,11 +55,7 @@ function genericPrint(
   options: ParserOptions<AstNode>,
   print: PrintFunction
 ): Doc {
-  const node = path.getNode();
-
-  if (node === null) {
-    return '';
-  }
+  const node = path.node;
 
   if (hasNodeIgnoreComment(node)) {
     ignoreComments(path);

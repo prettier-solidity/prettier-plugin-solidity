@@ -38,11 +38,11 @@ export class BitwiseOrExpression implements SlangNode {
 
   loc;
 
-  leftOperand;
+  leftOperand: Expression;
 
-  operator;
+  operator: string;
 
-  rightOperand;
+  rightOperand: Expression;
 
   constructor(ast: ast.BitwiseOrExpression, options: ParserOptions<AstNode>) {
     let metadata = getNodeMetadata(ast);

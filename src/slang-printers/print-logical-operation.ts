@@ -21,8 +21,7 @@ const logicalGroupRulesBuilder = binaryGroupRulesBuilder(() => false);
 const logicalIndentRulesBuilder =
   (path: AstPath<BinaryOperation>, options: ParserOptions<AstNode>) =>
   (document: Doc): Doc => {
-    let node = path.getNode() as StrictAstNode;
-    for (let i = 2; ; i += 2) {
+    for (let i = 2, node = path.node; ; i += 2) {
       const grandparentNode = path.getNode(i) as StrictAstNode;
       if (shouldNotIndent(grandparentNode, path, i)) break;
       if (

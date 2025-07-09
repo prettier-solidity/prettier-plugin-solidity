@@ -51,10 +51,8 @@ const parsers = {
   [antlrParserId]: antlrParser
 };
 
-const antlrCanAttachComment = (node: { type: string }): boolean =>
-  typeof node.type === 'string' &&
-  node.type !== 'BlockComment' &&
-  node.type !== 'LineComment';
+const antlrCanAttachComment = ({ type }: { type: string }): boolean =>
+  typeof type === 'string' && type !== 'BlockComment' && type !== 'LineComment';
 const canAttachComment = (node: AstNode): boolean =>
   typeof node !== 'string' &&
   typeof node !== 'undefined' &&

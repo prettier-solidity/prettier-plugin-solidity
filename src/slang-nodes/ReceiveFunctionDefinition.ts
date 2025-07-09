@@ -46,12 +46,12 @@ export class ReceiveFunctionDefinition implements SlangNode {
   }
 
   cleanModifierInvocationArguments(): void {
-    for (const attribute of this.attributes.items) {
+    for (const { variant: attribute } of this.attributes.items) {
       if (
-        typeof attribute.variant !== 'string' &&
-        attribute.variant.kind === NonterminalKind.ModifierInvocation
+        typeof attribute !== 'string' &&
+        attribute.kind === NonterminalKind.ModifierInvocation
       ) {
-        attribute.variant.cleanModifierInvocationArguments();
+        attribute.cleanModifierInvocationArguments();
       }
     }
   }
