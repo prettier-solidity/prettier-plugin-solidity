@@ -18,10 +18,11 @@ function rightOperandPrint(
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const rightOperand =
+  const rightOperand = path.call(print, 'rightOperand');
+  const rightOperandDoc =
     options.experimentalOperatorPosition === 'end'
-      ? [` ${node.operator}`, line, path.call(print, 'rightOperand')]
-      : [line, `${node.operator} `, path.call(print, 'rightOperand')];
+      ? [` ${node.operator}`, line, rightOperand]
+      : [line, `${node.operator} `, rightOperand];
 
   // If there's only a single binary expression, we want to create a group in
   // order to avoid having a small right part like -1 be on its own line.
@@ -33,7 +34,7 @@ function rightOperandPrint(
     (!isBinaryOperation(grandparentNode) ||
       grandparentNode.kind === NonterminalKind.AssignmentExpression);
 
-  return shouldGroup ? group(rightOperand) : rightOperand;
+  return shouldGroup ? group(rightOperandDoc) : rightOperandDoc;
 }
 
 export const createBinaryOperationPrinter =

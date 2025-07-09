@@ -30,11 +30,12 @@ export class ElseBranch extends SlangNode {
   }
 
   print(path: AstPath<ElseBranch>, print: PrintFunction): Doc {
+    const body = path.call(print, 'body');
     return [
       'else',
       isIfStatementOrBlock(this.body.variant)
-        ? [' ', path.call(print, 'body')]
-        : group(indent([line, path.call(print, 'body')]))
+        ? [' ', body]
+        : group(indent([line, body]))
     ];
   }
 }

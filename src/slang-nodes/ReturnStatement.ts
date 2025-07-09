@@ -17,12 +17,13 @@ function printExpression(
   options: ParserOptions<AstNode>
 ): Doc {
   const expressionVariant = node.expression?.variant;
+  const expression = path.call(print, 'expression');
   if (expressionVariant) {
     return expressionVariant.kind === NonterminalKind.TupleExpression ||
       (options.experimentalTernaries &&
         expressionVariant.kind === NonterminalKind.ConditionalExpression)
-      ? [' ', path.call(print, 'expression')]
-      : group(indent([line, path.call(print, 'expression')]));
+      ? [' ', expression]
+      : group(indent([line, expression]));
   }
   return '';
 }
