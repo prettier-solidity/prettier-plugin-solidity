@@ -1,4 +1,4 @@
-import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { TerminalKind } from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
@@ -7,7 +7,7 @@ import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecCommen
 
 import type { Node } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
-import type { AstLocation, SlangAstNode } from '../types.d.ts';
+import type { AstLocation } from '../types.d.ts';
 
 const isCommentOrWhiteSpace = createKindCheckFunction([
   TerminalKind.MultiLineComment,
@@ -29,7 +29,7 @@ function getLeadingOffset(children: Node[]): number {
     if (child.isNonterminalNode() || !isCommentOrWhiteSpace(child)) {
       // The node's content starts when we find the first non-terminal token,
       // or if we find a non-comment, non-whitespace token.
-      return offset;
+      break;
     }
     offset += child.textLength.utf16;
   }
@@ -56,24 +56,20 @@ export class SlangNode {
 
   loc: AstLocation;
 
-  constructor(
-    ast: SlangAstNode | TerminalNode,
-    enclosePeripheralComments = false
-  ) {
-    if (ast instanceof TerminalNode) {
-      const offset = offsets.get(ast.id) || 0;
+  constructor({ cst }: { cst: Node }, enclosePeripheralComments = false) {
+    if (cst.isTerminalNode()) {
+      const offset = offsets.get(cst.id) || 0;
       this.loc = {
         start: offset,
-        end: offset + ast.textLength.utf16,
+        end: offset + cst.textLength.utf16,
         leadingOffset: 0,
         trailingOffset: 0
       };
       return;
     }
-    const parent = ast.cst;
-    const children = parent.children().map((child) => child.node);
+    const children = cst.children().map((child) => child.node);
 
-    const initialOffset = offsets.get(parent.id) || 0;
+    const initialOffset = offsets.get(cst.id) || 0;
     let offset = initialOffset;
 
     for (const child of children) {

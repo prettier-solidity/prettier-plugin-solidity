@@ -9,7 +9,7 @@ export class Identifier extends SlangNode {
   value: string;
 
   constructor(ast: TerminalNode) {
-    super(ast);
+    super({ cst: ast });
 
     this.value = ast.unparse();
   }
