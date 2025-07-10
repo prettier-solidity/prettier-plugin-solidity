@@ -31,12 +31,13 @@ export class AssignmentExpression extends SlangNode {
   }
 
   print(path: AstPath<AssignmentExpression>, print: PrintFunction): Doc {
+    const rightOperandVariant = this.rightOperand.variant;
     const rightOperand = path.call(print, 'rightOperand');
     return [
       path.call(print, 'leftOperand'),
       ` ${this.operator}`,
-      this.rightOperand.variant.kind !== TerminalKind.Identifier &&
-      isBinaryOperation(this.rightOperand.variant)
+      rightOperandVariant.kind !== TerminalKind.Identifier &&
+      isBinaryOperation(rightOperandVariant)
         ? group(indent([line, rightOperand]))
         : [' ', rightOperand]
     ];

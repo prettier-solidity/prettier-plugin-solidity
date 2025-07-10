@@ -11,26 +11,20 @@ import type { PrintFunction } from '../types.d.ts';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
-function fillTab({ useTabs, tabWidth }: ParserOptions<AstNode>): Doc {
-  if (useTabs) return '\t';
-  // For the odd case of `tabWidth` of 1 or 0 we initiate `fillTab` as a single
-  // space.
-  return tabWidth > 2 ? ' '.repeat(tabWidth - 1) : ' ';
-}
-
 function experimentalTernaries(
   node: ConditionalExpression,
   path: AstPath<ConditionalExpression>,
   print: PrintFunction,
-  options: ParserOptions<AstNode>
+  { useTabs, tabWidth }: ParserOptions<AstNode>
 ): Doc {
   const grandparent = path.grandparent as StrictAstNode;
   const isNested = grandparent.kind === NonterminalKind.ConditionalExpression;
   const isNestedAsTrueExpression =
     isNested && grandparent.trueExpression.variant === node;
+  const falseExpressionVariantKind = node.falseExpression.variant.kind;
   const falseExpressionInSameLine =
-    node.falseExpression.variant.kind === NonterminalKind.TupleExpression ||
-    node.falseExpression.variant.kind === NonterminalKind.ConditionalExpression;
+    falseExpressionVariantKind === NonterminalKind.TupleExpression ||
+    falseExpressionVariantKind === NonterminalKind.ConditionalExpression;
 
   // If the `condition` breaks into multiple lines, we add parentheses,
   // unless it already is a `TupleExpression`.
@@ -56,6 +50,14 @@ function experimentalTernaries(
     { id: groupId }
   );
 
+  // For the odd case of `tabWidth` of 1 or 0 we initiate `fillTab` as a single
+  // space.
+  const fillTab = useTabs
+    ? '\t'
+    : tabWidth > 2
+      ? ' '.repeat(tabWidth - 1)
+      : ' ';
+
   const falseExpression = path.call(print, 'falseExpression');
   const falseExpressionDoc = [
     isNested ? hardline : line,
@@ -63,7 +65,7 @@ function experimentalTernaries(
     falseExpressionInSameLine
       ? [' ', falseExpression]
       : ifBreak(
-          [fillTab(options), indent(falseExpression)],
+          [fillTab, indent(falseExpression)],
           [' ', falseExpression],
           // We only add `fillTab` if we are sure the trueExpression is
           // indented.
