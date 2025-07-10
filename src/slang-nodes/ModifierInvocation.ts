@@ -27,11 +27,12 @@ export class ModifierInvocation extends SlangNode {
   }
 
   cleanModifierInvocationArguments(): void {
+    const argumentsVariant = this.arguments?.variant;
     if (
-      this.arguments &&
-      this.arguments.variant.kind ===
+      argumentsVariant &&
+      argumentsVariant.kind ===
         NonterminalKind.PositionalArgumentsDeclaration &&
-      this.arguments.variant.isEmpty()
+      argumentsVariant.isEmpty
     ) {
       delete this.arguments;
     }
