@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
+import { SlangNode } from './SlangNode.js';
 import { PositionalArguments } from './PositionalArguments.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';

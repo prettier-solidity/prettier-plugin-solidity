@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { SlangNode } from './SlangNode.js';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
+import { SlangNode } from './SlangNode.js';
 import { StateVariableAttribute } from './StateVariableAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';

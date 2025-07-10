@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
+import { SlangNode } from './SlangNode.js';
 import { UsingClause } from './UsingClause.js';
 import { UsingTarget } from './UsingTarget.js';
 
