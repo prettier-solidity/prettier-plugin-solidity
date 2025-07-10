@@ -36,8 +36,9 @@ export class ModifierDefinition extends SlangNode {
     this.updateMetadata(this.parameters, this.attributes, this.body);
 
     if (!this.parameters) {
+      const attributesLoc = this.attributes.loc;
       const parametersOffset =
-        this.attributes.loc.start - this.attributes.loc.leadingOffset;
+        attributesLoc.start - attributesLoc.leadingOffset;
       const parametersLoc = {
         start: parametersOffset,
         end: parametersOffset,

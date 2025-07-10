@@ -34,9 +34,10 @@ export class ImportDeconstructionSymbols extends SlangNode {
     options: ParserOptions<AstNode>
   ): Doc {
     const compiler = coerce(options.compiler);
+    const items = path.map(print, 'items');
     return printSeparatedList(
-      path.map(print, 'items'),
-      compiler && satisfies(compiler, '>=0.7.4') && this.items.length > 1
+      items,
+      items.length > 1 && compiler && satisfies(compiler, '>=0.7.4')
         ? {
             // if the compiler exists and is greater than or equal to 0.7.4 we will
             // split the ImportDirective.
