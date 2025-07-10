@@ -34,7 +34,8 @@ export class TupleValues implements SlangNode {
   }
 
   getSingleExpression(): Expression | undefined {
-    return this.items.length === 1 ? this.items[0].expression : undefined;
+    const items = this.items;
+    return items.length === 1 ? items[0].expression : undefined;
   }
 
   print(path: AstPath<TupleValues>, print: PrintFunction): Doc {
