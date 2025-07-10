@@ -1,8 +1,8 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { SlangNode } from './SlangNode.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 import { Block } from './Block.js';

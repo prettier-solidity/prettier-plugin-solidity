@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { SlangNode } from './SlangNode.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
+import { SlangNode } from './SlangNode.js';
 import { YulStackAssignmentOperator } from './YulStackAssignmentOperator.js';
 import { YulIdentifier } from './YulIdentifier.js';
 
