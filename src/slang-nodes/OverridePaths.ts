@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
+import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';

@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
+import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { AssemblyFlagsDeclaration } from './AssemblyFlagsDeclaration.js';
 import { YulBlock } from './YulBlock.js';

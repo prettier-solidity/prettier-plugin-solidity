@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { SlangNode } from './SlangNode.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
+import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
 import { Identifier } from './Identifier.js';

@@ -1,5 +1,4 @@
-import { TerminalNode } from '@nomicfoundation/slang/cst';
-
+import type { TerminalNode } from '@nomicfoundation/slang/cst';
 import type { Location } from '../types.d.ts';
 import type { StrictAstNode } from './types.d.ts';
 
