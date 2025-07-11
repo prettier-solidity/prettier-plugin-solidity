@@ -5,7 +5,7 @@ import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
 
-import type { Node } from '@nomicfoundation/slang/cst';
+import type { Edge } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { AstLocation, SlangAstNode } from '../types.d.ts';
 
@@ -23,15 +23,15 @@ export function clearOffsets(): void {
   offsets.clear();
 }
 
-function getLeadingOffset(children: Node[]): number {
+function getLeadingOffset(children: Edge[]): number {
   let offset = 0;
-  for (const child of children) {
-    if (child.isNonterminalNode() || !isCommentOrWhiteSpace(child)) {
+  for (const { node } of children) {
+    if (node.isNonterminalNode() || !isCommentOrWhiteSpace(node)) {
       // The node's content starts when we find the first non-terminal token,
       // or if we find a non-comment, non-whitespace token.
       return offset;
     }
-    offset += child.textLength.utf16;
+    offset += node.textLength.utf16;
   }
   return offset;
 }
@@ -71,14 +71,14 @@ export class SlangNode {
       return;
     }
     const parent = ast.cst;
-    const children = parent.children().map((child) => child.node);
+    const children = parent.children();
 
     const initialOffset = offsets.get(parent.id) || 0;
     let offset = initialOffset;
 
-    for (const child of children) {
-      const { id, kind, textLength } = child;
-      if (child.isNonterminalNode()) {
+    for (const { node } of children) {
+      const { id, kind, textLength } = node;
+      if (node.isNonterminalNode()) {
         offsets.set(id, offset);
       } else {
         switch (kind) {
@@ -87,16 +87,16 @@ export class SlangNode {
           // offset, it's hard to separate these responsibilities into different
           // functions without doing the iteration twice.
           case TerminalKind.MultiLineComment:
-            this.comments.push(new MultiLineComment(child, offset));
+            this.comments.push(new MultiLineComment(node, offset));
             break;
           case TerminalKind.MultiLineNatSpecComment:
-            this.comments.push(new MultiLineNatSpecComment(child, offset));
+            this.comments.push(new MultiLineNatSpecComment(node, offset));
             break;
           case TerminalKind.SingleLineComment:
-            this.comments.push(new SingleLineComment(child, offset));
+            this.comments.push(new SingleLineComment(node, offset));
             break;
           case TerminalKind.SingleLineNatSpecComment:
-            this.comments.push(new SingleLineNatSpecComment(child, offset));
+            this.comments.push(new SingleLineNatSpecComment(node, offset));
             break;
           case TerminalKind.Identifier:
           case TerminalKind.YulIdentifier:
