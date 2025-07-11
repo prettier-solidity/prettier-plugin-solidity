@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { coerce, satisfies } from 'semver';
+import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { Identifier } from './Identifier.js';
@@ -47,8 +47,7 @@ export class ContractDefinition implements SlangNode {
   cleanModifierInvocationArguments(options: ParserOptions<AstNode>): void {
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
-    const compiler = coerce(options.compiler);
-    if (compiler && !satisfies(compiler, '>=0.5.0')) {
+    if (!satisfies(options.compiler, '>=0.5.0')) {
       for (const { variant: member } of this.members.items) {
         if (
           member.kind === NonterminalKind.FunctionDefinition &&

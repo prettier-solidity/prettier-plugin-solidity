@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { coerce, satisfies } from 'semver';
+import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
@@ -38,22 +38,22 @@ export class ImportDeconstructionSymbols implements SlangNode {
   print(
     path: AstPath<ImportDeconstructionSymbols>,
     print: PrintFunction,
-    options: ParserOptions<AstNode>
+    { compiler, bracketSpacing }: ParserOptions<AstNode>
   ): Doc {
-    const compiler = coerce(options.compiler);
+    const items = path.map(print, 'items');
     return printSeparatedList(
-      path.map(print, 'items'),
-      compiler && satisfies(compiler, '>=0.7.4') && this.items.length > 1
+      items,
+      items.length > 1 && satisfies(compiler, '>=0.7.4')
         ? {
             // if the compiler exists and is greater than or equal to 0.7.4 we will
             // split the ImportDirective.
-            firstSeparator: options.bracketSpacing ? line : softline,
+            firstSeparator: bracketSpacing ? line : softline,
             separator: [',', line]
           }
         : {
             // if the compiler is not given or is lower than 0.7.4 we will not
             // split the ImportDirective.
-            firstSeparator: options.bracketSpacing ? ' ' : '',
+            firstSeparator: bracketSpacing ? ' ' : '',
             separator: ', '
           }
     );
