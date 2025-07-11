@@ -43,7 +43,7 @@ export class ImportDeconstructionSymbols implements SlangNode {
     const items = path.map(print, 'items');
     return printSeparatedList(
       items,
-      satisfies(compiler, '>=0.7.4') && items.length > 1
+      items.length > 1 && satisfies(compiler, '>=0.7.4')
         ? {
             // if the compiler exists and is greater than or equal to 0.7.4 we will
             // split the ImportDirective.
