@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ForStatementInitialization } from './ForStatementInitialization.js';
 import { ForStatementCondition } from './ForStatementCondition.js';
 import { Expression } from './Expression.js';
@@ -10,16 +10,12 @@ import { Statement } from './Statement.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, indent, line } = doc.builders;
 
-export class ForStatement implements SlangNode {
+export class ForStatement extends SlangNode {
   readonly kind = NonterminalKind.ForStatement;
-
-  comments;
-
-  loc;
 
   initialization: ForStatementInitialization;
 
@@ -30,7 +26,7 @@ export class ForStatement implements SlangNode {
   body: Statement;
 
   constructor(ast: ast.ForStatement, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.initialization = new ForStatementInitialization(
       ast.initialization,
@@ -42,15 +38,12 @@ export class ForStatement implements SlangNode {
     }
     this.body = new Statement(ast.body, options);
 
-    metadata = updateMetadata(metadata, [
+    this.updateMetadata(
       this.initialization,
       this.condition,
       this.iterator,
       this.body
-    ]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    );
   }
 
   print(path: AstPath<ForStatement>, print: PrintFunction): Doc {

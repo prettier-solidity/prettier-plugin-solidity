@@ -1,34 +1,27 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { StructMember } from './StructMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { hardline } = doc.builders;
 
-export class StructMembers implements SlangNode {
+export class StructMembers extends SlangNode {
   readonly kind = NonterminalKind.StructMembers;
-
-  comments;
-
-  loc;
 
   items: StructMember[];
 
   constructor(ast: ast.StructMembers, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map((item) => new StructMember(item, options));
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<StructMembers>, print: PrintFunction): Doc {

@@ -2,34 +2,27 @@ import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { sortContractSpecifiers } from '../slang-utils/sort-contract-specifiers.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ContractSpecifier } from './ContractSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, ifBreak, line, softline } = doc.builders;
 
-export class ContractSpecifiers implements SlangNode {
+export class ContractSpecifiers extends SlangNode {
   readonly kind = NonterminalKind.ContractSpecifiers;
-
-  comments;
-
-  loc;
 
   items: ContractSpecifier[];
 
   constructor(ast: ast.ContractSpecifiers, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map((item) => new ContractSpecifier(item, options));
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.items);
 
     this.items = this.items.sort(sortContractSpecifiers);
   }

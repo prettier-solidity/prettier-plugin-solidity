@@ -1,35 +1,25 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { YulColonAndEqual } from './YulColonAndEqual.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class YulAssignmentOperator implements SlangNode {
+export class YulAssignmentOperator extends SlangNode {
   readonly kind = NonterminalKind.YulAssignmentOperator;
-
-  comments;
-
-  loc;
 
   variant: YulColonAndEqual | string;
 
   constructor(ast: ast.YulAssignmentOperator) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.variant =
       ast.variant instanceof TerminalNode
         ? ast.variant.unparse()
         : new YulColonAndEqual(ast.variant);
 
-    metadata = updateMetadata(
-      metadata,
-      typeof this.variant === 'string' ? [] : [this.variant]
-    );
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<YulAssignmentOperator>, print: PrintFunction): Doc {

@@ -1,24 +1,20 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { YulDefaultCase } from './YulDefaultCase.js';
 import { YulValueCase } from './YulValueCase.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class YulSwitchCase implements SlangNode {
+export class YulSwitchCase extends SlangNode {
   readonly kind = NonterminalKind.YulSwitchCase;
-
-  comments;
-
-  loc;
 
   variant: YulDefaultCase | YulValueCase;
 
   constructor(ast: ast.YulSwitchCase, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.YulDefaultCase:
@@ -37,10 +33,7 @@ export class YulSwitchCase implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    metadata = updateMetadata(metadata, [this.variant]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<YulSwitchCase>, print: PrintFunction): Doc {

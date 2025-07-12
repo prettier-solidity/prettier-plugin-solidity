@@ -1,26 +1,17 @@
 import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 
 import type { Doc } from 'prettier';
-import type { Location, SlangNode } from '../types.d.ts';
-import type { Comment } from './types.d.ts';
 
-export class Identifier implements SlangNode {
+export class Identifier extends SlangNode {
   readonly kind = TerminalKind.Identifier;
-
-  comments: Comment[];
-
-  loc: Location;
 
   value: string;
 
   constructor(ast: TerminalNode) {
-    const metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.value = ast.unparse();
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
   }
 
   print(): Doc {

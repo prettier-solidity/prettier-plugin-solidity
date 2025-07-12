@@ -3,7 +3,7 @@ import {
   TerminalKind,
   TerminalNode
 } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
 import { OrExpression } from './OrExpression.js';
@@ -36,14 +36,10 @@ import { Identifier } from './Identifier.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class Expression implements SlangNode {
+export class Expression extends SlangNode {
   readonly kind = NonterminalKind.Expression;
-
-  comments;
-
-  loc;
 
   variant:
     | AssignmentExpression
@@ -76,7 +72,7 @@ export class Expression implements SlangNode {
     | Identifier;
 
   constructor(ast: ast.Expression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = new Identifier(ast.variant);
@@ -244,13 +240,8 @@ export class Expression implements SlangNode {
       }
     }
 
-    metadata = updateMetadata(
-      metadata,
-      this.variant.kind === TerminalKind.Identifier ? [] : [this.variant]
-    );
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    if (this.variant.kind !== TerminalKind.Identifier)
+      this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<Expression>, print: PrintFunction): Doc {

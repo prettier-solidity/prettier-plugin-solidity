@@ -1,24 +1,20 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class YulLiteral implements SlangNode {
+export class YulLiteral extends SlangNode {
   readonly kind = NonterminalKind.YulLiteral;
-
-  comments;
-
-  loc;
 
   variant: HexStringLiteral | StringLiteral | string;
 
   constructor(ast: ast.YulLiteral, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     if (ast.variant instanceof TerminalNode) {
       this.variant = ast.variant.unparse();
@@ -41,13 +37,7 @@ export class YulLiteral implements SlangNode {
       }
     }
 
-    metadata = updateMetadata(
-      metadata,
-      typeof this.variant === 'string' ? [] : [this.variant]
-    );
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<YulLiteral>, print: PrintFunction): Doc {
