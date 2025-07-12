@@ -23,7 +23,21 @@ export function clearOffsets(): void {
   offsets.clear();
 }
 
-function getLeadingOffset(children: Edge[]): number {
+function reversedIterator<T>(children: T[]): Iterable<T> {
+  return {
+    [Symbol.iterator](): Iterator<T> {
+      let index = children.length;
+      return {
+        next: function (): IteratorResult<T, T> {
+          index--;
+          return { done: index < 0, value: children[index] };
+        }
+      };
+    }
+  };
+}
+
+function getOffset(children: Edge[] | Iterable<Edge>): number {
   let offset = 0;
   for (const { node } of children) {
     if (node.isNonterminalNode() || !isCommentOrWhiteSpace(node)) {
@@ -114,7 +128,7 @@ export class SlangNode {
 
     const [leadingOffset, trailingOffset] = enclosePeripheralComments
       ? [0, 0]
-      : [getLeadingOffset(children), getLeadingOffset(children.reverse())];
+      : [getOffset(children), getOffset(reversedIterator(children))];
 
     this.loc = {
       start: initialOffset + leadingOffset,
@@ -147,7 +161,7 @@ export class SlangNode {
     }
 
     if (loc.trailingOffset === 0) {
-      for (const childNode of childNodes.reverse()) {
+      for (const childNode of reversedIterator(childNodes)) {
         if (typeof childNode === 'undefined' || Array.isArray(childNode))
           continue;
         const { trailingOffset, end } = childNode.loc;
