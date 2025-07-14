@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { StorageLayoutSpecifier } from './StorageLayoutSpecifier.js';
 
@@ -7,7 +7,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 
-export class ContractSpecifier extends SlangNode {
+export class ContractSpecifier extends PolymorphicNode {
   readonly kind = NonterminalKind.ContractSpecifier;
 
   variant: InheritanceSpecifier | StorageLayoutSpecifier;

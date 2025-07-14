@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { YulDefaultCase } from './YulDefaultCase.js';
 import { YulValueCase } from './YulValueCase.js';
 
@@ -7,7 +7,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 
-export class YulSwitchCase extends SlangNode {
+export class YulSwitchCase extends PolymorphicNode {
   readonly kind = NonterminalKind.YulSwitchCase;
 
   variant: YulDefaultCase | YulValueCase;

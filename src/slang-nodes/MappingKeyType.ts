@@ -1,11 +1,11 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 
-export class MappingKeyType extends SlangNode {
+export class MappingKeyType extends PolymorphicNode {
   readonly kind = NonterminalKind.MappingKeyType;
 
   variant: ElementaryType | IdentifierPath;

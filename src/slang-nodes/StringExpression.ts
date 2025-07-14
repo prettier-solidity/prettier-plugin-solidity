@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { StringLiterals } from './StringLiterals.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
@@ -10,7 +10,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 
-export class StringExpression extends SlangNode {
+export class StringExpression extends PolymorphicNode {
   readonly kind = NonterminalKind.StringExpression;
 
   variant:

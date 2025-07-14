@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { PositionalArgumentsDeclaration } from './PositionalArgumentsDeclaration.js';
 import { NamedArgumentsDeclaration } from './NamedArgumentsDeclaration.js';
 
@@ -7,7 +7,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 
-export class ArgumentsDeclaration extends SlangNode {
+export class ArgumentsDeclaration extends PolymorphicNode {
   readonly kind = NonterminalKind.ArgumentsDeclaration;
 
   variant: PositionalArgumentsDeclaration | NamedArgumentsDeclaration;

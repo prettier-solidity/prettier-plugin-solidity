@@ -2,7 +2,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -11,7 +11,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 
-export class FunctionAttribute extends SlangNode {
+export class FunctionAttribute extends PolymorphicNode {
   readonly kind = NonterminalKind.FunctionAttribute;
 
   variant: ModifierInvocation | OverrideSpecifier | TerminalNode;

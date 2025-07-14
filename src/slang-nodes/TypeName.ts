@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { ArrayTypeName } from './ArrayTypeName.js';
 import { FunctionType } from './FunctionType.js';
 import { MappingType } from './MappingType.js';
@@ -10,7 +10,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 
-export class TypeName extends SlangNode {
+export class TypeName extends PolymorphicNode {
   readonly kind = NonterminalKind.TypeName;
 
   variant:
