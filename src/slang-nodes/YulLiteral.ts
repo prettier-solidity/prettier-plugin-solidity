@@ -8,9 +8,8 @@ import { StringLiteral } from './StringLiteral.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 export class YulLiteral extends SlangNode {
   readonly kind = NonterminalKind.YulLiteral;
@@ -41,9 +40,5 @@ export class YulLiteral extends SlangNode {
     }
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<YulLiteral>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

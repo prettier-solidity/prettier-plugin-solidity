@@ -4,8 +4,6 @@ import { IdentifierPath } from './IdentifierPath.js';
 import { UsingDeconstruction } from './UsingDeconstruction.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
 
 export class UsingClause extends SlangNode {
   readonly kind = NonterminalKind.UsingClause;
@@ -31,9 +29,5 @@ export class UsingClause extends SlangNode {
     }
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<UsingClause>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

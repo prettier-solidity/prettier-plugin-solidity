@@ -4,8 +4,6 @@ import { VersionRange } from './VersionRange.js';
 import { VersionTerm } from './VersionTerm.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
 
 export class VersionExpression extends SlangNode {
   readonly kind = NonterminalKind.VersionExpression;
@@ -29,9 +27,5 @@ export class VersionExpression extends SlangNode {
     }
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<VersionExpression>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

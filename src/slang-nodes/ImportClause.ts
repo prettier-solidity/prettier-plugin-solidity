@@ -5,9 +5,8 @@ import { NamedImport } from './NamedImport.js';
 import { ImportDeconstruction } from './ImportDeconstruction.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 export class ImportClause extends SlangNode {
   readonly kind = NonterminalKind.ImportClause;
@@ -37,9 +36,5 @@ export class ImportClause extends SlangNode {
     }
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<ImportClause>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

@@ -4,9 +4,8 @@ import { PositionalArgumentsDeclaration } from './PositionalArgumentsDeclaration
 import { NamedArgumentsDeclaration } from './NamedArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 export class ArgumentsDeclaration extends SlangNode {
   readonly kind = NonterminalKind.ArgumentsDeclaration;
@@ -36,9 +35,5 @@ export class ArgumentsDeclaration extends SlangNode {
     }
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<ArgumentsDeclaration>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

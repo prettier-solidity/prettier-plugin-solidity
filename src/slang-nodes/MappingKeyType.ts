@@ -4,8 +4,6 @@ import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
 
 export class MappingKeyType extends SlangNode {
   readonly kind = NonterminalKind.MappingKeyType;
@@ -29,9 +27,5 @@ export class MappingKeyType extends SlangNode {
     }
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<MappingKeyType>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

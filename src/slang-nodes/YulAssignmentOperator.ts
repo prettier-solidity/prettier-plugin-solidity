@@ -7,8 +7,6 @@ import { YulColonAndEqual } from './YulColonAndEqual.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
 
 export class YulAssignmentOperator extends SlangNode {
   readonly kind = NonterminalKind.YulAssignmentOperator;
@@ -26,9 +24,5 @@ export class YulAssignmentOperator extends SlangNode {
     this.variant = new YulColonAndEqual(variant);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<YulAssignmentOperator>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }
