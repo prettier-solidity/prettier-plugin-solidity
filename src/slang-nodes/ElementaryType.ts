@@ -1,7 +1,10 @@
-import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import {
+  NonterminalKind,
+  TerminalNode as SlangTerminalNode
+} from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { AddressType } from './AddressType.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -10,14 +13,14 @@ import type { PrintFunction } from '../types.d.ts';
 export class ElementaryType extends SlangNode {
   readonly kind = NonterminalKind.ElementaryType;
 
-  variant: AddressType | string;
+  variant: AddressType | TerminalNode;
 
   constructor(ast: ast.ElementaryType) {
     super(ast);
 
     const variant = ast.variant;
-    if (variant instanceof TerminalNode) {
-      this.variant = variant.unparse();
+    if (variant instanceof SlangTerminalNode) {
+      this.variant = new TerminalNode(variant);
       return;
     }
     this.variant = new AddressType(variant);
@@ -26,6 +29,6 @@ export class ElementaryType extends SlangNode {
   }
 
   print(path: AstPath<ElementaryType>, print: PrintFunction): Doc {
-    return printVariant(this, path, print);
+    return path.call(print, 'variant');
   }
 }

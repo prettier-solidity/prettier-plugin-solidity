@@ -1,8 +1,11 @@
-import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import {
+  NonterminalKind,
+  TerminalNode as SlangTerminalNode
+} from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -12,14 +15,14 @@ import type { PrintFunction } from '../types.d.ts';
 export class YulLiteral extends SlangNode {
   readonly kind = NonterminalKind.YulLiteral;
 
-  variant: HexStringLiteral | StringLiteral | string;
+  variant: HexStringLiteral | StringLiteral | TerminalNode;
 
   constructor(ast: ast.YulLiteral, options: ParserOptions<AstNode>) {
     super(ast);
 
     const variant = ast.variant;
-    if (variant instanceof TerminalNode) {
-      this.variant = variant.unparse();
+    if (variant instanceof SlangTerminalNode) {
+      this.variant = new TerminalNode(variant);
       return;
     }
     const variantKind = variant.cst.kind;
@@ -41,6 +44,6 @@ export class YulLiteral extends SlangNode {
   }
 
   print(path: AstPath<YulLiteral>, print: PrintFunction): Doc {
-    return printVariant(this, path, print);
+    return path.call(print, 'variant');
   }
 }
