@@ -1,4 +1,4 @@
-import { coerce, satisfies } from 'semver';
+import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunction } from '../slang-printers/print-function.js';
 import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
@@ -54,8 +54,7 @@ export class FunctionDefinition implements SlangNode {
 
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
-    const compiler = coerce(options.compiler);
-    if (compiler && satisfies(compiler, '>=0.5.0')) {
+    if (satisfies(options.compiler, '>=0.5.0')) {
       this.cleanModifierInvocationArguments();
     }
   }
