@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { TerminalNode } from '../slang-nodes/TerminalNode.js';
 
 import type { SortableAttribute } from './types.d.ts';
 
@@ -15,8 +16,8 @@ export function sortFunctionAttributes(
   { variant: aVariant }: SortableAttribute,
   { variant: bVariant }: SortableAttribute
 ): number {
-  const aIsString = typeof aVariant === 'string';
-  const bIsString = typeof bVariant === 'string';
+  const aIsString = aVariant instanceof TerminalNode;
+  const bIsString = bVariant instanceof TerminalNode;
 
   if (aIsString && !bIsString) return -1;
   if (bIsString && !aIsString) return 1;
@@ -24,11 +25,11 @@ export function sortFunctionAttributes(
   // Both are strings
   if (aIsString && bIsString) {
     // Visibility First
-    if (visibilityKeyWords.has(aVariant)) return -1;
-    if (visibilityKeyWords.has(bVariant)) return 1;
+    if (visibilityKeyWords.has(aVariant.value)) return -1;
+    if (visibilityKeyWords.has(bVariant.value)) return 1;
     // State Mutability Second
-    if (mutabilityKeyWords.has(aVariant)) return -1;
-    if (mutabilityKeyWords.has(bVariant)) return 1;
+    if (mutabilityKeyWords.has(aVariant.value)) return -1;
+    if (mutabilityKeyWords.has(bVariant.value)) return 1;
     // Virtual keyword last
   }
   // Both are nodes
