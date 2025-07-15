@@ -70,7 +70,6 @@ import type { FunctionTypeAttributes } from './FunctionTypeAttributes.ts';
 import type { HexNumberExpression } from './HexNumberExpression.ts';
 import type { HexStringLiteral } from './HexStringLiteral.ts';
 import type { HexStringLiterals } from './HexStringLiterals.ts';
-import type { Identifier } from './Identifier.ts';
 import type { IdentifierPath } from './IdentifierPath.ts';
 import type { IfStatement } from './IfStatement.ts';
 import type { ImportAlias } from './ImportAlias.ts';
@@ -149,6 +148,7 @@ import type { StringLiterals } from './StringLiterals.ts';
 import type { StructDefinition } from './StructDefinition.ts';
 import type { StructMember } from './StructMember.ts';
 import type { StructMembers } from './StructMembers.ts';
+import type { TerminalNode } from './TerminalNode.ts';
 import type { ThrowStatement } from './ThrowStatement.ts';
 import type { TryStatement } from './TryStatement.ts';
 import type { TupleDeconstructionElement } from './TupleDeconstructionElement.ts';
@@ -201,7 +201,6 @@ import type { YulExpression } from './YulExpression.ts';
 import type { YulForStatement } from './YulForStatement.ts';
 import type { YulFunctionCallExpression } from './YulFunctionCallExpression.ts';
 import type { YulFunctionDefinition } from './YulFunctionDefinition.ts';
-import type { YulIdentifier } from './YulIdentifier.ts';
 import type { YulIfStatement } from './YulIfStatement.ts';
 import type { YulLabel } from './YulLabel.ts';
 import type { YulLeaveStatement } from './YulLeaveStatement.ts';
@@ -462,12 +461,12 @@ export type StrictAstNode =
 
 export type NodeCollection = Extract<
   StrictAstNode,
-  { items: StrictAstNode[] | Identifier[] | YulIdentifier[] }
+  { items: StrictAstNode[] | TerminalNode[] }
 >;
 
 export type Collection = Extract<
   StrictAstNode,
-  { items: StrictAstNode[] | Identifier[] | YulIdentifier[] | string[] }
+  { items: StrictAstNode[] | TerminalNode[] | string[] }
 >;
 
 export type PolymorphicNode = Extract<StrictAstNode, { variant: unknown }>;
@@ -484,7 +483,6 @@ export type BinaryOperation = Extract<
 export type AstNode =
   | StrictAstNode
   | Comment
-  | Identifier
-  | YulIdentifier
+  | TerminalNode
   | string
   | undefined;

@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -11,14 +11,14 @@ import type { PrintFunction } from '../types.d.ts';
 export class NamedArgument extends SlangNode {
   readonly kind = NonterminalKind.NamedArgument;
 
-  name: Identifier;
+  name: TerminalNode;
 
   value: Expression;
 
   constructor(ast: ast.NamedArgument, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     this.value = new Expression(ast.value, options);
 
     this.updateMetadata(this.value);

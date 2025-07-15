@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
-import { YulIdentifier } from './YulIdentifier.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -9,14 +9,14 @@ import type { PrintFunction } from '../types.d.ts';
 export class YulPath extends SlangNode {
   readonly kind = NonterminalKind.YulPath;
 
-  items: YulIdentifier[];
+  items: TerminalNode[];
 
   separators: string[];
 
   constructor(ast: ast.YulPath) {
     super(ast, true);
 
-    this.items = ast.items.map((item) => new YulIdentifier(item));
+    this.items = ast.items.map((item) => new TerminalNode(item));
     this.separators = ast.separators.map((separator) => separator.unparse());
   }
 

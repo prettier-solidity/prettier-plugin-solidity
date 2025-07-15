@@ -1,9 +1,10 @@
-import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { isBinaryOperation } from './is-binary-operation.js';
 import { Expression } from '../slang-nodes/Expression.js';
 import { TupleExpression } from '../slang-nodes/TupleExpression.js';
 import { TupleValues } from '../slang-nodes/TupleValues.js';
 import { TupleValue } from '../slang-nodes/TupleValue.js';
+import { TerminalNode } from '../slang-nodes/TerminalNode.js';
 
 export function createHugFunction(
   huggableOperators: string[]
@@ -12,7 +13,7 @@ export function createHugFunction(
   return (node: Expression): Expression => {
     const variant = node.variant;
     if (
-      variant.kind !== TerminalKind.Identifier &&
+      !(variant instanceof TerminalNode) &&
       isBinaryOperation(variant) &&
       operators.has(variant.operator)
     ) {
