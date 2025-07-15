@@ -1,19 +1,25 @@
 import * as ast from '@nomicfoundation/slang/ast';
-import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import {
+  NonterminalKind,
+  TerminalNode as SlangTerminalNode
+} from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
 import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
-  variant: Exclude<ast.ForStatementInitialization['variant'], TerminalNode>,
+  variant: Exclude<
+    ast.ForStatementInitialization['variant'],
+    SlangTerminalNode
+  >,
   options: ParserOptions<AstNode>
-): Exclude<ForStatementInitialization['variant'], string> {
+): Exclude<ForStatementInitialization['variant'], TerminalNode> {
   if (variant instanceof ast.ExpressionStatement) {
     return new ExpressionStatement(variant, options);
   }
@@ -34,7 +40,7 @@ export class ForStatementInitialization extends SlangNode {
     | ExpressionStatement
     | VariableDeclarationStatement
     | TupleDeconstructionStatement
-    | string;
+    | TerminalNode;
 
   constructor(
     ast: ast.ForStatementInitialization,
@@ -43,8 +49,8 @@ export class ForStatementInitialization extends SlangNode {
     super(ast);
 
     const variant = ast.variant;
-    if (variant instanceof TerminalNode) {
-      this.variant = variant.unparse();
+    if (variant instanceof SlangTerminalNode) {
+      this.variant = new TerminalNode(variant);
       return;
     }
     this.variant = createNonterminalVariant(variant, options);
@@ -53,6 +59,6 @@ export class ForStatementInitialization extends SlangNode {
   }
 
   print(path: AstPath<ForStatementInitialization>, print: PrintFunction): Doc {
-    return printVariant(this, path, print);
+    return path.call(print, 'variant');
   }
 }

@@ -1,4 +1,8 @@
-import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import {
+  TerminalKind,
+  TerminalNode,
+  TerminalKindExtensions
+} from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
@@ -91,11 +95,15 @@ export class SlangNode {
     let offset = initialOffset;
 
     for (const { node } of children) {
-      const { id, kind, textLength } = node;
-      if (node.isNonterminalNode()) {
-        offsets.set(id, offset);
+      if (
+        node.isNonterminalNode() ||
+        !TerminalKindExtensions.isTrivia(node.kind)
+      ) {
+        // Also tracking TerminalNodes since some variants that were not
+        // Identifier or YulIdentifier but were upgraded to TerminalNode
+        offsets.set(node.id, offset);
       } else {
-        switch (kind) {
+        switch (node.kind) {
           // Since the fetching the comments and calculating offsets are both done
           // as we iterate over the children and the comment also depends on the
           // offset, it's hard to separate these responsibilities into different
@@ -112,18 +120,10 @@ export class SlangNode {
           case TerminalKind.SingleLineNatSpecComment:
             this.comments.push(new SingleLineNatSpecComment(node, offset));
             break;
-          case TerminalKind.Identifier:
-          case TerminalKind.YulIdentifier:
-            // Identifiers usually are user provided names for variables,
-            // functions, etc...
-            // Since a user can add comments to this section of the code as well,
-            // we need to track the offsets.
-            offsets.set(id, offset);
-            break;
         }
       }
 
-      offset += textLength.utf16;
+      offset += node.textLength.utf16;
     }
 
     const [leadingOffset, trailingOffset] = enclosePeripheralComments
