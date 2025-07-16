@@ -24,6 +24,6 @@ export class TupleValue extends SlangNode {
   }
 
   print(path: AstPath<TupleValue>, print: PrintFunction): Doc {
-    return this.expression ? printVariant('expression', path, print) : '';
+    return printVariant('expression', path, print);
   }
 }

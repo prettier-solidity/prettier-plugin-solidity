@@ -24,6 +24,6 @@ export class IndexAccessEnd extends SlangNode {
   }
 
   print(path: AstPath<IndexAccessEnd>, print: PrintFunction): Doc {
-    return [':', this.end ? printVariant('end', path, print) : ''];
+    return [':', printVariant('end', path, print)];
   }
 }

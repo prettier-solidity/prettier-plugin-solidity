@@ -30,7 +30,7 @@ export class InheritanceType extends SlangNode {
   print(path: AstPath<InheritanceType>, print: PrintFunction): Doc {
     return [
       path.call(print, 'typeName'),
-      this.arguments ? printVariant('arguments', path, print) : ''
+      printVariant('arguments', path, print)
     ];
   }
 }
