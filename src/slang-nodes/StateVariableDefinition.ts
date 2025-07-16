@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StateVariableAttributes } from './StateVariableAttributes.js';
@@ -43,7 +44,7 @@ export class StateVariableDefinition extends SlangNode {
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {
     const groupId = Symbol('Slang.StateVariableDefinition.attributes');
     return [
-      path.call(print, 'typeName'),
+      printVariant('typeName', path, print),
       group(indent(path.call(print, 'attributes')), { id: groupId }),
       ' ',
       path.call(print, 'name'),

@@ -1,7 +1,8 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { isLabel } from '../slang-utils/is-label.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { IndexAccessEnd } from './IndexAccessEnd.js';
@@ -37,25 +38,28 @@ export class IndexAccessExpression extends SlangNode {
   }
 
   print(path: AstPath<IndexAccessExpression>, print: PrintFunction): Doc {
-    const operandDoc = path.call(print, 'operand');
+    const operand = printVariant('operand', path, print);
     const indexDoc = [
       '[',
-      printSeparatedItem([path.call(print, 'start'), path.call(print, 'end')]),
+      printSeparatedItem([
+        this.start ? printVariant('start', path, print) : '',
+        path.call(print, 'end')
+      ]),
       ']'
     ];
 
     // If we are at the end of a MemberAccessChain we should indent the
     // arguments accordingly.
-    if (isLabel(operandDoc) && operandDoc.label === 'MemberAccessChain') {
+    if (isLabel(operand) && operand.label === 'MemberAccessChain') {
       const groupId = Symbol('Slang.IndexAccessExpression.operand');
       // We wrap the expression in a label in case there is an IndexAccess or
       // a FunctionCall following this IndexAccess.
       return label('MemberAccessChain', [
-        group(operandDoc.contents, { id: groupId }),
+        group(operand.contents, { id: groupId }),
         indentIfBreak(indexDoc, { groupId })
       ]);
     }
 
-    return [operandDoc, indexDoc].flat();
+    return [operand, indexDoc].flat();
   }
 }

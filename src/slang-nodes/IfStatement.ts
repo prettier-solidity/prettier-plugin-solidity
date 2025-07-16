@@ -1,7 +1,8 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
@@ -37,13 +38,14 @@ export class IfStatement extends SlangNode {
 
   print(path: AstPath<IfStatement>, print: PrintFunction): Doc {
     const { kind: bodyKind, comments: bodyComments } = this.body.variant;
+    const body = printVariant('body', path, print);
     return [
       'if (',
-      printSeparatedItem(path.call(print, 'condition')),
+      printSeparatedItem(printVariant('condition', path, print)),
       ')',
       bodyKind === NonterminalKind.Block
-        ? [' ', path.call(print, 'body')]
-        : group(indent([line, path.call(print, 'body')]), {
+        ? [' ', body]
+        : group(indent([line, body]), {
             shouldBreak: bodyKind === NonterminalKind.IfStatement // `if` within `if`
           }),
       this.elseBranch

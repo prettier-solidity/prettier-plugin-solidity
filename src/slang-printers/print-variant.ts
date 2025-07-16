@@ -1,11 +1,14 @@
 import type { AstPath, Doc } from 'prettier';
-import type { PolymorphicNode } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+import type { PolymorphicNode } from '../slang-nodes/types.js';
 
 export function printVariant(
-  { variant }: PolymorphicNode,
-  path: AstPath<PolymorphicNode>,
+  property: string,
+  path: AstPath,
   print: PrintFunction
 ): Doc {
-  return typeof variant === 'string' ? variant : path.call(print, 'variant');
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return (path.node[property] as PolymorphicNode).comments.length === 0
+    ? path.call(print, property, 'variant')
+    : path.call(print, property);
 }

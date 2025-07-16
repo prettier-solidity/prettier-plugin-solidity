@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -32,13 +33,15 @@ export class AssignmentExpression extends SlangNode {
   }
 
   print(path: AstPath<AssignmentExpression>, print: PrintFunction): Doc {
+    const rightOperandVariant = this.rightOperand.variant;
+    const rightOperand = printVariant('rightOperand', path, print);
     return [
-      path.call(print, 'leftOperand'),
+      printVariant('leftOperand', path, print),
       ` ${this.operator}`,
-      !(this.rightOperand.variant instanceof TerminalNode) &&
-      isBinaryOperation(this.rightOperand.variant)
-        ? group(indent([line, path.call(print, 'rightOperand')]))
-        : [' ', path.call(print, 'rightOperand')]
+      !(rightOperandVariant instanceof TerminalNode) &&
+      isBinaryOperation(rightOperandVariant)
+        ? group(indent([line, rightOperand]))
+        : [' ', rightOperand]
     ];
   }
 }

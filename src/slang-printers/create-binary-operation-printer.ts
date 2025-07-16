@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
+import { printVariant } from './print-variant.js';
 import { TerminalNode } from '../slang-nodes/TerminalNode.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -19,10 +20,11 @@ function rightOperandPrint(
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const rightOperand =
+  const rightOperand = printVariant('rightOperand', path, print);
+  const rightOperandDoc =
     options.experimentalOperatorPosition === 'end'
-      ? [` ${node.operator}`, line, path.call(print, 'rightOperand')]
-      : [line, `${node.operator} `, path.call(print, 'rightOperand')];
+      ? [` ${node.operator}`, line, rightOperand]
+      : [line, `${node.operator} `, rightOperand];
 
   // If there's only a single binary expression, we want to create a group in
   // order to avoid having a small right part like -1 be on its own line.
@@ -33,7 +35,7 @@ function rightOperandPrint(
     (!isBinaryOperation(grandparentNode) ||
       grandparentNode.kind === NonterminalKind.AssignmentExpression);
 
-  return shouldGroup ? group(rightOperand) : rightOperand;
+  return shouldGroup ? group(rightOperandDoc) : rightOperandDoc;
 }
 
 export const createBinaryOperationPrinter =
@@ -56,7 +58,7 @@ export const createBinaryOperationPrinter =
     const indentRules = indentRulesBuilder(path, options);
 
     return groupRules([
-      path.call(print, 'leftOperand'),
+      printVariant('leftOperand', path, print),
       indentRules(rightOperandPrint(node, path, print, options))
     ]);
   };

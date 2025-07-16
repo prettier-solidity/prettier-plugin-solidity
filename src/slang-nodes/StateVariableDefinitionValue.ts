@@ -1,5 +1,6 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -30,8 +31,9 @@ export class StateVariableDefinitionValue extends SlangNode {
     path: AstPath<StateVariableDefinitionValue>,
     print: PrintFunction
   ): Doc {
+    const value = printVariant('value', path, print);
     return this.value.variant.kind === NonterminalKind.ArrayExpression
-      ? [' = ', path.call(print, 'value')]
-      : group([' =', indent([line, path.call(print, 'value')])]);
+      ? [' = ', value]
+      : group([' =', indent([line, value])]);
   }
 }
