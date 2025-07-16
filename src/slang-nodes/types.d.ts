@@ -460,14 +460,16 @@ export type StrictAstNode =
   | YulPaths
   | YulPath;
 
+export type Collection = Extract<StrictAstNode, { items: unknown[] }>;
+
 export type NodeCollection = Extract<
-  StrictAstNode,
+  Collection,
   { items: StrictAstNode[] | Identifier[] | YulIdentifier[] }
 >;
 
-export type Collection = Extract<
-  StrictAstNode,
-  { items: StrictAstNode[] | Identifier[] | YulIdentifier[] | string[] }
+export type LineCollection = Extract<
+  NodeCollection,
+  { items: Extract<StrictAstNode, { variant: StrictAstNode }>[] }
 >;
 
 export type BinaryOperation = Extract<

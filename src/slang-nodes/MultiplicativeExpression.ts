@@ -14,7 +14,7 @@ const multiplicationTryToHug = createHugFunction(['/', '%']);
 const divisionTryToHug = createHugFunction(['*', '%']);
 const moduloTryToHug = createHugFunction(['*', '/', '%']);
 
-export const printMultiplicativeExpression = printBinaryOperation(
+const printMultiplicativeExpression = printBinaryOperation(
   createKindCheckFunction([
     NonterminalKind.AdditiveExpression,
     NonterminalKind.ShiftExpression,
