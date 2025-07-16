@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`BreakingChangesV0.8.0.sol - {"compiler":"0.7.0"} format 1`] = `
 ====================================options=====================================
