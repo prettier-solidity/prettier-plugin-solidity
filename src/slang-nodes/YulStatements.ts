@@ -3,6 +3,7 @@ import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printComments } from '../slang-printers/print-comments.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulStatement } from './YulStatement.js';
 
@@ -16,12 +17,14 @@ const { hardline } = doc.builders;
 export class YulStatements extends SlangNode {
   readonly kind = NonterminalKind.YulStatements;
 
-  items: YulStatement[];
+  items: YulStatement['variant'][];
 
   constructor(ast: ast.YulStatements, options: ParserOptions<AstNode>) {
     super(ast, true);
 
-    this.items = ast.items.map((item) => new YulStatement(item, options));
+    this.items = ast.items.map((item) =>
+      extractVariant(new YulStatement(item, options))
+    );
 
     this.updateMetadata(this.items);
   }

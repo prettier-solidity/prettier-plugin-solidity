@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { VariableDeclarationType } from './VariableDeclarationType.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -17,7 +17,7 @@ const { group, indent, indentIfBreak, line } = doc.builders;
 export class VariableDeclarationStatement extends SlangNode {
   readonly kind = NonterminalKind.VariableDeclarationStatement;
 
-  variableType: VariableDeclarationType;
+  variableType: VariableDeclarationType['variant'];
 
   storageLocation?: StorageLocation;
 
@@ -31,7 +31,9 @@ export class VariableDeclarationStatement extends SlangNode {
   ) {
     super(ast);
 
-    this.variableType = new VariableDeclarationType(ast.variableType, options);
+    this.variableType = extractVariant(
+      new VariableDeclarationType(ast.variableType, options)
+    );
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(ast.storageLocation);
     }
@@ -51,7 +53,7 @@ export class VariableDeclarationStatement extends SlangNode {
     return [
       group(
         [
-          printVariant('variableType', path, print),
+          path.call(print, 'variableType'),
           indent([
             this.storageLocation
               ? [line, path.call(print, 'storageLocation')]

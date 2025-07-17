@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
 import { Expression } from './Expression.js';
@@ -19,7 +19,7 @@ export class TupleDeconstructionStatement extends SlangNode {
 
   elements: TupleDeconstructionElements;
 
-  expression: Expression;
+  expression: Expression['variant'];
 
   constructor(
     ast: ast.TupleDeconstructionStatement,
@@ -29,7 +29,7 @@ export class TupleDeconstructionStatement extends SlangNode {
 
     this.varKeyword = ast.varKeyword?.unparse();
     this.elements = new TupleDeconstructionElements(ast.elements, options);
-    this.expression = new Expression(ast.expression, options);
+    this.expression = extractVariant(new Expression(ast.expression, options));
 
     this.updateMetadata(this.elements, this.expression);
   }
@@ -44,7 +44,7 @@ export class TupleDeconstructionStatement extends SlangNode {
         [this.varKeyword ? 'var (' : '(', path.call(print, 'elements'), ')'],
         { id: groupId }
       ),
-      indentIfBreak([' = ', printVariant('expression', path, print), ';'], {
+      indentIfBreak([' = ', path.call(print, 'expression'), ';'], {
         groupId
       })
     ];

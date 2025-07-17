@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -17,12 +17,12 @@ function printExpression(
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const expressionVariantKind = node.expression?.variant.kind;
-  if (expressionVariantKind) {
-    const expression = printVariant('expression', path, print);
-    return expressionVariantKind === NonterminalKind.TupleExpression ||
+  const expressionKind = node.expression?.kind;
+  if (expressionKind) {
+    const expression = path.call(print, 'expression');
+    return expressionKind === NonterminalKind.TupleExpression ||
       (options.experimentalTernaries &&
-        expressionVariantKind === NonterminalKind.ConditionalExpression)
+        expressionKind === NonterminalKind.ConditionalExpression)
       ? [' ', expression]
       : group(indent([line, expression]));
   }
@@ -32,13 +32,13 @@ function printExpression(
 export class ReturnStatement extends SlangNode {
   readonly kind = NonterminalKind.ReturnStatement;
 
-  expression?: Expression;
+  expression?: Expression['variant'];
 
   constructor(ast: ast.ReturnStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
     if (ast.expression) {
-      this.expression = new Expression(ast.expression, options);
+      this.expression = extractVariant(new Expression(ast.expression, options));
     }
 
     this.updateMetadata(this.expression);

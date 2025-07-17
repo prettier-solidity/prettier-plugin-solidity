@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Pragma } from './Pragma.js';
 
@@ -11,17 +11,17 @@ import type { PrintFunction } from '../types.d.ts';
 export class PragmaDirective extends SlangNode {
   readonly kind = NonterminalKind.PragmaDirective;
 
-  pragma: Pragma;
+  pragma: Pragma['variant'];
 
   constructor(ast: ast.PragmaDirective, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.pragma = new Pragma(ast.pragma, options);
+    this.pragma = extractVariant(new Pragma(ast.pragma, options));
 
     this.updateMetadata(this.pragma);
   }
 
   print(path: AstPath<PragmaDirective>, print: PrintFunction): Doc {
-    return ['pragma ', printVariant('pragma', path, print), ';'];
+    return ['pragma ', path.call(print, 'pragma'), ';'];
   }
 }

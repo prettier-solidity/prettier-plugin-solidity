@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -36,18 +37,20 @@ const printShiftExpression = printBinaryOperation(
 export class ShiftExpression extends SlangNode {
   readonly kind = NonterminalKind.ShiftExpression;
 
-  leftOperand: Expression;
+  leftOperand: Expression['variant'];
 
   operator: string;
 
-  rightOperand: Expression;
+  rightOperand: Expression['variant'];
 
   constructor(ast: ast.ShiftExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.leftOperand = new Expression(ast.leftOperand, options);
+    this.leftOperand = extractVariant(new Expression(ast.leftOperand, options));
     this.operator = ast.operator.unparse();
-    this.rightOperand = new Expression(ast.rightOperand, options);
+    this.rightOperand = extractVariant(
+      new Expression(ast.rightOperand, options)
+    );
 
     this.updateMetadata(this.leftOperand, this.rightOperand);
 

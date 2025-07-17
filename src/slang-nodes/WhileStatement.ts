@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
@@ -16,26 +16,26 @@ const { group, indent, line } = doc.builders;
 export class WhileStatement extends SlangNode {
   readonly kind = NonterminalKind.WhileStatement;
 
-  condition: Expression;
+  condition: Expression['variant'];
 
-  body: Statement;
+  body: Statement['variant'];
 
   constructor(ast: ast.WhileStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.condition = new Expression(ast.condition, options);
-    this.body = new Statement(ast.body, options);
+    this.condition = extractVariant(new Expression(ast.condition, options));
+    this.body = extractVariant(new Statement(ast.body, options));
 
     this.updateMetadata(this.condition, this.body);
   }
 
   print(path: AstPath<WhileStatement>, print: PrintFunction): Doc {
-    const body = printVariant('body', path, print);
+    const body = path.call(print, 'body');
     return [
       'while (',
-      printSeparatedItem(printVariant('condition', path, print)),
+      printSeparatedItem(path.call(print, 'condition')),
       ')',
-      this.body.variant.kind === NonterminalKind.Block
+      this.body.kind === NonterminalKind.Block
         ? [' ', body]
         : group(indent([line, body]))
     ];

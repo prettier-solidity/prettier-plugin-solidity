@@ -1,10 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 
-import type { ContractSpecifier } from '../slang-nodes/ContractSpecifier.js';
+import type { ContractSpecifier } from '../slang-nodes/ContractSpecifier.ts';
 
 export function sortContractSpecifiers(
-  { variant: { kind: aKind } }: ContractSpecifier,
-  { variant: { kind: bKind } }: ContractSpecifier
+  { kind: aKind }: ContractSpecifier['variant'],
+  { kind: bKind }: ContractSpecifier['variant']
 ): number {
   // OverrideSpecifiers before ModifierInvocation
   if (

@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -14,7 +14,7 @@ const { group, indent, line } = doc.builders;
 export class StateVariableDefinitionValue extends SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinitionValue;
 
-  value: Expression;
+  value: Expression['variant'];
 
   constructor(
     ast: ast.StateVariableDefinitionValue,
@@ -22,7 +22,7 @@ export class StateVariableDefinitionValue extends SlangNode {
   ) {
     super(ast);
 
-    this.value = new Expression(ast.value, options);
+    this.value = extractVariant(new Expression(ast.value, options));
 
     this.updateMetadata(this.value);
   }
@@ -31,8 +31,8 @@ export class StateVariableDefinitionValue extends SlangNode {
     path: AstPath<StateVariableDefinitionValue>,
     print: PrintFunction
   ): Doc {
-    const value = printVariant('value', path, print);
-    return this.value.variant.kind === NonterminalKind.ArrayExpression
+    const value = path.call(print, 'value');
+    return this.value.kind === NonterminalKind.ArrayExpression
       ? [' = ', value]
       : group([' =', indent([line, value])]);
   }

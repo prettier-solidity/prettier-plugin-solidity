@@ -1,10 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 
-export class FunctionTypeAttribute extends PolymorphicNode {
+export class FunctionTypeAttribute extends SlangNode {
   readonly kind = NonterminalKind.FunctionTypeAttribute;
 
   variant: TerminalNode;

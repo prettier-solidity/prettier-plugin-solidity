@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
@@ -18,17 +18,17 @@ const { group, hardline, indent, line } = doc.builders;
 export class IfStatement extends SlangNode {
   readonly kind = NonterminalKind.IfStatement;
 
-  condition: Expression;
+  condition: Expression['variant'];
 
-  body: Statement;
+  body: Statement['variant'];
 
   elseBranch?: ElseBranch;
 
   constructor(ast: ast.IfStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.condition = new Expression(ast.condition, options);
-    this.body = new Statement(ast.body, options);
+    this.condition = extractVariant(new Expression(ast.condition, options));
+    this.body = extractVariant(new Statement(ast.body, options));
     if (ast.elseBranch) {
       this.elseBranch = new ElseBranch(ast.elseBranch, options);
     }
@@ -37,11 +37,11 @@ export class IfStatement extends SlangNode {
   }
 
   print(path: AstPath<IfStatement>, print: PrintFunction): Doc {
-    const { kind: bodyKind, comments: bodyComments } = this.body.variant;
-    const body = printVariant('body', path, print);
+    const { kind: bodyKind, comments: bodyComments } = this.body;
+    const body = path.call(print, 'body');
     return [
       'if (',
-      printSeparatedItem(printVariant('condition', path, print)),
+      printSeparatedItem(path.call(print, 'condition')),
       ')',
       bodyKind === NonterminalKind.Block
         ? [' ', body]

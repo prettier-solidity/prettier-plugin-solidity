@@ -1,9 +1,12 @@
 import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
-import { isPolymorphicNode } from './slang-utils/is-polymorphic-node.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, StrictAstNode } from './slang-nodes/types.d.ts';
+import type {
+  AstNode,
+  StrictAstNode,
+  StrictPolymorphicNode
+} from './slang-nodes/types.d.ts';
 import type { PrintFunction } from './types.d.ts';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
@@ -52,7 +55,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
 // Nodes take care of undefined and string properties so we can restrict path
 // to AstPath<StrictAstNode>
 function genericPrint(
-  path: AstPath<StrictAstNode>,
+  path: AstPath<Exclude<StrictAstNode, StrictPolymorphicNode>>,
   options: ParserOptions<AstNode>,
   print: PrintFunction
 ): Doc {
@@ -63,8 +66,6 @@ function genericPrint(
 
     return options.originalText.slice(locStart(node), locEnd(node));
   }
-
-  if (isPolymorphicNode(node)) return path.call(print, 'variant');
 
   // Since each node has a print function with a specific AstPath, the union of
   // all nodes into AstNode creates a print function with an AstPath of the

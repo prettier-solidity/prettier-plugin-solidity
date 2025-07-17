@@ -9,7 +9,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-import type { Expression } from './Expression.js';
+import type { Expression } from './Expression.ts';
 
 export class TupleValues extends SlangNode {
   readonly kind = NonterminalKind.TupleValues;
@@ -24,17 +24,17 @@ export class TupleValues extends SlangNode {
     this.updateMetadata(this.items);
   }
 
-  getSingleExpression(): Expression | undefined {
+  getSingleExpression(): Expression['variant'] | undefined {
     const items = this.items;
     return items.length === 1 ? items[0].expression : undefined;
   }
 
   print(path: AstPath<TupleValues>, print: PrintFunction): Doc {
-    const singleExpressionVariant = this.getSingleExpression()?.variant;
+    const singleExpression = this.getSingleExpression();
     const items = path.map(print, 'items');
-    return singleExpressionVariant &&
-      !(singleExpressionVariant instanceof TerminalNode) &&
-      isBinaryOperation(singleExpressionVariant)
+    return singleExpression &&
+      !(singleExpression instanceof TerminalNode) &&
+      isBinaryOperation(singleExpression)
       ? items
       : printSeparatedList(items);
   }

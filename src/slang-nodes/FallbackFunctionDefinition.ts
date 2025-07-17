@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunctionWithBody } from '../slang-printers/print-function.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { FallbackFunctionAttributes } from './FallbackFunctionAttributes.js';
@@ -20,7 +21,7 @@ export class FallbackFunctionDefinition extends SlangNode {
 
   returns?: ReturnsDeclaration;
 
-  body: FunctionBody;
+  body: FunctionBody['variant'];
 
   constructor(
     ast: ast.FallbackFunctionDefinition,
@@ -33,7 +34,7 @@ export class FallbackFunctionDefinition extends SlangNode {
     if (ast.returns) {
       this.returns = new ReturnsDeclaration(ast.returns, options);
     }
-    this.body = new FunctionBody(ast.body, options);
+    this.body = extractVariant(new FunctionBody(ast.body, options));
 
     this.updateMetadata(
       this.parameters,
@@ -46,7 +47,7 @@ export class FallbackFunctionDefinition extends SlangNode {
   }
 
   cleanModifierInvocationArguments(): void {
-    for (const { variant: attribute } of this.attributes.items) {
+    for (const attribute of this.attributes.items) {
       if (
         typeof attribute !== 'string' &&
         attribute.kind === NonterminalKind.ModifierInvocation

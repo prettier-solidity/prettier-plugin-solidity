@@ -1,7 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
-import { printVariant } from './print-variant.js';
 import { TerminalNode } from '../slang-nodes/TerminalNode.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -15,12 +14,12 @@ import type { PrintFunction } from '../types.d.ts';
 const { group, line } = doc.builders;
 
 function rightOperandPrint(
-  { operator, leftOperand }: BinaryOperation,
+  { leftOperand, operator }: BinaryOperation,
   path: AstPath<BinaryOperation>,
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const rightOperand = printVariant('rightOperand', path, print);
+  const rightOperand = path.call(print, 'rightOperand');
   const rightOperandDoc =
     options.experimentalOperatorPosition === 'end'
       ? [` ${operator}`, line, rightOperand]
@@ -28,13 +27,11 @@ function rightOperandPrint(
 
   // If there's only a single binary expression, we want to create a group in
   // order to avoid having a small right part like -1 be on its own line.
-  const leftOperandVariant = leftOperand.variant;
-  const grandparentNode = path.grandparent as StrictAstNode;
+  const parent = path.parent as StrictAstNode;
   const shouldGroup =
-    (leftOperandVariant instanceof TerminalNode ||
-      !isBinaryOperation(leftOperandVariant)) &&
-    (!isBinaryOperation(grandparentNode) ||
-      grandparentNode.kind === NonterminalKind.AssignmentExpression);
+    (leftOperand instanceof TerminalNode || !isBinaryOperation(leftOperand)) &&
+    (!isBinaryOperation(parent) ||
+      parent.kind === NonterminalKind.AssignmentExpression);
 
   return shouldGroup ? group(rightOperandDoc) : rightOperandDoc;
 }
@@ -59,7 +56,7 @@ export const createBinaryOperationPrinter =
     const indentRules = indentRulesBuilder(path, options);
 
     return groupRules([
-      printVariant('leftOperand', path, print),
+      path.call(print, 'leftOperand'),
       indentRules(rightOperandPrint(node, path, print, options))
     ]);
   };
