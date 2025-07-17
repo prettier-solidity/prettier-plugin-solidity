@@ -1,9 +1,9 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
-import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
@@ -19,17 +19,17 @@ const { hardline } = doc.builders;
 export class IfStatement extends SlangNode {
   readonly kind = NonterminalKind.IfStatement;
 
-  condition: Expression;
+  condition: Expression['variant'];
 
-  body: Statement;
+  body: Statement['variant'];
 
   elseBranch?: ElseBranch;
 
   constructor(ast: ast.IfStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.condition = new Expression(ast.condition, options);
-    this.body = new Statement(ast.body, options);
+    this.condition = extractVariant(new Expression(ast.condition, options));
+    this.body = extractVariant(new Statement(ast.body, options));
     if (ast.elseBranch) {
       this.elseBranch = new ElseBranch(ast.elseBranch, options);
     }
@@ -38,13 +38,13 @@ export class IfStatement extends SlangNode {
   }
 
   print(path: AstPath<IfStatement>, print: PrintFunction): Doc {
-    const { kind: bodyKind, comments: bodyComments } = this.body.variant;
+    const { kind: bodyKind, comments: bodyComments } = this.body;
     return [
       'if (',
-      printSeparatedItem(printVariant('condition', path, print)),
+      printSeparatedItem(path.call(print, 'condition')),
       ')',
       printIndentedGroupOrSpacedDocument(
-        printVariant('body', path, print),
+        path.call(print, 'body'),
         bodyKind !== NonterminalKind.Block,
         // `if` within `if`
         { shouldBreak: bodyKind === NonterminalKind.IfStatement }

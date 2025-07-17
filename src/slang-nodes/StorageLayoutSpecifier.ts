@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -15,7 +15,7 @@ const { line } = doc.builders;
 export class StorageLayoutSpecifier extends SlangNode {
   readonly kind = NonterminalKind.StorageLayoutSpecifier;
 
-  expression: Expression;
+  expression: Expression['variant'];
 
   constructor(
     ast: ast.StorageLayoutSpecifier,
@@ -23,7 +23,7 @@ export class StorageLayoutSpecifier extends SlangNode {
   ) {
     super(ast);
 
-    this.expression = new Expression(ast.expression, options);
+    this.expression = extractVariant(new Expression(ast.expression, options));
 
     this.updateMetadata(this.expression);
   }
@@ -31,13 +31,11 @@ export class StorageLayoutSpecifier extends SlangNode {
   print(path: AstPath<StorageLayoutSpecifier>, print: PrintFunction): Doc {
     return [
       'layout at',
-      printSeparatedItem(printVariant('expression', path, print), {
+      printSeparatedItem(path.call(print, 'expression'), {
         firstSeparator: line,
         // If this is the second ContractSpecifier we have to delegate printing
         // the line to the ContractSpecifiers node.
-        lastSeparator: path.callParent((parentPath) => parentPath.isFirst)
-          ? line
-          : ''
+        lastSeparator: path.isFirst ? line : ''
       })
     ];
   }

@@ -2,7 +2,11 @@ import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, StrictAstNode } from './slang-nodes/types.d.ts';
+import type {
+  AstNode,
+  StrictAstNode,
+  StrictPolymorphicNode
+} from './slang-nodes/types.d.ts';
 import type { PrintFunction } from './types.d.ts';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
@@ -28,7 +32,6 @@ function ignoreComments(path: AstPath<AstNode>): void {
       // parser. `updateMetadata` is an internal function.
       case 'kind':
       case 'loc':
-      case 'print':
       case 'updateMetadata':
         break;
       // The key `comments` will contain every comment for this node.
@@ -52,7 +55,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
 // Nodes take care of undefined and string properties so we can restrict path
 // to AstPath<StrictAstNode>
 function genericPrint(
-  path: AstPath<StrictAstNode>,
+  path: AstPath<Exclude<StrictAstNode, StrictPolymorphicNode>>,
   options: ParserOptions<AstNode>,
   print: PrintFunction
 ): Doc {

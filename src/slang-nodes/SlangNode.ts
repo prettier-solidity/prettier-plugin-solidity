@@ -10,7 +10,7 @@ import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
 
 import type { Edge } from '@nomicfoundation/slang/cst';
-import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
+import type { Comment } from '../slang-nodes/types.d.ts';
 import type { AstLocation, SlangAstNode } from '../types.d.ts';
 
 const isCommentOrWhiteSpace = createKindCheckFunction([
@@ -56,7 +56,7 @@ function getOffset(children: Edge[] | Iterable<Edge>): number {
 
 function collectComments(
   comments: Comment[],
-  node: StrictAstNode | StrictAstNode[] | undefined
+  node: SlangNode | SlangNode[] | undefined
 ): Comment[] {
   if (node) {
     if (Array.isArray(node)) {
@@ -138,9 +138,7 @@ export class SlangNode {
     };
   }
 
-  updateMetadata(
-    ...childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
-  ): void {
+  updateMetadata(...childNodes: (SlangNode | SlangNode[] | undefined)[]): void {
     const { comments, loc } = this;
     // Collect comments
     this.comments = childNodes.reduce(collectComments, comments);
@@ -148,8 +146,7 @@ export class SlangNode {
     // calculate correct loc object
     if (loc.leadingOffset === 0) {
       for (const childNode of childNodes) {
-        if (typeof childNode === 'undefined' || Array.isArray(childNode))
-          continue;
+        if (!(childNode instanceof SlangNode)) continue;
         const { leadingOffset, start } = childNode.loc;
 
         if (start - leadingOffset === loc.start) {
@@ -162,8 +159,7 @@ export class SlangNode {
 
     if (loc.trailingOffset === 0) {
       for (const childNode of reversedIterator(childNodes)) {
-        if (typeof childNode === 'undefined' || Array.isArray(childNode))
-          continue;
+        if (!(childNode instanceof SlangNode)) continue;
         const { trailingOffset, end } = childNode.loc;
 
         if (end + trailingOffset === loc.end) {

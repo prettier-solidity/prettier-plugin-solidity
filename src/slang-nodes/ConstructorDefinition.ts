@@ -30,6 +30,6 @@ export class ConstructorDefinition extends SlangNode {
   }
 
   print(path: AstPath<ConstructorDefinition>, print: PrintFunction): Doc {
-    return printFunctionWithBody('constructor', this, path, print, false);
+    return printFunctionWithBody('constructor', this, path, print);
   }
 }

@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -11,7 +11,7 @@ import type { PrintFunction } from '../types.d.ts';
 export class VariableDeclarationValue extends SlangNode {
   readonly kind = NonterminalKind.VariableDeclarationValue;
 
-  expression: Expression;
+  expression: Expression['variant'];
 
   constructor(
     ast: ast.VariableDeclarationValue,
@@ -19,12 +19,12 @@ export class VariableDeclarationValue extends SlangNode {
   ) {
     super(ast);
 
-    this.expression = new Expression(ast.expression, options);
+    this.expression = extractVariant(new Expression(ast.expression, options));
 
     this.updateMetadata(this.expression);
   }
 
   print(path: AstPath<VariableDeclarationValue>, print: PrintFunction): Doc {
-    return [' = ', printVariant('expression', path, print)];
+    return [' = ', path.call(print, 'expression')];
   }
 }
