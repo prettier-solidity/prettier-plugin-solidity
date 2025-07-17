@@ -1,9 +1,9 @@
 import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
-import type { NodeCollection } from '../slang-nodes/types.js';
+import type { StrictCollection } from '../slang-nodes/types.ts';
 
 export function printVariantCollection(
-  path: AstPath<NodeCollection>,
+  path: AstPath<StrictCollection>,
   print: PrintFunction
 ): Doc[] {
   return path.map(

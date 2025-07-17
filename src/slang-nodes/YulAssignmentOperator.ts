@@ -2,13 +2,13 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { YulColonAndEqual } from './YulColonAndEqual.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 
-export class YulAssignmentOperator extends PolymorphicNode {
+export class YulAssignmentOperator extends SlangNode {
   readonly kind = NonterminalKind.YulAssignmentOperator;
 
   variant: YulColonAndEqual | TerminalNode;

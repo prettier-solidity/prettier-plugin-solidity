@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { VersionRange } from './VersionRange.js';
 import { VersionTerm } from './VersionTerm.js';
 
@@ -17,7 +17,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class VersionExpression extends PolymorphicNode {
+export class VersionExpression extends SlangNode {
   readonly kind = NonterminalKind.VersionExpression;
 
   variant: VersionRange | VersionTerm;

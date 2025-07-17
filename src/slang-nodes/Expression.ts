@@ -3,7 +3,8 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
+import { SlangNode } from './SlangNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
 import { OrExpression } from './OrExpression.js';
@@ -39,7 +40,7 @@ import type { AstNode } from './types.d.ts';
 function createNonterminalVariant(
   variant: Exclude<ast.Expression['variant'], SlangTerminalNode>,
   options: ParserOptions<AstNode>
-): Exclude<Expression['variant'], TerminalNode> {
+): Expression['variant'] {
   if (variant instanceof ast.AssignmentExpression) {
     return new AssignmentExpression(variant, options);
   }
@@ -116,16 +117,16 @@ function createNonterminalVariant(
     return new DecimalNumberExpression(variant);
   }
   if (variant instanceof ast.StringExpression) {
-    return new StringExpression(variant, options);
+    return extractVariant(new StringExpression(variant, options));
   }
   if (variant instanceof ast.ElementaryType) {
-    return new ElementaryType(variant);
+    return extractVariant(new ElementaryType(variant));
   }
   const exhaustiveCheck: never = variant;
   return exhaustiveCheck;
 }
 
-export class Expression extends PolymorphicNode {
+export class Expression extends SlangNode {
   readonly kind = NonterminalKind.Expression;
 
   variant:
@@ -154,8 +155,8 @@ export class Expression extends PolymorphicNode {
     | ArrayExpression
     | HexNumberExpression
     | DecimalNumberExpression
-    | StringExpression
-    | ElementaryType
+    | StringExpression['variant']
+    | ElementaryType['variant']
     | TerminalNode;
 
   constructor(ast: ast.Expression, options: ParserOptions<AstNode>) {

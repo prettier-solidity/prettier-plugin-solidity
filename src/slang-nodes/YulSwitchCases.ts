@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { printVariantCollection } from '../slang-printers/print-variant-collection.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulSwitchCase } from './YulSwitchCase.js';
 
@@ -14,17 +14,19 @@ const { hardline, join } = doc.builders;
 export class YulSwitchCases extends SlangNode {
   readonly kind = NonterminalKind.YulSwitchCases;
 
-  items: YulSwitchCase[];
+  items: YulSwitchCase['variant'][];
 
   constructor(ast: ast.YulSwitchCases, options: ParserOptions<AstNode>) {
     super(ast, true);
 
-    this.items = ast.items.map((item) => new YulSwitchCase(item, options));
+    this.items = ast.items.map((item) =>
+      extractVariant(new YulSwitchCase(item, options))
+    );
 
     this.updateMetadata(this.items);
   }
 
   print(path: AstPath<YulSwitchCases>, print: PrintFunction): Doc {
-    return join(hardline, printVariantCollection(path, print));
+    return join(hardline, path.map(print, 'items'));
   }
 }

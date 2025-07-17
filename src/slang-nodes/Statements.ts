@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
 import { SlangNode } from './SlangNode.js';
@@ -15,12 +16,14 @@ const { hardline } = doc.builders;
 export class Statements extends SlangNode {
   readonly kind = NonterminalKind.Statements;
 
-  items: Statement[];
+  items: Statement['variant'][];
 
   constructor(ast: ast.Statements, options: ParserOptions<AstNode>) {
     super(ast, true);
 
-    this.items = ast.items.map((item) => new Statement(item, options));
+    this.items = ast.items.map((item) =>
+      extractVariant(new Statement(item, options))
+    );
 
     this.updateMetadata(this.items);
   }

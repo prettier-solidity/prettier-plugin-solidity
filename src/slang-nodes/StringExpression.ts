@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { StringLiterals } from './StringLiterals.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
@@ -33,7 +33,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class StringExpression extends PolymorphicNode {
+export class StringExpression extends SlangNode {
   readonly kind = NonterminalKind.StringExpression;
 
   variant:

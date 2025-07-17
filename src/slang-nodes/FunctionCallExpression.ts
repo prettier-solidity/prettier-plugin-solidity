@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { isLabel } from '../slang-utils/is-label.js';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
-import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
@@ -17,9 +17,9 @@ const { label } = doc.builders;
 export class FunctionCallExpression extends SlangNode {
   readonly kind = NonterminalKind.FunctionCallExpression;
 
-  operand: Expression;
+  operand: Expression['variant'];
 
-  arguments: ArgumentsDeclaration;
+  arguments: ArgumentsDeclaration['variant'];
 
   constructor(
     ast: ast.FunctionCallExpression,
@@ -27,15 +27,17 @@ export class FunctionCallExpression extends SlangNode {
   ) {
     super(ast);
 
-    this.operand = new Expression(ast.operand, options);
-    this.arguments = new ArgumentsDeclaration(ast.arguments, options);
+    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.arguments = extractVariant(
+      new ArgumentsDeclaration(ast.arguments, options)
+    );
 
     this.updateMetadata(this.operand, this.arguments);
   }
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {
-    const operand = printVariant('operand', path, print);
-    const argumentsDoc = printVariant('arguments', path, print);
+    const operand = path.call(print, 'operand');
+    const argumentsDoc = path.call(print, 'arguments');
 
     // If we are at the end of a MemberAccessChain we should indent the
     // arguments accordingly.

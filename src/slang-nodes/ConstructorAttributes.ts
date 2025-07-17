@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
-import { printVariantCollection } from '../slang-printers/print-variant-collection.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ConstructorAttribute } from './ConstructorAttribute.js';
 
@@ -15,13 +15,13 @@ const { line } = doc.builders;
 export class ConstructorAttributes extends SlangNode {
   readonly kind = NonterminalKind.ConstructorAttributes;
 
-  items: ConstructorAttribute[];
+  items: ConstructorAttribute['variant'][];
 
   constructor(ast: ast.ConstructorAttributes, options: ParserOptions<AstNode>) {
     super(ast, true);
 
-    this.items = ast.items.map(
-      (item) => new ConstructorAttribute(item, options)
+    this.items = ast.items.map((item) =>
+      extractVariant(new ConstructorAttribute(item, options))
     );
 
     this.updateMetadata(this.items);
@@ -30,6 +30,6 @@ export class ConstructorAttributes extends SlangNode {
   }
 
   print(path: AstPath<ConstructorAttributes>, print: PrintFunction): Doc {
-    return printVariantCollection(path, print).map((item) => [line, item]);
+    return path.map(print, 'items').map((item) => [line, item]);
   }
 }

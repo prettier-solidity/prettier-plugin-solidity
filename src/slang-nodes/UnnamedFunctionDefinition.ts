@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { printFunctionWithBody } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
@@ -17,7 +18,7 @@ export class UnnamedFunctionDefinition extends SlangNode {
 
   attributes: UnnamedFunctionAttributes;
 
-  body: FunctionBody;
+  body: FunctionBody['variant'];
 
   constructor(
     ast: ast.UnnamedFunctionDefinition,
@@ -27,7 +28,7 @@ export class UnnamedFunctionDefinition extends SlangNode {
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new UnnamedFunctionAttributes(ast.attributes, options);
-    this.body = new FunctionBody(ast.body, options);
+    this.body = extractVariant(new FunctionBody(ast.body, options));
 
     this.updateMetadata(this.parameters, this.attributes, this.body);
 
@@ -35,7 +36,7 @@ export class UnnamedFunctionDefinition extends SlangNode {
   }
 
   cleanModifierInvocationArguments(): void {
-    for (const { variant: attribute } of this.attributes.items) {
+    for (const attribute of this.attributes.items) {
       if (attribute.kind === NonterminalKind.ModifierInvocation) {
         attribute.cleanModifierInvocationArguments();
       }
