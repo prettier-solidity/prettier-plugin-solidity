@@ -43,8 +43,7 @@ export function createHugFunction(
                       expression: node
                     }
                   )
-                ],
-                separators: []
+                ]
               }
             )
           }

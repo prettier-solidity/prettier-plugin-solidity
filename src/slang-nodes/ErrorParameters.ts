@@ -17,13 +17,10 @@ export class ErrorParameters implements SlangNode {
 
   items: ErrorParameter[];
 
-  separators: string[];
-
   constructor(ast: ast.ErrorParameters, options: ParserOptions<AstNode>) {
     let metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new ErrorParameter(item, options));
-    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

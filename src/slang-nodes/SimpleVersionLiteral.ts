@@ -14,21 +14,16 @@ export class SimpleVersionLiteral implements SlangNode {
 
   items: string[];
 
-  separators: string[];
-
   constructor(ast: ast.SimpleVersionLiteral) {
     const metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => item.unparse());
-    this.separators = ast.separators.map((separator) => separator.unparse());
 
     this.comments = metadata.comments;
     this.loc = metadata.loc;
   }
 
   print(): Doc {
-    return this.items.map((item, index) =>
-      index === 0 ? item : [this.separators[index - 1], item]
-    );
+    return this.items.join('.');
   }
 }
