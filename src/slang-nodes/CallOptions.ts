@@ -20,13 +20,10 @@ export class CallOptions implements SlangNode {
 
   items: NamedArgument[];
 
-  separators: string[];
-
   constructor(ast: ast.CallOptions, options: ParserOptions<AstNode>) {
     let metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new NamedArgument(item, options));
-    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

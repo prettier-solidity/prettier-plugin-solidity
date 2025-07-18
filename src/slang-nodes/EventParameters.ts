@@ -17,13 +17,10 @@ export class EventParameters implements SlangNode {
 
   items: EventParameter[];
 
-  separators: string[];
-
   constructor(ast: ast.EventParameters, options: ParserOptions<AstNode>) {
     let metadata = getNodeMetadata(ast, true);
 
     this.items = ast.items.map((item) => new EventParameter(item, options));
-    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 
