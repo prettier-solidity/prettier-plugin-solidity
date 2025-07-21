@@ -17,8 +17,6 @@ export class TupleDeconstructionElements implements SlangNode {
 
   items: TupleDeconstructionElement[];
 
-  separators: string[];
-
   constructor(
     ast: ast.TupleDeconstructionElements,
     options: ParserOptions<AstNode>
@@ -28,7 +26,6 @@ export class TupleDeconstructionElements implements SlangNode {
     this.items = ast.items.map(
       (item) => new TupleDeconstructionElement(item, options)
     );
-    this.separators = ast.separators.map((separator) => separator.unparse());
 
     metadata = updateMetadata(metadata, [this.items]);
 

@@ -68,8 +68,7 @@ export class ModifierDefinition implements SlangNode {
               kind: NonterminalKind.Parameters,
               loc: { ...parametersLoc },
               comments: [],
-              items: [],
-              separators: []
+              items: []
             }
           )
         }
