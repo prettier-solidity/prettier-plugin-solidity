@@ -3,7 +3,7 @@ import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { SlangNode } from './SlangNode.js';
 import { YulStackAssignmentOperator } from './YulStackAssignmentOperator.js';
-import { YulIdentifier } from './YulIdentifier.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -16,13 +16,13 @@ export class YulStackAssignmentStatement extends SlangNode {
 
   assignment: YulStackAssignmentOperator;
 
-  variable: YulIdentifier;
+  variable: TerminalNode;
 
   constructor(ast: ast.YulStackAssignmentStatement) {
     super(ast);
 
     this.assignment = new YulStackAssignmentOperator(ast.assignment);
-    this.variable = new YulIdentifier(ast.variable);
+    this.variable = new TerminalNode(ast.variable);
 
     this.updateMetadata(this.assignment);
   }

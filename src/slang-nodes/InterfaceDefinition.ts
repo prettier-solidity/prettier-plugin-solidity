@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { InterfaceMembers } from './InterfaceMembers.js';
 
@@ -15,7 +15,7 @@ const { group, line } = doc.builders;
 export class InterfaceDefinition extends SlangNode {
   readonly kind = NonterminalKind.InterfaceDefinition;
 
-  name: Identifier;
+  name: TerminalNode;
 
   inheritance?: InheritanceSpecifier;
 
@@ -24,7 +24,7 @@ export class InterfaceDefinition extends SlangNode {
   constructor(ast: ast.InterfaceDefinition, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     if (ast.inheritance) {
       this.inheritance = new InheritanceSpecifier(ast.inheritance, options);
     }

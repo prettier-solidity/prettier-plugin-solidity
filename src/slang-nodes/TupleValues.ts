@@ -1,8 +1,9 @@
-import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleValue } from './TupleValue.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -32,7 +33,7 @@ export class TupleValues extends SlangNode {
     const singleExpressionVariant = this.getSingleExpression()?.variant;
     const items = path.map(print, 'items');
     return singleExpressionVariant &&
-      singleExpressionVariant.kind !== TerminalKind.Identifier &&
+      !(singleExpressionVariant instanceof TerminalNode) &&
       isBinaryOperation(singleExpressionVariant)
       ? items
       : printSeparatedList(items);

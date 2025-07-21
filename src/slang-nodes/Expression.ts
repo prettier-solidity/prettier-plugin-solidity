@@ -1,5 +1,8 @@
 import * as ast from '@nomicfoundation/slang/ast';
-import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import {
+  NonterminalKind,
+  TerminalNode as SlangTerminalNode
+} from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
@@ -28,16 +31,16 @@ import { HexNumberExpression } from './HexNumberExpression.js';
 import { DecimalNumberExpression } from './DecimalNumberExpression.js';
 import { StringExpression } from './StringExpression.js';
 import { ElementaryType } from './ElementaryType.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
-  variant: Exclude<ast.Expression['variant'], TerminalNode>,
+  variant: Exclude<ast.Expression['variant'], SlangTerminalNode>,
   options: ParserOptions<AstNode>
-): Exclude<Expression['variant'], Identifier> {
+): Exclude<Expression['variant'], TerminalNode> {
   if (variant instanceof ast.AssignmentExpression) {
     return new AssignmentExpression(variant, options);
   }
@@ -154,14 +157,14 @@ export class Expression extends SlangNode {
     | DecimalNumberExpression
     | StringExpression
     | ElementaryType
-    | Identifier;
+    | TerminalNode;
 
   constructor(ast: ast.Expression, options: ParserOptions<AstNode>) {
     super(ast);
 
     const variant = ast.variant;
-    if (variant instanceof TerminalNode) {
-      this.variant = new Identifier(variant);
+    if (variant instanceof SlangTerminalNode) {
+      this.variant = new TerminalNode(variant);
       return;
     }
     this.variant = createNonterminalVariant(variant, options);

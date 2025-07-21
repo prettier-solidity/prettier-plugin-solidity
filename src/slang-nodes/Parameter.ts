@@ -4,7 +4,7 @@ import { joinExisting } from '../slang-utils/join-existing.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -20,7 +20,7 @@ export class Parameter extends SlangNode {
 
   storageLocation?: StorageLocation;
 
-  name?: Identifier;
+  name?: TerminalNode;
 
   constructor(ast: ast.Parameter, options: ParserOptions<AstNode>) {
     super(ast);
@@ -30,7 +30,7 @@ export class Parameter extends SlangNode {
       this.storageLocation = new StorageLocation(ast.storageLocation);
     }
     if (ast.name) {
-      this.name = new Identifier(ast.name);
+      this.name = new TerminalNode(ast.name);
     }
 
     this.updateMetadata(this.typeName, this.storageLocation);
