@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { ErrorParametersDeclaration } from './ErrorParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -11,14 +11,14 @@ import type { PrintFunction } from '../types.d.ts';
 export class ErrorDefinition extends SlangNode {
   readonly kind = NonterminalKind.ErrorDefinition;
 
-  name: Identifier;
+  name: TerminalNode;
 
   members: ErrorParametersDeclaration;
 
   constructor(ast: ast.ErrorDefinition, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     this.members = new ErrorParametersDeclaration(ast.members, options);
 
     this.updateMetadata(this.members);

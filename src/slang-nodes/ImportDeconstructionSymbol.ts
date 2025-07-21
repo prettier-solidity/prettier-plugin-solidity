@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { ImportAlias } from './ImportAlias.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -10,14 +10,14 @@ import type { PrintFunction } from '../types.d.ts';
 export class ImportDeconstructionSymbol extends SlangNode {
   readonly kind = NonterminalKind.ImportDeconstructionSymbol;
 
-  name: Identifier;
+  name: TerminalNode;
 
   alias?: ImportAlias;
 
   constructor(ast: ast.ImportDeconstructionSymbol) {
     super(ast);
 
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     if (ast.alias) {
       this.alias = new ImportAlias(ast.alias);
     }

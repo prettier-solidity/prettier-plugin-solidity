@@ -1,6 +1,7 @@
-import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
+import { TerminalNode } from '../slang-nodes/TerminalNode.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type {
@@ -28,8 +29,7 @@ function rightOperandPrint(
   const leftOperand = node.leftOperand.variant;
   const grandparentNode = path.grandparent as StrictAstNode;
   const shouldGroup =
-    (leftOperand.kind === TerminalKind.Identifier ||
-      !isBinaryOperation(leftOperand)) &&
+    (leftOperand instanceof TerminalNode || !isBinaryOperation(leftOperand)) &&
     (!isBinaryOperation(grandparentNode) ||
       grandparentNode.kind === NonterminalKind.AssignmentExpression);
 
