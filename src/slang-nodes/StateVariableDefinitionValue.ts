@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -7,8 +7,6 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-
-const { group, indent, line } = doc.builders;
 
 export class StateVariableDefinitionValue extends SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinitionValue;
@@ -30,12 +28,12 @@ export class StateVariableDefinitionValue extends SlangNode {
     path: AstPath<StateVariableDefinitionValue>,
     print: PrintFunction
   ): Doc {
-    const value = path.call(print, 'value');
     return [
       ' =',
-      this.value.variant.kind === NonterminalKind.ArrayExpression
-        ? [' ', value]
-        : group(indent([line, value]))
+      printIndentedGroupOrSpacedDocument(
+        path.call(print, 'value'),
+        this.value.variant.kind !== NonterminalKind.ArrayExpression
+      )
     ];
   }
 }

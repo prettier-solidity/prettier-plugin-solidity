@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -8,8 +8,6 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
-const { group, indent, line } = doc.builders;
-
 function printExpression(
   node: ReturnStatement,
   path: AstPath<ReturnStatement>,
@@ -17,13 +15,13 @@ function printExpression(
   options: ParserOptions<AstNode>
 ): Doc {
   const expressionVariantKind = node.expression?.variant.kind;
-  const expression = path.call(print, 'expression');
   if (expressionVariantKind) {
-    return expressionVariantKind === NonterminalKind.TupleExpression ||
-      (options.experimentalTernaries &&
-        expressionVariantKind === NonterminalKind.ConditionalExpression)
-      ? [' ', expression]
-      : group(indent([line, expression]));
+    return printIndentedGroupOrSpacedDocument(
+      path.call(print, 'expression'),
+      expressionVariantKind !== NonterminalKind.TupleExpression &&
+        (!options.experimentalTernaries ||
+          expressionVariantKind !== NonterminalKind.ConditionalExpression)
+    );
   }
   return '';
 }
