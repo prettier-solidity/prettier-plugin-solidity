@@ -10,7 +10,7 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
-const { group, indent, line } = doc.builders;
+const { line } = doc.builders;
 
 export class DoWhileStatement extends SlangNode {
   readonly kind = NonterminalKind.DoWhileStatement;
@@ -34,7 +34,7 @@ export class DoWhileStatement extends SlangNode {
       'do',
       this.body.variant.kind === NonterminalKind.Block
         ? [' ', body, ' ']
-        : group([indent([line, body]), line]),
+        : printSeparatedItem(body, { firstSeparator: line }),
       'while (',
       printSeparatedItem(path.call(print, 'condition')),
       ');'
