@@ -24,9 +24,9 @@ function isEndOfChain(
   path: AstPath<StrictAstNode>
 ): boolean {
   for (
-    let i = 2, current: StrictAstNode = node, grandparent = path.getNode(i)!;
-    isChainableExpression(grandparent);
-    i += 2, current = grandparent, grandparent = path.getNode(i)!
+    let i = 2, current: StrictAstNode = node, grandparent = path.getNode(i);
+    grandparent && isChainableExpression(grandparent);
+    i += 2, current = grandparent, grandparent = path.getNode(i)
   ) {
     switch (grandparent.kind) {
       case NonterminalKind.MemberAccessExpression:
