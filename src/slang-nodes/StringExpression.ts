@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { StringLiterals } from './StringLiterals.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
@@ -9,14 +9,10 @@ import { UnicodeStringLiterals } from './UnicodeStringLiterals.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class StringExpression implements SlangNode {
+export class StringExpression extends SlangNode {
   readonly kind = NonterminalKind.StringExpression;
-
-  comments;
-
-  loc;
 
   variant:
     | StringLiteral
@@ -26,7 +22,7 @@ export class StringExpression implements SlangNode {
     | UnicodeStringLiterals;
 
   constructor(ast: ast.StringExpression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.StringLiteral:
@@ -63,10 +59,7 @@ export class StringExpression implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    metadata = updateMetadata(metadata, [this.variant]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<StringExpression>, print: PrintFunction): Doc {

@@ -1,23 +1,19 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { UsingDeconstruction } from './UsingDeconstruction.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class UsingClause implements SlangNode {
+export class UsingClause extends SlangNode {
   readonly kind = NonterminalKind.UsingClause;
-
-  comments;
-
-  loc;
 
   variant: IdentifierPath | UsingDeconstruction;
 
   constructor(ast: ast.UsingClause) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.IdentifierPath:
@@ -32,10 +28,7 @@ export class UsingClause implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    metadata = updateMetadata(metadata, [this.variant]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<UsingClause>, print: PrintFunction): Doc {

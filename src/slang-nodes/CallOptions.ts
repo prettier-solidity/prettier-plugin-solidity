@@ -1,34 +1,27 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { NamedArgument } from './NamedArgument.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { line, softline } = doc.builders;
 
-export class CallOptions implements SlangNode {
+export class CallOptions extends SlangNode {
   readonly kind = NonterminalKind.CallOptions;
-
-  comments;
-
-  loc;
 
   items: NamedArgument[];
 
   constructor(ast: ast.CallOptions, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map((item) => new NamedArgument(item, options));
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.items);
   }
 
   print(

@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
+import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
 import { Identifier } from './Identifier.js';
@@ -8,14 +8,10 @@ import { Identifier } from './Identifier.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class TypedTupleMember implements SlangNode {
+export class TypedTupleMember extends SlangNode {
   readonly kind = NonterminalKind.TypedTupleMember;
-
-  comments;
-
-  loc;
 
   typeName: TypeName;
 
@@ -24,7 +20,7 @@ export class TypedTupleMember implements SlangNode {
   name: Identifier;
 
   constructor(ast: ast.TypedTupleMember, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.typeName = new TypeName(ast.typeName, options);
     if (ast.storageLocation) {
@@ -32,10 +28,7 @@ export class TypedTupleMember implements SlangNode {
     }
     this.name = new Identifier(ast.name);
 
-    metadata = updateMetadata(metadata, [this.typeName, this.storageLocation]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.typeName, this.storageLocation);
   }
 
   print(path: AstPath<TypedTupleMember>, print: PrintFunction): Doc {

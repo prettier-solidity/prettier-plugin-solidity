@@ -1,38 +1,31 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Statement } from './Statement.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, indent, line } = doc.builders;
 
-export class DoWhileStatement implements SlangNode {
+export class DoWhileStatement extends SlangNode {
   readonly kind = NonterminalKind.DoWhileStatement;
-
-  comments;
-
-  loc;
 
   body: Statement;
 
   condition: Expression;
 
   constructor(ast: ast.DoWhileStatement, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.body = new Statement(ast.body, options);
     this.condition = new Expression(ast.condition, options);
 
-    metadata = updateMetadata(metadata, [this.body, this.condition]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.body, this.condition);
   }
 
   print(path: AstPath<DoWhileStatement>, print: PrintFunction): Doc {

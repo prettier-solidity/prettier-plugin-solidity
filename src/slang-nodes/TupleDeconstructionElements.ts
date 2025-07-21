@@ -1,19 +1,15 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { TupleDeconstructionElement } from './TupleDeconstructionElement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class TupleDeconstructionElements implements SlangNode {
+export class TupleDeconstructionElements extends SlangNode {
   readonly kind = NonterminalKind.TupleDeconstructionElements;
-
-  comments;
-
-  loc;
 
   items: TupleDeconstructionElement[];
 
@@ -21,16 +17,13 @@ export class TupleDeconstructionElements implements SlangNode {
     ast: ast.TupleDeconstructionElements,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map(
       (item) => new TupleDeconstructionElement(item, options)
     );
 
-    metadata = updateMetadata(metadata, [this.items]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<TupleDeconstructionElements>, print: PrintFunction): Doc {

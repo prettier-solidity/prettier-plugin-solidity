@@ -1,7 +1,7 @@
 import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunction } from '../slang-printers/print-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { FunctionName } from './FunctionName.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { FunctionAttributes } from './FunctionAttributes.js';
@@ -11,14 +11,10 @@ import { FunctionBody } from './FunctionBody.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class FunctionDefinition implements SlangNode {
+export class FunctionDefinition extends SlangNode {
   readonly kind = NonterminalKind.FunctionDefinition;
-
-  comments;
-
-  loc;
 
   name: FunctionName;
 
@@ -31,7 +27,7 @@ export class FunctionDefinition implements SlangNode {
   body: FunctionBody;
 
   constructor(ast: ast.FunctionDefinition, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.name = new FunctionName(ast.name);
     this.parameters = new ParametersDeclaration(ast.parameters, options);
@@ -41,16 +37,13 @@ export class FunctionDefinition implements SlangNode {
     }
     this.body = new FunctionBody(ast.body, options);
 
-    metadata = updateMetadata(metadata, [
+    this.updateMetadata(
       this.name,
       this.parameters,
       this.attributes,
       this.returns,
       this.body
-    ]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    );
 
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.

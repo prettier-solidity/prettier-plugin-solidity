@@ -1,33 +1,26 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group } = doc.builders;
 
-export class ReturnsDeclaration implements SlangNode {
+export class ReturnsDeclaration extends SlangNode {
   readonly kind = NonterminalKind.ReturnsDeclaration;
-
-  comments;
-
-  loc;
 
   variables: ParametersDeclaration;
 
   constructor(ast: ast.ReturnsDeclaration, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.variables = new ParametersDeclaration(ast.variables, options);
 
-    metadata = updateMetadata(metadata, [this.variables]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.variables);
   }
 
   print(path: AstPath<ReturnsDeclaration>, print: PrintFunction): Doc {

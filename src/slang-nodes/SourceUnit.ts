@@ -1,35 +1,30 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { SourceUnitMembers } from './SourceUnitMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
-export class SourceUnit implements SlangNode {
+export class SourceUnit extends SlangNode {
   readonly kind = NonterminalKind.SourceUnit;
-
-  comments;
-
-  loc;
 
   members: SourceUnitMembers;
 
   constructor(ast: ast.SourceUnit, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.members = new SourceUnitMembers(ast.members, options);
 
-    metadata = updateMetadata(metadata, [this.members]);
+    this.updateMetadata(this.members);
 
     // Because of comments being extracted like a russian doll, the order needs
     // to be fixed at the end.
-    this.comments = metadata.comments.sort((a, b) => a.loc.start - b.loc.start);
-    this.loc = metadata.loc;
+    this.comments = this.comments.sort((a, b) => a.loc.start - b.loc.start);
   }
 
   print(

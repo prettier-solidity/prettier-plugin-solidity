@@ -1,13 +1,13 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode, StrictAstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
 
@@ -108,12 +108,8 @@ function getOperandSingleExpression({
     : undefined;
 }
 
-export class ConditionalExpression implements SlangNode {
+export class ConditionalExpression extends SlangNode {
   readonly kind = NonterminalKind.ConditionalExpression;
-
-  comments;
-
-  loc;
 
   operand: Expression;
 
@@ -122,20 +118,17 @@ export class ConditionalExpression implements SlangNode {
   falseExpression: Expression;
 
   constructor(ast: ast.ConditionalExpression, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.operand = new Expression(ast.operand, options);
     this.trueExpression = new Expression(ast.trueExpression, options);
     this.falseExpression = new Expression(ast.falseExpression, options);
 
-    metadata = updateMetadata(metadata, [
+    this.updateMetadata(
       this.operand,
       this.trueExpression,
       this.falseExpression
-    ]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    );
 
     if (options.experimentalTernaries) {
       // We can remove parentheses only because we are sure that the

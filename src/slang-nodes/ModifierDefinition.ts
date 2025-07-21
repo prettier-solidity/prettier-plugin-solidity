@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunction } from '../slang-printers/print-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { Identifier } from './Identifier.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { Parameters } from './Parameters.js';
@@ -10,14 +10,10 @@ import { FunctionBody } from './FunctionBody.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ModifierDefinition implements SlangNode {
+export class ModifierDefinition extends SlangNode {
   readonly kind = NonterminalKind.ModifierDefinition;
-
-  comments;
-
-  loc;
 
   name: Identifier;
 
@@ -28,7 +24,7 @@ export class ModifierDefinition implements SlangNode {
   body: FunctionBody;
 
   constructor(ast: ast.ModifierDefinition, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.name = new Identifier(ast.name);
     if (ast.parameters) {
@@ -37,14 +33,7 @@ export class ModifierDefinition implements SlangNode {
     this.attributes = new ModifierAttributes(ast.attributes);
     this.body = new FunctionBody(ast.body, options);
 
-    metadata = updateMetadata(metadata, [
-      this.parameters,
-      this.attributes,
-      this.body
-    ]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.parameters, this.attributes, this.body);
 
     if (!this.parameters) {
       const parametersOffset =

@@ -1,30 +1,23 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { YulIdentifier } from './YulIdentifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
 const { join } = doc.builders;
 
-export class YulPath implements SlangNode {
+export class YulPath extends SlangNode {
   readonly kind = NonterminalKind.YulPath;
-
-  comments;
-
-  loc;
 
   items: YulIdentifier[];
 
   constructor(ast: ast.YulPath) {
-    const metadata = getNodeMetadata(ast, true);
+    super(ast, true);
 
     this.items = ast.items.map((item) => new YulIdentifier(item));
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
   }
 
   print(path: AstPath<YulPath>, print: PrintFunction): Doc {

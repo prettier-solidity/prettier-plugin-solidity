@@ -1,24 +1,20 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { StorageLayoutSpecifier } from './StorageLayoutSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ContractSpecifier implements SlangNode {
+export class ContractSpecifier extends SlangNode {
   readonly kind = NonterminalKind.ContractSpecifier;
-
-  comments;
-
-  loc;
 
   variant: InheritanceSpecifier | StorageLayoutSpecifier;
 
   constructor(ast: ast.ContractSpecifier, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.InheritanceSpecifier:
@@ -36,10 +32,7 @@ export class ContractSpecifier implements SlangNode {
       default:
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
-    metadata = updateMetadata(metadata, [this.variant]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ContractSpecifier>, print: PrintFunction): Doc {

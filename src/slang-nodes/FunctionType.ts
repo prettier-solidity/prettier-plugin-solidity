@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunction } from '../slang-printers/print-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { FunctionTypeAttributes } from './FunctionTypeAttributes.js';
 import { ReturnsDeclaration } from './ReturnsDeclaration.js';
@@ -8,14 +8,10 @@ import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class FunctionType implements SlangNode {
+export class FunctionType extends SlangNode {
   readonly kind = NonterminalKind.FunctionType;
-
-  comments;
-
-  loc;
 
   parameters: ParametersDeclaration;
 
@@ -24,7 +20,7 @@ export class FunctionType implements SlangNode {
   returns?: ReturnsDeclaration;
 
   constructor(ast: ast.FunctionType, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new FunctionTypeAttributes(ast.attributes);
@@ -32,14 +28,7 @@ export class FunctionType implements SlangNode {
       this.returns = new ReturnsDeclaration(ast.returns, options);
     }
 
-    metadata = updateMetadata(metadata, [
-      this.parameters,
-      this.attributes,
-      this.returns
-    ]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.parameters, this.attributes, this.returns);
   }
 
   print(path: AstPath<FunctionType>, print: PrintFunction): Doc {

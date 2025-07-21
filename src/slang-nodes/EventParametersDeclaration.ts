@@ -1,18 +1,14 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { EventParameters } from './EventParameters.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class EventParametersDeclaration implements SlangNode {
+export class EventParametersDeclaration extends SlangNode {
   readonly kind = NonterminalKind.EventParametersDeclaration;
-
-  comments;
-
-  loc;
 
   parameters: EventParameters;
 
@@ -20,14 +16,11 @@ export class EventParametersDeclaration implements SlangNode {
     ast: ast.EventParametersDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.parameters = new EventParameters(ast.parameters, options);
 
-    metadata = updateMetadata(metadata, [this.parameters]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.parameters);
   }
 
   print(path: AstPath<EventParametersDeclaration>, print: PrintFunction): Doc {

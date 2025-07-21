@@ -1,42 +1,22 @@
 import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { CommentNode } from './CommentNode.js';
 import { isIndentableBlockComment } from '../slang-utils/is-indentable-block-comment.js';
 import { printIndentableBlockComment } from '../slang-printers/print-indentable-block-comment.js';
 
 import type { Doc } from 'prettier';
-import type { BaseComment, Location, SlangNode } from '../types.d.ts';
-import type { StrictAstNode } from './types.d.ts';
 
 const { join, literalline } = doc.builders;
 
-export class MultiLineNatSpecComment implements SlangNode, BaseComment {
+export class MultiLineNatSpecComment extends CommentNode {
   readonly kind = TerminalKind.MultiLineNatSpecComment;
-
-  loc: Location;
 
   value: string;
 
-  leading?: boolean;
-
-  trailing?: boolean;
-
-  printed?: boolean;
-
-  placement?: 'endOfLine' | 'ownLine' | 'remaining';
-
-  precedingNode?: StrictAstNode;
-
-  enclosingNode?: StrictAstNode;
-
-  followingNode?: StrictAstNode;
-
-  constructor(ast: TerminalNode) {
-    const metadata = getNodeMetadata(ast);
+  constructor(ast: TerminalNode, offset: number) {
+    super(ast, offset);
 
     this.value = ast.unparse();
-
-    this.loc = metadata.loc;
   }
 
   print(): Doc {

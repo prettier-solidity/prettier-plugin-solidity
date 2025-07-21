@@ -1,22 +1,14 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
-import type { SlangNode } from '../types.d.ts';
 
-export class YulEqualAndColon implements SlangNode {
+export class YulEqualAndColon extends SlangNode {
   readonly kind = NonterminalKind.YulEqualAndColon;
 
-  comments;
-
-  loc;
-
   constructor(ast: ast.YulEqualAndColon) {
-    const metadata = getNodeMetadata(ast);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    super(ast);
   }
 
   print(): Doc {

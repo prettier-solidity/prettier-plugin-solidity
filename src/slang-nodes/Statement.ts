@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
 import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js';
@@ -21,14 +21,10 @@ import { UncheckedBlock } from './UncheckedBlock.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class Statement implements SlangNode {
+export class Statement extends SlangNode {
   readonly kind = NonterminalKind.Statement;
-
-  comments;
-
-  loc;
 
   variant:
     | ExpressionStatement
@@ -50,7 +46,7 @@ export class Statement implements SlangNode {
     | UncheckedBlock;
 
   constructor(ast: ast.Statement, options: ParserOptions<AstNode>) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     switch (ast.variant.cst.kind) {
       case NonterminalKind.ExpressionStatement:
@@ -146,10 +142,7 @@ export class Statement implements SlangNode {
         throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
     }
 
-    metadata = updateMetadata(metadata, [this.variant]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<Statement>, print: PrintFunction): Doc {

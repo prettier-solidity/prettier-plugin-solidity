@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunction } from '../slang-printers/print-function.js';
-import { getNodeMetadata, updateMetadata } from '../slang-utils/metadata.js';
+import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { ReceiveFunctionAttributes } from './ReceiveFunctionAttributes.js';
 import { FunctionBody } from './FunctionBody.js';
@@ -8,14 +8,10 @@ import { FunctionBody } from './FunctionBody.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction, SlangNode } from '../types.d.ts';
+import type { PrintFunction } from '../types.d.ts';
 
-export class ReceiveFunctionDefinition implements SlangNode {
+export class ReceiveFunctionDefinition extends SlangNode {
   readonly kind = NonterminalKind.ReceiveFunctionDefinition;
-
-  comments;
-
-  loc;
 
   parameters: ParametersDeclaration;
 
@@ -27,20 +23,13 @@ export class ReceiveFunctionDefinition implements SlangNode {
     ast: ast.ReceiveFunctionDefinition,
     options: ParserOptions<AstNode>
   ) {
-    let metadata = getNodeMetadata(ast);
+    super(ast);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new ReceiveFunctionAttributes(ast.attributes, options);
     this.body = new FunctionBody(ast.body, options);
 
-    metadata = updateMetadata(metadata, [
-      this.parameters,
-      this.attributes,
-      this.body
-    ]);
-
-    this.comments = metadata.comments;
-    this.loc = metadata.loc;
+    this.updateMetadata(this.parameters, this.attributes, this.body);
 
     this.cleanModifierInvocationArguments();
   }
