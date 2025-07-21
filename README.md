@@ -143,17 +143,18 @@ The Solidity versions taken into consideration during formatting are:
 
   ```Solidity
   // Input
-  import { Foo as Bar } from "/an/extremely/long/location";
+  import { Foo as Bar, Baz as Qux } from "/an/extremely/long/location";
 
-  // "compiler": undefined
-  import { Foo as Bar } from "/an/extremely/long/location";
+  // "compiler": undefined, parser: "antlr"
+  import { Foo as Bar, Baz as Qux } from "/an/extremely/long/location";
 
   // "compiler": "0.7.3" (or lesser)
-  import { Foo as Bar } from "/an/extremely/long/location";
+  import { Foo as Bar, Baz as Qux } from "/an/extremely/long/location";
 
   // "compiler": "0.7.4" (or greater)
   import {
-      Foo as Bar
+      Foo as Bar,
+      Baz as Qux
   } from "/an/extremely/long/location";
   ```
 
@@ -208,9 +209,9 @@ You might have a multi-version project, where different files are compiled with 
 }
 ```
 
-| Default | CLI Override          | API Override           |
-| ------- | --------------------- | ---------------------- |
-| None    | `--compiler <string>` | `compiler: "<string>"` |
+| Default                                                                                       | CLI Override          | API Override           |
+| --------------------------------------------------------------------------------------------- | --------------------- | ---------------------- |
+| Inferred from pragma statements when using parser `slang`<br/> None when using parser `antlr` | `--compiler <string>` | `compiler: "<string>"` |
 
 ### Parser
 
