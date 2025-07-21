@@ -31,8 +31,11 @@ export class StateVariableDefinitionValue extends SlangNode {
     print: PrintFunction
   ): Doc {
     const value = path.call(print, 'value');
-    return this.value.variant.kind === NonterminalKind.ArrayExpression
-      ? [' = ', value]
-      : group([' =', indent([line, value])]);
+    return [
+      ' =',
+      this.value.variant.kind === NonterminalKind.ArrayExpression
+        ? [' ', value]
+        : group(indent([line, value]))
+    ];
   }
 }
