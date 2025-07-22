@@ -22,7 +22,8 @@ const specifiers = (node, path, print) => {
     document.push([
       'layout at',
       printSeparatedItem(path.call(print, 'storageLayout'), {
-        firstSeparator: line
+        firstSeparator: line,
+        lastSeparator: node.baseContracts.length === 0 ? line : ''
       })
     ]);
   }
