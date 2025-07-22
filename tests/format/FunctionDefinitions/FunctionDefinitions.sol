@@ -43,6 +43,7 @@ abstract contract FunctionInterfaces {
 
 contract FunctionDefinitions {
   fallback () external {}
+  fallback () {}
   fallback () external payable {}
   fallback() external payable virtual {}
   fallback(bytes calldata _input) external {}
