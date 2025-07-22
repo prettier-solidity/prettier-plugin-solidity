@@ -6,10 +6,10 @@ const { group, indent, line } = doc.builders;
 
 export function printSpacedOrIndentedGroup(
   document: Doc,
-  spaceCondition: boolean,
+  sameLineCondition: boolean,
   groupOptions: doc.builders.GroupOptions = {}
-): Doc {
-  return spaceCondition
+): [' ', Doc] | doc.builders.Group {
+  return sameLineCondition
     ? [' ', document]
     : group(indent([line, document]), groupOptions);
 }
