@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StateVariableAttributes } from './StateVariableAttributes.js';
@@ -11,7 +12,7 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
-const { group, indent, indentIfBreak } = doc.builders;
+const { indent } = doc.builders;
 
 export class StateVariableDefinition extends SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinition;
@@ -41,14 +42,14 @@ export class StateVariableDefinition extends SlangNode {
   }
 
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {
-    const groupId = Symbol('Slang.StateVariableDefinition.attributes');
-    return [
-      path.call(print, 'typeName'),
-      group(indent(path.call(print, 'attributes')), { id: groupId }),
-      ' ',
-      path.call(print, 'name'),
-      this.value ? indentIfBreak(path.call(print, 'value'), { groupId }) : '',
-      ';'
-    ];
+    return printGroupAndIndentIfBreakPair(
+      [
+        path.call(print, 'typeName'),
+        indent(path.call(print, 'attributes')),
+        ' ',
+        path.call(print, 'name')
+      ],
+      [path.call(print, 'value'), ';']
+    );
   }
 }

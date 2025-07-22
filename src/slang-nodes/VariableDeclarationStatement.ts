@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
 import { SlangNode } from './SlangNode.js';
 import { VariableDeclarationType } from './VariableDeclarationType.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -11,7 +12,7 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
-const { group, indent, indentIfBreak, line } = doc.builders;
+const { indent, line } = doc.builders;
 
 export class VariableDeclarationStatement extends SlangNode {
   readonly kind = NonterminalKind.VariableDeclarationStatement;
@@ -46,23 +47,16 @@ export class VariableDeclarationStatement extends SlangNode {
     path: AstPath<VariableDeclarationStatement>,
     print: PrintFunction
   ): Doc {
-    const groupId = Symbol('Slang.VariableDeclarationStatement.variables');
-    return [
-      group(
-        [
-          path.call(print, 'variableType'),
-          indent([
-            this.storageLocation
-              ? [line, path.call(print, 'storageLocation')]
-              : '',
-            ' ',
-            path.call(print, 'name')
-          ])
-        ],
-        { id: groupId }
-      ),
-      indentIfBreak(path.call(print, 'value'), { groupId }),
-      ';'
-    ];
+    return printGroupAndIndentIfBreakPair(
+      [
+        path.call(print, 'variableType'),
+        this.storageLocation
+          ? indent([line, path.call(print, 'storageLocation')])
+          : '',
+        ' ',
+        path.call(print, 'name')
+      ],
+      [path.call(print, 'value'), ';']
+    );
   }
 }

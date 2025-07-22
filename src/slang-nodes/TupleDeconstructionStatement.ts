@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
 import { Expression } from './Expression.js';
@@ -8,8 +8,6 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-
-const { group, indentIfBreak } = doc.builders;
 
 export class TupleDeconstructionStatement extends SlangNode {
   readonly kind = NonterminalKind.TupleDeconstructionStatement;
@@ -37,13 +35,9 @@ export class TupleDeconstructionStatement extends SlangNode {
     path: AstPath<TupleDeconstructionStatement>,
     print: PrintFunction
   ): Doc {
-    const groupId = Symbol('Slang.VariableDeclarationStatement.variables');
-    return [
-      group(
-        [this.varKeyword ? 'var (' : '(', path.call(print, 'elements'), ')'],
-        { id: groupId }
-      ),
-      indentIfBreak([' = ', path.call(print, 'expression'), ';'], { groupId })
-    ];
+    return printGroupAndIndentIfBreakPair(
+      [this.varKeyword ? 'var (' : '(', path.call(print, 'elements'), ') = '],
+      [path.call(print, 'expression'), ';']
+    );
   }
 }

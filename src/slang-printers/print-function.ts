@@ -18,8 +18,8 @@ export function printFunction(
     group([
       functionName,
       path.call(print, 'parameters'),
-      indent(
-        group([
+      group(
+        indent([
           joinExisting(line, [
             path.call(print, 'attributes'),
             path.call(print, 'returns')
