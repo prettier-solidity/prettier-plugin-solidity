@@ -37,8 +37,7 @@ export class ImportDeconstructionSymbols extends SlangNode {
         ? {
             // if the compiler exists and is greater than or equal to 0.7.4 we will
             // split the ImportDirective.
-            firstSeparator: bracketSpacing ? line : softline,
-            separator: [',', line]
+            firstSeparator: bracketSpacing ? line : softline
           }
         : {
             // if the compiler is not given or is lower than 0.7.4 we will not
