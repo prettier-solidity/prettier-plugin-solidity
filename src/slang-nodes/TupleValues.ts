@@ -30,10 +30,11 @@ export class TupleValues extends SlangNode {
 
   print(path: AstPath<TupleValues>, print: PrintFunction): Doc {
     const singleExpressionVariant = this.getSingleExpression()?.variant;
+    const items = path.map(print, 'items');
     return singleExpressionVariant &&
       singleExpressionVariant.kind !== TerminalKind.Identifier &&
       isBinaryOperation(singleExpressionVariant)
-      ? path.map(print, 'items')
-      : printSeparatedList(path.map(print, 'items'));
+      ? items
+      : printSeparatedList(items);
   }
 }
