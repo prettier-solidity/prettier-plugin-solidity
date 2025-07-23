@@ -8,24 +8,6 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
-function printExpression(
-  node: ReturnStatement,
-  path: AstPath<ReturnStatement>,
-  print: PrintFunction,
-  options: ParserOptions<AstNode>
-): Doc {
-  const expressionVariantKind = node.expression?.variant.kind;
-  if (expressionVariantKind) {
-    return printIndentedGroupOrSpacedDocument(
-      path.call(print, 'expression'),
-      expressionVariantKind !== NonterminalKind.TupleExpression &&
-        (!options.experimentalTernaries ||
-          expressionVariantKind !== NonterminalKind.ConditionalExpression)
-    );
-  }
-  return '';
-}
-
 export class ReturnStatement extends SlangNode {
   readonly kind = NonterminalKind.ReturnStatement;
 
@@ -46,6 +28,18 @@ export class ReturnStatement extends SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    return ['return', printExpression(this, path, print, options), ';'];
+    const expressionVariantKind = this.expression?.variant.kind;
+    return [
+      'return',
+      expressionVariantKind
+        ? printIndentedGroupOrSpacedDocument(
+            path.call(print, 'expression'),
+            expressionVariantKind !== NonterminalKind.TupleExpression &&
+              (!options.experimentalTernaries ||
+                expressionVariantKind !== NonterminalKind.ConditionalExpression)
+          )
+        : '',
+      ';'
+    ];
   }
 }
