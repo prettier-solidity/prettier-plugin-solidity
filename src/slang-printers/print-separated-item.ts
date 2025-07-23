@@ -14,7 +14,7 @@ export function printSeparatedItem(
     lastSeparator = firstSeparator,
     grouped = firstSeparator !== hardline
   }: PrintSeparatedOptions = {}
-): Doc {
+): doc.builders.Group | [doc.builders.Indent, Doc] {
   return grouped
     ? group([indent([firstSeparator, item]), lastSeparator])
     : [indent([firstSeparator, item]), lastSeparator];
