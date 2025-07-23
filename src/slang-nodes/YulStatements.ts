@@ -32,8 +32,7 @@ export class YulStatements extends SlangNode {
   ): Doc {
     return this.items.length > 0 || this.comments.length > 0
       ? printSeparatedItem(printPreservingEmptyLines(path, print, options), {
-          firstSeparator: hardline,
-          grouped: false
+          firstSeparator: hardline
         })
       : '';
   }
