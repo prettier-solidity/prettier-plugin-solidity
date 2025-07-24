@@ -1,26 +1,16 @@
 import {
   TerminalKind,
-  TerminalNode,
-  TerminalKindExtensions
+  TerminalKindExtensions,
+  TerminalNode
 } from '@nomicfoundation/slang/cst';
-import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
 
-import type { Edge } from '@nomicfoundation/slang/cst';
+import type { Edge, Node } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { AstLocation, SlangAstNode } from '../types.d.ts';
-
-const isCommentOrWhiteSpace = createKindCheckFunction([
-  TerminalKind.MultiLineComment,
-  TerminalKind.MultiLineNatSpecComment,
-  TerminalKind.SingleLineComment,
-  TerminalKind.SingleLineNatSpecComment,
-  TerminalKind.EndOfLine,
-  TerminalKind.Whitespace
-]);
 
 const offsets = new Map<number, number>();
 export function clearOffsets(): void {
@@ -41,10 +31,16 @@ function reversedIterator<T>(children: T[]): Iterable<T> {
   };
 }
 
+function isNonTriviaNode(node: Node): boolean {
+  return (
+    node.isNonterminalNode() || !TerminalKindExtensions.isTrivia(node.kind)
+  );
+}
+
 function getOffset(children: Edge[] | Iterable<Edge>): number {
   let offset = 0;
   for (const { node } of children) {
-    if (node.isNonterminalNode() || !isCommentOrWhiteSpace(node)) {
+    if (isNonTriviaNode(node)) {
       // The node's content starts when we find the first non-terminal token,
       // or if we find a non-comment, non-whitespace token.
       return offset;
@@ -95,10 +91,7 @@ export class SlangNode {
     let offset = initialOffset;
 
     for (const { node } of children) {
-      if (
-        node.isNonterminalNode() ||
-        !TerminalKindExtensions.isTrivia(node.kind)
-      ) {
+      if (isNonTriviaNode(node)) {
         // Also tracking TerminalNodes since some variants that were not
         // Identifier or YulIdentifier but were upgraded to TerminalNode
         offsets.set(node.id, offset);
