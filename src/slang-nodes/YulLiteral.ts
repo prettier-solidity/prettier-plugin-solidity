@@ -9,6 +9,20 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: Exclude<ast.YulLiteral['variant'], TerminalNode>,
+  options: ParserOptions<AstNode>
+): Exclude<YulLiteral['variant'], string> {
+  switch (variant.cst.kind) {
+    case NonterminalKind.HexStringLiteral:
+      return new HexStringLiteral(variant as ast.HexStringLiteral, options);
+    case NonterminalKind.StringLiteral:
+      return new StringLiteral(variant as ast.StringLiteral, options);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class YulLiteral extends SlangNode {
   readonly kind = NonterminalKind.YulLiteral;
 
@@ -22,20 +36,7 @@ export class YulLiteral extends SlangNode {
       this.variant = variant.unparse();
       return;
     }
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.HexStringLiteral:
-        this.variant = new HexStringLiteral(
-          variant as ast.HexStringLiteral,
-          options
-        );
-        break;
-      case NonterminalKind.StringLiteral:
-        this.variant = new StringLiteral(variant as ast.StringLiteral, options);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(variant, options);
 
     this.updateMetadata(this.variant);
   }

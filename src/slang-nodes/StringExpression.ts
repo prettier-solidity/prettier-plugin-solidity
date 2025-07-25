@@ -11,6 +11,29 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.StringExpression['variant'],
+  options: ParserOptions<AstNode>
+): StringExpression['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.StringLiteral:
+      return new StringLiteral(variant as ast.StringLiteral, options);
+    case NonterminalKind.StringLiterals:
+      return new StringLiterals(variant as ast.StringLiterals, options);
+    case NonterminalKind.HexStringLiteral:
+      return new HexStringLiteral(variant as ast.HexStringLiteral, options);
+    case NonterminalKind.HexStringLiterals:
+      return new HexStringLiterals(variant as ast.HexStringLiterals, options);
+    case NonterminalKind.UnicodeStringLiterals:
+      return new UnicodeStringLiterals(
+        variant as ast.UnicodeStringLiterals,
+        options
+      );
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class StringExpression extends SlangNode {
   readonly kind = NonterminalKind.StringExpression;
 
@@ -24,39 +47,7 @@ export class StringExpression extends SlangNode {
   constructor(ast: ast.StringExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.StringLiteral:
-        this.variant = new StringLiteral(variant as ast.StringLiteral, options);
-        break;
-      case NonterminalKind.StringLiterals:
-        this.variant = new StringLiterals(
-          variant as ast.StringLiterals,
-          options
-        );
-        break;
-      case NonterminalKind.HexStringLiteral:
-        this.variant = new HexStringLiteral(
-          variant as ast.HexStringLiteral,
-          options
-        );
-        break;
-      case NonterminalKind.HexStringLiterals:
-        this.variant = new HexStringLiterals(
-          variant as ast.HexStringLiterals,
-          options
-        );
-        break;
-      case NonterminalKind.UnicodeStringLiterals:
-        this.variant = new UnicodeStringLiterals(
-          variant as ast.UnicodeStringLiterals,
-          options
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

@@ -7,6 +7,19 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.MappingKeyType['variant']
+): MappingKeyType['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.ElementaryType:
+      return new ElementaryType(variant as ast.ElementaryType);
+    case NonterminalKind.IdentifierPath:
+      return new IdentifierPath(variant as ast.IdentifierPath);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class MappingKeyType extends SlangNode {
   readonly kind = NonterminalKind.MappingKeyType;
 
@@ -15,18 +28,7 @@ export class MappingKeyType extends SlangNode {
   constructor(ast: ast.MappingKeyType) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.ElementaryType:
-        this.variant = new ElementaryType(variant as ast.ElementaryType);
-        break;
-      case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(variant as ast.IdentifierPath);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant);
 
     this.updateMetadata(this.variant);
   }

@@ -7,6 +7,19 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.UsingClause['variant']
+): UsingClause['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.IdentifierPath:
+      return new IdentifierPath(variant as ast.IdentifierPath);
+    case NonterminalKind.UsingDeconstruction:
+      return new UsingDeconstruction(variant as ast.UsingDeconstruction);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class UsingClause extends SlangNode {
   readonly kind = NonterminalKind.UsingClause;
 
@@ -15,20 +28,7 @@ export class UsingClause extends SlangNode {
   constructor(ast: ast.UsingClause) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(variant as ast.IdentifierPath);
-        break;
-      case NonterminalKind.UsingDeconstruction:
-        this.variant = new UsingDeconstruction(
-          variant as ast.UsingDeconstruction
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant);
 
     this.updateMetadata(this.variant);
   }

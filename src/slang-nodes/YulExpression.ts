@@ -9,6 +9,25 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.YulExpression['variant'],
+  options: ParserOptions<AstNode>
+): YulExpression['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.YulFunctionCallExpression:
+      return new YulFunctionCallExpression(
+        variant as ast.YulFunctionCallExpression,
+        options
+      );
+    case NonterminalKind.YulLiteral:
+      return new YulLiteral(variant as ast.YulLiteral, options);
+    case NonterminalKind.YulPath:
+      return new YulPath(variant as ast.YulPath);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class YulExpression extends SlangNode {
   readonly kind = NonterminalKind.YulExpression;
 
@@ -17,24 +36,7 @@ export class YulExpression extends SlangNode {
   constructor(ast: ast.YulExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.YulFunctionCallExpression:
-        this.variant = new YulFunctionCallExpression(
-          variant as ast.YulFunctionCallExpression,
-          options
-        );
-        break;
-      case NonterminalKind.YulLiteral:
-        this.variant = new YulLiteral(variant as ast.YulLiteral, options);
-        break;
-      case NonterminalKind.YulPath:
-        this.variant = new YulPath(variant as ast.YulPath);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

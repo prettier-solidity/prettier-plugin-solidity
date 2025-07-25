@@ -9,6 +9,20 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: Exclude<ast.FallbackFunctionAttribute['variant'], TerminalNode>,
+  options: ParserOptions<AstNode>
+): Exclude<FallbackFunctionAttribute['variant'], string> {
+  switch (variant.cst.kind) {
+    case NonterminalKind.ModifierInvocation:
+      return new ModifierInvocation(variant as ast.ModifierInvocation, options);
+    case NonterminalKind.OverrideSpecifier:
+      return new OverrideSpecifier(variant as ast.OverrideSpecifier);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class FallbackFunctionAttribute extends SlangNode {
   readonly kind = NonterminalKind.FallbackFunctionAttribute;
 
@@ -25,20 +39,7 @@ export class FallbackFunctionAttribute extends SlangNode {
       this.variant = variant.unparse();
       return;
     }
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.ModifierInvocation:
-        this.variant = new ModifierInvocation(
-          variant as ast.ModifierInvocation,
-          options
-        );
-        break;
-      case NonterminalKind.OverrideSpecifier:
-        this.variant = new OverrideSpecifier(variant as ast.OverrideSpecifier);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(variant, options);
 
     this.updateMetadata(this.variant);
   }

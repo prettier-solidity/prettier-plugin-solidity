@@ -11,6 +11,26 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.TypeName['variant'],
+  options: ParserOptions<AstNode>
+): TypeName['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.ArrayTypeName:
+      return new ArrayTypeName(variant as ast.ArrayTypeName, options);
+    case NonterminalKind.FunctionType:
+      return new FunctionType(variant as ast.FunctionType, options);
+    case NonterminalKind.MappingType:
+      return new MappingType(variant as ast.MappingType, options);
+    case NonterminalKind.ElementaryType:
+      return new ElementaryType(variant as ast.ElementaryType);
+    case NonterminalKind.IdentifierPath:
+      return new IdentifierPath(variant as ast.IdentifierPath);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class TypeName extends SlangNode {
   readonly kind = NonterminalKind.TypeName;
 
@@ -24,27 +44,7 @@ export class TypeName extends SlangNode {
   constructor(ast: ast.TypeName, options: ParserOptions<AstNode>) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.ArrayTypeName:
-        this.variant = new ArrayTypeName(variant as ast.ArrayTypeName, options);
-        break;
-      case NonterminalKind.FunctionType:
-        this.variant = new FunctionType(variant as ast.FunctionType, options);
-        break;
-      case NonterminalKind.MappingType:
-        this.variant = new MappingType(variant as ast.MappingType, options);
-        break;
-      case NonterminalKind.ElementaryType:
-        this.variant = new ElementaryType(variant as ast.ElementaryType);
-        break;
-      case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(variant as ast.IdentifierPath);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

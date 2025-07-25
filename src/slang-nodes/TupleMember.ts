@@ -8,6 +8,20 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.TupleMember['variant'],
+  options: ParserOptions<AstNode>
+): TupleMember['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.TypedTupleMember:
+      return new TypedTupleMember(variant as ast.TypedTupleMember, options);
+    case NonterminalKind.UntypedTupleMember:
+      return new UntypedTupleMember(variant as ast.UntypedTupleMember);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class TupleMember extends SlangNode {
   readonly kind = NonterminalKind.TupleMember;
 
@@ -16,23 +30,7 @@ export class TupleMember extends SlangNode {
   constructor(ast: ast.TupleMember, options: ParserOptions<AstNode>) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.TypedTupleMember:
-        this.variant = new TypedTupleMember(
-          variant as ast.TypedTupleMember,
-          options
-        );
-        break;
-      case NonterminalKind.UntypedTupleMember:
-        this.variant = new UntypedTupleMember(
-          variant as ast.UntypedTupleMember
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

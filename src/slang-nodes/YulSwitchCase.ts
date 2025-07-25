@@ -8,6 +8,20 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.YulSwitchCase['variant'],
+  options: ParserOptions<AstNode>
+): YulSwitchCase['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.YulDefaultCase:
+      return new YulDefaultCase(variant as ast.YulDefaultCase, options);
+    case NonterminalKind.YulValueCase:
+      return new YulValueCase(variant as ast.YulValueCase, options);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class YulSwitchCase extends SlangNode {
   readonly kind = NonterminalKind.YulSwitchCase;
 
@@ -16,21 +30,7 @@ export class YulSwitchCase extends SlangNode {
   constructor(ast: ast.YulSwitchCase, options: ParserOptions<AstNode>) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.YulDefaultCase:
-        this.variant = new YulDefaultCase(
-          variant as ast.YulDefaultCase,
-          options
-        );
-        break;
-      case NonterminalKind.YulValueCase:
-        this.variant = new YulValueCase(variant as ast.YulValueCase, options);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

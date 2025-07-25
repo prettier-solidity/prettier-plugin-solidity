@@ -9,6 +9,22 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.Pragma['variant'],
+  options: ParserOptions<AstNode>
+): Pragma['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.AbicoderPragma:
+      return new AbicoderPragma(variant as ast.AbicoderPragma);
+    case NonterminalKind.ExperimentalPragma:
+      return new ExperimentalPragma(variant as ast.ExperimentalPragma, options);
+    case NonterminalKind.VersionPragma:
+      return new VersionPragma(variant as ast.VersionPragma);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class Pragma extends SlangNode {
   readonly kind = NonterminalKind.Pragma;
 
@@ -17,24 +33,7 @@ export class Pragma extends SlangNode {
   constructor(ast: ast.Pragma, options: ParserOptions<AstNode>) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.AbicoderPragma:
-        this.variant = new AbicoderPragma(variant as ast.AbicoderPragma);
-        break;
-      case NonterminalKind.ExperimentalPragma:
-        this.variant = new ExperimentalPragma(
-          variant as ast.ExperimentalPragma,
-          options
-        );
-        break;
-      case NonterminalKind.VersionPragma:
-        this.variant = new VersionPragma(variant as ast.VersionPragma);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

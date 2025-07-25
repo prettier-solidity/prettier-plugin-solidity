@@ -19,6 +19,53 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.YulStatement['variant'],
+  options: ParserOptions<AstNode>
+): YulStatement['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.YulBlock:
+      return new YulBlock(variant as ast.YulBlock, options);
+    case NonterminalKind.YulFunctionDefinition:
+      return new YulFunctionDefinition(
+        variant as ast.YulFunctionDefinition,
+        options
+      );
+    case NonterminalKind.YulVariableDeclarationStatement:
+      return new YulVariableDeclarationStatement(
+        variant as ast.YulVariableDeclarationStatement,
+        options
+      );
+    case NonterminalKind.YulVariableAssignmentStatement:
+      return new YulVariableAssignmentStatement(
+        variant as ast.YulVariableAssignmentStatement,
+        options
+      );
+    case NonterminalKind.YulStackAssignmentStatement:
+      return new YulStackAssignmentStatement(
+        variant as ast.YulStackAssignmentStatement
+      );
+    case NonterminalKind.YulIfStatement:
+      return new YulIfStatement(variant as ast.YulIfStatement, options);
+    case NonterminalKind.YulForStatement:
+      return new YulForStatement(variant as ast.YulForStatement, options);
+    case NonterminalKind.YulSwitchStatement:
+      return new YulSwitchStatement(variant as ast.YulSwitchStatement, options);
+    case NonterminalKind.YulLeaveStatement:
+      return new YulLeaveStatement(variant as ast.YulLeaveStatement);
+    case NonterminalKind.YulBreakStatement:
+      return new YulBreakStatement(variant as ast.YulBreakStatement);
+    case NonterminalKind.YulContinueStatement:
+      return new YulContinueStatement(variant as ast.YulContinueStatement);
+    case NonterminalKind.YulLabel:
+      return new YulLabel(variant as ast.YulLabel);
+    case NonterminalKind.YulExpression:
+      return new YulExpression(variant as ast.YulExpression, options);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class YulStatement extends SlangNode {
   readonly kind = NonterminalKind.YulStatement;
 
@@ -40,73 +87,7 @@ export class YulStatement extends SlangNode {
   constructor(ast: ast.YulStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.YulBlock:
-        this.variant = new YulBlock(variant as ast.YulBlock, options);
-        break;
-      case NonterminalKind.YulFunctionDefinition:
-        this.variant = new YulFunctionDefinition(
-          variant as ast.YulFunctionDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.YulVariableDeclarationStatement:
-        this.variant = new YulVariableDeclarationStatement(
-          variant as ast.YulVariableDeclarationStatement,
-          options
-        );
-        break;
-      case NonterminalKind.YulVariableAssignmentStatement:
-        this.variant = new YulVariableAssignmentStatement(
-          variant as ast.YulVariableAssignmentStatement,
-          options
-        );
-        break;
-      case NonterminalKind.YulStackAssignmentStatement:
-        this.variant = new YulStackAssignmentStatement(
-          variant as ast.YulStackAssignmentStatement
-        );
-        break;
-      case NonterminalKind.YulIfStatement:
-        this.variant = new YulIfStatement(
-          variant as ast.YulIfStatement,
-          options
-        );
-        break;
-      case NonterminalKind.YulForStatement:
-        this.variant = new YulForStatement(
-          variant as ast.YulForStatement,
-          options
-        );
-        break;
-      case NonterminalKind.YulSwitchStatement:
-        this.variant = new YulSwitchStatement(
-          variant as ast.YulSwitchStatement,
-          options
-        );
-        break;
-      case NonterminalKind.YulLeaveStatement:
-        this.variant = new YulLeaveStatement(variant as ast.YulLeaveStatement);
-        break;
-      case NonterminalKind.YulBreakStatement:
-        this.variant = new YulBreakStatement(variant as ast.YulBreakStatement);
-        break;
-      case NonterminalKind.YulContinueStatement:
-        this.variant = new YulContinueStatement(
-          variant as ast.YulContinueStatement
-        );
-        break;
-      case NonterminalKind.YulLabel:
-        this.variant = new YulLabel(variant as ast.YulLabel);
-        break;
-      case NonterminalKind.YulExpression:
-        this.variant = new YulExpression(variant as ast.YulExpression, options);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

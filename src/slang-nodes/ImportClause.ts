@@ -9,6 +9,25 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.ImportClause['variant'],
+  options: ParserOptions<AstNode>
+): ImportClause['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.PathImport:
+      return new PathImport(variant as ast.PathImport, options);
+    case NonterminalKind.NamedImport:
+      return new NamedImport(variant as ast.NamedImport, options);
+    case NonterminalKind.ImportDeconstruction:
+      return new ImportDeconstruction(
+        variant as ast.ImportDeconstruction,
+        options
+      );
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class ImportClause extends SlangNode {
   readonly kind = NonterminalKind.ImportClause;
 
@@ -17,24 +36,7 @@ export class ImportClause extends SlangNode {
   constructor(ast: ast.ImportClause, options: ParserOptions<AstNode>) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.PathImport:
-        this.variant = new PathImport(variant as ast.PathImport, options);
-        break;
-      case NonterminalKind.NamedImport:
-        this.variant = new NamedImport(variant as ast.NamedImport, options);
-        break;
-      case NonterminalKind.ImportDeconstruction:
-        this.variant = new ImportDeconstruction(
-          variant as ast.ImportDeconstruction,
-          options
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

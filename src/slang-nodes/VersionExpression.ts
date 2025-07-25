@@ -7,6 +7,19 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.VersionExpression['variant']
+): VersionExpression['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.VersionRange:
+      return new VersionRange(variant as ast.VersionRange);
+    case NonterminalKind.VersionTerm:
+      return new VersionTerm(variant as ast.VersionTerm);
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class VersionExpression extends SlangNode {
   readonly kind = NonterminalKind.VersionExpression;
 
@@ -15,18 +28,7 @@ export class VersionExpression extends SlangNode {
   constructor(ast: ast.VersionExpression) {
     super(ast);
 
-    const variant = ast.variant;
-    const variantKind = variant.cst.kind;
-    switch (variantKind) {
-      case NonterminalKind.VersionRange:
-        this.variant = new VersionRange(variant as ast.VersionRange);
-        break;
-      case NonterminalKind.VersionTerm:
-        this.variant = new VersionTerm(variant as ast.VersionTerm);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${variantKind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant);
 
     this.updateMetadata(this.variant);
   }
