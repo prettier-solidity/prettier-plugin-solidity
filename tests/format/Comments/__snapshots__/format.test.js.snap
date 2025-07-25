@@ -275,9 +275,7 @@ contract Comments4c
         Interface4,
         Interface5,
         Interface6 /*why we used Interface6*/
-    layout at
-        /*where should this go?*/ f(123 + 456) /*why we used this layout*/
-
+    layout at /*where should this go?*/ f(123 + 456) /*why we used this layout*/
 {
     // solhint-disable-previous-line no-empty-blocks
 }

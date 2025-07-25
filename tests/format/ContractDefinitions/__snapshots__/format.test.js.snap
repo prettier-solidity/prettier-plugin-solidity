@@ -79,7 +79,7 @@ contract StorageLayoutSpecifier2 layout at
     )
 {}
 
-contract StorageLayoutSpecifier3 is Contract1 layout at 123  {}
+contract StorageLayoutSpecifier3 is Contract1 layout at 123 {}
 
 contract StorageLayoutSpecifier4
     is Contract1, Contract2, Contract3, Contract4, Contract5
@@ -100,7 +100,6 @@ contract StorageLayoutSpecifier6
                 12345678901234567890 -
                 12345678901234567890
         )
-
 {}
 
 contract StorageLayoutSpecifier7
@@ -143,7 +142,6 @@ contract StorageLayoutSpecifier9
                 12345678901234567890 -
                 12345678901234567890
         )
-
 {}
 
 contract InheritanceSpecifier1 is SomeOtherContract(1234, false) {}
@@ -167,7 +165,6 @@ contract InheritanceSpecifier4
                 12345678901234567890 -
                 12345678901234567890
         )
-
 {}
 
 contract LongInheritanceSpecifier1 is
@@ -212,7 +209,6 @@ contract LongInheritanceSpecifier4
                 12345678901234567890 -
                 12345678901234567890
         )
-
 {}
 
 ================================================================================
