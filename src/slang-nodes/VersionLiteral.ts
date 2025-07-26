@@ -1,4 +1,5 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { SimpleVersionLiteral } from './SimpleVersionLiteral.js';
 
@@ -14,17 +15,17 @@ export class VersionLiteral extends SlangNode {
   constructor(ast: ast.VersionLiteral) {
     super(ast);
 
-    this.variant =
-      ast.variant instanceof TerminalNode
-        ? ast.variant.unparse()
-        : new SimpleVersionLiteral(ast.variant);
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
+      return;
+    }
+    this.variant = new SimpleVersionLiteral(variant);
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<VersionLiteral>, print: PrintFunction): Doc {
-    return typeof this.variant === 'string'
-      ? this.variant
-      : path.call(print, 'variant');
+    return printVariant(this, path, print);
   }
 }

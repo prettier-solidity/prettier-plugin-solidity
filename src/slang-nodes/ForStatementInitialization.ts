@@ -1,4 +1,5 @@
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
@@ -8,6 +9,31 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+
+function createNonterminalVariant(
+  variant: Exclude<ast.ForStatementInitialization['variant'], TerminalNode>,
+  options: ParserOptions<AstNode>
+): Exclude<ForStatementInitialization['variant'], string> {
+  switch (variant.cst.kind) {
+    case NonterminalKind.ExpressionStatement:
+      return new ExpressionStatement(
+        variant as ast.ExpressionStatement,
+        options
+      );
+    case NonterminalKind.VariableDeclarationStatement:
+      return new VariableDeclarationStatement(
+        variant as ast.VariableDeclarationStatement,
+        options
+      );
+    case NonterminalKind.TupleDeconstructionStatement:
+      return new TupleDeconstructionStatement(
+        variant as ast.TupleDeconstructionStatement,
+        options
+      );
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
 
 export class ForStatementInitialization extends SlangNode {
   readonly kind = NonterminalKind.ForStatementInitialization;
@@ -24,39 +50,17 @@ export class ForStatementInitialization extends SlangNode {
   ) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
-    } else {
-      switch (ast.variant.cst.kind) {
-        case NonterminalKind.ExpressionStatement:
-          this.variant = new ExpressionStatement(
-            ast.variant as ast.ExpressionStatement,
-            options
-          );
-          break;
-        case NonterminalKind.VariableDeclarationStatement:
-          this.variant = new VariableDeclarationStatement(
-            ast.variant as ast.VariableDeclarationStatement,
-            options
-          );
-          break;
-        case NonterminalKind.TupleDeconstructionStatement:
-          this.variant = new TupleDeconstructionStatement(
-            ast.variant as ast.TupleDeconstructionStatement,
-            options
-          );
-          break;
-        default:
-          throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-      }
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
+      return;
     }
+    this.variant = createNonterminalVariant(variant, options);
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<ForStatementInitialization>, print: PrintFunction): Doc {
-    return typeof this.variant === 'string'
-      ? this.variant
-      : path.call(print, 'variant');
+    return printVariant(this, path, print);
   }
 }

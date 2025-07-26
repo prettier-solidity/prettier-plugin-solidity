@@ -19,6 +19,59 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.ContractMember['variant'],
+  options: ParserOptions<AstNode>
+): ContractMember['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.UsingDirective:
+      return new UsingDirective(variant as ast.UsingDirective, options);
+    case NonterminalKind.FunctionDefinition:
+      return new FunctionDefinition(variant as ast.FunctionDefinition, options);
+    case NonterminalKind.ConstructorDefinition:
+      return new ConstructorDefinition(
+        variant as ast.ConstructorDefinition,
+        options
+      );
+    case NonterminalKind.ReceiveFunctionDefinition:
+      return new ReceiveFunctionDefinition(
+        variant as ast.ReceiveFunctionDefinition,
+        options
+      );
+    case NonterminalKind.FallbackFunctionDefinition:
+      return new FallbackFunctionDefinition(
+        variant as ast.FallbackFunctionDefinition,
+        options
+      );
+    case NonterminalKind.UnnamedFunctionDefinition:
+      return new UnnamedFunctionDefinition(
+        variant as ast.UnnamedFunctionDefinition,
+        options
+      );
+    case NonterminalKind.ModifierDefinition:
+      return new ModifierDefinition(variant as ast.ModifierDefinition, options);
+    case NonterminalKind.StructDefinition:
+      return new StructDefinition(variant as ast.StructDefinition, options);
+    case NonterminalKind.EnumDefinition:
+      return new EnumDefinition(variant as ast.EnumDefinition);
+    case NonterminalKind.EventDefinition:
+      return new EventDefinition(variant as ast.EventDefinition, options);
+    case NonterminalKind.StateVariableDefinition:
+      return new StateVariableDefinition(
+        variant as ast.StateVariableDefinition,
+        options
+      );
+    case NonterminalKind.ErrorDefinition:
+      return new ErrorDefinition(variant as ast.ErrorDefinition, options);
+    case NonterminalKind.UserDefinedValueTypeDefinition:
+      return new UserDefinedValueTypeDefinition(
+        variant as ast.UserDefinedValueTypeDefinition
+      );
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class ContractMember extends SlangNode {
   readonly kind = NonterminalKind.ContractMember;
 
@@ -40,84 +93,7 @@ export class ContractMember extends SlangNode {
   constructor(ast: ast.ContractMember, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
-      case NonterminalKind.UsingDirective:
-        this.variant = new UsingDirective(
-          ast.variant as ast.UsingDirective,
-          options
-        );
-        break;
-      case NonterminalKind.FunctionDefinition:
-        this.variant = new FunctionDefinition(
-          ast.variant as ast.FunctionDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.ConstructorDefinition:
-        this.variant = new ConstructorDefinition(
-          ast.variant as ast.ConstructorDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.ReceiveFunctionDefinition:
-        this.variant = new ReceiveFunctionDefinition(
-          ast.variant as ast.ReceiveFunctionDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.FallbackFunctionDefinition:
-        this.variant = new FallbackFunctionDefinition(
-          ast.variant as ast.FallbackFunctionDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.UnnamedFunctionDefinition:
-        this.variant = new UnnamedFunctionDefinition(
-          ast.variant as ast.UnnamedFunctionDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.ModifierDefinition:
-        this.variant = new ModifierDefinition(
-          ast.variant as ast.ModifierDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.StructDefinition:
-        this.variant = new StructDefinition(
-          ast.variant as ast.StructDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.EnumDefinition:
-        this.variant = new EnumDefinition(ast.variant as ast.EnumDefinition);
-        break;
-      case NonterminalKind.EventDefinition:
-        this.variant = new EventDefinition(
-          ast.variant as ast.EventDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.StateVariableDefinition:
-        this.variant = new StateVariableDefinition(
-          ast.variant as ast.StateVariableDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.ErrorDefinition:
-        this.variant = new ErrorDefinition(
-          ast.variant as ast.ErrorDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.UserDefinedValueTypeDefinition:
-        this.variant = new UserDefinedValueTypeDefinition(
-          ast.variant as ast.UserDefinedValueTypeDefinition
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

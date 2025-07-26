@@ -8,6 +8,26 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
+function createNonterminalVariant(
+  variant: ast.ArgumentsDeclaration['variant'],
+  options: ParserOptions<AstNode>
+): ArgumentsDeclaration['variant'] {
+  switch (variant.cst.kind) {
+    case NonterminalKind.PositionalArgumentsDeclaration:
+      return new PositionalArgumentsDeclaration(
+        variant as ast.PositionalArgumentsDeclaration,
+        options
+      );
+    case NonterminalKind.NamedArgumentsDeclaration:
+      return new NamedArgumentsDeclaration(
+        variant as ast.NamedArgumentsDeclaration,
+        options
+      );
+    default:
+      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  }
+}
+
 export class ArgumentsDeclaration extends SlangNode {
   readonly kind = NonterminalKind.ArgumentsDeclaration;
 
@@ -16,22 +36,7 @@ export class ArgumentsDeclaration extends SlangNode {
   constructor(ast: ast.ArgumentsDeclaration, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
-      case NonterminalKind.PositionalArgumentsDeclaration:
-        this.variant = new PositionalArgumentsDeclaration(
-          ast.variant as ast.PositionalArgumentsDeclaration,
-          options
-        );
-        break;
-      case NonterminalKind.NamedArgumentsDeclaration:
-        this.variant = new NamedArgumentsDeclaration(
-          ast.variant as ast.NamedArgumentsDeclaration,
-          options
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

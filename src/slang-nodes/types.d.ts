@@ -460,6 +460,13 @@ export type StrictAstNode =
   | YulPaths
   | YulPath;
 
+export type PolymorphicNode = Extract<StrictAstNode, { variant: unknown }>;
+
+export type StrictPolymorphicNode = Extract<
+  StrictAstNode,
+  { variant: StrictAstNode | Identifier | YulIdentifier }
+>;
+
 export type Collection = Extract<StrictAstNode, { items: unknown[] }>;
 
 export type NodeCollection = Extract<
@@ -469,7 +476,7 @@ export type NodeCollection = Extract<
 
 export type LineCollection = Extract<
   NodeCollection,
-  { items: Extract<StrictAstNode, { variant: StrictAstNode }>[] }
+  { items: StrictPolymorphicNode[] }
 >;
 
 export type BinaryOperation = Extract<
