@@ -5,19 +5,33 @@ const { isNextLineEmpty } = util;
 
 export const printComments = (node, path, options, filter = () => true) => {
   if (!node.comments) return '';
+  function isPrintable(comment) {
+    return (
+      !comment.trailing &&
+      !comment.leading &&
+      !comment.printed &&
+      filter(comment)
+    );
+  }
   const document = join(
     line,
     path
-      .map((commentPath) => {
+      .map((commentPath, index, comments) => {
         const comment = commentPath.getValue();
-        if (comment.trailing || comment.leading || comment.printed) {
-          return null;
-        }
-        if (!filter(comment)) {
+        if (!isPrintable(comment)) {
           return null;
         }
         comment.printed = true;
-        return options.printer.printComment(commentPath, options);
+        const isLast =
+          index === comments.length - 1 ||
+          comments.slice(index + 1).findIndex(isPrintable) === -1;
+        return [
+          options.printer.printComment(commentPath, options),
+          !isLast &&
+          util.isNextLineEmpty(options.originalText, options.locEnd(comment))
+            ? hardline
+            : ''
+        ];
       }, 'comments')
       .filter(Boolean)
   );

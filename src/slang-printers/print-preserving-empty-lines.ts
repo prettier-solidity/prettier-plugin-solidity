@@ -36,6 +36,6 @@ export function printPreservingEmptyLines(
           : ''
       ];
     }, 'items'),
-    printComments(path)
+    printComments(path, options)
   ];
 }
