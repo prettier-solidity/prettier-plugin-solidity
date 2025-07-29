@@ -462,7 +462,7 @@ export type StrictAstNode =
 export type PolymorphicNode = Extract<StrictAstNode, { variant: unknown }>;
 
 export type StrictPolymorphicNode = Extract<
-  StrictAstNode,
+  PolymorphicNode,
   { variant: StrictAstNode | TerminalNode }
 >;
 

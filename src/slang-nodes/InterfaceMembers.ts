@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
 import { SlangNode } from './SlangNode.js';
