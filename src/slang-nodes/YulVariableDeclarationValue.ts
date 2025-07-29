@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulAssignmentOperator } from './YulAssignmentOperator.js';
 import { YulExpression } from './YulExpression.js';
@@ -29,9 +30,9 @@ export class YulVariableDeclarationValue extends SlangNode {
 
   print(path: AstPath<YulVariableDeclarationValue>, print: PrintFunction): Doc {
     return [
-      path.call(print, 'assignment'),
+      printVariant('assignment', path, print),
       ' ',
-      path.call(print, 'expression')
+      printVariant('expression', path, print)
     ];
   }
 }
