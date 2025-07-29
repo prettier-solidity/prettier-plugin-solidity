@@ -1,9 +1,10 @@
-import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+const { TerminalKind } = await import('@nomicfoundation/slang/cst');
 import { doc } from 'prettier';
 import { CommentNode } from './CommentNode.js';
 import { isIndentableBlockComment } from '../slang-utils/is-indentable-block-comment.js';
 import { printIndentableBlockComment } from '../slang-printers/print-indentable-block-comment.js';
 
+import type { TerminalNode } from '@nomicfoundation/slang/cst';
 import type { Doc } from 'prettier';
 
 const { join, literalline } = doc.builders;

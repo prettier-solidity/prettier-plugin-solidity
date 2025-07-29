@@ -1,4 +1,4 @@
-import { LanguageFacts } from '@nomicfoundation/slang/utils';
+const { LanguageFacts } = await import('@nomicfoundation/slang/utils');
 import { createParser } from '../../../src/slang-utils/create-parser.js';
 
 describe('inferLanguage', function () {

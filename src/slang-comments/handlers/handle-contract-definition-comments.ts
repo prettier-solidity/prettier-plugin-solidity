@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { util } from 'prettier';
 import { locEnd } from '../../slang-utils/loc.js';
 import addCollectionLastComment from './add-collection-last-comment.js';

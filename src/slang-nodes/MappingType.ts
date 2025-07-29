@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { SlangNode } from './SlangNode.js';
 import { MappingKey } from './MappingKey.js';
 import { MappingValue } from './MappingValue.js';

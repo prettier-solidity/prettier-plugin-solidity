@@ -1,4 +1,4 @@
-import { TerminalKind } from '@nomicfoundation/slang/cst';
+const { TerminalKind } = await import('@nomicfoundation/slang/cst');
 import { createKindCheckFunction } from './create-kind-check-function.js';
 
 import type { Node } from '@nomicfoundation/slang/cst';

@@ -1,5 +1,5 @@
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { doc } from 'prettier';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { isLabel } from '../slang-utils/is-label.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { SlangNode } from './SlangNode.js';

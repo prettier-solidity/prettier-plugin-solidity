@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.js';

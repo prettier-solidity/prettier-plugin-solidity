@@ -1,5 +1,5 @@
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { doc } from 'prettier';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
 import { SlangNode } from './SlangNode.js';
 import { FunctionTypeAttribute } from './FunctionTypeAttribute.js';
