@@ -1,5 +1,6 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
+import { printVariantCollection } from '../slang-printers/print-variant-collection.js';
 import { SlangNode } from './SlangNode.js';
 import { VersionExpression } from './VersionExpression.js';
 
@@ -23,6 +24,6 @@ export class VersionExpressionSet extends SlangNode {
   }
 
   print(path: AstPath<VersionExpressionSet>, print: PrintFunction): Doc {
-    return join(' ', path.map(print, 'items'));
+    return join(' ', printVariantCollection(path, print));
   }
 }

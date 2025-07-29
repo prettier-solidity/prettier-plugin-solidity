@@ -1,6 +1,7 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
+import { printVariantCollection } from '../slang-printers/print-variant-collection.js';
 import { SlangNode } from './SlangNode.js';
 import { ReceiveFunctionAttribute } from './ReceiveFunctionAttribute.js';
 
@@ -32,6 +33,6 @@ export class ReceiveFunctionAttributes extends SlangNode {
   }
 
   print(path: AstPath<ReceiveFunctionAttributes>, print: PrintFunction): Doc {
-    return path.map(print, 'items').map((item) => [line, item]);
+    return printVariantCollection(path, print).map((item) => [line, item]);
   }
 }
