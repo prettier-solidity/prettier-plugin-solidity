@@ -1,3 +1,4 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { YulBlock } from './YulBlock.js';
@@ -14,7 +15,6 @@ import { YulContinueStatement } from './YulContinueStatement.js';
 import { YulLabel } from './YulLabel.js';
 import { YulExpression } from './YulExpression.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
@@ -23,47 +23,47 @@ function createNonterminalVariant(
   variant: ast.YulStatement['variant'],
   options: ParserOptions<AstNode>
 ): YulStatement['variant'] {
-  switch (variant.cst.kind) {
-    case NonterminalKind.YulBlock:
-      return new YulBlock(variant as ast.YulBlock, options);
-    case NonterminalKind.YulFunctionDefinition:
-      return new YulFunctionDefinition(
-        variant as ast.YulFunctionDefinition,
-        options
-      );
-    case NonterminalKind.YulVariableDeclarationStatement:
-      return new YulVariableDeclarationStatement(
-        variant as ast.YulVariableDeclarationStatement,
-        options
-      );
-    case NonterminalKind.YulVariableAssignmentStatement:
-      return new YulVariableAssignmentStatement(
-        variant as ast.YulVariableAssignmentStatement,
-        options
-      );
-    case NonterminalKind.YulStackAssignmentStatement:
-      return new YulStackAssignmentStatement(
-        variant as ast.YulStackAssignmentStatement
-      );
-    case NonterminalKind.YulIfStatement:
-      return new YulIfStatement(variant as ast.YulIfStatement, options);
-    case NonterminalKind.YulForStatement:
-      return new YulForStatement(variant as ast.YulForStatement, options);
-    case NonterminalKind.YulSwitchStatement:
-      return new YulSwitchStatement(variant as ast.YulSwitchStatement, options);
-    case NonterminalKind.YulLeaveStatement:
-      return new YulLeaveStatement(variant as ast.YulLeaveStatement);
-    case NonterminalKind.YulBreakStatement:
-      return new YulBreakStatement(variant as ast.YulBreakStatement);
-    case NonterminalKind.YulContinueStatement:
-      return new YulContinueStatement(variant as ast.YulContinueStatement);
-    case NonterminalKind.YulLabel:
-      return new YulLabel(variant as ast.YulLabel);
-    case NonterminalKind.YulExpression:
-      return new YulExpression(variant as ast.YulExpression, options);
-    default:
-      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  if (variant instanceof ast.YulBlock) {
+    return new YulBlock(variant, options);
   }
+  if (variant instanceof ast.YulFunctionDefinition) {
+    return new YulFunctionDefinition(variant, options);
+  }
+  if (variant instanceof ast.YulVariableDeclarationStatement) {
+    return new YulVariableDeclarationStatement(variant, options);
+  }
+  if (variant instanceof ast.YulVariableAssignmentStatement) {
+    return new YulVariableAssignmentStatement(variant, options);
+  }
+  if (variant instanceof ast.YulStackAssignmentStatement) {
+    return new YulStackAssignmentStatement(variant);
+  }
+  if (variant instanceof ast.YulIfStatement) {
+    return new YulIfStatement(variant, options);
+  }
+  if (variant instanceof ast.YulForStatement) {
+    return new YulForStatement(variant, options);
+  }
+  if (variant instanceof ast.YulSwitchStatement) {
+    return new YulSwitchStatement(variant, options);
+  }
+  if (variant instanceof ast.YulLeaveStatement) {
+    return new YulLeaveStatement(variant);
+  }
+  if (variant instanceof ast.YulBreakStatement) {
+    return new YulBreakStatement(variant);
+  }
+  if (variant instanceof ast.YulContinueStatement) {
+    return new YulContinueStatement(variant);
+  }
+  if (variant instanceof ast.YulLabel) {
+    return new YulLabel(variant);
+  }
+  if (variant instanceof ast.YulExpression) {
+    return new YulExpression(variant, options);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
 }
 
 export class YulStatement extends SlangNode {

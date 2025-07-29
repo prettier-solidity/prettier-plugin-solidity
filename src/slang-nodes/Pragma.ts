@@ -1,10 +1,10 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { AbicoderPragma } from './AbicoderPragma.js';
 import { ExperimentalPragma } from './ExperimentalPragma.js';
 import { VersionPragma } from './VersionPragma.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
@@ -13,16 +13,17 @@ function createNonterminalVariant(
   variant: ast.Pragma['variant'],
   options: ParserOptions<AstNode>
 ): Pragma['variant'] {
-  switch (variant.cst.kind) {
-    case NonterminalKind.AbicoderPragma:
-      return new AbicoderPragma(variant as ast.AbicoderPragma);
-    case NonterminalKind.ExperimentalPragma:
-      return new ExperimentalPragma(variant as ast.ExperimentalPragma, options);
-    case NonterminalKind.VersionPragma:
-      return new VersionPragma(variant as ast.VersionPragma);
-    default:
-      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  if (variant instanceof ast.AbicoderPragma) {
+    return new AbicoderPragma(variant);
   }
+  if (variant instanceof ast.ExperimentalPragma) {
+    return new ExperimentalPragma(variant, options);
+  }
+  if (variant instanceof ast.VersionPragma) {
+    return new VersionPragma(variant);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
 }
 
 export class Pragma extends SlangNode {

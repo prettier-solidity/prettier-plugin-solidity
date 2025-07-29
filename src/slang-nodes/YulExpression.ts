@@ -1,10 +1,10 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { YulFunctionCallExpression } from './YulFunctionCallExpression.js';
 import { YulLiteral } from './YulLiteral.js';
 import { YulPath } from './YulPath.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
@@ -13,19 +13,17 @@ function createNonterminalVariant(
   variant: ast.YulExpression['variant'],
   options: ParserOptions<AstNode>
 ): YulExpression['variant'] {
-  switch (variant.cst.kind) {
-    case NonterminalKind.YulFunctionCallExpression:
-      return new YulFunctionCallExpression(
-        variant as ast.YulFunctionCallExpression,
-        options
-      );
-    case NonterminalKind.YulLiteral:
-      return new YulLiteral(variant as ast.YulLiteral, options);
-    case NonterminalKind.YulPath:
-      return new YulPath(variant as ast.YulPath);
-    default:
-      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  if (variant instanceof ast.YulFunctionCallExpression) {
+    return new YulFunctionCallExpression(variant, options);
   }
+  if (variant instanceof ast.YulLiteral) {
+    return new YulLiteral(variant, options);
+  }
+  if (variant instanceof ast.YulPath) {
+    return new YulPath(variant);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
 }
 
 export class YulExpression extends SlangNode {

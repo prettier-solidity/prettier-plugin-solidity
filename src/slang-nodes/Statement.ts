@@ -1,3 +1,4 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
@@ -18,7 +19,6 @@ import { AssemblyStatement } from './AssemblyStatement.js';
 import { Block } from './Block.js';
 import { UncheckedBlock } from './UncheckedBlock.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
@@ -27,53 +27,59 @@ function createNonterminalVariant(
   variant: ast.Statement['variant'],
   options: ParserOptions<AstNode>
 ): Statement['variant'] {
-  switch (variant.cst.kind) {
-    case NonterminalKind.ExpressionStatement:
-      return new ExpressionStatement(
-        variant as ast.ExpressionStatement,
-        options
-      );
-    case NonterminalKind.VariableDeclarationStatement:
-      return new VariableDeclarationStatement(
-        variant as ast.VariableDeclarationStatement,
-        options
-      );
-    case NonterminalKind.TupleDeconstructionStatement:
-      return new TupleDeconstructionStatement(
-        variant as ast.TupleDeconstructionStatement,
-        options
-      );
-    case NonterminalKind.IfStatement:
-      return new IfStatement(variant as ast.IfStatement, options);
-    case NonterminalKind.ForStatement:
-      return new ForStatement(variant as ast.ForStatement, options);
-    case NonterminalKind.WhileStatement:
-      return new WhileStatement(variant as ast.WhileStatement, options);
-    case NonterminalKind.DoWhileStatement:
-      return new DoWhileStatement(variant as ast.DoWhileStatement, options);
-    case NonterminalKind.ContinueStatement:
-      return new ContinueStatement(variant as ast.ContinueStatement);
-    case NonterminalKind.BreakStatement:
-      return new BreakStatement(variant as ast.BreakStatement);
-    case NonterminalKind.ReturnStatement:
-      return new ReturnStatement(variant as ast.ReturnStatement, options);
-    case NonterminalKind.ThrowStatement:
-      return new ThrowStatement(variant as ast.ThrowStatement);
-    case NonterminalKind.EmitStatement:
-      return new EmitStatement(variant as ast.EmitStatement, options);
-    case NonterminalKind.TryStatement:
-      return new TryStatement(variant as ast.TryStatement, options);
-    case NonterminalKind.RevertStatement:
-      return new RevertStatement(variant as ast.RevertStatement, options);
-    case NonterminalKind.AssemblyStatement:
-      return new AssemblyStatement(variant as ast.AssemblyStatement, options);
-    case NonterminalKind.Block:
-      return new Block(variant as ast.Block, options);
-    case NonterminalKind.UncheckedBlock:
-      return new UncheckedBlock(variant as ast.UncheckedBlock, options);
-    default:
-      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  if (variant instanceof ast.ExpressionStatement) {
+    return new ExpressionStatement(variant, options);
   }
+  if (variant instanceof ast.VariableDeclarationStatement) {
+    return new VariableDeclarationStatement(variant, options);
+  }
+  if (variant instanceof ast.TupleDeconstructionStatement) {
+    return new TupleDeconstructionStatement(variant, options);
+  }
+  if (variant instanceof ast.IfStatement) {
+    return new IfStatement(variant, options);
+  }
+  if (variant instanceof ast.ForStatement) {
+    return new ForStatement(variant, options);
+  }
+  if (variant instanceof ast.WhileStatement) {
+    return new WhileStatement(variant, options);
+  }
+  if (variant instanceof ast.DoWhileStatement) {
+    return new DoWhileStatement(variant, options);
+  }
+  if (variant instanceof ast.ContinueStatement) {
+    return new ContinueStatement(variant);
+  }
+  if (variant instanceof ast.BreakStatement) {
+    return new BreakStatement(variant);
+  }
+  if (variant instanceof ast.ReturnStatement) {
+    return new ReturnStatement(variant, options);
+  }
+  if (variant instanceof ast.ThrowStatement) {
+    return new ThrowStatement(variant);
+  }
+  if (variant instanceof ast.EmitStatement) {
+    return new EmitStatement(variant, options);
+  }
+  if (variant instanceof ast.TryStatement) {
+    return new TryStatement(variant, options);
+  }
+  if (variant instanceof ast.RevertStatement) {
+    return new RevertStatement(variant, options);
+  }
+  if (variant instanceof ast.AssemblyStatement) {
+    return new AssemblyStatement(variant, options);
+  }
+  if (variant instanceof ast.Block) {
+    return new Block(variant, options);
+  }
+  if (variant instanceof ast.UncheckedBlock) {
+    return new UncheckedBlock(variant, options);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
 }
 
 export class Statement extends SlangNode {

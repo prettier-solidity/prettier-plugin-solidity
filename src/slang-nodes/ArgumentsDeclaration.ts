@@ -14,12 +14,12 @@ function createNonterminalVariant(
 ): ArgumentsDeclaration['variant'] {
   if (variant instanceof ast.PositionalArgumentsDeclaration) {
     return new PositionalArgumentsDeclaration(variant, options);
-  } else if (variant instanceof ast.NamedArgumentsDeclaration) {
-    return new NamedArgumentsDeclaration(variant, options);
-  } else {
-    const exhaustiveCheck: never = variant;
-    return exhaustiveCheck;
   }
+  if (variant instanceof ast.NamedArgumentsDeclaration) {
+    return new NamedArgumentsDeclaration(variant, options);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
 }
 
 export class ArgumentsDeclaration extends SlangNode {

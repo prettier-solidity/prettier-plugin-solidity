@@ -1,3 +1,4 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
@@ -29,7 +30,6 @@ import { StringExpression } from './StringExpression.js';
 import { ElementaryType } from './ElementaryType.js';
 import { Identifier } from './Identifier.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
@@ -38,102 +38,89 @@ function createNonterminalVariant(
   variant: Exclude<ast.Expression['variant'], TerminalNode>,
   options: ParserOptions<AstNode>
 ): Exclude<Expression['variant'], Identifier> {
-  switch (variant.cst.kind) {
-    case NonterminalKind.AssignmentExpression:
-      return new AssignmentExpression(
-        variant as ast.AssignmentExpression,
-        options
-      );
-    case NonterminalKind.ConditionalExpression:
-      return new ConditionalExpression(
-        variant as ast.ConditionalExpression,
-        options
-      );
-    case NonterminalKind.OrExpression:
-      return new OrExpression(variant as ast.OrExpression, options);
-    case NonterminalKind.AndExpression:
-      return new AndExpression(variant as ast.AndExpression, options);
-    case NonterminalKind.EqualityExpression:
-      return new EqualityExpression(variant as ast.EqualityExpression, options);
-    case NonterminalKind.InequalityExpression:
-      return new InequalityExpression(
-        variant as ast.InequalityExpression,
-        options
-      );
-    case NonterminalKind.BitwiseOrExpression:
-      return new BitwiseOrExpression(
-        variant as ast.BitwiseOrExpression,
-        options
-      );
-    case NonterminalKind.BitwiseXorExpression:
-      return new BitwiseXorExpression(
-        variant as ast.BitwiseXorExpression,
-        options
-      );
-    case NonterminalKind.BitwiseAndExpression:
-      return new BitwiseAndExpression(
-        variant as ast.BitwiseAndExpression,
-        options
-      );
-    case NonterminalKind.ShiftExpression:
-      return new ShiftExpression(variant as ast.ShiftExpression, options);
-    case NonterminalKind.AdditiveExpression:
-      return new AdditiveExpression(variant as ast.AdditiveExpression, options);
-    case NonterminalKind.MultiplicativeExpression:
-      return new MultiplicativeExpression(
-        variant as ast.MultiplicativeExpression,
-        options
-      );
-    case NonterminalKind.ExponentiationExpression:
-      return new ExponentiationExpression(
-        variant as ast.ExponentiationExpression,
-        options
-      );
-    case NonterminalKind.PostfixExpression:
-      return new PostfixExpression(variant as ast.PostfixExpression, options);
-    case NonterminalKind.PrefixExpression:
-      return new PrefixExpression(variant as ast.PrefixExpression, options);
-    case NonterminalKind.FunctionCallExpression:
-      return new FunctionCallExpression(
-        variant as ast.FunctionCallExpression,
-        options
-      );
-    case NonterminalKind.CallOptionsExpression:
-      return new CallOptionsExpression(
-        variant as ast.CallOptionsExpression,
-        options
-      );
-    case NonterminalKind.MemberAccessExpression:
-      return new MemberAccessExpression(
-        variant as ast.MemberAccessExpression,
-        options
-      );
-    case NonterminalKind.IndexAccessExpression:
-      return new IndexAccessExpression(
-        variant as ast.IndexAccessExpression,
-        options
-      );
-    case NonterminalKind.NewExpression:
-      return new NewExpression(variant as ast.NewExpression, options);
-    case NonterminalKind.TupleExpression:
-      return new TupleExpression(variant as ast.TupleExpression, options);
-    case NonterminalKind.TypeExpression:
-      return new TypeExpression(variant as ast.TypeExpression, options);
-    case NonterminalKind.ArrayExpression:
-      return new ArrayExpression(variant as ast.ArrayExpression, options);
-    case NonterminalKind.HexNumberExpression:
-      return new HexNumberExpression(variant as ast.HexNumberExpression);
-    case NonterminalKind.DecimalNumberExpression:
-      return new DecimalNumberExpression(
-        variant as ast.DecimalNumberExpression
-      );
-    case NonterminalKind.StringExpression:
-      return new StringExpression(variant as ast.StringExpression, options);
-    case NonterminalKind.ElementaryType:
-      return new ElementaryType(variant as ast.ElementaryType);
-    default:
-      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  if (variant instanceof ast.AssignmentExpression) {
+    return new AssignmentExpression(variant, options);
   }
+  if (variant instanceof ast.ConditionalExpression) {
+    return new ConditionalExpression(variant, options);
+  }
+  if (variant instanceof ast.OrExpression) {
+    return new OrExpression(variant, options);
+  }
+  if (variant instanceof ast.AndExpression) {
+    return new AndExpression(variant, options);
+  }
+  if (variant instanceof ast.EqualityExpression) {
+    return new EqualityExpression(variant, options);
+  }
+  if (variant instanceof ast.InequalityExpression) {
+    return new InequalityExpression(variant, options);
+  }
+  if (variant instanceof ast.BitwiseOrExpression) {
+    return new BitwiseOrExpression(variant, options);
+  }
+  if (variant instanceof ast.BitwiseXorExpression) {
+    return new BitwiseXorExpression(variant, options);
+  }
+  if (variant instanceof ast.BitwiseAndExpression) {
+    return new BitwiseAndExpression(variant, options);
+  }
+  if (variant instanceof ast.ShiftExpression) {
+    return new ShiftExpression(variant, options);
+  }
+  if (variant instanceof ast.AdditiveExpression) {
+    return new AdditiveExpression(variant, options);
+  }
+  if (variant instanceof ast.MultiplicativeExpression) {
+    return new MultiplicativeExpression(variant, options);
+  }
+  if (variant instanceof ast.ExponentiationExpression) {
+    return new ExponentiationExpression(variant, options);
+  }
+  if (variant instanceof ast.PostfixExpression) {
+    return new PostfixExpression(variant, options);
+  }
+  if (variant instanceof ast.PrefixExpression) {
+    return new PrefixExpression(variant, options);
+  }
+  if (variant instanceof ast.FunctionCallExpression) {
+    return new FunctionCallExpression(variant, options);
+  }
+  if (variant instanceof ast.CallOptionsExpression) {
+    return new CallOptionsExpression(variant, options);
+  }
+  if (variant instanceof ast.MemberAccessExpression) {
+    return new MemberAccessExpression(variant, options);
+  }
+  if (variant instanceof ast.IndexAccessExpression) {
+    return new IndexAccessExpression(variant, options);
+  }
+  if (variant instanceof ast.NewExpression) {
+    return new NewExpression(variant, options);
+  }
+  if (variant instanceof ast.TupleExpression) {
+    return new TupleExpression(variant, options);
+  }
+  if (variant instanceof ast.TypeExpression) {
+    return new TypeExpression(variant, options);
+  }
+  if (variant instanceof ast.ArrayExpression) {
+    return new ArrayExpression(variant, options);
+  }
+  if (variant instanceof ast.HexNumberExpression) {
+    return new HexNumberExpression(variant);
+  }
+  if (variant instanceof ast.DecimalNumberExpression) {
+    return new DecimalNumberExpression(variant);
+  }
+  if (variant instanceof ast.StringExpression) {
+    return new StringExpression(variant, options);
+  }
+  if (variant instanceof ast.ElementaryType) {
+    return new ElementaryType(variant);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
 }
 
 export class Expression extends SlangNode {

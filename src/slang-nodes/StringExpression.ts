@@ -1,3 +1,4 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
@@ -6,7 +7,6 @@ import { HexStringLiteral } from './HexStringLiteral.js';
 import { HexStringLiterals } from './HexStringLiterals.js';
 import { UnicodeStringLiterals } from './UnicodeStringLiterals.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
@@ -15,23 +15,23 @@ function createNonterminalVariant(
   variant: ast.StringExpression['variant'],
   options: ParserOptions<AstNode>
 ): StringExpression['variant'] {
-  switch (variant.cst.kind) {
-    case NonterminalKind.StringLiteral:
-      return new StringLiteral(variant as ast.StringLiteral, options);
-    case NonterminalKind.StringLiterals:
-      return new StringLiterals(variant as ast.StringLiterals, options);
-    case NonterminalKind.HexStringLiteral:
-      return new HexStringLiteral(variant as ast.HexStringLiteral, options);
-    case NonterminalKind.HexStringLiterals:
-      return new HexStringLiterals(variant as ast.HexStringLiterals, options);
-    case NonterminalKind.UnicodeStringLiterals:
-      return new UnicodeStringLiterals(
-        variant as ast.UnicodeStringLiterals,
-        options
-      );
-    default:
-      throw new Error(`Unexpected variant: ${variant.cst.kind}`);
+  if (variant instanceof ast.StringLiteral) {
+    return new StringLiteral(variant, options);
   }
+  if (variant instanceof ast.StringLiterals) {
+    return new StringLiterals(variant, options);
+  }
+  if (variant instanceof ast.HexStringLiteral) {
+    return new HexStringLiteral(variant, options);
+  }
+  if (variant instanceof ast.HexStringLiterals) {
+    return new HexStringLiterals(variant, options);
+  }
+  if (variant instanceof ast.UnicodeStringLiterals) {
+    return new UnicodeStringLiterals(variant, options);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
 }
 
 export class StringExpression extends SlangNode {
