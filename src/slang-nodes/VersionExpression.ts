@@ -4,9 +4,6 @@ import { SlangNode } from './SlangNode.js';
 import { VersionRange } from './VersionRange.js';
 import { VersionTerm } from './VersionTerm.js';
 
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
-
 function createNonterminalVariant(
   variant: ast.VersionExpression['variant']
 ): VersionExpression['variant'] {
@@ -31,9 +28,5 @@ export class VersionExpression extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<VersionExpression>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

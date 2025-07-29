@@ -4,9 +4,6 @@ import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { UsingDeconstruction } from './UsingDeconstruction.js';
 
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
-
 function createNonterminalVariant(
   variant: ast.UsingClause['variant']
 ): UsingClause['variant'] {
@@ -31,9 +28,5 @@ export class UsingClause extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<UsingClause>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

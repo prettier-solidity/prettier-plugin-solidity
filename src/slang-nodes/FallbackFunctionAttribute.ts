@@ -8,9 +8,8 @@ import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 import { TerminalNode } from './TerminalNode.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: Exclude<ast.FallbackFunctionAttribute['variant'], SlangTerminalNode>,
@@ -45,9 +44,5 @@ export class FallbackFunctionAttribute extends SlangNode {
     this.variant = createNonterminalVariant(variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<FallbackFunctionAttribute>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }
