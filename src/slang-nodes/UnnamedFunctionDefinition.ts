@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunction } from '../slang-printers/print-function.js';
+import { printFunctionWithBody } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { UnnamedFunctionAttributes } from './UnnamedFunctionAttributes.js';
@@ -43,6 +43,6 @@ export class UnnamedFunctionDefinition extends SlangNode {
   }
 
   print(path: AstPath<UnnamedFunctionDefinition>, print: PrintFunction): Doc {
-    return printFunction('function', this, path, print);
+    return printFunctionWithBody('function', this, path, print);
   }
 }

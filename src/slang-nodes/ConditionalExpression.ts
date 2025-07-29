@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -28,7 +29,7 @@ function experimentalTernaries(
 
   // If the `condition` breaks into multiple lines, we add parentheses,
   // unless it already is a `TupleExpression`.
-  const operand = path.call(print, 'operand');
+  const operand = path.call(printVariant(print), 'operand');
   const operandDoc = group([
     node.operand.variant.kind === NonterminalKind.TupleExpression
       ? operand
@@ -41,7 +42,7 @@ function experimentalTernaries(
   // `trueExpression`.
   const trueExpressionDoc = indent([
     isNestedAsTrueExpression ? hardline : line,
-    path.call(print, 'trueExpression')
+    path.call(printVariant(print), 'trueExpression')
   ]);
 
   const groupId = Symbol('Slang.ConditionalExpression.trueExpression');
@@ -58,7 +59,7 @@ function experimentalTernaries(
       ? ' '.repeat(tabWidth - 1)
       : ' ';
 
-  const falseExpression = path.call(print, 'falseExpression');
+  const falseExpression = path.call(printVariant(print), 'falseExpression');
   const falseExpressionDoc = [
     isNested ? hardline : line,
     ':',
@@ -85,7 +86,7 @@ function traditionalTernaries(
   print: PrintFunction
 ): Doc {
   return group([
-    path.call(print, 'operand'),
+    path.call(printVariant(print), 'operand'),
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
       // line
@@ -94,10 +95,10 @@ function traditionalTernaries(
         ? hardline
         : line,
       '? ',
-      path.call(print, 'trueExpression'),
+      path.call(printVariant(print), 'trueExpression'),
       line,
       ': ',
-      path.call(print, 'falseExpression')
+      path.call(printVariant(print), 'falseExpression')
     ])
   ]);
 }

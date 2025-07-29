@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { joinExisting } from '../slang-utils/join-existing.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -32,7 +33,7 @@ export class EventParameter extends SlangNode {
 
   print(path: AstPath<EventParameter>, print: PrintFunction): Doc {
     return joinExisting(' ', [
-      path.call(print, 'typeName'),
+      path.call(printVariant(print), 'typeName'),
       this.indexedKeyword,
       path.call(print, 'name')
     ]);

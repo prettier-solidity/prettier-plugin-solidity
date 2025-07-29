@@ -3,6 +3,7 @@ import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
 import { isLabel } from '../slang-utils/is-label.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { IndexAccessEnd } from './IndexAccessEnd.js';
@@ -38,10 +39,13 @@ export class IndexAccessExpression extends SlangNode {
   }
 
   print(path: AstPath<IndexAccessExpression>, print: PrintFunction): Doc {
-    const operand = path.call(print, 'operand');
+    const operand = path.call(printVariant(print), 'operand');
     const indexDoc = [
       '[',
-      printSeparatedItem([path.call(print, 'start'), path.call(print, 'end')]),
+      printSeparatedItem([
+        path.call(printVariant(print), 'start'),
+        path.call(print, 'end')
+      ]),
       ']'
     ];
 

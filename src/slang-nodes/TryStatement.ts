@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { ReturnsDeclaration } from './ReturnsDeclaration.js';
@@ -47,7 +48,7 @@ export class TryStatement extends SlangNode {
   print(path: AstPath<TryStatement>, print: PrintFunction): Doc {
     return [
       'try',
-      printSeparatedItem(path.call(print, 'expression'), {
+      printSeparatedItem(path.call(printVariant(print), 'expression'), {
         firstSeparator: line
       }),
       joinExisting(' ', [

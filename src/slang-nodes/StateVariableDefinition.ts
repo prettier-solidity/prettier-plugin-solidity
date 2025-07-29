@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StateVariableAttributes } from './StateVariableAttributes.js';
@@ -44,7 +45,7 @@ export class StateVariableDefinition extends SlangNode {
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {
     return printGroupAndIndentIfBreakPair(
       [
-        path.call(print, 'typeName'),
+        path.call(printVariant(print), 'typeName'),
         indent(path.call(print, 'attributes')),
         ' ',
         path.call(print, 'name')

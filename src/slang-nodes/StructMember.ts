@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -25,6 +26,11 @@ export class StructMember extends SlangNode {
   }
 
   print(path: AstPath<StructMember>, print: PrintFunction): Doc {
-    return [path.call(print, 'typeName'), ' ', path.call(print, 'name'), ';'];
+    return [
+      path.call(printVariant(print), 'typeName'),
+      ' ',
+      path.call(print, 'name'),
+      ';'
+    ];
   }
 }

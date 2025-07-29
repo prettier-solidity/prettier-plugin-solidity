@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunction } from '../slang-printers/print-function.js';
+import { printFunctionWithBody } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { ConstructorAttributes } from './ConstructorAttributes.js';
@@ -30,6 +30,6 @@ export class ConstructorDefinition extends SlangNode {
   }
 
   print(path: AstPath<ConstructorDefinition>, print: PrintFunction): Doc {
-    return printFunction('constructor', this, path, print);
+    return printFunctionWithBody('constructor', this, path, print);
   }
 }

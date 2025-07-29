@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -33,7 +34,7 @@ export class ReturnStatement extends SlangNode {
       'return',
       expressionVariantKind
         ? printIndentedGroupOrSpacedDocument(
-            path.call(print, 'expression'),
+            path.call(printVariant(print), 'expression'),
             expressionVariantKind !== NonterminalKind.TupleExpression &&
               (!options.experimentalTernaries ||
                 expressionVariantKind !== NonterminalKind.ConditionalExpression)

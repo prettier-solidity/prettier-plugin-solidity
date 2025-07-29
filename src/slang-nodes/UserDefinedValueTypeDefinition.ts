@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 import { ElementaryType } from './ElementaryType.js';
@@ -31,7 +32,7 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
       'type ',
       path.call(print, 'name'),
       ' is ',
-      path.call(print, 'valueType'),
+      path.call(printVariant(print), 'valueType'),
       ';'
     ];
   }

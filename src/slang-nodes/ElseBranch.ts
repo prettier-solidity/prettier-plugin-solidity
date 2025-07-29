@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Statement } from './Statement.js';
 
@@ -31,7 +32,7 @@ export class ElseBranch extends SlangNode {
     return [
       'else',
       printIndentedGroupOrSpacedDocument(
-        path.call(print, 'body'),
+        path.call(printVariant(print), 'body'),
         !isIfStatementOrBlock(this.body.variant)
       )
     ];
