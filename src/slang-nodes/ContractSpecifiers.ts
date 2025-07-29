@@ -1,7 +1,8 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { sortContractSpecifiers } from '../slang-utils/sort-contract-specifiers.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
+import { printVariantCollection } from '../slang-printers/print-variant-collection.js';
 import { SlangNode } from './SlangNode.js';
 import { ContractSpecifier } from './ContractSpecifier.js';
 
@@ -28,7 +29,7 @@ export class ContractSpecifiers extends SlangNode {
   }
 
   print(path: AstPath<ContractSpecifiers>, print: PrintFunction): Doc {
-    const [specifier1, specifier2] = path.map(print, 'items');
+    const [specifier1, specifier2] = printVariantCollection(path, print);
 
     if (typeof specifier1 === 'undefined') return '';
 
