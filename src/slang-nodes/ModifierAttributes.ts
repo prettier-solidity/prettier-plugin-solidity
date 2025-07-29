@@ -20,7 +20,7 @@ export class ModifierAttributes extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new ModifierAttribute(item))
+      extractVariant<typeof ModifierAttribute>(ModifierAttribute, item)
     );
 
     this.updateMetadata(this.items);

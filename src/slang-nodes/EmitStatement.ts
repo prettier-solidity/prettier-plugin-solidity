@@ -20,8 +20,10 @@ export class EmitStatement extends SlangNode {
     super(ast);
 
     this.event = new IdentifierPath(ast.event);
-    this.arguments = extractVariant(
-      new ArgumentsDeclaration(ast.arguments, options)
+    this.arguments = extractVariant<typeof ArgumentsDeclaration>(
+      ArgumentsDeclaration,
+      ast.arguments,
+      options
     );
 
     this.updateMetadata(this.event, this.arguments);

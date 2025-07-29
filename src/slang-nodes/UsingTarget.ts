@@ -24,7 +24,7 @@ export class UsingTarget extends SlangNode {
       this.variant = new TerminalNode(variant);
       return;
     }
-    this.variant = extractVariant(new TypeName(variant, options));
+    this.variant = extractVariant<typeof TypeName>(TypeName, variant, options);
 
     this.updateMetadata(this.variant);
   }

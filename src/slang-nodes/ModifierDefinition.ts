@@ -32,7 +32,11 @@ export class ModifierDefinition extends SlangNode {
       this.parameters = new ParametersDeclaration(ast.parameters, options);
     }
     this.attributes = new ModifierAttributes(ast.attributes);
-    this.body = extractVariant(new FunctionBody(ast.body, options));
+    this.body = extractVariant<typeof FunctionBody>(
+      FunctionBody,
+      ast.body,
+      options
+    );
 
     this.updateMetadata(this.parameters, this.attributes, this.body);
 

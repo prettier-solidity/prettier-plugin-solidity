@@ -22,7 +22,11 @@ export class EventParameter extends SlangNode {
   constructor(ast: ast.EventParameter, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.typeName = extractVariant(new TypeName(ast.typeName, options));
+    this.typeName = extractVariant<typeof TypeName>(
+      TypeName,
+      ast.typeName,
+      options
+    );
     this.indexedKeyword = ast.indexedKeyword?.unparse();
     if (ast.name) {
       this.name = new TerminalNode(ast.name);

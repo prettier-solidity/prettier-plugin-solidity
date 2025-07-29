@@ -17,7 +17,7 @@ function createNonterminalVariant(
     return new YulFunctionCallExpression(variant, options);
   }
   if (variant instanceof ast.YulLiteral) {
-    return extractVariant(new YulLiteral(variant, options));
+    return extractVariant<typeof YulLiteral>(YulLiteral, variant, options);
   }
   if (variant instanceof ast.YulPath) {
     return new YulPath(variant);

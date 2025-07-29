@@ -17,8 +17,11 @@ export class VersionRange extends SlangNode {
   constructor(ast: ast.VersionRange) {
     super(ast);
 
-    this.start = extractVariant(new VersionLiteral(ast.start));
-    this.end = extractVariant(new VersionLiteral(ast.end));
+    this.start = extractVariant<typeof VersionLiteral>(
+      VersionLiteral,
+      ast.start
+    );
+    this.end = extractVariant<typeof VersionLiteral>(VersionLiteral, ast.end);
 
     this.updateMetadata(this.start, this.end);
   }

@@ -25,7 +25,7 @@ function createNonterminalVariant(
     return new MappingType(variant, options);
   }
   if (variant instanceof ast.ElementaryType) {
-    return extractVariant(new ElementaryType(variant));
+    return extractVariant<typeof ElementaryType>(ElementaryType, variant);
   }
   if (variant instanceof ast.IdentifierPath) {
     return new IdentifierPath(variant);

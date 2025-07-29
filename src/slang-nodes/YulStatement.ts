@@ -60,7 +60,11 @@ function createNonterminalVariant(
     return new YulLabel(variant);
   }
   if (variant instanceof ast.YulExpression) {
-    return extractVariant(new YulExpression(variant, options));
+    return extractVariant<typeof YulExpression>(
+      YulExpression,
+      variant,
+      options
+    );
   }
   const exhaustiveCheck: never = variant;
   return exhaustiveCheck;

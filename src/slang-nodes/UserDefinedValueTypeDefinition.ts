@@ -19,7 +19,10 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
     super(ast);
 
     this.name = new TerminalNode(ast.name);
-    this.valueType = extractVariant(new ElementaryType(ast.valueType));
+    this.valueType = extractVariant<typeof ElementaryType>(
+      ElementaryType,
+      ast.valueType
+    );
 
     this.updateMetadata(this.valueType);
   }

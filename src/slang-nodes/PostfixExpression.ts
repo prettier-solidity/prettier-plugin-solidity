@@ -18,7 +18,11 @@ export class PostfixExpression extends SlangNode {
   constructor(ast: ast.PostfixExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.operand = extractVariant<typeof Expression>(
+      Expression,
+      ast.operand,
+      options
+    );
     this.operator = ast.operator.unparse();
 
     this.updateMetadata(this.operand);

@@ -27,7 +27,11 @@ export class TupleDeconstructionStatement extends SlangNode {
 
     this.varKeyword = ast.varKeyword?.unparse();
     this.elements = new TupleDeconstructionElements(ast.elements, options);
-    this.expression = extractVariant(new Expression(ast.expression, options));
+    this.expression = extractVariant<typeof Expression>(
+      Expression,
+      ast.expression,
+      options
+    );
 
     this.updateMetadata(this.elements, this.expression);
   }

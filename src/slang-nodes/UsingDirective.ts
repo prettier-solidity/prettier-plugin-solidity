@@ -21,8 +21,12 @@ export class UsingDirective extends SlangNode {
   constructor(ast: ast.UsingDirective, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.clause = extractVariant(new UsingClause(ast.clause));
-    this.target = extractVariant(new UsingTarget(ast.target, options));
+    this.clause = extractVariant<typeof UsingClause>(UsingClause, ast.clause);
+    this.target = extractVariant<typeof UsingTarget>(
+      UsingTarget,
+      ast.target,
+      options
+    );
     this.globalKeyword = ast.globalKeyword?.unparse();
 
     this.updateMetadata(this.clause, this.target);

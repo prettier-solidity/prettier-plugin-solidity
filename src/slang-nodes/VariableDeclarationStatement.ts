@@ -32,8 +32,10 @@ export class VariableDeclarationStatement extends SlangNode {
   ) {
     super(ast);
 
-    this.variableType = extractVariant(
-      new VariableDeclarationType(ast.variableType, options)
+    this.variableType = extractVariant<typeof VariableDeclarationType>(
+      VariableDeclarationType,
+      ast.variableType,
+      options
     );
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(ast.storageLocation);

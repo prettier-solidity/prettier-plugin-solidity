@@ -24,7 +24,11 @@ export class ReceiveFunctionAttributes extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new ReceiveFunctionAttribute(item, options))
+      extractVariant<typeof ReceiveFunctionAttribute>(
+        ReceiveFunctionAttribute,
+        item,
+        options
+      )
     );
 
     this.updateMetadata(this.items);

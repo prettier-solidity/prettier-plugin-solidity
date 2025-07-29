@@ -19,7 +19,10 @@ export class MappingKey extends SlangNode {
   constructor(ast: ast.MappingKey) {
     super(ast);
 
-    this.keyType = extractVariant(new MappingKeyType(ast.keyType));
+    this.keyType = extractVariant<typeof MappingKeyType>(
+      MappingKeyType,
+      ast.keyType
+    );
     if (ast.name) {
       this.name = new TerminalNode(ast.name);
     }

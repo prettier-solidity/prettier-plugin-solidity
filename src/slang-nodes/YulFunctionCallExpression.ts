@@ -22,7 +22,11 @@ export class YulFunctionCallExpression extends SlangNode {
   ) {
     super(ast);
 
-    this.operand = extractVariant(new YulExpression(ast.operand, options));
+    this.operand = extractVariant<typeof YulExpression>(
+      YulExpression,
+      ast.operand,
+      options
+    );
     this.arguments = new YulArguments(ast.arguments, options);
 
     this.updateMetadata(this.operand, this.arguments);

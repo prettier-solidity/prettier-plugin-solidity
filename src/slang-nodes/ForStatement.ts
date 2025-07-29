@@ -30,16 +30,24 @@ export class ForStatement extends SlangNode {
   constructor(ast: ast.ForStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.initialization = extractVariant(
-      new ForStatementInitialization(ast.initialization, options)
+    this.initialization = extractVariant<typeof ForStatementInitialization>(
+      ForStatementInitialization,
+      ast.initialization,
+      options
     );
-    this.condition = extractVariant(
-      new ForStatementCondition(ast.condition, options)
+    this.condition = extractVariant<typeof ForStatementCondition>(
+      ForStatementCondition,
+      ast.condition,
+      options
     );
     if (ast.iterator) {
-      this.iterator = extractVariant(new Expression(ast.iterator, options));
+      this.iterator = extractVariant<typeof Expression>(
+        Expression,
+        ast.iterator,
+        options
+      );
     }
-    this.body = extractVariant(new Statement(ast.body, options));
+    this.body = extractVariant<typeof Statement>(Statement, ast.body, options);
 
     this.updateMetadata(
       this.initialization,

@@ -21,8 +21,10 @@ export class ModifierInvocation extends SlangNode {
 
     this.name = new IdentifierPath(ast.name);
     if (ast.arguments) {
-      this.arguments = extractVariant(
-        new ArgumentsDeclaration(ast.arguments, options)
+      this.arguments = extractVariant<typeof ArgumentsDeclaration>(
+        ArgumentsDeclaration,
+        ast.arguments,
+        options
       );
     }
 

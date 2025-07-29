@@ -21,7 +21,7 @@ export class FunctionAttributes extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new FunctionAttribute(item, options))
+      extractVariant<typeof FunctionAttribute>(FunctionAttribute, item, options)
     );
 
     this.updateMetadata(this.items);

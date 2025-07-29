@@ -22,8 +22,9 @@ export class YulStackAssignmentStatement extends SlangNode {
   constructor(ast: ast.YulStackAssignmentStatement) {
     super(ast);
 
-    this.assignment = extractVariant(
-      new YulStackAssignmentOperator(ast.assignment)
+    this.assignment = extractVariant<typeof YulStackAssignmentOperator>(
+      YulStackAssignmentOperator,
+      ast.assignment
     );
     this.variable = new TerminalNode(ast.variable);
 

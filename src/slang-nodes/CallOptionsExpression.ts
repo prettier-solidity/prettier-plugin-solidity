@@ -19,7 +19,11 @@ export class CallOptionsExpression extends SlangNode {
   constructor(ast: ast.CallOptionsExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.operand = extractVariant<typeof Expression>(
+      Expression,
+      ast.operand,
+      options
+    );
     this.options = new CallOptions(ast.options, options);
 
     this.updateMetadata(this.operand, this.options);

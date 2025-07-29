@@ -19,7 +19,11 @@ export class PrefixExpression extends SlangNode {
     super(ast);
 
     this.operator = ast.operator.unparse();
-    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.operand = extractVariant<typeof Expression>(
+      Expression,
+      ast.operand,
+      options
+    );
 
     this.updateMetadata(this.operand);
 

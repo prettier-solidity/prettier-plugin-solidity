@@ -22,9 +22,17 @@ export class ConstantDefinition extends SlangNode {
   constructor(ast: ast.ConstantDefinition, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.typeName = extractVariant(new TypeName(ast.typeName, options));
+    this.typeName = extractVariant<typeof TypeName>(
+      TypeName,
+      ast.typeName,
+      options
+    );
     this.name = new TerminalNode(ast.name);
-    this.value = extractVariant(new Expression(ast.value, options));
+    this.value = extractVariant<typeof Expression>(
+      Expression,
+      ast.value,
+      options
+    );
 
     this.updateMetadata(this.typeName, this.value);
   }

@@ -125,7 +125,11 @@ export class MemberAccessExpression extends SlangNode {
   ) {
     super(ast);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.operand = extractVariant<typeof Expression>(
+      Expression,
+      ast.operand,
+      options
+    );
     this.member = new TerminalNode(ast.member);
 
     this.updateMetadata(this.operand);
