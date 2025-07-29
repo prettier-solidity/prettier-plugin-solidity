@@ -19,7 +19,7 @@ export class VersionExpressionSet extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new VersionExpression(item))
+      extractVariant<typeof VersionExpression>(VersionExpression, item)
     );
 
     this.updateMetadata(this.items);

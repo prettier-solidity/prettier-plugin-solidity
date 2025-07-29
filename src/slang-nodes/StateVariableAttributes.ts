@@ -20,7 +20,10 @@ export class StateVariableAttributes extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new StateVariableAttribute(item))
+      extractVariant<typeof StateVariableAttribute>(
+        StateVariableAttribute,
+        item
+      )
     );
 
     this.updateMetadata(this.items);

@@ -19,9 +19,17 @@ export class ArrayTypeName extends SlangNode {
   constructor(ast: ast.ArrayTypeName, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.operand = extractVariant(new TypeName(ast.operand, options));
+    this.operand = extractVariant<typeof TypeName>(
+      TypeName,
+      ast.operand,
+      options
+    );
     if (ast.index) {
-      this.index = extractVariant(new Expression(ast.index, options));
+      this.index = extractVariant<typeof Expression>(
+        Expression,
+        ast.index,
+        options
+      );
     }
 
     this.updateMetadata(this.operand, this.index);

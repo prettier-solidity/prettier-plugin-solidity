@@ -17,7 +17,11 @@ export class IndexAccessEnd extends SlangNode {
     super(ast);
 
     if (ast.end) {
-      this.end = extractVariant(new Expression(ast.end, options));
+      this.end = extractVariant<typeof Expression>(
+        Expression,
+        ast.end,
+        options
+      );
     }
 
     this.updateMetadata(this.end);

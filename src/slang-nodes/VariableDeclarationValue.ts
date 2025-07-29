@@ -19,7 +19,11 @@ export class VariableDeclarationValue extends SlangNode {
   ) {
     super(ast);
 
-    this.expression = extractVariant(new Expression(ast.expression, options));
+    this.expression = extractVariant<typeof Expression>(
+      Expression,
+      ast.expression,
+      options
+    );
 
     this.updateMetadata(this.expression);
   }

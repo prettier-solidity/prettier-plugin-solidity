@@ -22,8 +22,10 @@ export class YulSwitchStatement extends SlangNode {
   constructor(ast: ast.YulSwitchStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.expression = extractVariant(
-      new YulExpression(ast.expression, options)
+    this.expression = extractVariant<typeof YulExpression>(
+      YulExpression,
+      ast.expression,
+      options
     );
     this.cases = new YulSwitchCases(ast.cases, options);
 

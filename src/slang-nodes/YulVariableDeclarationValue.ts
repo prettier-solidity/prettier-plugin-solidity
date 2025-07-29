@@ -22,9 +22,14 @@ export class YulVariableDeclarationValue extends SlangNode {
   ) {
     super(ast);
 
-    this.assignment = extractVariant(new YulAssignmentOperator(ast.assignment));
-    this.expression = extractVariant(
-      new YulExpression(ast.expression, options)
+    this.assignment = extractVariant<typeof YulAssignmentOperator>(
+      YulAssignmentOperator,
+      ast.assignment
+    );
+    this.expression = extractVariant<typeof YulExpression>(
+      YulExpression,
+      ast.expression,
+      options
     );
 
     this.updateMetadata(this.assignment, this.expression);

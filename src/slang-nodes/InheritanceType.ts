@@ -21,8 +21,10 @@ export class InheritanceType extends SlangNode {
 
     this.typeName = new IdentifierPath(ast.typeName);
     if (ast.arguments) {
-      this.arguments = extractVariant(
-        new ArgumentsDeclaration(ast.arguments, options)
+      this.arguments = extractVariant<typeof ArgumentsDeclaration>(
+        ArgumentsDeclaration,
+        ast.arguments,
+        options
       );
     }
 

@@ -19,7 +19,11 @@ export class YulValueCase extends SlangNode {
   constructor(ast: ast.YulValueCase, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.value = extractVariant(new YulLiteral(ast.value, options));
+    this.value = extractVariant<typeof YulLiteral>(
+      YulLiteral,
+      ast.value,
+      options
+    );
     this.body = new YulBlock(ast.body, options);
 
     this.updateMetadata(this.value, this.body);

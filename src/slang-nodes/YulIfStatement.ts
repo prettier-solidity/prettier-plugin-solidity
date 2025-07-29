@@ -19,7 +19,11 @@ export class YulIfStatement extends SlangNode {
   constructor(ast: ast.YulIfStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.condition = extractVariant(new YulExpression(ast.condition, options));
+    this.condition = extractVariant<typeof YulExpression>(
+      YulExpression,
+      ast.condition,
+      options
+    );
     this.body = new YulBlock(ast.body, options);
 
     this.updateMetadata(this.condition, this.body);

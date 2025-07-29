@@ -30,7 +30,11 @@ export class TryStatement extends SlangNode {
   constructor(ast: ast.TryStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.expression = extractVariant(new Expression(ast.expression, options));
+    this.expression = extractVariant<typeof Expression>(
+      Expression,
+      ast.expression,
+      options
+    );
     if (ast.returns) {
       this.returns = new ReturnsDeclaration(ast.returns, options);
     }

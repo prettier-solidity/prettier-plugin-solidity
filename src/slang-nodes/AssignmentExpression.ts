@@ -25,10 +25,16 @@ export class AssignmentExpression extends SlangNode {
   constructor(ast: ast.AssignmentExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.leftOperand = extractVariant(new Expression(ast.leftOperand, options));
+    this.leftOperand = extractVariant<typeof Expression>(
+      Expression,
+      ast.leftOperand,
+      options
+    );
     this.operator = ast.operator.unparse();
-    this.rightOperand = extractVariant(
-      new Expression(ast.rightOperand, options)
+    this.rightOperand = extractVariant<typeof Expression>(
+      Expression,
+      ast.rightOperand,
+      options
     );
 
     this.updateMetadata(this.leftOperand, this.rightOperand);

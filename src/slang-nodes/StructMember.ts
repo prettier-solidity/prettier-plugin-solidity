@@ -19,7 +19,11 @@ export class StructMember extends SlangNode {
   constructor(ast: ast.StructMember, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.typeName = extractVariant(new TypeName(ast.typeName, options));
+    this.typeName = extractVariant<typeof TypeName>(
+      TypeName,
+      ast.typeName,
+      options
+    );
     this.name = new TerminalNode(ast.name);
 
     this.updateMetadata(this.typeName);

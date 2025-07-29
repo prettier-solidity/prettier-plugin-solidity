@@ -1,11 +1,14 @@
-import type { StrictPolymorphicNode } from '../slang-nodes/types.ts';
+import { StrictPolymorphicType } from '../slang-nodes/types.js';
 
-// TODO: Receive constructor as an argument and instantiate the node here.
-export function extractVariant<T extends StrictPolymorphicNode>({
-  variant,
-  comments,
-  loc
-}: T): T['variant'] {
+type ast<T extends StrictPolymorphicType> = ConstructorParameters<T>[0];
+type options<T extends StrictPolymorphicType> = ConstructorParameters<T>[1];
+
+export function extractVariant<T extends StrictPolymorphicType>(
+  constructor: new (ast: ast<T>, options: options<T>) => InstanceType<T>,
+  ast: ast<T>,
+  options?: options<T>
+): InstanceType<T>['variant'] {
+  const { variant, comments, loc } = new constructor(ast, options);
   variant.comments = comments;
   variant.loc = loc;
   return variant;

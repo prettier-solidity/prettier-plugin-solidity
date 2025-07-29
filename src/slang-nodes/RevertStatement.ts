@@ -23,8 +23,10 @@ export class RevertStatement extends SlangNode {
     if (ast.error) {
       this.error = new IdentifierPath(ast.error);
     }
-    this.arguments = extractVariant(
-      new ArgumentsDeclaration(ast.arguments, options)
+    this.arguments = extractVariant<typeof ArgumentsDeclaration>(
+      ArgumentsDeclaration,
+      ast.arguments,
+      options
     );
 
     this.updateMetadata(this.error, this.arguments);

@@ -16,8 +16,10 @@ export class ExperimentalPragma extends SlangNode {
   constructor(ast: ast.ExperimentalPragma, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.feature = extractVariant(
-      new ExperimentalFeature(ast.feature, options)
+    this.feature = extractVariant<typeof ExperimentalFeature>(
+      ExperimentalFeature,
+      ast.feature,
+      options
     );
 
     this.updateMetadata(this.feature);

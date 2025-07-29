@@ -466,6 +466,47 @@ export type StrictPolymorphicNode = Extract<
   { variant: StrictAstNode | TerminalNode }
 >;
 
+// TODO: auto generate this type prepending `typeof` to the result of the type
+// StrictPolymorphicNode.
+export type StrictPolymorphicType =
+  | typeof YulStackAssignmentOperator
+  | typeof SourceUnitMember
+  | typeof Pragma
+  | typeof ExperimentalFeature
+  | typeof VersionExpression
+  | typeof VersionLiteral
+  | typeof ImportClause
+  | typeof UsingClause
+  | typeof UsingTarget
+  | typeof ContractMember
+  | typeof StateVariableAttribute
+  | typeof FunctionName
+  | typeof FunctionAttribute
+  | typeof FunctionBody
+  | typeof ConstructorAttribute
+  | typeof UnnamedFunctionAttribute
+  | typeof FallbackFunctionAttribute
+  | typeof ReceiveFunctionAttribute
+  | typeof ModifierAttribute
+  | typeof TypeName
+  | typeof FunctionTypeAttribute
+  | typeof MappingKeyType
+  | typeof ElementaryType
+  | typeof Statement
+  | typeof TupleMember
+  | typeof VariableDeclarationType
+  | typeof ForStatementInitialization
+  | typeof ForStatementCondition
+  | typeof Expression
+  | typeof ArgumentsDeclaration
+  | typeof StringExpression
+  | typeof YulStatement
+  | typeof YulAssignmentOperator
+  | typeof YulSwitchCase
+  | typeof YulExpression
+  | typeof YulLiteral
+  | typeof ContractSpecifier;
+
 export type Collection = Extract<StrictAstNode, { items: unknown[] }>;
 
 export type StrictCollection = Extract<

@@ -20,7 +20,7 @@ export class FunctionTypeAttributes extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new FunctionTypeAttribute(item))
+      extractVariant<typeof FunctionTypeAttribute>(FunctionTypeAttribute, item)
     );
 
     this.updateMetadata(this.items);

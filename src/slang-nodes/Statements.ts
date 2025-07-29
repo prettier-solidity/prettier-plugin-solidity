@@ -23,7 +23,7 @@ export class Statements extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new Statement(item, options))
+      extractVariant<typeof Statement>(Statement, item, options)
     );
 
     this.updateMetadata(this.items);

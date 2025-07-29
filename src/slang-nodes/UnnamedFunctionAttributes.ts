@@ -24,7 +24,11 @@ export class UnnamedFunctionAttributes extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new UnnamedFunctionAttribute(item, options))
+      extractVariant<typeof UnnamedFunctionAttribute>(
+        UnnamedFunctionAttribute,
+        item,
+        options
+      )
     );
 
     this.updateMetadata(this.items);

@@ -117,10 +117,14 @@ function createNonterminalVariant(
     return new DecimalNumberExpression(variant);
   }
   if (variant instanceof ast.StringExpression) {
-    return extractVariant(new StringExpression(variant, options));
+    return extractVariant<typeof StringExpression>(
+      StringExpression,
+      variant,
+      options
+    );
   }
   if (variant instanceof ast.ElementaryType) {
-    return extractVariant(new ElementaryType(variant));
+    return extractVariant<typeof ElementaryType>(ElementaryType, variant);
   }
   const exhaustiveCheck: never = variant;
   return exhaustiveCheck;

@@ -26,9 +26,17 @@ export class IndexAccessExpression extends SlangNode {
   constructor(ast: ast.IndexAccessExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.operand = extractVariant<typeof Expression>(
+      Expression,
+      ast.operand,
+      options
+    );
     if (ast.start) {
-      this.start = extractVariant(new Expression(ast.start, options));
+      this.start = extractVariant<typeof Expression>(
+        Expression,
+        ast.start,
+        options
+      );
     }
     if (ast.end) {
       this.end = new IndexAccessEnd(ast.end, options);

@@ -31,7 +31,11 @@ export class StateVariableDefinition extends SlangNode {
   ) {
     super(ast);
 
-    this.typeName = extractVariant(new TypeName(ast.typeName, options));
+    this.typeName = extractVariant<typeof TypeName>(
+      TypeName,
+      ast.typeName,
+      options
+    );
     this.attributes = new StateVariableAttributes(ast.attributes);
     this.name = new TerminalNode(ast.name);
     if (ast.value) {

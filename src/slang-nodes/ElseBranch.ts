@@ -25,7 +25,7 @@ export class ElseBranch extends SlangNode {
   constructor(ast: ast.ElseBranch, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.body = extractVariant(new Statement(ast.body, options));
+    this.body = extractVariant<typeof Statement>(Statement, ast.body, options);
 
     this.updateMetadata(this.body);
   }

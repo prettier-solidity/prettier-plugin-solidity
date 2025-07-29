@@ -23,7 +23,7 @@ export class YulStatements extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new YulStatement(item, options))
+      extractVariant<typeof YulStatement>(YulStatement, item, options)
     );
 
     this.updateMetadata(this.items);

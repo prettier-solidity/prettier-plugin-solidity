@@ -34,7 +34,11 @@ export class FallbackFunctionDefinition extends SlangNode {
     if (ast.returns) {
       this.returns = new ReturnsDeclaration(ast.returns, options);
     }
-    this.body = extractVariant(new FunctionBody(ast.body, options));
+    this.body = extractVariant<typeof FunctionBody>(
+      FunctionBody,
+      ast.body,
+      options
+    );
 
     this.updateMetadata(
       this.parameters,

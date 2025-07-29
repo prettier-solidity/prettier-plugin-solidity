@@ -22,7 +22,7 @@ export class ContractSpecifiers extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new ContractSpecifier(item, options))
+      extractVariant<typeof ContractSpecifier>(ContractSpecifier, item, options)
     );
 
     this.updateMetadata(this.items);

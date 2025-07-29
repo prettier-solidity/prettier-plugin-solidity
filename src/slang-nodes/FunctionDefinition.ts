@@ -30,13 +30,17 @@ export class FunctionDefinition extends SlangNode {
   constructor(ast: ast.FunctionDefinition, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.name = extractVariant(new FunctionName(ast.name));
+    this.name = extractVariant<typeof FunctionName>(FunctionName, ast.name);
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new FunctionAttributes(ast.attributes, options);
     if (ast.returns) {
       this.returns = new ReturnsDeclaration(ast.returns, options);
     }
-    this.body = extractVariant(new FunctionBody(ast.body, options));
+    this.body = extractVariant<typeof FunctionBody>(
+      FunctionBody,
+      ast.body,
+      options
+    );
 
     this.updateMetadata(
       this.name,

@@ -23,7 +23,11 @@ export class TypedTupleMember extends SlangNode {
   constructor(ast: ast.TypedTupleMember, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.typeName = extractVariant(new TypeName(ast.typeName, options));
+    this.typeName = extractVariant<typeof TypeName>(
+      TypeName,
+      ast.typeName,
+      options
+    );
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(ast.storageLocation);
     }

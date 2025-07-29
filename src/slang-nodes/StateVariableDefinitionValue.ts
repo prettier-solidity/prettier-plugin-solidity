@@ -22,7 +22,11 @@ export class StateVariableDefinitionValue extends SlangNode {
   ) {
     super(ast);
 
-    this.value = extractVariant(new Expression(ast.value, options));
+    this.value = extractVariant<typeof Expression>(
+      Expression,
+      ast.value,
+      options
+    );
 
     this.updateMetadata(this.value);
   }

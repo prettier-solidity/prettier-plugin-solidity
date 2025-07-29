@@ -21,7 +21,11 @@ export class ConstructorAttributes extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new ConstructorAttribute(item, options))
+      extractVariant<typeof ConstructorAttribute>(
+        ConstructorAttribute,
+        item,
+        options
+      )
     );
 
     this.updateMetadata(this.items);

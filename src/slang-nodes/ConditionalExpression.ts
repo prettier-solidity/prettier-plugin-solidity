@@ -122,12 +122,20 @@ export class ConditionalExpression extends SlangNode {
   constructor(ast: ast.ConditionalExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
-    this.trueExpression = extractVariant(
-      new Expression(ast.trueExpression, options)
+    this.operand = extractVariant<typeof Expression>(
+      Expression,
+      ast.operand,
+      options
     );
-    this.falseExpression = extractVariant(
-      new Expression(ast.falseExpression, options)
+    this.trueExpression = extractVariant<typeof Expression>(
+      Expression,
+      ast.trueExpression,
+      options
+    );
+    this.falseExpression = extractVariant<typeof Expression>(
+      Expression,
+      ast.falseExpression,
+      options
     );
 
     this.updateMetadata(

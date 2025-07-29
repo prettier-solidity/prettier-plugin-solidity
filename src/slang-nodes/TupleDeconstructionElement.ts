@@ -20,7 +20,11 @@ export class TupleDeconstructionElement extends SlangNode {
     super(ast);
 
     if (ast.member) {
-      this.member = extractVariant(new TupleMember(ast.member, options));
+      this.member = extractVariant<typeof TupleMember>(
+        TupleMember,
+        ast.member,
+        options
+      );
     }
 
     this.updateMetadata(this.member);

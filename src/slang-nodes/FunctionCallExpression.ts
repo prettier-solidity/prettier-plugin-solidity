@@ -26,9 +26,15 @@ export class FunctionCallExpression extends SlangNode {
   ) {
     super(ast);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
-    this.arguments = extractVariant(
-      new ArgumentsDeclaration(ast.arguments, options)
+    this.operand = extractVariant<typeof Expression>(
+      Expression,
+      ast.operand,
+      options
+    );
+    this.arguments = extractVariant<typeof ArgumentsDeclaration>(
+      ArgumentsDeclaration,
+      ast.arguments,
+      options
     );
 
     this.updateMetadata(this.operand, this.arguments);
