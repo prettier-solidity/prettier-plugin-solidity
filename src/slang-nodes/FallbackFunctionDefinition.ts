@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunction } from '../slang-printers/print-function.js';
+import { printFunctionWithBody } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { FallbackFunctionAttributes } from './FallbackFunctionAttributes.js';
@@ -57,6 +57,6 @@ export class FallbackFunctionDefinition extends SlangNode {
   }
 
   print(path: AstPath<FallbackFunctionDefinition>, print: PrintFunction): Doc {
-    return printFunction('fallback', this, path, print);
+    return printFunctionWithBody('fallback', this, path, print);
   }
 }

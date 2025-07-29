@@ -1,6 +1,7 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { isLabel } from '../slang-utils/is-label.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
@@ -32,8 +33,8 @@ export class FunctionCallExpression extends SlangNode {
   }
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {
-    const operand = path.call(print, 'operand');
-    const argumentsDoc = path.call(print, 'arguments');
+    const operand = printVariant('operand', path, print);
+    const argumentsDoc = printVariant('arguments', path, print);
 
     // If we are at the end of a MemberAccessChain we should indent the
     // arguments accordingly.

@@ -58,8 +58,6 @@ function genericPrint(
 ): Doc {
   const node = path.node;
 
-  if (typeof node === 'string') return node;
-
   if (hasNodeIgnoreComment(node)) {
     ignoreComments(path);
 
@@ -67,6 +65,7 @@ function genericPrint(
   }
 
   if (isPolymorphicNode(node)) return path.call(print, 'variant');
+
   // Since each node has a print function with a specific AstPath, the union of
   // all nodes into AstNode creates a print function with an AstPath of the
   // intersection of all nodes. This forces us to cast this with a never type.

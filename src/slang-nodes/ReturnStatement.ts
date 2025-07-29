@@ -1,5 +1,6 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -17,8 +18,8 @@ function printExpression(
   options: ParserOptions<AstNode>
 ): Doc {
   const expressionVariantKind = node.expression?.variant.kind;
-  const expression = path.call(print, 'expression');
   if (expressionVariantKind) {
+    const expression = printVariant('expression', path, print);
     return expressionVariantKind === NonterminalKind.TupleExpression ||
       (options.experimentalTernaries &&
         expressionVariantKind === NonterminalKind.ConditionalExpression)

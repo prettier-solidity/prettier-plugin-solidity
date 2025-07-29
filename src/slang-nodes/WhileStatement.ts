@@ -1,6 +1,7 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
@@ -29,10 +30,10 @@ export class WhileStatement extends SlangNode {
   }
 
   print(path: AstPath<WhileStatement>, print: PrintFunction): Doc {
-    const body = path.call(print, 'body');
+    const body = printVariant('body', path, print);
     return [
       'while (',
-      printSeparatedItem(path.call(print, 'condition')),
+      printSeparatedItem(printVariant('condition', path, print)),
       ')',
       this.body.variant.kind === NonterminalKind.Block
         ? [' ', body]

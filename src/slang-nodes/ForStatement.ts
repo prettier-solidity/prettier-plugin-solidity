@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ForStatementInitialization } from './ForStatementInitialization.js';
 import { ForStatementCondition } from './ForStatementCondition.js';
@@ -47,10 +48,10 @@ export class ForStatement extends SlangNode {
   }
 
   print(path: AstPath<ForStatement>, print: PrintFunction): Doc {
-    const initialization = path.call(print, 'initialization');
-    const condition = path.call(print, 'condition');
-    const iterator = path.call(print, 'iterator');
-    const body = path.call(print, 'body');
+    const initialization = printVariant('initialization', path, print);
+    const condition = printVariant('condition', path, print);
+    const iterator = this.iterator ? printVariant('iterator', path, print) : '';
+    const body = printVariant('body', path, print);
 
     return [
       'for (',

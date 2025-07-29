@@ -1,6 +1,7 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Statement } from './Statement.js';
 
@@ -30,7 +31,7 @@ export class ElseBranch extends SlangNode {
   }
 
   print(path: AstPath<ElseBranch>, print: PrintFunction): Doc {
-    const body = path.call(print, 'body');
+    const body = printVariant('body', path, print);
     return [
       'else',
       isIfStatementOrBlock(this.body.variant)

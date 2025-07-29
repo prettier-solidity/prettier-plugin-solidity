@@ -1,7 +1,8 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { isLabel } from '../slang-utils/is-label.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { IndexAccessEnd } from './IndexAccessEnd.js';
@@ -37,10 +38,13 @@ export class IndexAccessExpression extends SlangNode {
   }
 
   print(path: AstPath<IndexAccessExpression>, print: PrintFunction): Doc {
-    const operand = path.call(print, 'operand');
+    const operand = printVariant('operand', path, print);
     const indexDoc = [
       '[',
-      printSeparatedItem([path.call(print, 'start'), path.call(print, 'end')]),
+      printSeparatedItem([
+        this.start ? printVariant('start', path, print) : '',
+        path.call(print, 'end')
+      ]),
       ']'
     ];
 

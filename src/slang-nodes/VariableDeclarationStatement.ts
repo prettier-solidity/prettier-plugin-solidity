@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { VariableDeclarationType } from './VariableDeclarationType.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -50,7 +51,7 @@ export class VariableDeclarationStatement extends SlangNode {
     return [
       group(
         [
-          path.call(print, 'variableType'),
+          printVariant('variableType', path, print),
           indent([
             this.storageLocation
               ? [line, path.call(print, 'storageLocation')]
