@@ -112,7 +112,7 @@
   },
   "dependencies": {
     "@nomicfoundation/slang": "1.2.1",
-    "@solidity-parser/parser": "^0.20.1",
+    "@solidity-parser/parser": "^0.20.2",
     "semver": "^7.7.2"
   },
   "peerDependencies": {
