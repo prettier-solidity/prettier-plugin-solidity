@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulExpression } from './YulExpression.js';
 
@@ -20,6 +21,6 @@ export class YulArguments extends SlangNode {
   }
 
   print(path: AstPath<YulArguments>, print: PrintFunction): Doc {
-    return printSeparatedList(path.map(print, 'items'));
+    return printSeparatedList(path.map(printVariant(print), 'items'));
   }
 }
