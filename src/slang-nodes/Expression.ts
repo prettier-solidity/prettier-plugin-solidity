@@ -1,8 +1,5 @@
-import {
-  NonterminalKind,
-  TerminalKind,
-  TerminalNode
-} from '@nomicfoundation/slang/cst';
+import * as ast from '@nomicfoundation/slang/ast';
+import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
@@ -33,10 +30,98 @@ import { StringExpression } from './StringExpression.js';
 import { ElementaryType } from './ElementaryType.js';
 import { Identifier } from './Identifier.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+
+function createNonterminalVariant(
+  variant: Exclude<ast.Expression['variant'], TerminalNode>,
+  options: ParserOptions<AstNode>
+): Exclude<Expression['variant'], Identifier> {
+  if (variant instanceof ast.AssignmentExpression) {
+    return new AssignmentExpression(variant, options);
+  }
+  if (variant instanceof ast.ConditionalExpression) {
+    return new ConditionalExpression(variant, options);
+  }
+  if (variant instanceof ast.OrExpression) {
+    return new OrExpression(variant, options);
+  }
+  if (variant instanceof ast.AndExpression) {
+    return new AndExpression(variant, options);
+  }
+  if (variant instanceof ast.EqualityExpression) {
+    return new EqualityExpression(variant, options);
+  }
+  if (variant instanceof ast.InequalityExpression) {
+    return new InequalityExpression(variant, options);
+  }
+  if (variant instanceof ast.BitwiseOrExpression) {
+    return new BitwiseOrExpression(variant, options);
+  }
+  if (variant instanceof ast.BitwiseXorExpression) {
+    return new BitwiseXorExpression(variant, options);
+  }
+  if (variant instanceof ast.BitwiseAndExpression) {
+    return new BitwiseAndExpression(variant, options);
+  }
+  if (variant instanceof ast.ShiftExpression) {
+    return new ShiftExpression(variant, options);
+  }
+  if (variant instanceof ast.AdditiveExpression) {
+    return new AdditiveExpression(variant, options);
+  }
+  if (variant instanceof ast.MultiplicativeExpression) {
+    return new MultiplicativeExpression(variant, options);
+  }
+  if (variant instanceof ast.ExponentiationExpression) {
+    return new ExponentiationExpression(variant, options);
+  }
+  if (variant instanceof ast.PostfixExpression) {
+    return new PostfixExpression(variant, options);
+  }
+  if (variant instanceof ast.PrefixExpression) {
+    return new PrefixExpression(variant, options);
+  }
+  if (variant instanceof ast.FunctionCallExpression) {
+    return new FunctionCallExpression(variant, options);
+  }
+  if (variant instanceof ast.CallOptionsExpression) {
+    return new CallOptionsExpression(variant, options);
+  }
+  if (variant instanceof ast.MemberAccessExpression) {
+    return new MemberAccessExpression(variant, options);
+  }
+  if (variant instanceof ast.IndexAccessExpression) {
+    return new IndexAccessExpression(variant, options);
+  }
+  if (variant instanceof ast.NewExpression) {
+    return new NewExpression(variant, options);
+  }
+  if (variant instanceof ast.TupleExpression) {
+    return new TupleExpression(variant, options);
+  }
+  if (variant instanceof ast.TypeExpression) {
+    return new TypeExpression(variant, options);
+  }
+  if (variant instanceof ast.ArrayExpression) {
+    return new ArrayExpression(variant, options);
+  }
+  if (variant instanceof ast.HexNumberExpression) {
+    return new HexNumberExpression(variant);
+  }
+  if (variant instanceof ast.DecimalNumberExpression) {
+    return new DecimalNumberExpression(variant);
+  }
+  if (variant instanceof ast.StringExpression) {
+    return new StringExpression(variant, options);
+  }
+  if (variant instanceof ast.ElementaryType) {
+    return new ElementaryType(variant);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
+}
 
 export class Expression extends SlangNode {
   readonly kind = NonterminalKind.Expression;
@@ -74,174 +159,14 @@ export class Expression extends SlangNode {
   constructor(ast: ast.Expression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = new Identifier(ast.variant);
-    } else {
-      switch (ast.variant.cst.kind) {
-        case NonterminalKind.AssignmentExpression:
-          this.variant = new AssignmentExpression(
-            ast.variant as ast.AssignmentExpression,
-            options
-          );
-          break;
-        case NonterminalKind.ConditionalExpression:
-          this.variant = new ConditionalExpression(
-            ast.variant as ast.ConditionalExpression,
-            options
-          );
-          break;
-        case NonterminalKind.OrExpression:
-          this.variant = new OrExpression(
-            ast.variant as ast.OrExpression,
-            options
-          );
-          break;
-        case NonterminalKind.AndExpression:
-          this.variant = new AndExpression(
-            ast.variant as ast.AndExpression,
-            options
-          );
-          break;
-        case NonterminalKind.EqualityExpression:
-          this.variant = new EqualityExpression(
-            ast.variant as ast.EqualityExpression,
-            options
-          );
-          break;
-        case NonterminalKind.InequalityExpression:
-          this.variant = new InequalityExpression(
-            ast.variant as ast.InequalityExpression,
-            options
-          );
-          break;
-        case NonterminalKind.BitwiseOrExpression:
-          this.variant = new BitwiseOrExpression(
-            ast.variant as ast.BitwiseOrExpression,
-            options
-          );
-          break;
-        case NonterminalKind.BitwiseXorExpression:
-          this.variant = new BitwiseXorExpression(
-            ast.variant as ast.BitwiseXorExpression,
-            options
-          );
-          break;
-        case NonterminalKind.BitwiseAndExpression:
-          this.variant = new BitwiseAndExpression(
-            ast.variant as ast.BitwiseAndExpression,
-            options
-          );
-          break;
-        case NonterminalKind.ShiftExpression:
-          this.variant = new ShiftExpression(
-            ast.variant as ast.ShiftExpression,
-            options
-          );
-          break;
-        case NonterminalKind.AdditiveExpression:
-          this.variant = new AdditiveExpression(
-            ast.variant as ast.AdditiveExpression,
-            options
-          );
-          break;
-        case NonterminalKind.MultiplicativeExpression:
-          this.variant = new MultiplicativeExpression(
-            ast.variant as ast.MultiplicativeExpression,
-            options
-          );
-          break;
-        case NonterminalKind.ExponentiationExpression:
-          this.variant = new ExponentiationExpression(
-            ast.variant as ast.ExponentiationExpression,
-            options
-          );
-          break;
-        case NonterminalKind.PostfixExpression:
-          this.variant = new PostfixExpression(
-            ast.variant as ast.PostfixExpression,
-            options
-          );
-          break;
-        case NonterminalKind.PrefixExpression:
-          this.variant = new PrefixExpression(
-            ast.variant as ast.PrefixExpression,
-            options
-          );
-          break;
-        case NonterminalKind.FunctionCallExpression:
-          this.variant = new FunctionCallExpression(
-            ast.variant as ast.FunctionCallExpression,
-            options
-          );
-          break;
-        case NonterminalKind.CallOptionsExpression:
-          this.variant = new CallOptionsExpression(
-            ast.variant as ast.CallOptionsExpression,
-            options
-          );
-          break;
-        case NonterminalKind.MemberAccessExpression:
-          this.variant = new MemberAccessExpression(
-            ast.variant as ast.MemberAccessExpression,
-            options
-          );
-          break;
-        case NonterminalKind.IndexAccessExpression:
-          this.variant = new IndexAccessExpression(
-            ast.variant as ast.IndexAccessExpression,
-            options
-          );
-          break;
-        case NonterminalKind.NewExpression:
-          this.variant = new NewExpression(
-            ast.variant as ast.NewExpression,
-            options
-          );
-          break;
-        case NonterminalKind.TupleExpression:
-          this.variant = new TupleExpression(
-            ast.variant as ast.TupleExpression,
-            options
-          );
-          break;
-        case NonterminalKind.TypeExpression:
-          this.variant = new TypeExpression(
-            ast.variant as ast.TypeExpression,
-            options
-          );
-          break;
-        case NonterminalKind.ArrayExpression:
-          this.variant = new ArrayExpression(
-            ast.variant as ast.ArrayExpression,
-            options
-          );
-          break;
-        case NonterminalKind.HexNumberExpression:
-          this.variant = new HexNumberExpression(
-            ast.variant as ast.HexNumberExpression
-          );
-          break;
-        case NonterminalKind.DecimalNumberExpression:
-          this.variant = new DecimalNumberExpression(
-            ast.variant as ast.DecimalNumberExpression
-          );
-          break;
-        case NonterminalKind.StringExpression:
-          this.variant = new StringExpression(
-            ast.variant as ast.StringExpression,
-            options
-          );
-          break;
-        case NonterminalKind.ElementaryType:
-          this.variant = new ElementaryType(ast.variant as ast.ElementaryType);
-          break;
-        default:
-          throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-      }
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = new Identifier(variant);
+      return;
     }
+    this.variant = createNonterminalVariant(variant, options);
 
-    if (this.variant.kind !== TerminalKind.Identifier)
-      this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<Expression>, print: PrintFunction): Doc {

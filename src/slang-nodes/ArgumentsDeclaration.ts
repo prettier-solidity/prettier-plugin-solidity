@@ -1,12 +1,26 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { PositionalArgumentsDeclaration } from './PositionalArgumentsDeclaration.js';
 import { NamedArgumentsDeclaration } from './NamedArgumentsDeclaration.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+
+function createNonterminalVariant(
+  variant: ast.ArgumentsDeclaration['variant'],
+  options: ParserOptions<AstNode>
+): ArgumentsDeclaration['variant'] {
+  if (variant instanceof ast.PositionalArgumentsDeclaration) {
+    return new PositionalArgumentsDeclaration(variant, options);
+  }
+  if (variant instanceof ast.NamedArgumentsDeclaration) {
+    return new NamedArgumentsDeclaration(variant, options);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
+}
 
 export class ArgumentsDeclaration extends SlangNode {
   readonly kind = NonterminalKind.ArgumentsDeclaration;
@@ -16,22 +30,7 @@ export class ArgumentsDeclaration extends SlangNode {
   constructor(ast: ast.ArgumentsDeclaration, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
-      case NonterminalKind.PositionalArgumentsDeclaration:
-        this.variant = new PositionalArgumentsDeclaration(
-          ast.variant as ast.PositionalArgumentsDeclaration,
-          options
-        );
-        break;
-      case NonterminalKind.NamedArgumentsDeclaration:
-        this.variant = new NamedArgumentsDeclaration(
-          ast.variant as ast.NamedArgumentsDeclaration,
-          options
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

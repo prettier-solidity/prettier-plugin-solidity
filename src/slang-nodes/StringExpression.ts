@@ -1,3 +1,4 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
@@ -6,10 +7,32 @@ import { HexStringLiteral } from './HexStringLiteral.js';
 import { HexStringLiterals } from './HexStringLiterals.js';
 import { UnicodeStringLiterals } from './UnicodeStringLiterals.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+
+function createNonterminalVariant(
+  variant: ast.StringExpression['variant'],
+  options: ParserOptions<AstNode>
+): StringExpression['variant'] {
+  if (variant instanceof ast.StringLiteral) {
+    return new StringLiteral(variant, options);
+  }
+  if (variant instanceof ast.StringLiterals) {
+    return new StringLiterals(variant, options);
+  }
+  if (variant instanceof ast.HexStringLiteral) {
+    return new HexStringLiteral(variant, options);
+  }
+  if (variant instanceof ast.HexStringLiterals) {
+    return new HexStringLiterals(variant, options);
+  }
+  if (variant instanceof ast.UnicodeStringLiterals) {
+    return new UnicodeStringLiterals(variant, options);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
+}
 
 export class StringExpression extends SlangNode {
   readonly kind = NonterminalKind.StringExpression;
@@ -24,40 +47,7 @@ export class StringExpression extends SlangNode {
   constructor(ast: ast.StringExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
-      case NonterminalKind.StringLiteral:
-        this.variant = new StringLiteral(
-          ast.variant as ast.StringLiteral,
-          options
-        );
-        break;
-      case NonterminalKind.StringLiterals:
-        this.variant = new StringLiterals(
-          ast.variant as ast.StringLiterals,
-          options
-        );
-        break;
-      case NonterminalKind.HexStringLiteral:
-        this.variant = new HexStringLiteral(
-          ast.variant as ast.HexStringLiteral,
-          options
-        );
-        break;
-      case NonterminalKind.HexStringLiterals:
-        this.variant = new HexStringLiterals(
-          ast.variant as ast.HexStringLiterals,
-          options
-        );
-        break;
-      case NonterminalKind.UnicodeStringLiterals:
-        this.variant = new UnicodeStringLiterals(
-          ast.variant as ast.UnicodeStringLiterals,
-          options
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

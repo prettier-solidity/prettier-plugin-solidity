@@ -1,3 +1,4 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { ArrayTypeName } from './ArrayTypeName.js';
@@ -6,10 +7,32 @@ import { MappingType } from './MappingType.js';
 import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+
+function createNonterminalVariant(
+  variant: ast.TypeName['variant'],
+  options: ParserOptions<AstNode>
+): TypeName['variant'] {
+  if (variant instanceof ast.ArrayTypeName) {
+    return new ArrayTypeName(variant, options);
+  }
+  if (variant instanceof ast.FunctionType) {
+    return new FunctionType(variant, options);
+  }
+  if (variant instanceof ast.MappingType) {
+    return new MappingType(variant, options);
+  }
+  if (variant instanceof ast.ElementaryType) {
+    return new ElementaryType(variant);
+  }
+  if (variant instanceof ast.IdentifierPath) {
+    return new IdentifierPath(variant);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
+}
 
 export class TypeName extends SlangNode {
   readonly kind = NonterminalKind.TypeName;
@@ -24,31 +47,7 @@ export class TypeName extends SlangNode {
   constructor(ast: ast.TypeName, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
-      case NonterminalKind.ArrayTypeName:
-        this.variant = new ArrayTypeName(
-          ast.variant as ast.ArrayTypeName,
-          options
-        );
-        break;
-      case NonterminalKind.FunctionType:
-        this.variant = new FunctionType(
-          ast.variant as ast.FunctionType,
-          options
-        );
-        break;
-      case NonterminalKind.MappingType:
-        this.variant = new MappingType(ast.variant as ast.MappingType, options);
-        break;
-      case NonterminalKind.ElementaryType:
-        this.variant = new ElementaryType(ast.variant as ast.ElementaryType);
-        break;
-      case NonterminalKind.IdentifierPath:
-        this.variant = new IdentifierPath(ast.variant as ast.IdentifierPath);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

@@ -1,12 +1,26 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { StorageLayoutSpecifier } from './StorageLayoutSpecifier.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+
+function createNonterminalVariant(
+  variant: ast.ContractSpecifier['variant'],
+  options: ParserOptions<AstNode>
+): ContractSpecifier['variant'] {
+  if (variant instanceof ast.InheritanceSpecifier) {
+    return new InheritanceSpecifier(variant, options);
+  }
+  if (variant instanceof ast.StorageLayoutSpecifier) {
+    return new StorageLayoutSpecifier(variant, options);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
+}
 
 export class ContractSpecifier extends SlangNode {
   readonly kind = NonterminalKind.ContractSpecifier;
@@ -16,22 +30,8 @@ export class ContractSpecifier extends SlangNode {
   constructor(ast: ast.ContractSpecifier, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
-      case NonterminalKind.InheritanceSpecifier:
-        this.variant = new InheritanceSpecifier(
-          ast.variant as ast.InheritanceSpecifier,
-          options
-        );
-        break;
-      case NonterminalKind.StorageLayoutSpecifier:
-        this.variant = new StorageLayoutSpecifier(
-          ast.variant as ast.StorageLayoutSpecifier,
-          options
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
+
     this.updateMetadata(this.variant);
   }
 

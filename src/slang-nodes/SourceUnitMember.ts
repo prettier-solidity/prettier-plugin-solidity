@@ -1,3 +1,4 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { PragmaDirective } from './PragmaDirective.js';
@@ -14,10 +15,56 @@ import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition
 import { UsingDirective } from './UsingDirective.js';
 import { EventDefinition } from './EventDefinition.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+
+function createNonterminalVariant(
+  variant: ast.SourceUnitMember['variant'],
+  options: ParserOptions<AstNode>
+): SourceUnitMember['variant'] {
+  if (variant instanceof ast.PragmaDirective) {
+    return new PragmaDirective(variant, options);
+  }
+  if (variant instanceof ast.ImportDirective) {
+    return new ImportDirective(variant, options);
+  }
+  if (variant instanceof ast.ContractDefinition) {
+    return new ContractDefinition(variant, options);
+  }
+  if (variant instanceof ast.InterfaceDefinition) {
+    return new InterfaceDefinition(variant, options);
+  }
+  if (variant instanceof ast.LibraryDefinition) {
+    return new LibraryDefinition(variant, options);
+  }
+  if (variant instanceof ast.StructDefinition) {
+    return new StructDefinition(variant, options);
+  }
+  if (variant instanceof ast.EnumDefinition) {
+    return new EnumDefinition(variant);
+  }
+  if (variant instanceof ast.FunctionDefinition) {
+    return new FunctionDefinition(variant, options);
+  }
+  if (variant instanceof ast.ConstantDefinition) {
+    return new ConstantDefinition(variant, options);
+  }
+  if (variant instanceof ast.ErrorDefinition) {
+    return new ErrorDefinition(variant, options);
+  }
+  if (variant instanceof ast.UserDefinedValueTypeDefinition) {
+    return new UserDefinedValueTypeDefinition(variant);
+  }
+  if (variant instanceof ast.UsingDirective) {
+    return new UsingDirective(variant, options);
+  }
+  if (variant instanceof ast.EventDefinition) {
+    return new EventDefinition(variant, options);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
+}
 
 export class SourceUnitMember extends SlangNode {
   readonly kind = NonterminalKind.SourceUnitMember;
@@ -40,84 +87,7 @@ export class SourceUnitMember extends SlangNode {
   constructor(ast: ast.SourceUnitMember, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
-      case NonterminalKind.PragmaDirective:
-        this.variant = new PragmaDirective(
-          ast.variant as ast.PragmaDirective,
-          options
-        );
-        break;
-      case NonterminalKind.ImportDirective:
-        this.variant = new ImportDirective(
-          ast.variant as ast.ImportDirective,
-          options
-        );
-        break;
-      case NonterminalKind.ContractDefinition:
-        this.variant = new ContractDefinition(
-          ast.variant as ast.ContractDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.InterfaceDefinition:
-        this.variant = new InterfaceDefinition(
-          ast.variant as ast.InterfaceDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.LibraryDefinition:
-        this.variant = new LibraryDefinition(
-          ast.variant as ast.LibraryDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.StructDefinition:
-        this.variant = new StructDefinition(
-          ast.variant as ast.StructDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.EnumDefinition:
-        this.variant = new EnumDefinition(ast.variant as ast.EnumDefinition);
-        break;
-      case NonterminalKind.FunctionDefinition:
-        this.variant = new FunctionDefinition(
-          ast.variant as ast.FunctionDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.ConstantDefinition:
-        this.variant = new ConstantDefinition(
-          ast.variant as ast.ConstantDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.ErrorDefinition:
-        this.variant = new ErrorDefinition(
-          ast.variant as ast.ErrorDefinition,
-          options
-        );
-        break;
-      case NonterminalKind.UserDefinedValueTypeDefinition:
-        this.variant = new UserDefinedValueTypeDefinition(
-          ast.variant as ast.UserDefinedValueTypeDefinition
-        );
-        break;
-      case NonterminalKind.UsingDirective:
-        this.variant = new UsingDirective(
-          ast.variant as ast.UsingDirective,
-          options
-        );
-        break;
-      case NonterminalKind.EventDefinition:
-        this.variant = new EventDefinition(
-          ast.variant as ast.EventDefinition,
-          options
-        );
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

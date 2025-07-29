@@ -1,13 +1,30 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { YulFunctionCallExpression } from './YulFunctionCallExpression.js';
 import { YulLiteral } from './YulLiteral.js';
 import { YulPath } from './YulPath.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+
+function createNonterminalVariant(
+  variant: ast.YulExpression['variant'],
+  options: ParserOptions<AstNode>
+): YulExpression['variant'] {
+  if (variant instanceof ast.YulFunctionCallExpression) {
+    return new YulFunctionCallExpression(variant, options);
+  }
+  if (variant instanceof ast.YulLiteral) {
+    return new YulLiteral(variant, options);
+  }
+  if (variant instanceof ast.YulPath) {
+    return new YulPath(variant);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
+}
 
 export class YulExpression extends SlangNode {
   readonly kind = NonterminalKind.YulExpression;
@@ -17,22 +34,7 @@ export class YulExpression extends SlangNode {
   constructor(ast: ast.YulExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    switch (ast.variant.cst.kind) {
-      case NonterminalKind.YulFunctionCallExpression:
-        this.variant = new YulFunctionCallExpression(
-          ast.variant as ast.YulFunctionCallExpression,
-          options
-        );
-        break;
-      case NonterminalKind.YulLiteral:
-        this.variant = new YulLiteral(ast.variant as ast.YulLiteral, options);
-        break;
-      case NonterminalKind.YulPath:
-        this.variant = new YulPath(ast.variant as ast.YulPath);
-        break;
-      default:
-        throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-    }
+    this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
   }

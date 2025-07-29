@@ -1,12 +1,27 @@
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
 
-import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+
+function createNonterminalVariant(
+  variant: Exclude<ast.YulLiteral['variant'], TerminalNode>,
+  options: ParserOptions<AstNode>
+): Exclude<YulLiteral['variant'], string> {
+  if (variant instanceof ast.HexStringLiteral) {
+    return new HexStringLiteral(variant, options);
+  }
+  if (variant instanceof ast.StringLiteral) {
+    return new StringLiteral(variant, options);
+  }
+  const exhaustiveCheck: never = variant;
+  return exhaustiveCheck;
+}
 
 export class YulLiteral extends SlangNode {
   readonly kind = NonterminalKind.YulLiteral;
@@ -16,33 +31,17 @@ export class YulLiteral extends SlangNode {
   constructor(ast: ast.YulLiteral, options: ParserOptions<AstNode>) {
     super(ast);
 
-    if (ast.variant instanceof TerminalNode) {
-      this.variant = ast.variant.unparse();
-    } else {
-      switch (ast.variant.cst.kind) {
-        case NonterminalKind.HexStringLiteral:
-          this.variant = new HexStringLiteral(
-            ast.variant as ast.HexStringLiteral,
-            options
-          );
-          break;
-        case NonterminalKind.StringLiteral:
-          this.variant = new StringLiteral(
-            ast.variant as ast.StringLiteral,
-            options
-          );
-          break;
-        default:
-          throw new Error(`Unexpected variant: ${ast.variant.cst.kind}`);
-      }
+    const variant = ast.variant;
+    if (variant instanceof TerminalNode) {
+      this.variant = variant.unparse();
+      return;
     }
+    this.variant = createNonterminalVariant(variant, options);
 
-    if (typeof this.variant !== 'string') this.updateMetadata(this.variant);
+    this.updateMetadata(this.variant);
   }
 
   print(path: AstPath<YulLiteral>, print: PrintFunction): Doc {
-    return typeof this.variant === 'string'
-      ? this.variant
-      : path.call(print, 'variant');
+    return printVariant(this, path, print);
   }
 }
