@@ -27,11 +27,9 @@ export class PositionalArgumentsDeclaration extends SlangNode {
 
     // We need to check the comments at this point because they will be removed
     // from this node into the root node.
-    const empty =
+    this.isEmpty =
       this.arguments.items.length === 0 && // no arguments
       !this.comments.some((comment) => isBlockComment(comment)); // no block comments
-
-    this.isEmpty = (): boolean => empty;
   }
 
   print(

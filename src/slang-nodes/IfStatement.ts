@@ -37,13 +37,14 @@ export class IfStatement extends SlangNode {
 
   print(path: AstPath<IfStatement>, print: PrintFunction): Doc {
     const { kind: bodyKind, comments: bodyComments } = this.body.variant;
+    const body = path.call(print, 'body');
     return [
       'if (',
       printSeparatedItem(path.call(print, 'condition')),
       ')',
       bodyKind === NonterminalKind.Block
-        ? [' ', path.call(print, 'body')]
-        : group(indent([line, path.call(print, 'body')]), {
+        ? [' ', body]
+        : group(indent([line, body]), {
             shouldBreak: bodyKind === NonterminalKind.IfStatement // `if` within `if`
           }),
       this.elseBranch

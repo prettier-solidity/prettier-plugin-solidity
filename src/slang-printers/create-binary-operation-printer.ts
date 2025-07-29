@@ -13,27 +13,28 @@ import type { PrintFunction } from '../types.d.ts';
 const { group, line } = doc.builders;
 
 function rightOperandPrint(
-  node: BinaryOperation,
+  { operator, leftOperand }: BinaryOperation,
   path: AstPath<BinaryOperation>,
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const rightOperand =
+  const rightOperand = path.call(print, 'rightOperand');
+  const rightOperandDoc =
     options.experimentalOperatorPosition === 'end'
-      ? [` ${node.operator}`, line, path.call(print, 'rightOperand')]
-      : [line, `${node.operator} `, path.call(print, 'rightOperand')];
+      ? [` ${operator}`, line, rightOperand]
+      : [line, `${operator} `, rightOperand];
 
   // If there's only a single binary expression, we want to create a group in
   // order to avoid having a small right part like -1 be on its own line.
-  const leftOperand = node.leftOperand.variant;
+  const leftOperandVariant = leftOperand.variant;
   const grandparentNode = path.grandparent as StrictAstNode;
   const shouldGroup =
-    (leftOperand.kind === TerminalKind.Identifier ||
-      !isBinaryOperation(leftOperand)) &&
+    (leftOperandVariant.kind === TerminalKind.Identifier ||
+      !isBinaryOperation(leftOperandVariant)) &&
     (!isBinaryOperation(grandparentNode) ||
       grandparentNode.kind === NonterminalKind.AssignmentExpression);
 
-  return shouldGroup ? group(rightOperand) : rightOperand;
+  return shouldGroup ? group(rightOperandDoc) : rightOperandDoc;
 }
 
 export const createBinaryOperationPrinter =

@@ -50,6 +50,7 @@ export class ForStatement extends SlangNode {
     const initialization = path.call(print, 'initialization');
     const condition = path.call(print, 'condition');
     const iterator = path.call(print, 'iterator');
+    const body = path.call(print, 'body');
 
     return [
       'for (',
@@ -61,8 +62,8 @@ export class ForStatement extends SlangNode {
       }),
       ')',
       this.body.variant.kind === NonterminalKind.Block
-        ? [' ', path.call(print, 'body')]
-        : group(indent([line, path.call(print, 'body')]))
+        ? [' ', body]
+        : group(indent([line, body]))
     ];
   }
 }

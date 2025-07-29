@@ -16,13 +16,14 @@ function printExpression(
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const expressionVariant = node.expression?.variant;
-  if (expressionVariant) {
-    return expressionVariant.kind === NonterminalKind.TupleExpression ||
+  const expressionVariantKind = node.expression?.variant.kind;
+  const expression = path.call(print, 'expression');
+  if (expressionVariantKind) {
+    return expressionVariantKind === NonterminalKind.TupleExpression ||
       (options.experimentalTernaries &&
-        expressionVariant.kind === NonterminalKind.ConditionalExpression)
-      ? [' ', path.call(print, 'expression')]
-      : group(indent([line, path.call(print, 'expression')]));
+        expressionVariantKind === NonterminalKind.ConditionalExpression)
+      ? [' ', expression]
+      : group(indent([line, expression]));
   }
   return '';
 }
