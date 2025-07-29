@@ -2,13 +2,13 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 
-export class StateVariableAttribute extends SlangNode {
+export class StateVariableAttribute extends PolymorphicNode {
   readonly kind = NonterminalKind.StateVariableAttribute;
 
   variant: OverrideSpecifier | TerminalNode;

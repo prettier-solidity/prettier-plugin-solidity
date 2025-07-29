@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { PositionalArgumentsDeclaration } from './PositionalArgumentsDeclaration.js';
 import { NamedArgumentsDeclaration } from './NamedArgumentsDeclaration.js';
 
@@ -21,7 +21,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class ArgumentsDeclaration extends SlangNode {
+export class ArgumentsDeclaration extends PolymorphicNode {
   readonly kind = NonterminalKind.ArgumentsDeclaration;
 
   variant: PositionalArgumentsDeclaration | NamedArgumentsDeclaration;

@@ -3,7 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -25,7 +25,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class YulLiteral extends SlangNode {
+export class YulLiteral extends PolymorphicNode {
   readonly kind = NonterminalKind.YulLiteral;
 
   variant: HexStringLiteral | StringLiteral | TerminalNode;

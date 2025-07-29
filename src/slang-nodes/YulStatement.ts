@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { YulBlock } from './YulBlock.js';
 import { YulFunctionDefinition } from './YulFunctionDefinition.js';
 import { YulVariableDeclarationStatement } from './YulVariableDeclarationStatement.js';
@@ -65,7 +65,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class YulStatement extends SlangNode {
+export class YulStatement extends PolymorphicNode {
   readonly kind = NonterminalKind.YulStatement;
 
   variant:
