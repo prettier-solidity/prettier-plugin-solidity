@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import addCollectionFirstComment from './add-collection-first-comment.js';
 import addCollectionLastComment from './add-collection-last-comment.js';
 

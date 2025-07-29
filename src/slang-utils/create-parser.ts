@@ -1,9 +1,12 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { Parser } from '@nomicfoundation/slang/parser';
-import { LanguageFacts } from '@nomicfoundation/slang/utils';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
+const { Parser } = await import('@nomicfoundation/slang/parser');
+const { LanguageFacts } = await import('@nomicfoundation/slang/utils');
 import { minSatisfying } from 'semver';
 
-import type { ParseOutput } from '@nomicfoundation/slang/parser';
+import type {
+  Parser as SlangParser,
+  ParseOutput
+} from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from '../slang-nodes/types.d.ts';
 
@@ -13,7 +16,7 @@ const supportedLength = supportedVersions.length;
 function parserAndOutput(
   text: string,
   version: string
-): { parser: Parser; parseOutput: ParseOutput } {
+): { parser: SlangParser; parseOutput: ParseOutput } {
   const parser = Parser.create(version);
   return {
     parser,
@@ -33,7 +36,7 @@ function createError(
 export function createParser(
   text: string,
   options: ParserOptions<AstNode>
-): { parser: Parser; parseOutput: ParseOutput } {
+): { parser: SlangParser; parseOutput: ParseOutput } {
   const compiler = minSatisfying(supportedVersions, options.compiler);
   if (compiler) {
     const result = parserAndOutput(text, compiler);

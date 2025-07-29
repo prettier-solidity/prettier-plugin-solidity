@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { doc } from 'prettier';
 import { joinExisting } from '../slang-utils/join-existing.js';
 import { SlangNode } from './SlangNode.js';

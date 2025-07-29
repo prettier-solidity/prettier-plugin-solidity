@@ -1,4 +1,6 @@
-import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+const { NonterminalKind, TerminalNode } = await import(
+  '@nomicfoundation/slang/cst'
+);
 import { SlangNode } from './SlangNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';

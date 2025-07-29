@@ -1,5 +1,5 @@
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { satisfies } from 'semver';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunction } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { FunctionName } from './FunctionName.js';

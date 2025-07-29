@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { isBlockComment } from '../slang-utils/is-comment.js';
 import { SlangNode } from './SlangNode.js';
 import { PositionalArguments } from './PositionalArguments.js';

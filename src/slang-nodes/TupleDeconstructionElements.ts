@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleDeconstructionElement } from './TupleDeconstructionElement.js';

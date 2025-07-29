@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 
 import type { ContractSpecifier } from '../slang-nodes/ContractSpecifier.js';
 

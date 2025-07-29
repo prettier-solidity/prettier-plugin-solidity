@@ -1,4 +1,6 @@
-import { NonterminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+const { NonterminalKind, TerminalNode } = await import(
+  '@nomicfoundation/slang/cst'
+);
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 

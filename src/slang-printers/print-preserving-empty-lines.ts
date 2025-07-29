@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind } = await import('@nomicfoundation/slang/cst');
 import { doc, util } from 'prettier';
 import { locEnd } from '../slang-utils/loc.js';
 
