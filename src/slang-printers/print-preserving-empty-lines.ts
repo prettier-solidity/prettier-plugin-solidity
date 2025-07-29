@@ -14,28 +14,27 @@ export function printPreservingEmptyLines(
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  return [
-    path.map((childPath) => {
-      const node = childPath.node;
+  return path.node.items.length > 0
+    ? path.map((childPath) => {
+        const node = childPath.node;
 
-      return [
-        // Only attempt to prepend an empty line if `node` is not the first item
-        !childPath.isFirst &&
-        // YulLabel adds a dedented line so we don't have to prepend a hardline.
-        (node.kind !== NonterminalKind.YulStatement ||
-          node.variant.kind !== NonterminalKind.YulLabel)
-          ? hardline
-          : '',
-        print(childPath),
-        // Only attempt to append an empty line if `node` is not the last item
-        !childPath.isLast &&
-        // Append an empty line if the original text already had an one after the
-        // current `node`
-        util.isNextLineEmpty(options.originalText, locEnd(node))
-          ? hardline
-          : ''
-      ];
-    }, 'items'),
-    printComments(path, options)
-  ];
+        return [
+          // Only attempt to prepend an empty line if `node` is not the first item
+          !childPath.isFirst &&
+          // YulLabel adds a dedented line so we don't have to prepend a hardline.
+          (node.kind !== NonterminalKind.YulStatement ||
+            node.variant.kind !== NonterminalKind.YulLabel)
+            ? hardline
+            : '',
+          print(childPath),
+          // Only attempt to append an empty line if `node` is not the last item
+          !childPath.isLast &&
+          // Append an empty line if the original text already had an one after the
+          // current `node`
+          util.isNextLineEmpty(options.originalText, locEnd(node))
+            ? hardline
+            : ''
+        ];
+      }, 'items')
+    : printComments(path, options);
 }
