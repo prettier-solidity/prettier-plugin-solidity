@@ -3,7 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
 import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js';
@@ -32,7 +32,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class ForStatementInitialization extends SlangNode {
+export class ForStatementInitialization extends PolymorphicNode {
   readonly kind = NonterminalKind.ForStatementInitialization;
 
   variant:

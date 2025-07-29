@@ -3,7 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
 import { OrExpression } from './OrExpression.js';
@@ -125,7 +125,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class Expression extends SlangNode {
+export class Expression extends PolymorphicNode {
   readonly kind = NonterminalKind.Expression;
 
   variant:

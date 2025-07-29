@@ -3,7 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -25,7 +25,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class ReceiveFunctionAttribute extends SlangNode {
+export class ReceiveFunctionAttribute extends PolymorphicNode {
   readonly kind = NonterminalKind.ReceiveFunctionAttribute;
 
   variant: ModifierInvocation | OverrideSpecifier | TerminalNode;

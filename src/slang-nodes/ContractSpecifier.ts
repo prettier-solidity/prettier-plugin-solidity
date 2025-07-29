@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { StorageLayoutSpecifier } from './StorageLayoutSpecifier.js';
 
@@ -21,7 +21,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class ContractSpecifier extends SlangNode {
+export class ContractSpecifier extends PolymorphicNode {
   readonly kind = NonterminalKind.ContractSpecifier;
 
   variant: InheritanceSpecifier | StorageLayoutSpecifier;
