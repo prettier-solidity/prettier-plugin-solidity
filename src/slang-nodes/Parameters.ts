@@ -23,12 +23,16 @@ export class Parameters extends SlangNode {
     this.updateMetadata(this.items);
   }
 
-  print(path: AstPath<Parameters>, print: PrintFunction): Doc {
+  print(
+    path: AstPath<Parameters>,
+    print: PrintFunction,
+    options: ParserOptions<AstNode>
+  ): Doc {
     if (this.items.length > 0) {
       return printSeparatedList(path.map(print, 'items'), { grouped: false });
     }
 
-    const parameterComments = printComments(path);
+    const parameterComments = printComments(path, options);
 
     return parameterComments.length > 0
       ? printSeparatedItem(parameterComments)

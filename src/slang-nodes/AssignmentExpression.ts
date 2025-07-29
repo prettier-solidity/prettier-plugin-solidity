@@ -1,6 +1,6 @@
 import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
+import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -8,8 +8,6 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-
-const { group, indent, line } = doc.builders;
 
 export class AssignmentExpression extends SlangNode {
   readonly kind = NonterminalKind.AssignmentExpression;
@@ -32,14 +30,14 @@ export class AssignmentExpression extends SlangNode {
 
   print(path: AstPath<AssignmentExpression>, print: PrintFunction): Doc {
     const rightOperandVariant = this.rightOperand.variant;
-    const rightOperand = path.call(print, 'rightOperand');
     return [
       path.call(print, 'leftOperand'),
       ` ${this.operator}`,
-      rightOperandVariant.kind !== TerminalKind.Identifier &&
-      isBinaryOperation(rightOperandVariant)
-        ? group(indent([line, rightOperand]))
-        : [' ', rightOperand]
+      printIndentedGroupOrSpacedDocument(
+        path.call(print, 'rightOperand'),
+        rightOperandVariant.kind !== TerminalKind.Identifier &&
+          isBinaryOperation(rightOperandVariant)
+      )
     ];
   }
 }

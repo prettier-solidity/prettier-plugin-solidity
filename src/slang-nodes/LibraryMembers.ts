@@ -30,10 +30,9 @@ export class LibraryMembers extends SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    return this.items.length > 0
+    return this.items.length > 0 || this.comments.length > 0
       ? printSeparatedItem(printPreservingEmptyLines(path, print, options), {
-          firstSeparator: hardline,
-          grouped: false
+          firstSeparator: hardline
         })
       : '';
   }

@@ -1,6 +1,6 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
+import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { SlangNode } from './SlangNode.js';
 import { Statement } from './Statement.js';
 
@@ -8,8 +8,6 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-
-const { group, indent, line } = doc.builders;
 
 const isIfStatementOrBlock = createKindCheckFunction([
   NonterminalKind.Block,
@@ -30,12 +28,12 @@ export class ElseBranch extends SlangNode {
   }
 
   print(path: AstPath<ElseBranch>, print: PrintFunction): Doc {
-    const body = path.call(print, 'body');
     return [
       'else',
-      isIfStatementOrBlock(this.body.variant)
-        ? [' ', body]
-        : group(indent([line, body]))
+      printIndentedGroupOrSpacedDocument(
+        path.call(print, 'body'),
+        !isIfStatementOrBlock(this.body.variant)
+      )
     ];
   }
 }

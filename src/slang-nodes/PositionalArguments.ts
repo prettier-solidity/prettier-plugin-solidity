@@ -23,11 +23,15 @@ export class PositionalArguments extends SlangNode {
     this.updateMetadata(this.items);
   }
 
-  print(path: AstPath<PositionalArguments>, print: PrintFunction): Doc {
+  print(
+    path: AstPath<PositionalArguments>,
+    print: PrintFunction,
+    options: ParserOptions<AstNode>
+  ): Doc {
     if (this.items.length > 0) {
       return printSeparatedList(path.map(print, 'items'));
     }
-    const argumentComments = printComments(path);
+    const argumentComments = printComments(path, options);
 
     return argumentComments.length > 0
       ? printSeparatedItem(argumentComments)

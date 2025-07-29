@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
+import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
@@ -12,7 +13,7 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
-const { group, hardline, indent, line } = doc.builders;
+const { hardline } = doc.builders;
 
 export class IfStatement extends SlangNode {
   readonly kind = NonterminalKind.IfStatement;
@@ -37,16 +38,16 @@ export class IfStatement extends SlangNode {
 
   print(path: AstPath<IfStatement>, print: PrintFunction): Doc {
     const { kind: bodyKind, comments: bodyComments } = this.body.variant;
-    const body = path.call(print, 'body');
     return [
       'if (',
       printSeparatedItem(path.call(print, 'condition')),
       ')',
-      bodyKind === NonterminalKind.Block
-        ? [' ', body]
-        : group(indent([line, body]), {
-            shouldBreak: bodyKind === NonterminalKind.IfStatement // `if` within `if`
-          }),
+      printIndentedGroupOrSpacedDocument(
+        path.call(print, 'body'),
+        bodyKind !== NonterminalKind.Block,
+        // `if` within `if`
+        { shouldBreak: bodyKind === NonterminalKind.IfStatement }
+      ),
       this.elseBranch
         ? [
             bodyKind !== NonterminalKind.Block || // else on a new line if body is not a block
