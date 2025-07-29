@@ -31,7 +31,7 @@ export class ArrayTypeName extends SlangNode {
     return [
       printVariant('operand', path, print),
       '[',
-      this.index ? printVariant('index', path, print) : '',
+      printVariant('index', path, print),
       ']'
     ];
   }

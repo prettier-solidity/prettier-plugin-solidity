@@ -42,7 +42,7 @@ export class IndexAccessExpression extends SlangNode {
     const indexDoc = [
       '[',
       printSeparatedItem([
-        this.start ? printVariant('start', path, print) : '',
+        printVariant('start', path, print),
         path.call(print, 'end')
       ]),
       ']'
