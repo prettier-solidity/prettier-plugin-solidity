@@ -5,9 +5,8 @@ import { YulFunctionCallExpression } from './YulFunctionCallExpression.js';
 import { YulLiteral } from './YulLiteral.js';
 import { YulPath } from './YulPath.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.YulExpression['variant'],
@@ -37,9 +36,5 @@ export class YulExpression extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<YulExpression>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

@@ -7,9 +7,8 @@ import { MappingType } from './MappingType.js';
 import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.TypeName['variant'],
@@ -50,9 +49,5 @@ export class TypeName extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<TypeName>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

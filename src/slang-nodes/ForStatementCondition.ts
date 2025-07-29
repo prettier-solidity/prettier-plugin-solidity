@@ -4,12 +4,11 @@ import {
 } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
-import { TerminalNode } from './TerminalNode.js';
 
 export class ForStatementCondition extends SlangNode {
   readonly kind = NonterminalKind.ForStatementCondition;
@@ -27,9 +26,5 @@ export class ForStatementCondition extends SlangNode {
     this.variant = new ExpressionStatement(variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<ForStatementCondition>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

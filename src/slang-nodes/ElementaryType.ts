@@ -7,8 +7,6 @@ import { AddressType } from './AddressType.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
 
 export class ElementaryType extends SlangNode {
   readonly kind = NonterminalKind.ElementaryType;
@@ -26,9 +24,5 @@ export class ElementaryType extends SlangNode {
     this.variant = new AddressType(variant);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<ElementaryType>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }
