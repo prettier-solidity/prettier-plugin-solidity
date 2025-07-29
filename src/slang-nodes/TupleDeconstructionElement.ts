@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleMember } from './TupleMember.js';
 
@@ -26,6 +27,6 @@ export class TupleDeconstructionElement extends SlangNode {
   }
 
   print(path: AstPath<TupleDeconstructionElement>, print: PrintFunction): Doc {
-    return path.call(print, 'member');
+    return this.member ? printVariant('member', path, print) : '';
   }
 }
