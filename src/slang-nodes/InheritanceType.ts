@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
@@ -27,6 +28,9 @@ export class InheritanceType extends SlangNode {
   }
 
   print(path: AstPath<InheritanceType>, print: PrintFunction): Doc {
-    return [path.call(print, 'typeName'), path.call(print, 'arguments')];
+    return [
+      path.call(print, 'typeName'),
+      path.call(printVariant(print), 'arguments')
+    ];
   }
 }

@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { joinExisting } from '../slang-utils/join-existing.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -39,7 +40,7 @@ export class Parameter extends SlangNode {
   print(path: AstPath<Parameter>, print: PrintFunction): Doc {
     return group(
       joinExisting(' ', [
-        path.call(print, 'typeName'),
+        path.call(printVariant(print), 'typeName'),
         path.call(print, 'storageLocation'),
         path.call(print, 'name')
       ])

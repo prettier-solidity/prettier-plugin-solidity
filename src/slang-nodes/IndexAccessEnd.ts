@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -23,6 +24,6 @@ export class IndexAccessEnd extends SlangNode {
   }
 
   print(path: AstPath<IndexAccessEnd>, print: PrintFunction): Doc {
-    return [':', path.call(print, 'end')];
+    return [':', path.call(printVariant(print), 'end')];
   }
 }

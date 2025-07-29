@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { VersionLiteral } from './VersionLiteral.js';
 
@@ -23,6 +24,10 @@ export class VersionRange extends SlangNode {
   }
 
   print(path: AstPath<VersionRange>, print: PrintFunction): Doc {
-    return [path.call(print, 'start'), ' - ', path.call(print, 'end')];
+    return [
+      path.call(printVariant(print), 'start'),
+      ' - ',
+      path.call(printVariant(print), 'end')
+    ];
   }
 }

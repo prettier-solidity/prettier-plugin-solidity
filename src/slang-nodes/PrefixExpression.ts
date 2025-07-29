@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -28,6 +29,6 @@ export class PrefixExpression extends SlangNode {
   }
 
   print(path: AstPath<PrefixExpression>, print: PrintFunction): Doc {
-    return [this.operator, path.call(print, 'operand')];
+    return [this.operator, path.call(printVariant(print), 'operand')];
   }
 }

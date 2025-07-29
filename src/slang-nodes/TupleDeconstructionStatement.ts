@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
 import { Expression } from './Expression.js';
@@ -37,7 +38,7 @@ export class TupleDeconstructionStatement extends SlangNode {
   ): Doc {
     return printGroupAndIndentIfBreakPair(
       [this.varKeyword ? 'var (' : '(', path.call(print, 'elements'), ') = '],
-      [path.call(print, 'expression'), ';']
+      [path.call(printVariant(print), 'expression'), ';']
     );
   }
 }

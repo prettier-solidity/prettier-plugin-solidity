@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -23,6 +24,6 @@ export class TupleValue extends SlangNode {
   }
 
   print(path: AstPath<TupleValue>, print: PrintFunction): Doc {
-    return path.call(print, 'expression');
+    return path.call(printVariant(print), 'expression');
   }
 }

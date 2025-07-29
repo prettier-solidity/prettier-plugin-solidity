@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ForStatementInitialization } from './ForStatementInitialization.js';
 import { ForStatementCondition } from './ForStatementCondition.js';
@@ -48,9 +49,9 @@ export class ForStatement extends SlangNode {
   }
 
   print(path: AstPath<ForStatement>, print: PrintFunction): Doc {
-    const initialization = path.call(print, 'initialization');
-    const condition = path.call(print, 'condition');
-    const iterator = path.call(print, 'iterator');
+    const initialization = path.call(printVariant(print), 'initialization');
+    const condition = path.call(printVariant(print), 'condition');
+    const iterator = path.call(printVariant(print), 'iterator');
 
     return [
       'for (',
@@ -62,7 +63,7 @@ export class ForStatement extends SlangNode {
       }),
       ')',
       printIndentedGroupOrSpacedDocument(
-        path.call(print, 'body'),
+        path.call(printVariant(print), 'body'),
         this.body.variant.kind !== NonterminalKind.Block
       )
     ];
