@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { EventParametersDeclaration } from './EventParametersDeclaration.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -11,7 +11,7 @@ import type { PrintFunction } from '../types.d.ts';
 export class EventDefinition extends SlangNode {
   readonly kind = NonterminalKind.EventDefinition;
 
-  name: Identifier;
+  name: TerminalNode;
 
   parameters: EventParametersDeclaration;
 
@@ -20,7 +20,7 @@ export class EventDefinition extends SlangNode {
   constructor(ast: ast.EventDefinition, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     this.parameters = new EventParametersDeclaration(ast.parameters, options);
     this.anonymousKeyword = ast.anonymousKeyword?.unparse();
 

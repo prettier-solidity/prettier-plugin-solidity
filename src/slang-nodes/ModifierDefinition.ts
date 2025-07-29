@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunction } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { Parameters } from './Parameters.js';
 import { ModifierAttributes } from './ModifierAttributes.js';
@@ -15,7 +15,7 @@ import type { PrintFunction } from '../types.d.ts';
 export class ModifierDefinition extends SlangNode {
   readonly kind = NonterminalKind.ModifierDefinition;
 
-  name: Identifier;
+  name: TerminalNode;
 
   parameters?: ParametersDeclaration;
 
@@ -26,7 +26,7 @@ export class ModifierDefinition extends SlangNode {
   constructor(ast: ast.ModifierDefinition, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     if (ast.parameters) {
       this.parameters = new ParametersDeclaration(ast.parameters, options);
     }

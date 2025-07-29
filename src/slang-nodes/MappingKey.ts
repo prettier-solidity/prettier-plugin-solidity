@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { joinExisting } from '../slang-utils/join-existing.js';
 import { SlangNode } from './SlangNode.js';
 import { MappingKeyType } from './MappingKeyType.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -13,14 +13,14 @@ export class MappingKey extends SlangNode {
 
   keyType: MappingKeyType;
 
-  name?: Identifier;
+  name?: TerminalNode;
 
   constructor(ast: ast.MappingKey) {
     super(ast);
 
     this.keyType = new MappingKeyType(ast.keyType);
     if (ast.name) {
-      this.name = new Identifier(ast.name);
+      this.name = new TerminalNode(ast.name);
     }
 
     this.updateMetadata(this.keyType);

@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
-import { YulIdentifier } from './YulIdentifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { YulParametersDeclaration } from './YulParametersDeclaration.js';
 import { YulReturnsDeclaration } from './YulReturnsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
@@ -13,7 +13,7 @@ import type { PrintFunction } from '../types.d.ts';
 export class YulFunctionDefinition extends SlangNode {
   readonly kind = NonterminalKind.YulFunctionDefinition;
 
-  name: YulIdentifier;
+  name: TerminalNode;
 
   parameters: YulParametersDeclaration;
 
@@ -24,7 +24,7 @@ export class YulFunctionDefinition extends SlangNode {
   constructor(ast: ast.YulFunctionDefinition, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.name = new YulIdentifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     this.parameters = new YulParametersDeclaration(ast.parameters);
     if (ast.returns) {
       this.returns = new YulReturnsDeclaration(ast.returns);

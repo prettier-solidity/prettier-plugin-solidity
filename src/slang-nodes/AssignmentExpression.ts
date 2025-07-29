@@ -1,8 +1,9 @@
-import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -36,7 +37,7 @@ export class AssignmentExpression extends SlangNode {
     return [
       path.call(print, 'leftOperand'),
       ` ${this.operator}`,
-      rightOperandVariant.kind !== TerminalKind.Identifier &&
+      !(rightOperandVariant instanceof TerminalNode) &&
       isBinaryOperation(rightOperandVariant)
         ? group(indent([line, rightOperand]))
         : [' ', rightOperand]

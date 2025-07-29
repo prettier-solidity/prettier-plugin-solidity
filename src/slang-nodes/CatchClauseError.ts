@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -14,7 +14,7 @@ const { group } = doc.builders;
 export class CatchClauseError extends SlangNode {
   readonly kind = NonterminalKind.CatchClauseError;
 
-  name?: Identifier;
+  name?: TerminalNode;
 
   parameters: ParametersDeclaration;
 
@@ -22,7 +22,7 @@ export class CatchClauseError extends SlangNode {
     super(ast);
 
     if (ast.name) {
-      this.name = new Identifier(ast.name);
+      this.name = new TerminalNode(ast.name);
     }
     this.parameters = new ParametersDeclaration(ast.parameters, options);
 

@@ -1,3 +1,4 @@
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { joinExisting } from '../slang-utils/join-existing.js';
 
@@ -25,7 +26,9 @@ export function printFunction(
             path.call(print, 'returns')
           ]),
           (node as FunctionDefinition).body &&
-          (node as FunctionDefinition).body.variant !== ';'
+          (!(node as FunctionDefinition).body.variant ||
+            (node as FunctionDefinition).body.variant.kind ===
+              NonterminalKind.Block)
             ? dedent(line)
             : ''
         ])
