@@ -1,4 +1,6 @@
-import { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
+const { NonterminalKind, TerminalKind } = await import(
+  '@nomicfoundation/slang/cst'
+);
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { SlangNode } from './SlangNode.js';

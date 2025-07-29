@@ -1,8 +1,6 @@
-import {
-  NonterminalKind,
-  TerminalKind,
-  TerminalNode
-} from '@nomicfoundation/slang/cst';
+const { NonterminalKind, TerminalKind, TerminalNode } = await import(
+  '@nomicfoundation/slang/cst'
+);
 import { SlangNode } from './SlangNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';

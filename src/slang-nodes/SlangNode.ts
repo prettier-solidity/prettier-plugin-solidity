@@ -1,11 +1,16 @@
-import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+const { TerminalKind, TerminalNode } = await import(
+  '@nomicfoundation/slang/cst'
+);
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
 
-import type { Edge } from '@nomicfoundation/slang/cst';
+import type {
+  Edge,
+  TerminalNode as TerminalNodeType
+} from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { AstLocation, SlangAstNode } from '../types.d.ts';
 
@@ -71,7 +76,7 @@ export class SlangNode {
   loc: AstLocation;
 
   constructor(
-    ast: SlangAstNode | TerminalNode,
+    ast: SlangAstNode | TerminalNodeType,
     enclosePeripheralComments = false
   ) {
     if (ast instanceof TerminalNode) {
