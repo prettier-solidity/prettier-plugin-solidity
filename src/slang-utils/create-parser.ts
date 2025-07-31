@@ -68,7 +68,10 @@ export function createParser(
     return result;
   }
 
-  const result = parserAndOutput(text, inferredRanges[0]);
+  const result = parserAndOutput(
+    text,
+    inferredRanges[inferredRanges.length - 1]
+  );
 
   if (!result.parseOutput.isValid())
     throw createError(
