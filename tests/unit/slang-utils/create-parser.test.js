@@ -9,7 +9,7 @@ describe('inferLanguage', function () {
     {
       description: 'Caret range',
       source: `pragma solidity ^0.7.0;`,
-      version: '0.7.0'
+      version: '0.7.6'
     },
     {
       description: 'Pinned version',
@@ -106,8 +106,8 @@ describe('inferLanguage', function () {
     }));
     expect(parser.languageVersion).toEqual('0.8.2');
 
-    ({ parser } = createParser(`pragma solidity ^0.8.0;`, {}));
-    expect(parser.languageVersion).toEqual('0.8.0');
+    ({ parser } = createParser(`pragma solidity ^0.7.0;`, {}));
+    expect(parser.languageVersion).toEqual('0.7.6');
   });
 
   test('should throw if compiler option does not match the syntax', function () {
