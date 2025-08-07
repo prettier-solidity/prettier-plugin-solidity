@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
-import { minSatisfying } from 'semver';
+import { maxSatisfying } from 'semver';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
@@ -34,7 +34,7 @@ export function createParser(
   text: string,
   options: ParserOptions<AstNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
-  const compiler = minSatisfying(supportedVersions, options.compiler);
+  const compiler = maxSatisfying(supportedVersions, options.compiler);
   if (compiler) {
     const result = parserAndOutput(text, compiler);
 
@@ -68,7 +68,10 @@ export function createParser(
     return result;
   }
 
-  const result = parserAndOutput(text, inferredRanges[0]);
+  const result = parserAndOutput(
+    text,
+    inferredRanges[inferredRanges.length - 1]
+  );
 
   if (!result.parseOutput.isValid())
     throw createError(

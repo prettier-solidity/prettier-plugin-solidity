@@ -1,1 +1,1 @@
-runFormatTest(import.meta, ['slang'], { compiler: '0.6.12' });
+runFormatTest(import.meta, ['slang']);

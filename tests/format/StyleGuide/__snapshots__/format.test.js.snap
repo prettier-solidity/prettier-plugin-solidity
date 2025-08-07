@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`BlankLines.sol - {"compiler":"0.5.17"} format 1`] = `
+exports[`BlankLines.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
@@ -47,9 +46,8 @@ contract A {
 ================================================================================
 `;
 
-exports[`ControlStructures.sol - {"compiler":"0.5.17"} format 1`] = `
+exports[`ControlStructures.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
@@ -169,9 +167,8 @@ contract ControlStructures {
 ================================================================================
 `;
 
-exports[`FunctionDeclaration.sol - {"compiler":"0.5.17"} format 1`] = `
+exports[`FunctionDeclaration.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
@@ -461,9 +458,8 @@ contract X is B, C, D {
 ================================================================================
 `;
 
-exports[`Mappings.sol - {"compiler":"0.5.17"} format 1`] = `
+exports[`Mappings.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
@@ -491,9 +487,8 @@ contract Mappings {
 ================================================================================
 `;
 
-exports[`MaximumLineLength.sol - {"compiler":"0.5.17"} format 1`] = `
+exports[`MaximumLineLength.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
@@ -647,9 +642,8 @@ contract EventDefinitionsAndEventEmitters {
 ================================================================================
 `;
 
-exports[`OtherRecommendations.sol - {"compiler":"0.5.17"} format 1`] = `
+exports[`OtherRecommendations.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
@@ -715,9 +709,8 @@ contract OtherRecommendations {
 ================================================================================
 `;
 
-exports[`VariableDeclarations.sol - {"compiler":"0.5.17"} format 1`] = `
+exports[`VariableDeclarations.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
@@ -739,9 +732,8 @@ contract VariableDeclarations {
 ================================================================================
 `;
 
-exports[`WhitespaceInExpressions.sol - {"compiler":"0.5.17"} format 1`] = `
+exports[`WhitespaceInExpressions.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
