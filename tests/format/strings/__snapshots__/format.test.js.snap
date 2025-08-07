@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`strings.sol - {"compiler":"0.4.26"} format 1`] = `
+exports[`strings.sol format 1`] = `
 ====================================options=====================================
-compiler: "0.4.26"
 parsers: ["slang"]
 printWidth: 80
                                                                                 | printWidth
