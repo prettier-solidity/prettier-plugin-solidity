@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
-import { YulIdentifier } from './YulIdentifier.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -12,12 +12,12 @@ const { dedent, line } = doc.builders;
 export class YulLabel extends SlangNode {
   readonly kind = NonterminalKind.YulLabel;
 
-  label: YulIdentifier;
+  label: TerminalNode;
 
   constructor(ast: ast.YulLabel) {
     super(ast);
 
-    this.label = new YulIdentifier(ast.label);
+    this.label = new TerminalNode(ast.label);
   }
 
   print(path: AstPath<YulLabel>, print: PrintFunction): Doc {

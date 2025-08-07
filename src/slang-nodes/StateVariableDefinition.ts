@@ -4,7 +4,7 @@ import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-an
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StateVariableAttributes } from './StateVariableAttributes.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { StateVariableDefinitionValue } from './StateVariableDefinitionValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -21,7 +21,7 @@ export class StateVariableDefinition extends SlangNode {
 
   attributes: StateVariableAttributes;
 
-  name: Identifier;
+  name: TerminalNode;
 
   value?: StateVariableDefinitionValue;
 
@@ -33,7 +33,7 @@ export class StateVariableDefinition extends SlangNode {
 
     this.typeName = new TypeName(ast.typeName, options);
     this.attributes = new StateVariableAttributes(ast.attributes);
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     if (ast.value) {
       this.value = new StateVariableDefinitionValue(ast.value, options);
     }

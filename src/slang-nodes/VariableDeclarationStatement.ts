@@ -4,7 +4,7 @@ import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-an
 import { SlangNode } from './SlangNode.js';
 import { VariableDeclarationType } from './VariableDeclarationType.js';
 import { StorageLocation } from './StorageLocation.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -21,7 +21,7 @@ export class VariableDeclarationStatement extends SlangNode {
 
   storageLocation?: StorageLocation;
 
-  name: Identifier;
+  name: TerminalNode;
 
   value?: VariableDeclarationValue;
 
@@ -35,7 +35,7 @@ export class VariableDeclarationStatement extends SlangNode {
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(ast.storageLocation);
     }
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     if (ast.value) {
       this.value = new VariableDeclarationValue(ast.value, options);
     }

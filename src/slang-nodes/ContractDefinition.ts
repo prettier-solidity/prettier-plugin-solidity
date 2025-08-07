@@ -2,7 +2,7 @@ import { doc } from 'prettier';
 import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { ContractSpecifiers } from './ContractSpecifiers.js';
 import { ContractMembers } from './ContractMembers.js';
 
@@ -18,7 +18,7 @@ export class ContractDefinition extends SlangNode {
 
   abstractKeyword?: string;
 
-  name: Identifier;
+  name: TerminalNode;
 
   specifiers: ContractSpecifiers;
 
@@ -28,7 +28,7 @@ export class ContractDefinition extends SlangNode {
     super(ast);
 
     this.abstractKeyword = ast.abstractKeyword?.unparse();
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     this.specifiers = new ContractSpecifiers(ast.specifiers, options);
     this.members = new ContractMembers(ast.members, options);
 

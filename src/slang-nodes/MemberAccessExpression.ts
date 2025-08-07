@@ -4,7 +4,7 @@ import { isLabel } from '../slang-utils/is-label.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -116,7 +116,7 @@ export class MemberAccessExpression extends SlangNode {
 
   operand: Expression;
 
-  member: Identifier;
+  member: TerminalNode;
 
   constructor(
     ast: ast.MemberAccessExpression,
@@ -125,7 +125,7 @@ export class MemberAccessExpression extends SlangNode {
     super(ast);
 
     this.operand = new Expression(ast.operand, options);
-    this.member = new Identifier(ast.member);
+    this.member = new TerminalNode(ast.member);
 
     this.updateMetadata(this.operand);
   }

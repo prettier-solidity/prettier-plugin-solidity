@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
-import { Identifier } from './Identifier.js';
+import { TerminalNode } from './TerminalNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -14,7 +14,7 @@ export class ConstantDefinition extends SlangNode {
 
   typeName: TypeName;
 
-  name: Identifier;
+  name: TerminalNode;
 
   value: Expression;
 
@@ -22,7 +22,7 @@ export class ConstantDefinition extends SlangNode {
     super(ast);
 
     this.typeName = new TypeName(ast.typeName, options);
-    this.name = new Identifier(ast.name);
+    this.name = new TerminalNode(ast.name);
     this.value = new Expression(ast.value, options);
 
     this.updateMetadata(this.typeName, this.value);
