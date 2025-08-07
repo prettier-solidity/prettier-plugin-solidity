@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { SlangNode } from './SlangNode.js';
 import { UsingClause } from './UsingClause.js';
 import { UsingTarget } from './UsingTarget.js';
@@ -30,14 +29,11 @@ export class UsingDirective extends SlangNode {
 
   print(path: AstPath<UsingDirective>, print: PrintFunction): Doc {
     return [
-      joinExisting(' ', [
-        'using',
-        path.call(print, 'clause'),
-        'for',
-        path.call(print, 'target'),
-        this.globalKeyword
-      ]),
-      ';'
+      'using ',
+      path.call(print, 'clause'),
+      ' for ',
+      path.call(print, 'target'),
+      this.globalKeyword ? ' global;' : ';'
     ];
   }
 }

@@ -18,7 +18,7 @@ export function printSeparatedList(
     lastSeparator,
     grouped
   }: PrintSeparatedOptions = {}
-): Doc {
+): doc.builders.Group | [doc.builders.Indent, Doc] {
   return printSeparatedItem(join(separator, list), {
     firstSeparator,
     lastSeparator,

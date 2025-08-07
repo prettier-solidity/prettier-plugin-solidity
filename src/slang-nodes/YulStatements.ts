@@ -1,7 +1,6 @@
 import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { printComments } from '../slang-printers/print-comments.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
 import { SlangNode } from './SlangNode.js';
 import { YulStatement } from './YulStatement.js';
@@ -31,14 +30,10 @@ export class YulStatements extends SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    return this.items.length === 0 && this.comments.length === 0
-      ? ''
-      : printSeparatedItem(
-          [
-            printPreservingEmptyLines(path, print, options),
-            printComments(path)
-          ],
-          { firstSeparator: hardline, grouped: false }
-        );
+    return this.items.length > 0 || this.comments.length > 0
+      ? printSeparatedItem(printPreservingEmptyLines(path, print, options), {
+          firstSeparator: hardline
+        })
+      : '';
   }
 }

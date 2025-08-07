@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { SlangNode } from './SlangNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -17,6 +16,6 @@ export class AddressType extends SlangNode {
   }
 
   print(): Doc {
-    return joinExisting(' ', ['address', this.payableKeyword]);
+    return ['address', this.payableKeyword ? ' payable' : ''];
   }
 }

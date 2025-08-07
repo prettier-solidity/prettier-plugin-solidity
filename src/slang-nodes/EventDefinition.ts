@@ -32,8 +32,7 @@ export class EventDefinition extends SlangNode {
       'event ',
       path.call(print, 'name'),
       path.call(print, 'parameters'),
-      this.anonymousKeyword ? ' anonymous' : '',
-      ';'
+      this.anonymousKeyword ? ' anonymous;' : ';'
     ];
   }
 }
