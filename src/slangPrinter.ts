@@ -1,6 +1,5 @@
 import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
-import { isPolymorphicNode } from './slang-utils/is-polymorphic-node.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode, StrictAstNode } from './slang-nodes/types.d.ts';
@@ -29,6 +28,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
       // parser. `updateMetadata` is an internal function.
       case 'kind':
       case 'loc':
+      case 'print':
       case 'updateMetadata':
         break;
       // The key `comments` will contain every comment for this node.
@@ -64,7 +64,6 @@ function genericPrint(
     return options.originalText.slice(locStart(node), locEnd(node));
   }
 
-  if (isPolymorphicNode(node)) return path.call(print, 'variant');
   // Since each node has a print function with a specific AstPath, the union of
   // all nodes into AstNode creates a print function with an AstPath of the
   // intersection of all nodes. This forces us to cast this with a never type.
