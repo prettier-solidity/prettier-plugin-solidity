@@ -2,7 +2,7 @@ import { SlangNode } from './SlangNode.js';
 
 import type { AstPath, Doc } from 'prettier';
 import type { PrintFunction, SlangAstNode } from '../types.d.ts';
-import type { StrictPolymorphicNode } from './types.js';
+import type { StrictPolymorphicNode } from './types.d.ts';
 
 export abstract class PolymorphicNode extends SlangNode {
   abstract variant: StrictPolymorphicNode['variant'];
