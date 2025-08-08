@@ -1,13 +1,12 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { PathImport } from './PathImport.js';
 import { NamedImport } from './NamedImport.js';
 import { ImportDeconstruction } from './ImportDeconstruction.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.ImportClause['variant'],
@@ -26,7 +25,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class ImportClause extends SlangNode {
+export class ImportClause extends PolymorphicNode {
   readonly kind = NonterminalKind.ImportClause;
 
   variant: PathImport | NamedImport | ImportDeconstruction;
@@ -37,9 +36,5 @@ export class ImportClause extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<ImportClause>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

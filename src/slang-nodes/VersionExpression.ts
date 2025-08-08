@@ -1,11 +1,8 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { VersionRange } from './VersionRange.js';
 import { VersionTerm } from './VersionTerm.js';
-
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.VersionExpression['variant']
@@ -20,7 +17,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class VersionExpression extends SlangNode {
+export class VersionExpression extends PolymorphicNode {
   readonly kind = NonterminalKind.VersionExpression;
 
   variant: VersionRange | VersionTerm;
@@ -31,9 +28,5 @@ export class VersionExpression extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<VersionExpression>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

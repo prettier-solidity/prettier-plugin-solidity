@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import addCollectionFirstComment from './add-collection-first-comment.js';
 import addCollectionLastComment from './add-collection-last-comment.js';
 
-import type { HandlerParams } from './types.js';
+import type { HandlerParams } from './types.d.ts';
 
 export default function handleSourceUnitMembersComments({
   precedingNode,
