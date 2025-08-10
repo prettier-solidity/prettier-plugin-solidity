@@ -61,7 +61,7 @@ function getOffset(children: Edge[] | Iterable<Edge>): number {
 }
 
 export class SlangNode {
-  comments: Comment[] = [];
+  comments?: Comment[];
 
   loc: AstLocation;
 
