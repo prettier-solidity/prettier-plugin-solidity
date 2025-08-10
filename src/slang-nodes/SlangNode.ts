@@ -37,7 +37,7 @@ function reversedIterator<T>(children: T[]): Iterable<T> {
 }
 
 export class SlangNode {
-  comments: Comment[] = [];
+  comments?: Comment[];
 
   loc: AstLocation;
 
