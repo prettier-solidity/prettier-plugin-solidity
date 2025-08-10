@@ -27,9 +27,11 @@ export class PositionalArgumentsDeclaration extends SlangNode {
 
     // We need to check the comments at this point because they will be removed
     // from this node into the root node.
+    // Since we are collecting comments in a different array, we have to query
+    // the ast directly for possible block comments.
     this.isEmpty =
       this.arguments.items.length === 0 && // no arguments
-      !this.comments.some((comment) => isBlockComment(comment)); // no block comments
+      !ast.cst.children().some(({ node }) => isBlockComment(node)); // no block comments
   }
 
   print(
