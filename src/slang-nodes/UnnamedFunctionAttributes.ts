@@ -26,8 +26,6 @@ export class UnnamedFunctionAttributes extends SlangNode {
       (item) => new UnnamedFunctionAttribute(item, options)
     );
 
-    this.updateMetadata(this.items);
-
     this.items = this.items.sort(sortFunctionAttributes);
   }
 
