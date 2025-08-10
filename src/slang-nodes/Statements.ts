@@ -21,8 +21,6 @@ export class Statements extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) => new Statement(item, options));
-
-    this.updateMetadata(this.items);
   }
 
   print(

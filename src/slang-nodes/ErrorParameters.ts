@@ -17,8 +17,6 @@ export class ErrorParameters extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) => new ErrorParameter(item, options));
-
-    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<ErrorParameters>, print: PrintFunction): Doc {

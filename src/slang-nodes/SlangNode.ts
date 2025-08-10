@@ -129,15 +129,12 @@ export class SlangNode {
     };
   }
 
-  updateMetadata(
-    ...childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
-  ): void {
+  updateMetadata(...childNodes: (StrictAstNode | undefined)[]): void {
     const { loc } = this;
     // calculate correct loc object
     if (loc.leadingOffset === 0) {
       for (const childNode of childNodes) {
-        if (typeof childNode === 'undefined' || Array.isArray(childNode))
-          continue;
+        if (typeof childNode === 'undefined') continue;
         const { leadingOffset, start } = childNode.loc;
 
         if (start - leadingOffset === loc.start) {
@@ -150,8 +147,7 @@ export class SlangNode {
 
     if (loc.trailingOffset === 0) {
       for (const childNode of reversedIterator(childNodes)) {
-        if (typeof childNode === 'undefined' || Array.isArray(childNode))
-          continue;
+        if (typeof childNode === 'undefined') continue;
         const { trailingOffset, end } = childNode.loc;
 
         if (end + trailingOffset === loc.end) {

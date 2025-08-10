@@ -19,8 +19,6 @@ export class Parameters extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) => new Parameter(item, options));
-
-    this.updateMetadata(this.items);
   }
 
   print(

@@ -20,8 +20,6 @@ export class NamedArguments extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) => new NamedArgument(item, options));
-
-    this.updateMetadata(this.items);
   }
 
   print(
