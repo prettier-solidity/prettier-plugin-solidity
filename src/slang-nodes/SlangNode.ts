@@ -37,7 +37,7 @@ function isNonTriviaNode(node: Node): boolean {
   );
 }
 
-function getOffset(children: Edge[] | Iterable<Edge>): number {
+function getOffset(children: Iterable<Edge>): number {
   let offset = 0;
   for (const { node } of children) {
     if (isNonTriviaNode(node)) {
