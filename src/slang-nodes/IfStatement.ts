@@ -51,7 +51,7 @@ export class IfStatement extends SlangNode {
       this.elseBranch
         ? [
             bodyKind !== NonterminalKind.Block || // else on a new line if body is not a block
-            bodyComments.some(
+            bodyComments?.some(
               (comment) =>
                 !isBlockComment(comment) || comment.placement === 'ownLine'
             ) // or if body has trailing single line comments or a block comment on a new line

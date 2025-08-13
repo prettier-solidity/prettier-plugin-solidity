@@ -3,7 +3,11 @@ import { printComment } from '../slang-comments/printer.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, Comment } from '../slang-nodes/types.d.ts';
+import type {
+  AstNode,
+  Comment,
+  StrictAstNode
+} from '../slang-nodes/types.d.ts';
 import { locEnd } from '../slang-utils/loc.js';
 
 const { hardline, line } = doc.builders;
@@ -13,9 +17,10 @@ function isPrintable(comment: Comment): boolean {
 }
 
 export function printComments(
-  path: AstPath<AstNode>,
+  path: AstPath<StrictAstNode>,
   options: ParserOptions<AstNode>
 ): Doc[] {
+  if (typeof path.node.comments === 'undefined') return [];
   return joinExisting(
     line,
     path.map((commentPath, index, comments: Comment[]) => {

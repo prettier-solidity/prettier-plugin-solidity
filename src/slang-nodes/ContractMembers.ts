@@ -21,8 +21,6 @@ export class ContractMembers extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) => new ContractMember(item, options));
-
-    this.updateMetadata(this.items);
   }
 
   print(
@@ -30,7 +28,7 @@ export class ContractMembers extends SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    return this.items.length > 0 || this.comments.length > 0
+    return this.items.length > 0 || (this.comments?.length || 0) > 0
       ? printSeparatedItem(printPreservingEmptyLines(path, print, options), {
           firstSeparator: hardline
         })
