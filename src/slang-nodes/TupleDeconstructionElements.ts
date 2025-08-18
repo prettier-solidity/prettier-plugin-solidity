@@ -22,8 +22,6 @@ export class TupleDeconstructionElements extends SlangNode {
     this.items = ast.items.map(
       (item) => new TupleDeconstructionElement(item, options)
     );
-
-    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<TupleDeconstructionElements>, print: PrintFunction): Doc {

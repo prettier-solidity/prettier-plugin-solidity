@@ -21,8 +21,6 @@ export class UnicodeStringLiterals extends SlangNode {
     this.items = ast.items.map(
       (item) => new UnicodeStringLiteral(item, options)
     );
-
-    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<UnicodeStringLiterals>, print: PrintFunction): Doc {

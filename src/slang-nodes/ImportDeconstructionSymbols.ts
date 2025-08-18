@@ -21,8 +21,6 @@ export class ImportDeconstructionSymbols extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) => new ImportDeconstructionSymbol(item));
-
-    this.updateMetadata(this.items);
   }
 
   print(
