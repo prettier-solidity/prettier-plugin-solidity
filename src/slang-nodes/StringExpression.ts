@@ -1,15 +1,14 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { StringLiterals } from './StringLiterals.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { HexStringLiterals } from './HexStringLiterals.js';
 import { UnicodeStringLiterals } from './UnicodeStringLiterals.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.StringExpression['variant'],
@@ -34,7 +33,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class StringExpression extends SlangNode {
+export class StringExpression extends PolymorphicNode {
   readonly kind = NonterminalKind.StringExpression;
 
   variant:
@@ -50,9 +49,5 @@ export class StringExpression extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<StringExpression>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

@@ -3,15 +3,14 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
 import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js';
 import { TerminalNode } from './TerminalNode.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: Exclude<
@@ -33,7 +32,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class ForStatementInitialization extends SlangNode {
+export class ForStatementInitialization extends PolymorphicNode {
   readonly kind = NonterminalKind.ForStatementInitialization;
 
   variant:
@@ -56,9 +55,5 @@ export class ForStatementInitialization extends SlangNode {
     this.variant = createNonterminalVariant(variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<ForStatementInitialization>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

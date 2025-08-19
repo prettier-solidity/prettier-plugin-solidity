@@ -2,15 +2,13 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { YulColonAndEqual } from './YulColonAndEqual.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
 
-export class YulAssignmentOperator extends SlangNode {
+export class YulAssignmentOperator extends PolymorphicNode {
   readonly kind = NonterminalKind.YulAssignmentOperator;
 
   variant: YulColonAndEqual | TerminalNode;
@@ -26,9 +24,5 @@ export class YulAssignmentOperator extends SlangNode {
     this.variant = new YulColonAndEqual(variant);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<YulAssignmentOperator>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

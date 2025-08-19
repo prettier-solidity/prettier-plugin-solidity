@@ -2,16 +2,15 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { TypeName } from './TypeName.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
-export class VariableDeclarationType extends SlangNode {
+export class VariableDeclarationType extends PolymorphicNode {
   readonly kind = NonterminalKind.VariableDeclarationType;
 
   variant: TypeName | TerminalNode;
@@ -30,9 +29,5 @@ export class VariableDeclarationType extends SlangNode {
     this.variant = new TypeName(variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<VariableDeclarationType>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

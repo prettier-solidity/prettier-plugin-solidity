@@ -1,12 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
 
-export class FunctionName extends SlangNode {
+export class FunctionName extends PolymorphicNode {
   readonly kind = NonterminalKind.FunctionName;
 
   variant: TerminalNode;
@@ -15,9 +13,5 @@ export class FunctionName extends SlangNode {
     super(ast);
 
     this.variant = new TerminalNode(ast.variant);
-  }
-
-  print(path: AstPath<FunctionName>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }
