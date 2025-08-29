@@ -1,12 +1,11 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { StorageLayoutSpecifier } from './StorageLayoutSpecifier.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.ContractSpecifier['variant'],
@@ -22,7 +21,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class ContractSpecifier extends SlangNode {
+export class ContractSpecifier extends PolymorphicNode {
   readonly kind = NonterminalKind.ContractSpecifier;
 
   variant: InheritanceSpecifier | StorageLayoutSpecifier;
@@ -33,9 +32,5 @@ export class ContractSpecifier extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<ContractSpecifier>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { YulBlock } from './YulBlock.js';
 import { YulFunctionDefinition } from './YulFunctionDefinition.js';
 import { YulVariableDeclarationStatement } from './YulVariableDeclarationStatement.js';
@@ -15,9 +15,8 @@ import { YulContinueStatement } from './YulContinueStatement.js';
 import { YulLabel } from './YulLabel.js';
 import { YulExpression } from './YulExpression.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.YulStatement['variant'],
@@ -66,7 +65,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class YulStatement extends SlangNode {
+export class YulStatement extends PolymorphicNode {
   readonly kind = NonterminalKind.YulStatement;
 
   variant:
@@ -90,9 +89,5 @@ export class YulStatement extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<YulStatement>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

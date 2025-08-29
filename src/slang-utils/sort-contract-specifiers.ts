@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 
-import type { ContractSpecifier } from '../slang-nodes/ContractSpecifier.js';
+import type { ContractSpecifier } from '../slang-nodes/ContractSpecifier.ts';
 
 export function sortContractSpecifiers(
   { variant: { kind: aKind } }: ContractSpecifier,

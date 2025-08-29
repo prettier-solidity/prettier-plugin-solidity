@@ -3,7 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
 import { OrExpression } from './OrExpression.js';
@@ -33,9 +33,8 @@ import { StringExpression } from './StringExpression.js';
 import { ElementaryType } from './ElementaryType.js';
 import { TerminalNode } from './TerminalNode.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: Exclude<ast.Expression['variant'], SlangTerminalNode>,
@@ -126,7 +125,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class Expression extends SlangNode {
+export class Expression extends PolymorphicNode {
   readonly kind = NonterminalKind.Expression;
 
   variant:
@@ -170,9 +169,5 @@ export class Expression extends SlangNode {
     this.variant = createNonterminalVariant(variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<Expression>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

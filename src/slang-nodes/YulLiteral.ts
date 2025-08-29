@@ -3,14 +3,13 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
 import { TerminalNode } from './TerminalNode.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: Exclude<ast.YulLiteral['variant'], SlangTerminalNode>,
@@ -26,7 +25,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class YulLiteral extends SlangNode {
+export class YulLiteral extends PolymorphicNode {
   readonly kind = NonterminalKind.YulLiteral;
 
   variant: HexStringLiteral | StringLiteral | TerminalNode;
@@ -42,9 +41,5 @@ export class YulLiteral extends SlangNode {
     this.variant = createNonterminalVariant(variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<YulLiteral>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

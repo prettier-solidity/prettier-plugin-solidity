@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { UsingDirective } from './UsingDirective.js';
 import { FunctionDefinition } from './FunctionDefinition.js';
 import { ConstructorDefinition } from './ConstructorDefinition.js';
@@ -15,9 +15,8 @@ import { StateVariableDefinition } from './StateVariableDefinition.js';
 import { ErrorDefinition } from './ErrorDefinition.js';
 import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition.js';
 
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
-import type { PrintFunction } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.ContractMember['variant'],
@@ -66,7 +65,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class ContractMember extends SlangNode {
+export class ContractMember extends PolymorphicNode {
   readonly kind = NonterminalKind.ContractMember;
 
   variant:
@@ -90,9 +89,5 @@ export class ContractMember extends SlangNode {
     this.variant = createNonterminalVariant(ast.variant, options);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<ContractMember>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }

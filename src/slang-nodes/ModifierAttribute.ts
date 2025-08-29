@@ -2,15 +2,13 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
 
-export class ModifierAttribute extends SlangNode {
+export class ModifierAttribute extends PolymorphicNode {
   readonly kind = NonterminalKind.ModifierAttribute;
 
   variant: OverrideSpecifier | TerminalNode;
@@ -26,9 +24,5 @@ export class ModifierAttribute extends SlangNode {
     this.variant = new OverrideSpecifier(variant);
 
     this.updateMetadata(this.variant);
-  }
-
-  print(path: AstPath<ModifierAttribute>, print: PrintFunction): Doc {
-    return path.call(print, 'variant');
   }
 }
