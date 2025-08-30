@@ -20,7 +20,7 @@ export function printComments(
   path: AstPath<StrictAstNode>,
   options: ParserOptions<AstNode>
 ): Doc[] {
-  if (typeof path.node.comments === 'undefined') return [];
+  if (path.node.comments === undefined) return [];
   return joinExisting(
     line,
     path.map((commentPath, index, comments: Comment[]) => {
