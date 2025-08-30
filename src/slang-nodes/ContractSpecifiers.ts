@@ -28,9 +28,9 @@ export class ContractSpecifiers extends SlangNode {
   print(path: AstPath<ContractSpecifiers>, print: PrintFunction): Doc {
     const [specifier1, specifier2] = path.map(print, 'items');
 
-    if (typeof specifier1 === 'undefined') return '';
+    if (specifier1 === undefined) return '';
 
-    if (typeof specifier2 === 'undefined') return [' ', specifier1];
+    if (specifier2 === undefined) return [' ', specifier1];
 
     const groupId = Symbol('Slang.ContractSpecifiers.inheritance');
     return printSeparatedList(
