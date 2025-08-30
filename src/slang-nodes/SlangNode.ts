@@ -3,24 +3,13 @@ import {
   TerminalNode,
   TerminalKindExtensions
 } from '@nomicfoundation/slang/cst';
-import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
 
-import type { Edge } from '@nomicfoundation/slang/cst';
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { AstLocation, SlangAstNode } from '../types.d.ts';
-
-const isCommentOrWhiteSpace = createKindCheckFunction([
-  TerminalKind.MultiLineComment,
-  TerminalKind.MultiLineNatSpecComment,
-  TerminalKind.SingleLineComment,
-  TerminalKind.SingleLineNatSpecComment,
-  TerminalKind.EndOfLine,
-  TerminalKind.Whitespace
-]);
 
 const offsets = new Map<number, number>();
 export function clearOffsets(): void {
@@ -39,19 +28,6 @@ function reversedIterator<T>(children: T[]): Iterable<T> {
       };
     }
   };
-}
-
-function getOffset(children: Edge[] | Iterable<Edge>): number {
-  let offset = 0;
-  for (const { node } of children) {
-    if (node.isNonterminalNode() || !isCommentOrWhiteSpace(node)) {
-      // The node's content starts when we find the first non-terminal token,
-      // or if we find a non-comment, non-whitespace token.
-      return offset;
-    }
-    offset += node.textLength.utf16;
-  }
-  return offset;
 }
 
 function collectComments(
@@ -88,13 +64,22 @@ export class SlangNode {
       };
       return;
     }
-    const parent = ast.cst;
-    const children = parent.children();
+    const cst = ast.cst;
 
-    const initialOffset = offsets.get(parent.id) || 0;
+    const initialOffset = offsets.get(cst.id) || 0;
     let offset = initialOffset;
+    let triviaLength = 0;
+    let leadingOffset;
+    let trailingOffset;
 
-    for (const { node } of children) {
+    if (enclosePeripheralComments) {
+      // We initialize the offsets to 0 to avoid them being updated later.
+      leadingOffset = 0;
+      trailingOffset = 0;
+    }
+
+    for (const { node } of cst.children()) {
+      const textLength = node.textLength.utf16;
       if (
         node.isNonterminalNode() ||
         !TerminalKindExtensions.isTrivia(node.kind)
@@ -102,6 +87,10 @@ export class SlangNode {
         // Also tracking TerminalNodes since some variants that were not
         // Identifier or YulIdentifier but were upgraded to TerminalNode
         offsets.set(node.id, offset);
+        // We assign the `leadingOffset` only once.
+        leadingOffset ??= triviaLength;
+        // Since this is a non trivia node, we reset the accumulated length
+        triviaLength = 0;
       } else {
         switch (node.kind) {
           // Since the fetching the comments and calculating offsets are both done
@@ -121,14 +110,17 @@ export class SlangNode {
             this.comments.push(new SingleLineNatSpecComment(node, offset));
             break;
         }
+        // We accumulate the trivia length
+        triviaLength += textLength;
       }
 
-      offset += node.textLength.utf16;
+      offset += textLength;
     }
 
-    const [leadingOffset, trailingOffset] = enclosePeripheralComments
-      ? [0, 0]
-      : [getOffset(children), getOffset(reversedIterator(children))];
+    // In case the `leadingOffset` was not initialized
+    leadingOffset ??= 0;
+    // The remaining `triviaLength` is the `trailingOffset`
+    trailingOffset ??= triviaLength;
 
     this.loc = {
       start: initialOffset + leadingOffset,
