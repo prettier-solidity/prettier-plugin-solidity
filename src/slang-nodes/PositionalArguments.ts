@@ -19,8 +19,6 @@ export class PositionalArguments extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) => new Expression(item, options));
-
-    this.updateMetadata(this.items);
   }
 
   print(

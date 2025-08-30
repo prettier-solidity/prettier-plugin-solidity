@@ -12,8 +12,14 @@ import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { AstLocation, SlangAstNode } from '../types.d.ts';
 
 const offsets = new Map<number, number>();
+const comments: Comment[] = [];
+
 export function clearOffsets(): void {
   offsets.clear();
+}
+
+export function clearComments(): Comment[] {
+  return comments.splice(0);
 }
 
 function reversedIterator<T>(children: T[]): Iterable<T> {
@@ -30,23 +36,8 @@ function reversedIterator<T>(children: T[]): Iterable<T> {
   };
 }
 
-function collectComments(
-  comments: Comment[],
-  node: StrictAstNode | StrictAstNode[] | undefined
-): Comment[] {
-  if (node) {
-    if (Array.isArray(node)) {
-      return node.reduce(collectComments, comments);
-    }
-    if (node.comments.length > 0) {
-      comments.push(...node.comments.splice(0));
-    }
-  }
-  return comments;
-}
-
 export class SlangNode {
-  comments: Comment[] = [];
+  comments?: Comment[];
 
   loc: AstLocation;
 
@@ -98,16 +89,16 @@ export class SlangNode {
           // offset, it's hard to separate these responsibilities into different
           // functions without doing the iteration twice.
           case TerminalKind.MultiLineComment:
-            this.comments.push(new MultiLineComment(node, offset));
+            comments.push(new MultiLineComment(node, offset));
             break;
           case TerminalKind.MultiLineNatSpecComment:
-            this.comments.push(new MultiLineNatSpecComment(node, offset));
+            comments.push(new MultiLineNatSpecComment(node, offset));
             break;
           case TerminalKind.SingleLineComment:
-            this.comments.push(new SingleLineComment(node, offset));
+            comments.push(new SingleLineComment(node, offset));
             break;
           case TerminalKind.SingleLineNatSpecComment:
-            this.comments.push(new SingleLineNatSpecComment(node, offset));
+            comments.push(new SingleLineNatSpecComment(node, offset));
             break;
         }
         // We accumulate the trivia length
@@ -130,18 +121,12 @@ export class SlangNode {
     };
   }
 
-  updateMetadata(
-    ...childNodes: (StrictAstNode | StrictAstNode[] | undefined)[]
-  ): void {
-    const { comments, loc } = this;
-    // Collect comments
-    this.comments = childNodes.reduce(collectComments, comments);
-
+  updateMetadata(...childNodes: (StrictAstNode | undefined)[]): void {
+    const { loc } = this;
     // calculate correct loc object
     if (loc.leadingOffset === 0) {
       for (const childNode of childNodes) {
-        if (typeof childNode === 'undefined' || Array.isArray(childNode))
-          continue;
+        if (typeof childNode === 'undefined') continue;
         const { leadingOffset, start } = childNode.loc;
 
         if (start - leadingOffset === loc.start) {
@@ -154,8 +139,7 @@ export class SlangNode {
 
     if (loc.trailingOffset === 0) {
       for (const childNode of reversedIterator(childNodes)) {
-        if (typeof childNode === 'undefined' || Array.isArray(childNode))
-          continue;
+        if (typeof childNode === 'undefined') continue;
         const { trailingOffset, end } = childNode.loc;
 
         if (end + trailingOffset === loc.end) {

@@ -20,8 +20,6 @@ export class StateVariableAttributes extends SlangNode {
 
     this.items = ast.items.map((item) => new StateVariableAttribute(item));
 
-    this.updateMetadata(this.items);
-
     this.items = this.items.sort(sortFunctionAttributes);
   }
 

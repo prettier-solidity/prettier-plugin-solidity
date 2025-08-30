@@ -20,8 +20,6 @@ export class TupleValues extends SlangNode {
     super(ast, true);
 
     this.items = ast.items.map((item) => new TupleValue(item, options));
-
-    this.updateMetadata(this.items);
   }
 
   getSingleExpression(): Expression | undefined {
