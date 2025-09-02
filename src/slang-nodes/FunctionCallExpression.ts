@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { isLabel } from '../slang-utils/is-label.js';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
 import { SlangNode } from './SlangNode.js';

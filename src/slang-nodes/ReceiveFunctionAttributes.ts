@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
 import { SlangNode } from './SlangNode.js';
 import { ReceiveFunctionAttribute } from './ReceiveFunctionAttribute.js';
