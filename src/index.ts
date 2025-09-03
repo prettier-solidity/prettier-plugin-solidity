@@ -55,7 +55,7 @@ const antlrCanAttachComment = ({ type }: { type: string }): boolean =>
   typeof type === 'string' && type !== 'BlockComment' && type !== 'LineComment';
 const canAttachComment = (node: AstNode): boolean =>
   typeof node !== 'string' &&
-  typeof node !== 'undefined' &&
+  node !== undefined &&
   node.kind && // Make sure it's not Location
   !isComment(node);
 
