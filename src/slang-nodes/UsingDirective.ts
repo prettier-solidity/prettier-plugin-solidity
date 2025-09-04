@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { UsingClause } from './UsingClause.js';
 import { UsingTarget } from './UsingTarget.js';
@@ -30,9 +31,9 @@ export class UsingDirective extends SlangNode {
   print(path: AstPath<UsingDirective>, print: PrintFunction): Doc {
     return [
       'using ',
-      path.call(print, 'clause'),
+      path.call(printVariant(print), 'clause'),
       ' for ',
-      path.call(print, 'target'),
+      path.call(printVariant(print), 'target'),
       this.globalKeyword ? ' global;' : ';'
     ];
   }

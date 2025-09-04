@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulStackAssignmentOperator } from './YulStackAssignmentOperator.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -29,7 +30,7 @@ export class YulStackAssignmentStatement extends SlangNode {
 
   print(path: AstPath<YulStackAssignmentStatement>, print: PrintFunction): Doc {
     return [
-      path.call(print, 'assignment'),
+      path.call(printVariant(print), 'assignment'),
       printSeparatedItem(path.call(print, 'variable'), {
         firstSeparator: line,
         lastSeparator: ''

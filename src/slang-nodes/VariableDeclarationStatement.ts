@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { VariableDeclarationType } from './VariableDeclarationType.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -49,7 +50,7 @@ export class VariableDeclarationStatement extends SlangNode {
   ): Doc {
     return printGroupAndIndentIfBreakPair(
       [
-        path.call(print, 'variableType'),
+        path.call(printVariant(print), 'variableType'),
         this.storageLocation
           ? indent([line, path.call(print, 'storageLocation')])
           : '',

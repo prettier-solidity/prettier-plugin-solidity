@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -32,10 +33,10 @@ export class AssignmentExpression extends SlangNode {
   print(path: AstPath<AssignmentExpression>, print: PrintFunction): Doc {
     const rightOperandVariant = this.rightOperand.variant;
     return [
-      path.call(print, 'leftOperand'),
+      path.call(printVariant(print), 'leftOperand'),
       ` ${this.operator}`,
       printIndentedGroupOrSpacedDocument(
-        path.call(print, 'rightOperand'),
+        path.call(printVariant(print), 'rightOperand'),
         !(rightOperandVariant instanceof TerminalNode) &&
           isBinaryOperation(rightOperandVariant)
       )

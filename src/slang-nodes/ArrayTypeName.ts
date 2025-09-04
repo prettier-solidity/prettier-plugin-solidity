@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { Expression } from './Expression.js';
@@ -27,6 +28,11 @@ export class ArrayTypeName extends SlangNode {
   }
 
   print(path: AstPath<ArrayTypeName>, print: PrintFunction): Doc {
-    return [path.call(print, 'operand'), '[', path.call(print, 'index'), ']'];
+    return [
+      path.call(printVariant(print), 'operand'),
+      '[',
+      path.call(printVariant(print), 'index'),
+      ']'
+    ];
   }
 }
