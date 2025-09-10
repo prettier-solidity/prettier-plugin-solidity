@@ -1,6 +1,7 @@
-import { TerminalKind, TerminalNode } from '@nomicfoundation/slang/cst';
+import { TerminalKind } from '@nomicfoundation/slang/cst';
 import { CommentNode } from './CommentNode.js';
 
+import type { TerminalNode } from '@nomicfoundation/slang/cst';
 import type { Doc } from 'prettier';
 
 export class SingleLineNatSpecComment extends CommentNode {
