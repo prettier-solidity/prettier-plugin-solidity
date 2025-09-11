@@ -1,8 +1,8 @@
 import { SlangNode } from './SlangNode.js';
 
 import type {
-  TerminalKind,
-  TerminalNode as SlangTerminalNode
+  TerminalNode as SlangTerminalNode,
+  TerminalKind
 } from '@nomicfoundation/slang/cst';
 import type { Doc } from 'prettier';
 

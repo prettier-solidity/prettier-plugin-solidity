@@ -76,6 +76,10 @@ export default [
     },
 
     rules: {
+      'sort-imports': [
+        'error',
+        { ignoreCase: true, ignoreDeclarationSort: true }
+      ],
       'import/order': [
         'error',
         {

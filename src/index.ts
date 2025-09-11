@@ -7,7 +7,7 @@ import antlrParse from './parser.js';
 import antlrPrint from './printer.js';
 import slangParse from './slangSolidityParser.js';
 import slangPrint from './slangPrinter.js';
-import { isComment, isBlockComment } from './slang-utils/is-comment.js';
+import { isBlockComment, isComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
 import type {
