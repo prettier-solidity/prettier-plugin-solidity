@@ -5,8 +5,8 @@ import { EventParameter } from './EventParameter.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 export class EventParameters extends SlangNode {
   readonly kind = NonterminalKind.EventParameters;

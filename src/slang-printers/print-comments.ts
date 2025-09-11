@@ -2,13 +2,13 @@ import { doc, util } from 'prettier';
 import { printComment } from '../slang-comments/printer.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
 
+import { locEnd } from '../slang-utils/loc.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type {
   AstNode,
   Comment,
   StrictAstNode
 } from '../slang-nodes/types.d.ts';
-import { locEnd } from '../slang-utils/loc.js';
 
 const { hardline, line } = doc.builders;
 

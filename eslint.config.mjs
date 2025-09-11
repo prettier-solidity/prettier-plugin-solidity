@@ -1,6 +1,7 @@
 import globals from 'globals';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import eslintImport from 'eslint-plugin-import';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
@@ -60,6 +61,7 @@ export default [
     files: ['**/*.ts'],
 
     plugins: {
+      import: eslintImport,
       '@typescript-eslint': typescriptEslint
     },
 
@@ -74,6 +76,21 @@ export default [
     },
 
     rules: {
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type'
+          ],
+          sortTypesGroup: true
+        }
+      ],
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/explicit-function-return-type': 'error'
     }

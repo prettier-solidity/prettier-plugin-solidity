@@ -1,8 +1,8 @@
 import { TerminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { CommentNode } from './CommentNode.js';
 import { isIndentableBlockComment } from '../slang-utils/is-indentable-block-comment.js';
 import { printIndentableBlockComment } from '../slang-printers/print-indentable-block-comment.js';
+import { CommentNode } from './CommentNode.js';
 
 import type { TerminalNode } from '@nomicfoundation/slang/cst';
 import type { Doc } from 'prettier';
