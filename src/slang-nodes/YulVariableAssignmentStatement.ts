@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulPaths } from './YulPaths.js';
 import { YulAssignmentOperator } from './YulAssignmentOperator.js';
@@ -40,8 +41,8 @@ export class YulVariableAssignmentStatement extends SlangNode {
   ): Doc {
     return join(' ', [
       path.call(print, 'variables'),
-      path.call(print, 'assignment'),
-      path.call(print, 'expression')
+      path.call(printVariant(print), 'assignment'),
+      path.call(printVariant(print), 'expression')
     ]);
   }
 }

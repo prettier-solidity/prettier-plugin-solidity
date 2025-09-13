@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { TerminalNode } from '../slang-nodes/TerminalNode.js';
+import { printVariant } from './print-variant.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type {
@@ -19,7 +20,7 @@ function rightOperandPrint(
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  const rightOperand = path.call(print, 'rightOperand');
+  const rightOperand = path.call(printVariant(print), 'rightOperand');
   const rightOperandDoc =
     options.experimentalOperatorPosition === 'end'
       ? [` ${operator}`, line, rightOperand]
@@ -58,7 +59,7 @@ export const createBinaryOperationPrinter =
     const indentRules = indentRulesBuilder(path, options);
 
     return groupRules([
-      path.call(print, 'leftOperand'),
+      path.call(printVariant(print), 'leftOperand'),
       indentRules(rightOperandPrint(node, path, print, options))
     ]);
   };

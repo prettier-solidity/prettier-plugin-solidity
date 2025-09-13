@@ -1,6 +1,7 @@
 import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunction } from '../slang-printers/print-function.js';
+import { printFunctionWithBody } from '../slang-printers/print-function.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { FunctionName } from './FunctionName.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
@@ -64,8 +65,8 @@ export class FunctionDefinition extends SlangNode {
   }
 
   print(path: AstPath<FunctionDefinition>, print: PrintFunction): Doc {
-    return printFunction(
-      ['function ', path.call(print, 'name')],
+    return printFunctionWithBody(
+      ['function ', path.call(printVariant(print), 'name')],
       this,
       path,
       print

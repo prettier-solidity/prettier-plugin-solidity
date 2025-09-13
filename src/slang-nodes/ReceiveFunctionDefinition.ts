@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunction } from '../slang-printers/print-function.js';
+import { printFunctionWithBody } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 import { ReceiveFunctionAttributes } from './ReceiveFunctionAttributes.js';
@@ -46,6 +46,6 @@ export class ReceiveFunctionDefinition extends SlangNode {
   }
 
   print(path: AstPath<ReceiveFunctionDefinition>, print: PrintFunction): Doc {
-    return printFunction('receive', this, path, print);
+    return printFunctionWithBody('receive', this, path, print);
   }
 }

@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Pragma } from './Pragma.js';
 
@@ -21,6 +22,6 @@ export class PragmaDirective extends SlangNode {
   }
 
   print(path: AstPath<PragmaDirective>, print: PrintFunction): Doc {
-    return ['pragma ', path.call(print, 'pragma'), ';'];
+    return ['pragma ', path.call(printVariant(print), 'pragma'), ';'];
   }
 }

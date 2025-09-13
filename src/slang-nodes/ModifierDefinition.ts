@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunction } from '../slang-printers/print-function.js';
+import { printFunctionWithBody } from '../slang-printers/print-function.js';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
@@ -67,7 +67,7 @@ export class ModifierDefinition extends SlangNode {
   }
 
   print(path: AstPath<ModifierDefinition>, print: PrintFunction): Doc {
-    return printFunction(
+    return printFunctionWithBody(
       ['modifier ', path.call(print, 'name')],
       this,
       path,

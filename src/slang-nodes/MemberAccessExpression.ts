@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isLabel } from '../slang-utils/is-label.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -132,7 +133,7 @@ export class MemberAccessExpression extends SlangNode {
 
   print(path: AstPath<MemberAccessExpression>, print: PrintFunction): Doc {
     const document = [
-      path.call(print, 'operand'),
+      path.call(printVariant(print), 'operand'),
       label('separator', [softline, '.']),
       path.call(print, 'member')
     ].flat();

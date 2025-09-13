@@ -3,6 +3,7 @@ import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
@@ -40,10 +41,10 @@ export class IfStatement extends SlangNode {
     const { kind: bodyKind, comments: bodyComments } = this.body.variant;
     return [
       'if (',
-      printSeparatedItem(path.call(print, 'condition')),
+      printSeparatedItem(path.call(printVariant(print), 'condition')),
       ')',
       printIndentedGroupOrSpacedDocument(
-        path.call(print, 'body'),
+        path.call(printVariant(print), 'body'),
         bodyKind !== NonterminalKind.Block,
         // `if` within `if`
         { shouldBreak: bodyKind === NonterminalKind.IfStatement }

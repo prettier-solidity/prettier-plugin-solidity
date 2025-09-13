@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulBlock } from './YulBlock.js';
 import { YulExpression } from './YulExpression.js';
@@ -42,7 +43,7 @@ export class YulForStatement extends SlangNode {
     return join(' ', [
       'for',
       path.call(print, 'initialization'),
-      path.call(print, 'condition'),
+      path.call(printVariant(print), 'condition'),
       path.call(print, 'iterator'),
       path.call(print, 'body')
     ]);
