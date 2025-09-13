@@ -1,12 +1,12 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
 import { SourceUnitMembers } from './SourceUnitMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 const { line } = doc.builders;
 

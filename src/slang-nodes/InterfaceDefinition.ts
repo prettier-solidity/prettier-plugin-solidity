@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
@@ -7,8 +7,8 @@ import { InterfaceMembers } from './InterfaceMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 const { group, line } = doc.builders;
 

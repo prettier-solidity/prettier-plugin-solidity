@@ -94,6 +94,7 @@
     "cross-env": "^10.0.0",
     "eslint": "^9.35.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
     "esm-utils": "^4.4.2",
     "globals": "^16.4.0",
     "jest": "^30.1.3",

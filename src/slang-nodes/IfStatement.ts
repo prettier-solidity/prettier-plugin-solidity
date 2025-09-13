@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
@@ -10,8 +10,8 @@ import { ElseBranch } from './ElseBranch.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 const { hardline } = doc.builders;
 

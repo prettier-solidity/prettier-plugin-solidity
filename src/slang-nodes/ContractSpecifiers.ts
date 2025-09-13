@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { sortContractSpecifiers } from '../slang-utils/sort-contract-specifiers.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { SlangNode } from './SlangNode.js';
@@ -7,8 +7,8 @@ import { ContractSpecifier } from './ContractSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 const { group, ifBreak, line, softline } = doc.builders;
 

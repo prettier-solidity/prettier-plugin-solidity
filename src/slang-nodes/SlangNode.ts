@@ -1,7 +1,7 @@
 import {
   TerminalKind,
-  TerminalNode,
-  TerminalKindExtensions
+  TerminalKindExtensions,
+  TerminalNode
 } from '@nomicfoundation/slang/cst';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';

@@ -1,5 +1,5 @@
-import { doc } from 'prettier';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { doc } from 'prettier';
 import { isLabel } from '../slang-utils/is-label.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { SlangNode } from './SlangNode.js';
@@ -8,8 +8,8 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, StrictAstNode } from './types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode, StrictAstNode } from './types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
 
