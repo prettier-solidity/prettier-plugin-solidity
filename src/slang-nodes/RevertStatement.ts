@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { joinExisting } from '../slang-utils/join-existing.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
@@ -15,7 +15,7 @@ export class RevertStatement extends SlangNode {
 
   error?: IdentifierPath;
 
-  arguments: ArgumentsDeclaration;
+  arguments: ArgumentsDeclaration['variant'];
 
   constructor(ast: ast.RevertStatement, options: ParserOptions<AstNode>) {
     super(ast);
@@ -23,7 +23,9 @@ export class RevertStatement extends SlangNode {
     if (ast.error) {
       this.error = new IdentifierPath(ast.error);
     }
-    this.arguments = new ArgumentsDeclaration(ast.arguments, options);
+    this.arguments = extractVariant(
+      new ArgumentsDeclaration(ast.arguments, options)
+    );
 
     this.updateMetadata(this.error, this.arguments);
   }
@@ -31,7 +33,7 @@ export class RevertStatement extends SlangNode {
   print(path: AstPath<RevertStatement>, print: PrintFunction): Doc {
     return [
       joinExisting(' ', ['revert', path.call(print, 'error')]),
-      path.call(printVariant(print), 'arguments'),
+      path.call(print, 'arguments'),
       ';'
     ];
   }

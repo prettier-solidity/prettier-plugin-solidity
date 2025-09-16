@@ -27,14 +27,12 @@ export default function handleModifierInvocationComments({
   if (
     precedingNode?.kind === NonterminalKind.IdentifierPath &&
     nextCharacter === '(' &&
-    followingNode?.kind === NonterminalKind.ArgumentsDeclaration &&
-    followingNode.variant.kind ===
-      NonterminalKind.PositionalArgumentsDeclaration
+    followingNode?.kind === NonterminalKind.PositionalArgumentsDeclaration
   ) {
-    if (followingNode.variant.arguments.items.length === 0) {
+    if (followingNode.arguments.items.length === 0) {
       addTrailingComment(enclosingNode, comment);
     } else {
-      addCollectionFirstComment(followingNode.variant.arguments, comment);
+      addCollectionFirstComment(followingNode.arguments, comment);
     }
     return true;
   }

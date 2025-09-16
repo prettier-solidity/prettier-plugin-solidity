@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
@@ -14,13 +14,15 @@ export class EmitStatement extends SlangNode {
 
   event: IdentifierPath;
 
-  arguments: ArgumentsDeclaration;
+  arguments: ArgumentsDeclaration['variant'];
 
   constructor(ast: ast.EmitStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
     this.event = new IdentifierPath(ast.event);
-    this.arguments = new ArgumentsDeclaration(ast.arguments, options);
+    this.arguments = extractVariant(
+      new ArgumentsDeclaration(ast.arguments, options)
+    );
 
     this.updateMetadata(this.event, this.arguments);
   }
@@ -29,7 +31,7 @@ export class EmitStatement extends SlangNode {
     return [
       'emit ',
       path.call(print, 'event'),
-      path.call(printVariant(print), 'arguments'),
+      path.call(print, 'arguments'),
       ';'
     ];
   }

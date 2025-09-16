@@ -3,6 +3,7 @@ import { doc } from 'prettier';
 import { isLabel } from '../slang-utils/is-label.js';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
 import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
@@ -19,7 +20,7 @@ export class FunctionCallExpression extends SlangNode {
 
   operand: Expression;
 
-  arguments: ArgumentsDeclaration;
+  arguments: ArgumentsDeclaration['variant'];
 
   constructor(
     ast: ast.FunctionCallExpression,
@@ -28,14 +29,16 @@ export class FunctionCallExpression extends SlangNode {
     super(ast);
 
     this.operand = new Expression(ast.operand, options);
-    this.arguments = new ArgumentsDeclaration(ast.arguments, options);
+    this.arguments = extractVariant(
+      new ArgumentsDeclaration(ast.arguments, options)
+    );
 
     this.updateMetadata(this.operand, this.arguments);
   }
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {
     const operand = path.call(printVariant(print), 'operand');
-    const argumentsDoc = path.call(printVariant(print), 'arguments');
+    const argumentsDoc = path.call(print, 'arguments');
 
     // If we are at the end of a MemberAccessChain we should indent the
     // arguments accordingly.
