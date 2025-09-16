@@ -24,6 +24,7 @@ import type { Expression } from './slang-nodes/Expression.js';
 import type { ForStatementInitialization } from './slang-nodes/ForStatementInitialization.js';
 import type { ForStatementCondition } from './slang-nodes/ForStatementCondition.js';
 import type { FunctionBody } from './slang-nodes/FunctionBody.js';
+import type { FunctionName } from './slang-nodes/FunctionName.js';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -96,6 +97,7 @@ function genericPrint(
       | ForStatementInitialization
       | ForStatementCondition
       | FunctionBody
+      | FunctionName
     >
   >,
   options: ParserOptions<AstNode>,
