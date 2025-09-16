@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
@@ -14,23 +14,22 @@ export class InheritanceType extends SlangNode {
 
   typeName: IdentifierPath;
 
-  arguments?: ArgumentsDeclaration;
+  arguments?: ArgumentsDeclaration['variant'];
 
   constructor(ast: ast.InheritanceType, options: ParserOptions<AstNode>) {
     super(ast);
 
     this.typeName = new IdentifierPath(ast.typeName);
     if (ast.arguments) {
-      this.arguments = new ArgumentsDeclaration(ast.arguments, options);
+      this.arguments = extractVariant(
+        new ArgumentsDeclaration(ast.arguments, options)
+      );
     }
 
     this.updateMetadata(this.typeName, this.arguments);
   }
 
   print(path: AstPath<InheritanceType>, print: PrintFunction): Doc {
-    return [
-      path.call(print, 'typeName'),
-      path.call(printVariant(print), 'arguments')
-    ];
+    return [path.call(print, 'typeName'), path.call(print, 'arguments')];
   }
 }
