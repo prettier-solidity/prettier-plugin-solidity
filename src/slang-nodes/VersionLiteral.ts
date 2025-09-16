@@ -2,13 +2,13 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { SimpleVersionLiteral } from './SimpleVersionLiteral.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 
-export class VersionLiteral extends PolymorphicNode {
+export class VersionLiteral extends SlangNode {
   readonly kind = NonterminalKind.VersionLiteral;
 
   variant: SimpleVersionLiteral | TerminalNode;

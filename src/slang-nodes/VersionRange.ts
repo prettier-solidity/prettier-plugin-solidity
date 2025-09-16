@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { VersionLiteral } from './VersionLiteral.js';
 
@@ -10,24 +10,20 @@ import type { PrintFunction } from '../types.d.ts';
 export class VersionRange extends SlangNode {
   readonly kind = NonterminalKind.VersionRange;
 
-  start: VersionLiteral;
+  start: VersionLiteral['variant'];
 
-  end: VersionLiteral;
+  end: VersionLiteral['variant'];
 
   constructor(ast: ast.VersionRange) {
     super(ast);
 
-    this.start = new VersionLiteral(ast.start);
-    this.end = new VersionLiteral(ast.end);
+    this.start = extractVariant(new VersionLiteral(ast.start));
+    this.end = extractVariant(new VersionLiteral(ast.end));
 
     this.updateMetadata(this.start, this.end);
   }
 
   print(path: AstPath<VersionRange>, print: PrintFunction): Doc {
-    return [
-      path.call(printVariant(print), 'start'),
-      ' - ',
-      path.call(printVariant(print), 'end')
-    ];
+    return [path.call(print, 'start'), ' - ', path.call(print, 'end')];
   }
 }

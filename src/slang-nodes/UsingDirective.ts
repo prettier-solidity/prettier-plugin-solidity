@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { UsingClause } from './UsingClause.js';
 import { UsingTarget } from './UsingTarget.js';
@@ -12,17 +12,17 @@ import type { AstNode } from './types.d.ts';
 export class UsingDirective extends SlangNode {
   readonly kind = NonterminalKind.UsingDirective;
 
-  clause: UsingClause;
+  clause: UsingClause['variant'];
 
-  target: UsingTarget;
+  target: UsingTarget['variant'];
 
   globalKeyword?: string;
 
   constructor(ast: ast.UsingDirective, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.clause = new UsingClause(ast.clause);
-    this.target = new UsingTarget(ast.target, options);
+    this.clause = extractVariant(new UsingClause(ast.clause));
+    this.target = extractVariant(new UsingTarget(ast.target, options));
     this.globalKeyword = ast.globalKeyword?.unparse();
 
     this.updateMetadata(this.clause, this.target);
@@ -31,9 +31,9 @@ export class UsingDirective extends SlangNode {
   print(path: AstPath<UsingDirective>, print: PrintFunction): Doc {
     return [
       'using ',
-      path.call(printVariant(print), 'clause'),
+      path.call(print, 'clause'),
       ' for ',
-      path.call(printVariant(print), 'target'),
+      path.call(print, 'target'),
       this.globalKeyword ? ' global;' : ';'
     ];
   }

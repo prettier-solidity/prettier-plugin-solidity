@@ -31,6 +31,11 @@ import type { Pragma } from './slang-nodes/Pragma.js';
 import type { StringExpression } from './slang-nodes/StringExpression.js';
 import type { TupleMember } from './slang-nodes/TupleMember.js';
 import type { TypeName } from './slang-nodes/TypeName.js';
+import type { UsingClause } from './slang-nodes/UsingClause.js';
+import type { UsingTarget } from './slang-nodes/UsingTarget.js';
+import type { VariableDeclarationType } from './slang-nodes/VariableDeclarationType.js';
+import type { VersionExpression } from './slang-nodes/VersionExpression.js';
+import type { VersionLiteral } from './slang-nodes/VersionLiteral.js';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -110,6 +115,11 @@ function genericPrint(
       | StringExpression
       | TupleMember
       | TypeName
+      | UsingClause
+      | UsingTarget
+      | VariableDeclarationType
+      | VersionExpression
+      | VersionLiteral
     >
   >,
   options: ParserOptions<AstNode>,
