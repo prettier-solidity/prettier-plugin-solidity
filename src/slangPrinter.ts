@@ -25,6 +25,11 @@ import type { ForStatementInitialization } from './slang-nodes/ForStatementIniti
 import type { ForStatementCondition } from './slang-nodes/ForStatementCondition.js';
 import type { FunctionBody } from './slang-nodes/FunctionBody.js';
 import type { FunctionName } from './slang-nodes/FunctionName.js';
+import type { ImportClause } from './slang-nodes/ImportClause.js';
+import type { MappingKeyType } from './slang-nodes/MappingKeyType.js';
+import type { Pragma } from './slang-nodes/Pragma.js';
+import type { StringExpression } from './slang-nodes/StringExpression.js';
+import type { TupleMember } from './slang-nodes/TupleMember.js';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -98,6 +103,11 @@ function genericPrint(
       | ForStatementCondition
       | FunctionBody
       | FunctionName
+      | ImportClause
+      | MappingKeyType
+      | Pragma
+      | StringExpression
+      | TupleMember
     >
   >,
   options: ParserOptions<AstNode>,
