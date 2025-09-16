@@ -2,7 +2,6 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isLabel } from '../slang-utils/is-label.js';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
-import { printVariant } from '../slang-printers/print-variant.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
@@ -18,7 +17,7 @@ const { label } = doc.builders;
 export class FunctionCallExpression extends SlangNode {
   readonly kind = NonterminalKind.FunctionCallExpression;
 
-  operand: Expression;
+  operand: Expression['variant'];
 
   arguments: ArgumentsDeclaration['variant'];
 
@@ -28,7 +27,7 @@ export class FunctionCallExpression extends SlangNode {
   ) {
     super(ast);
 
-    this.operand = new Expression(ast.operand, options);
+    this.operand = extractVariant(new Expression(ast.operand, options));
     this.arguments = extractVariant(
       new ArgumentsDeclaration(ast.arguments, options)
     );
@@ -37,7 +36,7 @@ export class FunctionCallExpression extends SlangNode {
   }
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {
-    const operand = path.call(printVariant(print), 'operand');
+    const operand = path.call(print, 'operand');
     const argumentsDoc = path.call(print, 'arguments');
 
     // If we are at the end of a MemberAccessChain we should indent the
