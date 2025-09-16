@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulLiteral } from './YulLiteral.js';
 import { YulBlock } from './YulBlock.js';
@@ -12,25 +12,20 @@ import type { AstNode } from './types.d.ts';
 export class YulValueCase extends SlangNode {
   readonly kind = NonterminalKind.YulValueCase;
 
-  value: YulLiteral;
+  value: YulLiteral['variant'];
 
   body: YulBlock;
 
   constructor(ast: ast.YulValueCase, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.value = new YulLiteral(ast.value, options);
+    this.value = extractVariant(new YulLiteral(ast.value, options));
     this.body = new YulBlock(ast.body, options);
 
     this.updateMetadata(this.value, this.body);
   }
 
   print(path: AstPath<YulValueCase>, print: PrintFunction): Doc {
-    return [
-      'case ',
-      path.call(printVariant(print), 'value'),
-      ' ',
-      path.call(print, 'body')
-    ];
+    return ['case ', path.call(print, 'value'), ' ', path.call(print, 'body')];
   }
 }
