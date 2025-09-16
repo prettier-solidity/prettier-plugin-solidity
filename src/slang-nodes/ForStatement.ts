@@ -24,7 +24,7 @@ export class ForStatement extends SlangNode {
 
   condition: ForStatementCondition;
 
-  iterator?: Expression;
+  iterator?: Expression['variant'];
 
   body: Statement['variant'];
 
@@ -37,7 +37,7 @@ export class ForStatement extends SlangNode {
     );
     this.condition = new ForStatementCondition(ast.condition, options);
     if (ast.iterator) {
-      this.iterator = new Expression(ast.iterator, options);
+      this.iterator = extractVariant(new Expression(ast.iterator, options));
     }
     this.body = extractVariant(new Statement(ast.body, options));
 
@@ -52,7 +52,7 @@ export class ForStatement extends SlangNode {
   print(path: AstPath<ForStatement>, print: PrintFunction): Doc {
     const initialization = path.call(printVariant(print), 'initialization');
     const condition = path.call(printVariant(print), 'condition');
-    const iterator = path.call(printVariant(print), 'iterator');
+    const iterator = path.call(print, 'iterator');
 
     return [
       'for (',

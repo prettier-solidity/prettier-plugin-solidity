@@ -22,17 +22,17 @@ export class TupleValues extends SlangNode {
     this.items = ast.items.map((item) => new TupleValue(item, options));
   }
 
-  getSingleExpression(): Expression | undefined {
+  getSingleExpression(): Expression['variant'] | undefined {
     const items = this.items;
     return items.length === 1 ? items[0].expression : undefined;
   }
 
   print(path: AstPath<TupleValues>, print: PrintFunction): Doc {
-    const singleExpressionVariant = this.getSingleExpression()?.variant;
+    const singleExpression = this.getSingleExpression();
     const items = path.map(print, 'items');
-    return singleExpressionVariant &&
-      !(singleExpressionVariant instanceof TerminalNode) &&
-      isBinaryOperation(singleExpressionVariant)
+    return singleExpression &&
+      !(singleExpression instanceof TerminalNode) &&
+      isBinaryOperation(singleExpression)
       ? items
       : printSeparatedList(items);
   }
