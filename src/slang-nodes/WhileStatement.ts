@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
@@ -16,13 +17,13 @@ export class WhileStatement extends SlangNode {
 
   condition: Expression;
 
-  body: Statement;
+  body: Statement['variant'];
 
   constructor(ast: ast.WhileStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
     this.condition = new Expression(ast.condition, options);
-    this.body = new Statement(ast.body, options);
+    this.body = extractVariant(new Statement(ast.body, options));
 
     this.updateMetadata(this.condition, this.body);
   }
@@ -33,8 +34,8 @@ export class WhileStatement extends SlangNode {
       printSeparatedItem(path.call(printVariant(print), 'condition')),
       ')',
       printIndentedGroupOrSpacedDocument(
-        path.call(printVariant(print), 'body'),
-        this.body.variant.kind !== NonterminalKind.Block
+        path.call(print, 'body'),
+        this.body.kind !== NonterminalKind.Block
       )
     ];
   }

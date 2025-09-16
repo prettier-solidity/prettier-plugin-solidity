@@ -39,15 +39,15 @@ export default function handleIfStatementComments({
     precedingNode === enclosingNode.body &&
     followingNode === enclosingNode.elseBranch
   ) {
-    addTrailingComment(precedingNode.variant, comment);
+    addTrailingComment(precedingNode, comment);
     return true;
   }
 
   if (followingNode.kind === NonterminalKind.IfStatement) {
-    if (followingNode.body.variant.kind === NonterminalKind.Block) {
-      addCollectionFirstComment(followingNode.body.variant.statements, comment);
+    if (followingNode.body.kind === NonterminalKind.Block) {
+      addCollectionFirstComment(followingNode.body.statements, comment);
     } else {
-      addLeadingComment(followingNode.body.variant, comment);
+      addLeadingComment(followingNode.body, comment);
     }
     return true;
   }
@@ -56,8 +56,8 @@ export default function handleIfStatementComments({
   // before the consequent without brackets on, such as
   // if (a) /* comment */ true
   if (enclosingNode.body === followingNode) {
-    if (followingNode.variant.kind === NonterminalKind.Block) {
-      addCollectionFirstComment(followingNode.variant.statements, comment);
+    if (followingNode.kind === NonterminalKind.Block) {
+      addCollectionFirstComment(followingNode.statements, comment);
     } else {
       addLeadingComment(followingNode, comment);
     }

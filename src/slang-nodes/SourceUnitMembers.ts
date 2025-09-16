@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { SourceUnitMember } from './SourceUnitMember.js';
 
@@ -11,12 +12,14 @@ import type { AstNode } from './types.d.ts';
 export class SourceUnitMembers extends SlangNode {
   readonly kind = NonterminalKind.SourceUnitMembers;
 
-  items: SourceUnitMember[];
+  items: SourceUnitMember['variant'][];
 
   constructor(ast: ast.SourceUnitMembers, options: ParserOptions<AstNode>) {
     super(ast, true);
 
-    this.items = ast.items.map((item) => new SourceUnitMember(item, options));
+    this.items = ast.items.map((item) =>
+      extractVariant(new SourceUnitMember(item, options))
+    );
   }
 
   print(

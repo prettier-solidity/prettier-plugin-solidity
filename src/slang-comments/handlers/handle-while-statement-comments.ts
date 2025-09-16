@@ -36,8 +36,8 @@ export default function handleWhileStatementComments({
   }
 
   if (enclosingNode.body === followingNode) {
-    if (followingNode.variant.kind === NonterminalKind.Block) {
-      addCollectionFirstComment(followingNode.variant.statements, comment);
+    if (followingNode.kind === NonterminalKind.Block) {
+      addCollectionFirstComment(followingNode.statements, comment);
     } else {
       addLeadingComment(followingNode, comment);
     }

@@ -3,6 +3,7 @@ import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ForStatementInitialization } from './ForStatementInitialization.js';
 import { ForStatementCondition } from './ForStatementCondition.js';
@@ -25,7 +26,7 @@ export class ForStatement extends SlangNode {
 
   iterator?: Expression;
 
-  body: Statement;
+  body: Statement['variant'];
 
   constructor(ast: ast.ForStatement, options: ParserOptions<AstNode>) {
     super(ast);
@@ -38,7 +39,7 @@ export class ForStatement extends SlangNode {
     if (ast.iterator) {
       this.iterator = new Expression(ast.iterator, options);
     }
-    this.body = new Statement(ast.body, options);
+    this.body = extractVariant(new Statement(ast.body, options));
 
     this.updateMetadata(
       this.initialization,
@@ -63,8 +64,8 @@ export class ForStatement extends SlangNode {
       }),
       ')',
       printIndentedGroupOrSpacedDocument(
-        path.call(printVariant(print), 'body'),
-        this.body.variant.kind !== NonterminalKind.Block
+        path.call(print, 'body'),
+        this.body.kind !== NonterminalKind.Block
       )
     ];
   }
