@@ -35,7 +35,7 @@ export class UnnamedFunctionDefinition extends SlangNode {
   }
 
   cleanModifierInvocationArguments(): void {
-    for (const { variant: attribute } of this.attributes.items) {
+    for (const attribute of this.attributes.items) {
       if (attribute.kind === NonterminalKind.ModifierInvocation) {
         attribute.cleanModifierInvocationArguments();
       }

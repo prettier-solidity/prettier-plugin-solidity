@@ -2,13 +2,13 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 
-export class ModifierAttribute extends PolymorphicNode {
+export class ModifierAttribute extends SlangNode {
   readonly kind = NonterminalKind.ModifierAttribute;
 
   variant: OverrideSpecifier | TerminalNode;

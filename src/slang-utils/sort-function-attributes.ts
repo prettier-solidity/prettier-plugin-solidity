@@ -13,8 +13,8 @@ const visibilityKeyWords = new Set([
 const mutabilityKeyWords = new Set(['pure', 'constant', 'payable', 'view']);
 
 export function sortFunctionAttributes(
-  { variant: aVariant }: SortableAttribute,
-  { variant: bVariant }: SortableAttribute
+  aVariant: SortableAttribute,
+  bVariant: SortableAttribute
 ): number {
   const aIsString = aVariant instanceof TerminalNode;
   const bIsString = bVariant instanceof TerminalNode;
