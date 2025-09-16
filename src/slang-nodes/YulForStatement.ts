@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulBlock } from './YulBlock.js';
 import { YulExpression } from './YulExpression.js';
@@ -17,7 +17,7 @@ export class YulForStatement extends SlangNode {
 
   initialization: YulBlock;
 
-  condition: YulExpression;
+  condition: YulExpression['variant'];
 
   iterator: YulBlock;
 
@@ -27,7 +27,7 @@ export class YulForStatement extends SlangNode {
     super(ast);
 
     this.initialization = new YulBlock(ast.initialization, options);
-    this.condition = new YulExpression(ast.condition, options);
+    this.condition = extractVariant(new YulExpression(ast.condition, options));
     this.iterator = new YulBlock(ast.iterator, options);
     this.body = new YulBlock(ast.body, options);
 
@@ -43,7 +43,7 @@ export class YulForStatement extends SlangNode {
     return join(' ', [
       'for',
       path.call(print, 'initialization'),
-      path.call(printVariant(print), 'condition'),
+      path.call(print, 'condition'),
       path.call(print, 'iterator'),
       path.call(print, 'body')
     ]);
