@@ -44,7 +44,7 @@ export class ContractDefinition extends SlangNode {
       for (const member of this.members.items) {
         if (
           member.kind === NonterminalKind.FunctionDefinition &&
-          member.name.variant.value !== this.name.value
+          member.name.value !== this.name.value
         ) {
           member.cleanModifierInvocationArguments();
         }
