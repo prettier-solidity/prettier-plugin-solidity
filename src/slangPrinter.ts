@@ -36,6 +36,10 @@ import type { UsingTarget } from './slang-nodes/UsingTarget.js';
 import type { VariableDeclarationType } from './slang-nodes/VariableDeclarationType.js';
 import type { VersionExpression } from './slang-nodes/VersionExpression.js';
 import type { VersionLiteral } from './slang-nodes/VersionLiteral.js';
+import type { YulAssignmentOperator } from './slang-nodes/YulAssignmentOperator.js';
+import type { YulLiteral } from './slang-nodes/YulLiteral.js';
+import type { YulStackAssignmentOperator } from './slang-nodes/YulStackAssignmentOperator.js';
+import type { YulSwitchCase } from './slang-nodes/YulSwitchCase.js';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -120,6 +124,10 @@ function genericPrint(
       | VariableDeclarationType
       | VersionExpression
       | VersionLiteral
+      | YulAssignmentOperator
+      | YulLiteral
+      | YulStackAssignmentOperator
+      | YulSwitchCase
     >
   >,
   options: ParserOptions<AstNode>,
