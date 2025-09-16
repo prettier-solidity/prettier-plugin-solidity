@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ContractMember } from './ContractMember.js';
 
@@ -15,12 +16,14 @@ const { hardline } = doc.builders;
 export class LibraryMembers extends SlangNode {
   readonly kind = NonterminalKind.LibraryMembers;
 
-  items: ContractMember[];
+  items: ContractMember['variant'][];
 
   constructor(ast: ast.LibraryMembers, options: ParserOptions<AstNode>) {
     super(ast, true);
 
-    this.items = ast.items.map((item) => new ContractMember(item, options));
+    this.items = ast.items.map((item) =>
+      extractVariant(new ContractMember(item, options))
+    );
   }
 
   print(

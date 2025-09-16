@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Statement } from './Statement.js';
 import { Expression } from './Expression.js';
@@ -16,24 +17,24 @@ const { line } = doc.builders;
 export class DoWhileStatement extends SlangNode {
   readonly kind = NonterminalKind.DoWhileStatement;
 
-  body: Statement;
+  body: Statement['variant'];
 
   condition: Expression;
 
   constructor(ast: ast.DoWhileStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.body = new Statement(ast.body, options);
+    this.body = extractVariant(new Statement(ast.body, options));
     this.condition = new Expression(ast.condition, options);
 
     this.updateMetadata(this.body, this.condition);
   }
 
   print(path: AstPath<DoWhileStatement>, print: PrintFunction): Doc {
-    const body = path.call(printVariant(print), 'body');
+    const body = path.call(print, 'body');
     return [
       'do',
-      this.body.variant.kind === NonterminalKind.Block
+      this.body.kind === NonterminalKind.Block
         ? [' ', body, ' ']
         : printSeparatedItem(body, { firstSeparator: line }),
       'while (',

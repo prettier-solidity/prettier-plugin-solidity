@@ -41,12 +41,12 @@ export class ContractDefinition extends SlangNode {
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
     if (!satisfies(options.compiler, '>=0.5.0')) {
-      for (const { variant } of this.members.items) {
+      for (const member of this.members.items) {
         if (
-          variant.kind === NonterminalKind.FunctionDefinition &&
-          variant.name.variant.value !== this.name.value
+          member.kind === NonterminalKind.FunctionDefinition &&
+          member.name.variant.value !== this.name.value
         ) {
-          variant.cleanModifierInvocationArguments();
+          member.cleanModifierInvocationArguments();
         }
       }
     }
