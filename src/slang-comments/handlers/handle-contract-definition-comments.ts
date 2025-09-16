@@ -48,7 +48,7 @@ export default function handleContractDefinitionComments({
         return true;
       }
       const lastContractSpecifier =
-        precedingNode.items[precedingNode.items.length - 1].variant;
+        precedingNode.items[precedingNode.items.length - 1];
       // If the last ContractSpecifier's an InheritanceSpecifier, the comment
       // is appended to the last InheritanceType.
       if (lastContractSpecifier.kind === NonterminalKind.InheritanceSpecifier) {

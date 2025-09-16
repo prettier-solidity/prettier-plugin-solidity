@@ -15,16 +15,13 @@ export default function handleContractSpecifiersComments({
     return false;
   }
 
-  if (
-    precedingNode &&
-    precedingNode.kind === NonterminalKind.ContractSpecifier
-  ) {
-    if (precedingNode.variant.kind === NonterminalKind.InheritanceSpecifier) {
-      addCollectionLastComment(precedingNode.variant.types, comment);
+  if (precedingNode) {
+    if (precedingNode.kind === NonterminalKind.InheritanceSpecifier) {
+      addCollectionLastComment(precedingNode.types, comment);
       return true;
     }
-    if (precedingNode.variant.kind === NonterminalKind.StorageLayoutSpecifier) {
-      addTrailingComment(precedingNode.variant.expression, comment);
+    if (precedingNode.kind === NonterminalKind.StorageLayoutSpecifier) {
+      addTrailingComment(precedingNode.expression, comment);
       return true;
     }
   }
