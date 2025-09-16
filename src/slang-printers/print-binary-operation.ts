@@ -38,7 +38,7 @@ export const shouldNotIndent = (
   isStatementWithoutIndentedOperation(node) ||
   (node.kind === NonterminalKind.ExpressionStatement &&
     (path.getNode(index + 1) as StrictAstNode).kind ===
-      NonterminalKind.ForStatementCondition);
+      NonterminalKind.ForStatement);
 
 export const binaryIndentRulesBuilder =
   (shouldIndent: (node: BinaryOperation) => boolean) =>
