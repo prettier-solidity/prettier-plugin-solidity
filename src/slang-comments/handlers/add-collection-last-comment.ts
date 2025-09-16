@@ -1,11 +1,11 @@
 import { util } from 'prettier';
 
-import type { Comment, NodeCollection } from '../../slang-nodes/types.d.ts';
+import type { Comment, StrictCollection } from '../../slang-nodes/types.d.ts';
 
 const { addDanglingComment, addTrailingComment } = util;
 
 export default function addCollectionLastComment(
-  node: NodeCollection,
+  node: StrictCollection,
   comment: Comment
 ): void {
   if (node.items.length === 0) {

@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { CallOptions } from './CallOptions.js';
@@ -12,25 +12,20 @@ import type { AstNode } from './types.d.ts';
 export class CallOptionsExpression extends SlangNode {
   readonly kind = NonterminalKind.CallOptionsExpression;
 
-  operand: Expression;
+  operand: Expression['variant'];
 
   options: CallOptions;
 
   constructor(ast: ast.CallOptionsExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.operand = new Expression(ast.operand, options);
+    this.operand = extractVariant(new Expression(ast.operand, options));
     this.options = new CallOptions(ast.options, options);
 
     this.updateMetadata(this.operand, this.options);
   }
 
   print(path: AstPath<CallOptionsExpression>, print: PrintFunction): Doc {
-    return [
-      path.call(printVariant(print), 'operand'),
-      '{',
-      path.call(print, 'options'),
-      '}'
-    ];
+    return [path.call(print, 'operand'), '{', path.call(print, 'options'), '}'];
   }
 }

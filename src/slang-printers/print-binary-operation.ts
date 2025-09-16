@@ -18,9 +18,9 @@ export const binaryGroupRulesBuilder =
   (shouldGroup: (node: BinaryOperation) => boolean) =>
   (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
-    const grandparentNode = path.grandparent as StrictAstNode;
-    if (!isBinaryOperation(grandparentNode)) return group(document);
-    if (shouldGroup(grandparentNode)) return group(document);
+    const parent = path.parent as StrictAstNode;
+    if (!isBinaryOperation(parent)) return group(document);
+    if (shouldGroup(parent)) return group(document);
     return document;
   };
 
@@ -44,13 +44,13 @@ export const binaryIndentRulesBuilder =
   (shouldIndent: (node: BinaryOperation) => boolean) =>
   (path: AstPath<BinaryOperation>) =>
   (document: Doc): Doc => {
-    for (let i = 2, node = path.node; ; i += 2) {
-      const grandparentNode = path.getNode(i) as StrictAstNode;
-      if (shouldNotIndent(grandparentNode, path, i)) break;
-      if (!isBinaryOperation(grandparentNode)) return indent(document);
-      if (shouldIndent(grandparentNode)) return indent(document);
-      if (node === grandparentNode.rightOperand.variant) break;
-      node = grandparentNode;
+    for (let i = 1, node = path.node; ; i++) {
+      const parent = path.getNode(i) as StrictAstNode;
+      if (shouldNotIndent(parent, path, i)) break;
+      if (!isBinaryOperation(parent)) return indent(document);
+      if (shouldIndent(parent)) return indent(document);
+      if (node === parent.rightOperand) break;
+      node = parent;
     }
     return document;
   };

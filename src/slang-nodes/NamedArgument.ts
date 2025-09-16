@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 import { Expression } from './Expression.js';
@@ -14,22 +14,18 @@ export class NamedArgument extends SlangNode {
 
   name: TerminalNode;
 
-  value: Expression;
+  value: Expression['variant'];
 
   constructor(ast: ast.NamedArgument, options: ParserOptions<AstNode>) {
     super(ast);
 
     this.name = new TerminalNode(ast.name);
-    this.value = new Expression(ast.value, options);
+    this.value = extractVariant(new Expression(ast.value, options));
 
     this.updateMetadata(this.value);
   }
 
   print(path: AstPath<NamedArgument>, print: PrintFunction): Doc {
-    return [
-      path.call(print, 'name'),
-      ': ',
-      path.call(printVariant(print), 'value')
-    ];
+    return [path.call(print, 'name'), ': ', path.call(print, 'value')];
   }
 }
