@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
@@ -14,7 +13,7 @@ import type { AstNode } from './types.d.ts';
 export class ConstantDefinition extends SlangNode {
   readonly kind = NonterminalKind.ConstantDefinition;
 
-  typeName: TypeName;
+  typeName: TypeName['variant'];
 
   name: TerminalNode;
 
@@ -23,7 +22,7 @@ export class ConstantDefinition extends SlangNode {
   constructor(ast: ast.ConstantDefinition, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.typeName = new TypeName(ast.typeName, options);
+    this.typeName = extractVariant(new TypeName(ast.typeName, options));
     this.name = new TerminalNode(ast.name);
     this.value = extractVariant(new Expression(ast.value, options));
 
@@ -32,7 +31,7 @@ export class ConstantDefinition extends SlangNode {
 
   print(path: AstPath<ConstantDefinition>, print: PrintFunction): Doc {
     return [
-      path.call(printVariant(print), 'typeName'),
+      path.call(print, 'typeName'),
       ' constant ',
       path.call(print, 'name'),
       ' = ',
