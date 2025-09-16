@@ -117,7 +117,7 @@ function createNonterminalVariant(
     return new DecimalNumberExpression(variant);
   }
   if (variant instanceof ast.StringExpression) {
-    return new StringExpression(variant, options);
+    return extractVariant(new StringExpression(variant, options));
   }
   if (variant instanceof ast.ElementaryType) {
     return extractVariant(new ElementaryType(variant));
@@ -155,7 +155,7 @@ export class Expression extends SlangNode {
     | ArrayExpression
     | HexNumberExpression
     | DecimalNumberExpression
-    | StringExpression
+    | StringExpression['variant']
     | ElementaryType['variant']
     | TerminalNode;
 
