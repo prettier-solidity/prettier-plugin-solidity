@@ -2,7 +2,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { Block } from './Block.js';
 import { TerminalNode } from './TerminalNode.js';
 
@@ -10,7 +10,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 
-export class FunctionBody extends PolymorphicNode {
+export class FunctionBody extends SlangNode {
   readonly kind = NonterminalKind.FunctionBody;
 
   variant: Block | TerminalNode;
