@@ -18,6 +18,7 @@ import type { SourceUnitMember } from './slang-nodes/SourceUnitMember.js';
 import type { Statement } from './slang-nodes/Statement.js';
 import type { YulStatement } from './slang-nodes/YulStatement.js';
 import type { ContractSpecifier } from './slang-nodes/ContractSpecifier.js';
+import type { ElementaryType } from './slang-nodes/ElementaryType.js';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -84,6 +85,7 @@ function genericPrint(
       | Statement
       | YulStatement
       | ContractSpecifier
+      | ElementaryType
     >
   >,
   options: ParserOptions<AstNode>,

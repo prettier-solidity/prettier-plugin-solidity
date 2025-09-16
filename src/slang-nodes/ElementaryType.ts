@@ -2,13 +2,13 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { AddressType } from './AddressType.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 
-export class ElementaryType extends PolymorphicNode {
+export class ElementaryType extends SlangNode {
   readonly kind = NonterminalKind.ElementaryType;
 
   variant: AddressType | TerminalNode;
