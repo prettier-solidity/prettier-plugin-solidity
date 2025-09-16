@@ -30,6 +30,7 @@ import type { MappingKeyType } from './slang-nodes/MappingKeyType.js';
 import type { Pragma } from './slang-nodes/Pragma.js';
 import type { StringExpression } from './slang-nodes/StringExpression.js';
 import type { TupleMember } from './slang-nodes/TupleMember.js';
+import type { TypeName } from './slang-nodes/TypeName.js';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -108,6 +109,7 @@ function genericPrint(
       | Pragma
       | StringExpression
       | TupleMember
+      | TypeName
     >
   >,
   options: ParserOptions<AstNode>,

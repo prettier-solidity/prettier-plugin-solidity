@@ -2,6 +2,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { PolymorphicNode } from './PolymorphicNode.js';
 import { TypeName } from './TypeName.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -13,7 +14,7 @@ import type { AstNode } from './types.d.ts';
 export class UsingTarget extends PolymorphicNode {
   readonly kind = NonterminalKind.UsingTarget;
 
-  variant: TypeName | TerminalNode;
+  variant: TypeName['variant'] | TerminalNode;
 
   constructor(ast: ast.UsingTarget, options: ParserOptions<AstNode>) {
     super(ast);
@@ -23,7 +24,7 @@ export class UsingTarget extends PolymorphicNode {
       this.variant = new TerminalNode(variant);
       return;
     }
-    this.variant = new TypeName(variant, options);
+    this.variant = extractVariant(new TypeName(variant, options));
 
     this.updateMetadata(this.variant);
   }
