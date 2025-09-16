@@ -2,6 +2,7 @@ import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunctionWithBody } from '../slang-printers/print-function.js';
 import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { FunctionName } from './FunctionName.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
@@ -25,7 +26,7 @@ export class FunctionDefinition extends SlangNode {
 
   returns?: ReturnsDeclaration;
 
-  body: FunctionBody;
+  body: FunctionBody['variant'];
 
   constructor(ast: ast.FunctionDefinition, options: ParserOptions<AstNode>) {
     super(ast);
@@ -36,7 +37,7 @@ export class FunctionDefinition extends SlangNode {
     if (ast.returns) {
       this.returns = new ReturnsDeclaration(ast.returns, options);
     }
-    this.body = new FunctionBody(ast.body, options);
+    this.body = extractVariant(new FunctionBody(ast.body, options));
 
     this.updateMetadata(
       this.name,

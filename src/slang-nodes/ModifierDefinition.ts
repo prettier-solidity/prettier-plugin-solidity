@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printFunctionWithBody } from '../slang-printers/print-function.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
@@ -21,7 +22,7 @@ export class ModifierDefinition extends SlangNode {
 
   attributes: ModifierAttributes;
 
-  body: FunctionBody;
+  body: FunctionBody['variant'];
 
   constructor(ast: ast.ModifierDefinition, options: ParserOptions<AstNode>) {
     super(ast);
@@ -31,7 +32,7 @@ export class ModifierDefinition extends SlangNode {
       this.parameters = new ParametersDeclaration(ast.parameters, options);
     }
     this.attributes = new ModifierAttributes(ast.attributes);
-    this.body = new FunctionBody(ast.body, options);
+    this.body = extractVariant(new FunctionBody(ast.body, options));
 
     this.updateMetadata(this.parameters, this.attributes, this.body);
 
