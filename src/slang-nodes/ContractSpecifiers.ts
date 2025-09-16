@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { sortContractSpecifiers } from '../slang-utils/sort-contract-specifiers.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ContractSpecifier } from './ContractSpecifier.js';
 
@@ -16,18 +16,20 @@ const { group, ifBreak, line, softline } = doc.builders;
 export class ContractSpecifiers extends SlangNode {
   readonly kind = NonterminalKind.ContractSpecifiers;
 
-  items: ContractSpecifier[];
+  items: ContractSpecifier['variant'][];
 
   constructor(ast: ast.ContractSpecifiers, options: ParserOptions<AstNode>) {
     super(ast, true);
 
-    this.items = ast.items.map((item) => new ContractSpecifier(item, options));
+    this.items = ast.items.map((item) =>
+      extractVariant(new ContractSpecifier(item, options))
+    );
 
     this.items.sort(sortContractSpecifiers);
   }
 
   print(path: AstPath<ContractSpecifiers>, print: PrintFunction): Doc {
-    const [specifier1, specifier2] = path.map(printVariant(print), 'items');
+    const [specifier1, specifier2] = path.map(print, 'items');
 
     if (specifier1 === undefined) return '';
 
