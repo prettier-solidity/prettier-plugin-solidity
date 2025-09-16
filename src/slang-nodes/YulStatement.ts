@@ -1,5 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulBlock } from './YulBlock.js';
 import { YulFunctionDefinition } from './YulFunctionDefinition.js';
@@ -59,7 +60,7 @@ function createNonterminalVariant(
     return new YulLabel(variant);
   }
   if (variant instanceof ast.YulExpression) {
-    return new YulExpression(variant, options);
+    return extractVariant(new YulExpression(variant, options));
   }
   const exhaustiveCheck: never = variant;
   return exhaustiveCheck;
@@ -81,7 +82,7 @@ export class YulStatement extends SlangNode {
     | YulBreakStatement
     | YulContinueStatement
     | YulLabel
-    | YulExpression;
+    | YulExpression['variant'];
 
   constructor(ast: ast.YulStatement, options: ParserOptions<AstNode>) {
     super(ast);
