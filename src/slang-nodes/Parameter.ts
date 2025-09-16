@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { joinExisting } from '../slang-utils/join-existing.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -17,7 +17,7 @@ const { group } = doc.builders;
 export class Parameter extends SlangNode {
   readonly kind = NonterminalKind.Parameter;
 
-  typeName: TypeName;
+  typeName: TypeName['variant'];
 
   storageLocation?: StorageLocation;
 
@@ -26,7 +26,7 @@ export class Parameter extends SlangNode {
   constructor(ast: ast.Parameter, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.typeName = new TypeName(ast.typeName, options);
+    this.typeName = extractVariant(new TypeName(ast.typeName, options));
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(ast.storageLocation);
     }
@@ -40,7 +40,7 @@ export class Parameter extends SlangNode {
   print(path: AstPath<Parameter>, print: PrintFunction): Doc {
     return group(
       joinExisting(' ', [
-        path.call(printVariant(print), 'typeName'),
+        path.call(print, 'typeName'),
         path.call(print, 'storageLocation'),
         path.call(print, 'name')
       ])

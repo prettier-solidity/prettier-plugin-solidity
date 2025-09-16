@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -12,25 +12,20 @@ import type { AstNode } from './types.d.ts';
 export class StructMember extends SlangNode {
   readonly kind = NonterminalKind.StructMember;
 
-  typeName: TypeName;
+  typeName: TypeName['variant'];
 
   name: TerminalNode;
 
   constructor(ast: ast.StructMember, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.typeName = new TypeName(ast.typeName, options);
+    this.typeName = extractVariant(new TypeName(ast.typeName, options));
     this.name = new TerminalNode(ast.name);
 
     this.updateMetadata(this.typeName);
   }
 
   print(path: AstPath<StructMember>, print: PrintFunction): Doc {
-    return [
-      path.call(printVariant(print), 'typeName'),
-      ' ',
-      path.call(print, 'name'),
-      ';'
-    ];
+    return [path.call(print, 'typeName'), ' ', path.call(print, 'name'), ';'];
   }
 }
