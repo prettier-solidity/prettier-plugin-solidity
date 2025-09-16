@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulExpression } from './YulExpression.js';
 import { YulSwitchCases } from './YulSwitchCases.js';
@@ -15,14 +15,16 @@ const { hardline } = doc.builders;
 export class YulSwitchStatement extends SlangNode {
   readonly kind = NonterminalKind.YulSwitchStatement;
 
-  expression: YulExpression;
+  expression: YulExpression['variant'];
 
   cases: YulSwitchCases;
 
   constructor(ast: ast.YulSwitchStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.expression = new YulExpression(ast.expression, options);
+    this.expression = extractVariant(
+      new YulExpression(ast.expression, options)
+    );
     this.cases = new YulSwitchCases(ast.cases, options);
 
     this.updateMetadata(this.expression, this.cases);
@@ -31,7 +33,7 @@ export class YulSwitchStatement extends SlangNode {
   print(path: AstPath<YulSwitchStatement>, print: PrintFunction): Doc {
     return [
       'switch ',
-      path.call(printVariant(print), 'expression'),
+      path.call(print, 'expression'),
       hardline,
       path.call(print, 'cases')
     ];

@@ -40,6 +40,7 @@ import type { YulAssignmentOperator } from './slang-nodes/YulAssignmentOperator.
 import type { YulLiteral } from './slang-nodes/YulLiteral.js';
 import type { YulStackAssignmentOperator } from './slang-nodes/YulStackAssignmentOperator.js';
 import type { YulSwitchCase } from './slang-nodes/YulSwitchCase.js';
+import type { YulExpression } from './slang-nodes/YulExpression.js';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -128,6 +129,7 @@ function genericPrint(
       | YulLiteral
       | YulStackAssignmentOperator
       | YulSwitchCase
+      | YulExpression
     >
   >,
   options: ParserOptions<AstNode>,
