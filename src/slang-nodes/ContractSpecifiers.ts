@@ -22,7 +22,7 @@ export class ContractSpecifiers extends SlangNode {
 
     this.items = ast.items.map((item) => new ContractSpecifier(item, options));
 
-    this.items = this.items.sort(sortContractSpecifiers);
+    this.items.sort(sortContractSpecifiers);
   }
 
   print(path: AstPath<ContractSpecifiers>, print: PrintFunction): Doc {

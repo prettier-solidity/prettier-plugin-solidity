@@ -26,7 +26,7 @@ export class FallbackFunctionAttributes extends SlangNode {
       (item) => new FallbackFunctionAttribute(item, options)
     );
 
-    this.items = this.items.sort(sortFunctionAttributes);
+    this.items.sort(sortFunctionAttributes);
   }
 
   print(path: AstPath<FallbackFunctionAttributes>, print: PrintFunction): Doc {

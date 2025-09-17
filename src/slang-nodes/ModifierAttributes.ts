@@ -20,7 +20,7 @@ export class ModifierAttributes extends SlangNode {
 
     this.items = ast.items.map((item) => new ModifierAttribute(item));
 
-    this.items = this.items.sort(sortFunctionAttributes);
+    this.items.sort(sortFunctionAttributes);
   }
 
   print(path: AstPath<ModifierAttributes>, print: PrintFunction): Doc {

@@ -21,7 +21,7 @@ export class FunctionAttributes extends SlangNode {
 
     this.items = ast.items.map((item) => new FunctionAttribute(item, options));
 
-    this.items = this.items.sort(sortFunctionAttributes);
+    this.items.sort(sortFunctionAttributes);
   }
 
   print(path: AstPath<FunctionAttributes>, print: PrintFunction): Doc {
