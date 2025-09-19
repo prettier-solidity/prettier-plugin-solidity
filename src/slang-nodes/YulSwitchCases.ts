@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulSwitchCase } from './YulSwitchCase.js';
 
@@ -22,6 +23,6 @@ export class YulSwitchCases extends SlangNode {
   }
 
   print(path: AstPath<YulSwitchCases>, print: PrintFunction): Doc {
-    return join(hardline, path.map(print, 'items'));
+    return join(hardline, path.map(printVariant(print), 'items'));
   }
 }

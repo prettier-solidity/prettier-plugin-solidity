@@ -26,7 +26,9 @@ export function printPreservingEmptyLines(
             node.variant.kind !== NonterminalKind.YulLabel)
             ? hardline
             : '',
-          print(childPath),
+          node.comments && node.comments.length === 0
+            ? childPath.call(print, 'variant')
+            : print(childPath),
           // Only attempt to append an empty line if `node` is not the last item
           !childPath.isLast &&
           // Append an empty line if the original text already had an one after the
