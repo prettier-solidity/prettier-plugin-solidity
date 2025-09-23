@@ -26,7 +26,7 @@ export class ReceiveFunctionAttributes extends SlangNode {
       (item) => new ReceiveFunctionAttribute(item, options)
     );
 
-    this.items = this.items.sort(sortFunctionAttributes);
+    this.items.sort(sortFunctionAttributes);
   }
 
   print(path: AstPath<ReceiveFunctionAttributes>, print: PrintFunction): Doc {

@@ -26,7 +26,7 @@ export class UnnamedFunctionAttributes extends SlangNode {
       (item) => new UnnamedFunctionAttribute(item, options)
     );
 
-    this.items = this.items.sort(sortFunctionAttributes);
+    this.items.sort(sortFunctionAttributes);
   }
 
   print(path: AstPath<UnnamedFunctionAttributes>, print: PrintFunction): Doc {

@@ -23,7 +23,7 @@ export class ConstructorAttributes extends SlangNode {
       (item) => new ConstructorAttribute(item, options)
     );
 
-    this.items = this.items.sort(sortFunctionAttributes);
+    this.items.sort(sortFunctionAttributes);
   }
 
   print(path: AstPath<ConstructorAttributes>, print: PrintFunction): Doc {
