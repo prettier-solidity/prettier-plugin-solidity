@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
+import { printVariant } from '../slang-printers/print-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { FallbackFunctionAttribute } from './FallbackFunctionAttribute.js';
 
@@ -30,6 +31,6 @@ export class FallbackFunctionAttributes extends SlangNode {
   }
 
   print(path: AstPath<FallbackFunctionAttributes>, print: PrintFunction): Doc {
-    return path.map(print, 'items').map((item) => [line, item]);
+    return path.map(printVariant(print), 'items').map((item) => [line, item]);
   }
 }
