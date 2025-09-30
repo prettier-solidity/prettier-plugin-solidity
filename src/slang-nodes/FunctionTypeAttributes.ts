@@ -27,6 +27,6 @@ export class FunctionTypeAttributes extends SlangNode {
   }
 
   print(path: AstPath<FunctionTypeAttributes>, print: PrintFunction): Doc {
-    return path.map(print, 'items').map((item) => [line, item]);
+    return path.map((item) => [line, print(item)], 'items');
   }
 }

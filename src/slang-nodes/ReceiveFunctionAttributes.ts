@@ -31,6 +31,6 @@ export class ReceiveFunctionAttributes extends SlangNode {
   }
 
   print(path: AstPath<ReceiveFunctionAttributes>, print: PrintFunction): Doc {
-    return path.map(print, 'items').map((item) => [line, item]);
+    return path.map((item) => [line, print(item)], 'items');
   }
 }
