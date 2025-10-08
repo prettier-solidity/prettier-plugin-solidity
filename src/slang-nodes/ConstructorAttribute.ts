@@ -2,7 +2,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { TerminalNode } from './TerminalNode.js';
 
@@ -10,7 +10,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
 import type { AstNode } from './types.d.ts';
 
-export class ConstructorAttribute extends PolymorphicNode {
+export class ConstructorAttribute extends SlangNode {
   readonly kind = NonterminalKind.ConstructorAttribute;
 
   variant: ModifierInvocation | TerminalNode;
