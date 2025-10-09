@@ -475,7 +475,7 @@ export type NodeCollection = Extract<
 
 export type LineCollection = Extract<
   NodeCollection,
-  { items: StrictPolymorphicNode[] }
+  { items: StrictPolymorphicNode['variant'][] }
 >;
 
 export type BinaryOperation = Extract<
