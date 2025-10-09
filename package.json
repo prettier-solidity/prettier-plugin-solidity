@@ -108,13 +108,13 @@
     "ts-loader": "^9.5.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "webpack": "^5.102.0",
+    "webpack": "^5.102.1",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
     "@nomicfoundation/slang": "1.2.1",
     "@solidity-parser/parser": "^0.20.2",
-    "semver": "^7.7.2"
+    "semver": "^7.7.3"
   },
   "peerDependencies": {
     "prettier": ">=3.0.0"
