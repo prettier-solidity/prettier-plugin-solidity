@@ -17,15 +17,12 @@ export default function handleElseBranchComments({
 
   if (
     followingNode === enclosingNode.body &&
-    followingNode.variant.kind === NonterminalKind.IfStatement
+    followingNode.kind === NonterminalKind.IfStatement
   ) {
-    if (followingNode.variant.body.variant.kind === NonterminalKind.Block) {
-      addCollectionFirstComment(
-        followingNode.variant.body.variant.statements,
-        comment
-      );
+    if (followingNode.body.kind === NonterminalKind.Block) {
+      addCollectionFirstComment(followingNode.body.statements, comment);
     } else {
-      addLeadingComment(followingNode.variant.body.variant, comment);
+      addLeadingComment(followingNode.body, comment);
     }
     return true;
   }

@@ -13,6 +13,10 @@ import type { ModifierAttribute } from './slang-nodes/ModifierAttribute.js';
 import type { ReceiveFunctionAttribute } from './slang-nodes/ReceiveFunctionAttribute.js';
 import type { StateVariableAttribute } from './slang-nodes/StateVariableAttribute.js';
 import type { UnnamedFunctionAttribute } from './slang-nodes/UnnamedFunctionAttribute.js';
+import type { ContractMember } from './slang-nodes/ContractMember.js';
+import type { SourceUnitMember } from './slang-nodes/SourceUnitMember.js';
+import type { Statement } from './slang-nodes/Statement.js';
+import type { YulStatement } from './slang-nodes/YulStatement.js';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -74,6 +78,10 @@ function genericPrint(
       | ReceiveFunctionAttribute
       | StateVariableAttribute
       | UnnamedFunctionAttribute
+      | ContractMember
+      | SourceUnitMember
+      | Statement
+      | YulStatement
     >
   >,
   options: ParserOptions<AstNode>,

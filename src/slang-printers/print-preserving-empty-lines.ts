@@ -22,13 +22,10 @@ export function printPreservingEmptyLines(
           // Only attempt to prepend an empty line if `node` is not the first item
           !childPath.isFirst &&
           // YulLabel adds a dedented line so we don't have to prepend a hardline.
-          (node.kind !== NonterminalKind.YulStatement ||
-            node.variant.kind !== NonterminalKind.YulLabel)
+          node.kind !== NonterminalKind.YulLabel
             ? hardline
             : '',
-          node.comments && node.comments.length === 0
-            ? childPath.call(print, 'variant')
-            : print(childPath),
+          print(childPath),
           // Only attempt to append an empty line if `node` is not the last item
           !childPath.isLast &&
           // Append an empty line if the original text already had an one after the

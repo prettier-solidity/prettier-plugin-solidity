@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { PragmaDirective } from './PragmaDirective.js';
 import { ImportDirective } from './ImportDirective.js';
 import { ContractDefinition } from './ContractDefinition.js';
@@ -65,7 +65,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class SourceUnitMember extends PolymorphicNode {
+export class SourceUnitMember extends SlangNode {
   readonly kind = NonterminalKind.SourceUnitMember;
 
   variant:

@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Statement } from './Statement.js';
 
@@ -18,12 +18,12 @@ const isIfStatementOrBlock = createKindCheckFunction([
 export class ElseBranch extends SlangNode {
   readonly kind = NonterminalKind.ElseBranch;
 
-  body: Statement;
+  body: Statement['variant'];
 
   constructor(ast: ast.ElseBranch, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.body = new Statement(ast.body, options);
+    this.body = extractVariant(new Statement(ast.body, options));
 
     this.updateMetadata(this.body);
   }
@@ -32,8 +32,8 @@ export class ElseBranch extends SlangNode {
     return [
       'else',
       printIndentedGroupOrSpacedDocument(
-        path.call(printVariant(print), 'body'),
-        !isIfStatementOrBlock(this.body.variant)
+        path.call(print, 'body'),
+        !isIfStatementOrBlock(this.body)
       )
     ];
   }
