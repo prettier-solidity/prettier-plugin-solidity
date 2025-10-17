@@ -4,6 +4,7 @@ import { locEnd, locStart } from './slang-utils/loc.js';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { AstNode, StrictAstNode } from './slang-nodes/types.d.ts';
 import type { PrintFunction } from './types.d.ts';
+import type { AbicoderVersion } from './slang-nodes/AbicoderVersion.js';
 import type { ArgumentsDeclaration } from './slang-nodes/ArgumentsDeclaration.js';
 import type { ConstructorAttribute } from './slang-nodes/ConstructorAttribute.js';
 import type { FallbackFunctionAttribute } from './slang-nodes/FallbackFunctionAttribute.js';
@@ -69,6 +70,7 @@ function genericPrint(
   path: AstPath<
     Exclude<
       StrictAstNode,
+      | AbicoderVersion
       | ArgumentsDeclaration
       | ConstructorAttribute
       | FallbackFunctionAttribute

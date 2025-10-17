@@ -1,6 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
-import { TerminalNode } from './TerminalNode.js';
+import { AbicoderVersion } from './AbicoderVersion.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
@@ -9,12 +10,12 @@ import type { PrintFunction } from '../types.d.ts';
 export class AbicoderPragma extends SlangNode {
   readonly kind = NonterminalKind.AbicoderPragma;
 
-  version: TerminalNode;
+  version: AbicoderVersion['variant'];
 
   constructor(ast: ast.AbicoderPragma) {
     super(ast);
 
-    this.version = new TerminalNode(ast.version);
+    this.version = extractVariant(new AbicoderVersion(ast.version));
   }
 
   print(path: AstPath<AbicoderPragma>, print: PrintFunction): Doc {

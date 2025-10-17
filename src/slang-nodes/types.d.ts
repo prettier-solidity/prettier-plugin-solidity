@@ -1,4 +1,5 @@
 import type { AbicoderPragma } from './AbicoderPragma.ts';
+import type { AbicoderVersion } from './AbicoderVersion.ts';
 import type { AdditiveExpression } from './AdditiveExpression.ts';
 import type { AddressType } from './AddressType.ts';
 import type { AndExpression } from './AndExpression.ts';
@@ -242,6 +243,7 @@ export type StrictAstNode =
   | SourceUnit
   | PragmaDirective
   | AbicoderPragma
+  | AbicoderVersion
   | ExperimentalPragma
   | VersionPragma
   | VersionRange
