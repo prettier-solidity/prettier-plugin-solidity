@@ -5,7 +5,7 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 
 export class AbicoderVersion extends SlangNode {
-  readonly kind = NonterminalKind.AbicoderPragma;
+  readonly kind = NonterminalKind.AbicoderVersion;
 
   variant: string;
 
