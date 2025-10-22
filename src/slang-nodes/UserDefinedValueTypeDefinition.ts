@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 import { ElementaryType } from './ElementaryType.js';
@@ -13,13 +13,13 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
 
   name: TerminalNode;
 
-  valueType: ElementaryType;
+  valueType: ElementaryType['variant'];
 
   constructor(ast: ast.UserDefinedValueTypeDefinition) {
     super(ast);
 
     this.name = new TerminalNode(ast.name);
-    this.valueType = new ElementaryType(ast.valueType);
+    this.valueType = extractVariant(new ElementaryType(ast.valueType));
 
     this.updateMetadata(this.valueType);
   }
@@ -32,7 +32,7 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
       'type ',
       path.call(print, 'name'),
       ' is ',
-      path.call(printVariant(print), 'valueType'),
+      path.call(print, 'valueType'),
       ';'
     ];
   }

@@ -1,7 +1,7 @@
 import {
+  TerminalNode as SlangTerminalNode,
   TerminalKind,
-  TerminalKindExtensions,
-  TerminalNode
+  TerminalKindExtensions
 } from '@nomicfoundation/slang/cst';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
@@ -10,6 +10,7 @@ import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecCommen
 
 import type { Comment, StrictAstNode } from '../slang-nodes/types.d.ts';
 import type { AstLocation, SlangAstNode } from '../types.d.ts';
+import type { TerminalNode } from './TerminalNode.js';
 
 const offsets = new Map<number, number>();
 const comments: Comment[] = [];
@@ -42,10 +43,10 @@ export class SlangNode {
   loc: AstLocation;
 
   constructor(
-    ast: SlangAstNode | TerminalNode,
+    ast: SlangAstNode | SlangTerminalNode,
     enclosePeripheralComments = false
   ) {
-    if (ast instanceof TerminalNode) {
+    if (ast instanceof SlangTerminalNode) {
       const offset = offsets.get(ast.id) || 0;
       this.loc = {
         start: offset,
@@ -121,7 +122,9 @@ export class SlangNode {
     };
   }
 
-  updateMetadata(...childNodes: (StrictAstNode | undefined)[]): void {
+  updateMetadata(
+    ...childNodes: (StrictAstNode | TerminalNode | undefined)[]
+  ): void {
     const { loc } = this;
     // calculate correct loc object
     if (loc.leadingOffset === 0) {

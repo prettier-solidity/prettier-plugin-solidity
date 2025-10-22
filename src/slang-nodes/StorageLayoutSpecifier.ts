@@ -35,9 +35,7 @@ export class StorageLayoutSpecifier extends SlangNode {
         firstSeparator: line,
         // If this is the second ContractSpecifier we have to delegate printing
         // the line to the ContractSpecifiers node.
-        lastSeparator: path.callParent((parentPath) => parentPath.isFirst)
-          ? line
-          : ''
+        lastSeparator: path.isFirst ? line : ''
       })
     ];
   }
