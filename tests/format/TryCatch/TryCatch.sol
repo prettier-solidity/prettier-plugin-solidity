@@ -101,3 +101,17 @@ contract FeedConsumer {
         }
     }
 }
+
+contract Test {
+    function getAdjustedBalance(IERC20 token) internal view returns (uint256) {
+        uint256 balance;
+
+        try token.balanceOf(address(this)) returns (uint256 result) {
+            balance = result;
+        } catch {
+            return 0;
+        }
+
+        return balance - 100;
+    }
+}
