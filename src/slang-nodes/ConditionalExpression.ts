@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -18,20 +18,19 @@ function experimentalTernaries(
   print: PrintFunction,
   { useTabs, tabWidth }: ParserOptions<AstNode>
 ): Doc {
-  const grandparent = path.grandparent as StrictAstNode;
-  const isNested = grandparent.kind === NonterminalKind.ConditionalExpression;
-  const isNestedAsTrueExpression =
-    isNested && grandparent.trueExpression.variant === node;
-  const falseExpressionVariantKind = node.falseExpression.variant.kind;
+  const parent = path.parent as StrictAstNode;
+  const isNested = parent.kind === NonterminalKind.ConditionalExpression;
+  const isNestedAsTrueExpression = isNested && parent.trueExpression === node;
+  const falseExpressionVariantKind = node.falseExpression.kind;
   const falseExpressionInSameLine =
     falseExpressionVariantKind === NonterminalKind.TupleExpression ||
     falseExpressionVariantKind === NonterminalKind.ConditionalExpression;
 
   // If the `condition` breaks into multiple lines, we add parentheses,
   // unless it already is a `TupleExpression`.
-  const operand = path.call(printVariant(print), 'operand');
+  const operand = path.call(print, 'operand');
   const operandDoc = group([
-    node.operand.variant.kind === NonterminalKind.TupleExpression
+    node.operand.kind === NonterminalKind.TupleExpression
       ? operand
       : ifBreak(['(', printSeparatedItem(operand), ')'], operand),
     ' ?'
@@ -42,7 +41,7 @@ function experimentalTernaries(
   // `trueExpression`.
   const trueExpressionDoc = indent([
     isNestedAsTrueExpression ? hardline : line,
-    path.call(printVariant(print), 'trueExpression')
+    path.call(print, 'trueExpression')
   ]);
 
   const groupId = Symbol('Slang.ConditionalExpression.trueExpression');
@@ -59,7 +58,7 @@ function experimentalTernaries(
       ? ' '.repeat(tabWidth - 1)
       : ' ';
 
-  const falseExpression = path.call(printVariant(print), 'falseExpression');
+  const falseExpression = path.call(print, 'falseExpression');
   const falseExpressionDoc = [
     isNested ? hardline : line,
     ':',
@@ -76,7 +75,7 @@ function experimentalTernaries(
 
   const document = group([conditionAndTrueExpressionGroup, falseExpressionDoc]);
 
-  return grandparent.kind === NonterminalKind.VariableDeclarationValue
+  return parent.kind === NonterminalKind.VariableDeclarationValue
     ? group(indent([softline, document]))
     : document;
 }
@@ -86,46 +85,50 @@ function traditionalTernaries(
   print: PrintFunction
 ): Doc {
   return group([
-    path.call(printVariant(print), 'operand'),
+    path.call(print, 'operand'),
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
       // line
-      (path.grandparent as StrictAstNode).kind ===
+      (path.parent as StrictAstNode).kind ===
       NonterminalKind.ConditionalExpression
         ? hardline
         : line,
       '? ',
-      path.call(printVariant(print), 'trueExpression'),
+      path.call(print, 'trueExpression'),
       line,
       ': ',
-      path.call(printVariant(print), 'falseExpression')
+      path.call(print, 'falseExpression')
     ])
   ]);
 }
 
-function getOperandSingleExpression({
-  variant
-}: Expression): Expression | undefined {
-  return variant.kind === NonterminalKind.TupleExpression
-    ? variant.items.getSingleExpression()
+function getOperandSingleExpression(
+  operand: Expression['variant']
+): Expression['variant'] | undefined {
+  return operand.kind === NonterminalKind.TupleExpression
+    ? operand.items.getSingleExpression()
     : undefined;
 }
 
 export class ConditionalExpression extends SlangNode {
   readonly kind = NonterminalKind.ConditionalExpression;
 
-  operand: Expression;
+  operand: Expression['variant'];
 
-  trueExpression: Expression;
+  trueExpression: Expression['variant'];
 
-  falseExpression: Expression;
+  falseExpression: Expression['variant'];
 
   constructor(ast: ast.ConditionalExpression, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.operand = new Expression(ast.operand, options);
-    this.trueExpression = new Expression(ast.trueExpression, options);
-    this.falseExpression = new Expression(ast.falseExpression, options);
+    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.trueExpression = extractVariant(
+      new Expression(ast.trueExpression, options)
+    );
+    this.falseExpression = extractVariant(
+      new Expression(ast.falseExpression, options)
+    );
 
     this.updateMetadata(
       this.operand,
@@ -140,8 +143,7 @@ export class ConditionalExpression extends SlangNode {
       for (
         let operandSingleExpression = getOperandSingleExpression(this.operand);
         operandSingleExpression &&
-        operandSingleExpression.variant.kind !==
-          NonterminalKind.ConditionalExpression;
+        operandSingleExpression.kind !== NonterminalKind.ConditionalExpression;
         operandSingleExpression = getOperandSingleExpression(this.operand)
       ) {
         this.operand = operandSingleExpression;

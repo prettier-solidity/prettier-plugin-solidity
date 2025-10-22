@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isLabel } from '../slang-utils/is-label.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -25,26 +25,26 @@ function isEndOfChain(
   path: AstPath<StrictAstNode>
 ): boolean {
   for (
-    let i = 2, current: StrictAstNode = node, grandparent = path.getNode(i);
-    grandparent && isChainableExpression(grandparent);
-    i += 2, current = grandparent, grandparent = path.getNode(i)
+    let i = 1, current: StrictAstNode = node, parent = path.getNode(i);
+    parent && isChainableExpression(parent);
+    i++, current = parent, parent = path.getNode(i)
   ) {
-    switch (grandparent.kind) {
+    switch (parent.kind) {
       case NonterminalKind.MemberAccessExpression:
-        // If `grandparent` is a MemberAccessExpression we are not at the end
+        // If `parent` is a MemberAccessExpression we are not at the end
         // of the chain.
         return false;
       case NonterminalKind.IndexAccessExpression:
-        // If `grandparent` is an IndexAccessExpression and `current` is not
+        // If `parent` is an IndexAccessExpression and `current` is not
         // the operand then it must be the start or the end in which case it is
         // the end of the chain.
-        if (current !== grandparent.operand.variant) return true;
+        if (current !== parent.operand) return true;
         break;
       case NonterminalKind.FunctionCallExpression:
-        // If `grandparent` is a FunctionCallExpression and `current` is not
+        // If `parent` is a FunctionCallExpression and `current` is not
         // the operand then it must be and argument in which case it is the end
         // of the chain.
-        if (current !== grandparent.operand.variant) return true;
+        if (current !== parent.operand) return true;
         break;
     }
   }
@@ -115,7 +115,7 @@ function processChain(chain: Doc[]): Doc {
 export class MemberAccessExpression extends SlangNode {
   readonly kind = NonterminalKind.MemberAccessExpression;
 
-  operand: Expression;
+  operand: Expression['variant'];
 
   member: TerminalNode;
 
@@ -125,7 +125,7 @@ export class MemberAccessExpression extends SlangNode {
   ) {
     super(ast);
 
-    this.operand = new Expression(ast.operand, options);
+    this.operand = extractVariant(new Expression(ast.operand, options));
     this.member = new TerminalNode(ast.member);
 
     this.updateMetadata(this.operand);
@@ -133,7 +133,7 @@ export class MemberAccessExpression extends SlangNode {
 
   print(path: AstPath<MemberAccessExpression>, print: PrintFunction): Doc {
     const document = [
-      path.call(printVariant(print), 'operand'),
+      path.call(print, 'operand'),
       label('separator', [softline, '.']),
       path.call(print, 'member')
     ].flat();
