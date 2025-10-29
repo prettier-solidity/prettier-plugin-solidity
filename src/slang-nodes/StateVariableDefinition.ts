@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StateVariableAttributes } from './StateVariableAttributes.js';
@@ -18,7 +18,7 @@ const { indent } = doc.builders;
 export class StateVariableDefinition extends SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinition;
 
-  typeName: TypeName;
+  typeName: TypeName['variant'];
 
   attributes: StateVariableAttributes;
 
@@ -32,7 +32,7 @@ export class StateVariableDefinition extends SlangNode {
   ) {
     super(ast);
 
-    this.typeName = new TypeName(ast.typeName, options);
+    this.typeName = extractVariant(new TypeName(ast.typeName, options));
     this.attributes = new StateVariableAttributes(ast.attributes);
     this.name = new TerminalNode(ast.name);
     if (ast.value) {
@@ -45,7 +45,7 @@ export class StateVariableDefinition extends SlangNode {
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {
     return printGroupAndIndentIfBreakPair(
       [
-        path.call(printVariant(print), 'typeName'),
+        path.call(print, 'typeName'),
         indent(path.call(print, 'attributes')),
         ' ',
         path.call(print, 'name')

@@ -2,7 +2,6 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
-import { printVariant } from '../slang-printers/print-variant.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ForStatementInitialization } from './ForStatementInitialization.js';
@@ -20,9 +19,9 @@ const { line } = doc.builders;
 export class ForStatement extends SlangNode {
   readonly kind = NonterminalKind.ForStatement;
 
-  initialization: ForStatementInitialization;
+  initialization: ForStatementInitialization['variant'];
 
-  condition: ForStatementCondition;
+  condition: ForStatementCondition['variant'];
 
   iterator?: Expression['variant'];
 
@@ -31,11 +30,12 @@ export class ForStatement extends SlangNode {
   constructor(ast: ast.ForStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.initialization = new ForStatementInitialization(
-      ast.initialization,
-      options
+    this.initialization = extractVariant(
+      new ForStatementInitialization(ast.initialization, options)
     );
-    this.condition = new ForStatementCondition(ast.condition, options);
+    this.condition = extractVariant(
+      new ForStatementCondition(ast.condition, options)
+    );
     if (ast.iterator) {
       this.iterator = extractVariant(new Expression(ast.iterator, options));
     }
@@ -50,8 +50,8 @@ export class ForStatement extends SlangNode {
   }
 
   print(path: AstPath<ForStatement>, print: PrintFunction): Doc {
-    const initialization = path.call(printVariant(print), 'initialization');
-    const condition = path.call(printVariant(print), 'condition');
+    const initialization = path.call(print, 'initialization');
+    const condition = path.call(print, 'condition');
     const iterator = path.call(print, 'iterator');
 
     return [
