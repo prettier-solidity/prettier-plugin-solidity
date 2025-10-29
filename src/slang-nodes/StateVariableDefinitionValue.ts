@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -12,7 +12,7 @@ import type { AstNode } from './types.d.ts';
 export class StateVariableDefinitionValue extends SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinitionValue;
 
-  value: Expression;
+  value: Expression['variant'];
 
   constructor(
     ast: ast.StateVariableDefinitionValue,
@@ -20,7 +20,7 @@ export class StateVariableDefinitionValue extends SlangNode {
   ) {
     super(ast);
 
-    this.value = new Expression(ast.value, options);
+    this.value = extractVariant(new Expression(ast.value, options));
 
     this.updateMetadata(this.value);
   }
@@ -32,8 +32,8 @@ export class StateVariableDefinitionValue extends SlangNode {
     return [
       ' =',
       printIndentedGroupOrSpacedDocument(
-        path.call(printVariant(print), 'value'),
-        this.value.variant.kind !== NonterminalKind.ArrayExpression
+        path.call(print, 'value'),
+        this.value.kind !== NonterminalKind.ArrayExpression
       )
     ];
   }

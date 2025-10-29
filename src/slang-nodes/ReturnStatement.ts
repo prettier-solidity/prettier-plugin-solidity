@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
@@ -12,13 +12,13 @@ import type { AstNode } from './types.d.ts';
 export class ReturnStatement extends SlangNode {
   readonly kind = NonterminalKind.ReturnStatement;
 
-  expression?: Expression;
+  expression?: Expression['variant'];
 
   constructor(ast: ast.ReturnStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
     if (ast.expression) {
-      this.expression = new Expression(ast.expression, options);
+      this.expression = extractVariant(new Expression(ast.expression, options));
     }
 
     this.updateMetadata(this.expression);
@@ -29,12 +29,12 @@ export class ReturnStatement extends SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    const expressionVariantKind = this.expression?.variant.kind;
+    const expressionVariantKind = this.expression?.kind;
     return [
       'return',
       expressionVariantKind
         ? printIndentedGroupOrSpacedDocument(
-            path.call(printVariant(print), 'expression'),
+            path.call(print, 'expression'),
             expressionVariantKind !== NonterminalKind.TupleExpression &&
               (!options.experimentalTernaries ||
                 expressionVariantKind !== NonterminalKind.ConditionalExpression)

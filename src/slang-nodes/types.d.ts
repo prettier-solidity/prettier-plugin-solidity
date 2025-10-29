@@ -470,22 +470,22 @@ export type StrictPolymorphicNode = Extract<
 
 export type Collection = Extract<StrictAstNode, { items: unknown[] }>;
 
-export type NodeCollection = Extract<
+export type StrictCollection = Extract<
   Collection,
-  { items: StrictAstNode[] | TerminalNode[] }
+  { items: (StrictAstNode | TerminalNode)[] }
 >;
 
 export type LineCollection = Extract<
-  NodeCollection,
+  StrictCollection,
   { items: StrictPolymorphicNode['variant'][] }
 >;
 
 export type BinaryOperation = Extract<
   StrictAstNode,
   {
-    leftOperand: Expression;
+    leftOperand: Expression['variant'];
     operator: string;
-    rightOperand: Expression;
+    rightOperand: Expression['variant'];
   }
 >;
 
