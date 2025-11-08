@@ -824,7 +824,3 @@ function handleTSMappedTypeComments(
 
   return false;
 }
-
-export function isBlockComment(comment) {
-  return comment.type === "Block" || comment.type === "CommentBlock";
-}
