@@ -15,13 +15,14 @@
     "build:dev": "webpack --env development",
     "build:test": "webpack --config test.config.js",
     "eslint": "eslint 'src/**' 'tests/**'",
-    "lint": "npm run eslint && npm run prettier -- --list-different",
+    "lint": "npm run eslint && npm run prettier -- --list-different && npm run knip",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prepublishOnly": "npm run build && npx tsc",
     "prettier": "prettier './*.{ts,js,cjs,json,md,yml}' '{src,tests}/**/*.{ts,js,cjs}'",
     "test": "NODE_OPTIONS=\"--loader=ts-node/esm\" jest",
     "test:all": "cross-env FULL_TEST=1 NODE_OPTIONS=\"--loader=ts-node/esm\" c8 jest",
-    "test:standalone": "cross-env TEST_STANDALONE=1 FULL_TEST=1 jest"
+    "test:standalone": "cross-env TEST_STANDALONE=1 FULL_TEST=1 jest",
+    "knip": "knip"
   },
   "files": [
     "src",
@@ -87,6 +88,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.39.1",
     "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.0",
     "@types/semver": "^7.7.1",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
@@ -102,6 +104,7 @@
     "jest-snapshot-serializer-ansi": "^2.2.1",
     "jest-snapshot-serializer-raw": "^2.0.0",
     "jest-watch-typeahead": "^3.0.1",
+    "knip": "^5.68.0",
     "lines-and-columns": "^2.0.4",
     "prettier": "^3.6.2",
     "solc": "^0.8.30",
