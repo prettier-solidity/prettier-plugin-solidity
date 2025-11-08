@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { joinExisting } from '../slang-utils/join-existing.js';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { StorageLocation } from './StorageLocation.js';
@@ -14,7 +14,7 @@ import type { AstNode } from './types.d.ts';
 export class TypedTupleMember extends SlangNode {
   readonly kind = NonterminalKind.TypedTupleMember;
 
-  typeName: TypeName;
+  typeName: TypeName['variant'];
 
   storageLocation?: StorageLocation;
 
@@ -23,7 +23,7 @@ export class TypedTupleMember extends SlangNode {
   constructor(ast: ast.TypedTupleMember, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.typeName = new TypeName(ast.typeName, options);
+    this.typeName = extractVariant(new TypeName(ast.typeName, options));
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(ast.storageLocation);
     }
@@ -34,7 +34,7 @@ export class TypedTupleMember extends SlangNode {
 
   print(path: AstPath<TypedTupleMember>, print: PrintFunction): Doc {
     return joinExisting(' ', [
-      path.call(printVariant(print), 'typeName'),
+      path.call(print, 'typeName'),
       path.call(print, 'storageLocation'),
       path.call(print, 'name')
     ]);

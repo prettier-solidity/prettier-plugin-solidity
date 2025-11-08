@@ -1,7 +1,7 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { extractVariant } from '../slang-utils/extract-variant.js';
-import { PolymorphicNode } from './PolymorphicNode.js';
+import { SlangNode } from './SlangNode.js';
 import { ArrayTypeName } from './ArrayTypeName.js';
 import { FunctionType } from './FunctionType.js';
 import { MappingType } from './MappingType.js';
@@ -34,7 +34,7 @@ function createNonterminalVariant(
   return exhaustiveCheck;
 }
 
-export class TypeName extends PolymorphicNode {
+export class TypeName extends SlangNode {
   readonly kind = NonterminalKind.TypeName;
 
   variant:

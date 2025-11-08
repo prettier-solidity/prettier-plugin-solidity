@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ImportClause } from './ImportClause.js';
 
@@ -11,17 +11,17 @@ import type { AstNode } from './types.d.ts';
 export class ImportDirective extends SlangNode {
   readonly kind = NonterminalKind.ImportDirective;
 
-  clause: ImportClause;
+  clause: ImportClause['variant'];
 
   constructor(ast: ast.ImportDirective, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.clause = new ImportClause(ast.clause, options);
+    this.clause = extractVariant(new ImportClause(ast.clause, options));
 
     this.updateMetadata(this.clause);
   }
 
   print(path: AstPath<ImportDirective>, print: PrintFunction): Doc {
-    return ['import ', path.call(printVariant(print), 'clause'), ';'];
+    return ['import ', path.call(print, 'clause'), ';'];
   }
 }

@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulExpression } from './YulExpression.js';
 import { YulBlock } from './YulBlock.js';
@@ -12,14 +12,14 @@ import type { AstNode } from './types.d.ts';
 export class YulIfStatement extends SlangNode {
   readonly kind = NonterminalKind.YulIfStatement;
 
-  condition: YulExpression;
+  condition: YulExpression['variant'];
 
   body: YulBlock;
 
   constructor(ast: ast.YulIfStatement, options: ParserOptions<AstNode>) {
     super(ast);
 
-    this.condition = new YulExpression(ast.condition, options);
+    this.condition = extractVariant(new YulExpression(ast.condition, options));
     this.body = new YulBlock(ast.body, options);
 
     this.updateMetadata(this.condition, this.body);
@@ -28,7 +28,7 @@ export class YulIfStatement extends SlangNode {
   print(path: AstPath<YulIfStatement>, print: PrintFunction): Doc {
     return [
       'if ',
-      path.call(printVariant(print), 'condition'),
+      path.call(print, 'condition'),
       ' ',
       path.call(print, 'body')
     ];

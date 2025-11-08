@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printVariant } from '../slang-printers/print-variant.js';
+import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulExpression } from './YulExpression.js';
 import { YulArguments } from './YulArguments.js';
@@ -12,7 +12,7 @@ import type { AstNode } from './types.d.ts';
 export class YulFunctionCallExpression extends SlangNode {
   readonly kind = NonterminalKind.YulFunctionCallExpression;
 
-  operand: YulExpression;
+  operand: YulExpression['variant'];
 
   arguments: YulArguments;
 
@@ -22,7 +22,7 @@ export class YulFunctionCallExpression extends SlangNode {
   ) {
     super(ast);
 
-    this.operand = new YulExpression(ast.operand, options);
+    this.operand = extractVariant(new YulExpression(ast.operand, options));
     this.arguments = new YulArguments(ast.arguments, options);
 
     this.updateMetadata(this.operand, this.arguments);
@@ -30,7 +30,7 @@ export class YulFunctionCallExpression extends SlangNode {
 
   print(path: AstPath<YulFunctionCallExpression>, print: PrintFunction): Doc {
     return [
-      path.call(printVariant(print), 'operand'),
+      path.call(print, 'operand'),
       '(',
       path.call(print, 'arguments'),
       ')'

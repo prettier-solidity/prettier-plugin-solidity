@@ -2,25 +2,12 @@ import { isBlockComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, StrictAstNode } from './slang-nodes/types.d.ts';
+import type {
+  AstNode,
+  StrictAstNode,
+  StrictPolymorphicNode
+} from './slang-nodes/types.d.ts';
 import type { PrintFunction } from './types.d.ts';
-import type { ArgumentsDeclaration } from './slang-nodes/ArgumentsDeclaration.js';
-import type { ConstructorAttribute } from './slang-nodes/ConstructorAttribute.js';
-import type { FallbackFunctionAttribute } from './slang-nodes/FallbackFunctionAttribute.js';
-import type { FunctionAttribute } from './slang-nodes/FunctionAttribute.js';
-import type { FunctionTypeAttribute } from './slang-nodes/FunctionTypeAttribute.js';
-import type { ModifierAttribute } from './slang-nodes/ModifierAttribute.js';
-import type { ReceiveFunctionAttribute } from './slang-nodes/ReceiveFunctionAttribute.js';
-import type { StateVariableAttribute } from './slang-nodes/StateVariableAttribute.js';
-import type { UnnamedFunctionAttribute } from './slang-nodes/UnnamedFunctionAttribute.js';
-import type { ContractMember } from './slang-nodes/ContractMember.js';
-import type { SourceUnitMember } from './slang-nodes/SourceUnitMember.js';
-import type { Statement } from './slang-nodes/Statement.js';
-import type { YulStatement } from './slang-nodes/YulStatement.js';
-import type { ContractSpecifier } from './slang-nodes/ContractSpecifier.js';
-import type { ElementaryType } from './slang-nodes/ElementaryType.js';
-import type { ExperimentalFeature } from './slang-nodes/ExperimentalFeature.js';
-import type { Expression } from './slang-nodes/Expression.js';
 
 function hasNodeIgnoreComment({ comments }: StrictAstNode): boolean {
   // Prettier sets SourceUnit's comments to undefined after assigning comments
@@ -70,28 +57,7 @@ function ignoreComments(path: AstPath<AstNode>): void {
 // Nodes take care of undefined and string properties so we can restrict path
 // to AstPath<StrictAstNode>
 function genericPrint(
-  path: AstPath<
-    Exclude<
-      StrictAstNode,
-      | ArgumentsDeclaration
-      | ConstructorAttribute
-      | FallbackFunctionAttribute
-      | FunctionAttribute
-      | FunctionTypeAttribute
-      | ModifierAttribute
-      | ReceiveFunctionAttribute
-      | StateVariableAttribute
-      | UnnamedFunctionAttribute
-      | ContractMember
-      | SourceUnitMember
-      | Statement
-      | YulStatement
-      | ContractSpecifier
-      | ElementaryType
-      | ExperimentalFeature
-      | Expression
-    >
-  >,
+  path: AstPath<Exclude<StrictAstNode, StrictPolymorphicNode>>,
   options: ParserOptions<AstNode>,
   print: PrintFunction
 ): Doc {
