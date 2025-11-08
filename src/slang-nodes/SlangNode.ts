@@ -134,7 +134,7 @@ export class SlangNode {
 
         if (start - leadingOffset === loc.start) {
           loc.leadingOffset = leadingOffset;
-          loc.start += leadingOffset;
+          loc.start = start;
           break;
         }
       }
@@ -147,7 +147,7 @@ export class SlangNode {
 
         if (end + trailingOffset === loc.end) {
           loc.trailingOffset = trailingOffset;
-          loc.end -= trailingOffset;
+          loc.end = end;
           break;
         }
       }
