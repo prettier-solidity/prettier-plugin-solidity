@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignore": ["src/nodes/*.js"],
+  "ignoreFiles": [
+    "tests/format/RespectDefaultOptions/respect-default-options.js",
+    "tests/integration/node.test.js"
+  ],
+  "ignoreDependencies": ["ts-node", "eslint-config-prettier"],
+  "ignoreExportsUsedInFile": {
+    "interface": true,
+    "type": true
+  },
+  "tags": [
+    "-lintignore"
+  ]
+}
