@@ -15,7 +15,7 @@
     "build:dev": "webpack --env development",
     "build:test": "webpack --config test.config.js",
     "eslint": "eslint 'src/**' 'tests/**'",
-    "lint": "npm run eslint && npm run prettier -- --list-different",
+    "lint": "npm run eslint && npm run prettier -- --list-different && npm run knip",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
     "prepublishOnly": "npm run build && npx tsc",
     "prettier": "prettier './*.{ts,js,cjs,json,md,yml}' '{src,tests}/**/*.{ts,js,cjs}'",
