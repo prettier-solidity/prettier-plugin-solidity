@@ -59,7 +59,7 @@ function parse(text, _parsers, options = _parsers) {
       ctx.value = options.singleQuote ? `hex'${value}'` : `hex"${value}"`;
     },
     Conditional(ctx) {
-      // TODO: while the behaviour is not stable, it should be behind the
+      // TODO: while the behavior is not stable, it should be behind the
       // experimentalTernaries flag.
       if (options.experimentalTernaries) {
         // We can remove parentheses only because we are sure that the
@@ -91,7 +91,7 @@ function parse(text, _parsers, options = _parsers) {
           ctx.left = tryHug(ctx.left, ['*', '/', '%']);
           break;
         case '**':
-          // If the compiler has not been given as an option using we leave
+          // If the compiler has not been given as an option we leave
           // a**b**c.
           if (!compiler) break;
 
