@@ -20,7 +20,7 @@ export default function parse(
     options
   );
 
-  // Because of comments being extracted like a russian doll, the order needs
+  // Because of comments being extracted like a Russian doll, the order needs
   // to be fixed at the end.
   parsed.comments = clearComments().sort((a, b) => a.loc.start - b.loc.start);
   clearOffsets();

@@ -10,7 +10,7 @@ const options: SupportOptions = {
     category: CATEGORY_GLOBAL,
     type: 'int',
     default: 80,
-    description: 'The line length where Prettier will try wrap.',
+    description: 'The line length where Prettier will try to wrap.',
     range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 }
   },
   tabWidth: {
