@@ -22,7 +22,7 @@ function createNonterminalVariant(
     return new VersionPragma(variant);
   }
   const exhaustiveCheck: never = variant;
-  return exhaustiveCheck;
+  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
 }
 
 export class Pragma extends SlangNode {

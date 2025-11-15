@@ -14,7 +14,7 @@ function createNonterminalVariant(
     return new VersionTerm(variant);
   }
   const exhaustiveCheck: never = variant;
-  return exhaustiveCheck;
+  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
 }
 
 export class VersionExpression extends SlangNode {

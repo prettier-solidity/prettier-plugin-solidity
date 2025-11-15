@@ -78,7 +78,7 @@ function createNonterminalVariant(
     return new UncheckedBlock(variant, options);
   }
   const exhaustiveCheck: never = variant;
-  return exhaustiveCheck;
+  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
 }
 
 export class Statement extends SlangNode {

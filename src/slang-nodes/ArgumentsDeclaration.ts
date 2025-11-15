@@ -18,7 +18,7 @@ function createNonterminalVariant(
     return new NamedArgumentsDeclaration(variant, options);
   }
   const exhaustiveCheck: never = variant;
-  return exhaustiveCheck;
+  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
 }
 
 export class ArgumentsDeclaration extends SlangNode {
