@@ -10,24 +10,22 @@ import type { AstNode } from '../slang-nodes/types.d.ts';
 
 const supportedVersions = LanguageFacts.allVersions();
 const supportedLength = supportedVersions.length;
+const rootKindMap = new Map<ParserOptions<AstNode>['parser'], NonterminalKind>([
+  [slangParserId, NonterminalKind.SourceUnit],
+  [slangYulParserId, NonterminalKind.YulBlock]
+]);
 
 function parserAndOutput(
   text: string,
   version: string,
   { parser: optionsParser }: ParserOptions<AstNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
-  let rootKind;
-  switch (optionsParser) {
-    case slangParserId:
-      rootKind = NonterminalKind.SourceUnit;
-      break;
-    case slangYulParserId:
-      rootKind = NonterminalKind.YulBlock;
-      break;
-    default:
-      throw new Error(
-        `Parser '${optionsParser as string}' is not supported for Language Inference.`
-      );
+  const rootKind = rootKindMap.get(optionsParser);
+
+  if (rootKind === undefined) {
+    throw new Error(
+      `Parser '${optionsParser as string}' is not supported for Language Inference.`
+    );
   }
 
   const parser = Parser.create(version);
