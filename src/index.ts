@@ -11,11 +11,11 @@ import slangPrint from './slangPrinter.js';
 import { isBlockComment, isComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 import {
-  slangParserId,
-  slangYulParserId,
+  antlrAstId,
   antlrParserId,
   slangAstId,
-  antlrAstId
+  slangParserId,
+  slangYulParserId
 } from './constants.js';
 
 import type {
