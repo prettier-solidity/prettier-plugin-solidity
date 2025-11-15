@@ -11,6 +11,13 @@ import type { PrintableNode } from '../slang-nodes/types.d.ts';
 const supportedVersions = LanguageFacts.allVersions();
 const supportedLength = supportedVersions.length;
 const latestSupportedVersion = LanguageFacts.latestVersion();
+const rootKindMap = new Map<
+  ParserOptions<PrintableNode>['parser'],
+  NonterminalKind
+>([
+  [slangParserId, NonterminalKind.SourceUnit],
+  [slangYulParserId, NonterminalKind.YulBlock]
+]);
 
 function parserAndOutput(
   text: string,
@@ -18,18 +25,12 @@ function parserAndOutput(
   { parser: optionsParser }: ParserOptions<PrintableNode>,
   reason: string
 ): { parser: Parser; parseOutput: ParseOutput } {
-  let rootKind;
-  switch (optionsParser) {
-    case slangParserId:
-      rootKind = NonterminalKind.SourceUnit;
-      break;
-    case slangYulParserId:
-      rootKind = NonterminalKind.YulBlock;
-      break;
-    default:
-      throw new Error(
-        `Parser '${optionsParser as string}' is not supported for Language Inference.`
-      );
+  const rootKind = rootKindMap.get(optionsParser);
+
+  if (rootKind === undefined) {
+    throw new Error(
+      `Parser '${optionsParser as string}' is not supported for Language Inference.`
+    );
   }
 
   const parser = Parser.create(version);
