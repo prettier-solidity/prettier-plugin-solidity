@@ -18,7 +18,7 @@ function createNonterminalVariant(
     return new StorageLayoutSpecifier(variant, options);
   }
   const exhaustiveCheck: never = variant;
-  return exhaustiveCheck;
+  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
 }
 
 export class ContractSpecifier extends SlangNode {

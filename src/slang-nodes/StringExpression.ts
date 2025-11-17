@@ -30,7 +30,7 @@ function createNonterminalVariant(
     return new UnicodeStringLiterals(variant, options);
   }
   const exhaustiveCheck: never = variant;
-  return exhaustiveCheck;
+  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
 }
 
 export class StringExpression extends SlangNode {

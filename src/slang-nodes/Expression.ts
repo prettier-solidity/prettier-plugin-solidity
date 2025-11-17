@@ -123,7 +123,7 @@ function createNonterminalVariant(
     return extractVariant(new ElementaryType(variant));
   }
   const exhaustiveCheck: never = variant;
-  return exhaustiveCheck;
+  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
 }
 
 export class Expression extends SlangNode {
