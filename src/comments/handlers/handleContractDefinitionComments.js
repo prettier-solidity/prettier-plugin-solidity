@@ -49,7 +49,7 @@ function handleContractDefinitionComments({
 
     // In this scenario the comment belongs to the contract's name.
     //   contract A /* comment for A */ is B, C {}
-    // TODO: at the moment we prepended it but this should be kept after the name.
+    // TODO: at the moment we have prepended it but this should be kept after the name.
     addLeadingComment(enclosingNode, comment);
     return true;
   }
