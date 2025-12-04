@@ -107,7 +107,7 @@
     "knip": "^5.71.0",
     "lines-and-columns": "^2.0.4",
     "prettier": "^3.7.4",
-    "solc": "^0.8.30",
+    "solc": "^0.8.31",
     "ts-loader": "^9.5.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
