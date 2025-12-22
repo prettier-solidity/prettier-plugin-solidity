@@ -104,7 +104,7 @@
     "jest-snapshot-serializer-ansi": "^2.2.1",
     "jest-snapshot-serializer-raw": "^2.0.0",
     "jest-watch-typeahead": "^3.0.1",
-    "knip": "^5.75.1",
+    "knip": "^5.76.3",
     "lines-and-columns": "^2.0.4",
     "prettier": "^3.7.4",
     "solc": "^0.8.33",
