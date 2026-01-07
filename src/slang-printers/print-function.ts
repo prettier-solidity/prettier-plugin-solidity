@@ -3,9 +3,8 @@ import { doc } from 'prettier';
 import { joinExisting } from '../slang-utils/join-existing.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { FunctionLike } from '../slang-nodes/types.d.ts';
+import type { FunctionLike, FunctionWithBody } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-import type { FunctionBody } from '../slang-nodes/FunctionBody.js';
 
 const { dedent, group, indent, line } = doc.builders;
 
@@ -15,9 +14,7 @@ export function printFunction(
   path: AstPath<FunctionLike>,
   print: PrintFunction
 ): Doc {
-  const body = (
-    node as Extract<FunctionLike, { body: FunctionBody['variant'] }>
-  ).body;
+  const body = (node as FunctionWithBody).body;
 
   return group([
     functionName,
@@ -37,7 +34,7 @@ export function printFunction(
 export function printFunctionWithBody(
   functionName: Doc,
   node: FunctionLike,
-  path: AstPath<Extract<FunctionLike, { body: unknown }>>,
+  path: AstPath<FunctionWithBody>,
   print: PrintFunction
 ): Doc {
   return [
