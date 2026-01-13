@@ -30,8 +30,8 @@ function ignoreComments(path: AstPath<AstNode>): void {
   let key: keyof StrictAstNode;
   for (key in node) {
     switch (key) {
-      // We ignore `kind`, `loc`, and `comments` since these are added by the
-      // parser. `updateMetadata` is an internal function.
+      // We ignore `kind` and `loc` since these are added by the parser.
+      // `updateMetadata` is an internal function.
       case 'kind':
       case 'loc':
       case 'updateMetadata':
