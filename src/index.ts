@@ -1,10 +1,6 @@
-import * as comments from './comments/index.js';
 import { handleComments, printComment } from './slang-comments/index.js';
 import massageAstNode from './clean.js';
-import loc from './loc.js';
 import options from './options.js';
-import antlrParse from './parser.js';
-import antlrPrint from './printer.js';
 import slangParse from './slangSolidityParser.js';
 import slangPrint from './slangPrinter.js';
 import { isBlockComment, isComment } from './slang-utils/is-comment.js';
@@ -26,7 +22,6 @@ import type { PrintableNode } from './slang-nodes/types.d.ts';
 const slangParserId = 'slang';
 const antlrParserId = 'antlr';
 const slangAstId = 'slang-ast';
-const antlrAstId = 'antlr-ast';
 
 // https://prettier.io/docs/en/plugins.html#languages
 // https://github.com/github-linguist/linguist/blob/master/lib/linguist/languages.yml
@@ -43,7 +38,6 @@ const languages: SupportLanguage[] = [
 ];
 
 // https://prettier.io/docs/en/plugins.html#parsers
-const antlrParser = { astFormat: antlrAstId, parse: antlrParse, ...loc };
 const slangParser: Parser<PrintableNode> = {
   astFormat: slangAstId,
   parse: slangParse,
@@ -51,30 +45,15 @@ const slangParser: Parser<PrintableNode> = {
   locEnd
 };
 
-const parsers = {
-  [slangParserId]: slangParser,
-  [antlrParserId]: antlrParser
-};
+const parsers = { [slangParserId]: slangParser, [antlrParserId]: slangParser };
 
-const antlrCanAttachComment = ({ type }: { type: string }): boolean =>
-  typeof type === 'string' && type !== 'BlockComment' && type !== 'LineComment';
-const canAttachComment = (node: PrintableNode): boolean =>
-  // Make sure it's not Location
-  node.kind && !isComment(node);
+const canAttachComment = (node: PrintableNode | undefined): boolean =>
+  typeof node !== 'string' &&
+  node !== undefined &&
+  node.kind && // Make sure it's not Location
+  !isComment(node);
 
 // https://prettier.io/docs/en/plugins.html#printers
-const antlrPrinter = {
-  canAttachComment: antlrCanAttachComment,
-  handleComments: {
-    ownLine: comments.solidityHandleOwnLineComment,
-    endOfLine: comments.solidityHandleEndOfLineComment,
-    remaining: comments.solidityHandleRemainingComment
-  },
-  isBlockComment: comments.isBlockComment,
-  massageAstNode,
-  print: antlrPrint,
-  printComment: comments.printComment
-};
 const slangPrinter: Printer<PrintableNode> = {
   canAttachComment,
   handleComments,
@@ -91,10 +70,7 @@ const slangPrinter: Printer<PrintableNode> = {
   printComment
 };
 
-const printers = {
-  [slangAstId]: slangPrinter,
-  [antlrAstId]: antlrPrinter
-};
+const printers = { [slangAstId]: slangPrinter };
 
 // https://prettier.io/docs/en/plugins.html#defaultoptions
 const defaultOptions: Partial<RequiredOptions> = {
