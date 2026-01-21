@@ -6,10 +6,28 @@ import { SourceUnit } from './slang-nodes/SourceUnit.js';
 import type { ParserOptions } from 'prettier';
 import type { AstNode, Comment } from './slang-nodes/types.d.ts';
 
+// Prettier prints some temporary messages while formatting, and this warning
+// can mess with that output. We clear the line and move the cursor to the
+// beginning of the line to avoid this.
+//
+// \x1b: Escape character
+//  [2K: Escape code to clear the entire line
+//   \r: Carriage return
+const clearLine = '\x1b[2K\r';
+
+function printWarning(message: string): void {
+  console.warn(`${clearLine}[prettier-solidity] ${message}`);
+}
+
 export default function parse(
   text: string,
   options: ParserOptions<AstNode>
 ): AstNode {
+  if (options.parser === 'antlr') {
+    printWarning(
+      `The 'antlr' parser has been deprecated, please use 'slang' instead.`
+    );
+  }
   const { parser, parseOutput } = createParser(text, options);
 
   // We update the compiler version by the inferred one.

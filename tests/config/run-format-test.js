@@ -71,28 +71,6 @@ const testsWithAstChanges = new Map(
   }),
 );
 
-const antlrMismatchTests = new Map(
-  [
-    // Better placement of comments in Slang.
-    "BasicIterator/BasicIterator.sol",
-    "Comments/Comments.sol",
-    "IndexOf/IndexOf.sol",
-    // Syntax for `pragma solidity 0.5.0 - 0.6.0;` not supported by ANTLR
-    "Pragma/Pragma.sol",
-    // ANTLR doesn't support assembly assignment operators separated by a space
-    // like `: =` or `= :`
-    "AssemblyV0.4.26/Assembly.sol",
-    // ANTLR doesn't support UntypedTupleMember with a storage location, which
-    // is valid Slang, but not in Solidity.
-    "AllSolidityFeaturesV0.4.26/AllSolidityFeatures.sol",
-  ].map((fixture) => {
-    const [file, compareBytecode = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../format/", file), compareBytecode];
-  }),
-);
-
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
 
@@ -105,16 +83,6 @@ const isUnstable = (filename, options) => {
 
 const isAstUnstable = (filename, options) => {
   const testFunction = unstableAstTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
-
-const isAntlrMismatch = (filename, options) => {
-  const testFunction = antlrMismatchTests.get(filename);
 
   if (!testFunction) {
     return false;
@@ -337,24 +305,10 @@ async function runTest({
   if (formatOptions.parser === "slang") {
     const createParser = await getCreateParser();
     const variantCoverage = await getVariantCoverage();
-    const { parser, parseOutput } = createParser(code, formatOptions);
+    const { parseOutput } = createParser(code, formatOptions);
 
     // Check coverage
     variantCoverage(parseOutput.tree.asNonterminalNode());
-
-    if (!isAntlrMismatch(filename, formatOptions)) {
-      // Compare with ANTLR's format
-      const prettier = await getPrettier();
-      const { formatted: antlrOutput } = await prettier.formatWithCursor(code, {
-        ...formatOptions,
-        // Since Slang forces us to decide on a compiler version, we need to do the
-        // same for ANTLR unless it was already given as an option.
-        compiler: formatOptions.compiler || parser.languageVersion,
-        parser: "antlr",
-        plugins: await getPlugins(),
-      });
-      expect(antlrOutput).toEqual(formatResult.output);
-    }
   }
 
   const isUnstableTest = isUnstable(filename, formatOptions);
