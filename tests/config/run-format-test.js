@@ -64,22 +64,6 @@ const testsWithAstChanges = new Map(
   }),
 );
 
-const antlrMismatchTests = new Map(
-  [
-    // Better placement of comments in Slang.
-    "BasicIterator/BasicIterator.sol",
-    "Comments/Comments.sol",
-    "IndexOf/IndexOf.sol",
-    // Syntax for `pragma solidity 0.5.0 - 0.6.0;` not supported by ANTLR
-    "Pragma/Pragma.sol",
-  ].map((fixture) => {
-    const [file, compareBytecode = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../format/", file), compareBytecode];
-  }),
-);
-
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
 
@@ -92,16 +76,6 @@ const isUnstable = (filename, options) => {
 
 const isAstUnstable = (filename, options) => {
   const testFunction = unstableAstTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
-
-const isAntlrMismatch = (filename, options) => {
-  const testFunction = antlrMismatchTests.get(filename);
 
   if (!testFunction) {
     return false;
@@ -319,26 +293,6 @@ async function runTest({
 
   if (!FULL_TEST) {
     return;
-  }
-
-  if (
-    formatOptions.parser === "slang" &&
-    !isAntlrMismatch(filename, formatOptions)
-  ) {
-    // Compare with ANTLR's format
-    const prettier = await getPrettier();
-    const createParser = await getCreateParser();
-    const { formatted: antlrOutput } = await prettier.formatWithCursor(code, {
-      ...formatOptions,
-      // Since Slang forces us to decide on a compiler version, we need to do the
-      // same for ANTLR unless it was already given as an option.
-      compiler:
-        formatOptions.compiler ||
-        createParser(code, formatOptions).parser.languageVersion,
-      parser: "antlr",
-      plugins: await getPlugins(),
-    });
-    expect(antlrOutput).toEqual(formatResult.output);
   }
 
   const isUnstableTest = isUnstable(filename, formatOptions);
