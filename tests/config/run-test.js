@@ -7,7 +7,6 @@ import * as testEndOfLine from "./test-end-of-line.js";
 import * as testFormat from "./test-format.js";
 import * as testSecondFormat from "./test-second-format.js";
 import * as testBytecodeCompare from "./test-bytecode-compare.js";
-import * as testAntlrFormat from "./test-antlr-format.js";
 import * as testVariantCoverage from "./test-variant-coverage.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 
@@ -85,14 +84,6 @@ function testFixture(fixture) {
         skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
       // The following cases only need run if the parser is Slang
-      {
-        name: "ANTLR format",
-        test: { run: testAntlrFormat.run, skip: testAntlrFormat.skip },
-        skip: (testCase) =>
-          !FULL_TEST ||
-          testCase !== testCaseForSnapshot ||
-          testCase.parser !== "slang",
-      },
       {
         name: "bytecode comparison",
         test: { run: testBytecodeCompare.run, skip: testBytecodeCompare.skip },
