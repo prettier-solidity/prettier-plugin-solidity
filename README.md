@@ -143,9 +143,6 @@ The Solidity versions taken into consideration during formatting are:
   // Input
   import { Foo as Bar, Baz as Qux } from "/an/extremely/long/location";
 
-  // "compiler": undefined, parser: "antlr"
-  import { Foo as Bar, Baz as Qux } from "/an/extremely/long/location";
-
   // "compiler": "0.7.3" (or lesser)
   import { Foo as Bar, Baz as Qux } from "/an/extremely/long/location";
 
@@ -207,16 +204,16 @@ You might have a multi-version project, where different files are compiled with 
 }
 ```
 
-| Default                                                                                       | CLI Override          | API Override           |
-| --------------------------------------------------------------------------------------------- | --------------------- | ---------------------- |
-| Inferred from pragma statements when using parser `slang`<br/> None when using parser `antlr` | `--compiler <string>` | `compiler: "<string>"` |
+| Default                         | CLI Override          | API Override           |
+| ------------------------------- | --------------------- | ---------------------- |
+| Inferred from pragma statements | `--compiler <string>` | `compiler: "<string>"` |
 
 ### Parser
 
 You can configure the parser used by Prettier Solidity. Two Solidity parsers are supported:
 
 - [Slang](https://nomicfoundation.github.io/slang) (the default), a more powerful and correct parser that results in better formatting for some edge cases, especially when comments are involved.
-- [Solidity Parser for JavaScript](https://github.com/solidity-parser/parser/), an [ANTLR](https://www.antlr.org/)-based parser. This is the version that Prettier Solidity v1 used by default. This parser is still supported in v2, but it's deprecated and will be removed in the next major version. You can use this parser by setting `parser: "antlr"` in your Prettier configuration.
+- [Solidity Parser for JavaScript](https://github.com/solidity-parser/parser/), an [ANTLR](https://www.antlr.org/)-based parser. This is the version that Prettier Solidity v1 used by default. This parser has not been supported since v2.3, the option is still recognised but the plugin uses `slang` under the hood and will be removed in the next major version.
 
 | Default | CLI Override        | API Override         |
 | ------- | ------------------- | -------------------- |
