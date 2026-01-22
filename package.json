@@ -84,11 +84,11 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@babel/code-frame": "^7.27.1",
+    "@babel/code-frame": "^7.28.6",
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.2",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.0.3",
+    "@types/node": "^25.0.10",
     "@types/semver": "^7.7.1",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
     "@typescript-eslint/parser": "^8.53.1",
@@ -106,7 +106,7 @@
     "jest-watch-typeahead": "^3.0.1",
     "knip": "^5.82.1",
     "lines-and-columns": "^2.0.4",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.1",
     "solc": "^0.8.33",
     "ts-loader": "^9.5.4",
     "ts-node": "^10.9.2",
