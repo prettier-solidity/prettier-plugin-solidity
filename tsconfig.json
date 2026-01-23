@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "strictPropertyInitialization": true,
-    "sourceMap": true,
-    "target": "es6",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "target": "ES2020",
     "strict": true,
-    "esModuleInterop": true
-  },
-  "ts-node": {
-    "files": true
-  },
-  "include": ["./src/**/*"]
+    "sourceMap": true,
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictPropertyInitialization": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "isolatedModules": true
+  }
 }
