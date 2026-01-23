@@ -6,7 +6,7 @@ import type { AstNode, Comment } from '../slang-nodes/types.d.ts';
 function ownLine(
   comment: Comment,
   text: string,
-  options: ParserOptions<AstNode>,
+  _options: ParserOptions<AstNode>,
   ast: AstNode,
   isLastComment: boolean
 ): boolean {
@@ -27,7 +27,7 @@ function ownLine(
 function endOfLine(
   comment: Comment,
   text: string,
-  options: ParserOptions<AstNode>,
+  _options: ParserOptions<AstNode>,
   ast: AstNode,
   isLastComment: boolean
 ): boolean {
@@ -48,7 +48,7 @@ function endOfLine(
 function remaining(
   comment: Comment,
   text: string,
-  options: ParserOptions<AstNode>,
+  _options: ParserOptions<AstNode>,
   ast: AstNode,
   isLastComment: boolean
 ): boolean {
