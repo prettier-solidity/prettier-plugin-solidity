@@ -16,7 +16,7 @@ export class ErrorParametersDeclaration extends SlangNode {
     ast: ast.ErrorParametersDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.parameters = new ErrorParameters(ast.parameters, options);
 

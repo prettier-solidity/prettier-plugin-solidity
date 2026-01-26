@@ -21,7 +21,7 @@ export class ReceiveFunctionAttributes extends SlangNode {
     ast: ast.ReceiveFunctionAttributes,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new ReceiveFunctionAttribute(item, options))

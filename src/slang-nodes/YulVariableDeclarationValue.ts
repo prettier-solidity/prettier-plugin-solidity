@@ -20,9 +20,11 @@ export class YulVariableDeclarationValue extends SlangNode {
     ast: ast.YulVariableDeclarationValue,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
-    this.assignment = extractVariant(new YulAssignmentOperator(ast.assignment));
+    this.assignment = extractVariant(
+      new YulAssignmentOperator(ast.assignment, options)
+    );
     this.expression = extractVariant(
       new YulExpression(ast.expression, options)
     );

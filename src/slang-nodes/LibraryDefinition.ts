@@ -19,9 +19,9 @@ export class LibraryDefinition extends SlangNode {
   members: LibraryMembers;
 
   constructor(ast: ast.LibraryDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     this.members = new LibraryMembers(ast.members, options);
 
     this.updateMetadata(this.members);

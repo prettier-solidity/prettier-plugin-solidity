@@ -25,7 +25,7 @@ export class FunctionCallExpression extends SlangNode {
     ast: ast.FunctionCallExpression,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.operand = extractVariant(new Expression(ast.operand, options));
     this.arguments = extractVariant(

@@ -36,7 +36,7 @@ export class AdditiveExpression extends SlangNode {
   rightOperand: Expression['variant'];
 
   constructor(ast: ast.AdditiveExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.leftOperand = extractVariant(new Expression(ast.leftOperand, options));
     this.operator = ast.operator.unparse();

@@ -13,7 +13,7 @@ export class TupleExpression extends SlangNode {
   items: TupleValues;
 
   constructor(ast: ast.TupleExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.items = new TupleValues(ast.items, options);
   }

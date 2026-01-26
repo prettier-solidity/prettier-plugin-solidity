@@ -17,9 +17,9 @@ export class NamedArgument extends SlangNode {
   value: Expression['variant'];
 
   constructor(ast: ast.NamedArgument, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     this.value = extractVariant(new Expression(ast.value, options));
 
     this.updateMetadata(this.value);

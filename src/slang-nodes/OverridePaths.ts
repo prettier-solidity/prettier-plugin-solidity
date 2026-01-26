@@ -4,18 +4,19 @@ import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 export class OverridePaths extends SlangNode {
   readonly kind = NonterminalKind.OverridePaths;
 
   items: IdentifierPath[];
 
-  constructor(ast: ast.OverridePaths) {
-    super(ast, true);
+  constructor(ast: ast.OverridePaths, options: ParserOptions<AstNode>) {
+    super(ast, options, true);
 
-    this.items = ast.items.map((item) => new IdentifierPath(item));
+    this.items = ast.items.map((item) => new IdentifierPath(item, options));
   }
 
   print(path: AstPath<OverridePaths>, print: PrintFunction): Doc {

@@ -22,12 +22,12 @@ export class YulFunctionDefinition extends SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.YulFunctionDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = new TerminalNode(ast.name);
-    this.parameters = new YulParametersDeclaration(ast.parameters);
+    this.name = new TerminalNode(ast.name, options);
+    this.parameters = new YulParametersDeclaration(ast.parameters, options);
     if (ast.returns) {
-      this.returns = new YulReturnsDeclaration(ast.returns);
+      this.returns = new YulReturnsDeclaration(ast.returns, options);
     }
     this.body = new YulBlock(ast.body, options);
 

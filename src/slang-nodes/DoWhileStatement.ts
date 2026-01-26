@@ -21,7 +21,7 @@ export class DoWhileStatement extends SlangNode {
   condition: Expression['variant'];
 
   constructor(ast: ast.DoWhileStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.body = extractVariant(new Statement(ast.body, options));
     this.condition = extractVariant(new Expression(ast.condition, options));

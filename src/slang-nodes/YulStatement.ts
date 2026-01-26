@@ -36,7 +36,7 @@ function createNonterminalVariant(
     return new YulVariableAssignmentStatement(variant, options);
   }
   if (variant instanceof ast.YulStackAssignmentStatement) {
-    return new YulStackAssignmentStatement(variant);
+    return new YulStackAssignmentStatement(variant, options);
   }
   if (variant instanceof ast.YulIfStatement) {
     return new YulIfStatement(variant, options);
@@ -48,16 +48,16 @@ function createNonterminalVariant(
     return new YulSwitchStatement(variant, options);
   }
   if (variant instanceof ast.YulLeaveStatement) {
-    return new YulLeaveStatement(variant);
+    return new YulLeaveStatement(variant, options);
   }
   if (variant instanceof ast.YulBreakStatement) {
-    return new YulBreakStatement(variant);
+    return new YulBreakStatement(variant, options);
   }
   if (variant instanceof ast.YulContinueStatement) {
-    return new YulContinueStatement(variant);
+    return new YulContinueStatement(variant, options);
   }
   if (variant instanceof ast.YulLabel) {
-    return new YulLabel(variant);
+    return new YulLabel(variant, options);
   }
   if (variant instanceof ast.YulExpression) {
     return extractVariant(new YulExpression(variant, options));
@@ -85,7 +85,7 @@ export class YulStatement extends SlangNode {
     | YulExpression['variant'];
 
   constructor(ast: ast.YulStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

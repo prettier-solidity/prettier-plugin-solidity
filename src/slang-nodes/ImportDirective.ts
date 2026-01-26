@@ -14,7 +14,7 @@ export class ImportDirective extends SlangNode {
   clause: ImportClause['variant'];
 
   constructor(ast: ast.ImportDirective, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.clause = extractVariant(new ImportClause(ast.clause, options));
 

@@ -20,12 +20,12 @@ export class EventParameter extends SlangNode {
   name?: TerminalNode;
 
   constructor(ast: ast.EventParameter, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.typeName = extractVariant(new TypeName(ast.typeName, options));
     this.indexedKeyword = ast.indexedKeyword?.unparse();
     if (ast.name) {
-      this.name = new TerminalNode(ast.name);
+      this.name = new TerminalNode(ast.name, options);
     }
 
     this.updateMetadata(this.typeName);

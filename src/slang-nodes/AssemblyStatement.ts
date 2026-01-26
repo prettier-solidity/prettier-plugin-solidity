@@ -20,7 +20,7 @@ export class AssemblyStatement extends SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.AssemblyStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     if (ast.label) {
       this.label = new StringLiteral(ast.label, options);

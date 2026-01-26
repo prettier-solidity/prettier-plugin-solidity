@@ -12,7 +12,7 @@ export class UnicodeStringLiteral extends SlangNode {
   variant: string;
 
   constructor(ast: ast.UnicodeStringLiteral, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = ast.variant.unparse();
 

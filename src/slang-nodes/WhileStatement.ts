@@ -19,7 +19,7 @@ export class WhileStatement extends SlangNode {
   body: Statement['variant'];
 
   constructor(ast: ast.WhileStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.condition = extractVariant(new Expression(ast.condition, options));
     this.body = extractVariant(new Statement(ast.body, options));

@@ -13,7 +13,7 @@ export class YulBlock extends SlangNode {
   statements: YulStatements;
 
   constructor(ast: ast.YulBlock, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.statements = new YulStatements(ast.statements, options);
 

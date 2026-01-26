@@ -19,7 +19,7 @@ export class YulStatements extends SlangNode {
   items: YulStatement['variant'][];
 
   constructor(ast: ast.YulStatements, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new YulStatement(item, options))

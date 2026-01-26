@@ -19,7 +19,7 @@ export class Statements extends SlangNode {
   items: Statement['variant'][];
 
   constructor(ast: ast.Statements, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new Statement(item, options))

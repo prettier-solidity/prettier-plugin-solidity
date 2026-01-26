@@ -17,7 +17,7 @@ export class StructMembers extends SlangNode {
   items: StructMember[];
 
   constructor(ast: ast.StructMembers, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) => new StructMember(item, options));
   }

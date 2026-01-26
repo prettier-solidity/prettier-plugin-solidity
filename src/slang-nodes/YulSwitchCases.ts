@@ -17,7 +17,7 @@ export class YulSwitchCases extends SlangNode {
   items: YulSwitchCase['variant'][];
 
   constructor(ast: ast.YulSwitchCases, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new YulSwitchCase(item, options))

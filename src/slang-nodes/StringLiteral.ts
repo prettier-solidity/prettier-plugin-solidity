@@ -12,7 +12,7 @@ export class StringLiteral extends SlangNode {
   variant: string;
 
   constructor(ast: ast.StringLiteral, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = ast.variant.unparse();
 

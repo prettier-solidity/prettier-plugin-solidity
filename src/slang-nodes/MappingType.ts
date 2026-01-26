@@ -16,9 +16,9 @@ export class MappingType extends SlangNode {
   valueType: MappingValue;
 
   constructor(ast: ast.MappingType, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.keyType = new MappingKey(ast.keyType);
+    this.keyType = new MappingKey(ast.keyType, options);
     this.valueType = new MappingValue(ast.valueType, options);
 
     this.updateMetadata(this.keyType, this.valueType);

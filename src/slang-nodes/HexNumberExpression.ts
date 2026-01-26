@@ -4,8 +4,9 @@ import { SlangNode } from './SlangNode.js';
 import { NumberUnit } from './NumberUnit.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 export class HexNumberExpression extends SlangNode {
   readonly kind = NonterminalKind.HexNumberExpression;
@@ -14,12 +15,12 @@ export class HexNumberExpression extends SlangNode {
 
   unit?: NumberUnit;
 
-  constructor(ast: ast.HexNumberExpression) {
-    super(ast);
+  constructor(ast: ast.HexNumberExpression, options: ParserOptions<AstNode>) {
+    super(ast, options);
 
     this.literal = ast.literal.unparse();
     if (ast.unit) {
-      this.unit = new NumberUnit(ast.unit);
+      this.unit = new NumberUnit(ast.unit, options);
     }
 
     this.updateMetadata(this.unit);

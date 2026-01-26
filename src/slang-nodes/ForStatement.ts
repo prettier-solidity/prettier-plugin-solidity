@@ -28,7 +28,7 @@ export class ForStatement extends SlangNode {
   body: Statement['variant'];
 
   constructor(ast: ast.ForStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.initialization = extractVariant(
       new ForStatementInitialization(ast.initialization, options)

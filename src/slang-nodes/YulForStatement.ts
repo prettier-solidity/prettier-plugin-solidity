@@ -24,7 +24,7 @@ export class YulForStatement extends SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.YulForStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.initialization = new YulBlock(ast.initialization, options);
     this.condition = extractVariant(new YulExpression(ast.condition, options));

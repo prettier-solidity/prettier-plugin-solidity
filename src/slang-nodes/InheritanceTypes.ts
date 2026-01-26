@@ -17,7 +17,7 @@ export class InheritanceTypes extends SlangNode {
   items: InheritanceType[];
 
   constructor(ast: ast.InheritanceTypes, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) => new InheritanceType(item, options));
   }

@@ -17,7 +17,7 @@ export class ArrayTypeName extends SlangNode {
   index?: Expression['variant'];
 
   constructor(ast: ast.ArrayTypeName, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.operand = extractVariant(new TypeName(ast.operand, options));
     if (ast.index) {

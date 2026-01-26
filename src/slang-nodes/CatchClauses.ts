@@ -16,7 +16,7 @@ export class CatchClauses extends SlangNode {
   items: CatchClause[];
 
   constructor(ast: ast.CatchClauses, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) => new CatchClause(item, options));
 

@@ -13,7 +13,7 @@ export class Block extends SlangNode {
   statements: Statements;
 
   constructor(ast: ast.Block, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.statements = new Statements(ast.statements, options);
 

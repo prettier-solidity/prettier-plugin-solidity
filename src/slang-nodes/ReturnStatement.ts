@@ -15,7 +15,7 @@ export class ReturnStatement extends SlangNode {
   expression?: Expression['variant'];
 
   constructor(ast: ast.ReturnStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     if (ast.expression) {
       this.expression = extractVariant(new Expression(ast.expression, options));

@@ -45,11 +45,11 @@ export class ForStatementInitialization extends SlangNode {
     ast: ast.ForStatementInitialization,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, options);
       return;
     }
     this.variant = createNonterminalVariant(variant, options);

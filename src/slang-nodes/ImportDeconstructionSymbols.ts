@@ -17,10 +17,15 @@ export class ImportDeconstructionSymbols extends SlangNode {
 
   items: ImportDeconstructionSymbol[];
 
-  constructor(ast: ast.ImportDeconstructionSymbols) {
-    super(ast, true);
+  constructor(
+    ast: ast.ImportDeconstructionSymbols,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, options, true);
 
-    this.items = ast.items.map((item) => new ImportDeconstructionSymbol(item));
+    this.items = ast.items.map(
+      (item) => new ImportDeconstructionSymbol(item, options)
+    );
   }
 
   print(

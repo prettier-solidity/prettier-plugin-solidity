@@ -19,7 +19,7 @@ export class InterfaceMembers extends SlangNode {
   items: ContractMember['variant'][];
 
   constructor(ast: ast.InterfaceMembers, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new ContractMember(item, options))

@@ -4,8 +4,9 @@ import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.ts';
 
 const { dedent, line } = doc.builders;
 
@@ -14,10 +15,10 @@ export class YulLabel extends SlangNode {
 
   label: TerminalNode;
 
-  constructor(ast: ast.YulLabel) {
-    super(ast);
+  constructor(ast: ast.YulLabel, options: ParserOptions<AstNode>) {
+    super(ast, options);
 
-    this.label = new TerminalNode(ast.label);
+    this.label = new TerminalNode(ast.label, options);
   }
 
   print(path: AstPath<YulLabel>, print: PrintFunction): Doc {

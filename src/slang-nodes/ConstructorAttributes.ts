@@ -18,7 +18,7 @@ export class ConstructorAttributes extends SlangNode {
   items: ConstructorAttribute['variant'][];
 
   constructor(ast: ast.ConstructorAttributes, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new ConstructorAttribute(item, options))

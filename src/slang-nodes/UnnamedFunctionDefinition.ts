@@ -24,7 +24,7 @@ export class UnnamedFunctionDefinition extends SlangNode {
     ast: ast.UnnamedFunctionDefinition,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new UnnamedFunctionAttributes(ast.attributes, options);

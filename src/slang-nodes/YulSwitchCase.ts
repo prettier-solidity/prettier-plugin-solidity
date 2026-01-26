@@ -27,7 +27,7 @@ export class YulSwitchCase extends SlangNode {
   variant: YulDefaultCase | YulValueCase;
 
   constructor(ast: ast.YulSwitchCase, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

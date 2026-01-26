@@ -20,11 +20,11 @@ export class VariableDeclarationType extends SlangNode {
     ast: ast.VariableDeclarationType,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, options);
       return;
     }
     this.variant = extractVariant(new TypeName(variant, options));

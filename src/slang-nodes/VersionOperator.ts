@@ -2,15 +2,16 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
+import type { AstNode } from './types.ts';
 
 export class VersionOperator extends SlangNode {
   readonly kind = NonterminalKind.VersionOperator;
 
   variant: string;
 
-  constructor(ast: ast.VersionOperator) {
-    super(ast);
+  constructor(ast: ast.VersionOperator, options: ParserOptions<AstNode>) {
+    super(ast, options);
 
     this.variant = ast.variant.unparse();
   }

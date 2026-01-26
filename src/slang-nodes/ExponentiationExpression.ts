@@ -50,7 +50,7 @@ export class ExponentiationExpression extends SlangNode {
     ast: ast.ExponentiationExpression,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.leftOperand = extractVariant(new Expression(ast.leftOperand, options));
     this.operator = ast.operator.unparse();

@@ -17,9 +17,9 @@ export class InheritanceType extends SlangNode {
   arguments?: ArgumentsDeclaration['variant'];
 
   constructor(ast: ast.InheritanceType, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.typeName = new IdentifierPath(ast.typeName);
+    this.typeName = new IdentifierPath(ast.typeName, options);
     if (ast.arguments) {
       this.arguments = extractVariant(
         new ArgumentsDeclaration(ast.arguments, options)

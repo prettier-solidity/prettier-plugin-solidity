@@ -13,7 +13,7 @@ export class ParametersDeclaration extends SlangNode {
   parameters: Parameters;
 
   constructor(ast: ast.ParametersDeclaration, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.parameters = new Parameters(ast.parameters, options);
 

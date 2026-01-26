@@ -1,6 +1,5 @@
 // https://prettier.io/docs/en/plugins.html#parsers
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
-import { clearComments, clearOffsets } from './slang-nodes/SlangNode.js';
 import { createParser } from './slang-utils/create-parser.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
@@ -15,6 +14,8 @@ export default function parse(
 
   // We update the compiler version by the inferred one.
   options.compiler = parser.languageVersion;
+  options._prettier_solidity_offsets = new Map<number, number>();
+  options._prettier_solidity_comments = [];
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
     options
@@ -22,7 +23,8 @@ export default function parse(
 
   // Because of comments being extracted like a Russian doll, the order needs
   // to be fixed at the end.
-  parsed.comments = clearComments().sort((a, b) => a.loc.start - b.loc.start);
-  clearOffsets();
+  parsed.comments = options._prettier_solidity_comments.sort(
+    (a, b) => a.loc.start - b.loc.start
+  );
   return parsed;
 }

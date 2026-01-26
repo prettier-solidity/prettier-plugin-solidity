@@ -26,7 +26,7 @@ export class IfStatement extends SlangNode {
   elseBranch?: ElseBranch;
 
   constructor(ast: ast.IfStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.condition = extractVariant(new Expression(ast.condition, options));
     this.body = extractVariant(new Statement(ast.body, options));

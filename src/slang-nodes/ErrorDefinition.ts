@@ -16,9 +16,9 @@ export class ErrorDefinition extends SlangNode {
   members: ErrorParametersDeclaration;
 
   constructor(ast: ast.ErrorDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     this.members = new ErrorParametersDeclaration(ast.members, options);
 
     this.updateMetadata(this.members);

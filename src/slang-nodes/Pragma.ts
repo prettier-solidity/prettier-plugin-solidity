@@ -13,13 +13,13 @@ function createNonterminalVariant(
   options: ParserOptions<AstNode>
 ): Pragma['variant'] {
   if (variant instanceof ast.AbicoderPragma) {
-    return new AbicoderPragma(variant);
+    return new AbicoderPragma(variant, options);
   }
   if (variant instanceof ast.ExperimentalPragma) {
     return new ExperimentalPragma(variant, options);
   }
   if (variant instanceof ast.VersionPragma) {
-    return new VersionPragma(variant);
+    return new VersionPragma(variant, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -31,7 +31,7 @@ export class Pragma extends SlangNode {
   variant: AbicoderPragma | ExperimentalPragma | VersionPragma;
 
   constructor(ast: ast.Pragma, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

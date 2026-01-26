@@ -17,7 +17,7 @@ export class TupleValues extends SlangNode {
   items: TupleValue[];
 
   constructor(ast: ast.TupleValues, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) => new TupleValue(item, options));
   }

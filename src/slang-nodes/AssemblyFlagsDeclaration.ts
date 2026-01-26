@@ -16,7 +16,7 @@ export class AssemblyFlagsDeclaration extends SlangNode {
     ast: ast.AssemblyFlagsDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.flags = new AssemblyFlags(ast.flags, options);
 

@@ -19,7 +19,7 @@ export class PositionalArgumentsDeclaration extends SlangNode {
     ast: ast.PositionalArgumentsDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.arguments = new PositionalArguments(ast.arguments, options);
 

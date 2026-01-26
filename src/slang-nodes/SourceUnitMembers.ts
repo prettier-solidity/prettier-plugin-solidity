@@ -15,7 +15,7 @@ export class SourceUnitMembers extends SlangNode {
   items: SourceUnitMember['variant'][];
 
   constructor(ast: ast.SourceUnitMembers, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new SourceUnitMember(item, options))

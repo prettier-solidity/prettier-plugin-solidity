@@ -14,7 +14,7 @@ export class ExperimentalPragma extends SlangNode {
   feature: ExperimentalFeature['variant'];
 
   constructor(ast: ast.ExperimentalPragma, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.feature = extractVariant(
       new ExperimentalFeature(ast.feature, options)

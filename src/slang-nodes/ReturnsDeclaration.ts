@@ -16,7 +16,7 @@ export class ReturnsDeclaration extends SlangNode {
   variables: ParametersDeclaration;
 
   constructor(ast: ast.ReturnsDeclaration, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variables = new ParametersDeclaration(ast.variables, options);
 

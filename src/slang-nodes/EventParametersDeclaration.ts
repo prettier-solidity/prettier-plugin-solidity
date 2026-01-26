@@ -16,7 +16,7 @@ export class EventParametersDeclaration extends SlangNode {
     ast: ast.EventParametersDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.parameters = new EventParameters(ast.parameters, options);
 

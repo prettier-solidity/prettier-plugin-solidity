@@ -20,7 +20,7 @@ export class YulFunctionCallExpression extends SlangNode {
     ast: ast.YulFunctionCallExpression,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.operand = extractVariant(new YulExpression(ast.operand, options));
     this.arguments = new YulArguments(ast.arguments, options);

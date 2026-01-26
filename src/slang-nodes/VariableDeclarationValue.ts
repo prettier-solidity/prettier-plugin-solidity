@@ -17,7 +17,7 @@ export class VariableDeclarationValue extends SlangNode {
     ast: ast.VariableDeclarationValue,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.expression = extractVariant(new Expression(ast.expression, options));
 

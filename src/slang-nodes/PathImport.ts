@@ -16,11 +16,11 @@ export class PathImport extends SlangNode {
   alias?: ImportAlias;
 
   constructor(ast: ast.PathImport, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.path = new StringLiteral(ast.path, options);
     if (ast.alias) {
-      this.alias = new ImportAlias(ast.alias);
+      this.alias = new ImportAlias(ast.alias, options);
     }
 
     this.updateMetadata(this.path, this.alias);

@@ -18,7 +18,7 @@ export class StateVariableDefinitionValue extends SlangNode {
     ast: ast.StateVariableDefinitionValue,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.value = extractVariant(new Expression(ast.value, options));
 

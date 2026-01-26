@@ -32,7 +32,7 @@ export class BitwiseXorExpression extends SlangNode {
   rightOperand: Expression['variant'];
 
   constructor(ast: ast.BitwiseXorExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.leftOperand = extractVariant(new Expression(ast.leftOperand, options));
     this.operator = ast.operator.unparse();

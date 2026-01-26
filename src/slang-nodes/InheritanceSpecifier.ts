@@ -13,7 +13,7 @@ export class InheritanceSpecifier extends SlangNode {
   types: InheritanceTypes;
 
   constructor(ast: ast.InheritanceSpecifier, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.types = new InheritanceTypes(ast.types, options);
 

@@ -19,7 +19,7 @@ export class ContractSpecifiers extends SlangNode {
   items: ContractSpecifier['variant'][];
 
   constructor(ast: ast.ContractSpecifiers, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new ContractSpecifier(item, options))

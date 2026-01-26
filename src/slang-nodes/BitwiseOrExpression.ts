@@ -42,7 +42,7 @@ export class BitwiseOrExpression extends SlangNode {
   rightOperand: Expression['variant'];
 
   constructor(ast: ast.BitwiseOrExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.leftOperand = extractVariant(new Expression(ast.leftOperand, options));
     this.operator = ast.operator.unparse();

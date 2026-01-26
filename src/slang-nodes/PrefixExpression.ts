@@ -16,7 +16,7 @@ export class PrefixExpression extends SlangNode {
   operand: Expression['variant'];
 
   constructor(ast: ast.PrefixExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.operator = ast.operator.unparse();
     this.operand = extractVariant(new Expression(ast.operand, options));

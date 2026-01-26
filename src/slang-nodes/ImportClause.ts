@@ -31,7 +31,7 @@ export class ImportClause extends SlangNode {
   variant: PathImport | NamedImport | ImportDeconstruction;
 
   constructor(ast: ast.ImportClause, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

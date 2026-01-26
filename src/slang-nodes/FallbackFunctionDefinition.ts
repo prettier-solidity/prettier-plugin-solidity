@@ -27,7 +27,7 @@ export class FallbackFunctionDefinition extends SlangNode {
     ast: ast.FallbackFunctionDefinition,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new FallbackFunctionAttributes(ast.attributes, options);
