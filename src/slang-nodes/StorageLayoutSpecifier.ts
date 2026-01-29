@@ -21,7 +21,7 @@ export class StorageLayoutSpecifier extends SlangNode {
     ast: ast.StorageLayoutSpecifier,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.expression = extractVariant(new Expression(ast.expression, options));
 

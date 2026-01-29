@@ -13,7 +13,7 @@ export class NamedArgumentGroup extends SlangNode {
   arguments: NamedArguments;
 
   constructor(ast: ast.NamedArgumentGroup, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.arguments = new NamedArguments(ast.arguments, options);
 

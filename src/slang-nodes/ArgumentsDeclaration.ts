@@ -27,7 +27,7 @@ export class ArgumentsDeclaration extends SlangNode {
   variant: PositionalArgumentsDeclaration | NamedArgumentsDeclaration;
 
   constructor(ast: ast.ArgumentsDeclaration, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

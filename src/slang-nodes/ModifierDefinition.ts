@@ -25,13 +25,13 @@ export class ModifierDefinition extends SlangNode {
   body: FunctionBody['variant'];
 
   constructor(ast: ast.ModifierDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     if (ast.parameters) {
       this.parameters = new ParametersDeclaration(ast.parameters, options);
     }
-    this.attributes = new ModifierAttributes(ast.attributes);
+    this.attributes = new ModifierAttributes(ast.attributes, options);
     this.body = extractVariant(new FunctionBody(ast.body, options));
 
     this.updateMetadata(this.parameters, this.attributes, this.body);

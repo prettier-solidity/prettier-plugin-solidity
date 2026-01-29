@@ -17,7 +17,7 @@ export class TupleDeconstructionElements extends SlangNode {
     ast: ast.TupleDeconstructionElements,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map(
       (item) => new TupleDeconstructionElement(item, options)

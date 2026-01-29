@@ -3,15 +3,17 @@ import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
+import type { ParserOptions } from 'prettier';
+import type { AstNode } from './types.d.ts';
 
 export class FunctionName extends SlangNode {
   readonly kind = NonterminalKind.FunctionName;
 
   variant: TerminalNode;
 
-  constructor(ast: ast.FunctionName) {
-    super(ast);
+  constructor(ast: ast.FunctionName, options: ParserOptions<AstNode>) {
+    super(ast, options);
 
-    this.variant = new TerminalNode(ast.variant);
+    this.variant = new TerminalNode(ast.variant, options);
   }
 }

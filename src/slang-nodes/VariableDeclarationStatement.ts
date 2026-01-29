@@ -30,15 +30,15 @@ export class VariableDeclarationStatement extends SlangNode {
     ast: ast.VariableDeclarationStatement,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.variableType = extractVariant(
       new VariableDeclarationType(ast.variableType, options)
     );
     if (ast.storageLocation) {
-      this.storageLocation = new StorageLocation(ast.storageLocation);
+      this.storageLocation = new StorageLocation(ast.storageLocation, options);
     }
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     if (ast.value) {
       this.value = new VariableDeclarationValue(ast.value, options);
     }

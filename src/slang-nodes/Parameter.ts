@@ -24,14 +24,14 @@ export class Parameter extends SlangNode {
   name?: TerminalNode;
 
   constructor(ast: ast.Parameter, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.typeName = extractVariant(new TypeName(ast.typeName, options));
     if (ast.storageLocation) {
-      this.storageLocation = new StorageLocation(ast.storageLocation);
+      this.storageLocation = new StorageLocation(ast.storageLocation, options);
     }
     if (ast.name) {
-      this.name = new TerminalNode(ast.name);
+      this.name = new TerminalNode(ast.name, options);
     }
 
     this.updateMetadata(this.typeName, this.storageLocation);

@@ -13,7 +13,7 @@ export class UncheckedBlock extends SlangNode {
   block: Block;
 
   constructor(ast: ast.UncheckedBlock, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.block = new Block(ast.block, options);
 

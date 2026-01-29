@@ -25,10 +25,10 @@ function createNonterminalVariant(
     return new MappingType(variant, options);
   }
   if (variant instanceof ast.ElementaryType) {
-    return extractVariant(new ElementaryType(variant));
+    return extractVariant(new ElementaryType(variant, options));
   }
   if (variant instanceof ast.IdentifierPath) {
-    return new IdentifierPath(variant);
+    return new IdentifierPath(variant, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -45,7 +45,7 @@ export class TypeName extends SlangNode {
     | IdentifierPath;
 
   constructor(ast: ast.TypeName, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

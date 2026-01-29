@@ -21,7 +21,7 @@ export class AssignmentExpression extends SlangNode {
   rightOperand: Expression['variant'];
 
   constructor(ast: ast.AssignmentExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.leftOperand = extractVariant(new Expression(ast.leftOperand, options));
     this.operator = ast.operator.unparse();

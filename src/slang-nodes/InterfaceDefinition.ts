@@ -22,9 +22,9 @@ export class InterfaceDefinition extends SlangNode {
   members: InterfaceMembers;
 
   constructor(ast: ast.InterfaceDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     if (ast.inheritance) {
       this.inheritance = new InheritanceSpecifier(ast.inheritance, options);
     }

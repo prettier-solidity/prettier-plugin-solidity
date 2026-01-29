@@ -16,7 +16,7 @@ export class NamedArgumentsDeclaration extends SlangNode {
     ast: ast.NamedArgumentsDeclaration,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     if (ast.arguments) {
       this.arguments = new NamedArgumentGroup(ast.arguments, options);

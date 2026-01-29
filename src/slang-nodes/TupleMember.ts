@@ -15,7 +15,7 @@ function createNonterminalVariant(
     return new TypedTupleMember(variant, options);
   }
   if (variant instanceof ast.UntypedTupleMember) {
-    return new UntypedTupleMember(variant);
+    return new UntypedTupleMember(variant, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -27,7 +27,7 @@ export class TupleMember extends SlangNode {
   variant: TypedTupleMember | UntypedTupleMember;
 
   constructor(ast: ast.TupleMember, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

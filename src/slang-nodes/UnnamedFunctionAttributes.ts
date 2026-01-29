@@ -21,7 +21,7 @@ export class UnnamedFunctionAttributes extends SlangNode {
     ast: ast.UnnamedFunctionAttributes,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new UnnamedFunctionAttribute(item, options))

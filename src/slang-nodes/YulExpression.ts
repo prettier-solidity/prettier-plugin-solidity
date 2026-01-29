@@ -20,7 +20,7 @@ function createNonterminalVariant(
     return extractVariant(new YulLiteral(variant, options));
   }
   if (variant instanceof ast.YulPath) {
-    return new YulPath(variant);
+    return new YulPath(variant, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -32,7 +32,7 @@ export class YulExpression extends SlangNode {
   variant: YulFunctionCallExpression | YulLiteral['variant'] | YulPath;
 
   constructor(ast: ast.YulExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

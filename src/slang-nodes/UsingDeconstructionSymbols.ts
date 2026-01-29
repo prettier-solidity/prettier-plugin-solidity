@@ -16,10 +16,15 @@ export class UsingDeconstructionSymbols extends SlangNode {
 
   items: UsingDeconstructionSymbol[];
 
-  constructor(ast: ast.UsingDeconstructionSymbols) {
-    super(ast, true);
+  constructor(
+    ast: ast.UsingDeconstructionSymbols,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, options, true);
 
-    this.items = ast.items.map((item) => new UsingDeconstructionSymbol(item));
+    this.items = ast.items.map(
+      (item) => new UsingDeconstructionSymbol(item, options)
+    );
   }
 
   print(

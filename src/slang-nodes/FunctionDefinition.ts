@@ -28,9 +28,9 @@ export class FunctionDefinition extends SlangNode {
   body: FunctionBody['variant'];
 
   constructor(ast: ast.FunctionDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = extractVariant(new FunctionName(ast.name));
+    this.name = extractVariant(new FunctionName(ast.name, options));
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new FunctionAttributes(ast.attributes, options);
     if (ast.returns) {

@@ -48,16 +48,16 @@ function createNonterminalVariant(
     return new DoWhileStatement(variant, options);
   }
   if (variant instanceof ast.ContinueStatement) {
-    return new ContinueStatement(variant);
+    return new ContinueStatement(variant, options);
   }
   if (variant instanceof ast.BreakStatement) {
-    return new BreakStatement(variant);
+    return new BreakStatement(variant, options);
   }
   if (variant instanceof ast.ReturnStatement) {
     return new ReturnStatement(variant, options);
   }
   if (variant instanceof ast.ThrowStatement) {
-    return new ThrowStatement(variant);
+    return new ThrowStatement(variant, options);
   }
   if (variant instanceof ast.EmitStatement) {
     return new EmitStatement(variant, options);
@@ -104,7 +104,7 @@ export class Statement extends SlangNode {
     | UncheckedBlock;
 
   constructor(ast: ast.Statement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

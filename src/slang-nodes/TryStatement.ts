@@ -28,7 +28,7 @@ export class TryStatement extends SlangNode {
   catchClauses: CatchClauses;
 
   constructor(ast: ast.TryStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.expression = extractVariant(new Expression(ast.expression, options));
     if (ast.returns) {

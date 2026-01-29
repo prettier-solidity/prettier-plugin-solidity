@@ -18,9 +18,9 @@ export class EventDefinition extends SlangNode {
   anonymousKeyword?: string;
 
   constructor(ast: ast.EventDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     this.parameters = new EventParametersDeclaration(ast.parameters, options);
     this.anonymousKeyword = ast.anonymousKeyword?.unparse();
 

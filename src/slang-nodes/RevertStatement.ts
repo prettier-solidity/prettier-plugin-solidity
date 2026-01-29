@@ -18,10 +18,10 @@ export class RevertStatement extends SlangNode {
   arguments: ArgumentsDeclaration['variant'];
 
   constructor(ast: ast.RevertStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     if (ast.error) {
-      this.error = new IdentifierPath(ast.error);
+      this.error = new IdentifierPath(ast.error, options);
     }
     this.arguments = extractVariant(
       new ArgumentsDeclaration(ast.arguments, options)

@@ -20,10 +20,10 @@ export class FunctionType extends SlangNode {
   returns?: ReturnsDeclaration;
 
   constructor(ast: ast.FunctionType, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
-    this.attributes = new FunctionTypeAttributes(ast.attributes);
+    this.attributes = new FunctionTypeAttributes(ast.attributes, options);
     if (ast.returns) {
       this.returns = new ReturnsDeclaration(ast.returns, options);
     }

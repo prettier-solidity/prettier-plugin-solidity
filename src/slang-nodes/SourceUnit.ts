@@ -16,7 +16,7 @@ export class SourceUnit extends SlangNode {
   members: SourceUnitMembers;
 
   constructor(ast: ast.SourceUnit, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.members = new SourceUnitMembers(ast.members, options);
 

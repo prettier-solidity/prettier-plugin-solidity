@@ -4,8 +4,9 @@ import { TerminalNode } from './TerminalNode.js';
 import { ImportAlias } from './ImportAlias.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 export class ImportDeconstructionSymbol extends SlangNode {
   readonly kind = NonterminalKind.ImportDeconstructionSymbol;
@@ -14,12 +15,15 @@ export class ImportDeconstructionSymbol extends SlangNode {
 
   alias?: ImportAlias;
 
-  constructor(ast: ast.ImportDeconstructionSymbol) {
-    super(ast);
+  constructor(
+    ast: ast.ImportDeconstructionSymbol,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, options);
 
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     if (ast.alias) {
-      this.alias = new ImportAlias(ast.alias);
+      this.alias = new ImportAlias(ast.alias, options);
     }
 
     this.updateMetadata(this.alias);

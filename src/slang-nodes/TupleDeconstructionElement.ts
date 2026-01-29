@@ -17,7 +17,7 @@ export class TupleDeconstructionElement extends SlangNode {
     ast: ast.TupleDeconstructionElement,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     if (ast.member) {
       this.member = extractVariant(new TupleMember(ast.member, options));

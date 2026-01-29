@@ -14,7 +14,7 @@ export class TypeExpression extends SlangNode {
   typeName: TypeName['variant'];
 
   constructor(ast: ast.TypeExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.typeName = extractVariant(new TypeName(ast.typeName, options));
 

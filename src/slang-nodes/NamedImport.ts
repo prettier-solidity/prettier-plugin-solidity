@@ -16,9 +16,9 @@ export class NamedImport extends SlangNode {
   path: StringLiteral;
 
   constructor(ast: ast.NamedImport, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.alias = new ImportAlias(ast.alias);
+    this.alias = new ImportAlias(ast.alias, options);
     this.path = new StringLiteral(ast.path, options);
 
     this.updateMetadata(this.alias, this.path);

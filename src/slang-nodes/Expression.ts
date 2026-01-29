@@ -111,16 +111,16 @@ function createNonterminalVariant(
     return new ArrayExpression(variant, options);
   }
   if (variant instanceof ast.HexNumberExpression) {
-    return new HexNumberExpression(variant);
+    return new HexNumberExpression(variant, options);
   }
   if (variant instanceof ast.DecimalNumberExpression) {
-    return new DecimalNumberExpression(variant);
+    return new DecimalNumberExpression(variant, options);
   }
   if (variant instanceof ast.StringExpression) {
     return extractVariant(new StringExpression(variant, options));
   }
   if (variant instanceof ast.ElementaryType) {
-    return extractVariant(new ElementaryType(variant));
+    return extractVariant(new ElementaryType(variant, options));
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -160,11 +160,11 @@ export class Expression extends SlangNode {
     | TerminalNode;
 
   constructor(ast: ast.Expression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, options);
       return;
     }
     this.variant = createNonterminalVariant(variant, options);

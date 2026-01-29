@@ -123,10 +123,10 @@ export class MemberAccessExpression extends SlangNode {
     ast: ast.MemberAccessExpression,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.operand = extractVariant(new Expression(ast.operand, options));
-    this.member = new TerminalNode(ast.member);
+    this.member = new TerminalNode(ast.member, options);
 
     this.updateMetadata(this.operand);
   }

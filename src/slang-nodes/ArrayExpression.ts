@@ -13,7 +13,7 @@ export class ArrayExpression extends SlangNode {
   items: ArrayValues;
 
   constructor(ast: ast.ArrayExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.items = new ArrayValues(ast.items, options);
   }

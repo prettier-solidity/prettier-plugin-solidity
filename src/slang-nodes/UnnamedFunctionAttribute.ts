@@ -19,11 +19,11 @@ export class UnnamedFunctionAttribute extends SlangNode {
     ast: ast.UnnamedFunctionAttribute,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, options);
       return;
     }
     this.variant = new ModifierInvocation(variant, options);

@@ -42,7 +42,7 @@ export class MultiplicativeExpression extends SlangNode {
     ast: ast.MultiplicativeExpression,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.leftOperand = extractVariant(new Expression(ast.leftOperand, options));
     this.operator = ast.operator.unparse();

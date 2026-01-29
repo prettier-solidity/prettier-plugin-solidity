@@ -41,7 +41,7 @@ function createNonterminalVariant(
     return new StructDefinition(variant, options);
   }
   if (variant instanceof ast.EnumDefinition) {
-    return new EnumDefinition(variant);
+    return new EnumDefinition(variant, options);
   }
   if (variant instanceof ast.FunctionDefinition) {
     return new FunctionDefinition(variant, options);
@@ -53,7 +53,7 @@ function createNonterminalVariant(
     return new ErrorDefinition(variant, options);
   }
   if (variant instanceof ast.UserDefinedValueTypeDefinition) {
-    return new UserDefinedValueTypeDefinition(variant);
+    return new UserDefinedValueTypeDefinition(variant, options);
   }
   if (variant instanceof ast.UsingDirective) {
     return new UsingDirective(variant, options);
@@ -84,7 +84,7 @@ export class SourceUnitMember extends SlangNode {
     | EventDefinition;
 
   constructor(ast: ast.SourceUnitMember, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

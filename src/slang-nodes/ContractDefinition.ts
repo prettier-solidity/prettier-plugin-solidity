@@ -25,10 +25,10 @@ export class ContractDefinition extends SlangNode {
   members: ContractMembers;
 
   constructor(ast: ast.ContractDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.abstractKeyword = ast.abstractKeyword?.unparse();
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     this.specifiers = new ContractSpecifiers(ast.specifiers, options);
     this.members = new ContractMembers(ast.members, options);
 

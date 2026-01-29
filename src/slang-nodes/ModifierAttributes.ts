@@ -6,8 +6,9 @@ import { SlangNode } from './SlangNode.js';
 import { ModifierAttribute } from './ModifierAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 const { line } = doc.builders;
 
@@ -16,11 +17,11 @@ export class ModifierAttributes extends SlangNode {
 
   items: ModifierAttribute['variant'][];
 
-  constructor(ast: ast.ModifierAttributes) {
-    super(ast, true);
+  constructor(ast: ast.ModifierAttributes, options: ParserOptions<AstNode>) {
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new ModifierAttribute(item))
+      extractVariant(new ModifierAttribute(item, options))
     );
 
     this.items.sort(sortFunctionAttributes);

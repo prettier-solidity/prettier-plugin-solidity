@@ -16,7 +16,7 @@ export class StringLiterals extends SlangNode {
   items: StringLiteral[];
 
   constructor(ast: ast.StringLiterals, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) => new StringLiteral(item, options));
   }

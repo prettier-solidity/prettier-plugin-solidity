@@ -31,11 +31,11 @@ export class YulLiteral extends SlangNode {
   variant: HexStringLiteral | StringLiteral | TerminalNode;
 
   constructor(ast: ast.YulLiteral, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, options);
       return;
     }
     this.variant = createNonterminalVariant(variant, options);

@@ -14,7 +14,7 @@ export class ExpressionStatement extends SlangNode {
   expression: Expression['variant'];
 
   constructor(ast: ast.ExpressionStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.expression = extractVariant(new Expression(ast.expression, options));
 

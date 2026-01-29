@@ -17,7 +17,7 @@ export class PositionalArguments extends SlangNode {
   items: Expression['variant'][];
 
   constructor(ast: ast.PositionalArguments, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new Expression(item, options))

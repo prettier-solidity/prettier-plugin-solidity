@@ -1,4 +1,4 @@
-import type { StrictPolymorphicNode } from '../slang-nodes/types.ts';
+import type { StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
 
 export function extractVariant<T extends StrictPolymorphicNode>({
   variant,

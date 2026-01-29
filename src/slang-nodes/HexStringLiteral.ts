@@ -12,7 +12,7 @@ export class HexStringLiteral extends SlangNode {
   variant: string;
 
   constructor(ast: ast.HexStringLiteral, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = ast.variant.unparse();
 

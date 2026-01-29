@@ -24,7 +24,7 @@ export class ReceiveFunctionDefinition extends SlangNode {
     ast: ast.ReceiveFunctionDefinition,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new ReceiveFunctionAttributes(ast.attributes, options);

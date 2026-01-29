@@ -20,7 +20,7 @@ export class ConstructorDefinition extends SlangNode {
   body: Block;
 
   constructor(ast: ast.ConstructorDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.parameters = new ParametersDeclaration(ast.parameters, options);
     this.attributes = new ConstructorAttributes(ast.attributes, options);

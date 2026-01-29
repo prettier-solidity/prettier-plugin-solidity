@@ -16,7 +16,7 @@ export class CatchClause extends SlangNode {
   body: Block;
 
   constructor(ast: ast.CatchClause, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     if (ast.error) {
       this.error = new CatchClauseError(ast.error, options);

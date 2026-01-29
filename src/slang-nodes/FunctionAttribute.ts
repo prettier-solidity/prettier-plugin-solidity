@@ -19,7 +19,7 @@ function createNonterminalVariant(
     return new ModifierInvocation(variant, options);
   }
   if (variant instanceof ast.OverrideSpecifier) {
-    return new OverrideSpecifier(variant);
+    return new OverrideSpecifier(variant, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -31,11 +31,11 @@ export class FunctionAttribute extends SlangNode {
   variant: ModifierInvocation | OverrideSpecifier | TerminalNode;
 
   constructor(ast: ast.FunctionAttribute, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, options);
       return;
     }
     this.variant = createNonterminalVariant(variant, options);

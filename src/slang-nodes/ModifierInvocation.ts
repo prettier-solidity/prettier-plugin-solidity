@@ -17,9 +17,9 @@ export class ModifierInvocation extends SlangNode {
   arguments?: ArgumentsDeclaration['variant'];
 
   constructor(ast: ast.ModifierInvocation, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = new IdentifierPath(ast.name);
+    this.name = new IdentifierPath(ast.name, options);
     if (ast.arguments) {
       this.arguments = extractVariant(
         new ArgumentsDeclaration(ast.arguments, options)

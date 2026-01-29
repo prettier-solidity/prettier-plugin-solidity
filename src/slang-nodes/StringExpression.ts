@@ -44,7 +44,7 @@ export class StringExpression extends SlangNode {
     | UnicodeStringLiterals;
 
   constructor(ast: ast.StringExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

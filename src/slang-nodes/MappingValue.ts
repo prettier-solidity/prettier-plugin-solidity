@@ -18,11 +18,11 @@ export class MappingValue extends SlangNode {
   name?: TerminalNode;
 
   constructor(ast: ast.MappingValue, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.typeName = extractVariant(new TypeName(ast.typeName, options));
     if (ast.name) {
-      this.name = new TerminalNode(ast.name);
+      this.name = new TerminalNode(ast.name, options);
     }
 
     this.updateMetadata(this.typeName);

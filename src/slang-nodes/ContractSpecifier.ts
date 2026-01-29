@@ -27,7 +27,7 @@ export class ContractSpecifier extends SlangNode {
   variant: InheritanceSpecifier | StorageLayoutSpecifier;
 
   constructor(ast: ast.ContractSpecifier, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

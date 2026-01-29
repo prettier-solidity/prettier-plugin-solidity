@@ -16,11 +16,11 @@ export class ForStatementCondition extends SlangNode {
   variant: ExpressionStatement | TerminalNode;
 
   constructor(ast: ast.ForStatementCondition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, options);
       return;
     }
     this.variant = new ExpressionStatement(variant, options);

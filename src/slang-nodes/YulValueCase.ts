@@ -17,7 +17,7 @@ export class YulValueCase extends SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.YulValueCase, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.value = extractVariant(new YulLiteral(ast.value, options));
     this.body = new YulBlock(ast.body, options);

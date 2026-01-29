@@ -14,7 +14,7 @@ export class PragmaDirective extends SlangNode {
   pragma: Pragma['variant'];
 
   constructor(ast: ast.PragmaDirective, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.pragma = extractVariant(new Pragma(ast.pragma, options));
 

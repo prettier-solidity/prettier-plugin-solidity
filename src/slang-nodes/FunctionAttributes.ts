@@ -18,7 +18,7 @@ export class FunctionAttributes extends SlangNode {
   items: FunctionAttribute['variant'][];
 
   constructor(ast: ast.FunctionAttributes, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new FunctionAttribute(item, options))

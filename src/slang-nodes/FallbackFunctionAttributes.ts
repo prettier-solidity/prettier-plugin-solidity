@@ -21,7 +21,7 @@ export class FallbackFunctionAttributes extends SlangNode {
     ast: ast.FallbackFunctionAttributes,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) =>
       extractVariant(new FallbackFunctionAttribute(item, options))

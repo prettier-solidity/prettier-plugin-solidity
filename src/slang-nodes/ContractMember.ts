@@ -47,7 +47,7 @@ function createNonterminalVariant(
     return new StructDefinition(variant, options);
   }
   if (variant instanceof ast.EnumDefinition) {
-    return new EnumDefinition(variant);
+    return new EnumDefinition(variant, options);
   }
   if (variant instanceof ast.EventDefinition) {
     return new EventDefinition(variant, options);
@@ -59,7 +59,7 @@ function createNonterminalVariant(
     return new ErrorDefinition(variant, options);
   }
   if (variant instanceof ast.UserDefinedValueTypeDefinition) {
-    return new UserDefinedValueTypeDefinition(variant);
+    return new UserDefinedValueTypeDefinition(variant, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -84,7 +84,7 @@ export class ContractMember extends SlangNode {
     | UserDefinedValueTypeDefinition;
 
   constructor(ast: ast.ContractMember, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.variant = createNonterminalVariant(ast.variant, options);
 

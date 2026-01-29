@@ -1,11 +1,13 @@
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode } from './slang-nodes/types.d.ts';
+import type { AstNode, Comment } from './slang-nodes/types.d.ts';
 
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {
   interface ParserOptions {
     compiler: string;
+    _prettier_solidity_offsets: Map<number, number>;
+    _prettier_solidity_comments: Comment[];
   }
 }
 

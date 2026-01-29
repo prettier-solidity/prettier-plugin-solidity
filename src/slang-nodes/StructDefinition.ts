@@ -16,9 +16,9 @@ export class StructDefinition extends SlangNode {
   members: StructMembers;
 
   constructor(ast: ast.StructDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.name = new TerminalNode(ast.name);
+    this.name = new TerminalNode(ast.name, options);
     this.members = new StructMembers(ast.members, options);
 
     this.updateMetadata(this.members);

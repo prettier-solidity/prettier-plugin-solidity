@@ -16,7 +16,7 @@ export class UnicodeStringLiterals extends SlangNode {
   items: UnicodeStringLiteral[];
 
   constructor(ast: ast.UnicodeStringLiterals, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map(
       (item) => new UnicodeStringLiteral(item, options)

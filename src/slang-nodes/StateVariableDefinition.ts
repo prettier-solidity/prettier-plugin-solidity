@@ -30,11 +30,11 @@ export class StateVariableDefinition extends SlangNode {
     ast: ast.StateVariableDefinition,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.typeName = extractVariant(new TypeName(ast.typeName, options));
-    this.attributes = new StateVariableAttributes(ast.attributes);
-    this.name = new TerminalNode(ast.name);
+    this.attributes = new StateVariableAttributes(ast.attributes, options);
+    this.name = new TerminalNode(ast.name, options);
     if (ast.value) {
       this.value = new StateVariableDefinitionValue(ast.value, options);
     }

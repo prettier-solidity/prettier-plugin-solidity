@@ -16,9 +16,9 @@ export class ImportDeconstruction extends SlangNode {
   path: StringLiteral;
 
   constructor(ast: ast.ImportDeconstruction, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
-    this.symbols = new ImportDeconstructionSymbols(ast.symbols);
+    this.symbols = new ImportDeconstructionSymbols(ast.symbols, options);
     this.path = new StringLiteral(ast.path, options);
 
     this.updateMetadata(this.symbols, this.path);

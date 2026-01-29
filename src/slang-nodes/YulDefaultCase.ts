@@ -13,7 +13,7 @@ export class YulDefaultCase extends SlangNode {
   body: YulBlock;
 
   constructor(ast: ast.YulDefaultCase, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     this.body = new YulBlock(ast.body, options);
 

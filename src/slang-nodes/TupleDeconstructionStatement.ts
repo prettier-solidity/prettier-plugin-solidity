@@ -23,7 +23,7 @@ export class TupleDeconstructionStatement extends SlangNode {
     ast: ast.TupleDeconstructionStatement,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, options);
 
     this.varKeyword = ast.varKeyword?.unparse();
     this.elements = new TupleDeconstructionElements(ast.elements, options);

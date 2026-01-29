@@ -16,7 +16,7 @@ export class HexStringLiterals extends SlangNode {
   items: HexStringLiteral[];
 
   constructor(ast: ast.HexStringLiterals, options: ParserOptions<AstNode>) {
-    super(ast, true);
+    super(ast, options, true);
 
     this.items = ast.items.map((item) => new HexStringLiteral(item, options));
   }

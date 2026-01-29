@@ -19,10 +19,10 @@ export class CatchClauseError extends SlangNode {
   parameters: ParametersDeclaration;
 
   constructor(ast: ast.CatchClauseError, options: ParserOptions<AstNode>) {
-    super(ast);
+    super(ast, options);
 
     if (ast.name) {
-      this.name = new TerminalNode(ast.name);
+      this.name = new TerminalNode(ast.name, options);
     }
     this.parameters = new ParametersDeclaration(ast.parameters, options);
 
