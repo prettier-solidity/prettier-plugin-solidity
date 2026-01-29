@@ -10,7 +10,7 @@ import { IndexAccessEnd } from './IndexAccessEnd.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { label } = doc.builders;
@@ -24,15 +24,23 @@ export class IndexAccessExpression extends SlangNode {
 
   end?: IndexAccessEnd;
 
-  constructor(ast: ast.IndexAccessExpression, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.IndexAccessExpression,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, options)
+    );
     if (ast.start) {
-      this.start = extractVariant(new Expression(ast.start, options));
+      this.start = extractVariant(
+        new Expression(ast.start, collected, options)
+      );
     }
     if (ast.end) {
-      this.end = new IndexAccessEnd(ast.end, options);
+      this.end = new IndexAccessEnd(ast.end, collected, options);
     }
 
     this.updateMetadata(this.operand, this.start, this.end);

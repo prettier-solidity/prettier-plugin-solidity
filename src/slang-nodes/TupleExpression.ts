@@ -4,7 +4,7 @@ import { TupleValues } from './TupleValues.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class TupleExpression extends SlangNode {
@@ -12,10 +12,14 @@ export class TupleExpression extends SlangNode {
 
   items: TupleValues;
 
-  constructor(ast: ast.TupleExpression, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.TupleExpression,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.items = new TupleValues(ast.items, options);
+    this.items = new TupleValues(ast.items, collected, options);
   }
 
   print(path: AstPath<TupleExpression>, print: PrintFunction): Doc {

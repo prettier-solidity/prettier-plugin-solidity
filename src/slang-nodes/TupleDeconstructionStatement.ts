@@ -7,7 +7,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class TupleDeconstructionStatement extends SlangNode {
@@ -21,13 +21,20 @@ export class TupleDeconstructionStatement extends SlangNode {
 
   constructor(
     ast: ast.TupleDeconstructionStatement,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, options);
+    super(ast, collected);
 
     this.varKeyword = ast.varKeyword?.unparse();
-    this.elements = new TupleDeconstructionElements(ast.elements, options);
-    this.expression = extractVariant(new Expression(ast.expression, options));
+    this.elements = new TupleDeconstructionElements(
+      ast.elements,
+      collected,
+      options
+    );
+    this.expression = extractVariant(
+      new Expression(ast.expression, collected, options)
+    );
 
     this.updateMetadata(this.elements, this.expression);
   }

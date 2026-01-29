@@ -7,7 +7,7 @@ import { Parameter } from './Parameter.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class Parameters extends SlangNode {
@@ -15,10 +15,16 @@ export class Parameters extends SlangNode {
 
   items: Parameter[];
 
-  constructor(ast: ast.Parameters, options: ParserOptions<AstNode>) {
-    super(ast, options, true);
+  constructor(
+    ast: ast.Parameters,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new Parameter(item, options));
+    this.items = ast.items.map(
+      (item) => new Parameter(item, collected, options)
+    );
   }
 
   print(

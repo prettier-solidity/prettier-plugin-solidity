@@ -4,7 +4,7 @@ import { ArrayValues } from './ArrayValues.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class ArrayExpression extends SlangNode {
@@ -12,10 +12,14 @@ export class ArrayExpression extends SlangNode {
 
   items: ArrayValues;
 
-  constructor(ast: ast.ArrayExpression, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.ArrayExpression,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.items = new ArrayValues(ast.items, options);
+    this.items = new ArrayValues(ast.items, collected, options);
   }
 
   print(path: AstPath<ArrayExpression>, print: PrintFunction): Doc {

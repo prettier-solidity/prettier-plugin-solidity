@@ -9,7 +9,7 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode, StrictAstNode } from './types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
@@ -121,12 +121,15 @@ export class MemberAccessExpression extends SlangNode {
 
   constructor(
     ast: ast.MemberAccessExpression,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, options);
+    super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
-    this.member = new TerminalNode(ast.member, options);
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, options)
+    );
+    this.member = new TerminalNode(ast.member, collected);
 
     this.updateMetadata(this.operand);
   }

@@ -7,7 +7,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode, StrictAstNode } from './types.d.ts';
 
 const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
@@ -119,15 +119,21 @@ export class ConditionalExpression extends SlangNode {
 
   falseExpression: Expression['variant'];
 
-  constructor(ast: ast.ConditionalExpression, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.ConditionalExpression,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, options)
+    );
     this.trueExpression = extractVariant(
-      new Expression(ast.trueExpression, options)
+      new Expression(ast.trueExpression, collected, options)
     );
     this.falseExpression = extractVariant(
-      new Expression(ast.falseExpression, options)
+      new Expression(ast.falseExpression, collected, options)
     );
 
     this.updateMetadata(

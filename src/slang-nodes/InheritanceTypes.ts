@@ -6,7 +6,7 @@ import { InheritanceType } from './InheritanceType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { line } = doc.builders;
@@ -16,10 +16,16 @@ export class InheritanceTypes extends SlangNode {
 
   items: InheritanceType[];
 
-  constructor(ast: ast.InheritanceTypes, options: ParserOptions<AstNode>) {
-    super(ast, options, true);
+  constructor(
+    ast: ast.InheritanceTypes,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new InheritanceType(item, options));
+    this.items = ast.items.map(
+      (item) => new InheritanceType(item, collected, options)
+    );
   }
 
   print(path: AstPath<InheritanceTypes>, print: PrintFunction): Doc {

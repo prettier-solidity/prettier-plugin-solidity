@@ -7,8 +7,7 @@ import { YulEqualAndColon } from './YulEqualAndColon.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { CollectedMetadata } from '../types.d.ts';
 
 export class YulStackAssignmentOperator extends SlangNode {
   readonly kind = NonterminalKind.YulStackAssignmentOperator;
@@ -17,16 +16,16 @@ export class YulStackAssignmentOperator extends SlangNode {
 
   constructor(
     ast: ast.YulStackAssignmentOperator,
-    options: ParserOptions<AstNode>
+    collected: CollectedMetadata
   ) {
-    super(ast, options);
+    super(ast, collected);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant, options);
+      this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = new YulEqualAndColon(variant, options);
+    this.variant = new YulEqualAndColon(variant, collected);
 
     this.updateMetadata(this.variant);
   }

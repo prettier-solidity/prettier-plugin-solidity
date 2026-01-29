@@ -5,18 +5,17 @@ import { SlangNode } from './SlangNode.js';
 import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
-import type { ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { CollectedMetadata } from '../types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.MappingKeyType['variant'],
-  options: ParserOptions<AstNode>
+  collected: CollectedMetadata
 ): MappingKeyType['variant'] {
   if (variant instanceof ast.ElementaryType) {
-    return extractVariant(new ElementaryType(variant, options));
+    return extractVariant(new ElementaryType(variant, collected));
   }
   if (variant instanceof ast.IdentifierPath) {
-    return new IdentifierPath(variant, options);
+    return new IdentifierPath(variant, collected);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -27,10 +26,10 @@ export class MappingKeyType extends SlangNode {
 
   variant: ElementaryType['variant'] | IdentifierPath;
 
-  constructor(ast: ast.MappingKeyType, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(ast: ast.MappingKeyType, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, options);
+    this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);
   }

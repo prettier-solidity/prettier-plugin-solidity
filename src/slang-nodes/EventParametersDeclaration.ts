@@ -4,7 +4,7 @@ import { EventParameters } from './EventParameters.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class EventParametersDeclaration extends SlangNode {
@@ -14,11 +14,12 @@ export class EventParametersDeclaration extends SlangNode {
 
   constructor(
     ast: ast.EventParametersDeclaration,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, options);
+    super(ast, collected);
 
-    this.parameters = new EventParameters(ast.parameters, options);
+    this.parameters = new EventParameters(ast.parameters, collected, options);
 
     this.updateMetadata(this.parameters);
   }

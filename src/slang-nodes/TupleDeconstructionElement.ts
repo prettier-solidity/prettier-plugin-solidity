@@ -5,7 +5,7 @@ import { TupleMember } from './TupleMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class TupleDeconstructionElement extends SlangNode {
@@ -15,12 +15,15 @@ export class TupleDeconstructionElement extends SlangNode {
 
   constructor(
     ast: ast.TupleDeconstructionElement,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, options);
+    super(ast, collected);
 
     if (ast.member) {
-      this.member = extractVariant(new TupleMember(ast.member, options));
+      this.member = extractVariant(
+        new TupleMember(ast.member, collected, options)
+      );
     }
 
     this.updateMetadata(this.member);

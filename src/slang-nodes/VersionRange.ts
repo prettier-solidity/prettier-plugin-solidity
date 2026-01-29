@@ -4,9 +4,8 @@ import { SlangNode } from './SlangNode.js';
 import { VersionLiteral } from './VersionLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class VersionRange extends SlangNode {
   readonly kind = NonterminalKind.VersionRange;
@@ -15,11 +14,11 @@ export class VersionRange extends SlangNode {
 
   end: VersionLiteral['variant'];
 
-  constructor(ast: ast.VersionRange, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(ast: ast.VersionRange, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.start = extractVariant(new VersionLiteral(ast.start, options));
-    this.end = extractVariant(new VersionLiteral(ast.end, options));
+    this.start = extractVariant(new VersionLiteral(ast.start, collected));
+    this.end = extractVariant(new VersionLiteral(ast.end, collected));
 
     this.updateMetadata(this.start, this.end);
   }

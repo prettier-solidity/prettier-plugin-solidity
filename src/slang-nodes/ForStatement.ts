@@ -11,7 +11,7 @@ import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { line } = doc.builders;
@@ -27,19 +27,25 @@ export class ForStatement extends SlangNode {
 
   body: Statement['variant'];
 
-  constructor(ast: ast.ForStatement, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.ForStatement,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     this.initialization = extractVariant(
-      new ForStatementInitialization(ast.initialization, options)
+      new ForStatementInitialization(ast.initialization, collected, options)
     );
     this.condition = extractVariant(
-      new ForStatementCondition(ast.condition, options)
+      new ForStatementCondition(ast.condition, collected, options)
     );
     if (ast.iterator) {
-      this.iterator = extractVariant(new Expression(ast.iterator, options));
+      this.iterator = extractVariant(
+        new Expression(ast.iterator, collected, options)
+      );
     }
-    this.body = extractVariant(new Statement(ast.body, options));
+    this.body = extractVariant(new Statement(ast.body, collected, options));
 
     this.updateMetadata(
       this.initialization,

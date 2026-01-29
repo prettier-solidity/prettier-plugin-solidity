@@ -4,16 +4,16 @@ import type {
   TerminalNode as SlangTerminalNode,
   TerminalKind
 } from '@nomicfoundation/slang/cst';
-import type { Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.d.ts';
+import type { Doc } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 
 export class TerminalNode extends SlangNode {
   kind: TerminalKind;
 
   value: string;
 
-  constructor(ast: SlangTerminalNode, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(ast: SlangTerminalNode, collected: CollectedMetadata) {
+    super(ast, collected);
 
     this.kind = ast.kind;
     this.value = ast.unparse();

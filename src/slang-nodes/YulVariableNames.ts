@@ -5,9 +5,8 @@ import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
@@ -16,10 +15,10 @@ export class YulVariableNames extends SlangNode {
 
   items: TerminalNode[];
 
-  constructor(ast: ast.YulVariableNames, options: ParserOptions<AstNode>) {
-    super(ast, options, true);
+  constructor(ast: ast.YulVariableNames, collected: CollectedMetadata) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new TerminalNode(item, options));
+    this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
   print(path: AstPath<YulVariableNames>, print: PrintFunction): Doc {

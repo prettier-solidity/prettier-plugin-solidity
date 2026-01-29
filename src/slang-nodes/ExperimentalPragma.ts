@@ -5,7 +5,7 @@ import { ExperimentalFeature } from './ExperimentalFeature.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class ExperimentalPragma extends SlangNode {
@@ -13,11 +13,15 @@ export class ExperimentalPragma extends SlangNode {
 
   feature: ExperimentalFeature['variant'];
 
-  constructor(ast: ast.ExperimentalPragma, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.ExperimentalPragma,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     this.feature = extractVariant(
-      new ExperimentalFeature(ast.feature, options)
+      new ExperimentalFeature(ast.feature, collected, options)
     );
 
     this.updateMetadata(this.feature);

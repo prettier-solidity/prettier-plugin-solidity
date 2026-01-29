@@ -7,7 +7,7 @@ import { FunctionAttribute } from './FunctionAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { line } = doc.builders;
@@ -17,11 +17,15 @@ export class FunctionAttributes extends SlangNode {
 
   items: FunctionAttribute['variant'][];
 
-  constructor(ast: ast.FunctionAttributes, options: ParserOptions<AstNode>) {
-    super(ast, options, true);
+  constructor(
+    ast: ast.FunctionAttributes,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new FunctionAttribute(item, options))
+      extractVariant(new FunctionAttribute(item, collected, options))
     );
 
     this.items.sort(sortFunctionAttributes);

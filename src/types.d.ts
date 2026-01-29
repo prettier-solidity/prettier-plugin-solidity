@@ -11,6 +11,11 @@ declare module 'prettier' {
   }
 }
 
+interface CollectedMetadata {
+  offsets: Map<number, number>;
+  comments: Comment[];
+}
+
 interface Location {
   start: number;
   end: number;

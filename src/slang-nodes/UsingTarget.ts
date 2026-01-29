@@ -9,6 +9,7 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class UsingTarget extends SlangNode {
@@ -16,15 +17,19 @@ export class UsingTarget extends SlangNode {
 
   variant: TypeName['variant'] | TerminalNode;
 
-  constructor(ast: ast.UsingTarget, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.UsingTarget,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant, options);
+      this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = extractVariant(new TypeName(variant, options));
+    this.variant = extractVariant(new TypeName(variant, collected, options));
 
     this.updateMetadata(this.variant);
   }

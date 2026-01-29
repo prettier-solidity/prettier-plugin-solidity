@@ -4,7 +4,7 @@ import { NamedArgumentGroup } from './NamedArgumentGroup.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class NamedArgumentsDeclaration extends SlangNode {
@@ -14,12 +14,17 @@ export class NamedArgumentsDeclaration extends SlangNode {
 
   constructor(
     ast: ast.NamedArgumentsDeclaration,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, options);
+    super(ast, collected);
 
     if (ast.arguments) {
-      this.arguments = new NamedArgumentGroup(ast.arguments, options);
+      this.arguments = new NamedArgumentGroup(
+        ast.arguments,
+        collected,
+        options
+      );
     }
 
     this.updateMetadata(this.arguments);

@@ -20,62 +20,64 @@ import { Block } from './Block.js';
 import { UncheckedBlock } from './UncheckedBlock.js';
 
 import type { ParserOptions } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.Statement['variant'],
+  collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Statement['variant'] {
   if (variant instanceof ast.ExpressionStatement) {
-    return new ExpressionStatement(variant, options);
+    return new ExpressionStatement(variant, collected, options);
   }
   if (variant instanceof ast.VariableDeclarationStatement) {
-    return new VariableDeclarationStatement(variant, options);
+    return new VariableDeclarationStatement(variant, collected, options);
   }
   if (variant instanceof ast.TupleDeconstructionStatement) {
-    return new TupleDeconstructionStatement(variant, options);
+    return new TupleDeconstructionStatement(variant, collected, options);
   }
   if (variant instanceof ast.IfStatement) {
-    return new IfStatement(variant, options);
+    return new IfStatement(variant, collected, options);
   }
   if (variant instanceof ast.ForStatement) {
-    return new ForStatement(variant, options);
+    return new ForStatement(variant, collected, options);
   }
   if (variant instanceof ast.WhileStatement) {
-    return new WhileStatement(variant, options);
+    return new WhileStatement(variant, collected, options);
   }
   if (variant instanceof ast.DoWhileStatement) {
-    return new DoWhileStatement(variant, options);
+    return new DoWhileStatement(variant, collected, options);
   }
   if (variant instanceof ast.ContinueStatement) {
-    return new ContinueStatement(variant, options);
+    return new ContinueStatement(variant, collected);
   }
   if (variant instanceof ast.BreakStatement) {
-    return new BreakStatement(variant, options);
+    return new BreakStatement(variant, collected);
   }
   if (variant instanceof ast.ReturnStatement) {
-    return new ReturnStatement(variant, options);
+    return new ReturnStatement(variant, collected, options);
   }
   if (variant instanceof ast.ThrowStatement) {
-    return new ThrowStatement(variant, options);
+    return new ThrowStatement(variant, collected);
   }
   if (variant instanceof ast.EmitStatement) {
-    return new EmitStatement(variant, options);
+    return new EmitStatement(variant, collected, options);
   }
   if (variant instanceof ast.TryStatement) {
-    return new TryStatement(variant, options);
+    return new TryStatement(variant, collected, options);
   }
   if (variant instanceof ast.RevertStatement) {
-    return new RevertStatement(variant, options);
+    return new RevertStatement(variant, collected, options);
   }
   if (variant instanceof ast.AssemblyStatement) {
-    return new AssemblyStatement(variant, options);
+    return new AssemblyStatement(variant, collected, options);
   }
   if (variant instanceof ast.Block) {
-    return new Block(variant, options);
+    return new Block(variant, collected, options);
   }
   if (variant instanceof ast.UncheckedBlock) {
-    return new UncheckedBlock(variant, options);
+    return new UncheckedBlock(variant, collected, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -103,10 +105,14 @@ export class Statement extends SlangNode {
     | Block
     | UncheckedBlock;
 
-  constructor(ast: ast.Statement, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.Statement,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, options);
+    this.variant = createNonterminalVariant(ast.variant, collected, options);
 
     this.updateMetadata(this.variant);
   }

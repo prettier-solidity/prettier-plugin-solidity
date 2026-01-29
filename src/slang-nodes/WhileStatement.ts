@@ -8,7 +8,7 @@ import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class WhileStatement extends SlangNode {
@@ -18,11 +18,17 @@ export class WhileStatement extends SlangNode {
 
   body: Statement['variant'];
 
-  constructor(ast: ast.WhileStatement, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.WhileStatement,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.condition = extractVariant(new Expression(ast.condition, options));
-    this.body = extractVariant(new Statement(ast.body, options));
+    this.condition = extractVariant(
+      new Expression(ast.condition, collected, options)
+    );
+    this.body = extractVariant(new Statement(ast.body, collected, options));
 
     this.updateMetadata(this.condition, this.body);
   }

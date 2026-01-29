@@ -6,7 +6,7 @@ import { CallOptions } from './CallOptions.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class CallOptionsExpression extends SlangNode {
@@ -16,11 +16,17 @@ export class CallOptionsExpression extends SlangNode {
 
   options: CallOptions;
 
-  constructor(ast: ast.CallOptionsExpression, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.CallOptionsExpression,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
-    this.options = new CallOptions(ast.options, options);
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, options)
+    );
+    this.options = new CallOptions(ast.options, collected, options);
 
     this.updateMetadata(this.operand, this.options);
   }

@@ -3,19 +3,18 @@ import { SlangNode } from './SlangNode.js';
 import { VersionExpressionSets } from './VersionExpressionSets.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class VersionPragma extends SlangNode {
   readonly kind = NonterminalKind.VersionPragma;
 
   sets: VersionExpressionSets;
 
-  constructor(ast: ast.VersionPragma, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(ast: ast.VersionPragma, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.sets = new VersionExpressionSets(ast.sets, options);
+    this.sets = new VersionExpressionSets(ast.sets, collected);
 
     this.updateMetadata(this.sets);
   }

@@ -5,7 +5,7 @@ import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class AssemblyFlags extends SlangNode {
@@ -13,10 +13,16 @@ export class AssemblyFlags extends SlangNode {
 
   items: StringLiteral[];
 
-  constructor(ast: ast.AssemblyFlags, options: ParserOptions<AstNode>) {
-    super(ast, options, true);
+  constructor(
+    ast: ast.AssemblyFlags,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new StringLiteral(item, options));
+    this.items = ast.items.map(
+      (item) => new StringLiteral(item, collected, options)
+    );
   }
 
   print(path: AstPath<AssemblyFlags>, print: PrintFunction): Doc {

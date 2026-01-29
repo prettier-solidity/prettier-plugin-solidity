@@ -16,50 +16,52 @@ import { UsingDirective } from './UsingDirective.js';
 import { EventDefinition } from './EventDefinition.js';
 
 import type { ParserOptions } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.SourceUnitMember['variant'],
+  collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): SourceUnitMember['variant'] {
   if (variant instanceof ast.PragmaDirective) {
-    return new PragmaDirective(variant, options);
+    return new PragmaDirective(variant, collected, options);
   }
   if (variant instanceof ast.ImportDirective) {
-    return new ImportDirective(variant, options);
+    return new ImportDirective(variant, collected, options);
   }
   if (variant instanceof ast.ContractDefinition) {
-    return new ContractDefinition(variant, options);
+    return new ContractDefinition(variant, collected, options);
   }
   if (variant instanceof ast.InterfaceDefinition) {
-    return new InterfaceDefinition(variant, options);
+    return new InterfaceDefinition(variant, collected, options);
   }
   if (variant instanceof ast.LibraryDefinition) {
-    return new LibraryDefinition(variant, options);
+    return new LibraryDefinition(variant, collected, options);
   }
   if (variant instanceof ast.StructDefinition) {
-    return new StructDefinition(variant, options);
+    return new StructDefinition(variant, collected, options);
   }
   if (variant instanceof ast.EnumDefinition) {
-    return new EnumDefinition(variant, options);
+    return new EnumDefinition(variant, collected);
   }
   if (variant instanceof ast.FunctionDefinition) {
-    return new FunctionDefinition(variant, options);
+    return new FunctionDefinition(variant, collected, options);
   }
   if (variant instanceof ast.ConstantDefinition) {
-    return new ConstantDefinition(variant, options);
+    return new ConstantDefinition(variant, collected, options);
   }
   if (variant instanceof ast.ErrorDefinition) {
-    return new ErrorDefinition(variant, options);
+    return new ErrorDefinition(variant, collected, options);
   }
   if (variant instanceof ast.UserDefinedValueTypeDefinition) {
-    return new UserDefinedValueTypeDefinition(variant, options);
+    return new UserDefinedValueTypeDefinition(variant, collected);
   }
   if (variant instanceof ast.UsingDirective) {
-    return new UsingDirective(variant, options);
+    return new UsingDirective(variant, collected, options);
   }
   if (variant instanceof ast.EventDefinition) {
-    return new EventDefinition(variant, options);
+    return new EventDefinition(variant, collected, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -83,10 +85,14 @@ export class SourceUnitMember extends SlangNode {
     | UsingDirective
     | EventDefinition;
 
-  constructor(ast: ast.SourceUnitMember, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.SourceUnitMember,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, options);
+    this.variant = createNonterminalVariant(ast.variant, collected, options);
 
     this.updateMetadata(this.variant);
   }

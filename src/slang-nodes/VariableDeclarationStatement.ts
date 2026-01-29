@@ -10,7 +10,7 @@ import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { indent, line } = doc.builders;
@@ -28,19 +28,23 @@ export class VariableDeclarationStatement extends SlangNode {
 
   constructor(
     ast: ast.VariableDeclarationStatement,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, options);
+    super(ast, collected);
 
     this.variableType = extractVariant(
-      new VariableDeclarationType(ast.variableType, options)
+      new VariableDeclarationType(ast.variableType, collected, options)
     );
     if (ast.storageLocation) {
-      this.storageLocation = new StorageLocation(ast.storageLocation, options);
+      this.storageLocation = new StorageLocation(
+        ast.storageLocation,
+        collected
+      );
     }
-    this.name = new TerminalNode(ast.name, options);
+    this.name = new TerminalNode(ast.name, collected);
     if (ast.value) {
-      this.value = new VariableDeclarationValue(ast.value, options);
+      this.value = new VariableDeclarationValue(ast.value, collected, options);
     }
 
     this.updateMetadata(this.variableType, this.storageLocation, this.value);

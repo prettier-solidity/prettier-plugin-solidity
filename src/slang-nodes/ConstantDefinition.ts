@@ -7,7 +7,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class ConstantDefinition extends SlangNode {
@@ -19,12 +19,18 @@ export class ConstantDefinition extends SlangNode {
 
   value: Expression['variant'];
 
-  constructor(ast: ast.ConstantDefinition, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.ConstantDefinition,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.typeName = extractVariant(new TypeName(ast.typeName, options));
-    this.name = new TerminalNode(ast.name, options);
-    this.value = extractVariant(new Expression(ast.value, options));
+    this.typeName = extractVariant(
+      new TypeName(ast.typeName, collected, options)
+    );
+    this.name = new TerminalNode(ast.name, collected);
+    this.value = extractVariant(new Expression(ast.value, collected, options));
 
     this.updateMetadata(this.typeName, this.value);
   }

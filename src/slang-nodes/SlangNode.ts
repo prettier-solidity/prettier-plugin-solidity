@@ -3,18 +3,17 @@ import {
   TerminalKind,
   TerminalKindExtensions
 } from '@nomicfoundation/slang/cst';
-import { MultiLineComment } from '../slang-nodes/MultiLineComment.js';
-import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.js';
-import { SingleLineComment } from '../slang-nodes/SingleLineComment.js';
-import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.js';
+import { MultiLineComment } from './MultiLineComment.js';
+import { MultiLineNatSpecComment } from './MultiLineNatSpecComment.js';
+import { SingleLineComment } from './SingleLineComment.js';
+import { SingleLineNatSpecComment } from './SingleLineNatSpecComment.js';
 
-import type { ParserOptions } from 'prettier';
 import type {
-  AstNode,
-  Comment,
-  StrictAstNode
-} from '../slang-nodes/types.d.ts';
-import type { AstLocation, SlangAstNode } from '../types.d.ts';
+  AstLocation,
+  CollectedMetadata,
+  SlangAstNode
+} from '../types.d.ts';
+import type { Comment, StrictAstNode } from './types.d.ts';
 import type { TerminalNode } from './TerminalNode.js';
 
 function reversedIterator<T>(children: T[]): Iterable<T> {
@@ -38,11 +37,11 @@ export class SlangNode {
 
   constructor(
     ast: SlangAstNode | SlangTerminalNode,
-    options: ParserOptions<AstNode>,
+    collected: CollectedMetadata,
     enclosePeripheralComments = false
   ) {
     if (ast instanceof SlangTerminalNode) {
-      const offset = options._prettier_solidity_offsets.get(ast.id) || 0;
+      const offset = collected.offsets.get(ast.id) || 0;
       this.loc = {
         start: offset,
         end: offset + ast.textLength.utf16,
@@ -53,7 +52,7 @@ export class SlangNode {
     }
     const cst = ast.cst;
 
-    const initialOffset = options._prettier_solidity_offsets.get(cst.id) || 0;
+    const initialOffset = collected.offsets.get(cst.id) || 0;
     let offset = initialOffset;
     let triviaLength = 0;
     let leadingOffset;
@@ -73,7 +72,7 @@ export class SlangNode {
       ) {
         // Also tracking TerminalNodes since some variants that were not
         // Identifier or YulIdentifier but were upgraded to TerminalNode
-        options._prettier_solidity_offsets.set(node.id, offset);
+        collected.offsets.set(node.id, offset);
         // We assign the `leadingOffset` only once.
         leadingOffset ??= triviaLength;
         // Since this is a non trivia node, we reset the accumulated length
@@ -85,24 +84,16 @@ export class SlangNode {
           // offset, it's hard to separate these responsibilities into different
           // functions without doing the iteration twice.
           case TerminalKind.MultiLineComment:
-            options._prettier_solidity_comments.push(
-              new MultiLineComment(node, offset)
-            );
+            collected.comments.push(new MultiLineComment(node, offset));
             break;
           case TerminalKind.MultiLineNatSpecComment:
-            options._prettier_solidity_comments.push(
-              new MultiLineNatSpecComment(node, offset)
-            );
+            collected.comments.push(new MultiLineNatSpecComment(node, offset));
             break;
           case TerminalKind.SingleLineComment:
-            options._prettier_solidity_comments.push(
-              new SingleLineComment(node, offset)
-            );
+            collected.comments.push(new SingleLineComment(node, offset));
             break;
           case TerminalKind.SingleLineNatSpecComment:
-            options._prettier_solidity_comments.push(
-              new SingleLineNatSpecComment(node, offset)
-            );
+            collected.comments.push(new SingleLineNatSpecComment(node, offset));
             break;
         }
         // We accumulate the trivia length

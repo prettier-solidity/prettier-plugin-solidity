@@ -5,7 +5,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class PrefixExpression extends SlangNode {
@@ -15,11 +15,17 @@ export class PrefixExpression extends SlangNode {
 
   operand: Expression['variant'];
 
-  constructor(ast: ast.PrefixExpression, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.PrefixExpression,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     this.operator = ast.operator.unparse();
-    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, options)
+    );
 
     this.updateMetadata(this.operand);
 

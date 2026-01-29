@@ -3,19 +3,18 @@ import { SlangNode } from './SlangNode.js';
 import { UsingOperator } from './UsingOperator.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class UsingAlias extends SlangNode {
   readonly kind = NonterminalKind.UsingAlias;
 
   operator: UsingOperator;
 
-  constructor(ast: ast.UsingAlias, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(ast: ast.UsingAlias, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.operator = new UsingOperator(ast.operator, options);
+    this.operator = new UsingOperator(ast.operator, collected);
 
     this.updateMetadata(this.operator);
   }

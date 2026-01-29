@@ -7,7 +7,7 @@ import { ImportDeconstructionSymbol } from './ImportDeconstructionSymbol.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { line, softline } = doc.builders;
@@ -19,12 +19,12 @@ export class ImportDeconstructionSymbols extends SlangNode {
 
   constructor(
     ast: ast.ImportDeconstructionSymbols,
-    options: ParserOptions<AstNode>
+    collected: CollectedMetadata
   ) {
-    super(ast, options, true);
+    super(ast, collected, true);
 
     this.items = ast.items.map(
-      (item) => new ImportDeconstructionSymbol(item, options)
+      (item) => new ImportDeconstructionSymbol(item, collected)
     );
   }
 

@@ -3,19 +3,18 @@ import { SlangNode } from './SlangNode.js';
 import { AbicoderVersion } from './AbicoderVersion.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { AstPath, Doc } from 'prettier';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class AbicoderPragma extends SlangNode {
   readonly kind = NonterminalKind.AbicoderPragma;
 
   version: AbicoderVersion;
 
-  constructor(ast: ast.AbicoderPragma, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(ast: ast.AbicoderPragma, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.version = new AbicoderVersion(ast.version, options);
+    this.version = new AbicoderVersion(ast.version, collected);
   }
 
   print(path: AstPath<AbicoderPragma>, print: PrintFunction): Doc {

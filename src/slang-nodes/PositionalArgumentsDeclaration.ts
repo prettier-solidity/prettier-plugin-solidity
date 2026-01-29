@@ -5,7 +5,7 @@ import { PositionalArguments } from './PositionalArguments.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class PositionalArgumentsDeclaration extends SlangNode {
@@ -17,11 +17,12 @@ export class PositionalArgumentsDeclaration extends SlangNode {
 
   constructor(
     ast: ast.PositionalArgumentsDeclaration,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, options);
+    super(ast, collected);
 
-    this.arguments = new PositionalArguments(ast.arguments, options);
+    this.arguments = new PositionalArguments(ast.arguments, collected, options);
 
     this.updateMetadata(this.arguments);
 

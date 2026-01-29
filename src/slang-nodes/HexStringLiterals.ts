@@ -5,7 +5,7 @@ import { HexStringLiteral } from './HexStringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { join, hardline } = doc.builders;
@@ -15,10 +15,16 @@ export class HexStringLiterals extends SlangNode {
 
   items: HexStringLiteral[];
 
-  constructor(ast: ast.HexStringLiterals, options: ParserOptions<AstNode>) {
-    super(ast, options, true);
+  constructor(
+    ast: ast.HexStringLiterals,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new HexStringLiteral(item, options));
+    this.items = ast.items.map(
+      (item) => new HexStringLiteral(item, collected, options)
+    );
   }
 
   print(path: AstPath<HexStringLiterals>, print: PrintFunction): Doc {

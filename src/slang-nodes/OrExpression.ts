@@ -7,7 +7,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const tryToHug = createHugFunction(['&&']);
@@ -21,13 +21,19 @@ export class OrExpression extends SlangNode {
 
   rightOperand: Expression['variant'];
 
-  constructor(ast: ast.OrExpression, options: ParserOptions<AstNode>) {
-    super(ast, options);
+  constructor(
+    ast: ast.OrExpression,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.leftOperand = extractVariant(new Expression(ast.leftOperand, options));
+    this.leftOperand = extractVariant(
+      new Expression(ast.leftOperand, collected, options)
+    );
     this.operator = ast.operator.unparse();
     this.rightOperand = extractVariant(
-      new Expression(ast.rightOperand, options)
+      new Expression(ast.rightOperand, collected, options)
     );
 
     this.updateMetadata(this.leftOperand, this.rightOperand);
