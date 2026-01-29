@@ -5,7 +5,7 @@ import { VersionRange } from './VersionRange.js';
 import { VersionTerm } from './VersionTerm.js';
 
 import type { ParserOptions } from 'prettier';
-import type { AstNode } from './types.ts';
+import type { AstNode } from './types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.VersionExpression['variant'],

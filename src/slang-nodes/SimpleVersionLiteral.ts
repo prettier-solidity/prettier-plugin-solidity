@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.ts';
+import type { AstNode } from './types.d.ts';
 
 export class SimpleVersionLiteral extends SlangNode {
   readonly kind = NonterminalKind.SimpleVersionLiteral;

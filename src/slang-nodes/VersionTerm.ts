@@ -7,7 +7,7 @@ import { VersionLiteral } from './VersionLiteral.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.ts';
+import type { AstNode } from './types.d.ts';
 
 export class VersionTerm extends SlangNode {
   readonly kind = NonterminalKind.VersionTerm;

@@ -5,7 +5,7 @@ import type {
   TerminalKind
 } from '@nomicfoundation/slang/cst';
 import type { Doc, ParserOptions } from 'prettier';
-import type { AstNode } from './types.ts';
+import type { AstNode } from './types.d.ts';
 
 export class TerminalNode extends SlangNode {
   kind: TerminalKind;

@@ -8,7 +8,7 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
-import type { AstNode } from './types.ts';
+import type { AstNode } from './types.d.ts';
 
 export class VersionLiteral extends SlangNode {
   readonly kind = NonterminalKind.VersionLiteral;
