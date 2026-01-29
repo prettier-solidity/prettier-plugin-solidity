@@ -9,17 +9,19 @@ import { StringLiteral } from './StringLiteral.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type { ParserOptions } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 function createNonterminalVariant(
   variant: Exclude<ast.YulLiteral['variant'], SlangTerminalNode>,
+  collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Exclude<YulLiteral['variant'], TerminalNode> {
   if (variant instanceof ast.HexStringLiteral) {
-    return new HexStringLiteral(variant, options);
+    return new HexStringLiteral(variant, collected, options);
   }
   if (variant instanceof ast.StringLiteral) {
-    return new StringLiteral(variant, options);
+    return new StringLiteral(variant, collected, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -30,15 +32,19 @@ export class YulLiteral extends SlangNode {
 
   variant: HexStringLiteral | StringLiteral | TerminalNode;
 
-  constructor(ast: ast.YulLiteral, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.YulLiteral,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = createNonterminalVariant(variant, options);
+    this.variant = createNonterminalVariant(variant, collected, options);
 
     this.updateMetadata(this.variant);
   }

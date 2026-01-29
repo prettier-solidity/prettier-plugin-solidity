@@ -10,6 +10,7 @@ import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js'
 import { TerminalNode } from './TerminalNode.js';
 
 import type { ParserOptions } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 function createNonterminalVariant(
@@ -17,16 +18,17 @@ function createNonterminalVariant(
     ast.ForStatementInitialization['variant'],
     SlangTerminalNode
   >,
+  collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Exclude<ForStatementInitialization['variant'], TerminalNode> {
   if (variant instanceof ast.ExpressionStatement) {
-    return new ExpressionStatement(variant, options);
+    return new ExpressionStatement(variant, collected, options);
   }
   if (variant instanceof ast.VariableDeclarationStatement) {
-    return new VariableDeclarationStatement(variant, options);
+    return new VariableDeclarationStatement(variant, collected, options);
   }
   if (variant instanceof ast.TupleDeconstructionStatement) {
-    return new TupleDeconstructionStatement(variant, options);
+    return new TupleDeconstructionStatement(variant, collected, options);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -43,16 +45,17 @@ export class ForStatementInitialization extends SlangNode {
 
   constructor(
     ast: ast.ForStatementInitialization,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, collected);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = createNonterminalVariant(variant, options);
+    this.variant = createNonterminalVariant(variant, collected, options);
 
     this.updateMetadata(this.variant);
   }

@@ -7,7 +7,7 @@ import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { join } = doc.builders;
@@ -23,13 +23,19 @@ export class YulForStatement extends SlangNode {
 
   body: YulBlock;
 
-  constructor(ast: ast.YulForStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.YulForStatement,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.initialization = new YulBlock(ast.initialization, options);
-    this.condition = extractVariant(new YulExpression(ast.condition, options));
-    this.iterator = new YulBlock(ast.iterator, options);
-    this.body = new YulBlock(ast.body, options);
+    this.initialization = new YulBlock(ast.initialization, collected, options);
+    this.condition = extractVariant(
+      new YulExpression(ast.condition, collected, options)
+    );
+    this.iterator = new YulBlock(ast.iterator, collected, options);
+    this.body = new YulBlock(ast.body, collected, options);
 
     this.updateMetadata(
       this.initialization,

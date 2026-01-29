@@ -6,7 +6,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class InheritanceType extends SlangNode {
@@ -16,13 +16,17 @@ export class InheritanceType extends SlangNode {
 
   arguments?: ArgumentsDeclaration['variant'];
 
-  constructor(ast: ast.InheritanceType, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.InheritanceType,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.typeName = new IdentifierPath(ast.typeName);
+    this.typeName = new IdentifierPath(ast.typeName, collected);
     if (ast.arguments) {
       this.arguments = extractVariant(
-        new ArgumentsDeclaration(ast.arguments, options)
+        new ArgumentsDeclaration(ast.arguments, collected, options)
       );
     }
 

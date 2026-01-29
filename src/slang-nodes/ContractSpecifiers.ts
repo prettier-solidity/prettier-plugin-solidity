@@ -8,7 +8,7 @@ import { ContractSpecifier } from './ContractSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { group, ifBreak, line, softline } = doc.builders;
@@ -18,11 +18,15 @@ export class ContractSpecifiers extends SlangNode {
 
   items: ContractSpecifier['variant'][];
 
-  constructor(ast: ast.ContractSpecifiers, options: ParserOptions<AstNode>) {
-    super(ast, true);
+  constructor(
+    ast: ast.ContractSpecifiers,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new ContractSpecifier(item, options))
+      extractVariant(new ContractSpecifier(item, collected, options))
     );
 
     this.items.sort(sortContractSpecifiers);

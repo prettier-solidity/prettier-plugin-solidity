@@ -5,7 +5,7 @@ import { NumberUnit } from './NumberUnit.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class DecimalNumberExpression extends SlangNode {
   readonly kind = NonterminalKind.DecimalNumberExpression;
@@ -14,12 +14,12 @@ export class DecimalNumberExpression extends SlangNode {
 
   unit?: NumberUnit;
 
-  constructor(ast: ast.DecimalNumberExpression) {
-    super(ast);
+  constructor(ast: ast.DecimalNumberExpression, collected: CollectedMetadata) {
+    super(ast, collected);
 
     this.literal = ast.literal.unparse();
     if (ast.unit) {
-      this.unit = new NumberUnit(ast.unit);
+      this.unit = new NumberUnit(ast.unit, collected);
     }
 
     this.updateMetadata(this.unit);

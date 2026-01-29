@@ -9,7 +9,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { label } = doc.builders;
@@ -23,13 +23,16 @@ export class FunctionCallExpression extends SlangNode {
 
   constructor(
     ast: ast.FunctionCallExpression,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, options));
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, options)
+    );
     this.arguments = extractVariant(
-      new ArgumentsDeclaration(ast.arguments, options)
+      new ArgumentsDeclaration(ast.arguments, collected, options)
     );
 
     this.updateMetadata(this.operand, this.arguments);

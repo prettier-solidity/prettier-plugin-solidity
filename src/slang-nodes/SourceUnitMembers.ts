@@ -6,7 +6,7 @@ import { SourceUnitMember } from './SourceUnitMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class SourceUnitMembers extends SlangNode {
@@ -14,11 +14,15 @@ export class SourceUnitMembers extends SlangNode {
 
   items: SourceUnitMember['variant'][];
 
-  constructor(ast: ast.SourceUnitMembers, options: ParserOptions<AstNode>) {
-    super(ast, true);
+  constructor(
+    ast: ast.SourceUnitMembers,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new SourceUnitMember(item, options))
+      extractVariant(new SourceUnitMember(item, collected, options))
     );
   }
 

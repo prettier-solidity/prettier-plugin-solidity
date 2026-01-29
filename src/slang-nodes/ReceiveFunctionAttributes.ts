@@ -7,7 +7,7 @@ import { ReceiveFunctionAttribute } from './ReceiveFunctionAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { line } = doc.builders;
@@ -19,12 +19,13 @@ export class ReceiveFunctionAttributes extends SlangNode {
 
   constructor(
     ast: ast.ReceiveFunctionAttributes,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast, true);
+    super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new ReceiveFunctionAttribute(item, options))
+      extractVariant(new ReceiveFunctionAttribute(item, collected, options))
     );
 
     this.items.sort(sortFunctionAttributes);

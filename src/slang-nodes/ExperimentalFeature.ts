@@ -8,6 +8,7 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class ExperimentalFeature extends SlangNode {
@@ -15,15 +16,19 @@ export class ExperimentalFeature extends SlangNode {
 
   variant: StringLiteral | TerminalNode;
 
-  constructor(ast: ast.ExperimentalFeature, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.ExperimentalFeature,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = new StringLiteral(variant, options);
+    this.variant = new StringLiteral(variant, collected, options);
 
     this.updateMetadata(this.variant);
   }

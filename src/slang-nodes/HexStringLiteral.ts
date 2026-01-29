@@ -4,6 +4,7 @@ import { SlangNode } from './SlangNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc, ParserOptions } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class HexStringLiteral extends SlangNode {
@@ -11,8 +12,12 @@ export class HexStringLiteral extends SlangNode {
 
   variant: string;
 
-  constructor(ast: ast.HexStringLiteral, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.HexStringLiteral,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     this.variant = ast.variant.unparse();
 

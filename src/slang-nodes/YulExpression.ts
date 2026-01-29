@@ -7,20 +7,22 @@ import { YulLiteral } from './YulLiteral.js';
 import { YulPath } from './YulPath.js';
 
 import type { ParserOptions } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 function createNonterminalVariant(
   variant: ast.YulExpression['variant'],
+  collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): YulExpression['variant'] {
   if (variant instanceof ast.YulFunctionCallExpression) {
-    return new YulFunctionCallExpression(variant, options);
+    return new YulFunctionCallExpression(variant, collected, options);
   }
   if (variant instanceof ast.YulLiteral) {
-    return extractVariant(new YulLiteral(variant, options));
+    return extractVariant(new YulLiteral(variant, collected, options));
   }
   if (variant instanceof ast.YulPath) {
-    return new YulPath(variant);
+    return new YulPath(variant, collected);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -31,10 +33,14 @@ export class YulExpression extends SlangNode {
 
   variant: YulFunctionCallExpression | YulLiteral['variant'] | YulPath;
 
-  constructor(ast: ast.YulExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.YulExpression,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, options);
+    this.variant = createNonterminalVariant(ast.variant, collected, options);
 
     this.updateMetadata(this.variant);
   }

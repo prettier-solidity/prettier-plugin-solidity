@@ -9,7 +9,7 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class FallbackFunctionDefinition extends SlangNode {
@@ -25,16 +25,25 @@ export class FallbackFunctionDefinition extends SlangNode {
 
   constructor(
     ast: ast.FallbackFunctionDefinition,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, collected);
 
-    this.parameters = new ParametersDeclaration(ast.parameters, options);
-    this.attributes = new FallbackFunctionAttributes(ast.attributes, options);
+    this.parameters = new ParametersDeclaration(
+      ast.parameters,
+      collected,
+      options
+    );
+    this.attributes = new FallbackFunctionAttributes(
+      ast.attributes,
+      collected,
+      options
+    );
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, options);
+      this.returns = new ReturnsDeclaration(ast.returns, collected, options);
     }
-    this.body = extractVariant(new FunctionBody(ast.body, options));
+    this.body = extractVariant(new FunctionBody(ast.body, collected, options));
 
     this.updateMetadata(
       this.parameters,

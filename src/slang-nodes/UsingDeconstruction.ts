@@ -4,17 +4,17 @@ import { UsingDeconstructionSymbols } from './UsingDeconstructionSymbols.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class UsingDeconstruction extends SlangNode {
   readonly kind = NonterminalKind.UsingDeconstruction;
 
   symbols: UsingDeconstructionSymbols;
 
-  constructor(ast: ast.UsingDeconstruction) {
-    super(ast);
+  constructor(ast: ast.UsingDeconstruction, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.symbols = new UsingDeconstructionSymbols(ast.symbols);
+    this.symbols = new UsingDeconstructionSymbols(ast.symbols, collected);
 
     this.updateMetadata(this.symbols);
   }

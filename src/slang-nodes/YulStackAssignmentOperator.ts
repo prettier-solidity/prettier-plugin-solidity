@@ -7,21 +7,25 @@ import { YulEqualAndColon } from './YulEqualAndColon.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
+import type { CollectedMetadata } from '../types.d.ts';
 
 export class YulStackAssignmentOperator extends SlangNode {
   readonly kind = NonterminalKind.YulStackAssignmentOperator;
 
   variant: YulEqualAndColon | TerminalNode;
 
-  constructor(ast: ast.YulStackAssignmentOperator) {
-    super(ast);
+  constructor(
+    ast: ast.YulStackAssignmentOperator,
+    collected: CollectedMetadata
+  ) {
+    super(ast, collected);
 
     const variant = ast.variant;
     if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant);
+      this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = new YulEqualAndColon(variant);
+    this.variant = new YulEqualAndColon(variant, collected);
 
     this.updateMetadata(this.variant);
   }

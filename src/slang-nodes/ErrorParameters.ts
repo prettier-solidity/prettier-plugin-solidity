@@ -5,7 +5,7 @@ import { ErrorParameter } from './ErrorParameter.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class ErrorParameters extends SlangNode {
@@ -13,10 +13,16 @@ export class ErrorParameters extends SlangNode {
 
   items: ErrorParameter[];
 
-  constructor(ast: ast.ErrorParameters, options: ParserOptions<AstNode>) {
-    super(ast, true);
+  constructor(
+    ast: ast.ErrorParameters,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new ErrorParameter(item, options));
+    this.items = ast.items.map(
+      (item) => new ErrorParameter(item, collected, options)
+    );
   }
 
   print(path: AstPath<ErrorParameters>, print: PrintFunction): Doc {

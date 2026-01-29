@@ -5,7 +5,7 @@ import { Pragma } from './Pragma.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class PragmaDirective extends SlangNode {
@@ -13,10 +13,14 @@ export class PragmaDirective extends SlangNode {
 
   pragma: Pragma['variant'];
 
-  constructor(ast: ast.PragmaDirective, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.PragmaDirective,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.pragma = extractVariant(new Pragma(ast.pragma, options));
+    this.pragma = extractVariant(new Pragma(ast.pragma, collected, options));
 
     this.updateMetadata(this.pragma);
   }

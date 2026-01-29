@@ -6,7 +6,7 @@ import { VersionExpression } from './VersionExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { join } = doc.builders;
 
@@ -15,11 +15,11 @@ export class VersionExpressionSet extends SlangNode {
 
   items: VersionExpression['variant'][];
 
-  constructor(ast: ast.VersionExpressionSet) {
-    super(ast, true);
+  constructor(ast: ast.VersionExpressionSet, collected: CollectedMetadata) {
+    super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new VersionExpression(item))
+      extractVariant(new VersionExpression(item, collected))
     );
   }
 

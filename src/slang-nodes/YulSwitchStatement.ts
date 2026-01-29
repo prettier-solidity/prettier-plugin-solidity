@@ -7,7 +7,7 @@ import { YulSwitchCases } from './YulSwitchCases.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { hardline } = doc.builders;
@@ -19,13 +19,17 @@ export class YulSwitchStatement extends SlangNode {
 
   cases: YulSwitchCases;
 
-  constructor(ast: ast.YulSwitchStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.YulSwitchStatement,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     this.expression = extractVariant(
-      new YulExpression(ast.expression, options)
+      new YulExpression(ast.expression, collected, options)
     );
-    this.cases = new YulSwitchCases(ast.cases, options);
+    this.cases = new YulSwitchCases(ast.cases, collected, options);
 
     this.updateMetadata(this.expression, this.cases);
   }

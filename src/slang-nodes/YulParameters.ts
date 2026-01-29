@@ -5,17 +5,17 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class YulParameters extends SlangNode {
   readonly kind = NonterminalKind.YulParameters;
 
   items: TerminalNode[];
 
-  constructor(ast: ast.YulParameters) {
-    super(ast, true);
+  constructor(ast: ast.YulParameters, collected: CollectedMetadata) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new TerminalNode(item));
+    this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
   print(path: AstPath<YulParameters>, print: PrintFunction): Doc {

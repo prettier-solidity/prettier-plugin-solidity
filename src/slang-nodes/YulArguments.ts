@@ -6,7 +6,7 @@ import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class YulArguments extends SlangNode {
@@ -14,11 +14,15 @@ export class YulArguments extends SlangNode {
 
   items: YulExpression['variant'][];
 
-  constructor(ast: ast.YulArguments, options: ParserOptions<AstNode>) {
-    super(ast, true);
+  constructor(
+    ast: ast.YulArguments,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new YulExpression(item, options))
+      extractVariant(new YulExpression(item, collected, options))
     );
   }
 
