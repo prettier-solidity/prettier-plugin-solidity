@@ -6,8 +6,6 @@ import type { AstNode, Comment } from './slang-nodes/types.d.ts';
 declare module 'prettier' {
   interface ParserOptions {
     compiler: string;
-    _prettier_solidity_offsets: Map<number, number>;
-    _prettier_solidity_comments: Comment[];
   }
 }
 
