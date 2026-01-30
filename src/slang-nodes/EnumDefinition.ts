@@ -5,7 +5,7 @@ import { EnumMembers } from './EnumMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class EnumDefinition extends SlangNode {
   readonly kind = NonterminalKind.EnumDefinition;
@@ -14,11 +14,11 @@ export class EnumDefinition extends SlangNode {
 
   members: EnumMembers;
 
-  constructor(ast: ast.EnumDefinition) {
-    super(ast);
+  constructor(ast: ast.EnumDefinition, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.name = new TerminalNode(ast.name);
-    this.members = new EnumMembers(ast.members);
+    this.name = new TerminalNode(ast.name, collected);
+    this.members = new EnumMembers(ast.members, collected);
 
     this.updateMetadata(this.members);
   }

@@ -7,7 +7,7 @@ import { ConstructorAttribute } from './ConstructorAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { line } = doc.builders;
@@ -17,11 +17,15 @@ export class ConstructorAttributes extends SlangNode {
 
   items: ConstructorAttribute['variant'][];
 
-  constructor(ast: ast.ConstructorAttributes, options: ParserOptions<AstNode>) {
-    super(ast, true);
+  constructor(
+    ast: ast.ConstructorAttributes,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new ConstructorAttribute(item, options))
+      extractVariant(new ConstructorAttribute(item, collected, options))
     );
 
     this.items.sort(sortFunctionAttributes);

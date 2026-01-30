@@ -4,7 +4,7 @@ import { Statements } from './Statements.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class Block extends SlangNode {
@@ -12,10 +12,14 @@ export class Block extends SlangNode {
 
   statements: Statements;
 
-  constructor(ast: ast.Block, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.Block,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.statements = new Statements(ast.statements, options);
+    this.statements = new Statements(ast.statements, collected, options);
 
     this.updateMetadata(this.statements);
   }

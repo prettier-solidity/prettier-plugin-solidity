@@ -5,7 +5,7 @@ import { TypeName } from './TypeName.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class TypeExpression extends SlangNode {
@@ -13,10 +13,16 @@ export class TypeExpression extends SlangNode {
 
   typeName: TypeName['variant'];
 
-  constructor(ast: ast.TypeExpression, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.TypeExpression,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.typeName = extractVariant(new TypeName(ast.typeName, options));
+    this.typeName = extractVariant(
+      new TypeName(ast.typeName, collected, options)
+    );
 
     this.updateMetadata(this.typeName);
   }

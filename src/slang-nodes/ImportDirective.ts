@@ -5,7 +5,7 @@ import { ImportClause } from './ImportClause.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class ImportDirective extends SlangNode {
@@ -13,10 +13,16 @@ export class ImportDirective extends SlangNode {
 
   clause: ImportClause['variant'];
 
-  constructor(ast: ast.ImportDirective, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.ImportDirective,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.clause = extractVariant(new ImportClause(ast.clause, options));
+    this.clause = extractVariant(
+      new ImportClause(ast.clause, collected, options)
+    );
 
     this.updateMetadata(this.clause);
   }

@@ -7,7 +7,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class RevertStatement extends SlangNode {
@@ -17,14 +17,18 @@ export class RevertStatement extends SlangNode {
 
   arguments: ArgumentsDeclaration['variant'];
 
-  constructor(ast: ast.RevertStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.RevertStatement,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     if (ast.error) {
-      this.error = new IdentifierPath(ast.error);
+      this.error = new IdentifierPath(ast.error, collected);
     }
     this.arguments = extractVariant(
-      new ArgumentsDeclaration(ast.arguments, options)
+      new ArgumentsDeclaration(ast.arguments, collected, options)
     );
 
     this.updateMetadata(this.error, this.arguments);

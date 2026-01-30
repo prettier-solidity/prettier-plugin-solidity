@@ -5,17 +5,17 @@ import { IdentifierPath } from './IdentifierPath.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class OverridePaths extends SlangNode {
   readonly kind = NonterminalKind.OverridePaths;
 
   items: IdentifierPath[];
 
-  constructor(ast: ast.OverridePaths) {
-    super(ast, true);
+  constructor(ast: ast.OverridePaths, collected: CollectedMetadata) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new IdentifierPath(item));
+    this.items = ast.items.map((item) => new IdentifierPath(item, collected));
   }
 
   print(path: AstPath<OverridePaths>, print: PrintFunction): Doc {

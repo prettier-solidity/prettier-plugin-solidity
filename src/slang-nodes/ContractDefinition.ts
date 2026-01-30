@@ -8,7 +8,7 @@ import { ContractMembers } from './ContractMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { group, line } = doc.builders;
@@ -24,13 +24,21 @@ export class ContractDefinition extends SlangNode {
 
   members: ContractMembers;
 
-  constructor(ast: ast.ContractDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.ContractDefinition,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     this.abstractKeyword = ast.abstractKeyword?.unparse();
-    this.name = new TerminalNode(ast.name);
-    this.specifiers = new ContractSpecifiers(ast.specifiers, options);
-    this.members = new ContractMembers(ast.members, options);
+    this.name = new TerminalNode(ast.name, collected);
+    this.specifiers = new ContractSpecifiers(
+      ast.specifiers,
+      collected,
+      options
+    );
+    this.members = new ContractMembers(ast.members, collected, options);
 
     this.updateMetadata(this.specifiers, this.members);
 

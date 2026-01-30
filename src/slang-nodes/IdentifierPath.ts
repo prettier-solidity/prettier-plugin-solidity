@@ -5,7 +5,7 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { join } = doc.builders;
 
@@ -14,10 +14,10 @@ export class IdentifierPath extends SlangNode {
 
   items: TerminalNode[];
 
-  constructor(ast: ast.IdentifierPath) {
-    super(ast);
+  constructor(ast: ast.IdentifierPath, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.items = ast.items.map((item) => new TerminalNode(item));
+    this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
   print(path: AstPath<IdentifierPath>, print: PrintFunction): Doc {

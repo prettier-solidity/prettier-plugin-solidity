@@ -7,7 +7,7 @@ import { StateVariableAttribute } from './StateVariableAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
@@ -16,11 +16,11 @@ export class StateVariableAttributes extends SlangNode {
 
   items: StateVariableAttribute['variant'][];
 
-  constructor(ast: ast.StateVariableAttributes) {
-    super(ast, true);
+  constructor(ast: ast.StateVariableAttributes, collected: CollectedMetadata) {
+    super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new StateVariableAttribute(item))
+      extractVariant(new StateVariableAttribute(item, collected))
     );
 
     this.items.sort(sortFunctionAttributes);

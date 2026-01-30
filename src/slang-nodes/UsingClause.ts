@@ -4,14 +4,17 @@ import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { UsingDeconstruction } from './UsingDeconstruction.js';
 
+import type { CollectedMetadata } from '../types.d.ts';
+
 function createNonterminalVariant(
-  variant: ast.UsingClause['variant']
+  variant: ast.UsingClause['variant'],
+  collected: CollectedMetadata
 ): UsingClause['variant'] {
   if (variant instanceof ast.IdentifierPath) {
-    return new IdentifierPath(variant);
+    return new IdentifierPath(variant, collected);
   }
   if (variant instanceof ast.UsingDeconstruction) {
-    return new UsingDeconstruction(variant);
+    return new UsingDeconstruction(variant, collected);
   }
   const exhaustiveCheck: never = variant;
   throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
@@ -22,10 +25,10 @@ export class UsingClause extends SlangNode {
 
   variant: IdentifierPath | UsingDeconstruction;
 
-  constructor(ast: ast.UsingClause) {
-    super(ast);
+  constructor(ast: ast.UsingClause, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant);
+    this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);
   }

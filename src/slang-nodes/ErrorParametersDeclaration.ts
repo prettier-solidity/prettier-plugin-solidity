@@ -4,7 +4,7 @@ import { ErrorParameters } from './ErrorParameters.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class ErrorParametersDeclaration extends SlangNode {
@@ -14,11 +14,12 @@ export class ErrorParametersDeclaration extends SlangNode {
 
   constructor(
     ast: ast.ErrorParametersDeclaration,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, collected);
 
-    this.parameters = new ErrorParameters(ast.parameters, options);
+    this.parameters = new ErrorParameters(ast.parameters, collected, options);
 
     this.updateMetadata(this.parameters);
   }

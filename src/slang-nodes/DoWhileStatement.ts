@@ -8,7 +8,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { line } = doc.builders;
@@ -20,11 +20,17 @@ export class DoWhileStatement extends SlangNode {
 
   condition: Expression['variant'];
 
-  constructor(ast: ast.DoWhileStatement, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.DoWhileStatement,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.body = extractVariant(new Statement(ast.body, options));
-    this.condition = extractVariant(new Expression(ast.condition, options));
+    this.body = extractVariant(new Statement(ast.body, collected, options));
+    this.condition = extractVariant(
+      new Expression(ast.condition, collected, options)
+    );
 
     this.updateMetadata(this.body, this.condition);
   }

@@ -6,7 +6,7 @@ import { NamedArgument } from './NamedArgument.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { line, softline } = doc.builders;
@@ -16,10 +16,16 @@ export class NamedArguments extends SlangNode {
 
   items: NamedArgument[];
 
-  constructor(ast: ast.NamedArguments, options: ParserOptions<AstNode>) {
-    super(ast, true);
+  constructor(
+    ast: ast.NamedArguments,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new NamedArgument(item, options));
+    this.items = ast.items.map(
+      (item) => new NamedArgument(item, collected, options)
+    );
   }
 
   print(

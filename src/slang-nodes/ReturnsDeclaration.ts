@@ -5,7 +5,7 @@ import { ParametersDeclaration } from './ParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { group } = doc.builders;
@@ -15,10 +15,18 @@ export class ReturnsDeclaration extends SlangNode {
 
   variables: ParametersDeclaration;
 
-  constructor(ast: ast.ReturnsDeclaration, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.ReturnsDeclaration,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.variables = new ParametersDeclaration(ast.variables, options);
+    this.variables = new ParametersDeclaration(
+      ast.variables,
+      collected,
+      options
+    );
 
     this.updateMetadata(this.variables);
   }

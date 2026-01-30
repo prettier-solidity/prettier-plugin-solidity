@@ -6,7 +6,7 @@ import { ElementaryType } from './ElementaryType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class UserDefinedValueTypeDefinition extends SlangNode {
   readonly kind = NonterminalKind.UserDefinedValueTypeDefinition;
@@ -15,11 +15,16 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
 
   valueType: ElementaryType['variant'];
 
-  constructor(ast: ast.UserDefinedValueTypeDefinition) {
-    super(ast);
+  constructor(
+    ast: ast.UserDefinedValueTypeDefinition,
+    collected: CollectedMetadata
+  ) {
+    super(ast, collected);
 
-    this.name = new TerminalNode(ast.name);
-    this.valueType = extractVariant(new ElementaryType(ast.valueType));
+    this.name = new TerminalNode(ast.name, collected);
+    this.valueType = extractVariant(
+      new ElementaryType(ast.valueType, collected)
+    );
 
     this.updateMetadata(this.valueType);
   }

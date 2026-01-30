@@ -4,17 +4,17 @@ import { OverridePaths } from './OverridePaths.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class OverridePathsDeclaration extends SlangNode {
   readonly kind = NonterminalKind.OverridePathsDeclaration;
 
   paths: OverridePaths;
 
-  constructor(ast: ast.OverridePathsDeclaration) {
-    super(ast);
+  constructor(ast: ast.OverridePathsDeclaration, collected: CollectedMetadata) {
+    super(ast, collected);
 
-    this.paths = new OverridePaths(ast.paths);
+    this.paths = new OverridePaths(ast.paths, collected);
 
     this.updateMetadata(this.paths);
   }

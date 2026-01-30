@@ -5,7 +5,7 @@ import { MappingValue } from './MappingValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class MappingType extends SlangNode {
@@ -15,11 +15,15 @@ export class MappingType extends SlangNode {
 
   valueType: MappingValue;
 
-  constructor(ast: ast.MappingType, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.MappingType,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.keyType = new MappingKey(ast.keyType);
-    this.valueType = new MappingValue(ast.valueType, options);
+    this.keyType = new MappingKey(ast.keyType, collected);
+    this.valueType = new MappingValue(ast.valueType, collected, options);
 
     this.updateMetadata(this.keyType, this.valueType);
   }

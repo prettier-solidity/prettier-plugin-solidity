@@ -4,7 +4,7 @@ import { Block } from './Block.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class UncheckedBlock extends SlangNode {
@@ -12,10 +12,14 @@ export class UncheckedBlock extends SlangNode {
 
   block: Block;
 
-  constructor(ast: ast.UncheckedBlock, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.UncheckedBlock,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.block = new Block(ast.block, options);
+    this.block = new Block(ast.block, collected, options);
 
     this.updateMetadata(this.block);
   }

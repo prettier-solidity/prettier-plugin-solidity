@@ -6,7 +6,7 @@ import { ParametersDeclaration } from './ParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { group } = doc.builders;
@@ -18,13 +18,21 @@ export class CatchClauseError extends SlangNode {
 
   parameters: ParametersDeclaration;
 
-  constructor(ast: ast.CatchClauseError, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.CatchClauseError,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
     if (ast.name) {
-      this.name = new TerminalNode(ast.name);
+      this.name = new TerminalNode(ast.name, collected);
     }
-    this.parameters = new ParametersDeclaration(ast.parameters, options);
+    this.parameters = new ParametersDeclaration(
+      ast.parameters,
+      collected,
+      options
+    );
 
     this.updateMetadata(this.parameters);
   }

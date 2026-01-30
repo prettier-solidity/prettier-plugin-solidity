@@ -3,12 +3,13 @@ import { SlangNode } from './SlangNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 
 export class YulBreakStatement extends SlangNode {
   readonly kind = NonterminalKind.YulBreakStatement;
 
-  constructor(ast: ast.YulBreakStatement) {
-    super(ast);
+  constructor(ast: ast.YulBreakStatement, collected: CollectedMetadata) {
+    super(ast, collected);
   }
 
   print(): Doc {

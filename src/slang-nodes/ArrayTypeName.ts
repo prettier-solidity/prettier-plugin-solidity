@@ -6,7 +6,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class ArrayTypeName extends SlangNode {
@@ -16,12 +16,20 @@ export class ArrayTypeName extends SlangNode {
 
   index?: Expression['variant'];
 
-  constructor(ast: ast.ArrayTypeName, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.ArrayTypeName,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.operand = extractVariant(new TypeName(ast.operand, options));
+    this.operand = extractVariant(
+      new TypeName(ast.operand, collected, options)
+    );
     if (ast.index) {
-      this.index = extractVariant(new Expression(ast.index, options));
+      this.index = extractVariant(
+        new Expression(ast.index, collected, options)
+      );
     }
 
     this.updateMetadata(this.operand, this.index);

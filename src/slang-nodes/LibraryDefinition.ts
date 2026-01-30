@@ -6,7 +6,7 @@ import { LibraryMembers } from './LibraryMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { group, line } = doc.builders;
@@ -18,11 +18,15 @@ export class LibraryDefinition extends SlangNode {
 
   members: LibraryMembers;
 
-  constructor(ast: ast.LibraryDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.LibraryDefinition,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.name = new TerminalNode(ast.name);
-    this.members = new LibraryMembers(ast.members, options);
+    this.name = new TerminalNode(ast.name, collected);
+    this.members = new LibraryMembers(ast.members, collected, options);
 
     this.updateMetadata(this.members);
   }

@@ -7,7 +7,7 @@ import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { line } = doc.builders;
@@ -19,11 +19,14 @@ export class StorageLayoutSpecifier extends SlangNode {
 
   constructor(
     ast: ast.StorageLayoutSpecifier,
+    collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
-    super(ast);
+    super(ast, collected);
 
-    this.expression = extractVariant(new Expression(ast.expression, options));
+    this.expression = extractVariant(
+      new Expression(ast.expression, collected, options)
+    );
 
     this.updateMetadata(this.expression);
   }

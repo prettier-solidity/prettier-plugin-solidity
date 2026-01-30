@@ -6,7 +6,7 @@ import { UsingTarget } from './UsingTarget.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class UsingDirective extends SlangNode {
@@ -18,11 +18,17 @@ export class UsingDirective extends SlangNode {
 
   globalKeyword?: string;
 
-  constructor(ast: ast.UsingDirective, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.UsingDirective,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.clause = extractVariant(new UsingClause(ast.clause));
-    this.target = extractVariant(new UsingTarget(ast.target, options));
+    this.clause = extractVariant(new UsingClause(ast.clause, collected));
+    this.target = extractVariant(
+      new UsingTarget(ast.target, collected, options)
+    );
     this.globalKeyword = ast.globalKeyword?.unparse();
 
     this.updateMetadata(this.clause, this.target);

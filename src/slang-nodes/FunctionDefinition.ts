@@ -11,7 +11,7 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class FunctionDefinition extends SlangNode {
@@ -27,16 +27,28 @@ export class FunctionDefinition extends SlangNode {
 
   body: FunctionBody['variant'];
 
-  constructor(ast: ast.FunctionDefinition, options: ParserOptions<AstNode>) {
-    super(ast);
+  constructor(
+    ast: ast.FunctionDefinition,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected);
 
-    this.name = extractVariant(new FunctionName(ast.name));
-    this.parameters = new ParametersDeclaration(ast.parameters, options);
-    this.attributes = new FunctionAttributes(ast.attributes, options);
+    this.name = extractVariant(new FunctionName(ast.name, collected));
+    this.parameters = new ParametersDeclaration(
+      ast.parameters,
+      collected,
+      options
+    );
+    this.attributes = new FunctionAttributes(
+      ast.attributes,
+      collected,
+      options
+    );
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, options);
+      this.returns = new ReturnsDeclaration(ast.returns, collected, options);
     }
-    this.body = extractVariant(new FunctionBody(ast.body, options));
+    this.body = extractVariant(new FunctionBody(ast.body, collected, options));
 
     this.updateMetadata(
       this.name,

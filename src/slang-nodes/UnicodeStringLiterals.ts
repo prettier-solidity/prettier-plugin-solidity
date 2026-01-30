@@ -5,7 +5,7 @@ import { UnicodeStringLiteral } from './UnicodeStringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { join, hardline } = doc.builders;
@@ -15,11 +15,15 @@ export class UnicodeStringLiterals extends SlangNode {
 
   items: UnicodeStringLiteral[];
 
-  constructor(ast: ast.UnicodeStringLiterals, options: ParserOptions<AstNode>) {
-    super(ast, true);
+  constructor(
+    ast: ast.UnicodeStringLiterals,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
     this.items = ast.items.map(
-      (item) => new UnicodeStringLiteral(item, options)
+      (item) => new UnicodeStringLiteral(item, collected, options)
     );
   }
 

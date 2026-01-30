@@ -6,7 +6,7 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { hardline } = doc.builders;
 
@@ -15,10 +15,10 @@ export class EnumMembers extends SlangNode {
 
   items: TerminalNode[];
 
-  constructor(ast: ast.EnumMembers) {
-    super(ast, true);
+  constructor(ast: ast.EnumMembers, collected: CollectedMetadata) {
+    super(ast, collected, true);
 
-    this.items = ast.items.map((item) => new TerminalNode(item));
+    this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
   print(path: AstPath<EnumMembers>, print: PrintFunction): Doc {

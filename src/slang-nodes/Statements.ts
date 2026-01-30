@@ -8,7 +8,7 @@ import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { PrintFunction } from '../types.d.ts';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const { hardline } = doc.builders;
@@ -18,11 +18,15 @@ export class Statements extends SlangNode {
 
   items: Statement['variant'][];
 
-  constructor(ast: ast.Statements, options: ParserOptions<AstNode>) {
-    super(ast, true);
+  constructor(
+    ast: ast.Statements,
+    collected: CollectedMetadata,
+    options: ParserOptions<AstNode>
+  ) {
+    super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new Statement(item, options))
+      extractVariant(new Statement(item, collected, options))
     );
   }
 
