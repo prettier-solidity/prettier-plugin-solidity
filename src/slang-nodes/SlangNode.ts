@@ -14,7 +14,7 @@ import type {
   SlangAstNode
 } from '../types.d.ts';
 import type { Comment, StrictAstNode } from './types.d.ts';
-import type { TerminalNode } from './TerminalNode.js';
+import type { TerminalNode } from './TerminalNode.ts';
 
 function reversedIterator<T>(children: T[]): Iterable<T> {
   return {
