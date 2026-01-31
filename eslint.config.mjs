@@ -25,8 +25,7 @@ export default [
       'tests/format/**/*.sol',
       'tests/format/Markdown/Markdown.md',
       'tests/format/RespectDefaultOptions/respect-default-options.js',
-      'tests/config/**/*.*js',
-      'src/prettier-comments/**/*.js'
+      'tests/config/**/*.*js'
     ]
   },
   {
