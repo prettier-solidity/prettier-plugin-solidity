@@ -8,13 +8,14 @@ import { MultiLineNatSpecComment } from './MultiLineNatSpecComment.js';
 import { SingleLineComment } from './SingleLineComment.js';
 import { SingleLineNatSpecComment } from './SingleLineNatSpecComment.js';
 
+import type { NonterminalKind } from '@nomicfoundation/slang/cst';
 import type {
   AstLocation,
   CollectedMetadata,
   SlangAstNode
 } from '../types.d.ts';
 import type { Comment, StrictAstNode } from './types.d.ts';
-import type { TerminalNode } from './TerminalNode.js';
+import type { TerminalNode } from './TerminalNode.ts';
 
 function reversedIterator<T>(children: T[]): Iterable<T> {
   return {
@@ -30,7 +31,9 @@ function reversedIterator<T>(children: T[]): Iterable<T> {
   };
 }
 
-export class SlangNode {
+export abstract class SlangNode {
+  abstract readonly kind: TerminalKind | NonterminalKind;
+
   comments?: Comment[];
 
   loc: AstLocation;
@@ -126,7 +129,7 @@ export class SlangNode {
         if (childNode === undefined) continue;
         const { leadingOffset, start } = childNode.loc;
 
-        if (start - leadingOffset === loc.start) {
+        if (leadingOffset > 0 && start - leadingOffset === loc.start) {
           loc.leadingOffset = leadingOffset;
           loc.start = start;
           break;
@@ -139,7 +142,7 @@ export class SlangNode {
         if (childNode === undefined) continue;
         const { trailingOffset, end } = childNode.loc;
 
-        if (end + trailingOffset === loc.end) {
+        if (trailingOffset > 0 && end + trailingOffset === loc.end) {
           loc.trailingOffset = trailingOffset;
           loc.end = end;
           break;
