@@ -84,11 +84,11 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@babel/code-frame": "^7.28.6",
+    "@babel/code-frame": "^7.29.0",
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.2",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.1.0",
+    "@types/node": "^25.2.0",
     "@types/semver": "^7.7.1",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
@@ -98,7 +98,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "esm-utils": "^4.4.2",
-    "globals": "^17.2.0",
+    "globals": "^17.3.0",
     "jest": "^30.2.0",
     "jest-light-runner": "^0.7.11",
     "jest-snapshot-serializer-ansi": "^2.2.1",
