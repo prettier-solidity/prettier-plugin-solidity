@@ -129,7 +129,7 @@ export abstract class SlangNode {
         if (childNode === undefined) continue;
         const { leadingOffset, start } = childNode.loc;
 
-        if (leadingOffset > 0 && start - leadingOffset === loc.start) {
+        if (start - leadingOffset === loc.start) {
           loc.leadingOffset = leadingOffset;
           loc.start = start;
           break;
@@ -142,7 +142,7 @@ export abstract class SlangNode {
         if (childNode === undefined) continue;
         const { trailingOffset, end } = childNode.loc;
 
-        if (trailingOffset > 0 && end + trailingOffset === loc.end) {
+        if (end + trailingOffset === loc.end) {
           loc.trailingOffset = trailingOffset;
           loc.end = end;
           break;
