@@ -44,12 +44,13 @@ export abstract class SlangNode {
     enclosePeripheralComments = false
   ) {
     if (ast instanceof SlangTerminalNode) {
-      const offset = collected.offsets.get(ast.id) || 0;
+      const start = collected.offsets.get(ast.id) || 0;
+      const end = start + ast.textLength.utf16;
       this.loc = {
-        start: offset,
-        end: offset + ast.textLength.utf16,
-        leadingOffset: 0,
-        trailingOffset: 0
+        outerStart: start,
+        outerEnd: end,
+        start,
+        end
       };
       return;
     }
@@ -112,10 +113,10 @@ export abstract class SlangNode {
     trailingOffset ??= triviaLength;
 
     this.loc = {
+      outerStart: initialOffset,
+      outerEnd: offset,
       start: initialOffset + leadingOffset,
-      end: offset - trailingOffset,
-      leadingOffset,
-      trailingOffset
+      end: offset - trailingOffset
     };
   }
 
@@ -124,26 +125,24 @@ export abstract class SlangNode {
   ): void {
     const { loc } = this;
     // calculate correct loc object
-    if (loc.leadingOffset === 0) {
+    if (loc.outerStart === loc.start) {
       for (const childNode of childNodes) {
         if (childNode === undefined) continue;
-        const { leadingOffset, start } = childNode.loc;
+        const { outerStart, start } = childNode.loc;
 
-        if (start - leadingOffset === loc.start) {
-          loc.leadingOffset = leadingOffset;
+        if (outerStart === loc.start) {
           loc.start = start;
           break;
         }
       }
     }
 
-    if (loc.trailingOffset === 0) {
+    if (loc.outerEnd === loc.end) {
       for (const childNode of reversedIterator(childNodes)) {
         if (childNode === undefined) continue;
-        const { trailingOffset, end } = childNode.loc;
+        const { outerEnd, end } = childNode.loc;
 
-        if (end + trailingOffset === loc.end) {
-          loc.trailingOffset = trailingOffset;
+        if (outerEnd === loc.end) {
           loc.end = end;
           break;
         }

@@ -10,7 +10,11 @@ import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
+import type {
+  AstLocation,
+  CollectedMetadata,
+  PrintFunction
+} from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 export class ModifierDefinition extends SlangNode {
@@ -45,14 +49,12 @@ export class ModifierDefinition extends SlangNode {
     this.updateMetadata(this.parameters, this.attributes, this.body);
 
     if (!this.parameters) {
-      const attributesLoc = this.attributes.loc;
-      const parametersOffset =
-        attributesLoc.start - attributesLoc.leadingOffset;
-      const parametersLoc = {
+      const parametersOffset = this.attributes.loc.outerStart;
+      const parametersLoc: AstLocation = {
+        outerStart: parametersOffset,
+        outerEnd: parametersOffset,
         start: parametersOffset,
-        end: parametersOffset,
-        leadingOffset: 0,
-        trailingOffset: 0
+        end: parametersOffset
       };
 
       this.parameters = Object.assign(
