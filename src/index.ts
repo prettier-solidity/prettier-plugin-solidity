@@ -6,9 +6,17 @@ import options from './options.js';
 import antlrParse from './parser.js';
 import antlrPrint from './printer.js';
 import slangParse from './slangSolidityParser.js';
+import yulParse from './slangYulParser.js';
 import slangPrint from './slangPrinter.js';
 import { isBlockComment, isComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
+import {
+  antlrAstId,
+  antlrParserId,
+  slangAstId,
+  slangParserId,
+  slangYulParserId
+} from './constants.js';
 
 import type {
   Parser,
@@ -17,11 +25,6 @@ import type {
   SupportLanguage
 } from 'prettier';
 import type { AstNode } from './slang-nodes/types.d.ts';
-
-const slangParserId = 'slang';
-const antlrParserId = 'antlr';
-const slangAstId = 'slang-ast';
-const antlrAstId = 'antlr-ast';
 
 // https://prettier.io/docs/en/plugins.html#languages
 // https://github.com/github-linguist/linguist/blob/master/lib/linguist/languages.yml
@@ -34,6 +37,15 @@ const languages: SupportLanguage[] = [
     extensions: ['.sol'],
     parsers: [slangParserId, antlrParserId],
     vscodeLanguageIds: ['solidity']
+  },
+  {
+    linguistLanguageId: 237469033,
+    name: 'Yul',
+    aceMode: 'text',
+    tmScope: 'source.yul',
+    extensions: ['.yul'],
+    parsers: [slangYulParserId],
+    vscodeLanguageIds: ['yul']
   }
 ];
 
@@ -45,9 +57,16 @@ const slangParser: Parser<AstNode> = {
   locStart,
   locEnd
 };
+const yulParser: Parser<AstNode> = {
+  astFormat: slangAstId,
+  parse: yulParse,
+  locStart,
+  locEnd
+};
 
 const parsers = {
   [slangParserId]: slangParser,
+  [slangYulParserId]: yulParser,
   [antlrParserId]: antlrParser
 };
 
