@@ -20,8 +20,8 @@ interface Location {
 }
 
 interface AstLocation extends Location {
-  leadingOffset: number;
-  trailingOffset: number;
+  outerStart: number;
+  outerEnd: number;
 }
 
 type PrintFunction = (path: AstPath<AstNode>) => Doc;
