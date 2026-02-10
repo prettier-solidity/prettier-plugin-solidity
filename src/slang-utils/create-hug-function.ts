@@ -5,7 +5,7 @@ import { TupleValue } from '../slang-nodes/TupleValue.js';
 import { TerminalNode } from '../slang-nodes/TerminalNode.js';
 import { isBinaryOperation } from './is-binary-operation.js';
 
-import type { Expression } from '../slang-nodes/Expression.js';
+import type { Expression } from '../slang-nodes/Expression.ts';
 
 export function createHugFunction(
   huggableOperators: string[]
