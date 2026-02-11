@@ -9,18 +9,19 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.PathImport.name]: PathImport,
-  [ast.NamedImport.name]: NamedImport,
-  [ast.ImportDeconstruction.name]: ImportDeconstruction
-};
+const keys = [ast.PathImport, ast.NamedImport, ast.ImportDeconstruction];
+const constructors = [PathImport, NamedImport, ImportDeconstruction];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.ImportClause['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): ImportClause['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 

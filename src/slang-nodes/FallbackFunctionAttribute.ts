@@ -12,17 +12,19 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.ModifierInvocation.name]: ModifierInvocation,
-  [ast.OverrideSpecifier.name]: OverrideSpecifier
-};
+const keys = [ast.ModifierInvocation, ast.OverrideSpecifier];
+const constructors = [ModifierInvocation, OverrideSpecifier];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: Exclude<ast.FallbackFunctionAttribute['variant'], SlangTerminalNode>,
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Exclude<FallbackFunctionAttribute['variant'], TerminalNode> {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 

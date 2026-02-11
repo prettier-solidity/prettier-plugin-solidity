@@ -7,24 +7,37 @@ import { IdentifierPath } from './IdentifierPath.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
-const variantConstructors = {
-  [ast.IdentifierPath.name]: IdentifierPath
-};
+const keys = [ast.IdentifierPath];
+const constructors = [IdentifierPath];
 
-const variantWithVariantsConstructors = {
-  [ast.ElementaryType.name]: ElementaryType
-};
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
+
+const keysWithVariants = [ast.ElementaryType];
+const constructorsWithVariants = [ElementaryType];
+
+const variantWithVariantsConstructors = new Map<
+  string,
+  (typeof constructorsWithVariants)[number]
+>(
+  keysWithVariants.map((key, index) => [
+    key.name,
+    constructorsWithVariants[index]
+  ])
+);
 
 function createNonterminalVariant(
   variant: ast.MappingKeyType['variant'],
   collected: CollectedMetadata
 ): MappingKeyType['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected);
 
-  const variantWithVariantsConstructor =
-    variantWithVariantsConstructors[variant.constructor.name];
+  const variantWithVariantsConstructor = variantWithVariantsConstructors.get(
+    variant.constructor.name
+  );
   if (variantWithVariantsConstructor !== undefined)
     return extractVariant(
       new variantWithVariantsConstructor(variant as never, collected)

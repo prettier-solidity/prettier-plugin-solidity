@@ -6,16 +6,18 @@ import { UsingDeconstruction } from './UsingDeconstruction.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
-const variantConstructors = {
-  [ast.IdentifierPath.name]: IdentifierPath,
-  [ast.UsingDeconstruction.name]: UsingDeconstruction
-};
+const keys = [ast.IdentifierPath, ast.UsingDeconstruction];
+const constructors = [IdentifierPath, UsingDeconstruction];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.UsingClause['variant'],
   collected: CollectedMetadata
 ): UsingClause['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected);
 

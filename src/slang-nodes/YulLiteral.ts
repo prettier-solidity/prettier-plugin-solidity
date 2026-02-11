@@ -12,17 +12,19 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.HexStringLiteral.name]: HexStringLiteral,
-  [ast.StringLiteral.name]: StringLiteral
-};
+const keys = [ast.HexStringLiteral, ast.StringLiteral];
+const constructors = [HexStringLiteral, StringLiteral];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: Exclude<ast.YulLiteral['variant'], SlangTerminalNode>,
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Exclude<YulLiteral['variant'], TerminalNode> {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 

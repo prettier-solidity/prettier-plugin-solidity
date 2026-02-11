@@ -11,20 +11,31 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.StringLiteral.name]: StringLiteral,
-  [ast.StringLiterals.name]: StringLiterals,
-  [ast.HexStringLiteral.name]: HexStringLiteral,
-  [ast.HexStringLiterals.name]: HexStringLiterals,
-  [ast.UnicodeStringLiterals.name]: UnicodeStringLiterals
-};
+const keys = [
+  ast.StringLiteral,
+  ast.StringLiterals,
+  ast.HexStringLiteral,
+  ast.HexStringLiterals,
+  ast.UnicodeStringLiterals
+];
+const constructors = [
+  StringLiteral,
+  StringLiterals,
+  HexStringLiteral,
+  HexStringLiterals,
+  UnicodeStringLiterals
+];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.StringExpression['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): StringExpression['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 

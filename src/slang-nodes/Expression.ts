@@ -38,50 +38,90 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.AssignmentExpression.name]: AssignmentExpression,
-  [ast.ConditionalExpression.name]: ConditionalExpression,
-  [ast.OrExpression.name]: OrExpression,
-  [ast.AndExpression.name]: AndExpression,
-  [ast.EqualityExpression.name]: EqualityExpression,
-  [ast.InequalityExpression.name]: InequalityExpression,
-  [ast.BitwiseOrExpression.name]: BitwiseOrExpression,
-  [ast.BitwiseXorExpression.name]: BitwiseXorExpression,
-  [ast.BitwiseAndExpression.name]: BitwiseAndExpression,
-  [ast.ShiftExpression.name]: ShiftExpression,
-  [ast.AdditiveExpression.name]: AdditiveExpression,
-  [ast.MultiplicativeExpression.name]: MultiplicativeExpression,
-  [ast.ExponentiationExpression.name]: ExponentiationExpression,
-  [ast.PostfixExpression.name]: PostfixExpression,
-  [ast.PrefixExpression.name]: PrefixExpression,
-  [ast.FunctionCallExpression.name]: FunctionCallExpression,
-  [ast.CallOptionsExpression.name]: CallOptionsExpression,
-  [ast.MemberAccessExpression.name]: MemberAccessExpression,
-  [ast.IndexAccessExpression.name]: IndexAccessExpression,
-  [ast.NewExpression.name]: NewExpression,
-  [ast.TupleExpression.name]: TupleExpression,
-  [ast.TypeExpression.name]: TypeExpression,
-  [ast.ArrayExpression.name]: ArrayExpression,
-  [ast.HexNumberExpression.name]: HexNumberExpression,
-  [ast.DecimalNumberExpression.name]: DecimalNumberExpression
-};
+const keys = [
+  ast.AssignmentExpression,
+  ast.ConditionalExpression,
+  ast.OrExpression,
+  ast.AndExpression,
+  ast.EqualityExpression,
+  ast.InequalityExpression,
+  ast.BitwiseOrExpression,
+  ast.BitwiseXorExpression,
+  ast.BitwiseAndExpression,
+  ast.ShiftExpression,
+  ast.AdditiveExpression,
+  ast.MultiplicativeExpression,
+  ast.ExponentiationExpression,
+  ast.PostfixExpression,
+  ast.PrefixExpression,
+  ast.FunctionCallExpression,
+  ast.CallOptionsExpression,
+  ast.MemberAccessExpression,
+  ast.IndexAccessExpression,
+  ast.NewExpression,
+  ast.TupleExpression,
+  ast.TypeExpression,
+  ast.ArrayExpression,
+  ast.HexNumberExpression,
+  ast.DecimalNumberExpression
+];
+const constructors = [
+  AssignmentExpression,
+  ConditionalExpression,
+  OrExpression,
+  AndExpression,
+  EqualityExpression,
+  InequalityExpression,
+  BitwiseOrExpression,
+  BitwiseXorExpression,
+  BitwiseAndExpression,
+  ShiftExpression,
+  AdditiveExpression,
+  MultiplicativeExpression,
+  ExponentiationExpression,
+  PostfixExpression,
+  PrefixExpression,
+  FunctionCallExpression,
+  CallOptionsExpression,
+  MemberAccessExpression,
+  IndexAccessExpression,
+  NewExpression,
+  TupleExpression,
+  TypeExpression,
+  ArrayExpression,
+  HexNumberExpression,
+  DecimalNumberExpression
+];
 
-const variantWithVariantsConstructors = {
-  [ast.StringExpression.name]: StringExpression,
-  [ast.ElementaryType.name]: ElementaryType
-};
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
+
+const keysWithVariants = [ast.StringExpression, ast.ElementaryType];
+const constructorsWithVariants = [StringExpression, ElementaryType];
+
+const variantWithVariantsConstructors = new Map<
+  string,
+  (typeof constructorsWithVariants)[number]
+>(
+  keysWithVariants.map((key, index) => [
+    key.name,
+    constructorsWithVariants[index]
+  ])
+);
 
 function createNonterminalVariant(
   variant: Exclude<ast.Expression['variant'], SlangTerminalNode>,
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Expression['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 
-  const variantWithVariantsConstructor =
-    variantWithVariantsConstructors[variant.constructor.name];
+  const variantWithVariantsConstructor = variantWithVariantsConstructors.get(
+    variant.constructor.name
+  );
   if (variantWithVariantsConstructor !== undefined)
     return extractVariant(
       new variantWithVariantsConstructor(variant as never, collected, options)

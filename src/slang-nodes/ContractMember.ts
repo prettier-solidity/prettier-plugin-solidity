@@ -19,28 +19,47 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.UsingDirective.name]: UsingDirective,
-  [ast.FunctionDefinition.name]: FunctionDefinition,
-  [ast.ConstructorDefinition.name]: ConstructorDefinition,
-  [ast.ReceiveFunctionDefinition.name]: ReceiveFunctionDefinition,
-  [ast.FallbackFunctionDefinition.name]: FallbackFunctionDefinition,
-  [ast.UnnamedFunctionDefinition.name]: UnnamedFunctionDefinition,
-  [ast.ModifierDefinition.name]: ModifierDefinition,
-  [ast.StructDefinition.name]: StructDefinition,
-  [ast.EnumDefinition.name]: EnumDefinition,
-  [ast.EventDefinition.name]: EventDefinition,
-  [ast.StateVariableDefinition.name]: StateVariableDefinition,
-  [ast.ErrorDefinition.name]: ErrorDefinition,
-  [ast.UserDefinedValueTypeDefinition.name]: UserDefinedValueTypeDefinition
-};
+const keys = [
+  ast.UsingDirective,
+  ast.FunctionDefinition,
+  ast.ConstructorDefinition,
+  ast.ReceiveFunctionDefinition,
+  ast.FallbackFunctionDefinition,
+  ast.UnnamedFunctionDefinition,
+  ast.ModifierDefinition,
+  ast.StructDefinition,
+  ast.EnumDefinition,
+  ast.EventDefinition,
+  ast.StateVariableDefinition,
+  ast.ErrorDefinition,
+  ast.UserDefinedValueTypeDefinition
+];
+const constructors = [
+  UsingDirective,
+  FunctionDefinition,
+  ConstructorDefinition,
+  ReceiveFunctionDefinition,
+  FallbackFunctionDefinition,
+  UnnamedFunctionDefinition,
+  ModifierDefinition,
+  StructDefinition,
+  EnumDefinition,
+  EventDefinition,
+  StateVariableDefinition,
+  ErrorDefinition,
+  UserDefinedValueTypeDefinition
+];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.ContractMember['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): ContractMember['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 

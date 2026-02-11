@@ -23,24 +23,46 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.ExpressionStatement.name]: ExpressionStatement,
-  [ast.VariableDeclarationStatement.name]: VariableDeclarationStatement,
-  [ast.TupleDeconstructionStatement.name]: TupleDeconstructionStatement,
-  [ast.IfStatement.name]: IfStatement,
-  [ast.ForStatement.name]: ForStatement,
-  [ast.WhileStatement.name]: WhileStatement,
-  [ast.DoWhileStatement.name]: DoWhileStatement,
-  [ast.ContinueStatement.name]: ContinueStatement,
-  [ast.BreakStatement.name]: BreakStatement,
-  [ast.ReturnStatement.name]: ReturnStatement,
-  [ast.ThrowStatement.name]: ThrowStatement,
-  [ast.EmitStatement.name]: EmitStatement,
-  [ast.TryStatement.name]: TryStatement,
-  [ast.RevertStatement.name]: RevertStatement,
-  [ast.AssemblyStatement.name]: AssemblyStatement,
-  [ast.UncheckedBlock.name]: UncheckedBlock
-} as const;
+const keys = [
+  ast.ExpressionStatement,
+  ast.VariableDeclarationStatement,
+  ast.TupleDeconstructionStatement,
+  ast.IfStatement,
+  ast.ForStatement,
+  ast.WhileStatement,
+  ast.DoWhileStatement,
+  ast.ContinueStatement,
+  ast.BreakStatement,
+  ast.ReturnStatement,
+  ast.ThrowStatement,
+  ast.EmitStatement,
+  ast.TryStatement,
+  ast.RevertStatement,
+  ast.AssemblyStatement,
+  ast.UncheckedBlock
+];
+const constructors = [
+  ExpressionStatement,
+  VariableDeclarationStatement,
+  TupleDeconstructionStatement,
+  IfStatement,
+  ForStatement,
+  WhileStatement,
+  DoWhileStatement,
+  ContinueStatement,
+  BreakStatement,
+  ReturnStatement,
+  ThrowStatement,
+  EmitStatement,
+  TryStatement,
+  RevertStatement,
+  AssemblyStatement,
+  UncheckedBlock
+];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.Statement['variant'],
@@ -51,7 +73,7 @@ function createNonterminalVariant(
     return new Block(variant, collected, options);
   }
 
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 

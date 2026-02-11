@@ -19,28 +19,47 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.PragmaDirective.name]: PragmaDirective,
-  [ast.ImportDirective.name]: ImportDirective,
-  [ast.ContractDefinition.name]: ContractDefinition,
-  [ast.InterfaceDefinition.name]: InterfaceDefinition,
-  [ast.LibraryDefinition.name]: LibraryDefinition,
-  [ast.StructDefinition.name]: StructDefinition,
-  [ast.EnumDefinition.name]: EnumDefinition,
-  [ast.FunctionDefinition.name]: FunctionDefinition,
-  [ast.ConstantDefinition.name]: ConstantDefinition,
-  [ast.ErrorDefinition.name]: ErrorDefinition,
-  [ast.UserDefinedValueTypeDefinition.name]: UserDefinedValueTypeDefinition,
-  [ast.UsingDirective.name]: UsingDirective,
-  [ast.EventDefinition.name]: EventDefinition
-};
+const keys = [
+  ast.PragmaDirective,
+  ast.ImportDirective,
+  ast.ContractDefinition,
+  ast.InterfaceDefinition,
+  ast.LibraryDefinition,
+  ast.StructDefinition,
+  ast.EnumDefinition,
+  ast.FunctionDefinition,
+  ast.ConstantDefinition,
+  ast.ErrorDefinition,
+  ast.UserDefinedValueTypeDefinition,
+  ast.UsingDirective,
+  ast.EventDefinition
+];
+const constructors = [
+  PragmaDirective,
+  ImportDirective,
+  ContractDefinition,
+  InterfaceDefinition,
+  LibraryDefinition,
+  StructDefinition,
+  EnumDefinition,
+  FunctionDefinition,
+  ConstantDefinition,
+  ErrorDefinition,
+  UserDefinedValueTypeDefinition,
+  UsingDirective,
+  EventDefinition
+];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.SourceUnitMember['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): SourceUnitMember['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 
