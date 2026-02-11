@@ -23,64 +23,39 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
+const variantConstructors = {
+  [ast.ExpressionStatement.name]: ExpressionStatement,
+  [ast.VariableDeclarationStatement.name]: VariableDeclarationStatement,
+  [ast.TupleDeconstructionStatement.name]: TupleDeconstructionStatement,
+  [ast.IfStatement.name]: IfStatement,
+  [ast.ForStatement.name]: ForStatement,
+  [ast.WhileStatement.name]: WhileStatement,
+  [ast.DoWhileStatement.name]: DoWhileStatement,
+  [ast.ContinueStatement.name]: ContinueStatement,
+  [ast.BreakStatement.name]: BreakStatement,
+  [ast.ReturnStatement.name]: ReturnStatement,
+  [ast.ThrowStatement.name]: ThrowStatement,
+  [ast.EmitStatement.name]: EmitStatement,
+  [ast.TryStatement.name]: TryStatement,
+  [ast.RevertStatement.name]: RevertStatement,
+  [ast.AssemblyStatement.name]: AssemblyStatement,
+  [ast.UncheckedBlock.name]: UncheckedBlock
+} as const;
+
 function createNonterminalVariant(
   variant: ast.Statement['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Statement['variant'] {
-  if (variant instanceof ast.ExpressionStatement) {
-    return new ExpressionStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.VariableDeclarationStatement) {
-    return new VariableDeclarationStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.TupleDeconstructionStatement) {
-    return new TupleDeconstructionStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.IfStatement) {
-    return new IfStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.ForStatement) {
-    return new ForStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.WhileStatement) {
-    return new WhileStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.DoWhileStatement) {
-    return new DoWhileStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.ContinueStatement) {
-    return new ContinueStatement(variant, collected);
-  }
-  if (variant instanceof ast.BreakStatement) {
-    return new BreakStatement(variant, collected);
-  }
-  if (variant instanceof ast.ReturnStatement) {
-    return new ReturnStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.ThrowStatement) {
-    return new ThrowStatement(variant, collected);
-  }
-  if (variant instanceof ast.EmitStatement) {
-    return new EmitStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.TryStatement) {
-    return new TryStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.RevertStatement) {
-    return new RevertStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.AssemblyStatement) {
-    return new AssemblyStatement(variant, collected, options);
-  }
   if (variant instanceof ast.Block) {
     return new Block(variant, collected, options);
   }
-  if (variant instanceof ast.UncheckedBlock) {
-    return new UncheckedBlock(variant, collected, options);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
+
+  const variantConstructor = variantConstructors[variant.constructor.name];
+  if (variantConstructor !== undefined)
+    return new variantConstructor(variant as never, collected, options);
+
+  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
 }
 
 export class Statement extends SlangNode {

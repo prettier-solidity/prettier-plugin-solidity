@@ -8,19 +8,21 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
+const variantConstructors = {
+  [ast.InheritanceSpecifier.name]: InheritanceSpecifier,
+  [ast.StorageLayoutSpecifier.name]: StorageLayoutSpecifier
+};
+
 function createNonterminalVariant(
   variant: ast.ContractSpecifier['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): ContractSpecifier['variant'] {
-  if (variant instanceof ast.InheritanceSpecifier) {
-    return new InheritanceSpecifier(variant, collected, options);
-  }
-  if (variant instanceof ast.StorageLayoutSpecifier) {
-    return new StorageLayoutSpecifier(variant, collected, options);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
+  const variantConstructor = variantConstructors[variant.constructor.name];
+  if (variantConstructor !== undefined)
+    return new variantConstructor(variant as never, collected, options);
+
+  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
 }
 
 export class ContractSpecifier extends SlangNode {

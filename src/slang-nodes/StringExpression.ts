@@ -11,28 +11,24 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
+const variantConstructors = {
+  [ast.StringLiteral.name]: StringLiteral,
+  [ast.StringLiterals.name]: StringLiterals,
+  [ast.HexStringLiteral.name]: HexStringLiteral,
+  [ast.HexStringLiterals.name]: HexStringLiterals,
+  [ast.UnicodeStringLiterals.name]: UnicodeStringLiterals
+};
+
 function createNonterminalVariant(
   variant: ast.StringExpression['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): StringExpression['variant'] {
-  if (variant instanceof ast.StringLiteral) {
-    return new StringLiteral(variant, collected, options);
-  }
-  if (variant instanceof ast.StringLiterals) {
-    return new StringLiterals(variant, collected, options);
-  }
-  if (variant instanceof ast.HexStringLiteral) {
-    return new HexStringLiteral(variant, collected, options);
-  }
-  if (variant instanceof ast.HexStringLiterals) {
-    return new HexStringLiterals(variant, collected, options);
-  }
-  if (variant instanceof ast.UnicodeStringLiterals) {
-    return new UnicodeStringLiterals(variant, collected, options);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
+  const variantConstructor = variantConstructors[variant.constructor.name];
+  if (variantConstructor !== undefined)
+    return new variantConstructor(variant as never, collected, options);
+
+  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
 }
 
 export class StringExpression extends SlangNode {

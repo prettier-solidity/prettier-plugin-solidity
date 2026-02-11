@@ -38,94 +38,56 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
+const variantConstructors = {
+  [ast.AssignmentExpression.name]: AssignmentExpression,
+  [ast.ConditionalExpression.name]: ConditionalExpression,
+  [ast.OrExpression.name]: OrExpression,
+  [ast.AndExpression.name]: AndExpression,
+  [ast.EqualityExpression.name]: EqualityExpression,
+  [ast.InequalityExpression.name]: InequalityExpression,
+  [ast.BitwiseOrExpression.name]: BitwiseOrExpression,
+  [ast.BitwiseXorExpression.name]: BitwiseXorExpression,
+  [ast.BitwiseAndExpression.name]: BitwiseAndExpression,
+  [ast.ShiftExpression.name]: ShiftExpression,
+  [ast.AdditiveExpression.name]: AdditiveExpression,
+  [ast.MultiplicativeExpression.name]: MultiplicativeExpression,
+  [ast.ExponentiationExpression.name]: ExponentiationExpression,
+  [ast.PostfixExpression.name]: PostfixExpression,
+  [ast.PrefixExpression.name]: PrefixExpression,
+  [ast.FunctionCallExpression.name]: FunctionCallExpression,
+  [ast.CallOptionsExpression.name]: CallOptionsExpression,
+  [ast.MemberAccessExpression.name]: MemberAccessExpression,
+  [ast.IndexAccessExpression.name]: IndexAccessExpression,
+  [ast.NewExpression.name]: NewExpression,
+  [ast.TupleExpression.name]: TupleExpression,
+  [ast.TypeExpression.name]: TypeExpression,
+  [ast.ArrayExpression.name]: ArrayExpression,
+  [ast.HexNumberExpression.name]: HexNumberExpression,
+  [ast.DecimalNumberExpression.name]: DecimalNumberExpression
+};
+
+const variantWithVariantsConstructors = {
+  [ast.StringExpression.name]: StringExpression,
+  [ast.ElementaryType.name]: ElementaryType
+};
+
 function createNonterminalVariant(
   variant: Exclude<ast.Expression['variant'], SlangTerminalNode>,
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Expression['variant'] {
-  if (variant instanceof ast.AssignmentExpression) {
-    return new AssignmentExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.ConditionalExpression) {
-    return new ConditionalExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.OrExpression) {
-    return new OrExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.AndExpression) {
-    return new AndExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.EqualityExpression) {
-    return new EqualityExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.InequalityExpression) {
-    return new InequalityExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.BitwiseOrExpression) {
-    return new BitwiseOrExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.BitwiseXorExpression) {
-    return new BitwiseXorExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.BitwiseAndExpression) {
-    return new BitwiseAndExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.ShiftExpression) {
-    return new ShiftExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.AdditiveExpression) {
-    return new AdditiveExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.MultiplicativeExpression) {
-    return new MultiplicativeExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.ExponentiationExpression) {
-    return new ExponentiationExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.PostfixExpression) {
-    return new PostfixExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.PrefixExpression) {
-    return new PrefixExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.FunctionCallExpression) {
-    return new FunctionCallExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.CallOptionsExpression) {
-    return new CallOptionsExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.MemberAccessExpression) {
-    return new MemberAccessExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.IndexAccessExpression) {
-    return new IndexAccessExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.NewExpression) {
-    return new NewExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.TupleExpression) {
-    return new TupleExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.TypeExpression) {
-    return new TypeExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.ArrayExpression) {
-    return new ArrayExpression(variant, collected, options);
-  }
-  if (variant instanceof ast.HexNumberExpression) {
-    return new HexNumberExpression(variant, collected);
-  }
-  if (variant instanceof ast.DecimalNumberExpression) {
-    return new DecimalNumberExpression(variant, collected);
-  }
-  if (variant instanceof ast.StringExpression) {
-    return extractVariant(new StringExpression(variant, collected, options));
-  }
-  if (variant instanceof ast.ElementaryType) {
-    return extractVariant(new ElementaryType(variant, collected));
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
+  const variantConstructor = variantConstructors[variant.constructor.name];
+  if (variantConstructor !== undefined)
+    return new variantConstructor(variant as never, collected, options);
+
+  const variantWithVariantsConstructor =
+    variantWithVariantsConstructors[variant.constructor.name];
+  if (variantWithVariantsConstructor !== undefined)
+    return extractVariant(
+      new variantWithVariantsConstructor(variant as never, collected, options)
+    );
+
+  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
 }
 
 export class Expression extends SlangNode {

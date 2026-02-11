@@ -6,18 +6,20 @@ import { VersionTerm } from './VersionTerm.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
+const variantConstructors = {
+  [ast.VersionRange.name]: VersionRange,
+  [ast.VersionTerm.name]: VersionTerm
+};
+
 function createNonterminalVariant(
   variant: ast.VersionExpression['variant'],
   collected: CollectedMetadata
 ): VersionExpression['variant'] {
-  if (variant instanceof ast.VersionRange) {
-    return new VersionRange(variant, collected);
-  }
-  if (variant instanceof ast.VersionTerm) {
-    return new VersionTerm(variant, collected);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
+  const variantConstructor = variantConstructors[variant.constructor.name];
+  if (variantConstructor !== undefined)
+    return new variantConstructor(variant as never, collected);
+
+  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
 }
 
 export class VersionExpression extends SlangNode {

@@ -8,19 +8,21 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
+const variantConstructors = {
+  [ast.PositionalArgumentsDeclaration.name]: PositionalArgumentsDeclaration,
+  [ast.NamedArgumentsDeclaration.name]: NamedArgumentsDeclaration
+};
+
 function createNonterminalVariant(
   variant: ast.ArgumentsDeclaration['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): ArgumentsDeclaration['variant'] {
-  if (variant instanceof ast.PositionalArgumentsDeclaration) {
-    return new PositionalArgumentsDeclaration(variant, collected, options);
-  }
-  if (variant instanceof ast.NamedArgumentsDeclaration) {
-    return new NamedArgumentsDeclaration(variant, collected, options);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
+  const variantConstructor = variantConstructors[variant.constructor.name];
+  if (variantConstructor !== undefined)
+    return new variantConstructor(variant as never, collected, options);
+
+  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
 }
 
 export class ArgumentsDeclaration extends SlangNode {
