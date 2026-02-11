@@ -12,28 +12,43 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.ArrayTypeName.name]: ArrayTypeName,
-  [ast.FunctionType.name]: FunctionType,
-  [ast.MappingType.name]: MappingType,
-  [ast.IdentifierPath.name]: IdentifierPath
-};
+const keys = [
+  ast.ArrayTypeName,
+  ast.FunctionType,
+  ast.MappingType,
+  ast.IdentifierPath
+];
+const constructors = [ArrayTypeName, FunctionType, MappingType, IdentifierPath];
 
-const variantWithVariantsConstructors = {
-  [ast.ElementaryType.name]: ElementaryType
-};
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
+
+const keysWithVariants = [ast.ElementaryType];
+const constructorsWithVariants = [ElementaryType];
+
+const variantWithVariantsConstructors = new Map<
+  string,
+  (typeof constructorsWithVariants)[number]
+>(
+  keysWithVariants.map((key, index) => [
+    key.name,
+    constructorsWithVariants[index]
+  ])
+);
 
 function createNonterminalVariant(
   variant: ast.TypeName['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): TypeName['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 
-  const variantWithVariantsConstructor =
-    variantWithVariantsConstructors[variant.constructor.name];
+  const variantWithVariantsConstructor = variantWithVariantsConstructors.get(
+    variant.constructor.name
+  );
   if (variantWithVariantsConstructor !== undefined)
     return extractVariant(
       new variantWithVariantsConstructor(variant as never, collected)

@@ -8,17 +8,19 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.TypedTupleMember.name]: TypedTupleMember,
-  [ast.UntypedTupleMember.name]: UntypedTupleMember
-};
+const keys = [ast.TypedTupleMember, ast.UntypedTupleMember];
+const constructors = [TypedTupleMember, UntypedTupleMember];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.TupleMember['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): TupleMember['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 

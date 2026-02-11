@@ -9,18 +9,19 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.AbicoderPragma.name]: AbicoderPragma,
-  [ast.ExperimentalPragma.name]: ExperimentalPragma,
-  [ast.VersionPragma.name]: VersionPragma
-};
+const keys = [ast.AbicoderPragma, ast.ExperimentalPragma, ast.VersionPragma];
+const constructors = [AbicoderPragma, ExperimentalPragma, VersionPragma];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.Pragma['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Pragma['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 

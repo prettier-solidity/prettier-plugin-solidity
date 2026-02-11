@@ -20,23 +20,49 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.YulFunctionDefinition.name]: YulFunctionDefinition,
-  [ast.YulVariableDeclarationStatement.name]: YulVariableDeclarationStatement,
-  [ast.YulVariableAssignmentStatement.name]: YulVariableAssignmentStatement,
-  [ast.YulStackAssignmentStatement.name]: YulStackAssignmentStatement,
-  [ast.YulIfStatement.name]: YulIfStatement,
-  [ast.YulForStatement.name]: YulForStatement,
-  [ast.YulSwitchStatement.name]: YulSwitchStatement,
-  [ast.YulLeaveStatement.name]: YulLeaveStatement,
-  [ast.YulBreakStatement.name]: YulBreakStatement,
-  [ast.YulContinueStatement.name]: YulContinueStatement,
-  [ast.YulLabel.name]: YulLabel
-};
+const keys = [
+  ast.YulFunctionDefinition,
+  ast.YulVariableDeclarationStatement,
+  ast.YulVariableAssignmentStatement,
+  ast.YulStackAssignmentStatement,
+  ast.YulIfStatement,
+  ast.YulForStatement,
+  ast.YulSwitchStatement,
+  ast.YulLeaveStatement,
+  ast.YulBreakStatement,
+  ast.YulContinueStatement,
+  ast.YulLabel
+];
+const constructors = [
+  YulFunctionDefinition,
+  YulVariableDeclarationStatement,
+  YulVariableAssignmentStatement,
+  YulStackAssignmentStatement,
+  YulIfStatement,
+  YulForStatement,
+  YulSwitchStatement,
+  YulLeaveStatement,
+  YulBreakStatement,
+  YulContinueStatement,
+  YulLabel
+];
 
-const variantWithVariantsConstructors = {
-  [ast.YulExpression.name]: YulExpression
-};
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
+
+const keysWithVariants = [ast.YulExpression];
+const constructorsWithVariants = [YulExpression];
+
+const variantWithVariantsConstructors = new Map<
+  string,
+  (typeof constructorsWithVariants)[number]
+>(
+  keysWithVariants.map((key, index) => [
+    key.name,
+    constructorsWithVariants[index]
+  ])
+);
 
 function createNonterminalVariant(
   variant: ast.YulStatement['variant'],
@@ -47,12 +73,13 @@ function createNonterminalVariant(
     return new YulBlock(variant, collected, options);
   }
 
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 
-  const variantWithVariantsConstructor =
-    variantWithVariantsConstructors[variant.constructor.name];
+  const variantWithVariantsConstructor = variantWithVariantsConstructors.get(
+    variant.constructor.name
+  );
   if (variantWithVariantsConstructor !== undefined)
     return extractVariant(
       new variantWithVariantsConstructor(variant as never, collected, options)

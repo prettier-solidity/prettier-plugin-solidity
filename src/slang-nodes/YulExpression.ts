@@ -10,26 +10,38 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.YulFunctionCallExpression.name]: YulFunctionCallExpression,
-  [ast.YulPath.name]: YulPath
-};
+const keys = [ast.YulFunctionCallExpression, ast.YulPath];
+const constructors = [YulFunctionCallExpression, YulPath];
 
-const variantWithVariantsConstructors = {
-  [ast.YulLiteral.name]: YulLiteral
-};
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
+
+const keysWithVariants = [ast.YulLiteral];
+const constructorsWithVariants = [YulLiteral];
+
+const variantWithVariantsConstructors = new Map<
+  string,
+  (typeof constructorsWithVariants)[number]
+>(
+  keysWithVariants.map((key, index) => [
+    key.name,
+    constructorsWithVariants[index]
+  ])
+);
 
 function createNonterminalVariant(
   variant: ast.YulExpression['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): YulExpression['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 
-  const variantWithVariantsConstructor =
-    variantWithVariantsConstructors[variant.constructor.name];
+  const variantWithVariantsConstructor = variantWithVariantsConstructors.get(
+    variant.constructor.name
+  );
   if (variantWithVariantsConstructor !== undefined)
     return extractVariant(
       new variantWithVariantsConstructor(variant as never, collected, options)

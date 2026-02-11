@@ -8,17 +8,25 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const variantConstructors = {
-  [ast.PositionalArgumentsDeclaration.name]: PositionalArgumentsDeclaration,
-  [ast.NamedArgumentsDeclaration.name]: NamedArgumentsDeclaration
-};
+const keys = [
+  ast.PositionalArgumentsDeclaration,
+  ast.NamedArgumentsDeclaration
+];
+const constructors = [
+  PositionalArgumentsDeclaration,
+  NamedArgumentsDeclaration
+];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.ArgumentsDeclaration['variant'],
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): ArgumentsDeclaration['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected, options);
 

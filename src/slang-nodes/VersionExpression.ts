@@ -6,16 +6,18 @@ import { VersionTerm } from './VersionTerm.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
-const variantConstructors = {
-  [ast.VersionRange.name]: VersionRange,
-  [ast.VersionTerm.name]: VersionTerm
-};
+const keys = [ast.VersionRange, ast.VersionTerm];
+const constructors = [VersionRange, VersionTerm];
+
+const variantConstructors = new Map<string, (typeof constructors)[number]>(
+  keys.map((key, index) => [key.name, constructors[index]])
+);
 
 function createNonterminalVariant(
   variant: ast.VersionExpression['variant'],
   collected: CollectedMetadata
 ): VersionExpression['variant'] {
-  const variantConstructor = variantConstructors[variant.constructor.name];
+  const variantConstructor = variantConstructors.get(variant.constructor.name);
   if (variantConstructor !== undefined)
     return new variantConstructor(variant as never, collected);
 
