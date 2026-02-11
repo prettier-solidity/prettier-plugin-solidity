@@ -20,6 +20,24 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
+const variantConstructors = {
+  [ast.YulFunctionDefinition.name]: YulFunctionDefinition,
+  [ast.YulVariableDeclarationStatement.name]: YulVariableDeclarationStatement,
+  [ast.YulVariableAssignmentStatement.name]: YulVariableAssignmentStatement,
+  [ast.YulStackAssignmentStatement.name]: YulStackAssignmentStatement,
+  [ast.YulIfStatement.name]: YulIfStatement,
+  [ast.YulForStatement.name]: YulForStatement,
+  [ast.YulSwitchStatement.name]: YulSwitchStatement,
+  [ast.YulLeaveStatement.name]: YulLeaveStatement,
+  [ast.YulBreakStatement.name]: YulBreakStatement,
+  [ast.YulContinueStatement.name]: YulContinueStatement,
+  [ast.YulLabel.name]: YulLabel
+};
+
+const variantWithVariantsConstructors = {
+  [ast.YulExpression.name]: YulExpression
+};
+
 function createNonterminalVariant(
   variant: ast.YulStatement['variant'],
   collected: CollectedMetadata,
@@ -28,44 +46,19 @@ function createNonterminalVariant(
   if (variant instanceof ast.YulBlock) {
     return new YulBlock(variant, collected, options);
   }
-  if (variant instanceof ast.YulFunctionDefinition) {
-    return new YulFunctionDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.YulVariableDeclarationStatement) {
-    return new YulVariableDeclarationStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.YulVariableAssignmentStatement) {
-    return new YulVariableAssignmentStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.YulStackAssignmentStatement) {
-    return new YulStackAssignmentStatement(variant, collected);
-  }
-  if (variant instanceof ast.YulIfStatement) {
-    return new YulIfStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.YulForStatement) {
-    return new YulForStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.YulSwitchStatement) {
-    return new YulSwitchStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.YulLeaveStatement) {
-    return new YulLeaveStatement(variant, collected);
-  }
-  if (variant instanceof ast.YulBreakStatement) {
-    return new YulBreakStatement(variant, collected);
-  }
-  if (variant instanceof ast.YulContinueStatement) {
-    return new YulContinueStatement(variant, collected);
-  }
-  if (variant instanceof ast.YulLabel) {
-    return new YulLabel(variant, collected);
-  }
-  if (variant instanceof ast.YulExpression) {
-    return extractVariant(new YulExpression(variant, collected, options));
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
+
+  const variantConstructor = variantConstructors[variant.constructor.name];
+  if (variantConstructor !== undefined)
+    return new variantConstructor(variant as never, collected, options);
+
+  const variantWithVariantsConstructor =
+    variantWithVariantsConstructors[variant.constructor.name];
+  if (variantWithVariantsConstructor !== undefined)
+    return extractVariant(
+      new variantWithVariantsConstructor(variant as never, collected, options)
+    );
+
+  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
 }
 
 export class YulStatement extends SlangNode {

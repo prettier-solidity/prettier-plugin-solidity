@@ -12,19 +12,21 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
+const variantConstructors = {
+  [ast.HexStringLiteral.name]: HexStringLiteral,
+  [ast.StringLiteral.name]: StringLiteral
+};
+
 function createNonterminalVariant(
   variant: Exclude<ast.YulLiteral['variant'], SlangTerminalNode>,
   collected: CollectedMetadata,
   options: ParserOptions<AstNode>
 ): Exclude<YulLiteral['variant'], TerminalNode> {
-  if (variant instanceof ast.HexStringLiteral) {
-    return new HexStringLiteral(variant, collected, options);
-  }
-  if (variant instanceof ast.StringLiteral) {
-    return new StringLiteral(variant, collected, options);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
+  const variantConstructor = variantConstructors[variant.constructor.name];
+  if (variantConstructor !== undefined)
+    return new variantConstructor(variant as never, collected, options);
+
+  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
 }
 
 export class YulLiteral extends SlangNode {
