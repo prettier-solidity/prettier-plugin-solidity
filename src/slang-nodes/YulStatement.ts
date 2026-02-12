@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -20,36 +20,25 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const createNonterminalVariantInternal = createNonterminalVariantCreator<
-  ast.YulStatement,
+const createNonterminalVariant = createNonterminalVariantCreator<
+  slangAst.YulStatement,
   YulStatement
 >(
   [
-    [ast.YulFunctionDefinition, YulFunctionDefinition],
-    [ast.YulVariableDeclarationStatement, YulVariableDeclarationStatement],
-    [ast.YulVariableAssignmentStatement, YulVariableAssignmentStatement],
-    [ast.YulStackAssignmentStatement, YulStackAssignmentStatement],
-    [ast.YulIfStatement, YulIfStatement],
-    [ast.YulForStatement, YulForStatement],
-    [ast.YulSwitchStatement, YulSwitchStatement],
-    [ast.YulLeaveStatement, YulLeaveStatement],
-    [ast.YulBreakStatement, YulBreakStatement],
-    [ast.YulContinueStatement, YulContinueStatement],
-    [ast.YulLabel, YulLabel]
+    [slangAst.YulFunctionDefinition, YulFunctionDefinition],
+    [slangAst.YulVariableDeclarationStatement, YulVariableDeclarationStatement],
+    [slangAst.YulVariableAssignmentStatement, YulVariableAssignmentStatement],
+    [slangAst.YulStackAssignmentStatement, YulStackAssignmentStatement],
+    [slangAst.YulIfStatement, YulIfStatement],
+    [slangAst.YulForStatement, YulForStatement],
+    [slangAst.YulSwitchStatement, YulSwitchStatement],
+    [slangAst.YulLeaveStatement, YulLeaveStatement],
+    [slangAst.YulBreakStatement, YulBreakStatement],
+    [slangAst.YulContinueStatement, YulContinueStatement],
+    [slangAst.YulLabel, YulLabel]
   ],
-  [[ast.YulExpression, YulExpression]]
+  [[slangAst.YulExpression, YulExpression]]
 );
-
-function createNonterminalVariant(
-  variant: ast.YulStatement['variant'],
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): YulStatement['variant'] {
-  if (variant instanceof ast.YulBlock) {
-    return new YulBlock(variant, collected, options);
-  }
-  return createNonterminalVariantInternal(variant, collected, options);
-}
 
 export class YulStatement extends SlangNode {
   readonly kind = NonterminalKind.YulStatement;
@@ -70,13 +59,17 @@ export class YulStatement extends SlangNode {
     | YulExpression['variant'];
 
   constructor(
-    ast: ast.YulStatement,
+    ast: slangAst.YulStatement,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
     super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, collected, options);
+    const variant = ast.variant;
+    this.variant =
+      variant instanceof slangAst.YulBlock
+        ? new YulBlock(variant, collected, options)
+        : createNonterminalVariant(variant, collected, options);
 
     this.updateMetadata(this.variant);
   }
