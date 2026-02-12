@@ -25,8 +25,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariantInternal = createNonterminalVariantCreator<
-  Statement,
-  ast.Statement
+  ast.Statement,
+  Statement
 >([
   [ast.ExpressionStatement, ExpressionStatement],
   [ast.VariableDeclarationStatement, VariableDeclarationStatement],

@@ -11,8 +11,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  Pragma,
-  ast.Pragma
+  ast.Pragma,
+  Pragma
 >([
   [ast.AbicoderPragma, AbicoderPragma],
   [ast.ExperimentalPragma, ExperimentalPragma],

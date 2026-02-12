@@ -21,8 +21,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  SourceUnitMember,
-  ast.SourceUnitMember
+  ast.SourceUnitMember,
+  SourceUnitMember
 >([
   [ast.PragmaDirective, PragmaDirective],
   [ast.ImportDirective, ImportDirective],

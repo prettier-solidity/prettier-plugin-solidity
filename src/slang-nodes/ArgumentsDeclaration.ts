@@ -10,8 +10,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  ArgumentsDeclaration,
-  ast.ArgumentsDeclaration
+  ast.ArgumentsDeclaration,
+  ArgumentsDeclaration
 >([
   [ast.PositionalArgumentsDeclaration, PositionalArgumentsDeclaration],
   [ast.NamedArgumentsDeclaration, NamedArgumentsDeclaration]

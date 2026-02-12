@@ -8,8 +8,8 @@ import { UsingDeconstruction } from './UsingDeconstruction.js';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  UsingClause,
-  ast.UsingClause
+  ast.UsingClause,
+  UsingClause
 >([
   [ast.IdentifierPath, IdentifierPath],
   [ast.UsingDeconstruction, UsingDeconstruction]

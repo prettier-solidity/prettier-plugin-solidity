@@ -10,8 +10,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  YulSwitchCase,
-  ast.YulSwitchCase
+  ast.YulSwitchCase,
+  YulSwitchCase
 >([
   [ast.YulDefaultCase, YulDefaultCase],
   [ast.YulValueCase, YulValueCase]

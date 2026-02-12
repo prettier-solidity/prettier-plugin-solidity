@@ -21,8 +21,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariantInternal = createNonterminalVariantCreator<
-  YulStatement,
-  ast.YulStatement
+  ast.YulStatement,
+  YulStatement
 >(
   [
     [ast.YulFunctionDefinition, YulFunctionDefinition],

@@ -39,8 +39,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  Expression,
-  ast.Expression
+  ast.Expression,
+  Expression
 >(
   [
     [ast.AssignmentExpression, AssignmentExpression],

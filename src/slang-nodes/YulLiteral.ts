@@ -14,8 +14,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  YulLiteral,
-  ast.YulLiteral
+  ast.YulLiteral,
+  YulLiteral
 >([
   [ast.HexStringLiteral, HexStringLiteral],
   [ast.StringLiteral, StringLiteral]

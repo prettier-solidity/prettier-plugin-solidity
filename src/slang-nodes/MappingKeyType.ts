@@ -8,8 +8,8 @@ import { IdentifierPath } from './IdentifierPath.js';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  MappingKeyType,
-  ast.MappingKeyType
+  ast.MappingKeyType,
+  MappingKeyType
 >(
   [[ast.IdentifierPath, IdentifierPath]],
   [[ast.ElementaryType, ElementaryType]]
