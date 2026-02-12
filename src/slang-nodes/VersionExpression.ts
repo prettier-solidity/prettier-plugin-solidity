@@ -8,8 +8,8 @@ import { VersionTerm } from './VersionTerm.js';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  VersionExpression,
-  ast.VersionExpression
+  ast.VersionExpression,
+  VersionExpression
 >([
   [ast.VersionRange, VersionRange],
   [ast.VersionTerm, VersionTerm]

@@ -14,8 +14,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  FunctionAttribute,
-  ast.FunctionAttribute
+  ast.FunctionAttribute,
+  FunctionAttribute
 >([
   [ast.ModifierInvocation, ModifierInvocation],
   [ast.OverrideSpecifier, OverrideSpecifier]

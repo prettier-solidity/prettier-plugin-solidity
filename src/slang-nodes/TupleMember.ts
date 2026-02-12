@@ -10,8 +10,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  TupleMember,
-  ast.TupleMember
+  ast.TupleMember,
+  TupleMember
 >([
   [ast.TypedTupleMember, TypedTupleMember],
   [ast.UntypedTupleMember, UntypedTupleMember]

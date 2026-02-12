@@ -17,8 +17,8 @@ type GenericFunction<U> = U extends any
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
 export function createNonterminalVariantCreator<
-  T extends StrictPolymorphicNode,
-  U extends SlangPolymorphicNode
+  U extends SlangPolymorphicNode,
+  T extends StrictPolymorphicNode
 >(
   constructors: [
     GenericFunction<U['variant']>,

@@ -14,8 +14,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  FallbackFunctionAttribute,
-  ast.FallbackFunctionAttribute
+  ast.FallbackFunctionAttribute,
+  FallbackFunctionAttribute
 >([
   [ast.ModifierInvocation, ModifierInvocation],
   [ast.OverrideSpecifier, OverrideSpecifier]

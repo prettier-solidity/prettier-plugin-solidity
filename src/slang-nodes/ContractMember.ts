@@ -21,8 +21,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  ContractMember,
-  ast.ContractMember
+  ast.ContractMember,
+  ContractMember
 >([
   [ast.UsingDirective, UsingDirective],
   [ast.FunctionDefinition, FunctionDefinition],

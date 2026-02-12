@@ -11,8 +11,8 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  ImportClause,
-  ast.ImportClause
+  ast.ImportClause,
+  ImportClause
 >([
   [ast.PathImport, PathImport],
   [ast.NamedImport, NamedImport],
