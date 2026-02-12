@@ -3,7 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { extractVariant } from '../slang-utils/extract-variant.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
@@ -38,97 +38,67 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const keys = [
-  ast.AssignmentExpression,
-  ast.ConditionalExpression,
-  ast.OrExpression,
-  ast.AndExpression,
-  ast.EqualityExpression,
-  ast.InequalityExpression,
-  ast.BitwiseOrExpression,
-  ast.BitwiseXorExpression,
-  ast.BitwiseAndExpression,
-  ast.ShiftExpression,
-  ast.AdditiveExpression,
-  ast.MultiplicativeExpression,
-  ast.ExponentiationExpression,
-  ast.PostfixExpression,
-  ast.PrefixExpression,
-  ast.FunctionCallExpression,
-  ast.CallOptionsExpression,
-  ast.MemberAccessExpression,
-  ast.IndexAccessExpression,
-  ast.NewExpression,
-  ast.TupleExpression,
-  ast.TypeExpression,
-  ast.ArrayExpression,
-  ast.HexNumberExpression,
-  ast.DecimalNumberExpression
-];
-const constructors = [
-  AssignmentExpression,
-  ConditionalExpression,
-  OrExpression,
-  AndExpression,
-  EqualityExpression,
-  InequalityExpression,
-  BitwiseOrExpression,
-  BitwiseXorExpression,
-  BitwiseAndExpression,
-  ShiftExpression,
-  AdditiveExpression,
-  MultiplicativeExpression,
-  ExponentiationExpression,
-  PostfixExpression,
-  PrefixExpression,
-  FunctionCallExpression,
-  CallOptionsExpression,
-  MemberAccessExpression,
-  IndexAccessExpression,
-  NewExpression,
-  TupleExpression,
-  TypeExpression,
-  ArrayExpression,
-  HexNumberExpression,
-  DecimalNumberExpression
-];
-
-const variantConstructors = new Map<string, (typeof constructors)[number]>(
-  keys.map((key, index) => [key.name, constructors[index]])
-);
-
-const keysWithVariants = [ast.StringExpression, ast.ElementaryType];
-const constructorsWithVariants = [StringExpression, ElementaryType];
-
-const variantWithVariantsConstructors = new Map<
-  string,
-  (typeof constructorsWithVariants)[number]
+const createNonterminalVariant = createNonterminalVariantCreator<
+  Expression,
+  ast.Expression
 >(
-  keysWithVariants.map((key, index) => [
-    key.name,
-    constructorsWithVariants[index]
-  ])
+  [
+    ast.AssignmentExpression,
+    ast.ConditionalExpression,
+    ast.OrExpression,
+    ast.AndExpression,
+    ast.EqualityExpression,
+    ast.InequalityExpression,
+    ast.BitwiseOrExpression,
+    ast.BitwiseXorExpression,
+    ast.BitwiseAndExpression,
+    ast.ShiftExpression,
+    ast.AdditiveExpression,
+    ast.MultiplicativeExpression,
+    ast.ExponentiationExpression,
+    ast.PostfixExpression,
+    ast.PrefixExpression,
+    ast.FunctionCallExpression,
+    ast.CallOptionsExpression,
+    ast.MemberAccessExpression,
+    ast.IndexAccessExpression,
+    ast.NewExpression,
+    ast.TupleExpression,
+    ast.TypeExpression,
+    ast.ArrayExpression,
+    ast.HexNumberExpression,
+    ast.DecimalNumberExpression
+  ],
+  [
+    AssignmentExpression,
+    ConditionalExpression,
+    OrExpression,
+    AndExpression,
+    EqualityExpression,
+    InequalityExpression,
+    BitwiseOrExpression,
+    BitwiseXorExpression,
+    BitwiseAndExpression,
+    ShiftExpression,
+    AdditiveExpression,
+    MultiplicativeExpression,
+    ExponentiationExpression,
+    PostfixExpression,
+    PrefixExpression,
+    FunctionCallExpression,
+    CallOptionsExpression,
+    MemberAccessExpression,
+    IndexAccessExpression,
+    NewExpression,
+    TupleExpression,
+    TypeExpression,
+    ArrayExpression,
+    HexNumberExpression,
+    DecimalNumberExpression
+  ],
+  [ast.StringExpression, ast.ElementaryType],
+  [StringExpression, ElementaryType]
 );
-
-function createNonterminalVariant(
-  variant: Exclude<ast.Expression['variant'], SlangTerminalNode>,
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): Expression['variant'] {
-  const variantConstructor = variantConstructors.get(variant.constructor.name);
-  if (variantConstructor !== undefined)
-    return new variantConstructor(variant as never, collected, options);
-
-  const variantWithVariantsConstructor = variantWithVariantsConstructors.get(
-    variant.constructor.name
-  );
-  if (variantWithVariantsConstructor !== undefined)
-    return extractVariant(
-      new variantWithVariantsConstructor(variant as never, collected, options)
-    );
-
-  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-}
 
 export class Expression extends SlangNode {
   readonly kind = NonterminalKind.Expression;

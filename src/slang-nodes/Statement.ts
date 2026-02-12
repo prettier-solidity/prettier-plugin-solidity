@@ -1,5 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
@@ -23,45 +24,46 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const keys = [
-  ast.ExpressionStatement,
-  ast.VariableDeclarationStatement,
-  ast.TupleDeconstructionStatement,
-  ast.IfStatement,
-  ast.ForStatement,
-  ast.WhileStatement,
-  ast.DoWhileStatement,
-  ast.ContinueStatement,
-  ast.BreakStatement,
-  ast.ReturnStatement,
-  ast.ThrowStatement,
-  ast.EmitStatement,
-  ast.TryStatement,
-  ast.RevertStatement,
-  ast.AssemblyStatement,
-  ast.UncheckedBlock
-];
-const constructors = [
-  ExpressionStatement,
-  VariableDeclarationStatement,
-  TupleDeconstructionStatement,
-  IfStatement,
-  ForStatement,
-  WhileStatement,
-  DoWhileStatement,
-  ContinueStatement,
-  BreakStatement,
-  ReturnStatement,
-  ThrowStatement,
-  EmitStatement,
-  TryStatement,
-  RevertStatement,
-  AssemblyStatement,
-  UncheckedBlock
-];
-
-const variantConstructors = new Map<string, (typeof constructors)[number]>(
-  keys.map((key, index) => [key.name, constructors[index]])
+const createNonterminalVariantInternal = createNonterminalVariantCreator<
+  Statement,
+  ast.Statement
+>(
+  [
+    ast.ExpressionStatement,
+    ast.VariableDeclarationStatement,
+    ast.TupleDeconstructionStatement,
+    ast.IfStatement,
+    ast.ForStatement,
+    ast.WhileStatement,
+    ast.DoWhileStatement,
+    ast.ContinueStatement,
+    ast.BreakStatement,
+    ast.ReturnStatement,
+    ast.ThrowStatement,
+    ast.EmitStatement,
+    ast.TryStatement,
+    ast.RevertStatement,
+    ast.AssemblyStatement,
+    ast.UncheckedBlock
+  ],
+  [
+    ExpressionStatement,
+    VariableDeclarationStatement,
+    TupleDeconstructionStatement,
+    IfStatement,
+    ForStatement,
+    WhileStatement,
+    DoWhileStatement,
+    ContinueStatement,
+    BreakStatement,
+    ReturnStatement,
+    ThrowStatement,
+    EmitStatement,
+    TryStatement,
+    RevertStatement,
+    AssemblyStatement,
+    UncheckedBlock
+  ]
 );
 
 function createNonterminalVariant(
@@ -73,11 +75,7 @@ function createNonterminalVariant(
     return new Block(variant, collected, options);
   }
 
-  const variantConstructor = variantConstructors.get(variant.constructor.name);
-  if (variantConstructor !== undefined)
-    return new variantConstructor(variant as never, collected, options);
-
-  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
+  return createNonterminalVariantInternal(variant, collected, options);
 }
 
 export class Statement extends SlangNode {

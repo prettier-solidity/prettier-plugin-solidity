@@ -1,5 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { AbicoderPragma } from './AbicoderPragma.js';
 import { ExperimentalPragma } from './ExperimentalPragma.js';
@@ -9,24 +10,13 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const keys = [ast.AbicoderPragma, ast.ExperimentalPragma, ast.VersionPragma];
-const constructors = [AbicoderPragma, ExperimentalPragma, VersionPragma];
-
-const variantConstructors = new Map<string, (typeof constructors)[number]>(
-  keys.map((key, index) => [key.name, constructors[index]])
+const createNonterminalVariant = createNonterminalVariantCreator<
+  Pragma,
+  ast.Pragma
+>(
+  [ast.AbicoderPragma, ast.ExperimentalPragma, ast.VersionPragma],
+  [AbicoderPragma, ExperimentalPragma, VersionPragma]
 );
-
-function createNonterminalVariant(
-  variant: ast.Pragma['variant'],
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): Pragma['variant'] {
-  const variantConstructor = variantConstructors.get(variant.constructor.name);
-  if (variantConstructor !== undefined)
-    return new variantConstructor(variant as never, collected, options);
-
-  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-}
 
 export class Pragma extends SlangNode {
   readonly kind = NonterminalKind.Pragma;

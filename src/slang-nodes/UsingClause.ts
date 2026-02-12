@@ -1,28 +1,19 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
 import { UsingDeconstruction } from './UsingDeconstruction.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
-const keys = [ast.IdentifierPath, ast.UsingDeconstruction];
-const constructors = [IdentifierPath, UsingDeconstruction];
-
-const variantConstructors = new Map<string, (typeof constructors)[number]>(
-  keys.map((key, index) => [key.name, constructors[index]])
+const createNonterminalVariant = createNonterminalVariantCreator<
+  UsingClause,
+  ast.UsingClause
+>(
+  [ast.IdentifierPath, ast.UsingDeconstruction],
+  [IdentifierPath, UsingDeconstruction]
 );
-
-function createNonterminalVariant(
-  variant: ast.UsingClause['variant'],
-  collected: CollectedMetadata
-): UsingClause['variant'] {
-  const variantConstructor = variantConstructors.get(variant.constructor.name);
-  if (variantConstructor !== undefined)
-    return new variantConstructor(variant as never, collected);
-
-  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-}
 
 export class UsingClause extends SlangNode {
   readonly kind = NonterminalKind.UsingClause;

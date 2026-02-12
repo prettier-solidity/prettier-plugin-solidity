@@ -1,5 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { YulDefaultCase } from './YulDefaultCase.js';
 import { YulValueCase } from './YulValueCase.js';
@@ -8,24 +9,10 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const keys = [ast.YulDefaultCase, ast.YulValueCase];
-const constructors = [YulDefaultCase, YulValueCase];
-
-const variantConstructors = new Map<string, (typeof constructors)[number]>(
-  keys.map((key, index) => [key.name, constructors[index]])
-);
-
-function createNonterminalVariant(
-  variant: ast.YulSwitchCase['variant'],
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): YulSwitchCase['variant'] {
-  const variantConstructor = variantConstructors.get(variant.constructor.name);
-  if (variantConstructor !== undefined)
-    return new variantConstructor(variant as never, collected, options);
-
-  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-}
+const createNonterminalVariant = createNonterminalVariantCreator<
+  YulSwitchCase,
+  ast.YulSwitchCase
+>([ast.YulDefaultCase, ast.YulValueCase], [YulDefaultCase, YulValueCase]);
 
 export class YulSwitchCase extends SlangNode {
   readonly kind = NonterminalKind.YulSwitchCase;

@@ -3,6 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
@@ -12,24 +13,10 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const keys = [ast.HexStringLiteral, ast.StringLiteral];
-const constructors = [HexStringLiteral, StringLiteral];
-
-const variantConstructors = new Map<string, (typeof constructors)[number]>(
-  keys.map((key, index) => [key.name, constructors[index]])
-);
-
-function createNonterminalVariant(
-  variant: Exclude<ast.YulLiteral['variant'], SlangTerminalNode>,
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): Exclude<YulLiteral['variant'], TerminalNode> {
-  const variantConstructor = variantConstructors.get(variant.constructor.name);
-  if (variantConstructor !== undefined)
-    return new variantConstructor(variant as never, collected, options);
-
-  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-}
+const createNonterminalVariant = createNonterminalVariantCreator<
+  YulLiteral,
+  ast.YulLiteral
+>([ast.HexStringLiteral, ast.StringLiteral], [HexStringLiteral, StringLiteral]);
 
 export class YulLiteral extends SlangNode {
   readonly kind = NonterminalKind.YulLiteral;
