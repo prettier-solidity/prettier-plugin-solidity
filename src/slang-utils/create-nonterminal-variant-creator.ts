@@ -7,9 +7,6 @@ import type { CollectedMetadata, SlangAstNode } from '../types.d.ts';
 
 type Constructor<T> = new (...args: any) => T;
 type ConstructorsFromInstances<U> = U extends any ? Constructor<U> : never;
-type GenericFunction<U> = U extends any
-  ? { prototype: unknown; name: string }
-  : never;
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
 type NonterminalVariantFactory<
@@ -25,15 +22,10 @@ export function createNonterminalVariantSimpleCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
 >(
-  constructors: [
-    GenericFunction<U['variant']>,
-    ConstructorsFromInstances<T['variant']>
-  ][]
+  constructors: Record<string, ConstructorsFromInstances<T['variant']>>
 ): NonterminalVariantFactory<U, T> {
-  const variantConstructors = new Map(constructors);
-
   return (variant, collected, options?) => {
-    const constructor = variantConstructors.get(variant.constructor);
+    const constructor = constructors[variant.constructor.name];
     if (constructor !== undefined)
       return new constructor(variant, collected, options);
 
@@ -45,22 +37,18 @@ export function createNonterminalVariantCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
 >(
-  constructors: [
-    GenericFunction<U['variant']>,
-    ConstructorsFromInstances<T['variant']>
-  ][],
-  extractVariantConstructors: [
-    GenericFunction<SlangPolymorphicNode>,
+  constructors: Record<string, ConstructorsFromInstances<T['variant']>>,
+  extractVariantConstructors: Record<
+    string,
     ConstructorsFromInstances<StrictPolymorphicNode>
-  ][]
+  >
 ): NonterminalVariantFactory<U, T> {
   const simpleCreator = createNonterminalVariantSimpleCreator<U, T>(
     constructors
   );
-  const extractVariantConstructor = new Map(extractVariantConstructors);
 
   return (variant, collected, options?) => {
-    const constructor = extractVariantConstructor.get(variant.constructor);
+    const constructor = extractVariantConstructors[variant.constructor.name];
     if (constructor !== undefined)
       return extractVariant(new constructor(variant, collected, options));
 

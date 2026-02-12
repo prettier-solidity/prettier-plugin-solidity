@@ -15,13 +15,13 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.StringExpression,
   StringExpression
->([
-  [ast.StringLiteral, StringLiteral],
-  [ast.StringLiterals, StringLiterals],
-  [ast.HexStringLiteral, HexStringLiteral],
-  [ast.HexStringLiterals, HexStringLiterals],
-  [ast.UnicodeStringLiterals, UnicodeStringLiterals]
-]);
+>({
+  [ast.StringLiteral.name]: StringLiteral,
+  [ast.StringLiterals.name]: StringLiterals,
+  [ast.HexStringLiteral.name]: HexStringLiteral,
+  [ast.HexStringLiterals.name]: HexStringLiterals,
+  [ast.UnicodeStringLiterals.name]: UnicodeStringLiterals
+});
 
 export class StringExpression extends SlangNode {
   readonly kind = NonterminalKind.StringExpression;

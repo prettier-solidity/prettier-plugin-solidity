@@ -14,11 +14,11 @@ const createNonterminalVariant = createNonterminalVariantCreator<
   ast.YulExpression,
   YulExpression
 >(
-  [
-    [ast.YulFunctionCallExpression, YulFunctionCallExpression],
-    [ast.YulPath, YulPath]
-  ],
-  [[ast.YulLiteral, YulLiteral]]
+  {
+    [ast.YulFunctionCallExpression.name]: YulFunctionCallExpression,
+    [ast.YulPath.name]: YulPath
+  },
+  { [ast.YulLiteral.name]: YulLiteral }
 );
 
 export class YulExpression extends SlangNode {

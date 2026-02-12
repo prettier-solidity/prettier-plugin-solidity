@@ -27,24 +27,24 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   slangAst.Statement,
   Statement
->([
-  [slangAst.ExpressionStatement, ExpressionStatement],
-  [slangAst.VariableDeclarationStatement, VariableDeclarationStatement],
-  [slangAst.TupleDeconstructionStatement, TupleDeconstructionStatement],
-  [slangAst.IfStatement, IfStatement],
-  [slangAst.ForStatement, ForStatement],
-  [slangAst.WhileStatement, WhileStatement],
-  [slangAst.DoWhileStatement, DoWhileStatement],
-  [slangAst.ContinueStatement, ContinueStatement],
-  [slangAst.BreakStatement, BreakStatement],
-  [slangAst.ReturnStatement, ReturnStatement],
-  [slangAst.ThrowStatement, ThrowStatement],
-  [slangAst.EmitStatement, EmitStatement],
-  [slangAst.TryStatement, TryStatement],
-  [slangAst.RevertStatement, RevertStatement],
-  [slangAst.AssemblyStatement, AssemblyStatement],
-  [slangAst.UncheckedBlock, UncheckedBlock]
-]);
+>({
+  [slangAst.ExpressionStatement.name]: ExpressionStatement,
+  [slangAst.VariableDeclarationStatement.name]: VariableDeclarationStatement,
+  [slangAst.TupleDeconstructionStatement.name]: TupleDeconstructionStatement,
+  [slangAst.IfStatement.name]: IfStatement,
+  [slangAst.ForStatement.name]: ForStatement,
+  [slangAst.WhileStatement.name]: WhileStatement,
+  [slangAst.DoWhileStatement.name]: DoWhileStatement,
+  [slangAst.ContinueStatement.name]: ContinueStatement,
+  [slangAst.BreakStatement.name]: BreakStatement,
+  [slangAst.ReturnStatement.name]: ReturnStatement,
+  [slangAst.ThrowStatement.name]: ThrowStatement,
+  [slangAst.EmitStatement.name]: EmitStatement,
+  [slangAst.TryStatement.name]: TryStatement,
+  [slangAst.RevertStatement.name]: RevertStatement,
+  [slangAst.AssemblyStatement.name]: AssemblyStatement,
+  [slangAst.UncheckedBlock.name]: UncheckedBlock
+});
 
 export class Statement extends SlangNode {
   readonly kind = NonterminalKind.Statement;

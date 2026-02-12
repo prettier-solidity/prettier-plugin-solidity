@@ -17,11 +17,11 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.ForStatementInitialization,
   ForStatementInitialization
->([
-  [ast.ExpressionStatement, ExpressionStatement],
-  [ast.VariableDeclarationStatement, VariableDeclarationStatement],
-  [ast.TupleDeconstructionStatement, TupleDeconstructionStatement]
-]);
+>({
+  [ast.ExpressionStatement.name]: ExpressionStatement,
+  [ast.VariableDeclarationStatement.name]: VariableDeclarationStatement,
+  [ast.TupleDeconstructionStatement.name]: TupleDeconstructionStatement
+});
 
 export class ForStatementInitialization extends SlangNode {
   readonly kind = NonterminalKind.ForStatementInitialization;

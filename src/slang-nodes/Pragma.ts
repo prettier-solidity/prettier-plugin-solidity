@@ -13,11 +13,11 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.Pragma,
   Pragma
->([
-  [ast.AbicoderPragma, AbicoderPragma],
-  [ast.ExperimentalPragma, ExperimentalPragma],
-  [ast.VersionPragma, VersionPragma]
-]);
+>({
+  [ast.AbicoderPragma.name]: AbicoderPragma,
+  [ast.ExperimentalPragma.name]: ExperimentalPragma,
+  [ast.VersionPragma.name]: VersionPragma
+});
 
 export class Pragma extends SlangNode {
   readonly kind = NonterminalKind.Pragma;
