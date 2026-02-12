@@ -11,9 +11,11 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const multiplicationTryToHug = createHugFunction(['/', '%']);
-const divisionTryToHug = createHugFunction(['*', '%']);
-const moduloTryToHug = createHugFunction(['*', '/', '%']);
+const hugFunctions = {
+  '*': createHugFunction(['/', '%']),
+  '/': createHugFunction(['*', '%']),
+  '%': createHugFunction(['*', '/', '%'])
+} as const;
 
 const printMultiplicativeExpression = printBinaryOperation(
   createKindCheckFunction([
@@ -55,19 +57,13 @@ export class MultiplicativeExpression extends SlangNode {
 
     this.updateMetadata(this.leftOperand, this.rightOperand);
 
-    switch (this.operator) {
-      case '*':
-        this.leftOperand = multiplicationTryToHug(this.leftOperand);
-        break;
-      case '/':
-        this.leftOperand = divisionTryToHug(this.leftOperand);
-        break;
-      case '%':
-        this.leftOperand = moduloTryToHug(this.leftOperand);
-        break;
-      default:
-        throw new Error(`Unexpected operator: ${this.operator}`);
+    const tryToHug = hugFunctions[this.operator as '*' | '/' | '%'];
+
+    if (tryToHug === undefined) {
+      throw new Error(`Unexpected operator: ${this.operator}`);
     }
+
+    this.leftOperand = tryToHug(this.leftOperand);
   }
 
   print(
