@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -24,39 +24,27 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const createNonterminalVariantInternal = createNonterminalVariantSimpleCreator<
-  ast.Statement,
+const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+  slangAst.Statement,
   Statement
 >([
-  [ast.ExpressionStatement, ExpressionStatement],
-  [ast.VariableDeclarationStatement, VariableDeclarationStatement],
-  [ast.TupleDeconstructionStatement, TupleDeconstructionStatement],
-  [ast.IfStatement, IfStatement],
-  [ast.ForStatement, ForStatement],
-  [ast.WhileStatement, WhileStatement],
-  [ast.DoWhileStatement, DoWhileStatement],
-  [ast.ContinueStatement, ContinueStatement],
-  [ast.BreakStatement, BreakStatement],
-  [ast.ReturnStatement, ReturnStatement],
-  [ast.ThrowStatement, ThrowStatement],
-  [ast.EmitStatement, EmitStatement],
-  [ast.TryStatement, TryStatement],
-  [ast.RevertStatement, RevertStatement],
-  [ast.AssemblyStatement, AssemblyStatement],
-  [ast.UncheckedBlock, UncheckedBlock]
+  [slangAst.ExpressionStatement, ExpressionStatement],
+  [slangAst.VariableDeclarationStatement, VariableDeclarationStatement],
+  [slangAst.TupleDeconstructionStatement, TupleDeconstructionStatement],
+  [slangAst.IfStatement, IfStatement],
+  [slangAst.ForStatement, ForStatement],
+  [slangAst.WhileStatement, WhileStatement],
+  [slangAst.DoWhileStatement, DoWhileStatement],
+  [slangAst.ContinueStatement, ContinueStatement],
+  [slangAst.BreakStatement, BreakStatement],
+  [slangAst.ReturnStatement, ReturnStatement],
+  [slangAst.ThrowStatement, ThrowStatement],
+  [slangAst.EmitStatement, EmitStatement],
+  [slangAst.TryStatement, TryStatement],
+  [slangAst.RevertStatement, RevertStatement],
+  [slangAst.AssemblyStatement, AssemblyStatement],
+  [slangAst.UncheckedBlock, UncheckedBlock]
 ]);
-
-function createNonterminalVariant(
-  variant: ast.Statement['variant'],
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): Statement['variant'] {
-  if (variant instanceof ast.Block) {
-    return new Block(variant, collected, options);
-  }
-
-  return createNonterminalVariantInternal(variant, collected, options);
-}
 
 export class Statement extends SlangNode {
   readonly kind = NonterminalKind.Statement;
@@ -81,13 +69,17 @@ export class Statement extends SlangNode {
     | UncheckedBlock;
 
   constructor(
-    ast: ast.Statement,
+    ast: slangAst.Statement,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
     super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, collected, options);
+    const variant = ast.variant;
+    this.variant =
+      variant instanceof slangAst.Block
+        ? new Block(variant, collected, options)
+        : createNonterminalVariant(variant, collected, options);
 
     this.updateMetadata(this.variant);
   }
