@@ -23,21 +23,21 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.SourceUnitMember,
   SourceUnitMember
->([
-  [ast.PragmaDirective, PragmaDirective],
-  [ast.ImportDirective, ImportDirective],
-  [ast.ContractDefinition, ContractDefinition],
-  [ast.InterfaceDefinition, InterfaceDefinition],
-  [ast.LibraryDefinition, LibraryDefinition],
-  [ast.StructDefinition, StructDefinition],
-  [ast.EnumDefinition, EnumDefinition],
-  [ast.FunctionDefinition, FunctionDefinition],
-  [ast.ConstantDefinition, ConstantDefinition],
-  [ast.ErrorDefinition, ErrorDefinition],
-  [ast.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition],
-  [ast.UsingDirective, UsingDirective],
-  [ast.EventDefinition, EventDefinition]
-]);
+>({
+  [ast.PragmaDirective.name]: PragmaDirective,
+  [ast.ImportDirective.name]: ImportDirective,
+  [ast.ContractDefinition.name]: ContractDefinition,
+  [ast.InterfaceDefinition.name]: InterfaceDefinition,
+  [ast.LibraryDefinition.name]: LibraryDefinition,
+  [ast.StructDefinition.name]: StructDefinition,
+  [ast.EnumDefinition.name]: EnumDefinition,
+  [ast.FunctionDefinition.name]: FunctionDefinition,
+  [ast.ConstantDefinition.name]: ConstantDefinition,
+  [ast.ErrorDefinition.name]: ErrorDefinition,
+  [ast.UserDefinedValueTypeDefinition.name]: UserDefinedValueTypeDefinition,
+  [ast.UsingDirective.name]: UsingDirective,
+  [ast.EventDefinition.name]: EventDefinition
+});
 
 export class SourceUnitMember extends SlangNode {
   readonly kind = NonterminalKind.SourceUnitMember;

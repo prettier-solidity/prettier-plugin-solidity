@@ -12,10 +12,10 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.TupleMember,
   TupleMember
->([
-  [ast.TypedTupleMember, TypedTupleMember],
-  [ast.UntypedTupleMember, UntypedTupleMember]
-]);
+>({
+  [ast.TypedTupleMember.name]: TypedTupleMember,
+  [ast.UntypedTupleMember.name]: UntypedTupleMember
+});
 
 export class TupleMember extends SlangNode {
   readonly kind = NonterminalKind.TupleMember;
