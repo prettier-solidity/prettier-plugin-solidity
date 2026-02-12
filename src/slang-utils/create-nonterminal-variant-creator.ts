@@ -61,10 +61,9 @@ export function createNonterminalVariantCreator<
   collected: CollectedMetadata,
   options?: ParserOptions<AstNode>
 ) => T['variant'] {
-  const createNonterminalVariantSimple = createNonterminalVariantSimpleCreator<
-    U,
-    T
-  >(constructors);
+  const simpleCreator = createNonterminalVariantSimpleCreator<U, T>(
+    constructors
+  );
   const extractVariantsConstructor = new Map(extractVariantsConstructors);
 
   return (
@@ -76,10 +75,6 @@ export function createNonterminalVariantCreator<
     if (constructor !== undefined)
       return extractVariant(new constructor(variant, collected, options));
 
-    return createNonterminalVariantSimple(
-      variant as U['variant'],
-      collected,
-      options
-    );
+    return simpleCreator(variant as U['variant'], collected, options);
   };
 }
