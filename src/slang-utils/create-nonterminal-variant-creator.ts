@@ -11,20 +11,21 @@ import type { CollectedMetadata, SlangAstNode } from '../types.d.ts';
 
 type Constructor<T = StrictAstNode> = new (...args: any) => T;
 type ConstructorsFromInstances<U> = U extends any ? Constructor<U> : never;
-type TypeofFromInstances<U> = U extends any
+type GenericFunction<U> = U extends any
   ? { prototype: unknown; name: string }
   : never;
+type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
 export function createNonterminalVariantCreator<
   T extends StrictPolymorphicNode,
-  U extends Extract<SlangAstNode, { variant: unknown }>
+  U extends SlangPolymorphicNode
 >(
   constructors: [
-    TypeofFromInstances<U>,
+    GenericFunction<U['variant']>,
     ConstructorsFromInstances<T['variant']>
   ][],
   constructorsWithVariants?: [
-    TypeofFromInstances<Extract<SlangAstNode, { variant: unknown }>>,
+    GenericFunction<SlangPolymorphicNode>,
     ConstructorsFromInstances<StrictPolymorphicNode>
   ][]
 ) {
@@ -47,7 +48,7 @@ export function createNonterminalVariantCreator<
   const variantWithVariantsConstructors = new Map(constructorsWithVariants);
 
   return (
-    variant: U['variant'] | StrictPolymorphicNode,
+    variant: U['variant'] | SlangPolymorphicNode,
     collected: CollectedMetadata,
     options?: ParserOptions<AstNode>
   ): T['variant'] => {
