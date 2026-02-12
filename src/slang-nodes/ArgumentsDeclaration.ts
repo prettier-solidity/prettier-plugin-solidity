@@ -12,10 +12,10 @@ import type { PrintableNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.ArgumentsDeclaration,
   ArgumentsDeclaration
->([
-  [ast.PositionalArgumentsDeclaration, PositionalArgumentsDeclaration],
-  [ast.NamedArgumentsDeclaration, NamedArgumentsDeclaration]
-]);
+>({
+  [ast.PositionalArgumentsDeclaration.name]: PositionalArgumentsDeclaration,
+  [ast.NamedArgumentsDeclaration.name]: NamedArgumentsDeclaration
+});
 
 export class ArgumentsDeclaration extends SlangNode {
   readonly kind = NonterminalKind.ArgumentsDeclaration;

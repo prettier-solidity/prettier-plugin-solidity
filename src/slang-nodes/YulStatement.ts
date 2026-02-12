@@ -24,20 +24,22 @@ const createNonterminalVariant = createNonterminalVariantCreator<
   slangAst.YulStatement,
   YulStatement
 >(
-  [
-    [slangAst.YulFunctionDefinition, YulFunctionDefinition],
-    [slangAst.YulVariableDeclarationStatement, YulVariableDeclarationStatement],
-    [slangAst.YulVariableAssignmentStatement, YulVariableAssignmentStatement],
-    [slangAst.YulStackAssignmentStatement, YulStackAssignmentStatement],
-    [slangAst.YulIfStatement, YulIfStatement],
-    [slangAst.YulForStatement, YulForStatement],
-    [slangAst.YulSwitchStatement, YulSwitchStatement],
-    [slangAst.YulLeaveStatement, YulLeaveStatement],
-    [slangAst.YulBreakStatement, YulBreakStatement],
-    [slangAst.YulContinueStatement, YulContinueStatement],
-    [slangAst.YulLabel, YulLabel]
-  ],
-  [[slangAst.YulExpression, YulExpression]]
+  {
+    [slangAst.YulFunctionDefinition.name]: YulFunctionDefinition,
+    [slangAst.YulVariableDeclarationStatement.name]:
+      YulVariableDeclarationStatement,
+    [slangAst.YulVariableAssignmentStatement.name]:
+      YulVariableAssignmentStatement,
+    [slangAst.YulStackAssignmentStatement.name]: YulStackAssignmentStatement,
+    [slangAst.YulIfStatement.name]: YulIfStatement,
+    [slangAst.YulForStatement.name]: YulForStatement,
+    [slangAst.YulSwitchStatement.name]: YulSwitchStatement,
+    [slangAst.YulLeaveStatement.name]: YulLeaveStatement,
+    [slangAst.YulBreakStatement.name]: YulBreakStatement,
+    [slangAst.YulContinueStatement.name]: YulContinueStatement,
+    [slangAst.YulLabel.name]: YulLabel
+  },
+  { [slangAst.YulExpression.name]: YulExpression }
 );
 
 export class YulStatement extends SlangNode {

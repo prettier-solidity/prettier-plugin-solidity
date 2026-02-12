@@ -16,10 +16,10 @@ import type { PrintableNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.FunctionAttribute,
   FunctionAttribute
->([
-  [ast.ModifierInvocation, ModifierInvocation],
-  [ast.OverrideSpecifier, OverrideSpecifier]
-]);
+>({
+  [ast.ModifierInvocation.name]: ModifierInvocation,
+  [ast.OverrideSpecifier.name]: OverrideSpecifier
+});
 
 export class FunctionAttribute extends SlangNode {
   readonly kind = NonterminalKind.FunctionAttribute;
