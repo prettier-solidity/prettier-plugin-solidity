@@ -2,25 +2,33 @@
 import { extractVariant } from './extract-variant.js';
 
 import type { ParserOptions } from 'prettier';
-import type { AstNode, StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
+import type {
+  AstNode,
+  StrictAstNode,
+  StrictPolymorphicNode
+} from '../slang-nodes/types.d.ts';
 import type { CollectedMetadata, SlangAstNode } from '../types.d.ts';
 
-type Constructor<T = StrictPolymorphicNode> = new (...args: any) => T;
+type Constructor<T = StrictAstNode> = new (...args: any) => T;
 type ConstructorsFromInstances<U> = U extends any ? Constructor<U> : never;
+type TypeofFromInstances<U> = U extends any
+  ? { prototype: unknown; name: string }
+  : never;
 
 export function createNonterminalVariantCreator<
   T extends StrictPolymorphicNode,
   U extends Extract<SlangAstNode, { variant: unknown }>
 >(
-  constructors: [{ name: string }, ConstructorsFromInstances<T['variant']>][],
+  constructors: [
+    TypeofFromInstances<U>,
+    ConstructorsFromInstances<T['variant']>
+  ][],
   constructorsWithVariants?: [
-    { name: string },
+    TypeofFromInstances<Extract<SlangAstNode, { variant: unknown }>>,
     ConstructorsFromInstances<StrictPolymorphicNode>
   ][]
 ) {
-  const variantConstructors = new Map(
-    constructors.map(([key, constructor]) => [key.name, constructor])
-  );
+  const variantConstructors = new Map(constructors);
 
   if (constructorsWithVariants === undefined) {
     return (
@@ -28,7 +36,7 @@ export function createNonterminalVariantCreator<
       collected: CollectedMetadata,
       options?: ParserOptions<AstNode>
     ): T['variant'] => {
-      const constructor = variantConstructors.get(variant.constructor.name);
+      const constructor = variantConstructors.get(variant.constructor);
       if (constructor !== undefined)
         return new constructor(variant, collected, options);
 
@@ -36,12 +44,7 @@ export function createNonterminalVariantCreator<
     };
   }
 
-  const variantWithVariantsConstructors = new Map(
-    constructorsWithVariants.map(([key, constructor]) => [
-      key.name,
-      constructor
-    ])
-  );
+  const variantWithVariantsConstructors = new Map(constructorsWithVariants);
 
   return (
     variant: U['variant'] | StrictPolymorphicNode,
@@ -50,11 +53,11 @@ export function createNonterminalVariantCreator<
   ): T['variant'] => {
     let constructor:
       | ConstructorsFromInstances<T['variant'] | StrictPolymorphicNode>
-      | undefined = variantConstructors.get(variant.constructor.name);
+      | undefined = variantConstructors.get(variant.constructor);
     if (constructor !== undefined)
       return new constructor(variant, collected, options);
 
-    constructor = variantWithVariantsConstructors.get(variant.constructor.name);
+    constructor = variantWithVariantsConstructors.get(variant.constructor);
     if (constructor !== undefined)
       return extractVariant(new constructor(variant, collected, options));
 
