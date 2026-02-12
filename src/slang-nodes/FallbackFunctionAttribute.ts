@@ -16,10 +16,10 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantCreator<
   FallbackFunctionAttribute,
   ast.FallbackFunctionAttribute
->(
-  [ast.ModifierInvocation, ast.OverrideSpecifier],
-  [ModifierInvocation, OverrideSpecifier]
-);
+>([
+  [ast.ModifierInvocation, ModifierInvocation],
+  [ast.OverrideSpecifier, OverrideSpecifier]
+]);
 
 export class FallbackFunctionAttribute extends SlangNode {
   readonly kind = NonterminalKind.FallbackFunctionAttribute;

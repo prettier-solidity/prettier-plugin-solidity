@@ -16,7 +16,10 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantCreator<
   YulLiteral,
   ast.YulLiteral
->([ast.HexStringLiteral, ast.StringLiteral], [HexStringLiteral, StringLiteral]);
+>([
+  [ast.HexStringLiteral, HexStringLiteral],
+  [ast.StringLiteral, StringLiteral]
+]);
 
 export class YulLiteral extends SlangNode {
   readonly kind = NonterminalKind.YulLiteral;

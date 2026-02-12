@@ -12,19 +12,17 @@ export function createNonterminalVariantCreator<
   T extends StrictPolymorphicNode,
   U extends Extract<SlangAstNode, { variant: unknown }>
 >(
-  keys: { name: string }[],
-  constructors: ConstructorsFromInstances<T['variant']>[],
-  keysWithVariants?: { name: string }[],
-  constructorsWithVariants?: ConstructorsFromInstances<StrictPolymorphicNode>[]
+  constructors: [{ name: string }, ConstructorsFromInstances<T['variant']>][],
+  constructorsWithVariants?: [
+    { name: string },
+    ConstructorsFromInstances<StrictPolymorphicNode>
+  ][]
 ) {
-  const variantConstructors = new Map<string, (typeof constructors)[number]>(
-    keys.map((key, index) => [key.name, constructors[index]])
+  const variantConstructors = new Map(
+    constructors.map(([key, constructor]) => [key.name, constructor])
   );
 
-  if (
-    keysWithVariants === undefined ||
-    constructorsWithVariants === undefined
-  ) {
+  if (constructorsWithVariants === undefined) {
     return (
       variant: U['variant'],
       collected: CollectedMetadata,
@@ -38,13 +36,10 @@ export function createNonterminalVariantCreator<
     };
   }
 
-  const variantWithVariantsConstructors = new Map<
-    string,
-    (typeof constructorsWithVariants)[number]
-  >(
-    keysWithVariants.map((key, index) => [
+  const variantWithVariantsConstructors = new Map(
+    constructorsWithVariants.map(([key, constructor]) => [
       key.name,
-      constructorsWithVariants[index]
+      constructor
     ])
   );
 

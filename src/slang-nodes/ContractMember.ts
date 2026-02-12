@@ -23,38 +23,21 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantCreator<
   ContractMember,
   ast.ContractMember
->(
-  [
-    ast.UsingDirective,
-    ast.FunctionDefinition,
-    ast.ConstructorDefinition,
-    ast.ReceiveFunctionDefinition,
-    ast.FallbackFunctionDefinition,
-    ast.UnnamedFunctionDefinition,
-    ast.ModifierDefinition,
-    ast.StructDefinition,
-    ast.EnumDefinition,
-    ast.EventDefinition,
-    ast.StateVariableDefinition,
-    ast.ErrorDefinition,
-    ast.UserDefinedValueTypeDefinition
-  ],
-  [
-    UsingDirective,
-    FunctionDefinition,
-    ConstructorDefinition,
-    ReceiveFunctionDefinition,
-    FallbackFunctionDefinition,
-    UnnamedFunctionDefinition,
-    ModifierDefinition,
-    StructDefinition,
-    EnumDefinition,
-    EventDefinition,
-    StateVariableDefinition,
-    ErrorDefinition,
-    UserDefinedValueTypeDefinition
-  ]
-);
+>([
+  [ast.UsingDirective, UsingDirective],
+  [ast.FunctionDefinition, FunctionDefinition],
+  [ast.ConstructorDefinition, ConstructorDefinition],
+  [ast.ReceiveFunctionDefinition, ReceiveFunctionDefinition],
+  [ast.FallbackFunctionDefinition, FallbackFunctionDefinition],
+  [ast.UnnamedFunctionDefinition, UnnamedFunctionDefinition],
+  [ast.ModifierDefinition, ModifierDefinition],
+  [ast.StructDefinition, StructDefinition],
+  [ast.EnumDefinition, EnumDefinition],
+  [ast.EventDefinition, EventDefinition],
+  [ast.StateVariableDefinition, StateVariableDefinition],
+  [ast.ErrorDefinition, ErrorDefinition],
+  [ast.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition]
+]);
 
 export class ContractMember extends SlangNode {
   readonly kind = NonterminalKind.ContractMember;

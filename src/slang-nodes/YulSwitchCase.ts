@@ -12,7 +12,10 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantCreator<
   YulSwitchCase,
   ast.YulSwitchCase
->([ast.YulDefaultCase, ast.YulValueCase], [YulDefaultCase, YulValueCase]);
+>([
+  [ast.YulDefaultCase, YulDefaultCase],
+  [ast.YulValueCase, YulValueCase]
+]);
 
 export class YulSwitchCase extends SlangNode {
   readonly kind = NonterminalKind.YulSwitchCase;

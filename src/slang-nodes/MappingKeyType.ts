@@ -11,10 +11,8 @@ const createNonterminalVariant = createNonterminalVariantCreator<
   MappingKeyType,
   ast.MappingKeyType
 >(
-  [ast.IdentifierPath],
-  [IdentifierPath],
-  [ast.ElementaryType],
-  [ElementaryType]
+  [[ast.IdentifierPath, IdentifierPath]],
+  [[ast.ElementaryType, ElementaryType]]
 );
 
 export class MappingKeyType extends SlangNode {

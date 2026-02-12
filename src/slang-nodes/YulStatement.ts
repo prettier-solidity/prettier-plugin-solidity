@@ -25,33 +25,19 @@ const createNonterminalVariantInternal = createNonterminalVariantCreator<
   ast.YulStatement
 >(
   [
-    ast.YulFunctionDefinition,
-    ast.YulVariableDeclarationStatement,
-    ast.YulVariableAssignmentStatement,
-    ast.YulStackAssignmentStatement,
-    ast.YulIfStatement,
-    ast.YulForStatement,
-    ast.YulSwitchStatement,
-    ast.YulLeaveStatement,
-    ast.YulBreakStatement,
-    ast.YulContinueStatement,
-    ast.YulLabel
+    [ast.YulFunctionDefinition, YulFunctionDefinition],
+    [ast.YulVariableDeclarationStatement, YulVariableDeclarationStatement],
+    [ast.YulVariableAssignmentStatement, YulVariableAssignmentStatement],
+    [ast.YulStackAssignmentStatement, YulStackAssignmentStatement],
+    [ast.YulIfStatement, YulIfStatement],
+    [ast.YulForStatement, YulForStatement],
+    [ast.YulSwitchStatement, YulSwitchStatement],
+    [ast.YulLeaveStatement, YulLeaveStatement],
+    [ast.YulBreakStatement, YulBreakStatement],
+    [ast.YulContinueStatement, YulContinueStatement],
+    [ast.YulLabel, YulLabel]
   ],
-  [
-    YulFunctionDefinition,
-    YulVariableDeclarationStatement,
-    YulVariableAssignmentStatement,
-    YulStackAssignmentStatement,
-    YulIfStatement,
-    YulForStatement,
-    YulSwitchStatement,
-    YulLeaveStatement,
-    YulBreakStatement,
-    YulContinueStatement,
-    YulLabel
-  ],
-  [ast.YulExpression],
-  [YulExpression]
+  [[ast.YulExpression, YulExpression]]
 );
 
 function createNonterminalVariant(

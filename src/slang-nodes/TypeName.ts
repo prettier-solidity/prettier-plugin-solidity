@@ -16,10 +16,13 @@ const createNonterminalVariant = createNonterminalVariantCreator<
   TypeName,
   ast.TypeName
 >(
-  [ast.ArrayTypeName, ast.FunctionType, ast.MappingType, ast.IdentifierPath],
-  [ArrayTypeName, FunctionType, MappingType, IdentifierPath],
-  [ast.ElementaryType],
-  [ElementaryType]
+  [
+    [ast.ArrayTypeName, ArrayTypeName],
+    [ast.FunctionType, FunctionType],
+    [ast.MappingType, MappingType],
+    [ast.IdentifierPath, IdentifierPath]
+  ],
+  [[ast.ElementaryType, ElementaryType]]
 );
 
 export class TypeName extends SlangNode {
