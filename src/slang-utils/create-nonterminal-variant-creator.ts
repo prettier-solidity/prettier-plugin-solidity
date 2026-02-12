@@ -2,14 +2,10 @@
 import { extractVariant } from './extract-variant.js';
 
 import type { ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  StrictAstNode,
-  StrictPolymorphicNode
-} from '../slang-nodes/types.d.ts';
+import type { AstNode, StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
 import type { CollectedMetadata, SlangAstNode } from '../types.d.ts';
 
-type Constructor<T = StrictAstNode> = new (...args: any) => T;
+type Constructor<T> = new (...args: any) => T;
 type ConstructorsFromInstances<U> = U extends any ? Constructor<U> : never;
 type GenericFunction<U> = U extends any
   ? { prototype: unknown; name: string }
