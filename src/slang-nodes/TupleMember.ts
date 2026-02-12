@@ -1,5 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { TypedTupleMember } from './TypedTupleMember.js';
 import { UntypedTupleMember } from './UntypedTupleMember.js';
@@ -8,24 +9,13 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const keys = [ast.TypedTupleMember, ast.UntypedTupleMember];
-const constructors = [TypedTupleMember, UntypedTupleMember];
-
-const variantConstructors = new Map<string, (typeof constructors)[number]>(
-  keys.map((key, index) => [key.name, constructors[index]])
+const createNonterminalVariant = createNonterminalVariantCreator<
+  TupleMember,
+  ast.TupleMember
+>(
+  [ast.TypedTupleMember, ast.UntypedTupleMember],
+  [TypedTupleMember, UntypedTupleMember]
 );
-
-function createNonterminalVariant(
-  variant: ast.TupleMember['variant'],
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): TupleMember['variant'] {
-  const variantConstructor = variantConstructors.get(variant.constructor.name);
-  if (variantConstructor !== undefined)
-    return new variantConstructor(variant as never, collected, options);
-
-  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-}
 
 export class TupleMember extends SlangNode {
   readonly kind = NonterminalKind.TupleMember;

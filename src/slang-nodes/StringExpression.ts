@@ -1,5 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { StringLiterals } from './StringLiterals.js';
@@ -11,36 +12,25 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const keys = [
-  ast.StringLiteral,
-  ast.StringLiterals,
-  ast.HexStringLiteral,
-  ast.HexStringLiterals,
-  ast.UnicodeStringLiterals
-];
-const constructors = [
-  StringLiteral,
-  StringLiterals,
-  HexStringLiteral,
-  HexStringLiterals,
-  UnicodeStringLiterals
-];
-
-const variantConstructors = new Map<string, (typeof constructors)[number]>(
-  keys.map((key, index) => [key.name, constructors[index]])
+const createNonterminalVariant = createNonterminalVariantCreator<
+  StringExpression,
+  ast.StringExpression
+>(
+  [
+    ast.StringLiteral,
+    ast.StringLiterals,
+    ast.HexStringLiteral,
+    ast.HexStringLiterals,
+    ast.UnicodeStringLiterals
+  ],
+  [
+    StringLiteral,
+    StringLiterals,
+    HexStringLiteral,
+    HexStringLiterals,
+    UnicodeStringLiterals
+  ]
 );
-
-function createNonterminalVariant(
-  variant: ast.StringExpression['variant'],
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): StringExpression['variant'] {
-  const variantConstructor = variantConstructors.get(variant.constructor.name);
-  if (variantConstructor !== undefined)
-    return new variantConstructor(variant as never, collected, options);
-
-  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-}
 
 export class StringExpression extends SlangNode {
   readonly kind = NonterminalKind.StringExpression;

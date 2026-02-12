@@ -3,6 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
@@ -12,24 +13,13 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-const keys = [ast.ModifierInvocation, ast.OverrideSpecifier];
-const constructors = [ModifierInvocation, OverrideSpecifier];
-
-const variantConstructors = new Map<string, (typeof constructors)[number]>(
-  keys.map((key, index) => [key.name, constructors[index]])
+const createNonterminalVariant = createNonterminalVariantCreator<
+  FunctionAttribute,
+  ast.FunctionAttribute
+>(
+  [ast.ModifierInvocation, ast.OverrideSpecifier],
+  [ModifierInvocation, OverrideSpecifier]
 );
-
-function createNonterminalVariant(
-  variant: Exclude<ast.FunctionAttribute['variant'], SlangTerminalNode>,
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): Exclude<FunctionAttribute['variant'], TerminalNode> {
-  const variantConstructor = variantConstructors.get(variant.constructor.name);
-  if (variantConstructor !== undefined)
-    return new variantConstructor(variant as never, collected, options);
-
-  throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-}
 
 export class FunctionAttribute extends SlangNode {
   readonly kind = NonterminalKind.FunctionAttribute;
