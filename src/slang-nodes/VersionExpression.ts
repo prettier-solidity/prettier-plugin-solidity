@@ -10,7 +10,10 @@ import type { CollectedMetadata } from '../types.d.ts';
 const createNonterminalVariant = createNonterminalVariantCreator<
   VersionExpression,
   ast.VersionExpression
->([ast.VersionRange, ast.VersionTerm], [VersionRange, VersionTerm]);
+>([
+  [ast.VersionRange, VersionRange],
+  [ast.VersionTerm, VersionTerm]
+]);
 
 export class VersionExpression extends SlangNode {
   readonly kind = NonterminalKind.VersionExpression;

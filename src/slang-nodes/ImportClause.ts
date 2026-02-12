@@ -13,10 +13,11 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantCreator<
   ImportClause,
   ast.ImportClause
->(
-  [ast.PathImport, ast.NamedImport, ast.ImportDeconstruction],
-  [PathImport, NamedImport, ImportDeconstruction]
-);
+>([
+  [ast.PathImport, PathImport],
+  [ast.NamedImport, NamedImport],
+  [ast.ImportDeconstruction, ImportDeconstruction]
+]);
 
 export class ImportClause extends SlangNode {
   readonly kind = NonterminalKind.ImportClause;

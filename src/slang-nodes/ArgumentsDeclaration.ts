@@ -12,10 +12,10 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantCreator<
   ArgumentsDeclaration,
   ast.ArgumentsDeclaration
->(
-  [ast.PositionalArgumentsDeclaration, ast.NamedArgumentsDeclaration],
-  [PositionalArgumentsDeclaration, NamedArgumentsDeclaration]
-);
+>([
+  [ast.PositionalArgumentsDeclaration, PositionalArgumentsDeclaration],
+  [ast.NamedArgumentsDeclaration, NamedArgumentsDeclaration]
+]);
 
 export class ArgumentsDeclaration extends SlangNode {
   readonly kind = NonterminalKind.ArgumentsDeclaration;

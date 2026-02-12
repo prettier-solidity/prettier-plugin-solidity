@@ -27,44 +27,24 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariantInternal = createNonterminalVariantCreator<
   Statement,
   ast.Statement
->(
-  [
-    ast.ExpressionStatement,
-    ast.VariableDeclarationStatement,
-    ast.TupleDeconstructionStatement,
-    ast.IfStatement,
-    ast.ForStatement,
-    ast.WhileStatement,
-    ast.DoWhileStatement,
-    ast.ContinueStatement,
-    ast.BreakStatement,
-    ast.ReturnStatement,
-    ast.ThrowStatement,
-    ast.EmitStatement,
-    ast.TryStatement,
-    ast.RevertStatement,
-    ast.AssemblyStatement,
-    ast.UncheckedBlock
-  ],
-  [
-    ExpressionStatement,
-    VariableDeclarationStatement,
-    TupleDeconstructionStatement,
-    IfStatement,
-    ForStatement,
-    WhileStatement,
-    DoWhileStatement,
-    ContinueStatement,
-    BreakStatement,
-    ReturnStatement,
-    ThrowStatement,
-    EmitStatement,
-    TryStatement,
-    RevertStatement,
-    AssemblyStatement,
-    UncheckedBlock
-  ]
-);
+>([
+  [ast.ExpressionStatement, ExpressionStatement],
+  [ast.VariableDeclarationStatement, VariableDeclarationStatement],
+  [ast.TupleDeconstructionStatement, TupleDeconstructionStatement],
+  [ast.IfStatement, IfStatement],
+  [ast.ForStatement, ForStatement],
+  [ast.WhileStatement, WhileStatement],
+  [ast.DoWhileStatement, DoWhileStatement],
+  [ast.ContinueStatement, ContinueStatement],
+  [ast.BreakStatement, BreakStatement],
+  [ast.ReturnStatement, ReturnStatement],
+  [ast.ThrowStatement, ThrowStatement],
+  [ast.EmitStatement, EmitStatement],
+  [ast.TryStatement, TryStatement],
+  [ast.RevertStatement, RevertStatement],
+  [ast.AssemblyStatement, AssemblyStatement],
+  [ast.UncheckedBlock, UncheckedBlock]
+]);
 
 function createNonterminalVariant(
   variant: ast.Statement['variant'],

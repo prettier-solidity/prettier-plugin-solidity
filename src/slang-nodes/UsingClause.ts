@@ -10,10 +10,10 @@ import type { CollectedMetadata } from '../types.d.ts';
 const createNonterminalVariant = createNonterminalVariantCreator<
   UsingClause,
   ast.UsingClause
->(
-  [ast.IdentifierPath, ast.UsingDeconstruction],
-  [IdentifierPath, UsingDeconstruction]
-);
+>([
+  [ast.IdentifierPath, IdentifierPath],
+  [ast.UsingDeconstruction, UsingDeconstruction]
+]);
 
 export class UsingClause extends SlangNode {
   readonly kind = NonterminalKind.UsingClause;

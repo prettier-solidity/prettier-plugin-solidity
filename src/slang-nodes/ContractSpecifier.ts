@@ -12,10 +12,10 @@ import type { AstNode } from './types.d.ts';
 const createNonterminalVariant = createNonterminalVariantCreator<
   ContractSpecifier,
   ast.ContractSpecifier
->(
-  [ast.InheritanceSpecifier, ast.StorageLayoutSpecifier],
-  [InheritanceSpecifier, StorageLayoutSpecifier]
-);
+>([
+  [ast.InheritanceSpecifier, InheritanceSpecifier],
+  [ast.StorageLayoutSpecifier, StorageLayoutSpecifier]
+]);
 
 export class ContractSpecifier extends SlangNode {
   readonly kind = NonterminalKind.ContractSpecifier;
