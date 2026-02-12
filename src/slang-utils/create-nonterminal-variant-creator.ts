@@ -16,6 +16,15 @@ type GenericFunction<U> = U extends any
   : never;
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
+type NonterminalVariantFactory<
+  U extends SlangPolymorphicNode,
+  T extends StrictPolymorphicNode
+> = (
+  variant: U['variant'],
+  collected: CollectedMetadata,
+  options?: ParserOptions<AstNode>
+) => T['variant'];
+
 export function createNonterminalVariantSimpleCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
@@ -24,18 +33,10 @@ export function createNonterminalVariantSimpleCreator<
     GenericFunction<U['variant']>,
     ConstructorsFromInstances<T['variant']>
   ][]
-): (
-  variant: U['variant'],
-  collected: CollectedMetadata,
-  options?: ParserOptions<AstNode>
-) => T['variant'] {
+): NonterminalVariantFactory<U, T> {
   const variantConstructors = new Map(constructors);
 
-  return (
-    variant: U['variant'],
-    collected: CollectedMetadata,
-    options?: ParserOptions<AstNode>
-  ): T['variant'] => {
+  return (variant, collected, options?) => {
     const constructor = variantConstructors.get(variant.constructor);
     if (constructor !== undefined)
       return new constructor(variant, collected, options);
@@ -56,25 +57,17 @@ export function createNonterminalVariantCreator<
     GenericFunction<SlangPolymorphicNode>,
     ConstructorsFromInstances<StrictPolymorphicNode>
   ][]
-): (
-  variant: U['variant'] | SlangPolymorphicNode,
-  collected: CollectedMetadata,
-  options?: ParserOptions<AstNode>
-) => T['variant'] {
+): NonterminalVariantFactory<U, T> {
   const simpleCreator = createNonterminalVariantSimpleCreator<U, T>(
     constructors
   );
   const extractVariantsConstructor = new Map(extractVariantsConstructors);
 
-  return (
-    variant: U['variant'] | SlangPolymorphicNode,
-    collected: CollectedMetadata,
-    options?: ParserOptions<AstNode>
-  ): T['variant'] => {
+  return (variant, collected, options?) => {
     const constructor = extractVariantsConstructor.get(variant.constructor);
     if (constructor !== undefined)
       return extractVariant(new constructor(variant, collected, options));
 
-    return simpleCreator(variant as U['variant'], collected, options);
+    return simpleCreator(variant, collected, options);
   };
 }
