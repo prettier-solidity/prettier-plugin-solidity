@@ -53,7 +53,7 @@ export function createNonterminalVariantCreator<
     GenericFunction<U['variant']>,
     ConstructorsFromInstances<T['variant']>
   ][],
-  extractVariantsConstructors: [
+  extractVariantConstructors: [
     GenericFunction<SlangPolymorphicNode>,
     ConstructorsFromInstances<StrictPolymorphicNode>
   ][]
@@ -61,10 +61,10 @@ export function createNonterminalVariantCreator<
   const simpleCreator = createNonterminalVariantSimpleCreator<U, T>(
     constructors
   );
-  const extractVariantsConstructor = new Map(extractVariantsConstructors);
+  const extractVariantConstructor = new Map(extractVariantConstructors);
 
   return (variant, collected, options?) => {
-    const constructor = extractVariantsConstructor.get(variant.constructor);
+    const constructor = extractVariantConstructor.get(variant.constructor);
     if (constructor !== undefined)
       return extractVariant(new constructor(variant, collected, options));
 
