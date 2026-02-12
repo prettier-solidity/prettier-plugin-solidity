@@ -16,6 +16,34 @@ type GenericFunction<U> = U extends any
   : never;
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
+export function createNonterminalVariantSimpleCreator<
+  U extends SlangPolymorphicNode,
+  T extends StrictPolymorphicNode
+>(
+  constructors: [
+    GenericFunction<U['variant']>,
+    ConstructorsFromInstances<T['variant']>
+  ][]
+): (
+  variant: U['variant'],
+  collected: CollectedMetadata,
+  options?: ParserOptions<AstNode>
+) => T['variant'] {
+  const variantConstructors = new Map(constructors);
+
+  return (
+    variant: U['variant'],
+    collected: CollectedMetadata,
+    options?: ParserOptions<AstNode>
+  ): T['variant'] => {
+    const constructor = variantConstructors.get(variant.constructor);
+    if (constructor !== undefined)
+      return new constructor(variant, collected, options);
+
+    throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
+  };
+}
+
 export function createNonterminalVariantCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
@@ -24,27 +52,17 @@ export function createNonterminalVariantCreator<
     GenericFunction<U['variant']>,
     ConstructorsFromInstances<T['variant']>
   ][],
-  constructorsWithVariants?: [
+  constructorsWithVariants: [
     GenericFunction<SlangPolymorphicNode>,
     ConstructorsFromInstances<StrictPolymorphicNode>
   ][]
-) {
-  const variantConstructors = new Map(constructors);
-
-  if (constructorsWithVariants === undefined) {
-    return (
-      variant: U['variant'],
-      collected: CollectedMetadata,
-      options?: ParserOptions<AstNode>
-    ): T['variant'] => {
-      const constructor = variantConstructors.get(variant.constructor);
-      if (constructor !== undefined)
-        return new constructor(variant, collected, options);
-
-      throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-    };
-  }
-
+): (
+  variant: U['variant'] | SlangPolymorphicNode,
+  collected: CollectedMetadata,
+  options?: ParserOptions<AstNode>
+) => T['variant'] {
+  const createNonterminalVariantSimple =
+    createNonterminalVariantSimpleCreator(constructors);
   const variantWithVariantsConstructors = new Map(constructorsWithVariants);
 
   return (
@@ -52,16 +70,16 @@ export function createNonterminalVariantCreator<
     collected: CollectedMetadata,
     options?: ParserOptions<AstNode>
   ): T['variant'] => {
-    let constructor:
-      | ConstructorsFromInstances<T['variant'] | StrictPolymorphicNode>
-      | undefined = variantConstructors.get(variant.constructor);
-    if (constructor !== undefined)
-      return new constructor(variant, collected, options);
-
-    constructor = variantWithVariantsConstructors.get(variant.constructor);
+    const constructor = variantWithVariantsConstructors.get(
+      variant.constructor
+    );
     if (constructor !== undefined)
       return extractVariant(new constructor(variant, collected, options));
 
-    throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
+    return createNonterminalVariantSimple(
+      variant as U['variant'],
+      collected,
+      options
+    );
   };
 }
