@@ -1,5 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { UsingDirective } from './UsingDirective.js';
 import { FunctionDefinition } from './FunctionDefinition.js';
@@ -19,53 +20,24 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-function createNonterminalVariant(
-  variant: ast.ContractMember['variant'],
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): ContractMember['variant'] {
-  if (variant instanceof ast.UsingDirective) {
-    return new UsingDirective(variant, collected, options);
-  }
-  if (variant instanceof ast.FunctionDefinition) {
-    return new FunctionDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.ConstructorDefinition) {
-    return new ConstructorDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.ReceiveFunctionDefinition) {
-    return new ReceiveFunctionDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.FallbackFunctionDefinition) {
-    return new FallbackFunctionDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.UnnamedFunctionDefinition) {
-    return new UnnamedFunctionDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.ModifierDefinition) {
-    return new ModifierDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.StructDefinition) {
-    return new StructDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.EnumDefinition) {
-    return new EnumDefinition(variant, collected);
-  }
-  if (variant instanceof ast.EventDefinition) {
-    return new EventDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.StateVariableDefinition) {
-    return new StateVariableDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.ErrorDefinition) {
-    return new ErrorDefinition(variant, collected, options);
-  }
-  if (variant instanceof ast.UserDefinedValueTypeDefinition) {
-    return new UserDefinedValueTypeDefinition(variant, collected);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
-}
+const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+  ast.ContractMember,
+  ContractMember
+>([
+  [ast.UsingDirective, UsingDirective],
+  [ast.FunctionDefinition, FunctionDefinition],
+  [ast.ConstructorDefinition, ConstructorDefinition],
+  [ast.ReceiveFunctionDefinition, ReceiveFunctionDefinition],
+  [ast.FallbackFunctionDefinition, FallbackFunctionDefinition],
+  [ast.UnnamedFunctionDefinition, UnnamedFunctionDefinition],
+  [ast.ModifierDefinition, ModifierDefinition],
+  [ast.StructDefinition, StructDefinition],
+  [ast.EnumDefinition, EnumDefinition],
+  [ast.EventDefinition, EventDefinition],
+  [ast.StateVariableDefinition, StateVariableDefinition],
+  [ast.ErrorDefinition, ErrorDefinition],
+  [ast.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition]
+]);
 
 export class ContractMember extends SlangNode {
   readonly kind = NonterminalKind.ContractMember;

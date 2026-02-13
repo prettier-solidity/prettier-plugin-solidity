@@ -1,5 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { PathImport } from './PathImport.js';
 import { NamedImport } from './NamedImport.js';
@@ -9,23 +10,14 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-function createNonterminalVariant(
-  variant: ast.ImportClause['variant'],
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): ImportClause['variant'] {
-  if (variant instanceof ast.PathImport) {
-    return new PathImport(variant, collected, options);
-  }
-  if (variant instanceof ast.NamedImport) {
-    return new NamedImport(variant, collected, options);
-  }
-  if (variant instanceof ast.ImportDeconstruction) {
-    return new ImportDeconstruction(variant, collected, options);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
-}
+const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+  ast.ImportClause,
+  ImportClause
+>([
+  [ast.PathImport, PathImport],
+  [ast.NamedImport, NamedImport],
+  [ast.ImportDeconstruction, ImportDeconstruction]
+]);
 
 export class ImportClause extends SlangNode {
   readonly kind = NonterminalKind.ImportClause;

@@ -3,6 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
@@ -12,20 +13,13 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-function createNonterminalVariant(
-  variant: Exclude<ast.ReceiveFunctionAttribute['variant'], SlangTerminalNode>,
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): Exclude<ReceiveFunctionAttribute['variant'], TerminalNode> {
-  if (variant instanceof ast.ModifierInvocation) {
-    return new ModifierInvocation(variant, collected, options);
-  }
-  if (variant instanceof ast.OverrideSpecifier) {
-    return new OverrideSpecifier(variant, collected);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
-}
+const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+  ast.ReceiveFunctionAttribute,
+  ReceiveFunctionAttribute
+>([
+  [ast.ModifierInvocation, ModifierInvocation],
+  [ast.OverrideSpecifier, OverrideSpecifier]
+]);
 
 export class ReceiveFunctionAttribute extends SlangNode {
   readonly kind = NonterminalKind.ReceiveFunctionAttribute;
