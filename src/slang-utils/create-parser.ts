@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
 import { maxSatisfying } from 'semver';
+import { slangParserId, slangYulParserId } from '../constants.js';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
@@ -9,16 +10,26 @@ import type { AstNode } from '../slang-nodes/types.d.ts';
 
 const supportedVersions = LanguageFacts.allVersions();
 const supportedLength = supportedVersions.length;
+const rootKindMap = new Map<ParserOptions<AstNode>['parser'], NonterminalKind>([
+  [slangParserId, NonterminalKind.SourceUnit],
+  [slangYulParserId, NonterminalKind.YulBlock]
+]);
 
 function parserAndOutput(
   text: string,
-  version: string
+  version: string,
+  { parser: optionsParser }: ParserOptions<AstNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
+  const rootKind = rootKindMap.get(optionsParser);
+
+  if (rootKind === undefined) {
+    throw new Error(
+      `Parser '${optionsParser as string}' is not supported for Language Inference.`
+    );
+  }
+
   const parser = Parser.create(version);
-  return {
-    parser,
-    parseOutput: parser.parseNonterminal(NonterminalKind.SourceUnit, text)
-  };
+  return { parser, parseOutput: parser.parseNonterminal(rootKind, text) };
 }
 
 function createError(
@@ -36,7 +47,7 @@ export function createParser(
 ): { parser: Parser; parseOutput: ParseOutput } {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
   if (compiler) {
-    const result = parserAndOutput(text, compiler);
+    const result = parserAndOutput(text, compiler, options);
 
     if (!result.parseOutput.isValid())
       throw createError(
@@ -55,7 +66,8 @@ export function createParser(
   if (inferredLength === 0 || inferredLength === supportedLength) {
     const result = parserAndOutput(
       text,
-      supportedVersions[supportedLength - 1]
+      supportedVersions[supportedLength - 1],
+      options
     );
 
     if (!result.parseOutput.isValid())
@@ -70,7 +82,8 @@ export function createParser(
 
   const result = parserAndOutput(
     text,
-    inferredRanges[inferredRanges.length - 1]
+    inferredRanges[inferredLength - 1],
+    options
   );
 
   if (!result.parseOutput.isValid())

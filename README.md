@@ -109,14 +109,25 @@ The following is the default configuration internally used by this plugin.
   "plugins": ["prettier-plugin-solidity"],
   "overrides": [
     {
-      "files": "*.sol",
+      "files": ["*.sol", "*.yul"],
       "options": {
-        "parser": "slang",
         "printWidth": 80,
         "tabWidth": 4,
         "useTabs": false,
         "singleQuote": false,
         "bracketSpacing": false,
+      }
+    },
+    {
+      "files": "*.sol",
+      "options": {
+        "parser": "slang"
+      }
+    },
+    {
+      "files": "*.yul",
+      "options": {
+        "parser": "slang-yul"
       }
     }
   ]

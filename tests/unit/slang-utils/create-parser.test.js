@@ -1,9 +1,10 @@
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
 import { createParser } from '../../../src/slang-utils/create-parser.js';
+import { slangParserId } from '../../../src/constants.js';
 
 describe('inferLanguage', function () {
   const latestSupportedVersion = LanguageFacts.latestVersion();
-  const options = { filepath: 'test.sol' };
+  const options = { parser: slangParserId };
 
   const fixtures = [
     {
@@ -97,22 +98,27 @@ describe('inferLanguage', function () {
 
   test('should use compiler option if given', function () {
     let { parser } = createParser(`pragma solidity ^0.8.0;`, {
+      ...options,
       compiler: '0.8.20'
     });
     expect(parser.languageVersion).toEqual('0.8.20');
 
     ({ parser } = createParser(`pragma solidity ^0.8.0;`, {
+      ...options,
       compiler: '0.8.2'
     }));
     expect(parser.languageVersion).toEqual('0.8.2');
 
-    ({ parser } = createParser(`pragma solidity ^0.7.0;`, {}));
+    ({ parser } = createParser(`pragma solidity ^0.7.0;`, options));
     expect(parser.languageVersion).toEqual('0.7.6');
   });
 
   test('should throw if compiler option does not match the syntax', function () {
     expect(() =>
-      createParser(`contract Foo {byte bar;}`, { compiler: '0.8.0' })
+      createParser(`contract Foo {byte bar;}`, {
+        ...options,
+        compiler: '0.8.0'
+      })
     ).toThrow(
       'Based on the compiler option provided, we inferred your code to be using Solidity version'
     );

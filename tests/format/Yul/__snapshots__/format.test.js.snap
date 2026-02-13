@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`example1.yul format 1`] = `
+====================================options=====================================
+parsers: ["slang-yul"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+    function power(base, exponent) -> result
+    {
+        switch exponent
+        case 0 { result := 1 }
+        case 1 { result := base }
+        default
+        {
+            result := power(mul(base, base), div(exponent, 2))
+            switch mod(exponent, 2)
+                case 1 { result := mul(base, result) }
+        }
+    }
+}
+=====================================output=====================================
+{
+    function power(base, exponent) -> result {
+        switch exponent
+        case 0 {
+            result := 1
+        }
+        case 1 {
+            result := base
+        }
+        default {
+            result := power(mul(base, base), div(exponent, 2))
+            switch mod(exponent, 2)
+            case 1 {
+                result := mul(base, result)
+            }
+        }
+    }
+}
+================================================================================
+`;
+
+exports[`example2.yul format 1`] = `
+====================================options=====================================
+parsers: ["slang-yul"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+      function power(base, exponent) -> result
+     {
+        result := 1 for { let i := 0 } lt(i, exponent) { i := add(i, 1) }
+        {
+            result    :=   mul(result,   base)
+        }
+    }
+}
+=====================================output=====================================
+{
+    function power(base, exponent) -> result {
+        result := 1
+        for {
+            let i := 0
+        } lt(i, exponent) {
+            i := add(i, 1)
+        } {
+            result := mul(result, base)
+        }
+    }
+}
+================================================================================
+`;
