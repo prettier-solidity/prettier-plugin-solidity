@@ -6,7 +6,7 @@ import type { AstNode, StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
 import type {
   CollectedMetadata,
   SlangAstNode,
-  SlangAstNodeConstructors
+  SlangAstNodeClass
 } from '../types.d.ts';
 
 type Constructor<T> = new (...args: any) => T;
@@ -26,14 +26,11 @@ export function createNonterminalVariantSimpleCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
 >(
-  constructors: [
-    SlangAstNodeConstructors,
-    ConstructorsFromInstances<T['variant']>
-  ][]
+  constructors: [SlangAstNodeClass, ConstructorsFromInstances<T['variant']>][]
 ): NonterminalVariantFactory<U, T> {
   return (variant, collected, options?) => {
-    for (const [instance, constructor] of constructors) {
-      if (variant instanceof instance)
+    for (const [slangAstClass, constructor] of constructors) {
+      if (variant instanceof slangAstClass)
         return new constructor(variant, collected, options);
     }
 
@@ -45,12 +42,9 @@ export function createNonterminalVariantCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
 >(
-  constructors: [
-    SlangAstNodeConstructors,
-    ConstructorsFromInstances<T['variant']>
-  ][],
+  constructors: [SlangAstNodeClass, ConstructorsFromInstances<T['variant']>][],
   extractVariantConstructors: [
-    SlangAstNodeConstructors,
+    SlangAstNodeClass,
     ConstructorsFromInstances<StrictPolymorphicNode>
   ][]
 ): NonterminalVariantFactory<U, T> {
@@ -59,8 +53,8 @@ export function createNonterminalVariantCreator<
   );
 
   return (variant, collected, options?) => {
-    for (const [instance, constructor] of extractVariantConstructors) {
-      if (variant instanceof instance)
+    for (const [slangAstClass, constructor] of extractVariantConstructors) {
+      if (variant instanceof slangAstClass)
         return extractVariant(new constructor(variant, collected, options));
     }
 
