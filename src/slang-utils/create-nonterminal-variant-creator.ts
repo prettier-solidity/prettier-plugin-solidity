@@ -3,13 +3,14 @@ import { extractVariant } from './extract-variant.js';
 
 import type { ParserOptions } from 'prettier';
 import type { AstNode, StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
-import type { CollectedMetadata, SlangAstNode } from '../types.d.ts';
+import type {
+  CollectedMetadata,
+  SlangAstNode,
+  SlangAstNodeConstructors
+} from '../types.d.ts';
 
 type Constructor<T> = new (...args: any) => T;
 type ConstructorsFromInstances<U> = U extends any ? Constructor<U> : never;
-type GenericFunction<U> = U extends any
-  ? { prototype: unknown; name: string }
-  : never;
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
 type NonterminalVariantFactory<
@@ -26,16 +27,15 @@ export function createNonterminalVariantSimpleCreator<
   T extends StrictPolymorphicNode
 >(
   constructors: [
-    GenericFunction<U['variant']>,
+    SlangAstNodeConstructors,
     ConstructorsFromInstances<T['variant']>
   ][]
 ): NonterminalVariantFactory<U, T> {
-  const variantConstructors = new Map(constructors);
-
   return (variant, collected, options?) => {
-    const constructor = variantConstructors.get(variant.constructor);
-    if (constructor !== undefined)
-      return new constructor(variant, collected, options);
+    for (const [instance, constructor] of constructors) {
+      if (variant instanceof instance)
+        return new constructor(variant, collected, options);
+    }
 
     throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
   };
@@ -46,23 +46,23 @@ export function createNonterminalVariantCreator<
   T extends StrictPolymorphicNode
 >(
   constructors: [
-    GenericFunction<U['variant']>,
+    SlangAstNodeConstructors,
     ConstructorsFromInstances<T['variant']>
   ][],
   extractVariantConstructors: [
-    GenericFunction<SlangPolymorphicNode>,
+    SlangAstNodeConstructors,
     ConstructorsFromInstances<StrictPolymorphicNode>
   ][]
 ): NonterminalVariantFactory<U, T> {
   const simpleCreator = createNonterminalVariantSimpleCreator<U, T>(
     constructors
   );
-  const extractVariantConstructor = new Map(extractVariantConstructors);
 
   return (variant, collected, options?) => {
-    const constructor = extractVariantConstructor.get(variant.constructor);
-    if (constructor !== undefined)
-      return extractVariant(new constructor(variant, collected, options));
+    for (const [instance, constructor] of extractVariantConstructors) {
+      if (variant instanceof instance)
+        return extractVariant(new constructor(variant, collected, options));
+    }
 
     return simpleCreator(variant, collected, options);
   };
