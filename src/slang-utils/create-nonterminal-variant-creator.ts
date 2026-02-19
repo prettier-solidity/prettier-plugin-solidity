@@ -31,11 +31,14 @@ export function createNonterminalVariantSimpleCreator<
 >(
   constructors: [SlangAstNodeClass, ConstructorsFromInstances<T['variant']>][]
 ): NonterminalVariantFactory<U, T> {
+  const variantConstructors = new Map(constructors);
+
   return (variant, collected, options?) => {
-    for (const [slangAstClass, constructor] of constructors) {
-      if (variant instanceof slangAstClass)
-        return new constructor(variant, collected, options);
-    }
+    const constructor = variantConstructors.get(
+      variant.constructor as SlangAstNodeClass
+    );
+    if (constructor !== undefined)
+      return new constructor(variant, collected, options);
 
     throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
   };
@@ -51,15 +54,18 @@ export function createNonterminalVariantCreator<
     ConstructorsFromInstances<StrictPolymorphicNode>
   ][]
 ): NonterminalVariantFactory<U, T> {
+  const variantConstructors = new Map(extractVariantConstructors);
+
   const simpleCreator = createNonterminalVariantSimpleCreator<U, T>(
     constructors
   );
 
   return (variant, collected, options?) => {
-    for (const [slangAstClass, constructor] of extractVariantConstructors) {
-      if (variant instanceof slangAstClass)
-        return extractVariant(new constructor(variant, collected, options));
-    }
+    const constructor = variantConstructors.get(
+      variant.constructor as SlangAstNodeClass
+    );
+    if (constructor !== undefined)
+      return extractVariant(new constructor(variant, collected, options));
 
     return simpleCreator(variant, collected, options);
   };
