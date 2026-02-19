@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { IdentifierPath } from './IdentifierPath.js';
@@ -13,7 +12,7 @@ import type { AstNode } from './types.d.ts';
 export class RevertStatement extends SlangNode {
   readonly kind = NonterminalKind.RevertStatement;
 
-  error?: IdentifierPath;
+  error: IdentifierPath;
 
   arguments: ArgumentsDeclaration['variant'];
 
@@ -24,9 +23,7 @@ export class RevertStatement extends SlangNode {
   ) {
     super(ast, collected);
 
-    if (ast.error) {
-      this.error = new IdentifierPath(ast.error, collected);
-    }
+    this.error = new IdentifierPath(ast.error, collected);
     this.arguments = extractVariant(
       new ArgumentsDeclaration(ast.arguments, collected, options)
     );
@@ -36,7 +33,8 @@ export class RevertStatement extends SlangNode {
 
   print(path: AstPath<RevertStatement>, print: PrintFunction): Doc {
     return [
-      joinExisting(' ', ['revert', path.call(print, 'error')]),
+      'revert ',
+      path.call(print, 'error'),
       path.call(print, 'arguments'),
       ';'
     ];
