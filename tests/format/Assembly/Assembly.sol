@@ -1,6 +1,9 @@
 contract Assembly {
   function ifAssembly() {
     assembly {
+      {
+          success := 1
+      }
       if
         returndatasize    {
           success := 0
@@ -51,6 +54,7 @@ for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
       -> result {
           result := add(x,
                         1)
+                        leave
 			}
   		}
   }
@@ -61,6 +65,7 @@ for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
       -> result {
           result := add(a,
                         add(b, c))
+                        leave
 			}
   		}
   }
@@ -70,6 +75,7 @@ for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
 			function sum  (thisIs, aFunctionWithVery, veryLongParameterNames, andItAlsoHasALotOfParameters, soItShouldBeSplitInMultipleLines)
       -> result {
         result := 0
+                        leave
 			}
   		}
   }
@@ -83,6 +89,7 @@ for { let i := 0 } lt(i, x) { i := add(i, 1) } { y := mul(2, y) }
         veryLongParameterNames := 0
         andItAlsoHasALotOfParameters := 0
         soItShouldBeSplitInMultipleLines := 0
+                        leave
 			}
   		}
   }

@@ -6,4 +6,5 @@ contract Mappings {
     mapping( address => bool ) registeredAddresses;
     mapping (uint => mapping (bool => Data[])) public data;
     mapping(uint => mapping (uint => s)) data;
+    mapping(Data => uint) data;
 }

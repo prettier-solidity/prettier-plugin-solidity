@@ -45,9 +45,15 @@ contract FunctionDefinitions {
   fallback () external {}
   fallback () {}
   fallback () external payable {}
+  fallback() modify(123) override(Foo) {}
+  fallback() returns(uint) {}
+  fallback() external  modify() payable override(Foo) virtual returns(uint) {}
   fallback() external payable virtual {}
   fallback(bytes calldata _input) external {}
 
+
+  receive () modify(123) override(Foo) {}
+  receive  () external  modify() payable override(Foo) virtual {}
   receive () external payable {}
   receive() external payable virtual {}
 

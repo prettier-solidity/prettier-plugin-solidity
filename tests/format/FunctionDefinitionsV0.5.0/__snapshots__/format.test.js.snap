@@ -10,12 +10,14 @@ printWidth: 80
 contract FunctionDefinitions {
   function () external {}
   function () external payable {}
+  function () external modify(123) payable {}
 }
 
 =====================================output=====================================
 contract FunctionDefinitions {
     function() external {}
     function() external payable {}
+    function() external payable modify(123) {}
 }
 
 ================================================================================

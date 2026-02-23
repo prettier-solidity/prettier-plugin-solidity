@@ -91,6 +91,10 @@ library strings {
             ret += 8;
             self = bytes32(uint(self) / 0x10000000000000000);
         }
+        if (self & 0xffffffff wei == 0) {
+            ret += 4;
+            self = bytes32(uint(self) / 0x100000000);
+        }
         if (self & 0xffffffff == 0) {
             ret += 4;
             self = bytes32(uint(self) / 0x100000000);

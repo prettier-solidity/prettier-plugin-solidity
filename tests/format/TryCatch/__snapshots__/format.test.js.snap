@@ -8,7 +8,7 @@ printWidth: 80
 =====================================input======================================
 pragma solidity ^0.6.0;
 
-interface DataFeed { function getData(address token) external returns (uint value); }
+interface DataFeed is Feed { function getData(address token) external returns (uint value); }
 
 contract FeedConsumer {
   DataFeed feed;
@@ -126,7 +126,7 @@ contract Test {
 =====================================output=====================================
 pragma solidity ^0.6.0;
 
-interface DataFeed {
+interface DataFeed is Feed {
     function getData(address token) external returns (uint value);
 }
 

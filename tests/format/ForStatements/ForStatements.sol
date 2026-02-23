@@ -4,6 +4,8 @@ contract ForStatements {
     function hi() public {
         uint a;
 
+for ((uint i, uint j) = getIndexes(); i < 100; i++) a++;
+
         for (uint i; i < 100; i++) a++;
 
         for (i = 0; i < 100; i++) a = a.add(LONG_VARIABLE).add(LONG_VARIABLE).add(LONG_VARIABLE);
