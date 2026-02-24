@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -8,11 +8,11 @@ import { UsingDeconstruction } from './UsingDeconstruction.js';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
-  ast.UsingClause,
+  slangAst.UsingClause,
   UsingClause
 >([
-  [ast.IdentifierPath, IdentifierPath],
-  [ast.UsingDeconstruction, UsingDeconstruction]
+  [slangAst.IdentifierPath, IdentifierPath],
+  [slangAst.UsingDeconstruction, UsingDeconstruction]
 ]);
 
 export class UsingClause extends SlangNode {
@@ -20,9 +20,17 @@ export class UsingClause extends SlangNode {
 
   variant: IdentifierPath | UsingDeconstruction;
 
-  constructor(ast: ast.UsingClause, collected: CollectedMetadata) {
+  constructor(ast: slangAst.UsingClause, collected: CollectedMetadata) {
     super(ast, collected);
 
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of `UsingClause`
+      // in the `createNonterminalVariant` function above.
+      ((variant: slangAst.UsingClause['variant']): void => {
+        if (variant instanceof slangAst.IdentifierPath) return;
+        if (variant instanceof slangAst.UsingDeconstruction) return;
+      })(ast.variant);
+    }
     this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);

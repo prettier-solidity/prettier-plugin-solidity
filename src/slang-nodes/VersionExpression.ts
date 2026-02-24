@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -8,11 +8,11 @@ import { VersionTerm } from './VersionTerm.js';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
-  ast.VersionExpression,
+  slangAst.VersionExpression,
   VersionExpression
 >([
-  [ast.VersionRange, VersionRange],
-  [ast.VersionTerm, VersionTerm]
+  [slangAst.VersionRange, VersionRange],
+  [slangAst.VersionTerm, VersionTerm]
 ]);
 
 export class VersionExpression extends SlangNode {
@@ -20,9 +20,17 @@ export class VersionExpression extends SlangNode {
 
   variant: VersionRange | VersionTerm;
 
-  constructor(ast: ast.VersionExpression, collected: CollectedMetadata) {
+  constructor(ast: slangAst.VersionExpression, collected: CollectedMetadata) {
     super(ast, collected);
 
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of
+      // `VersionExpression` in the `createNonterminalVariant` function above.
+      ((variant: slangAst.VersionExpression['variant']): void => {
+        if (variant instanceof slangAst.VersionRange) return;
+        if (variant instanceof slangAst.VersionTerm) return;
+      })(ast.variant);
+    }
     this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);

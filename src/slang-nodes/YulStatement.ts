@@ -66,6 +66,25 @@ export class YulStatement extends SlangNode {
     super(ast, collected);
 
     const variant = ast.variant;
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of `YulStatement`
+      // in the `createNonterminalVariant` function above.
+      ((variant: slangAst.YulStatement['variant']): void => {
+        if (variant instanceof slangAst.YulBlock) return;
+        if (variant instanceof slangAst.YulFunctionDefinition) return;
+        if (variant instanceof slangAst.YulVariableDeclarationStatement) return;
+        if (variant instanceof slangAst.YulVariableAssignmentStatement) return;
+        if (variant instanceof slangAst.YulStackAssignmentStatement) return;
+        if (variant instanceof slangAst.YulIfStatement) return;
+        if (variant instanceof slangAst.YulForStatement) return;
+        if (variant instanceof slangAst.YulSwitchStatement) return;
+        if (variant instanceof slangAst.YulLeaveStatement) return;
+        if (variant instanceof slangAst.YulBreakStatement) return;
+        if (variant instanceof slangAst.YulContinueStatement) return;
+        if (variant instanceof slangAst.YulLabel) return;
+        if (variant instanceof slangAst.YulExpression) return;
+      })(variant);
+    }
     this.variant =
       variant instanceof slangAst.YulBlock
         ? new YulBlock(variant, collected, options)

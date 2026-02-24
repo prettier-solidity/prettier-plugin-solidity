@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -10,11 +10,11 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
-  ast.ContractSpecifier,
+  slangAst.ContractSpecifier,
   ContractSpecifier
 >([
-  [ast.InheritanceSpecifier, InheritanceSpecifier],
-  [ast.StorageLayoutSpecifier, StorageLayoutSpecifier]
+  [slangAst.InheritanceSpecifier, InheritanceSpecifier],
+  [slangAst.StorageLayoutSpecifier, StorageLayoutSpecifier]
 ]);
 
 export class ContractSpecifier extends SlangNode {
@@ -23,12 +23,20 @@ export class ContractSpecifier extends SlangNode {
   variant: InheritanceSpecifier | StorageLayoutSpecifier;
 
   constructor(
-    ast: ast.ContractSpecifier,
+    ast: slangAst.ContractSpecifier,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
     super(ast, collected);
 
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of
+      // `ContractSpecifier` in the `createNonterminalVariant` function above.
+      ((variant: slangAst.ContractSpecifier['variant']): void => {
+        if (variant instanceof slangAst.InheritanceSpecifier) return;
+        if (variant instanceof slangAst.StorageLayoutSpecifier) return;
+      })(ast.variant);
+    }
     this.variant = createNonterminalVariant(ast.variant, collected, options);
 
     this.updateMetadata(this.variant);

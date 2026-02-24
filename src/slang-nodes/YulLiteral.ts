@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
@@ -14,11 +14,11 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
-  ast.YulLiteral,
+  slangAst.YulLiteral,
   YulLiteral
 >([
-  [ast.HexStringLiteral, HexStringLiteral],
-  [ast.StringLiteral, StringLiteral]
+  [slangAst.HexStringLiteral, HexStringLiteral],
+  [slangAst.StringLiteral, StringLiteral]
 ]);
 
 export class YulLiteral extends SlangNode {
@@ -27,7 +27,7 @@ export class YulLiteral extends SlangNode {
   variant: HexStringLiteral | StringLiteral | TerminalNode;
 
   constructor(
-    ast: ast.YulLiteral,
+    ast: slangAst.YulLiteral,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
@@ -37,6 +37,16 @@ export class YulLiteral extends SlangNode {
     if (variant instanceof SlangTerminalNode) {
       this.variant = new TerminalNode(variant, collected);
       return;
+    }
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of `YulLiteral`
+      // in the `createNonterminalVariant` function above.
+      ((
+        variant: Exclude<slangAst.YulLiteral['variant'], SlangTerminalNode>
+      ): void => {
+        if (variant instanceof slangAst.HexStringLiteral) return;
+        if (variant instanceof slangAst.StringLiteral) return;
+      })(variant);
     }
     this.variant = createNonterminalVariant(variant, collected, options);
 

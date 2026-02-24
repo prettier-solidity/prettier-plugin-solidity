@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -11,12 +11,12 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
-  ast.Pragma,
+  slangAst.Pragma,
   Pragma
 >([
-  [ast.AbicoderPragma, AbicoderPragma],
-  [ast.ExperimentalPragma, ExperimentalPragma],
-  [ast.VersionPragma, VersionPragma]
+  [slangAst.AbicoderPragma, AbicoderPragma],
+  [slangAst.ExperimentalPragma, ExperimentalPragma],
+  [slangAst.VersionPragma, VersionPragma]
 ]);
 
 export class Pragma extends SlangNode {
@@ -25,12 +25,21 @@ export class Pragma extends SlangNode {
   variant: AbicoderPragma | ExperimentalPragma | VersionPragma;
 
   constructor(
-    ast: ast.Pragma,
+    ast: slangAst.Pragma,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
     super(ast, collected);
 
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of `Pragma` in the
+      // `createNonterminalVariant` function above.
+      ((variant: slangAst.Pragma['variant']): void => {
+        if (variant instanceof slangAst.AbicoderPragma) return;
+        if (variant instanceof slangAst.ExperimentalPragma) return;
+        if (variant instanceof slangAst.VersionPragma) return;
+      })(ast.variant);
+    }
     this.variant = createNonterminalVariant(ast.variant, collected, options);
 
     this.updateMetadata(this.variant);

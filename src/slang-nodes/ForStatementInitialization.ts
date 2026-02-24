@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
@@ -15,12 +15,12 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
-  ast.ForStatementInitialization,
+  slangAst.ForStatementInitialization,
   ForStatementInitialization
 >([
-  [ast.ExpressionStatement, ExpressionStatement],
-  [ast.VariableDeclarationStatement, VariableDeclarationStatement],
-  [ast.TupleDeconstructionStatement, TupleDeconstructionStatement]
+  [slangAst.ExpressionStatement, ExpressionStatement],
+  [slangAst.VariableDeclarationStatement, VariableDeclarationStatement],
+  [slangAst.TupleDeconstructionStatement, TupleDeconstructionStatement]
 ]);
 
 export class ForStatementInitialization extends SlangNode {
@@ -33,7 +33,7 @@ export class ForStatementInitialization extends SlangNode {
     | TerminalNode;
 
   constructor(
-    ast: ast.ForStatementInitialization,
+    ast: slangAst.ForStatementInitialization,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
@@ -43,6 +43,21 @@ export class ForStatementInitialization extends SlangNode {
     if (variant instanceof SlangTerminalNode) {
       this.variant = new TerminalNode(variant, collected);
       return;
+    }
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of
+      // `ForStatementInitialization` in the `createNonterminalVariant`
+      // function above.
+      ((
+        variant: Exclude<
+          slangAst.ForStatementInitialization['variant'],
+          SlangTerminalNode
+        >
+      ): void => {
+        if (variant instanceof slangAst.ExpressionStatement) return;
+        if (variant instanceof slangAst.VariableDeclarationStatement) return;
+        if (variant instanceof slangAst.TupleDeconstructionStatement) return;
+      })(variant);
     }
     this.variant = createNonterminalVariant(variant, collected, options);
 

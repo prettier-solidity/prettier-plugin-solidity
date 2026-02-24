@@ -76,6 +76,29 @@ export class Statement extends SlangNode {
     super(ast, collected);
 
     const variant = ast.variant;
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of `Statement` in
+      // the `createNonterminalVariant` function above.
+      ((variant: slangAst.Statement['variant']): void => {
+        if (variant instanceof slangAst.ExpressionStatement) return;
+        if (variant instanceof slangAst.VariableDeclarationStatement) return;
+        if (variant instanceof slangAst.TupleDeconstructionStatement) return;
+        if (variant instanceof slangAst.IfStatement) return;
+        if (variant instanceof slangAst.ForStatement) return;
+        if (variant instanceof slangAst.WhileStatement) return;
+        if (variant instanceof slangAst.DoWhileStatement) return;
+        if (variant instanceof slangAst.ContinueStatement) return;
+        if (variant instanceof slangAst.BreakStatement) return;
+        if (variant instanceof slangAst.ReturnStatement) return;
+        if (variant instanceof slangAst.ThrowStatement) return;
+        if (variant instanceof slangAst.EmitStatement) return;
+        if (variant instanceof slangAst.TryStatement) return;
+        if (variant instanceof slangAst.RevertStatement) return;
+        if (variant instanceof slangAst.AssemblyStatement) return;
+        if (variant instanceof slangAst.Block) return;
+        if (variant instanceof slangAst.UncheckedBlock) return;
+      })(variant);
+    }
     this.variant =
       variant instanceof slangAst.Block
         ? new Block(variant, collected, options)

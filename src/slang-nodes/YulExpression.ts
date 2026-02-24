@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -11,14 +11,14 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  ast.YulExpression,
+  slangAst.YulExpression,
   YulExpression
 >(
   [
-    [ast.YulFunctionCallExpression, YulFunctionCallExpression],
-    [ast.YulPath, YulPath]
+    [slangAst.YulFunctionCallExpression, YulFunctionCallExpression],
+    [slangAst.YulPath, YulPath]
   ],
-  [[ast.YulLiteral, YulLiteral]]
+  [[slangAst.YulLiteral, YulLiteral]]
 );
 
 export class YulExpression extends SlangNode {
@@ -27,12 +27,21 @@ export class YulExpression extends SlangNode {
   variant: YulFunctionCallExpression | YulLiteral['variant'] | YulPath;
 
   constructor(
-    ast: ast.YulExpression,
+    ast: slangAst.YulExpression,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
     super(ast, collected);
 
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of `YulExpression`
+      // in the `createNonterminalVariant` function above.
+      ((variant: slangAst.YulExpression['variant']): void => {
+        if (variant instanceof slangAst.YulFunctionCallExpression) return;
+        if (variant instanceof slangAst.YulLiteral) return;
+        if (variant instanceof slangAst.YulPath) return;
+      })(ast.variant);
+    }
     this.variant = createNonterminalVariant(ast.variant, collected, options);
 
     this.updateMetadata(this.variant);

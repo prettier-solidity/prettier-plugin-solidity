@@ -1,4 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
+import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -13,16 +13,16 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  ast.TypeName,
+  slangAst.TypeName,
   TypeName
 >(
   [
-    [ast.ArrayTypeName, ArrayTypeName],
-    [ast.FunctionType, FunctionType],
-    [ast.MappingType, MappingType],
-    [ast.IdentifierPath, IdentifierPath]
+    [slangAst.ArrayTypeName, ArrayTypeName],
+    [slangAst.FunctionType, FunctionType],
+    [slangAst.MappingType, MappingType],
+    [slangAst.IdentifierPath, IdentifierPath]
   ],
-  [[ast.ElementaryType, ElementaryType]]
+  [[slangAst.ElementaryType, ElementaryType]]
 );
 
 export class TypeName extends SlangNode {
@@ -36,12 +36,23 @@ export class TypeName extends SlangNode {
     | IdentifierPath;
 
   constructor(
-    ast: ast.TypeName,
+    ast: slangAst.TypeName,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
     super(ast, collected);
 
+    if (process.env.NODE_ENV === 'test') {
+      // This is to ensure that we have handled all variants of `TypeName` in
+      // the `createNonterminalVariant` function above.
+      ((variant: slangAst.TypeName['variant']): void => {
+        if (variant instanceof slangAst.ArrayTypeName) return;
+        if (variant instanceof slangAst.FunctionType) return;
+        if (variant instanceof slangAst.MappingType) return;
+        if (variant instanceof slangAst.IdentifierPath) return;
+        if (variant instanceof slangAst.ElementaryType) return;
+      })(ast.variant);
+    }
     this.variant = createNonterminalVariant(ast.variant, collected, options);
 
     this.updateMetadata(this.variant);
