@@ -35,6 +35,7 @@ export class YulSwitchCase extends SlangNode {
       ((variant: slangAst.YulSwitchCase['variant']): void => {
         if (variant instanceof slangAst.YulDefaultCase) return;
         if (variant instanceof slangAst.YulValueCase) return;
+        /* c8 ignore next 2 */
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = variant;
       })(ast.variant);

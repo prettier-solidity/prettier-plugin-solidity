@@ -81,6 +81,7 @@ export class SourceUnitMember extends SlangNode {
         if (variant instanceof slangAst.UserDefinedValueTypeDefinition) return;
         if (variant instanceof slangAst.UsingDirective) return;
         if (variant instanceof slangAst.EventDefinition) return;
+        /* c8 ignore next 2 */
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = variant;
       })(ast.variant);

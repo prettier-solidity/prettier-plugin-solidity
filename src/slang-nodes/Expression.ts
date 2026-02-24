@@ -153,6 +153,7 @@ export class Expression extends SlangNode {
         if (variant instanceof slangAst.DecimalNumberExpression) return;
         if (variant instanceof slangAst.StringExpression) return;
         if (variant instanceof slangAst.ElementaryType) return;
+        /* c8 ignore next 2 */
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = variant;
       })(variant);

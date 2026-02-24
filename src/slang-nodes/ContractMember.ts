@@ -81,6 +81,7 @@ export class ContractMember extends SlangNode {
         if (variant instanceof slangAst.StateVariableDefinition) return;
         if (variant instanceof slangAst.ErrorDefinition) return;
         if (variant instanceof slangAst.UserDefinedValueTypeDefinition) return;
+        /* c8 ignore next 2 */
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = variant;
       })(ast.variant);

@@ -49,6 +49,7 @@ export class FunctionAttribute extends SlangNode {
       ): void => {
         if (variant instanceof slangAst.ModifierInvocation) return;
         if (variant instanceof slangAst.OverrideSpecifier) return;
+        /* c8 ignore next 2 */
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = variant;
       })(variant);

@@ -49,6 +49,7 @@ export class StringExpression extends SlangNode {
         if (variant instanceof slangAst.HexStringLiteral) return;
         if (variant instanceof slangAst.HexStringLiterals) return;
         if (variant instanceof slangAst.UnicodeStringLiterals) return;
+        /* c8 ignore next 2 */
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = variant;
       })(ast.variant);

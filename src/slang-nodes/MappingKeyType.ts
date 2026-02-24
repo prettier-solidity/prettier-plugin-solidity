@@ -29,6 +29,7 @@ export class MappingKeyType extends SlangNode {
       ((variant: slangAst.MappingKeyType['variant']): void => {
         if (variant instanceof slangAst.IdentifierPath) return;
         if (variant instanceof slangAst.ElementaryType) return;
+        /* c8 ignore next 2 */
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = variant;
       })(ast.variant);

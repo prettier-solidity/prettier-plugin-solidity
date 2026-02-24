@@ -83,6 +83,7 @@ export class YulStatement extends SlangNode {
         if (variant instanceof slangAst.YulContinueStatement) return;
         if (variant instanceof slangAst.YulLabel) return;
         if (variant instanceof slangAst.YulExpression) return;
+        /* c8 ignore next 2 */
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = variant;
       })(variant);

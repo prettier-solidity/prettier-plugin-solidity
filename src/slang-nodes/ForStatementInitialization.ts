@@ -57,6 +57,7 @@ export class ForStatementInitialization extends SlangNode {
         if (variant instanceof slangAst.ExpressionStatement) return;
         if (variant instanceof slangAst.VariableDeclarationStatement) return;
         if (variant instanceof slangAst.TupleDeconstructionStatement) return;
+        /* c8 ignore next 2 */
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = variant;
       })(variant);
