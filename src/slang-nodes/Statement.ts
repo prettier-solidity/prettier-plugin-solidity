@@ -97,6 +97,8 @@ export class Statement extends SlangNode {
         if (variant instanceof slangAst.AssemblyStatement) return;
         if (variant instanceof slangAst.Block) return;
         if (variant instanceof slangAst.UncheckedBlock) return;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _exhaustiveCheck: never = variant;
       })(variant);
     }
     this.variant =

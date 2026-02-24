@@ -29,6 +29,8 @@ export class UsingClause extends SlangNode {
       ((variant: slangAst.UsingClause['variant']): void => {
         if (variant instanceof slangAst.IdentifierPath) return;
         if (variant instanceof slangAst.UsingDeconstruction) return;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _exhaustiveCheck: never = variant;
       })(ast.variant);
     }
     this.variant = createNonterminalVariant(ast.variant, collected);

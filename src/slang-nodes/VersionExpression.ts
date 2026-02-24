@@ -29,6 +29,8 @@ export class VersionExpression extends SlangNode {
       ((variant: slangAst.VersionExpression['variant']): void => {
         if (variant instanceof slangAst.VersionRange) return;
         if (variant instanceof slangAst.VersionTerm) return;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _exhaustiveCheck: never = variant;
       })(ast.variant);
     }
     this.variant = createNonterminalVariant(ast.variant, collected);

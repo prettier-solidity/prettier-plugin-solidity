@@ -38,6 +38,8 @@ export class ImportClause extends SlangNode {
         if (variant instanceof slangAst.PathImport) return;
         if (variant instanceof slangAst.NamedImport) return;
         if (variant instanceof slangAst.ImportDeconstruction) return;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _exhaustiveCheck: never = variant;
       })(ast.variant);
     }
     this.variant = createNonterminalVariant(ast.variant, collected, options);

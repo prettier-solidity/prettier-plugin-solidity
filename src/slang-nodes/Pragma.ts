@@ -38,6 +38,8 @@ export class Pragma extends SlangNode {
         if (variant instanceof slangAst.AbicoderPragma) return;
         if (variant instanceof slangAst.ExperimentalPragma) return;
         if (variant instanceof slangAst.VersionPragma) return;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _exhaustiveCheck: never = variant;
       })(ast.variant);
     }
     this.variant = createNonterminalVariant(ast.variant, collected, options);

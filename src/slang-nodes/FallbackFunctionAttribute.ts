@@ -50,6 +50,8 @@ export class FallbackFunctionAttribute extends SlangNode {
       ): void => {
         if (variant instanceof slangAst.ModifierInvocation) return;
         if (variant instanceof slangAst.OverrideSpecifier) return;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _exhaustiveCheck: never = variant;
       })(variant);
     }
     this.variant = createNonterminalVariant(variant, collected, options);

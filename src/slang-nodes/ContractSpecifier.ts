@@ -35,6 +35,8 @@ export class ContractSpecifier extends SlangNode {
       ((variant: slangAst.ContractSpecifier['variant']): void => {
         if (variant instanceof slangAst.InheritanceSpecifier) return;
         if (variant instanceof slangAst.StorageLayoutSpecifier) return;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _exhaustiveCheck: never = variant;
       })(ast.variant);
     }
     this.variant = createNonterminalVariant(ast.variant, collected, options);

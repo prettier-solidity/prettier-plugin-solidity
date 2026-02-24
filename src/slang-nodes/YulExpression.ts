@@ -40,6 +40,8 @@ export class YulExpression extends SlangNode {
         if (variant instanceof slangAst.YulFunctionCallExpression) return;
         if (variant instanceof slangAst.YulLiteral) return;
         if (variant instanceof slangAst.YulPath) return;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _exhaustiveCheck: never = variant;
       })(ast.variant);
     }
     this.variant = createNonterminalVariant(ast.variant, collected, options);

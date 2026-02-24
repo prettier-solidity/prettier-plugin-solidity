@@ -46,6 +46,8 @@ export class YulLiteral extends SlangNode {
       ): void => {
         if (variant instanceof slangAst.HexStringLiteral) return;
         if (variant instanceof slangAst.StringLiteral) return;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _exhaustiveCheck: never = variant;
       })(variant);
     }
     this.variant = createNonterminalVariant(variant, collected, options);
