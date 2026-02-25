@@ -57,7 +57,7 @@ export class MultiplicativeExpression extends SlangNode {
 
     this.updateMetadata(this.leftOperand, this.rightOperand);
 
-    const tryToHug = hugFunctions[this.operator as '*' | '/' | '%'];
+    const tryToHug = hugFunctions[this.operator as keyof typeof hugFunctions];
 
     if (tryToHug === undefined) {
       throw new Error(`Unexpected operator: ${this.operator}`);
