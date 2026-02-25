@@ -11,6 +11,7 @@ contract FunctionDefinitions {
   function () external {}
   function () external payable {}
   function () external modify(123) payable {}
+  function () external modify() payable {}
 }
 
 =====================================output=====================================
@@ -18,6 +19,7 @@ contract FunctionDefinitions {
     function() external {}
     function() external payable {}
     function() external payable modify(123) {}
+    function() external payable modify {}
 }
 
 ================================================================================
