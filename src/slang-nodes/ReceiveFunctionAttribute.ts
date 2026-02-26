@@ -1,4 +1,4 @@
-import * as slangAst from '@nomicfoundation/slang/ast';
+import * as ast from '@nomicfoundation/slang/ast';
 import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
@@ -14,11 +14,11 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
-  slangAst.ReceiveFunctionAttribute,
+  ast.ReceiveFunctionAttribute,
   ReceiveFunctionAttribute
 >([
-  [slangAst.ModifierInvocation, ModifierInvocation],
-  [slangAst.OverrideSpecifier, OverrideSpecifier]
+  [ast.ModifierInvocation, ModifierInvocation],
+  [ast.OverrideSpecifier, OverrideSpecifier]
 ]);
 
 export class ReceiveFunctionAttribute extends SlangNode {
@@ -27,7 +27,7 @@ export class ReceiveFunctionAttribute extends SlangNode {
   variant: ModifierInvocation | OverrideSpecifier | TerminalNode;
 
   constructor(
-    ast: slangAst.ReceiveFunctionAttribute,
+    ast: ast.ReceiveFunctionAttribute,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
@@ -37,23 +37,6 @@ export class ReceiveFunctionAttribute extends SlangNode {
     if (variant instanceof SlangTerminalNode) {
       this.variant = new TerminalNode(variant, collected);
       return;
-    }
-    if (process.env.NODE_ENV === 'test') {
-      // This is to ensure that we have handled all variants of
-      // `ReceiveFunctionAttribute` in the `createNonterminalVariant` function
-      // above.
-      ((
-        variant: Exclude<
-          slangAst.ReceiveFunctionAttribute['variant'],
-          SlangTerminalNode
-        >
-      ): void => {
-        if (variant instanceof slangAst.ModifierInvocation) return;
-        if (variant instanceof slangAst.OverrideSpecifier) return;
-        /* c8 ignore next 2 */
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _exhaustiveCheck: never = variant;
-      })(variant);
     }
     this.variant = createNonterminalVariant(variant, collected, options);
 

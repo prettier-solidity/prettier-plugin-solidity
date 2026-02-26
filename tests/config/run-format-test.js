@@ -4,6 +4,7 @@ import url from "node:url";
 import createEsmUtils from "esm-utils";
 import getPrettier from "./get-prettier.js";
 import getCreateParser from "./get-create-parser.js";
+import getCheckCoverage from "./get-check-coverage.js";
 import getPlugins from "./get-plugins.js";
 import compileContract from "./utils/compile-contract.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
@@ -321,24 +322,27 @@ async function runTest({
     return;
   }
 
-  if (
-    formatOptions.parser === "slang" &&
-    !isAntlrMismatch(filename, formatOptions)
-  ) {
-    // Compare with ANTLR's format
-    const prettier = await getPrettier();
+  if (formatOptions.parser === "slang") {
     const createParser = await getCreateParser();
-    const { formatted: antlrOutput } = await prettier.formatWithCursor(code, {
-      ...formatOptions,
-      // Since Slang forces us to decide on a compiler version, we need to do the
-      // same for ANTLR unless it was already given as an option.
-      compiler:
-        formatOptions.compiler ||
-        createParser(code, formatOptions).parser.languageVersion,
-      parser: "antlr",
-      plugins: await getPlugins(),
-    });
-    expect(antlrOutput).toEqual(formatResult.output);
+    const checkCoverage = await getCheckCoverage();
+    const { parser, parseOutput } = createParser(code, formatOptions);
+
+    // Check coverage
+    checkCoverage(parseOutput.tree.asNonterminalNode());
+
+    if (!isAntlrMismatch(filename, formatOptions)) {
+      // Compare with ANTLR's format
+      const prettier = await getPrettier();
+      const { formatted: antlrOutput } = await prettier.formatWithCursor(code, {
+        ...formatOptions,
+        // Since Slang forces us to decide on a compiler version, we need to do the
+        // same for ANTLR unless it was already given as an option.
+        compiler: formatOptions.compiler || parser.languageVersion,
+        parser: "antlr",
+        plugins: await getPlugins(),
+      });
+      expect(antlrOutput).toEqual(formatResult.output);
+    }
   }
 
   const isUnstableTest = isUnstable(filename, formatOptions);

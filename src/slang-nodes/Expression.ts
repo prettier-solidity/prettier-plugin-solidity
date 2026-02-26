@@ -1,4 +1,4 @@
-import * as slangAst from '@nomicfoundation/slang/ast';
+import * as ast from '@nomicfoundation/slang/ast';
 import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
@@ -39,39 +39,39 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
-  slangAst.Expression,
+  ast.Expression,
   Expression
 >(
   [
-    [slangAst.AssignmentExpression, AssignmentExpression],
-    [slangAst.ConditionalExpression, ConditionalExpression],
-    [slangAst.OrExpression, OrExpression],
-    [slangAst.AndExpression, AndExpression],
-    [slangAst.EqualityExpression, EqualityExpression],
-    [slangAst.InequalityExpression, InequalityExpression],
-    [slangAst.BitwiseOrExpression, BitwiseOrExpression],
-    [slangAst.BitwiseXorExpression, BitwiseXorExpression],
-    [slangAst.BitwiseAndExpression, BitwiseAndExpression],
-    [slangAst.ShiftExpression, ShiftExpression],
-    [slangAst.AdditiveExpression, AdditiveExpression],
-    [slangAst.MultiplicativeExpression, MultiplicativeExpression],
-    [slangAst.ExponentiationExpression, ExponentiationExpression],
-    [slangAst.PostfixExpression, PostfixExpression],
-    [slangAst.PrefixExpression, PrefixExpression],
-    [slangAst.FunctionCallExpression, FunctionCallExpression],
-    [slangAst.CallOptionsExpression, CallOptionsExpression],
-    [slangAst.MemberAccessExpression, MemberAccessExpression],
-    [slangAst.IndexAccessExpression, IndexAccessExpression],
-    [slangAst.NewExpression, NewExpression],
-    [slangAst.TupleExpression, TupleExpression],
-    [slangAst.TypeExpression, TypeExpression],
-    [slangAst.ArrayExpression, ArrayExpression],
-    [slangAst.HexNumberExpression, HexNumberExpression],
-    [slangAst.DecimalNumberExpression, DecimalNumberExpression]
+    [ast.AssignmentExpression, AssignmentExpression],
+    [ast.ConditionalExpression, ConditionalExpression],
+    [ast.OrExpression, OrExpression],
+    [ast.AndExpression, AndExpression],
+    [ast.EqualityExpression, EqualityExpression],
+    [ast.InequalityExpression, InequalityExpression],
+    [ast.BitwiseOrExpression, BitwiseOrExpression],
+    [ast.BitwiseXorExpression, BitwiseXorExpression],
+    [ast.BitwiseAndExpression, BitwiseAndExpression],
+    [ast.ShiftExpression, ShiftExpression],
+    [ast.AdditiveExpression, AdditiveExpression],
+    [ast.MultiplicativeExpression, MultiplicativeExpression],
+    [ast.ExponentiationExpression, ExponentiationExpression],
+    [ast.PostfixExpression, PostfixExpression],
+    [ast.PrefixExpression, PrefixExpression],
+    [ast.FunctionCallExpression, FunctionCallExpression],
+    [ast.CallOptionsExpression, CallOptionsExpression],
+    [ast.MemberAccessExpression, MemberAccessExpression],
+    [ast.IndexAccessExpression, IndexAccessExpression],
+    [ast.NewExpression, NewExpression],
+    [ast.TupleExpression, TupleExpression],
+    [ast.TypeExpression, TypeExpression],
+    [ast.ArrayExpression, ArrayExpression],
+    [ast.HexNumberExpression, HexNumberExpression],
+    [ast.DecimalNumberExpression, DecimalNumberExpression]
   ],
   [
-    [slangAst.StringExpression, StringExpression],
-    [slangAst.ElementaryType, ElementaryType]
+    [ast.StringExpression, StringExpression],
+    [ast.ElementaryType, ElementaryType]
   ]
 );
 
@@ -109,7 +109,7 @@ export class Expression extends SlangNode {
     | TerminalNode;
 
   constructor(
-    ast: slangAst.Expression,
+    ast: ast.Expression,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
@@ -119,44 +119,6 @@ export class Expression extends SlangNode {
     if (variant instanceof SlangTerminalNode) {
       this.variant = new TerminalNode(variant, collected);
       return;
-    }
-    if (process.env.NODE_ENV === 'test') {
-      // This is to ensure that we have handled all variants of
-      // `Expression` in the `createNonterminalVariant` function above.
-      ((
-        variant: Exclude<slangAst.Expression['variant'], SlangTerminalNode>
-      ): void => {
-        if (variant instanceof slangAst.AssignmentExpression) return;
-        if (variant instanceof slangAst.ConditionalExpression) return;
-        if (variant instanceof slangAst.OrExpression) return;
-        if (variant instanceof slangAst.AndExpression) return;
-        if (variant instanceof slangAst.EqualityExpression) return;
-        if (variant instanceof slangAst.InequalityExpression) return;
-        if (variant instanceof slangAst.BitwiseOrExpression) return;
-        if (variant instanceof slangAst.BitwiseXorExpression) return;
-        if (variant instanceof slangAst.BitwiseAndExpression) return;
-        if (variant instanceof slangAst.ShiftExpression) return;
-        if (variant instanceof slangAst.AdditiveExpression) return;
-        if (variant instanceof slangAst.MultiplicativeExpression) return;
-        if (variant instanceof slangAst.ExponentiationExpression) return;
-        if (variant instanceof slangAst.PostfixExpression) return;
-        if (variant instanceof slangAst.PrefixExpression) return;
-        if (variant instanceof slangAst.FunctionCallExpression) return;
-        if (variant instanceof slangAst.CallOptionsExpression) return;
-        if (variant instanceof slangAst.MemberAccessExpression) return;
-        if (variant instanceof slangAst.IndexAccessExpression) return;
-        if (variant instanceof slangAst.NewExpression) return;
-        if (variant instanceof slangAst.TupleExpression) return;
-        if (variant instanceof slangAst.TypeExpression) return;
-        if (variant instanceof slangAst.ArrayExpression) return;
-        if (variant instanceof slangAst.HexNumberExpression) return;
-        if (variant instanceof slangAst.DecimalNumberExpression) return;
-        if (variant instanceof slangAst.StringExpression) return;
-        if (variant instanceof slangAst.ElementaryType) return;
-        /* c8 ignore next 2 */
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _exhaustiveCheck: never = variant;
-      })(variant);
     }
     this.variant = createNonterminalVariant(variant, collected, options);
 

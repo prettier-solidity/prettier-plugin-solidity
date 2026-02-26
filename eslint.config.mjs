@@ -18,6 +18,7 @@ const compat = new FlatCompat({
 export default [
   {
     ignores: [
+      'check-coverage/**/*.ts',
       'coverage/**/*.js',
       'dist/**/*.cjs',
       'dist/**/*.js',

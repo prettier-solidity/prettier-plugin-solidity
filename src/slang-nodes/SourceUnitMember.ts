@@ -1,4 +1,4 @@
-import * as slangAst from '@nomicfoundation/slang/ast';
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -21,22 +21,22 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
-  slangAst.SourceUnitMember,
+  ast.SourceUnitMember,
   SourceUnitMember
 >([
-  [slangAst.PragmaDirective, PragmaDirective],
-  [slangAst.ImportDirective, ImportDirective],
-  [slangAst.ContractDefinition, ContractDefinition],
-  [slangAst.InterfaceDefinition, InterfaceDefinition],
-  [slangAst.LibraryDefinition, LibraryDefinition],
-  [slangAst.StructDefinition, StructDefinition],
-  [slangAst.EnumDefinition, EnumDefinition],
-  [slangAst.FunctionDefinition, FunctionDefinition],
-  [slangAst.ConstantDefinition, ConstantDefinition],
-  [slangAst.ErrorDefinition, ErrorDefinition],
-  [slangAst.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition],
-  [slangAst.UsingDirective, UsingDirective],
-  [slangAst.EventDefinition, EventDefinition]
+  [ast.PragmaDirective, PragmaDirective],
+  [ast.ImportDirective, ImportDirective],
+  [ast.ContractDefinition, ContractDefinition],
+  [ast.InterfaceDefinition, InterfaceDefinition],
+  [ast.LibraryDefinition, LibraryDefinition],
+  [ast.StructDefinition, StructDefinition],
+  [ast.EnumDefinition, EnumDefinition],
+  [ast.FunctionDefinition, FunctionDefinition],
+  [ast.ConstantDefinition, ConstantDefinition],
+  [ast.ErrorDefinition, ErrorDefinition],
+  [ast.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition],
+  [ast.UsingDirective, UsingDirective],
+  [ast.EventDefinition, EventDefinition]
 ]);
 
 export class SourceUnitMember extends SlangNode {
@@ -58,34 +58,12 @@ export class SourceUnitMember extends SlangNode {
     | EventDefinition;
 
   constructor(
-    ast: slangAst.SourceUnitMember,
+    ast: ast.SourceUnitMember,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
     super(ast, collected);
 
-    if (process.env.NODE_ENV === 'test') {
-      // This is to ensure that we have handled all variants of
-      // `SourceUnitMember` in the `createNonterminalVariant` function above.
-      ((variant: slangAst.SourceUnitMember['variant']): void => {
-        if (variant instanceof slangAst.PragmaDirective) return;
-        if (variant instanceof slangAst.ImportDirective) return;
-        if (variant instanceof slangAst.ContractDefinition) return;
-        if (variant instanceof slangAst.InterfaceDefinition) return;
-        if (variant instanceof slangAst.LibraryDefinition) return;
-        if (variant instanceof slangAst.StructDefinition) return;
-        if (variant instanceof slangAst.EnumDefinition) return;
-        if (variant instanceof slangAst.FunctionDefinition) return;
-        if (variant instanceof slangAst.ConstantDefinition) return;
-        if (variant instanceof slangAst.ErrorDefinition) return;
-        if (variant instanceof slangAst.UserDefinedValueTypeDefinition) return;
-        if (variant instanceof slangAst.UsingDirective) return;
-        if (variant instanceof slangAst.EventDefinition) return;
-        /* c8 ignore next 2 */
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _exhaustiveCheck: never = variant;
-      })(ast.variant);
-    }
     this.variant = createNonterminalVariant(ast.variant, collected, options);
 
     this.updateMetadata(this.variant);

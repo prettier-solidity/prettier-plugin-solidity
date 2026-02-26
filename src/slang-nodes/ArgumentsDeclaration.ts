@@ -1,4 +1,4 @@
-import * as slangAst from '@nomicfoundation/slang/ast';
+import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
@@ -10,11 +10,11 @@ import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
-  slangAst.ArgumentsDeclaration,
+  ast.ArgumentsDeclaration,
   ArgumentsDeclaration
 >([
-  [slangAst.PositionalArgumentsDeclaration, PositionalArgumentsDeclaration],
-  [slangAst.NamedArgumentsDeclaration, NamedArgumentsDeclaration]
+  [ast.PositionalArgumentsDeclaration, PositionalArgumentsDeclaration],
+  [ast.NamedArgumentsDeclaration, NamedArgumentsDeclaration]
 ]);
 
 export class ArgumentsDeclaration extends SlangNode {
@@ -23,24 +23,12 @@ export class ArgumentsDeclaration extends SlangNode {
   variant: PositionalArgumentsDeclaration | NamedArgumentsDeclaration;
 
   constructor(
-    ast: slangAst.ArgumentsDeclaration,
+    ast: ast.ArgumentsDeclaration,
     collected: CollectedMetadata,
     options: ParserOptions<AstNode>
   ) {
     super(ast, collected);
 
-    if (process.env.NODE_ENV === 'test') {
-      // This is to ensure that we have handled all variants of
-      // `ArgumentsDeclaration` in the `createNonterminalVariant` function
-      // above.
-      ((variant: slangAst.ArgumentsDeclaration['variant']): void => {
-        if (variant instanceof slangAst.PositionalArgumentsDeclaration) return;
-        if (variant instanceof slangAst.NamedArgumentsDeclaration) return;
-        /* c8 ignore next 2 */
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _exhaustiveCheck: never = variant;
-      })(ast.variant);
-    }
     this.variant = createNonterminalVariant(ast.variant, collected, options);
 
     this.updateMetadata(this.variant);
