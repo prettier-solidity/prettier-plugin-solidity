@@ -33,7 +33,13 @@ const unstableTests = new Map(
 
 // Here we add files that will not have the same AST after being formatted.
 const unstableAstTests = new Map(
-  [].map((fixture) => {
+  [
+    // `: =` and `= :` are syntactically the same as `:=` and `=:`, but the ast
+    // changes from `YulColonAndEqual` and `YulEqualAndColon` to `ColonEqual`
+    // and `EqualColon`, which is expected but the workaround to keep the test
+    // stable is too much, so we just put it in this list.
+    "AssemblyV0.4.26/Assembly.sol",
+  ].map((fixture) => {
     const [file, isAstUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
@@ -73,6 +79,9 @@ const antlrMismatchTests = new Map(
     "IndexOf/IndexOf.sol",
     // Syntax for `pragma solidity 0.5.0 - 0.6.0;` not supported by ANTLR
     "Pragma/Pragma.sol",
+    // ANTLR doesn't support assembly assignment operators separated by a space
+    // like `: =` or `= :`
+    "AssemblyV0.4.26/Assembly.sol",
   ].map((fixture) => {
     const [file, compareBytecode = () => true] = Array.isArray(fixture)
       ? fixture
