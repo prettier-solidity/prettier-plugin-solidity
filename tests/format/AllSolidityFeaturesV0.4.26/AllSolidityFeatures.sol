@@ -18,6 +18,20 @@ contract test {
     var b = 7 + (c * (8 - 7)) - x;
     return -(-b | 0);
   }
+
+  function singleHexString() payable {
+    string storage a = hex"ab1248fe";
+  }
+
+
+  function storageLocationsInTuple()  {
+      var (
+        memory foo,
+        storage bar,
+        baz) =
+      (0, 0, 0);
+      //   ~~~~~~      ~~~~~~~   => these are the storage locations
+  }
 }
 
 contract c {

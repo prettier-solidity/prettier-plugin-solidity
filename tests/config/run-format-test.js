@@ -82,6 +82,9 @@ const antlrMismatchTests = new Map(
     // ANTLR doesn't support assembly assignment operators separated by a space
     // like `: =` or `= :`
     "AssemblyV0.4.26/Assembly.sol",
+    // ANTLR doesn't support UntypedTupleMember with a storage location, which
+    // is valid Slang, but not in Solidity.
+    "AllSolidityFeaturesV0.4.26/AllSolidityFeatures.sol",
   ].map((fixture) => {
     const [file, compareBytecode = () => true] = Array.isArray(fixture)
       ? fixture
