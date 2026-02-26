@@ -7,7 +7,7 @@ export default {
   entry: {
     test: './tests/integration/test-app.js',
     'create-parser': './src/slang-utils/create-parser.js',
-    'check-coverage': './check-coverage/index.js'
+    'variant-coverage': './variant-coverage/index.js'
   },
   mode: 'production',
   bail: true,

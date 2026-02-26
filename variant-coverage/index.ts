@@ -23,7 +23,7 @@ import { checkYulLiteralVariant } from './YulLiteral.js';
 import { checkYulStatementVariant } from './YulStatement.js';
 import { checkYulSwitchCaseVariant } from './YulSwitchCase.js';
 
-export function checkCoverage(cst: NonterminalNode): void {
+export function variantCoverage(cst: NonterminalNode): void {
   switch (cst.kind) {
     case NonterminalKind.ArgumentsDeclaration:
       checkArgumentsDeclarationVariant(
@@ -103,7 +103,7 @@ export function checkCoverage(cst: NonterminalNode): void {
 
   for (const { node } of cst.children()) {
     if (node instanceof NonterminalNode) {
-      checkCoverage(node);
+      variantCoverage(node);
     }
   }
 }

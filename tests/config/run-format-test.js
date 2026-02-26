@@ -4,7 +4,7 @@ import url from "node:url";
 import createEsmUtils from "esm-utils";
 import getPrettier from "./get-prettier.js";
 import getCreateParser from "./get-create-parser.js";
-import getCheckCoverage from "./get-check-coverage.js";
+import getVariantCoverage from "./get-variant-coverage.js";
 import getPlugins from "./get-plugins.js";
 import compileContract from "./utils/compile-contract.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
@@ -324,11 +324,11 @@ async function runTest({
 
   if (formatOptions.parser === "slang") {
     const createParser = await getCreateParser();
-    const checkCoverage = await getCheckCoverage();
+    const variantCoverage = await getVariantCoverage();
     const { parser, parseOutput } = createParser(code, formatOptions);
 
     // Check coverage
-    checkCoverage(parseOutput.tree.asNonterminalNode());
+    variantCoverage(parseOutput.tree.asNonterminalNode());
 
     if (!isAntlrMismatch(filename, formatOptions)) {
       // Compare with ANTLR's format
