@@ -9,6 +9,7 @@ export function checkFallbackFunctionAttributeVariant(
   if (variant instanceof TerminalNode) return;
   if (variant instanceof ast.ModifierInvocation) return;
   if (variant instanceof ast.OverrideSpecifier) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  _exhaustiveCheck;
 }

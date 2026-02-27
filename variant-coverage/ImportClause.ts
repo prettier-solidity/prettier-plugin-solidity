@@ -7,6 +7,7 @@ export function checkImportClauseVariant(
   if (variant instanceof ast.PathImport) return;
   if (variant instanceof ast.NamedImport) return;
   if (variant instanceof ast.ImportDeconstruction) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  _exhaustiveCheck;
 }

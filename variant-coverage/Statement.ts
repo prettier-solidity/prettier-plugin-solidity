@@ -19,6 +19,7 @@ export function checkStatementVariant(variant: ast.Statement['variant']): void {
   if (variant instanceof ast.AssemblyStatement) return;
   if (variant instanceof ast.Block) return;
   if (variant instanceof ast.UncheckedBlock) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  _exhaustiveCheck;
 }

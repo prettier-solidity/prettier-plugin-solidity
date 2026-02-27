@@ -17,6 +17,7 @@ export function checkContractMemberVariant(
   if (variant instanceof ast.StateVariableDefinition) return;
   if (variant instanceof ast.ErrorDefinition) return;
   if (variant instanceof ast.UserDefinedValueTypeDefinition) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  _exhaustiveCheck;
 }

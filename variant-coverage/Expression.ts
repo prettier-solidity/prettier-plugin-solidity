@@ -33,6 +33,7 @@ export function checkExpressionVariant(
   if (variant instanceof ast.DecimalNumberExpression) return;
   if (variant instanceof ast.StringExpression) return;
   if (variant instanceof ast.ElementaryType) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  _exhaustiveCheck;
 }

@@ -17,6 +17,7 @@ export function checkSourceUnitMemberVariant(
   if (variant instanceof ast.UserDefinedValueTypeDefinition) return;
   if (variant instanceof ast.UsingDirective) return;
   if (variant instanceof ast.EventDefinition) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  _exhaustiveCheck;
 }
