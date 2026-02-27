@@ -19,6 +19,7 @@ function trimmedIndentableLines(lines: string[]): string[] | undefined {
     }
     return trimmedLines;
   }
+  return;
 }
 
 function printIndentableBlockComment(lines: string[]): Doc {
