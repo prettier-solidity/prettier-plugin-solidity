@@ -1,9 +1,9 @@
 {
   "check-coverage": true,
-  "branches": 90,
-  "lines": 90,
-  "functions": 90,
-  "statements": 90,
+  "branches": 95,
+  "lines": 98,
+  "functions": 100,
+  "statements": 98,
   "exclude": ["/node_modules/"],
   "include": ["src/**/*.ts", "variant-coverage/**/*.ts"],
   "reporter": ["lcov", "text"],
