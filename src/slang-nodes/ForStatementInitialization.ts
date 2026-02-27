@@ -3,6 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
+import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
@@ -13,26 +14,14 @@ import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 import type { AstNode } from './types.d.ts';
 
-function createNonterminalVariant(
-  variant: Exclude<
-    ast.ForStatementInitialization['variant'],
-    SlangTerminalNode
-  >,
-  collected: CollectedMetadata,
-  options: ParserOptions<AstNode>
-): Exclude<ForStatementInitialization['variant'], TerminalNode> {
-  if (variant instanceof ast.ExpressionStatement) {
-    return new ExpressionStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.VariableDeclarationStatement) {
-    return new VariableDeclarationStatement(variant, collected, options);
-  }
-  if (variant instanceof ast.TupleDeconstructionStatement) {
-    return new TupleDeconstructionStatement(variant, collected, options);
-  }
-  const exhaustiveCheck: never = variant;
-  throw new Error(`Unexpected variant: ${JSON.stringify(exhaustiveCheck)}`);
-}
+const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+  ast.ForStatementInitialization,
+  ForStatementInitialization
+>([
+  [ast.ExpressionStatement, ExpressionStatement],
+  [ast.VariableDeclarationStatement, VariableDeclarationStatement],
+  [ast.TupleDeconstructionStatement, TupleDeconstructionStatement]
+]);
 
 export class ForStatementInitialization extends SlangNode {
   readonly kind = NonterminalKind.ForStatementInitialization;

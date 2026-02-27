@@ -32,3 +32,4 @@ type KeyOfAst = keyof TypeOfAst;
 type ValuesOf<E> = E[keyof E];
 
 type SlangAstNode = { [k in KeyOfAst]: ValuesOf<TypeOfAst[k]> }[KeyOfAst];
+type SlangAstNodeClass = { [k in KeyOfAst]: TypeOfAst[k] }[KeyOfAst];
