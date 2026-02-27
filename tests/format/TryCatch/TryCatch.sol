@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-interface DataFeed { function getData(address token) external returns (uint value); }
+interface DataFeed is Feed { function getData(address token) external returns (uint value); }
 
 contract FeedConsumer {
   DataFeed feed;

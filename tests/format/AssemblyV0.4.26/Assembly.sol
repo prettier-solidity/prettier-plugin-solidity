@@ -39,6 +39,7 @@ contract MultipleAssemblyAssignment {
     function foo() public pure {
         assembly {
             function bar() -> a, b {
+                b :  = 2
                 a := 1
                 b := 2
             }
@@ -52,6 +53,7 @@ contract AssemblyStackAssignment {
   function f() public {
     assembly {
       4 =: y
+      4 =  : y
     }
   }
 }

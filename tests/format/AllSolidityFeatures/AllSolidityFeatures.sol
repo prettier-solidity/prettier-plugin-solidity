@@ -181,6 +181,7 @@ contract assemblyLocalBinding {
       let x := 0x00
       let y := x
       let z := "hello"
+      let t := hex"0123456789abcdef"
     }
   }
 }
