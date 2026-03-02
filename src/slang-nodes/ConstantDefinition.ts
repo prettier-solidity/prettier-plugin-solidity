@@ -1,5 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { extractVariant } from '../slang-utils/extract-variant.js';
+import { printAssignmentRightSide } from '../slang-printers/print-assignment-right-side.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -40,8 +41,8 @@ export class ConstantDefinition extends SlangNode {
       path.call(print, 'typeName'),
       ' constant ',
       path.call(print, 'name'),
-      ' = ',
-      path.call(print, 'value'),
+      ' =',
+      printAssignmentRightSide(path.call(print, 'value'), this.value),
       ';'
     ];
   }

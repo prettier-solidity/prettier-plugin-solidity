@@ -1,13 +1,27 @@
 import { doc } from 'prettier';
-import { printSeparatedList } from '../common/printer-helpers.js';
+import {
+  printAssignmentRightSide,
+  printSeparatedList
+} from '../common/printer-helpers.js';
 
-const { group, indentIfBreak } = doc.builders;
+const { group, indentIfBreak, line } = doc.builders;
 
 const embraceVariables = (document, embrace) =>
   embrace ? ['(', printSeparatedList(document), ')'] : document;
 
-const initialValue = (node, path, print) =>
-  node.initialValue ? [' = ', path.call(print, 'initialValue')] : '';
+const initialValue = (node, path, print) => {
+  if (!node.initialValue) {
+    return '';
+  }
+
+  return [
+    ' =',
+    printAssignmentRightSide(
+      path.call(print, 'initialValue'),
+      node.initialValue
+    )
+  ];
+};
 
 export const VariableDeclarationStatement = {
   print: ({ node, path, print }) => {

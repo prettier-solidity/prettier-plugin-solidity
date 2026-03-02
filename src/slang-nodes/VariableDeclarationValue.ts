@@ -1,10 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { printAssignmentRightSide } from '../slang-printers/print-assignment-right-side.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
-import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
-import { isMultilineString } from '../slang-utils/is-multiline-string.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
-import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -33,11 +31,7 @@ export class VariableDeclarationValue extends SlangNode {
   print(path: AstPath<VariableDeclarationValue>, print: PrintFunction): Doc {
     return [
       ' =',
-      printIndentedGroupOrSpacedDocument(
-        path.call(print, 'expression'),
-        !(this.expression instanceof TerminalNode) &&
-          isMultilineString(this.expression)
-      )
+      printAssignmentRightSide(path.call(print, 'expression'), this.expression)
     ];
   }
 }

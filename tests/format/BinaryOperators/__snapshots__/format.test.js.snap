@@ -482,10 +482,11 @@ contract ComparisonOperators {
             a = veryVeryVeryVeryVeryLongVariableCalledA;
             veryVeryVeryVeryVeryLongVariableCalledB
             >= veryVeryVeryVeryVeryLongVariableCalledA;
-            a += veryVeryVeryVeryVeryLongVariableCalledA
-                || veryVeryVeryVeryVeryLongVariableCalledB
-                ? 1
-                : 2
+            a +=
+                veryVeryVeryVeryVeryLongVariableCalledA
+                    || veryVeryVeryVeryVeryLongVariableCalledB
+                    ? 1
+                    : 2
         ) {}
         a(
             veryVeryVeryVeryVeryLongVariableCalledA
@@ -635,10 +636,11 @@ contract LogicalOperators {
         for (
             a = veryVeryVeryVeryVeryLongVariableCalledA;
             a <= veryVeryVeryVeryVeryLongVariableCalledA;
-            a += veryVeryVeryVeryVeryLongVariableCalledA
-                || veryVeryVeryVeryVeryLongVariableCalledB
-                ? 1
-                : 2
+            a +=
+                veryVeryVeryVeryVeryLongVariableCalledA
+                    || veryVeryVeryVeryVeryLongVariableCalledB
+                    ? 1
+                    : 2
         ) {}
         a(
             veryVeryVeryVeryVeryLongVariableCalledA
@@ -1163,10 +1165,11 @@ contract ComparisonOperators {
             a = veryVeryVeryVeryVeryLongVariableCalledA;
             veryVeryVeryVeryVeryLongVariableCalledB >=
             veryVeryVeryVeryVeryLongVariableCalledA;
-            a += veryVeryVeryVeryVeryLongVariableCalledA ||
-                veryVeryVeryVeryVeryLongVariableCalledB
-                ? 1
-                : 2
+            a +=
+                veryVeryVeryVeryVeryLongVariableCalledA ||
+                    veryVeryVeryVeryVeryLongVariableCalledB
+                    ? 1
+                    : 2
         ) {}
         a(
             veryVeryVeryVeryVeryLongVariableCalledA ==
@@ -1316,10 +1319,11 @@ contract LogicalOperators {
         for (
             a = veryVeryVeryVeryVeryLongVariableCalledA;
             a <= veryVeryVeryVeryVeryLongVariableCalledA;
-            a += veryVeryVeryVeryVeryLongVariableCalledA ||
-                veryVeryVeryVeryVeryLongVariableCalledB
-                ? 1
-                : 2
+            a +=
+                veryVeryVeryVeryVeryLongVariableCalledA ||
+                    veryVeryVeryVeryVeryLongVariableCalledB
+                    ? 1
+                    : 2
         ) {}
         a(
             veryVeryVeryVeryVeryLongVariableCalledA ||

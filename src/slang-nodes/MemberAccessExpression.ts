@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isLabel } from '../slang-utils/is-label.js';
-import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
+import { isChainableExpression } from '../slang-utils/is-chainable-expression.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -10,22 +10,16 @@ import { TerminalNode } from './TerminalNode.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode, StrictAstNode } from './types.d.ts';
+import type { AstNode } from './types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
 
-const isChainableExpression = createKindCheckFunction([
-  NonterminalKind.FunctionCallExpression,
-  NonterminalKind.IndexAccessExpression,
-  NonterminalKind.MemberAccessExpression
-]);
-
 function isEndOfChain(
   node: MemberAccessExpression,
-  path: AstPath<StrictAstNode>
+  path: AstPath<Expression['variant']>
 ): boolean {
   for (
-    let i = 1, current: StrictAstNode = node, parent = path.getNode(i);
+    let i = 1, current: Expression['variant'] = node, parent = path.getNode(i);
     parent && isChainableExpression(parent);
     i++, current = parent, parent = path.getNode(i)
   ) {
