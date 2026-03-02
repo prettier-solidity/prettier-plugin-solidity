@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
+import { isMultilineString } from '../slang-utils/is-multiline-string.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -45,7 +46,8 @@ export class AssignmentExpression extends SlangNode {
       printIndentedGroupOrSpacedDocument(
         path.call(print, 'rightOperand'),
         !(this.rightOperand instanceof TerminalNode) &&
-          isBinaryOperation(this.rightOperand)
+          (isBinaryOperation(this.rightOperand) ||
+            isMultilineString(this.rightOperand))
       )
     ];
   }
