@@ -10,13 +10,13 @@ import { TerminalNode } from './TerminalNode.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode, ChainableExpression } from './types.d.ts';
+import type { AstNode, ChainableExpression, StrictAstNode } from './types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
 
 function isEndOfChain(
   node: ChainableExpression,
-  path: AstPath<Expression['variant']>
+  path: AstPath<StrictAstNode>
 ): boolean {
   for (let i = 1, current = node, parent; ; i++, current = parent) {
     parent = path.getNode(i)!;
