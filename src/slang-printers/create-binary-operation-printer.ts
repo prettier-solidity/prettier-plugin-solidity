@@ -1,7 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
-import { TerminalNode } from '../slang-nodes/TerminalNode.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type {
@@ -15,7 +14,7 @@ const { group, line } = doc.builders;
 
 function rightOperandPrint(
   { operator, leftOperand }: BinaryOperation,
-  path: AstPath<BinaryOperation>,
+  path: AstPath<StrictAstNode>,
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
@@ -27,9 +26,9 @@ function rightOperandPrint(
 
   // If there's only a single binary expression, we want to create a group in
   // order to avoid having a small right part like -1 be on its own line.
-  const parent = path.parent as StrictAstNode;
+  const parent = path.parent!;
   const shouldGroup =
-    (leftOperand instanceof TerminalNode || !isBinaryOperation(leftOperand)) &&
+    !isBinaryOperation(leftOperand) &&
     (!isBinaryOperation(parent) ||
       parent.kind === NonterminalKind.AssignmentExpression);
 
@@ -38,17 +37,15 @@ function rightOperandPrint(
 
 export const createBinaryOperationPrinter =
   (
-    groupRulesBuilder: (
-      path: AstPath<BinaryOperation>
-    ) => (document: Doc) => Doc,
+    groupRulesBuilder: (path: AstPath<StrictAstNode>) => (document: Doc) => Doc,
     indentRulesBuilder: (
-      path: AstPath<BinaryOperation>,
+      path: AstPath<StrictAstNode>,
       options: ParserOptions<AstNode>
     ) => (document: Doc) => Doc
   ) =>
   (
     node: BinaryOperation,
-    path: AstPath<BinaryOperation>,
+    path: AstPath<StrictAstNode>,
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc => {

@@ -240,6 +240,7 @@ export type LineComment = SingleLineComment | SingleLineNatSpecComment;
 export type Comment = BlockComment | LineComment;
 
 export type StrictAstNode =
+  | TerminalNode
   | SourceUnit
   | PragmaDirective
   | AbicoderPragma
@@ -493,6 +494,11 @@ export type BinaryOperation = Extract<
     rightOperand: Expression['variant'];
   }
 >;
+
+export type ChainableExpression =
+  | FunctionCallExpression
+  | IndexAccessExpression
+  | MemberAccessExpression;
 
 export type AstNode =
   | StrictAstNode
