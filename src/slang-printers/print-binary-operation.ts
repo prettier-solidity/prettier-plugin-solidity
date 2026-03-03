@@ -32,7 +32,7 @@ const isStatementWithoutIndentedOperation = createKindCheckFunction([
 
 export const shouldNotIndent = (
   node: StrictAstNode,
-  path: AstPath<BinaryOperation>,
+  path: AstPath<StrictAstNode>,
   index: number
 ): boolean =>
   isStatementWithoutIndentedOperation(node) ||
@@ -42,15 +42,15 @@ export const shouldNotIndent = (
 
 export const binaryIndentRulesBuilder =
   (shouldIndent: (node: BinaryOperation) => boolean) =>
-  (path: AstPath<BinaryOperation>) =>
+  (node: BinaryOperation, path: AstPath<StrictAstNode>) =>
   (document: Doc): Doc => {
-    for (let i = 1, node = path.node; ; i++) {
-      const parent = path.getNode(i) as StrictAstNode;
+    for (let i = 1, current = node; ; i++) {
+      const parent = path.getNode(i)!;
       if (shouldNotIndent(parent, path, i)) break;
       if (!isBinaryOperation(parent)) return indent(document);
       if (shouldIndent(parent)) return indent(document);
-      if (node === parent.rightOperand) break;
-      node = parent;
+      if (current === parent.rightOperand) break;
+      current = parent;
     }
     return document;
   };

@@ -10,11 +10,12 @@ import type { PrintFunction } from '../types.d.ts';
 const { hardline } = doc.builders;
 
 export function printPreservingEmptyLines(
+  node: LineCollection,
   path: AstPath<LineCollection>,
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ): Doc {
-  return path.node.items.length > 0
+  return node.items.length > 0
     ? path.map((childPath) => {
         const node = childPath.node;
 
@@ -35,5 +36,5 @@ export function printPreservingEmptyLines(
             : ''
         ];
       }, 'items')
-    : printComments(path, options);
+    : printComments(node, path, options);
 }

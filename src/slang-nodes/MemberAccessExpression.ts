@@ -10,19 +10,18 @@ import { TerminalNode } from './TerminalNode.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { AstNode, ChainableExpression } from './types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
 
 function isEndOfChain(
-  node: MemberAccessExpression,
+  node: ChainableExpression,
   path: AstPath<Expression['variant']>
 ): boolean {
-  for (
-    let i = 1, current: Expression['variant'] = node, parent = path.getNode(i);
-    parent && isChainableExpression(parent);
-    i++, current = parent, parent = path.getNode(i)
-  ) {
+  for (let i = 1, current = node; ; i++) {
+    const parent = path.getNode(i)!;
+    if (!isChainableExpression(parent)) break;
+
     switch (parent.kind) {
       case NonterminalKind.MemberAccessExpression:
         // If `parent` is a MemberAccessExpression we are not at the end
@@ -41,6 +40,7 @@ function isEndOfChain(
         if (current !== parent.operand) return true;
         break;
     }
+    current = parent;
   }
   return true;
 }

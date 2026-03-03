@@ -31,6 +31,6 @@ export class SourceUnitMembers extends SlangNode {
     print: PrintFunction,
     options: ParserOptions<AstNode>
   ): Doc {
-    return printPreservingEmptyLines(path, print, options);
+    return printPreservingEmptyLines(this, path, print, options);
   }
 }
