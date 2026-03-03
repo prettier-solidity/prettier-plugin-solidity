@@ -36,9 +36,10 @@ export class Statements extends SlangNode {
     options: ParserOptions<AstNode>
   ): Doc {
     return this.items.length > 0 || (this.comments?.length || 0) > 0
-      ? printSeparatedItem(printPreservingEmptyLines(path, print, options), {
-          firstSeparator: hardline
-        })
+      ? printSeparatedItem(
+          printPreservingEmptyLines(this, path, print, options),
+          { firstSeparator: hardline }
+        )
       : '';
   }
 }

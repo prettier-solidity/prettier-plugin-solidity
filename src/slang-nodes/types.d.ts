@@ -494,6 +494,11 @@ export type BinaryOperation = Extract<
   }
 >;
 
+export type ChainableExpression =
+  | FunctionCallExpression
+  | IndexAccessExpression
+  | MemberAccessExpression;
+
 export type AstNode =
   | StrictAstNode
   | Comment

@@ -15,19 +15,19 @@ const { indent } = doc.builders;
 const logicalGroupRulesBuilder = binaryGroupRulesBuilder(() => false);
 
 const logicalIndentRulesBuilder =
-  (path: AstPath<BinaryOperation>) =>
+  (node: BinaryOperation, path: AstPath<StrictAstNode>) =>
   (document: Doc): Doc => {
-    for (let i = 1, node = path.node; ; i++) {
-      const parent = path.getNode(i) as StrictAstNode;
+    for (let i = 1, current = node; ; i++) {
+      const parent = path.getNode(i)!;
       if (shouldNotIndent(parent, path, i)) break;
       if (
         parent.kind === NonterminalKind.ConditionalExpression &&
-        parent.operand === node
+        parent.operand === current
       )
         break;
       if (!isBinaryOperation(parent)) return indent(document);
-      if (node === parent.rightOperand) break;
-      node = parent;
+      if (current === parent.rightOperand) break;
+      current = parent;
     }
     return document;
   };
