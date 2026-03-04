@@ -17,8 +17,8 @@ const logicalGroupRulesBuilder = binaryGroupRulesBuilder(() => false);
 const logicalIndentRulesBuilder =
   (node: BinaryOperation, path: AstPath<StrictAstNode>) =>
   (document: Doc): Doc => {
-    for (let i = 1, current = node; ; i++) {
-      const parent = path.getNode(i)!;
+    for (let i = 1, current = node, parent; ; i++, current = parent) {
+      parent = path.getNode(i)!;
       if (shouldNotIndent(parent, path, i)) break;
       if (
         parent.kind === NonterminalKind.ConditionalExpression &&
@@ -27,7 +27,6 @@ const logicalIndentRulesBuilder =
         break;
       if (!isBinaryOperation(parent)) return indent(document);
       if (current === parent.rightOperand) break;
-      current = parent;
     }
     return document;
   };
