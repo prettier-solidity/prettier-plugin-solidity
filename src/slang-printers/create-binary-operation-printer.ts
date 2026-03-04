@@ -42,8 +42,7 @@ export const createBinaryOperationPrinter =
       path: AstPath<BinaryOperation>
     ) => (document: Doc) => Doc,
     indentRulesBuilder: (
-      path: AstPath<BinaryOperation>,
-      options: ParserOptions<AstNode>
+      path: AstPath<BinaryOperation>
     ) => (document: Doc) => Doc
   ) =>
   (
@@ -53,7 +52,7 @@ export const createBinaryOperationPrinter =
     options: ParserOptions<AstNode>
   ): Doc => {
     const groupRules = groupRulesBuilder(path);
-    const indentRules = indentRulesBuilder(path, options);
+    const indentRules = indentRulesBuilder(path);
 
     return groupRules([
       path.call(print, 'leftOperand'),
