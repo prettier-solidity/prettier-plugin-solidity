@@ -98,3 +98,14 @@ export const printSeparatedList = (
     lastSeparator,
     grouped
   });
+
+export const printAssignmentRightSide = (document, value) =>
+  [
+    'TupleExpression',
+    'FunctionCall',
+    'IndexAccess',
+    'NameValueExpression',
+    'MemberAccess'
+  ].includes(value.type)
+    ? [' ', document]
+    : group(indent([line, document]));

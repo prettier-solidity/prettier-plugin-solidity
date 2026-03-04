@@ -1,17 +1,17 @@
-import { doc } from 'prettier';
-
-const { group, indent, line } = doc.builders;
+import { printAssignmentRightSide } from '../common/printer-helpers.js';
 
 const initialValue = (node, path, print) => {
   if (!node.initialValue) {
     return '';
   }
 
-  if (node.initialValue.type === 'TupleExpression') {
-    return [' = ', path.call(print, 'initialValue')];
-  }
-
-  return group([' =', indent([line, path.call(print, 'initialValue')])]);
+  return [
+    ' =',
+    printAssignmentRightSide(
+      path.call(print, 'initialValue'),
+      node.initialValue
+    )
+  ];
 };
 
 export const StateVariableDeclaration = {

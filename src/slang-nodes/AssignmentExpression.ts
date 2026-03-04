@@ -1,11 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
-import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
-import { isMultilineString } from '../slang-utils/is-multiline-string.js';
+import { printAssignmentRightSide } from '../slang-printers/print-assignment-right-side.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
-import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -43,11 +40,9 @@ export class AssignmentExpression extends SlangNode {
     return [
       path.call(print, 'leftOperand'),
       ` ${this.operator}`,
-      printIndentedGroupOrSpacedDocument(
+      printAssignmentRightSide(
         path.call(print, 'rightOperand'),
-        !(this.rightOperand instanceof TerminalNode) &&
-          (isBinaryOperation(this.rightOperand) ||
-            isMultilineString(this.rightOperand))
+        this.rightOperand
       )
     ];
   }

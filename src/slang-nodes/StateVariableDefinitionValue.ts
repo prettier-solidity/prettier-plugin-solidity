@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
+import { printAssignmentRightSide } from '../slang-printers/print-assignment-right-side.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
@@ -32,10 +32,7 @@ export class StateVariableDefinitionValue extends SlangNode {
   ): Doc {
     return [
       ' =',
-      printIndentedGroupOrSpacedDocument(
-        path.call(print, 'value'),
-        this.value.kind !== NonterminalKind.ArrayExpression
-      )
+      printAssignmentRightSide(path.call(print, 'value'), this.value)
     ];
   }
 }

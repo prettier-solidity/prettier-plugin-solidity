@@ -10,7 +10,7 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode, StrictAstNode } from './types.d.ts';
 
-const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
+const { group, hardline, ifBreak, indent, line } = doc.builders;
 
 function experimentalTernaries(
   node: ConditionalExpression,
@@ -73,11 +73,7 @@ function experimentalTernaries(
         )
   ];
 
-  const document = group([conditionAndTrueExpressionGroup, falseExpressionDoc]);
-
-  return parent.kind === NonterminalKind.VariableDeclarationValue
-    ? group(indent([softline, document]))
-    : document;
+  return group([conditionAndTrueExpressionGroup, falseExpressionDoc]);
 }
 
 function traditionalTernaries(

@@ -55,11 +55,7 @@ const experimentalTernaries = (node, path, print, options) => {
         })
   ];
 
-  const document = group([conditionAndTrueExpressionGroup, falseExpressionDoc]);
-
-  return parent.type === 'VariableDeclarationStatement'
-    ? indent([softline, document])
-    : document;
+  return group([conditionAndTrueExpressionGroup, falseExpressionDoc]);
 };
 
 const traditionalTernaries = (path, print) =>
