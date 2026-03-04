@@ -18,8 +18,8 @@ function isEndOfChain(
   node: ChainableExpression,
   path: AstPath<Expression['variant']>
 ): boolean {
-  for (let i = 1, current = node; ; i++) {
-    const parent = path.getNode(i)!;
+  for (let i = 1, current = node, parent; ; i++, current = parent) {
+    parent = path.getNode(i)!;
     if (!isChainableExpression(parent)) break;
 
     switch (parent.kind) {
@@ -40,7 +40,6 @@ function isEndOfChain(
         if (current !== parent.operand) return true;
         break;
     }
-    current = parent;
   }
   return true;
 }
