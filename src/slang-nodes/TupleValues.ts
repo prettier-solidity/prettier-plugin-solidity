@@ -3,7 +3,6 @@ import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { SlangNode } from './SlangNode.js';
 import { TupleValue } from './TupleValue.js';
-import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -36,9 +35,7 @@ export class TupleValues extends SlangNode {
   print(path: AstPath<TupleValues>, print: PrintFunction): Doc {
     const singleExpression = this.getSingleExpression();
     const items = path.map(print, 'items');
-    return singleExpression &&
-      !(singleExpression instanceof TerminalNode) &&
-      isBinaryOperation(singleExpression)
+    return singleExpression && isBinaryOperation(singleExpression)
       ? items
       : printSeparatedList(items);
   }

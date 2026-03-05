@@ -240,6 +240,7 @@ export type LineComment = SingleLineComment | SingleLineNatSpecComment;
 export type Comment = BlockComment | LineComment;
 
 export type StrictAstNode =
+  | TerminalNode
   | SourceUnit
   | PragmaDirective
   | AbicoderPragma

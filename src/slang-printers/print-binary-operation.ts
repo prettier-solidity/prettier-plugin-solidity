@@ -16,9 +16,9 @@ const { group, indent } = doc.builders;
 
 export const binaryGroupRulesBuilder =
   (shouldGroup: (node: BinaryOperation) => boolean) =>
-  (path: AstPath<BinaryOperation>) =>
+  (path: AstPath<StrictAstNode>) =>
   (document: Doc): Doc => {
-    const parent = path.parent as StrictAstNode;
+    const parent = path.parent!;
     if (!isBinaryOperation(parent)) return group(document);
     if (shouldGroup(parent)) return group(document);
     return document;
@@ -37,8 +37,7 @@ export const shouldNotIndent = (
 ): boolean =>
   isStatementWithoutIndentedOperation(node) ||
   (node.kind === NonterminalKind.ExpressionStatement &&
-    (path.getNode(index + 1) as StrictAstNode).kind ===
-      NonterminalKind.ForStatement);
+    path.getNode(index + 1)!.kind === NonterminalKind.ForStatement);
 
 export const binaryIndentRulesBuilder =
   (shouldIndent: (node: BinaryOperation) => boolean) =>
@@ -58,7 +57,7 @@ export const printBinaryOperation = (
   shouldGroupAndIndent: (node: StrictAstNode) => boolean
 ): ((
   node: BinaryOperation,
-  path: AstPath<BinaryOperation>,
+  path: AstPath<StrictAstNode>,
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ) => Doc) =>
