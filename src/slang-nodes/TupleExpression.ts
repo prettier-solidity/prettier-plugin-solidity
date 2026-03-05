@@ -20,6 +20,8 @@ export class TupleExpression extends SlangNode {
     super(ast, collected);
 
     this.items = new TupleValues(ast.items, collected, options);
+
+    this.updateMetadata(this.items);
   }
 
   print(path: AstPath<TupleExpression>, print: PrintFunction): Doc {
