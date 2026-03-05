@@ -484,7 +484,7 @@ contract ComparisonOperators {
             >= veryVeryVeryVeryVeryLongVariableCalledA;
             a +=
                 veryVeryVeryVeryVeryLongVariableCalledA
-                    || veryVeryVeryVeryVeryLongVariableCalledB
+                || veryVeryVeryVeryVeryLongVariableCalledB
                     ? 1
                     : 2
         ) {}
@@ -638,7 +638,7 @@ contract LogicalOperators {
             a <= veryVeryVeryVeryVeryLongVariableCalledA;
             a +=
                 veryVeryVeryVeryVeryLongVariableCalledA
-                    || veryVeryVeryVeryVeryLongVariableCalledB
+                || veryVeryVeryVeryVeryLongVariableCalledB
                     ? 1
                     : 2
         ) {}
@@ -1167,7 +1167,7 @@ contract ComparisonOperators {
             veryVeryVeryVeryVeryLongVariableCalledA;
             a +=
                 veryVeryVeryVeryVeryLongVariableCalledA ||
-                    veryVeryVeryVeryVeryLongVariableCalledB
+                veryVeryVeryVeryVeryLongVariableCalledB
                     ? 1
                     : 2
         ) {}
@@ -1321,7 +1321,7 @@ contract LogicalOperators {
             a <= veryVeryVeryVeryVeryLongVariableCalledA;
             a +=
                 veryVeryVeryVeryVeryLongVariableCalledA ||
-                    veryVeryVeryVeryVeryLongVariableCalledB
+                veryVeryVeryVeryVeryLongVariableCalledB
                     ? 1
                     : 2
         ) {}
