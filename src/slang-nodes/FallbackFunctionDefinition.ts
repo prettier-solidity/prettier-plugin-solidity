@@ -52,15 +52,8 @@ export class FallbackFunctionDefinition extends SlangNode {
       this.body
     );
 
-    this.cleanModifierInvocationArguments();
-  }
-
-  cleanModifierInvocationArguments(): void {
     for (const attribute of this.attributes.items) {
-      if (
-        typeof attribute !== 'string' &&
-        attribute.kind === NonterminalKind.ModifierInvocation
-      ) {
+      if (attribute.kind === NonterminalKind.ModifierInvocation) {
         attribute.cleanModifierInvocationArguments();
       }
     }
