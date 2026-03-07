@@ -8,21 +8,17 @@ import {
 } from './print-binary-operation.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  BinaryOperation,
-  StrictAstNode
-} from '../slang-nodes/types.d.ts';
+import type { AstNode, StrictAstNode } from '../slang-nodes/types.d.ts';
 
 const { indent } = doc.builders;
 
 const logicalGroupRulesBuilder = binaryGroupRulesBuilder(() => false);
 
 const logicalIndentRulesBuilder =
-  (path: AstPath<BinaryOperation>, options: ParserOptions<AstNode>) =>
+  (path: AstPath<StrictAstNode>, options: ParserOptions<AstNode>) =>
   (document: Doc): Doc => {
     for (let i = 1, node = path.node; ; i++) {
-      const parent = path.getNode(i) as StrictAstNode;
+      const parent = path.getNode(i)!;
       if (shouldNotIndent(parent, path, i)) break;
       if (
         options.experimentalTernaries &&
