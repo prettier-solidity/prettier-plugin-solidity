@@ -36,7 +36,7 @@ export class PositionalArguments extends SlangNode {
     if (this.items.length > 0) {
       return printSeparatedList(path.map(print, 'items'));
     }
-    const argumentComments = printComments(path, options);
+    const argumentComments = printComments(this, path, options);
 
     return argumentComments.length > 0
       ? printSeparatedItem(argumentComments)

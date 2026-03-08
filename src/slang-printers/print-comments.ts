@@ -17,10 +17,11 @@ function isPrintable(comment: Comment): boolean {
 }
 
 export function printComments(
+  node: StrictAstNode,
   path: AstPath<StrictAstNode>,
   options: ParserOptions<AstNode>
 ): Doc[] {
-  if (path.node.comments === undefined) return [];
+  if (node.comments === undefined) return [];
   return joinExisting(
     line,
     path.map((commentPath, index, comments: Comment[]) => {
