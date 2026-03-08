@@ -14,11 +14,11 @@ const { group, hardline, ifBreak, indent, line } = doc.builders;
 
 function experimentalTernaries(
   node: ConditionalExpression,
-  path: AstPath<ConditionalExpression>,
+  path: AstPath<StrictAstNode>,
   print: PrintFunction,
   { useTabs, tabWidth }: ParserOptions<AstNode>
 ): Doc {
-  const parent = path.parent as StrictAstNode;
+  const parent = path.parent!;
   const isNested = parent.kind === NonterminalKind.ConditionalExpression;
   const isNestedAsTrueExpression = isNested && parent.trueExpression === node;
   const falseExpressionVariantKind = node.falseExpression.kind;
@@ -77,7 +77,7 @@ function experimentalTernaries(
 }
 
 function traditionalTernaries(
-  path: AstPath<ConditionalExpression>,
+  path: AstPath<StrictAstNode>,
   print: PrintFunction
 ): Doc {
   return group([
@@ -85,8 +85,7 @@ function traditionalTernaries(
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
       // line
-      (path.parent as StrictAstNode).kind ===
-      NonterminalKind.ConditionalExpression
+      path.parent!.kind === NonterminalKind.ConditionalExpression
         ? hardline
         : line,
       '? ',
