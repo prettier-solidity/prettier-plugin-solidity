@@ -3,7 +3,7 @@ import { isChainableExpression } from '../slang-utils/is-chainable-expression.js
 import { printIndentedGroupOrSpacedDocument } from './print-indented-group-or-spaced-document.js';
 
 import type { Doc, doc } from 'prettier';
-import type { Expression } from '../slang-nodes/Expression.js';
+import type { Expression } from '../slang-nodes/Expression.ts';
 
 export function printAssignmentRightSide(
   document: Doc,
