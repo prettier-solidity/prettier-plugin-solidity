@@ -1,6 +1,6 @@
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { satisfies } from 'semver';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 import { ContractSpecifiers } from './ContractSpecifiers.js';
@@ -42,12 +42,10 @@ export class ContractDefinition extends SlangNode {
 
     this.updateMetadata(this.specifiers, this.members);
 
-    this.cleanModifierInvocationArguments(options);
-  }
-
-  cleanModifierInvocationArguments(options: ParserOptions<AstNode>): void {
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
+    // So we delegate to the parents the responsibility of cleaning the
+    // arguments of modifier invocations.
     if (!satisfies(options.compiler, '>=0.5.0')) {
       for (const member of this.members.items) {
         if (

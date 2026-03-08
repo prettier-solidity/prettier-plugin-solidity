@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.34;
+pragma solidity 0.4.26;
 
 contract ModifierDefinitions {
   // We enforce the use of parentheses in modifiers without parameters.
@@ -10,7 +10,7 @@ contract ModifierDefinitions {
 contract ModifierInvocations is ModifierDefinitions {
   // We can't differentiate between constructor calls or modifiers, so we keep
   // parentheses untouched in constructors.
-  constructor () emptyParams noParams() ModifierDefinitions() {}
+  function ModifierInvocations () emptyParams noParams() ModifierDefinitions() {}
 
   // We remove parentheses in modifiers without arguments.
   function test() public emptyParams noParams() {}

@@ -41,10 +41,6 @@ export class UnnamedFunctionDefinition extends SlangNode {
 
     this.updateMetadata(this.parameters, this.attributes, this.body);
 
-    this.cleanModifierInvocationArguments();
-  }
-
-  cleanModifierInvocationArguments(): void {
     for (const attribute of this.attributes.items) {
       if (attribute.kind === NonterminalKind.ModifierInvocation) {
         attribute.cleanModifierInvocationArguments();

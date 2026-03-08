@@ -1,5 +1,5 @@
-import { satisfies } from 'semver';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { satisfies } from 'semver';
 import { printFunctionWithBody } from '../slang-printers/print-function.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
@@ -60,6 +60,8 @@ export class FunctionDefinition extends SlangNode {
 
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
+    // So we delegate to the parents the responsibility of cleaning the
+    // arguments of modifier invocations.
     if (satisfies(options.compiler, '>=0.5.0')) {
       this.cleanModifierInvocationArguments();
     }
@@ -67,10 +69,7 @@ export class FunctionDefinition extends SlangNode {
 
   cleanModifierInvocationArguments(): void {
     for (const attribute of this.attributes.items) {
-      if (
-        typeof attribute !== 'string' &&
-        attribute.kind === NonterminalKind.ModifierInvocation
-      ) {
+      if (attribute.kind === NonterminalKind.ModifierInvocation) {
         attribute.cleanModifierInvocationArguments();
       }
     }
