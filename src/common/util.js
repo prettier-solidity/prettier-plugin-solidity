@@ -1,5 +1,4 @@
-import { util, version } from 'prettier';
-import satisfies from 'semver/functions/satisfies.js';
+import { util } from 'prettier';
 
 export function printString(rawContent, options) {
   const double = { quote: '"', regex: /"/g };
