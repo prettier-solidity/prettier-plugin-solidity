@@ -4,7 +4,7 @@ exports[`Comments.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 contract Comments1 {
   /* solhint-disable var-name-mixedcase */

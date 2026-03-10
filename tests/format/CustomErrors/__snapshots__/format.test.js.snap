@@ -4,7 +4,7 @@ exports[`CustomErrors.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 pragma solidity ^0.8.4;
 

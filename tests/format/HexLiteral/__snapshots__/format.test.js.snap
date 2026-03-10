@@ -5,7 +5,7 @@ exports[`HexLiteral.sol - {"singleQuote":false} format 1`] = `
 parsers: ["slang"]
 printWidth: 80
 singleQuote: false
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -32,7 +32,7 @@ exports[`HexLiteral.sol - {"singleQuote":true} format 1`] = `
 parsers: ["slang"]
 printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;

@@ -4,7 +4,7 @@ exports[`AllSolidityFeatures.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // Examples taken from the Solidity documentation online.
 pragma experimental ABIEncoderV2;

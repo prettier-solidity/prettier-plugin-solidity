@@ -5,7 +5,7 @@ exports[`FunctionCalls.sol - {"bracketSpacing":true} format 1`] = `
 bracketSpacing: true
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 contract FunctionCalls {
     function foo() {
@@ -157,7 +157,7 @@ exports[`FunctionCalls.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 contract FunctionCalls {
     function foo() {

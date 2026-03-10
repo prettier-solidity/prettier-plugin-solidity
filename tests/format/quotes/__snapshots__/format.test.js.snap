@@ -5,7 +5,7 @@ exports[`Quotes.sol - {"singleQuote":false} format 1`] = `
 parsers: ["slang"]
 printWidth: 80
 singleQuote: false
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 import 'someContract.sol';
 import "someOtherContract.sol";
@@ -64,7 +64,7 @@ exports[`Quotes.sol - {"singleQuote":true} format 1`] = `
 parsers: ["slang"]
 printWidth: 80
 singleQuote: true
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 import 'someContract.sol';
 import "someOtherContract.sol";

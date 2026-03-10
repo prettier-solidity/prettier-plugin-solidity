@@ -4,7 +4,7 @@ exports[`respect-default-options.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 function a() {
     return {key:value};

@@ -6,7 +6,7 @@ bracketSpacing: true
 compiler: "0.7.3"
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 pragma solidity ^0.7.0;
 
@@ -37,7 +37,7 @@ exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.3"} format 1`] = `
 compiler: "0.7.3"
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 pragma solidity ^0.7.0;
 
@@ -69,7 +69,7 @@ bracketSpacing: true
 compiler: "0.7.4"
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 pragma solidity ^0.7.0;
 
@@ -105,7 +105,7 @@ exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.4"} format 1`] = `
 compiler: "0.7.4"
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 pragma solidity ^0.7.0;
 

@@ -4,7 +4,7 @@ exports[`MultipartStrings.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 contract MultipartStrings {
   bytes h1 = hex'beef';

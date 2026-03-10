@@ -5,7 +5,7 @@ exports[`FunctionDefinitions.sol - {"compiler":"0.5.17"} format 1`] = `
 compiler: "0.5.17"
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 contract FunctionDefinitions {
   function () external {}

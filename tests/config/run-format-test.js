@@ -9,7 +9,7 @@ import getPlugins from "./get-plugins.js";
 import compileContract from "./utils/compile-contract.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
-import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
+import { stringifyOptionsForTitle } from "./utils/stringify-options-for-title.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 
 const { __dirname } = createEsmUtils(import.meta);

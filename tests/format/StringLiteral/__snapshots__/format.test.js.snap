@@ -4,7 +4,7 @@ exports[`StringLiteral.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 contract StringLiteral {
     bytes32 public constant PERMIT_TYPEHASH = keccak256(
