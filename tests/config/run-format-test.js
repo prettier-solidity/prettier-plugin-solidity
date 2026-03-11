@@ -11,6 +11,11 @@ import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import { stringifyOptionsForTitle } from "./utils/stringify-options-for-title.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import {
+  isAntlrMismatch,
+  isAstUnstable,
+  isUnstable,
+} from "./failed-format-tests.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -20,32 +25,6 @@ const BOM = "\uFEFF";
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
 const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
-
-// Here we add files that will not be the same when formatting a second time.
-const unstableTests = new Map(
-  [].map((fixture) => {
-    const [file, isUnstable = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../format/", file), isUnstable];
-  }),
-);
-
-// Here we add files that will not have the same AST after being formatted.
-const unstableAstTests = new Map(
-  [
-    // `: =` and `= :` are syntactically the same as `:=` and `=:`, but the ast
-    // changes from `YulColonAndEqual` and `YulEqualAndColon` to `ColonEqual`
-    // and `EqualColon`, which is expected but the workaround to keep the test
-    // stable is too much, so we just put it in this list.
-    "AssemblyV0.4.26/Assembly.sol",
-  ].map((fixture) => {
-    const [file, isAstUnstable = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../format/", file), isAstUnstable];
-  }),
-);
 
 const testsWithAstChanges = new Map(
   [
@@ -70,60 +49,6 @@ const testsWithAstChanges = new Map(
     return [path.join(__dirname, "../format/", file), compareBytecode];
   }),
 );
-
-const antlrMismatchTests = new Map(
-  [
-    // Better placement of comments in Slang.
-    "BasicIterator/BasicIterator.sol",
-    "Comments/Comments.sol",
-    "IndexOf/IndexOf.sol",
-    // Syntax for `pragma solidity 0.5.0 - 0.6.0;` not supported by ANTLR
-    "Pragma/Pragma.sol",
-    // ANTLR doesn't support assembly assignment operators separated by a space
-    // like `: =` or `= :`
-    "AssemblyV0.4.26/Assembly.sol",
-    // ANTLR doesn't support UntypedTupleMember with a storage location, which
-    // is valid Slang, but not in Solidity.
-    "AllSolidityFeaturesV0.4.26/AllSolidityFeatures.sol",
-    // TODO Review how ANTLR is formatting chained assignments
-    "Assignments/Assignments.sol",
-  ].map((fixture) => {
-    const [file, compareBytecode = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../format/", file), compareBytecode];
-  }),
-);
-
-const isUnstable = (filename, options) => {
-  const testFunction = unstableTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
-
-const isAstUnstable = (filename, options) => {
-  const testFunction = unstableAstTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
-
-const isAntlrMismatch = (filename, options) => {
-  const testFunction = antlrMismatchTests.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
 
 const shouldCompareBytecode = (filename, options) => {
   const testFunction = testsWithAstChanges.get(filename);
