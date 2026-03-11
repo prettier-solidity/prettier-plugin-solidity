@@ -1,12 +1,13 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import { BOM, FULL_TEST } from "./constants.js";
+import { FULL_TEST } from "./constants.js";
 import * as failedTests from "./failed-format-tests.js";
 import { format } from "./run-prettier.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 import * as testAstCompare from "./test-ast-compare.js";
+import * as testBom from "./test-bom.js";
 import * as testEndOfLine from "./test-end-of-line.js";
 import * as testSecondFormat from "./test-second-format.js";
 import { shouldThrowOnFormat } from "./utilities.js";
@@ -132,15 +133,7 @@ async function runTest({
   await testAstCompare.run(code, formatResult, filename, formatOptions);
   await testEndOfLine.run(code, formatResult, filename, formatOptions, "\r\n");
   await testEndOfLine.run(code, formatResult, filename, formatOptions, "\r");
-
-  if (code.charAt(0) !== BOM) {
-    const { eolVisualizedOutput: output } = await format(
-      BOM + code,
-      formatOptions,
-    );
-    const expected = BOM + formatResult.eolVisualizedOutput;
-    expect(output).toEqual(expected);
-  }
+  await testBom.run(code, formatResult, filename, formatOptions);
 
   if (shouldCompareBytecode(filename, formatOptions)) {
     const output = compileContract(filename, formatResult.output);
