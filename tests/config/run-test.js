@@ -1,5 +1,3 @@
-import path from "node:path";
-import createEsmUtils from "esm-utils";
 import { FULL_TEST } from "./constants.js";
 import * as failedTests from "./failed-format-tests.js";
 import { format } from "./run-prettier.js";
@@ -10,48 +8,12 @@ import * as testAstCompare from "./test-ast-compare.js";
 import * as testBom from "./test-bom.js";
 import * as testEndOfLine from "./test-end-of-line.js";
 import * as testSecondFormat from "./test-second-format.js";
+import * as testBytecodeCompare from "./test-bytecode-compare.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 import getPrettier from "./get-prettier.js";
 import getCreateParser from "./get-create-parser.js";
 import getVariantCoverage from "./get-variant-coverage.js";
 import getPlugins from "./get-plugins.js";
-import compileContract from "./utils/compile-contract.js";
-
-const { __dirname } = createEsmUtils(import.meta);
-
-const testsWithAstChanges = new Map(
-  [
-    "Parentheses/AddNoParentheses.sol",
-    "Parentheses/SubNoParentheses.sol",
-    "Parentheses/MulNoParentheses.sol",
-    "Parentheses/DivNoParentheses.sol",
-    "Parentheses/ModNoParentheses.sol",
-    "Parentheses/ExpNoParentheses.sol",
-    "Parentheses/ShiftLNoParentheses.sol",
-    "Parentheses/ShiftRNoParentheses.sol",
-    "Parentheses/BitAndNoParentheses.sol",
-    "Parentheses/BitOrNoParentheses.sol",
-    "Parentheses/BitXorNoParentheses.sol",
-    "Parentheses/LogicNoParentheses.sol",
-    "HexLiteral/HexLiteral.sol",
-    "ModifierInvocations/ModifierInvocations.sol",
-  ].map((fixture) => {
-    const [file, compareBytecode = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../format/", file), compareBytecode];
-  }),
-);
-
-const shouldCompareBytecode = (filename, options) => {
-  const testFunction = testsWithAstChanges.get(filename);
-
-  if (!testFunction) {
-    return false;
-  }
-
-  return testFunction(options);
-};
 
 async function runTest({
   parsers,
@@ -134,12 +96,7 @@ async function runTest({
   await testEndOfLine.run(code, formatResult, filename, formatOptions, "\r\n");
   await testEndOfLine.run(code, formatResult, filename, formatOptions, "\r");
   await testBom.run(code, formatResult, filename, formatOptions);
-
-  if (shouldCompareBytecode(filename, formatOptions)) {
-    const output = compileContract(filename, formatResult.output);
-    const expected = compileContract(filename, formatResult.input);
-    expect(output).toEqual(expected);
-  }
+  await testBytecodeCompare.run(code, formatResult, filename, formatOptions);
 }
 
 export { runTest };
