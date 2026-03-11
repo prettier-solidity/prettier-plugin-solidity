@@ -6,6 +6,7 @@ import { format, parse } from "./run-prettier.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import * as testSecondFormat from "./test-second-format.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 import getPrettier from "./get-prettier.js";
 import getCreateParser from "./get-create-parser.js";
@@ -125,25 +126,7 @@ async function runTest({
     }
   }
 
-  const isUnstableTest = failedTests.isUnstable(filename, formatOptions);
-  if (
-    (formatResult.changed || isUnstableTest) &&
-    // No range and cursor
-    formatResult.input === code
-  ) {
-    const { eolVisualizedOutput: firstOutput, output } = formatResult;
-    const { eolVisualizedOutput: secondOutput } = await format(
-      output,
-      formatOptions,
-    );
-    if (isUnstableTest) {
-      // To keep eye on failed tests, this assert never supposed to pass,
-      // if it fails, just remove the file from `unstableTests`
-      expect(secondOutput).not.toEqual(firstOutput);
-    } else {
-      expect(secondOutput).toEqual(firstOutput);
-    }
-  }
+  testSecondFormat.run(code, formatResult, filename, formatOptions);
 
   const isAstUnstableTest = failedTests.isAstUnstable(filename, formatOptions);
   // Some parsers skip parsing empty files
