@@ -9,10 +9,10 @@ import * as testBom from "./test-bom.js";
 import * as testEndOfLine from "./test-end-of-line.js";
 import * as testSecondFormat from "./test-second-format.js";
 import * as testBytecodeCompare from "./test-bytecode-compare.js";
+import * as testVariantCoverage from "./test-variant-coverage.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 import getPrettier from "./get-prettier.js";
 import getCreateParser from "./get-create-parser.js";
-import getVariantCoverage from "./get-variant-coverage.js";
 import getPlugins from "./get-plugins.js";
 
 async function runTest({
@@ -70,11 +70,7 @@ async function runTest({
 
   if (formatOptions.parser === "slang") {
     const createParser = await getCreateParser();
-    const variantCoverage = await getVariantCoverage();
-    const { parser, parseOutput } = createParser(code, formatOptions);
-
-    // Check coverage
-    variantCoverage(parseOutput.tree.asNonterminalNode());
+    const { parser } = createParser(code, formatOptions);
 
     if (!failedTests.isAntlrMismatch(filename, formatOptions)) {
       // Compare with ANTLR's format
@@ -91,6 +87,7 @@ async function runTest({
     }
   }
 
+  await testVariantCoverage.run(code, formatResult, filename, formatOptions);
   await testSecondFormat.run(code, formatResult, filename, formatOptions);
   await testAstCompare.run(code, formatResult, filename, formatOptions);
   await testEndOfLine.run(code, formatResult, filename, formatOptions, "\r\n");
