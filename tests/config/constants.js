@@ -8,6 +8,9 @@ export const FORMAT_TEST_DIRECTORY = normalizeDirectory(
   path.join(__dirname, "../format/"),
 );
 
+export const { FULL_TEST } = process.env;
+export const BOM = "\uFEFF";
+
 export const CURSOR_PLACEHOLDER = "<|>";
 export const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
 export const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
