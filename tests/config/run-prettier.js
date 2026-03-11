@@ -1,18 +1,15 @@
 import getPrettier from "./get-prettier.js";
 import getPlugins from "./get-plugins.js";
-import {
-  CURSOR_PLACEHOLDER,
-  RANGE_START_PLACEHOLDER,
-  RANGE_END_PLACEHOLDER,
-} from "./constants.js";
+import { CURSOR_PLACEHOLDER } from "./constants.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import { replacePlaceholders } from "./replace-placeholders.js";
 
-async function parse(source, options) {
+async function parse(input, options) {
   const prettier = await getPrettier();
 
   const { ast } = await prettier.__debug.parse(
-    source,
-    { ...options, plugins: await getPlugins() },
+    input,
+    await loadPlugins(options),
     { massage: true },
   );
   return ast;
@@ -28,7 +25,7 @@ async function format(originalText, originalOptions) {
 
   const { formatted: output, cursorOffset } = await prettier.formatWithCursor(
     input,
-    { ...options, plugins: await getPlugins() },
+    await loadPlugins(options),
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
@@ -53,39 +50,8 @@ const insertCursor = (text, cursorOffset) =>
       text.slice(cursorOffset)
     : text;
 
-const indexProperties = [
-  {
-    property: "cursorOffset",
-    placeholder: CURSOR_PLACEHOLDER,
-  },
-  {
-    property: "rangeStart",
-    placeholder: RANGE_START_PLACEHOLDER,
-  },
-  {
-    property: "rangeEnd",
-    placeholder: RANGE_END_PLACEHOLDER,
-  },
-];
-
-function replacePlaceholders(originalText, originalOptions) {
-  const indexes = indexProperties
-    .map(({ property, placeholder }) => {
-      const value = originalText.indexOf(placeholder);
-      return value === -1 ? undefined : { property, value, placeholder };
-    })
-    .filter(Boolean)
-    .sort((a, b) => a.value - b.value);
-
-  const options = { ...originalOptions };
-  let text = originalText;
-  let offset = 0;
-  for (const { property, value, placeholder } of indexes) {
-    text = text.replace(placeholder, "");
-    options[property] = value + offset;
-    offset -= placeholder.length;
-  }
-  return { text, options };
+async function loadPlugins(options) {
+  return { ...options, plugins: await getPlugins() };
 }
 
 export { format, parse };
