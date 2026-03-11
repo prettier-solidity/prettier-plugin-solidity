@@ -7,6 +7,7 @@ import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 import * as testAstCompare from "./test-ast-compare.js";
+import * as testEndOfLine from "./test-end-of-line.js";
 import * as testSecondFormat from "./test-second-format.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 import getPrettier from "./get-prettier.js";
@@ -129,24 +130,8 @@ async function runTest({
 
   await testSecondFormat.run(code, formatResult, filename, formatOptions);
   await testAstCompare.run(code, formatResult, filename, formatOptions);
-
-  if (!shouldSkipEolTest(code, formatResult.options)) {
-    for (const eol of ["\r\n", "\r"]) {
-      const { eolVisualizedOutput: output } = await format(
-        code.replace(/\n/gu, eol),
-        formatOptions,
-      );
-      // Only if `endOfLine: "auto"` the result will be different
-      const expected =
-        formatOptions.endOfLine === "auto"
-          ? visualizeEndOfLine(
-              // All `code` use `LF`, so the `eol` of result is always `LF`
-              formatResult.outputWithCursor.replace(/\n/gu, eol),
-            )
-          : formatResult.eolVisualizedOutput;
-      expect(output).toEqual(expected);
-    }
-  }
+  await testEndOfLine.run(code, formatResult, filename, formatOptions, "\r\n");
+  await testEndOfLine.run(code, formatResult, filename, formatOptions, "\r");
 
   if (code.charAt(0) !== BOM) {
     const { eolVisualizedOutput: output } = await format(
@@ -162,25 +147,6 @@ async function runTest({
     const expected = compileContract(filename, formatResult.input);
     expect(output).toEqual(expected);
   }
-}
-
-function shouldSkipEolTest(code, options) {
-  if (code.includes("\r")) {
-    return true;
-  }
-  const { requirePragma, rangeStart, rangeEnd } = options;
-  if (requirePragma) {
-    return true;
-  }
-
-  if (
-    typeof rangeStart === "number" &&
-    typeof rangeEnd === "number" &&
-    rangeStart >= rangeEnd
-  ) {
-    return true;
-  }
-  return false;
 }
 
 export { runTest };
