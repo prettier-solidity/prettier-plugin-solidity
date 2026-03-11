@@ -2,10 +2,11 @@ import path from "node:path";
 import createEsmUtils from "esm-utils";
 import { BOM, FULL_TEST } from "./constants.js";
 import * as failedTests from "./failed-format-tests.js";
-import { format, parse } from "./run-prettier.js";
+import { format } from "./run-prettier.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import * as testAstCompare from "./test-ast-compare.js";
 import * as testSecondFormat from "./test-second-format.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 import getPrettier from "./get-prettier.js";
@@ -126,20 +127,8 @@ async function runTest({
     }
   }
 
-  testSecondFormat.run(code, formatResult, filename, formatOptions);
-
-  const isAstUnstableTest = failedTests.isAstUnstable(filename, formatOptions);
-  // Some parsers skip parsing empty files
-  if (formatResult.changed && code.trim()) {
-    const { input, output } = formatResult;
-    const originalAst = await parse(input, formatOptions);
-    const formattedAst = await parse(output, formatOptions);
-    if (isAstUnstableTest) {
-      expect(formattedAst).not.toEqual(originalAst);
-    } else {
-      expect(formattedAst).toEqual(originalAst);
-    }
-  }
+  await testSecondFormat.run(code, formatResult, filename, formatOptions);
+  await testAstCompare.run(code, formatResult, filename, formatOptions);
 
   if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
