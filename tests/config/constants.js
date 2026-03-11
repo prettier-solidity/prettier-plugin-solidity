@@ -9,3 +9,5 @@ export const FORMAT_TEST_DIRECTORY = normalizeDirectory(
 );
 
 export const CURSOR_PLACEHOLDER = "<|>";
+export const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
+export const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";

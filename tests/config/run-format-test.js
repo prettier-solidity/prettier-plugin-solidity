@@ -16,6 +16,7 @@ import {
   isAstUnstable,
   isUnstable,
 } from "./failed-format-tests.js";
+import { format, parse } from "./run-prettier.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -23,8 +24,6 @@ const { FULL_TEST } = process.env;
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
-const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
-const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
 
 const testsWithAstChanges = new Map(
   [
@@ -368,85 +367,6 @@ function shouldSkipEolTest(code, options) {
     return true;
   }
   return false;
-}
-
-async function parse(source, options) {
-  const prettier = await getPrettier();
-
-  const { ast } = await prettier.__debug.parse(
-    source,
-    { ...options, plugins: await getPlugins() },
-    { massage: true },
-  );
-  return ast;
-}
-
-const indexProperties = [
-  {
-    property: "cursorOffset",
-    placeholder: CURSOR_PLACEHOLDER,
-  },
-  {
-    property: "rangeStart",
-    placeholder: RANGE_START_PLACEHOLDER,
-  },
-  {
-    property: "rangeEnd",
-    placeholder: RANGE_END_PLACEHOLDER,
-  },
-];
-function replacePlaceholders(originalText, originalOptions) {
-  const indexes = indexProperties
-    .map(({ property, placeholder }) => {
-      const value = originalText.indexOf(placeholder);
-      return value === -1 ? undefined : { property, value, placeholder };
-    })
-    .filter(Boolean)
-    .sort((a, b) => a.value - b.value);
-
-  const options = { ...originalOptions };
-  let text = originalText;
-  let offset = 0;
-  for (const { property, value, placeholder } of indexes) {
-    text = text.replace(placeholder, "");
-    options[property] = value + offset;
-    offset -= placeholder.length;
-  }
-  return { text, options };
-}
-
-const insertCursor = (text, cursorOffset) =>
-  cursorOffset >= 0
-    ? text.slice(0, cursorOffset) +
-      CURSOR_PLACEHOLDER +
-      text.slice(cursorOffset)
-    : text;
-async function format(originalText, originalOptions) {
-  const { text: input, options } = replacePlaceholders(
-    originalText,
-    originalOptions,
-  );
-  const inputWithCursor = insertCursor(input, options.cursorOffset);
-  const prettier = await getPrettier();
-
-  const { formatted: output, cursorOffset } = await prettier.formatWithCursor(
-    input,
-    { ...options, plugins: await getPlugins() },
-  );
-  const outputWithCursor = insertCursor(output, cursorOffset);
-  const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
-
-  const changed = outputWithCursor !== inputWithCursor;
-
-  return {
-    changed,
-    options,
-    input,
-    inputWithCursor,
-    output,
-    outputWithCursor,
-    eolVisualizedOutput,
-  };
 }
 
 export default runFormatTest;
