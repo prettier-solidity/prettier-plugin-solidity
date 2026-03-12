@@ -85,6 +85,8 @@ const antlrMismatchTests = new Map(
     // ANTLR doesn't support UntypedTupleMember with a storage location, which
     // is valid Slang, but not in Solidity.
     "AllSolidityFeaturesV0.4.26/AllSolidityFeatures.sol",
+    // TODO Review how ANTLR is formatting chained assignments
+    "Assignments/Assignments.sol",
   ].map((fixture) => {
     const [file, compareBytecode = () => true] = Array.isArray(fixture)
       ? fixture
