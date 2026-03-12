@@ -12,6 +12,7 @@ export function printAssignmentRightSide(
   return printIndentedGroupOrSpacedDocument(
     document,
     value.kind !== NonterminalKind.ArrayExpression &&
+    value.kind !== NonterminalKind.TupleExpression &&
       !isChainableExpression(value)
   );
 }
