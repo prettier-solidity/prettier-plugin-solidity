@@ -14,12 +14,12 @@ function* getFiles(context) {
     const filename = file.name;
     const filepath = path.join(dirname, filename);
     if (
-      path.extname(filename) === ".snap" ||
       !file.isFile() ||
       filename[0] === "." ||
       filename === FORMAT_SCRIPT_FILENAME ||
       // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
-      filename === "debug.log"
+      filename === "debug.log" ||
+      path.extname(filename) === ".snap"
     ) {
       continue;
     }
