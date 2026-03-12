@@ -12,7 +12,7 @@ import { runTest } from "./run-test.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 
 function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
-  let { importMeta, snippets = [] } = rawFixtures.importMeta
+  const { importMeta, snippets = [] } = rawFixtures.importMeta
     ? rawFixtures
     : { importMeta: rawFixtures };
 
