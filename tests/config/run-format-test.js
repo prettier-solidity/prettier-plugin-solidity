@@ -1,47 +1,41 @@
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import createEsmUtils from "esm-utils";
+import { FORMAT_SCRIPT_FILENAME } from "./constants.js";
 import { stringifyOptionsForTitle } from "./utils/stringify-options-for-title.js";
+import {
+  isErrorTest as isErrorTestDirectory,
+  normalizeDirectory,
+} from "./utilities.js";
 import { format } from "./run-prettier.js";
 import { runTest } from "./run-test.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 
-const { __dirname } = createEsmUtils(import.meta);
-
-const isTestDirectory = (dirname, name) =>
-  (dirname + path.sep).startsWith(
-    path.join(__dirname, "../format", name) + path.sep,
-  );
-
-function runFormatTest(fixtures, parsers, options) {
-  let { importMeta, snippets = [] } = fixtures.importMeta
-    ? fixtures
-    : { importMeta: fixtures };
+function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
+  let { importMeta, snippets = [] } = rawFixtures.importMeta
+    ? rawFixtures
+    : { importMeta: rawFixtures };
 
   const filename = path.basename(new URL(importMeta.url).pathname);
-  if (filename !== "format.test.js") {
-    throw new Error(`Format test should run in file named 'format.test.js'.`);
+  if (filename !== FORMAT_SCRIPT_FILENAME) {
+    throw new Error(
+      `Format test should run in file named '${FORMAT_SCRIPT_FILENAME}'.`,
+    );
   }
 
-  const dirname = path.dirname(url.fileURLToPath(importMeta.url));
-
-  // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
-  const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
-    dirname,
-    "misc/parser-inference",
+  const dirname = normalizeDirectory(
+    path.dirname(url.fileURLToPath(importMeta.url)),
   );
 
-  // `IS_ERROR_TESTS` mean to watch errors like:
+  let options = { ...rawOptions };
+
+  // `IS_ERROR_TEST` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
-  if (IS_ERROR_TESTS) {
-    options = { errors: true, ...options };
-  }
+  const isErrorTest = isErrorTestDirectory(dirname);
 
-  if (IS_PARSER_INFERENCE_TESTS) {
-    parsers = [undefined];
+  if (isErrorTest) {
+    options = { errors: true, ...options };
   }
 
   snippets = snippets.map((test, index) => {
@@ -83,8 +77,8 @@ function runFormatTest(fixtures, parsers, options) {
     })
     .filter(Boolean);
 
-  const [parser] = parsers;
-  const allParsers = [...parsers];
+  const [parser] = explicitParsers;
+  const allParsers = [...explicitParsers];
 
   const stringifiedOptions = stringifyOptionsForTitle(options);
 
@@ -123,7 +117,7 @@ function runFormatTest(fixtures, parsers, options) {
 
         test(testTitle, async () => {
           await runTest({
-            parsers,
+            parsers: explicitParsers,
             name,
             filename,
             code,
