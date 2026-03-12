@@ -8,6 +8,7 @@ import {
   normalizeDirectory,
 } from "./utilities.js";
 import { format } from "./run-prettier.js";
+import { replacePlaceholders } from "./replace-placeholders.js";
 import { runTest } from "./run-test.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 
@@ -38,67 +39,81 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
     options = { errors: true, ...options };
   }
 
-  const [parser] = explicitParsers;
-  const allParsers = [...explicitParsers];
-
   const context = {
     dirname,
     stringifiedOptions: stringifyOptionsForTitle(rawOptions),
-    parsers: allParsers,
+    parsers: [...explicitParsers],
     options,
     explicitParsers,
     rawOptions,
     snippets,
   };
 
-  for (const { name, filename, code, output } of getFixtures(context)) {
+  for (const fixture of getFixtures(context)) {
+    const { name, context, filepath } = fixture;
+    const { stringifiedOptions, parsers } = context;
+
     const title = `${name}${
-      context.stringifiedOptions ? ` - ${context.stringifiedOptions}` : ""
+      stringifiedOptions ? ` - ${stringifiedOptions}` : ""
     }`;
 
     describe(title, () => {
-      const formatOptions = {
-        printWidth: 80,
-        ...options,
-        filepath: filename,
-        parser,
-      };
-      const shouldThrowOnMainParserFormat = shouldThrowOnFormat(
-        name,
-        formatOptions,
-      );
+      const testCases = parsers.map((parser) => getTestCase(fixture, parser));
 
-      let mainParserFormatResult;
-      if (shouldThrowOnMainParserFormat) {
-        mainParserFormatResult = { options: formatOptions, error: true };
-      } else {
-        beforeAll(async () => {
-          mainParserFormatResult = await format(code, formatOptions);
-        });
-      }
-
-      for (const currentParser of allParsers) {
+      for (const testCase of testCases) {
         const testTitle =
-          shouldThrowOnMainParserFormat ||
-          formatOptions.parser !== currentParser
-            ? `[${currentParser}] format`
+          testCase.expectFail ||
+          testCase.formatOptions.parser !== testCase.parser
+            ? `[${testCase.parser}] format`
             : "format";
 
         test(testTitle, async () => {
           await runTest({
-            parsers: explicitParsers,
+            parsers,
             name,
-            filename,
-            code,
-            output,
-            parser: currentParser,
-            mainParserFormatResult,
-            mainParserFormatOptions: formatOptions,
+            filename: filepath,
+            code: testCase.code,
+            output: testCase.expectedOutput,
+            parser: testCase.parser,
+            mainParserFormatResult: await testCase.runFormat(),
+            mainParserFormatOptions: testCase.formatOptions,
           });
         });
       }
     });
   }
+}
+
+function getTestCase(fixture, parser) {
+  const { code: originalText, context, filepath } = fixture;
+
+  const { text: code, options: formatOptions } = replacePlaceholders(
+    originalText,
+    {
+      printWidth: 80,
+      ...context.options,
+      filepath,
+      parser,
+    },
+  );
+
+  const expectFail = shouldThrowOnFormat(fixture, formatOptions);
+
+  let promise;
+
+  return {
+    context,
+    parser,
+    filepath,
+    originalText,
+    code,
+    formatOptions,
+    expectFail,
+    expectedOutput: fixture.output,
+    isEmpty: code.trim() === "",
+    runFormat: () =>
+      promise === undefined ? (promise = format(code, formatOptions)) : promise,
+  };
 }
 
 export default runFormatTest;
