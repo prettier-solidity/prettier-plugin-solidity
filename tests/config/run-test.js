@@ -64,14 +64,22 @@ async function runTest({
   if (!FULL_TEST) {
     return;
   }
-  await testAntlrFormat.run(code, formatResult, filename, formatOptions);
-  await testVariantCoverage.run(code, formatResult, filename, formatOptions);
-  await testSecondFormat.run(code, formatResult, filename, formatOptions);
-  await testAstCompare.run(code, formatResult, filename, formatOptions);
-  await testEndOfLine.run(code, formatResult, filename, formatOptions, "\r\n");
-  await testEndOfLine.run(code, formatResult, filename, formatOptions, "\r");
-  await testBom.run(code, formatResult, filename, formatOptions);
-  await testBytecodeCompare.run(code, formatResult, filename, formatOptions);
+  await Promise.all(
+    [
+      testAntlrFormat,
+      testVariantCoverage,
+      testSecondFormat,
+      testAstCompare,
+      testBom,
+      testBytecodeCompare,
+    ]
+      .map((test) => test.run(code, formatResult, filename, formatOptions))
+      .join(
+        ["\r\n", "\r"].map((eol) =>
+          testEndOfLine.run(code, formatResult, filename, formatOptions, eol),
+        ),
+      ),
+  );
 }
 
 export { runTest };
