@@ -1,7 +1,7 @@
-import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import { FORMAT_SCRIPT_FILENAME } from "./constants.js";
+import { getFixtures } from "./get-fixtures.js";
 import { stringifyOptionsForTitle } from "./utils/stringify-options-for-title.js";
 import {
   isErrorTest as isErrorTestDirectory,
@@ -38,53 +38,22 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
     options = { errors: true, ...options };
   }
 
-  snippets = snippets.map((test, index) => {
-    test = typeof test === "string" ? { code: test } : test;
-
-    if (typeof test.code !== "string") {
-      throw Object.assign(new Error("Invalid test"), { test });
-    }
-
-    return {
-      ...test,
-      name: `snippet: ${test.name || `#${index}`}`,
-    };
-  });
-
-  const files = fs
-    .readdirSync(dirname, { withFileTypes: true })
-    .map((file) => {
-      const basename = file.name;
-      const filename = path.join(dirname, basename);
-      if (
-        path.extname(basename) === ".snap" ||
-        !file.isFile() ||
-        basename[0] === "." ||
-        basename === "format.test.js" ||
-        // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
-        basename === "debug.log"
-      ) {
-        return;
-      }
-
-      const text = fs.readFileSync(filename, "utf8");
-
-      return {
-        name: basename,
-        filename,
-        code: text,
-      };
-    })
-    .filter(Boolean);
-
   const [parser] = explicitParsers;
   const allParsers = [...explicitParsers];
 
-  const stringifiedOptions = stringifyOptionsForTitle(options);
+  const context = {
+    dirname,
+    stringifiedOptions: stringifyOptionsForTitle(rawOptions),
+    parsers: allParsers,
+    options,
+    explicitParsers,
+    rawOptions,
+    snippets,
+  };
 
-  for (const { name, filename, code, output } of [...files, ...snippets]) {
+  for (const { name, filename, code, output } of getFixtures(context)) {
     const title = `${name}${
-      stringifiedOptions ? ` - ${stringifiedOptions}` : ""
+      context.stringifiedOptions ? ` - ${context.stringifiedOptions}` : ""
     }`;
 
     describe(title, () => {
