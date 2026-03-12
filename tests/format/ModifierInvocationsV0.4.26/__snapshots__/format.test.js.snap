@@ -5,7 +5,7 @@ exports[`ModifierInvocations.sol - {"compiler":"0.4.26"} format 1`] = `
 compiler: "0.4.26"
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.4.26;

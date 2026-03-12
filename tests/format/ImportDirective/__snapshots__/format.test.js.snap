@@ -5,7 +5,7 @@ exports[`ImportDirectives.sol - {"bracketSpacing":true} format 1`] = `
 bracketSpacing: true
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 import "SomeFile.sol";
 import "SomeFile.sol" as SomeOtherFile;
@@ -60,7 +60,7 @@ exports[`ImportDirectives.sol - {"compiler":"0.7.3"} format 1`] = `
 compiler: "0.7.3"
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 import "SomeFile.sol";
 import "SomeFile.sol" as SomeOtherFile;
@@ -100,7 +100,7 @@ exports[`ImportDirectives.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 import "SomeFile.sol";
 import "SomeFile.sol" as SomeOtherFile;

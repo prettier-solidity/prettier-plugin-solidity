@@ -5,7 +5,7 @@ exports[`Libraries.sol - {"bracketSpacing":true} format 1`] = `
 bracketSpacing: true
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
   using   Lib    for uint;
 using Lib for
@@ -57,7 +57,7 @@ exports[`Libraries.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
   using   Lib    for uint;
 using Lib for

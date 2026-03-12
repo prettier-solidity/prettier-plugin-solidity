@@ -1,5 +1,8 @@
+/**
+@param {string} text
+*/
 function visualizeEndOfLine(text) {
-  return text.replace(/\r\n?|\n/gu, (endOfLine) => {
+  return text.replace(/\r\n?|\n/g, (endOfLine) => {
     switch (endOfLine) {
       case "\n":
         return "<LF>\n";

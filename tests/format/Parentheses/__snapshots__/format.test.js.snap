@@ -4,7 +4,7 @@ exports[`AddNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -200,7 +200,7 @@ exports[`BitAndNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -396,7 +396,7 @@ exports[`BitOrNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -592,7 +592,7 @@ exports[`BitXorNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -788,7 +788,7 @@ exports[`DivNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -984,7 +984,7 @@ exports[`EqualParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
@@ -1207,7 +1207,7 @@ exports[`ExpNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -1403,7 +1403,7 @@ exports[`LogicNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -1491,7 +1491,7 @@ exports[`ModNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -1687,7 +1687,7 @@ exports[`MulNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -1883,7 +1883,7 @@ exports[`NotEqualParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
@@ -2106,7 +2106,7 @@ exports[`ShiftLNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -2302,7 +2302,7 @@ exports[`ShiftRNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -2498,7 +2498,7 @@ exports[`SubNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;

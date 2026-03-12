@@ -2,7 +2,10 @@ import { wrap as raw } from "jest-snapshot-serializer-raw";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 import visualizeRange from "./visualize-range.js";
 
-const SEPARATOR_WIDTH = 80;
+const CURSOR_PLACEHOLDER = "<|>";
+
+const DEFAULT_PRINT_WIDTH = 80;
+const SEPARATOR_WIDTH = DEFAULT_PRINT_WIDTH;
 function printSeparator(description = "") {
   const leftLength = Math.floor((SEPARATOR_WIDTH - description.length) / 2);
   const rightLength = SEPARATOR_WIDTH - leftLength - description.length;
@@ -10,11 +13,15 @@ function printSeparator(description = "") {
 }
 
 function stringify(value) {
-  return value === Number.POSITIVE_INFINITY
-    ? "Infinity"
-    : Array.isArray(value)
-      ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`
-      : JSON.stringify(value);
+  if (value === Number.POSITIVE_INFINITY) {
+    return "Infinity";
+  }
+
+  if (Array.isArray(value)) {
+    return `[${value.map((v) => JSON.stringify(v)).join(", ")}]`;
+  }
+
+  return JSON.stringify(value);
 }
 
 function printOptions(options) {
@@ -33,23 +40,41 @@ function printOptions(options) {
     .join("\n");
 }
 
-function printWidthIndicator(printWidth, offset) {
-  if (!Number.isFinite(printWidth) || printWidth < 1) {
+function makeWidthIndicator(printWidth) {
+  const text =
+    printWidth === undefined
+      ? `printWidth: ${DEFAULT_PRINT_WIDTH} (default)`
+      : `printWidth: ${printWidth}`;
+
+  if (printWidth === undefined) {
+    printWidth = DEFAULT_PRINT_WIDTH;
+  }
+
+  return printWidth >= text.length + 2
+    ? (text + " |").padStart(printWidth, " ")
+    : " ".repeat(printWidth) + "| " + text;
+}
+
+const defaultWidthIndicator = makeWidthIndicator();
+function printWidthIndicator(printWidth) {
+  if (
+    !(
+      printWidth === undefined ||
+      (Number.isSafeInteger(printWidth) && printWidth > 0)
+    )
+  ) {
     return "";
   }
 
-  let before = "";
-  if (offset) {
-    before = " ".repeat(offset - 1) + "|";
-  }
+  const widthIndicator =
+    printWidth === undefined
+      ? defaultWidthIndicator
+      : makeWidthIndicator(printWidth);
 
-  return `${before}${" ".repeat(printWidth)}| printWidth`;
+  return widthIndicator;
 }
 
-function createSnapshot(
-  formatResult,
-  { parsers, formatOptions, CURSOR_PLACEHOLDER },
-) {
+function createSnapshot(formatResult, { parsers, formatOptions }) {
   let {
     inputWithCursor: input,
     outputWithCursor: output,
@@ -69,7 +94,7 @@ function createSnapshot(
     }
 
     input = visualizeRange(input, { rangeStart, rangeEnd });
-    codeOffset = input.match(/^>?\s+1 \|/u)[0].length + 1;
+    codeOffset = input.match(/^>?\s+1 \|/)[0].length + 1;
   }
 
   if ("endOfLine" in formatOptions) {
@@ -81,16 +106,34 @@ function createSnapshot(
 
   return raw(
     [
-      printSeparator("options"),
-      printOptions({ ...options, parsers }),
-      ...(widthIndicator ? [widthIndicator] : []),
-      printSeparator("input"),
+      addOffset(
+        [
+          printSeparator("options"),
+          printOptions({ ...options, parsers }),
+          ...(widthIndicator ? [widthIndicator] : []),
+          printSeparator("input"),
+        ].join("\n"),
+        codeOffset,
+      ),
       input,
-      printSeparator("output"),
-      output,
-      printSeparator(),
+      addOffset(
+        [printSeparator("output"), output, printSeparator()].join("\n"),
+        codeOffset,
+      ),
     ].join("\n"),
   );
+}
+
+function addOffset(text, offset) {
+  if (!offset) {
+    return text;
+  }
+
+  const prefix = " ".repeat(offset - 2) + ":";
+  return text
+    .split("\n")
+    .map((line) => `${prefix}${line ? ` ${line}` : line}`)
+    .join("\n");
 }
 
 export default createSnapshot;

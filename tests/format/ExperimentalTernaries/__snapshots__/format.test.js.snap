@@ -6,7 +6,7 @@ experimentalTernaries: true
 parsers: ["slang"]
 printWidth: 80
 tabWidth: 1
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 pragma solidity ^0.4.24;
 
@@ -517,7 +517,7 @@ experimentalTernaries: true
 parsers: ["slang"]
 printWidth: 80
 useTabs: true
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 pragma solidity ^0.4.24;
 
@@ -1031,7 +1031,7 @@ exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true} format 1`] =
 experimentalTernaries: true
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 pragma solidity ^0.4.24;
 
@@ -1544,7 +1544,7 @@ exports[`ExperimentalTernaries.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
 printWidth: 80
-                                                                                | printWidth
+                                                                printWidth: 80 |
 =====================================input======================================
 pragma solidity ^0.4.24;
 
