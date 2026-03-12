@@ -2,15 +2,12 @@ import path from "node:path";
 import url from "node:url";
 import { FORMAT_SCRIPT_FILENAME } from "./constants.js";
 import { getFixtures } from "./get-fixtures.js";
+import { testFixture } from "./run-test.js";
 import { stringifyOptionsForTitle } from "./utils/stringify-options-for-title.js";
 import {
   isErrorTest as isErrorTestDirectory,
   normalizeDirectory,
 } from "./utilities.js";
-import { format } from "./run-prettier.js";
-import { replacePlaceholders } from "./replace-placeholders.js";
-import { runTest } from "./run-test.js";
-import { shouldThrowOnFormat } from "./utilities.js";
 
 function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
   const { importMeta, snippets = [] } = rawFixtures.importMeta
@@ -50,70 +47,8 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
   };
 
   for (const fixture of getFixtures(context)) {
-    const { name, context, filepath } = fixture;
-    const { stringifiedOptions, parsers } = context;
-
-    const title = `${name}${
-      stringifiedOptions ? ` - ${stringifiedOptions}` : ""
-    }`;
-
-    describe(title, () => {
-      const testCases = parsers.map((parser) => getTestCase(fixture, parser));
-
-      for (const testCase of testCases) {
-        const testTitle =
-          testCase.expectFail ||
-          testCase.formatOptions.parser !== testCase.parser
-            ? `[${testCase.parser}] format`
-            : "format";
-
-        test(testTitle, async () => {
-          await runTest({
-            parsers,
-            name,
-            filename: filepath,
-            code: testCase.code,
-            output: testCase.expectedOutput,
-            parser: testCase.parser,
-            mainParserFormatResult: await testCase.runFormat(),
-            mainParserFormatOptions: testCase.formatOptions,
-          });
-        });
-      }
-    });
+    testFixture(fixture);
   }
-}
-
-function getTestCase(fixture, parser) {
-  const { code: originalText, context, filepath } = fixture;
-
-  const { text: code, options: formatOptions } = replacePlaceholders(
-    originalText,
-    {
-      printWidth: 80,
-      ...context.options,
-      filepath,
-      parser,
-    },
-  );
-
-  const expectFail = shouldThrowOnFormat(fixture, formatOptions);
-
-  let promise;
-
-  return {
-    context,
-    parser,
-    filepath,
-    originalText,
-    code,
-    formatOptions,
-    expectFail,
-    expectedOutput: fixture.output,
-    isEmpty: code.trim() === "",
-    runFormat: () =>
-      promise === undefined ? (promise = format(code, formatOptions)) : promise,
-  };
 }
 
 export default runFormatTest;
