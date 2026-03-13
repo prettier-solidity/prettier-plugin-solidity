@@ -1,16 +1,13 @@
 import { format } from "./run-prettier.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 
-async function testEndOfLine(
-  source,
-  formatResult,
-  _filename,
-  formatOptions,
-  eol,
-) {
-  if (!shouldSkipEolTest(source, formatResult.options)) {
+async function testEndOfLine(testCase, eol) {
+  const { code, formatOptions } = testCase;
+  const formatResult = await testCase.runFormat();
+
+  if (!shouldSkipEolTest(code, formatResult.options)) {
     const { eolVisualizedOutput: output } = await format(
-      source.replace(/\n/gu, eol),
+      code.replace(/\n/gu, eol),
       formatOptions,
     );
     // Only if `endOfLine: "auto"` the result will be different

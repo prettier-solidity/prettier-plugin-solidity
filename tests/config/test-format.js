@@ -2,14 +2,10 @@ import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import createSnapshot from "./utils/create-snapshot.js";
 import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 
-async function testFormat(
-  code,
-  formatResult,
-  parser,
-  parsers,
-  expectedOutput,
-  formatOptions,
-) {
+async function testFormat(testCase) {
+  const { code, parser, expectedOutput, formatOptions } = testCase;
+  const formatResult = await testCase.runFormat();
+
   // Verify parsers or error tests
   if (formatOptions.parser !== parser) {
     const runFormat = () => format(code, formatOptions);
@@ -39,7 +35,10 @@ async function testFormat(
 
   // All parsers have the same result, only snapshot the result from main parser
   expect(
-    createSnapshot(formatResult, { parsers, formatOptions }),
+    createSnapshot(formatResult, {
+      parsers: testCase.context.parsers,
+      formatOptions,
+    }),
   ).toMatchSnapshot();
 }
 

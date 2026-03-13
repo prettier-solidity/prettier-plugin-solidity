@@ -12,7 +12,7 @@ import * as testVariantCoverage from "./test-variant-coverage.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 
 async function testFixture(fixture) {
-  const { name, context, filepath } = fixture;
+  const { name, context } = fixture;
   const { stringifiedOptions, parsers } = context;
 
   const title = `${name}${
@@ -29,17 +29,7 @@ async function testFixture(fixture) {
           : "format";
 
       test(testTitle, async () => {
-        let { code, expectedOutput, parser, formatOptions } = testCase;
-        let formatResult = await testCase.runFormat();
-
-        await testFormat.run(
-          code,
-          formatResult,
-          parser,
-          parsers,
-          expectedOutput,
-          formatOptions,
-        );
+        await testFormat.run(testCase);
 
         if (!FULL_TEST) {
           return;
@@ -53,17 +43,9 @@ async function testFixture(fixture) {
             testBom.run,
             testBytecodeCompare.run,
           ]
-            .map((test) => test(code, formatResult, filepath, formatOptions))
+            .map((test) => test(testCase))
             .join(
-              ["\r\n", "\r"].map((eol) =>
-                testEndOfLine.run(
-                  code,
-                  formatResult,
-                  filepath,
-                  formatOptions,
-                  eol,
-                ),
-              ),
+              ["\r\n", "\r"].map((eol) => testEndOfLine.run(testCase, eol)),
             ),
         );
       });
