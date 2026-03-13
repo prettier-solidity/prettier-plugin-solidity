@@ -1,17 +1,33 @@
 import getCreateParser from "./get-create-parser.js";
 import getVariantCoverage from "./get-variant-coverage.js";
 
-async function testVariantCoverage(testCase) {
-  const { code, formatOptions } = testCase;
+/**
+@import {TestCase} from "./run-test.js"
+*/
 
-  if (formatOptions.parser === "slang") {
+/**
+@param {TestCase} testCase
+@param {string} name
+*/
+function testVariantCoverage(testCase, name) {
+  test(name, async () => {
+    const { code, formatOptions } = testCase;
+
     const createParser = await getCreateParser();
     const variantCoverage = await getVariantCoverage();
     const { parseOutput } = createParser(code, formatOptions);
 
     // Check coverage
     variantCoverage(parseOutput.tree.asNonterminalNode());
-  }
+  });
 }
 
-export { testVariantCoverage as run };
+/**
+@param {TestCase} testCase
+@return {boolean}
+*/
+function shouldSkip(testCase) {
+  return testCase.expectFail;
+}
+
+export { testVariantCoverage as run, shouldSkip as skip };

@@ -3,12 +3,36 @@ import url from "node:url";
 import { FORMAT_SCRIPT_FILENAME } from "./constants.js";
 import { getFixtures } from "./get-fixtures.js";
 import { testFixture } from "./run-test.js";
-import { stringifyOptionsForTitle } from "./utils/stringify-options-for-title.js";
+import { stringifyOptionsForTitle } from "./stringify-options-for-title.js";
 import {
   isErrorTest as isErrorTestDirectory,
   normalizeDirectory,
 } from "./utilities.js";
 
+/**
+@typedef {
+  | string
+  | { code: string; name?: string; filename?: string; output?: string }
+} Snippet
+@typedef {{
+  dirname: string,
+  stringifiedOptions: string,
+  parsers: string[],
+  options: any,
+  explicitParsers: string[],
+  rawOptions: any,
+  snippets: Snippet[],
+}} Context
+*/
+
+/**
+@param {
+  | ImportMeta
+  | { importMeta: ImportMeta, snippets?: Snippet[] }
+} rawFixtures
+@param {string[]} explicitParsers
+@param {any} rawOptions
+*/
 function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
   const { importMeta, snippets = [] } = rawFixtures.importMeta
     ? rawFixtures
@@ -36,6 +60,8 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
     options = { errors: true, ...options };
   }
 
+  // Make sure tests are in correct location
+
   const context = {
     dirname,
     stringifiedOptions: stringifyOptionsForTitle(rawOptions),
@@ -51,4 +77,4 @@ function runFormatTest(rawFixtures, explicitParsers, rawOptions) {
   }
 }
 
-export default runFormatTest;
+export { runFormatTest };

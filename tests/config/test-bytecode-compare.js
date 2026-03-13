@@ -1,16 +1,24 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import compileContract from "./utils/compile-contract.js";
+import compileContract from "./compile-contract.js";
 
-async function testBytecodeCompare(testCase) {
-  const { filepath, formatOptions } = testCase;
-  const formatResult = await testCase.runFormat();
+/**
+@import {TestCase} from "./run-test.js"
+*/
 
-  if (shouldCompareBytecode(filepath, formatOptions)) {
+/**
+@param {TestCase} testCase
+@param {string} name
+*/
+function testBytecodeCompare(testCase, name) {
+  test(name, async () => {
+    const { filepath } = testCase;
+    const formatResult = await testCase.runFormat();
+
     const output = compileContract(filepath, formatResult.output);
     const expected = compileContract(filepath, formatResult.input);
     expect(output).toEqual(expected);
-  }
+  });
 }
 
 const { __dirname } = createEsmUtils(import.meta);
@@ -49,4 +57,15 @@ const shouldCompareBytecode = (filepath, options) => {
   return testFunction(options);
 };
 
-export { testBytecodeCompare as run };
+/**
+@param {TestCase} testCase
+@return {boolean}
+*/
+function shouldSkip(testCase) {
+  return (
+    testCase.expectFail ||
+    !shouldCompareBytecode(testCase.filepath, testCase.formatOptions)
+  );
+}
+
+export { testBytecodeCompare as run, shouldSkip as skip };

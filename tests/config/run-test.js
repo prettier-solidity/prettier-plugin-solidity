@@ -11,7 +11,15 @@ import * as testAntlrFormat from "./test-antlr-format.js";
 import * as testVariantCoverage from "./test-variant-coverage.js";
 import { shouldThrowOnFormat } from "./utilities.js";
 
-async function testFixture(fixture) {
+/**
+@import {Fixture} from "./get-fixtures.js"
+@typedef {ReturnType<getTestCase>} TestCase
+*/
+
+/**
+@param {Fixture} fixture
+*/
+function testFixture(fixture) {
   const { name, context } = fixture;
   const { stringifiedOptions, parsers } = context;
 
@@ -40,39 +48,46 @@ async function testFixture(fixture) {
           return name;
         },
         test: {
-          run: (testCase) => testFormat.run(testCase, testCaseForSnapshot),
+          run: (testCase, name) =>
+            testFormat.run(testCase, name, testCaseForSnapshot),
         },
       },
       {
         name: "ast compare",
-        test: { run: testAstCompare.run },
+        test: { run: testAstCompare.run, skip: testAstCompare.skip },
         skip: () => !FULL_TEST,
       },
       // The following cases only need run on main parser
       {
         name: "second format",
-        test: { run: testSecondFormat.run },
+        test: { run: testSecondFormat.run, skip: testSecondFormat.skip },
         skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
       {
         name: "end of line (CRLF)",
-        test: { run: (testCase) => testEndOfLine.run(testCase, "\r\n") },
+        test: {
+          run: (testCase, name) => testEndOfLine.run(testCase, name, "\r\n"),
+          skip: testEndOfLine.skip,
+        },
         skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
       {
         name: "end of line (CR)",
-        test: { run: (testCase) => testEndOfLine.run(testCase, "\r") },
+        test: {
+          run: (testCase, name) => testEndOfLine.run(testCase, name, "\r"),
+          skip: testEndOfLine.skip,
+        },
         skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
       {
         name: "BOM",
-        test: { run: testBom.run },
+        test: { run: testBom.run, skip: testBom.skip },
         skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
       // The following cases only need run if the parser is Slang
       {
         name: "ANTLR format",
-        test: { run: testAntlrFormat.run },
+        test: { run: testAntlrFormat.run, skip: testAntlrFormat.skip },
         skip: (testCase) =>
           !FULL_TEST ||
           testCase !== testCaseForSnapshot ||
@@ -80,7 +95,7 @@ async function testFixture(fixture) {
       },
       {
         name: "bytecode comparison",
-        test: { run: testBytecodeCompare.run },
+        test: { run: testBytecodeCompare.run, skip: testBytecodeCompare.skip },
         skip: (testCase) =>
           !FULL_TEST ||
           testCase !== testCaseForSnapshot ||
@@ -88,7 +103,7 @@ async function testFixture(fixture) {
       },
       {
         name: "variant coverage",
-        test: { run: testVariantCoverage.run },
+        test: { run: testVariantCoverage.run, skip: testVariantCoverage.skip },
         skip: (testCase) =>
           !FULL_TEST ||
           testCase !== testCaseForSnapshot ||
@@ -96,23 +111,30 @@ async function testFixture(fixture) {
       },
     ]) {
       for (const testCase of testCases) {
-        if (functionality.skip?.(testCase)) {
+        if (
+          functionality.skip?.(testCase) ||
+          functionality.test.skip?.(testCase)
+        ) {
           continue;
         }
+
         let { name } = functionality;
         if (typeof name === "function") {
           name = name(testCase);
         } else if (hasMultipleParsers) {
           name += ` [${testCase.parser}]`;
         }
-        test(name, async () => {
-          await functionality.test.run(testCase);
-        });
+
+        functionality.test.run(testCase, name);
       }
     }
   });
 }
 
+/**
+@param {Fixture} fixture
+@param {string} parser
+*/
 function getTestCase(fixture, parser) {
   const { code: originalText, context, filepath } = fixture;
 
@@ -120,14 +142,15 @@ function getTestCase(fixture, parser) {
     originalText,
     {
       printWidth: 80,
-      ...context.options,
       filepath,
+      ...context.options,
       parser,
     },
   );
 
   const expectFail = shouldThrowOnFormat(fixture, formatOptions);
 
+  /** @type {ReturnType<format> | undefined} */
   let promise;
 
   return {

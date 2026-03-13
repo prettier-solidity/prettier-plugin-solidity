@@ -1,3 +1,3 @@
-import runFormatTest from "./run-format-test.js";
+import { runFormatTest } from "./run-format-test.js";
 
 globalThis.runFormatTest = runFormatTest;
