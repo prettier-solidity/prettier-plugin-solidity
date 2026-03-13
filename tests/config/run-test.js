@@ -69,20 +69,30 @@ async function testFixture(fixture) {
         test: { run: testBom.run },
         skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
       },
+      // The following cases only need run if the parser is Slang
       {
         name: "ANTLR format",
         test: { run: testAntlrFormat.run },
-        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+        skip: (testCase) =>
+          !FULL_TEST ||
+          testCase !== testCaseForSnapshot ||
+          testCase.parser !== "slang",
       },
       {
         name: "bytecode comparison",
         test: { run: testBytecodeCompare.run },
-        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+        skip: (testCase) =>
+          !FULL_TEST ||
+          testCase !== testCaseForSnapshot ||
+          testCase.parser !== "slang",
       },
       {
         name: "variant coverage",
         test: { run: testVariantCoverage.run },
-        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+        skip: (testCase) =>
+          !FULL_TEST ||
+          testCase !== testCaseForSnapshot ||
+          testCase.parser !== "slang",
       },
     ]) {
       for (const testCase of testCases) {
