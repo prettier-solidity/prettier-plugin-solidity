@@ -22,33 +22,83 @@ async function testFixture(fixture) {
   describe(title, () => {
     const testCases = parsers.map((parser) => getTestCase(fixture, parser));
 
-    for (const testCase of testCases) {
-      const testTitle =
-        testCase.expectFail || testCase.formatOptions.parser !== testCase.parser
-          ? `[${testCase.parser}] format`
-          : "format";
+    const testCaseForSnapshot = testCases.find(
+      (testCase) =>
+        !testCase.expectFail && typeof testCase.expectedOutput !== "string",
+    );
 
-      test(testTitle, async () => {
-        await testFormat.run(testCase);
+    const hasMultipleParsers = testCases.length > 1;
 
-        if (!FULL_TEST) {
-          return;
+    for (const functionality of [
+      {
+        name(testCase) {
+          let name = "format";
+          // Avoid parser display in snapshot
+          if (testCaseForSnapshot !== testCase && hasMultipleParsers) {
+            name += `[${testCase.parser}]`;
+          }
+          return name;
+        },
+        test: {
+          run: (testCase) => testFormat.run(testCase, testCaseForSnapshot),
+        },
+      },
+      {
+        name: "ast compare",
+        test: { run: testAstCompare.run },
+        skip: () => !FULL_TEST,
+      },
+      // The following cases only need run on main parser
+      {
+        name: "second format",
+        test: { run: testSecondFormat.run },
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+      },
+      {
+        name: "end of line (CRLF)",
+        test: { run: (testCase) => testEndOfLine.run(testCase, "\r\n") },
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+      },
+      {
+        name: "end of line (CR)",
+        test: { run: (testCase) => testEndOfLine.run(testCase, "\r") },
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+      },
+      {
+        name: "BOM",
+        test: { run: testBom.run },
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+      },
+      {
+        name: "ANTLR format",
+        test: { run: testAntlrFormat.run },
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+      },
+      {
+        name: "bytecode comparison",
+        test: { run: testBytecodeCompare.run },
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+      },
+      {
+        name: "variant coverage",
+        test: { run: testVariantCoverage.run },
+        skip: (testCase) => !FULL_TEST || testCase !== testCaseForSnapshot,
+      },
+    ]) {
+      for (const testCase of testCases) {
+        if (functionality.skip?.(testCase)) {
+          continue;
         }
-        await Promise.all(
-          [
-            testAntlrFormat.run,
-            testVariantCoverage.run,
-            testSecondFormat.run,
-            testAstCompare.run,
-            testBom.run,
-            testBytecodeCompare.run,
-          ]
-            .map((test) => test(testCase))
-            .join(
-              ["\r\n", "\r"].map((eol) => testEndOfLine.run(testCase, eol)),
-            ),
-        );
-      });
+        let { name } = functionality;
+        if (typeof name === "function") {
+          name = name(testCase);
+        } else if (hasMultipleParsers) {
+          name += ` [${testCase.parser}]`;
+        }
+        test(name, async () => {
+          await functionality.test.run(testCase);
+        });
+      }
     }
   });
 }
