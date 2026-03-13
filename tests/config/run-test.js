@@ -1,12 +1,10 @@
 import { FULL_TEST } from "./constants.js";
 import { replacePlaceholders } from "./replace-placeholders.js";
 import { format } from "./run-prettier.js";
-import consistentEndOfLine from "./utils/consistent-end-of-line.js";
-import createSnapshot from "./utils/create-snapshot.js";
-import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 import * as testAstCompare from "./test-ast-compare.js";
 import * as testBom from "./test-bom.js";
 import * as testEndOfLine from "./test-end-of-line.js";
+import * as testFormat from "./test-format.js";
 import * as testSecondFormat from "./test-second-format.js";
 import * as testBytecodeCompare from "./test-bytecode-compare.js";
 import * as testAntlrFormat from "./test-antlr-format.js";
@@ -34,39 +32,14 @@ async function testFixture(fixture) {
         let { code, expectedOutput, parser, formatOptions } = testCase;
         let formatResult = await testCase.runFormat();
 
-        // Verify parsers or error tests
-        if (formatOptions.parser !== parser) {
-          const runFormat = () => format(code, formatOptions);
-
-          if (shouldThrowOnFormat(name, formatOptions)) {
-            await expect(runFormat()).rejects.toThrowErrorMatchingSnapshot();
-            return;
-          }
-
-          // Verify parsers format result should be the same as main parser
-          output = formatResult.outputWithCursor;
-          formatResult = await runFormat();
-        }
-
-        // Make sure output has consistent EOL
-        expect(formatResult.eolVisualizedOutput).toEqual(
-          visualizeEndOfLine(
-            consistentEndOfLine(formatResult.outputWithCursor),
-          ),
+        await testFormat.run(
+          code,
+          formatResult,
+          parser,
+          parsers,
+          expectedOutput,
+          formatOptions,
         );
-
-        // The result is assert to equals to `expectedOutput`
-        if (typeof expectedOutput === "string") {
-          expect(formatResult.eolVisualizedOutput).toEqual(
-            visualizeEndOfLine(expectedOutput),
-          );
-          return;
-        }
-
-        // All parsers have the same result, only snapshot the result from main parser
-        expect(
-          createSnapshot(formatResult, { parsers, formatOptions }),
-        ).toMatchSnapshot();
 
         if (!FULL_TEST) {
           return;
