@@ -1,8 +1,7 @@
 import { wrap as raw } from "jest-snapshot-serializer-raw";
+import { CURSOR_PLACEHOLDER } from "../constants.js";
 import visualizeEndOfLine from "./visualize-end-of-line.js";
 import visualizeRange from "./visualize-range.js";
-
-const CURSOR_PLACEHOLDER = "<|>";
 
 const DEFAULT_PRINT_WIDTH = 80;
 const SEPARATOR_WIDTH = DEFAULT_PRINT_WIDTH;
