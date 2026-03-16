@@ -15,14 +15,12 @@ export default function handleMemberAccessExpressionComments({
     return false;
   }
 
-  if (followingNode !== undefined && followingNode === enclosingNode.operand) {
+  if (followingNode === enclosingNode.operand) {
     addLeadingComment(followingNode, comment);
     return true;
   }
 
   if (
-    precedingNode !== undefined &&
-    followingNode !== undefined &&
     precedingNode === enclosingNode.operand &&
     followingNode === enclosingNode.member
   ) {
@@ -30,7 +28,7 @@ export default function handleMemberAccessExpressionComments({
     return true;
   }
 
-  if (precedingNode !== undefined && precedingNode === enclosingNode.member) {
+  if (precedingNode === enclosingNode.member) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
