@@ -11,7 +11,7 @@ export default function handleElseBranchComments({
   followingNode,
   comment
 }: HandlerParams): boolean {
-  if (enclosingNode?.kind !== NonterminalKind.ElseBranch || !followingNode) {
+  if (enclosingNode?.kind !== NonterminalKind.ElseBranch) {
     return false;
   }
 

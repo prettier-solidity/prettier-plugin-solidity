@@ -14,7 +14,7 @@ export default function handleIfStatementComments({
   followingNode,
   comment
 }: HandlerParams): boolean {
-  if (enclosingNode?.kind !== NonterminalKind.IfStatement || !followingNode) {
+  if (enclosingNode?.kind !== NonterminalKind.IfStatement) {
     return false;
   }
 
@@ -43,7 +43,7 @@ export default function handleIfStatementComments({
     return true;
   }
 
-  if (followingNode.kind === NonterminalKind.IfStatement) {
+  if (followingNode?.kind === NonterminalKind.IfStatement) {
     if (followingNode.body.kind === NonterminalKind.Block) {
       addCollectionFirstComment(followingNode.body.statements, comment);
     } else {

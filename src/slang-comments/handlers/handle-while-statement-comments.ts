@@ -14,10 +14,7 @@ export default function handleWhileStatementComments({
   followingNode,
   comment
 }: HandlerParams): boolean {
-  if (
-    enclosingNode?.kind !== NonterminalKind.WhileStatement ||
-    !followingNode
-  ) {
+  if (enclosingNode?.kind !== NonterminalKind.WhileStatement) {
     return false;
   }
 

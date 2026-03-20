@@ -6,7 +6,7 @@ import addCollectionLastComment from './add-collection-last-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
 
-export default function handleStructComments({
+export default function handleStructDefinitionComments({
   text,
   precedingNode,
   enclosingNode,
