@@ -66,14 +66,14 @@ async function runTest({
   }
   await Promise.all(
     [
-      testAntlrFormat,
-      testVariantCoverage,
-      testSecondFormat,
-      testAstCompare,
-      testBom,
-      testBytecodeCompare,
+      testAntlrFormat.run,
+      testVariantCoverage.run,
+      testSecondFormat.run,
+      testAstCompare.run,
+      testBom.run,
+      testBytecodeCompare.run,
     ]
-      .map((test) => test.run(code, formatResult, filename, formatOptions))
+      .map((run) => run(code, formatResult, filename, formatOptions))
       .join(
         ["\r\n", "\r"].map((eol) =>
           testEndOfLine.run(code, formatResult, filename, formatOptions, eol),
