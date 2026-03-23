@@ -3,6 +3,7 @@ import { doc } from 'prettier';
 import { isLabel } from '../slang-utils/is-label.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { isChainableExpression } from '../slang-utils/is-chainable-expression.js';
+import { memberAccessChainLabel } from '../slang-printers/print-member-access-chain-item.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -13,6 +14,8 @@ import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { AstNode, ChainableExpression, StrictAstNode } from './types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
+
+const separatorLabel = Symbol('separator');
 
 function isEndOfChain(
   node: ChainableExpression,
@@ -91,13 +94,13 @@ function isEndOfChain(
  * be printed.
  */
 function processChain(chain: Doc[]): Doc {
-  const firstSeparatorIndex = chain.findIndex(
-    (element) => isLabel(element) && element.label === 'separator'
+  const firstSeparatorIndex = chain.findIndex((element) =>
+    isLabel(element, separatorLabel)
   );
 
   // We wrap the expression in a label in case there is an IndexAccess or
   // a FunctionCall following this MemberAccess.
-  return label('MemberAccessChain', [
+  return label(memberAccessChainLabel, [
     // The doc[] before the first separator
     chain.slice(0, firstSeparatorIndex),
     // The doc[] containing the rest of the chain
@@ -135,7 +138,7 @@ export class MemberAccessExpression extends SlangNode {
 
     const document = [
       operandDoc,
-      label('separator', [softline, '.']),
+      label(separatorLabel, [softline, '.']),
       path.call(print, 'member')
     ].flat();
 
