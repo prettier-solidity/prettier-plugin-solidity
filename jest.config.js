@@ -16,13 +16,6 @@ export default {
   ],
   // ignore console warnings in TEST_STANDALONE
   silent: TEST_STANDALONE,
-  testPathIgnorePatterns: TEST_STANDALONE
-    ? [
-        // Standalone mode doesn't have default options.
-        // This has been reported https://github.com/prettier/prettier/issues/11107
-        'tests/format/RespectDefaultOptions'
-      ]
-    : [],
   testMatch,
   watchPlugins: [
     'jest-watch-typeahead/filename',

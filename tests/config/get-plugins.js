@@ -22,6 +22,7 @@ function getPluginsInternal() {
     process.env.TEST_STANDALONE
       ? [
           import("prettier/plugins/babel"),
+          import("prettier/plugins/estree"),
           import("prettier/plugins/markdown"),
           import(path.join(__dirname, "../../dist/standalone.js")),
         ]
