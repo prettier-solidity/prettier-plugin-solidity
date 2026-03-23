@@ -44,7 +44,7 @@ export abstract class SlangNode {
     enclosePeripheralComments = false
   ) {
     if (ast instanceof SlangTerminalNode) {
-      const start = collected.offsets.get(ast.id) || 0;
+      const start = collected.offsets.get(ast.id) ?? 0;
       const end = start + ast.textLength.utf16;
       this.loc = {
         outerStart: start,
@@ -56,7 +56,7 @@ export abstract class SlangNode {
     }
     const cst = ast.cst;
 
-    const initialOffset = collected.offsets.get(cst.id) || 0;
+    const initialOffset = collected.offsets.get(cst.id) ?? 0;
     let offset = initialOffset;
     let triviaLength = 0;
     let leadingOffset;
