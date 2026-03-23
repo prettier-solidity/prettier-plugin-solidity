@@ -70,6 +70,19 @@ contract MemberAccess {
             abi.encodeWithSelector(f.selector),
             abi.encode(returned1)
         );
+// Comments in between the chain
+        game.
+// CONFIG
+// Do not touch
+config. // Window
+// Resolution 1000
+resolveWindow = 1000;
+config.defaultDelay = 0;
+begin
+    .// Comment 1
+    functionCall(/* Comment about parameter */ parameter)
+    .// Comment 2
+    end;
     }
 }
 
@@ -206,6 +219,17 @@ contract MemberAccess {
             abi.encodeWithSelector(f.selector),
             abi.encode(returned1)
         );
+        // Comments in between the chain
+        game
+        // CONFIG
+        // Do not touch
+            .config // Window
+            // Resolution 1000
+            .resolveWindow = 1000;
+        config.defaultDelay = 0;
+        begin // Comment 1
+            .functionCall(/* Comment about parameter */ parameter) // Comment 2
+            .end;
     }
 }
 
