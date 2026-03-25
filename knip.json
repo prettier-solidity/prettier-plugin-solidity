@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "ignoreFiles": [
     "tests/format/RespectDefaultOptions/respect-default-options.js",
-    "tests/integration/node.test.js"
+    "tests/integration/**/*.test.js"
   ],
   "ignoreDependencies": ["eslint-config-prettier"],
   "ignoreExportsUsedInFile": {
