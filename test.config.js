@@ -5,7 +5,7 @@ const { __dirname } = createEsmUtils(import.meta);
 
 export default {
   entry: {
-    test: './tests/integration/test-app.js',
+    test: './tests/integration/test-app/test-app.js',
     'create-parser': './src/slang-utils/create-parser.js',
     'variant-coverage': './variant-coverage/index.js'
   },
