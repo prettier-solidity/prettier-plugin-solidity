@@ -39,7 +39,7 @@ function ignoreComments(path: AstPath<StrictAstNode>): void {
       // The key `comments` will contain every comment for this node.
       case 'comments':
         if (node.comments !== undefined) {
-          path.each((commentPath) => (commentPath.node.printed = true), key);
+          path.each(({ node }) => (node.printed = true), key);
         }
         break;
       default:

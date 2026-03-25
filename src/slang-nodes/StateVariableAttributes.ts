@@ -27,6 +27,6 @@ export class StateVariableAttributes extends SlangNode {
   }
 
   print(path: AstPath<StateVariableAttributes>, print: PrintFunction): Doc {
-    return path.map((item) => [line, print(item)], 'items');
+    return path.map(() => [line, print(path)], 'items');
   }
 }
