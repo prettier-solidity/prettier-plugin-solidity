@@ -14,16 +14,19 @@ export class MultiLineComment extends CommentNode {
 
   value: string;
 
+  lines: string[];
+
   constructor(ast: TerminalNode, offset: number) {
     super(ast, offset);
 
     this.value = ast.unparse();
+    this.lines = this.value.slice(1).split('\n');
   }
 
   print(): Doc {
     if (isIndentableBlockComment(this)) {
       return printIndentableBlockComment(this);
     }
-    return join(literalline, this.value.split('\n'));
+    return ['/', join(literalline, this.lines)];
   }
 }
