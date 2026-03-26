@@ -17,6 +17,6 @@ export class AddressType extends SlangNode {
   }
 
   print(): Doc {
-    return ['address', this.payableKeyword ? ' payable' : ''];
+    return `address${this.payableKeyword ? ' payable' : ''}`;
   }
 }
