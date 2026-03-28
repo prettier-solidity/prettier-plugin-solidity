@@ -8,9 +8,7 @@ const { hardline, join, literalline } = doc.builders;
 function printIndentableBlockComment(lines: string[]): Doc {
   return join(
     hardline,
-    lines.map((line, index) =>
-      index === 0 ? line.trimEnd() : ` ${line.trimEnd()}`
-    )
+    lines.map((line, index) => `${index === 0 ? '' : ' '}${line.trimEnd()}`)
   );
 }
 
