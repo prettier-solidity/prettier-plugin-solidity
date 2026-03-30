@@ -13,7 +13,7 @@
   "scripts": {
     "build": "webpack --env production",
     "build:dev": "webpack --env development",
-    "build:test": "webpack --config test.config.js",
+    "build:test": "webpack --config webpack.test.config.js",
     "eslint": "eslint 'src/**' 'tests/**'",
     "lint": "npm run eslint && npm run prettier -- --list-different && npm run knip",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",

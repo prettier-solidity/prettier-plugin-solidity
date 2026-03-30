@@ -26,7 +26,13 @@ export default {
     rules: [
       {
         test: /\.ts$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'ts-loader',
+            // This test file includes the variant-coverage directory, which is not included in the main tsconfig.json
+            options: { configFile: 'tsconfig.test.json' }
+          }
+        ],
         exclude: /node_modules/
       }
     ]
