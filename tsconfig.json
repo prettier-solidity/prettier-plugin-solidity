@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "rootDir": "./src",
     "outDir": "./dist/",
     "noImplicitAny": true,
     "strictPropertyInitialization": true,
     "sourceMap": true,
-    "target": "es6",
+    "target": "es2023",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strict": true,
