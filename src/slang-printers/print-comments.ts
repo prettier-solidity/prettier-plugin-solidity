@@ -22,19 +22,18 @@ export function printComments(
   options: ParserOptions<AstNode>
 ): Doc[] {
   if (node.comments === undefined) return [];
+  const lastPrintableIndex = node.comments.findLastIndex(isPrintable);
   return joinExisting(
     line,
-    path.map(({ node: comment }, index, comments: Comment[]) => {
+    path.map(({ node: comment }, index) => {
       if (!isPrintable(comment)) {
         return '';
       }
       comment.printed = true;
-      const isLast =
-        index === comments.length - 1 ||
-        comments.slice(index + 1).findIndex(isPrintable) === -1;
       return [
         printComment(path),
-        !isLast && util.isNextLineEmpty(options.originalText, locEnd(comment))
+        index !== lastPrintableIndex &&
+        util.isNextLineEmpty(options.originalText, locEnd(comment))
           ? hardline
           : ''
       ];
