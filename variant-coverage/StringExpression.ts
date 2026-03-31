@@ -9,6 +9,7 @@ export function checkStringExpressionVariant(
   if (variant instanceof ast.HexStringLiteral) return;
   if (variant instanceof ast.HexStringLiterals) return;
   if (variant instanceof ast.UnicodeStringLiterals) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  return _exhaustiveCheck;
 }

@@ -6,6 +6,7 @@ export function checkYulSwitchCaseVariant(
 ): void {
   if (variant instanceof ast.YulDefaultCase) return;
   if (variant instanceof ast.YulValueCase) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  return _exhaustiveCheck;
 }
