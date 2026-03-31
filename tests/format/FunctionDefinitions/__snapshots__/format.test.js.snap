@@ -3,8 +3,7 @@
 exports[`FunctionDefinitions.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 interface FunctionInterfaces {
   function noParamsNoModifiersNoReturns();

@@ -4,9 +4,8 @@ exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true,"tabWidth":1}
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["slang"]
-printWidth: 80
 tabWidth: 1
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 pragma solidity ^0.4.24;
 
@@ -515,9 +514,8 @@ exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true,"useTabs":tru
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["slang"]
-printWidth: 80
 useTabs: true
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 pragma solidity ^0.4.24;
 
@@ -1030,8 +1028,7 @@ exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true} format 1`] =
 ====================================options=====================================
 experimentalTernaries: true
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 pragma solidity ^0.4.24;
 
@@ -1543,8 +1540,7 @@ contract Conditional {
 exports[`ExperimentalTernaries.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 pragma solidity ^0.4.24;
 

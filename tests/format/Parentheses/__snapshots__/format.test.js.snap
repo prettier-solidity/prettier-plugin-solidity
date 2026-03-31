@@ -3,8 +3,7 @@
 exports[`AddNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -199,8 +198,7 @@ contract AddNoParentheses {
 exports[`BitAndNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -395,8 +393,7 @@ contract BitAndNoParentheses {
 exports[`BitOrNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -591,8 +588,7 @@ contract BitOrNoParentheses {
 exports[`BitXorNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -787,8 +783,7 @@ contract BitXorNoParentheses {
 exports[`DivNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -983,8 +978,7 @@ contract DivNoParentheses {
 exports[`EqualParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
@@ -1206,8 +1200,7 @@ contract EqualParentheses {
 exports[`ExpNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -1402,8 +1395,7 @@ contract ExpNoParentheses {
 exports[`LogicNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -1490,8 +1482,7 @@ contract LogicNoParentheses {
 exports[`ModNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -1686,8 +1677,7 @@ contract ModNoParentheses {
 exports[`MulNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -1882,8 +1872,7 @@ contract MulNoParentheses {
 exports[`NotEqualParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
@@ -2105,8 +2094,7 @@ contract NotEqualParentheses {
 exports[`ShiftLNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -2301,8 +2289,7 @@ contract ShiftLNoParentheses {
 exports[`ShiftRNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -2497,8 +2484,7 @@ contract ShiftRNoParentheses {
 exports[`SubNoParentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;

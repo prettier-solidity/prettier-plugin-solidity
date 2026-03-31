@@ -4,8 +4,7 @@ exports[`AllSolidityFeatures.sol - {"compiler":"0.4.26"} format 1`] = `
 ====================================options=====================================
 compiler: "0.4.26"
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract c {
   function c()

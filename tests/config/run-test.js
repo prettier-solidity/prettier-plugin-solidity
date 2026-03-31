@@ -141,7 +141,6 @@ function getTestCase(fixture, parser) {
   const { text: code, options: formatOptions } = replacePlaceholders(
     originalText,
     {
-      printWidth: 80,
       filepath,
       ...context.options,
       parser,

@@ -3,8 +3,7 @@
 exports[`Group.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity "0.8.28";
@@ -1300,8 +1299,7 @@ contract Group {
 exports[`Indent.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;

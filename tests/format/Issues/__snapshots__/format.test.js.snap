@@ -3,8 +3,7 @@
 exports[`Issue205.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract Example {
     using SafeMath for uint256;
@@ -41,8 +40,7 @@ contract Example {
 exports[`Issue289.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract Issue289 {
   function f() {
@@ -66,8 +64,7 @@ contract Issue289 {
 exports[`Issue355.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 pragma solidity 0.6.12;
 
@@ -102,8 +99,7 @@ contract Bug {
 exports[`Issue385.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract Issue385 {
   function emptyTryCatch() {
@@ -140,8 +136,7 @@ contract Issue385 {
 exports[`Issue564.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract Issue564 {
     function isAuthorized(
@@ -173,8 +168,7 @@ contract Issue564 {
 exports[`Issue799.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 struct EmptyStruct {}
 
@@ -187,8 +181,7 @@ struct EmptyStruct {}
 exports[`Issue843.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 pragma solidity ^0.8.0;
 

@@ -4,8 +4,7 @@ exports[`ImportDirectives.sol - {"bracketSpacing":true} format 1`] = `
 ====================================options=====================================
 bracketSpacing: true
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "SomeFile.sol";
 import "SomeFile.sol" as SomeOtherFile;
@@ -59,8 +58,7 @@ exports[`ImportDirectives.sol - {"compiler":"0.7.3"} format 1`] = `
 ====================================options=====================================
 compiler: "0.7.3"
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "SomeFile.sol";
 import "SomeFile.sol" as SomeOtherFile;
@@ -99,8 +97,7 @@ import {IERC7579Module, IERC7579Validator, IERC7579Execution, IERC7579AccountCon
 exports[`ImportDirectives.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 import "SomeFile.sol";
 import "SomeFile.sol" as SomeOtherFile;

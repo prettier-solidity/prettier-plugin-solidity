@@ -3,8 +3,7 @@
 exports[`Etc.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 pragma solidity ^0.4.24;
 

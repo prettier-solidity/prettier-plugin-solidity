@@ -3,8 +3,7 @@
 exports[`EmptyFile.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 
 =====================================output=====================================
@@ -15,8 +14,7 @@ printWidth: 80
 exports[`EmptyFileWithComments.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 

@@ -4,8 +4,7 @@ exports[`BasicIterator.sol - {"compiler":"0.4.26"} format 1`] = `
 ====================================options=====================================
 compiler: "0.4.26"
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
 	This is a very simple demonstration of a while loops. Same as JS/c.

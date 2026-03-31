@@ -3,9 +3,8 @@
 exports[`HexLiteral.sol - {"singleQuote":false} format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
 singleQuote: false
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
@@ -30,9 +29,8 @@ contract HexLiteral {
 exports[`HexLiteral.sol - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
 singleQuote: true
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.34;
