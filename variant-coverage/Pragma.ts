@@ -5,6 +5,7 @@ export function checkPragmaVariant(variant: ast.Pragma['variant']): void {
   if (variant instanceof ast.AbicoderPragma) return;
   if (variant instanceof ast.ExperimentalPragma) return;
   if (variant instanceof ast.VersionPragma) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  return _exhaustiveCheck;
 }

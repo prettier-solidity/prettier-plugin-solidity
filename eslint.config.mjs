@@ -18,7 +18,6 @@ const compat = new FlatCompat({
 export default [
   {
     ignores: [
-      'variant-coverage/**/*.ts',
       'coverage/**/*.js',
       'dist/**/*.cjs',
       'dist/**/*.js',
@@ -72,7 +71,7 @@ export default [
       sourceType: 'script',
 
       parserOptions: {
-        project: ['tsconfig.json']
+        project: ['tsconfig.test.json']
       }
     },
 

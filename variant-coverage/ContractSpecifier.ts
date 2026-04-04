@@ -6,6 +6,7 @@ export function checkContractSpecifierVariant(
 ): void {
   if (variant instanceof ast.InheritanceSpecifier) return;
   if (variant instanceof ast.StorageLayoutSpecifier) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  return _exhaustiveCheck;
 }

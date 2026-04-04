@@ -6,6 +6,7 @@ export function checkMappingKeyTypeVariant(
 ): void {
   if (variant instanceof ast.IdentifierPath) return;
   if (variant instanceof ast.ElementaryType) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  return _exhaustiveCheck;
 }

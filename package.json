@@ -13,7 +13,7 @@
   "scripts": {
     "build": "webpack --env production",
     "build:dev": "webpack --env development",
-    "build:test": "webpack --config test.config.js",
+    "build:test": "webpack --config webpack.test.config.js",
     "eslint": "eslint 'src/**' 'tests/**'",
     "lint": "npm run eslint && npm run prettier -- --list-different && npm run knip",
     "lint:fix": "npm run eslint -- --fix && npm run prettier -- --write",
@@ -110,7 +110,7 @@
     "solc": "^0.8.34",
     "ts-loader": "^9.5.7",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "webpack": "^5.105.4",
     "webpack-cli": "^7.0.2"
   },

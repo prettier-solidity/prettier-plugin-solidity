@@ -8,6 +8,7 @@ export function checkYulLiteralVariant(
   if (variant instanceof TerminalNode) return;
   if (variant instanceof ast.HexStringLiteral) return;
   if (variant instanceof ast.StringLiteral) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  return _exhaustiveCheck;
 }

@@ -7,6 +7,7 @@ export function checkYulExpressionVariant(
   if (variant instanceof ast.YulFunctionCallExpression) return;
   if (variant instanceof ast.YulLiteral) return;
   if (variant instanceof ast.YulPath) return;
-  /* c8 ignore next 2 */
+  /* c8 ignore next 3 */
   const _exhaustiveCheck: never = variant;
+  return _exhaustiveCheck;
 }
