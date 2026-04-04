@@ -24,8 +24,7 @@ export function printComments(
   if (node.comments === undefined) return [];
   return joinExisting(
     line,
-    path.map((commentPath, index, comments: Comment[]) => {
-      const comment = commentPath.node;
+    path.map(({ node: comment }, index, comments: Comment[]) => {
       if (!isPrintable(comment)) {
         return '';
       }
@@ -34,7 +33,7 @@ export function printComments(
         index === comments.length - 1 ||
         comments.slice(index + 1).findIndex(isPrintable) === -1;
       return [
-        printComment(commentPath),
+        printComment(path),
         !isLast && util.isNextLineEmpty(options.originalText, locEnd(comment))
           ? hardline
           : ''

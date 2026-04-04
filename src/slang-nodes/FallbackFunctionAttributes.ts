@@ -32,6 +32,6 @@ export class FallbackFunctionAttributes extends SlangNode {
   }
 
   print(path: AstPath<FallbackFunctionAttributes>, print: PrintFunction): Doc {
-    return path.map((item) => [line, print(item)], 'items');
+    return path.map(() => [line, print(path)], 'items');
   }
 }
