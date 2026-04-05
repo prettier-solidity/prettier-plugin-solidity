@@ -1,8 +1,8 @@
 import { doc, util } from 'prettier';
 import { printComment } from '../slang-comments/printer.js';
 import { joinExisting } from '../slang-utils/join-existing.js';
-
 import { locEnd } from '../slang-utils/loc.js';
+
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type {
   AstNode,
@@ -21,8 +21,10 @@ export function printComments(
   path: AstPath<StrictAstNode>,
   options: ParserOptions<AstNode>
 ): Doc[] {
-  if (node.comments === undefined) return [];
-  const lastPrintableIndex = node.comments.findLastIndex(isPrintable);
+  const lastPrintableIndex = (node.comments ?? []).findLastIndex(isPrintable);
+  if (lastPrintableIndex === -1) {
+    return [];
+  }
   return joinExisting(
     line,
     path.map(({ node: comment }, index) => {
