@@ -35,8 +35,7 @@ export class ModifierInvocation extends SlangNode {
 
   cleanModifierInvocationArguments(): void {
     if (
-      this.arguments &&
-      this.arguments.kind === NonterminalKind.PositionalArgumentsDeclaration &&
+      this.arguments?.kind === NonterminalKind.PositionalArgumentsDeclaration &&
       this.arguments.isEmpty
     ) {
       delete this.arguments;
