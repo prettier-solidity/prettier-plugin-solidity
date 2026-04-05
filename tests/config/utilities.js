@@ -2,7 +2,10 @@ import path from "node:path";
 
 const normalizeDirectory = (directory) => path.normalize(directory + path.sep);
 
-const shouldThrowOnFormat = (filename, options) => {
+const isErrorTest = (dirname) =>
+  normalizeDirectory(dirname).includes(`${path.sep}_errors_${path.sep}`);
+
+const shouldThrowOnFormat = ({ filename }, options) => {
   const { errors = {}, parser } = options;
   if (errors === true) {
     return true;
@@ -17,4 +20,4 @@ const shouldThrowOnFormat = (filename, options) => {
   return false;
 };
 
-export { normalizeDirectory, shouldThrowOnFormat };
+export { normalizeDirectory, isErrorTest, shouldThrowOnFormat };
