@@ -7,7 +7,7 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type {
   AstNode,
   Comment,
-  StrictAstNode
+  PrintableNode
 } from '../slang-nodes/types.d.ts';
 
 const { hardline, line } = doc.builders;
@@ -17,8 +17,8 @@ function isPrintable(comment: Comment): boolean {
 }
 
 export function printComments(
-  node: StrictAstNode,
-  path: AstPath<StrictAstNode>,
+  node: PrintableNode,
+  path: AstPath<PrintableNode>,
   options: ParserOptions<AstNode>
 ): Doc[] {
   const lastPrintableIndex = (node.comments ?? []).findLastIndex(isPrintable);

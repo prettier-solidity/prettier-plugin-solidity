@@ -3,11 +3,11 @@ import { createKindCheckFunction } from './create-kind-check-function.js';
 
 import type {
   ChainableExpression,
-  StrictAstNode
+  PrintableNode
 } from '../slang-nodes/types.d.ts';
 
 export const isChainableExpression = createKindCheckFunction([
   NonterminalKind.FunctionCallExpression,
   NonterminalKind.IndexAccessExpression,
   NonterminalKind.MemberAccessExpression
-]) as (node: StrictAstNode) => node is ChainableExpression;
+]) as (node: PrintableNode) => node is ChainableExpression;

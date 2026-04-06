@@ -8,13 +8,13 @@ import { Expression } from './Expression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode, StrictAstNode } from './types.d.ts';
+import type { AstNode, PrintableNode } from './types.d.ts';
 
 const { group, hardline, ifBreak, indent, line } = doc.builders;
 
 function experimentalTernaries(
   node: ConditionalExpression,
-  path: AstPath<StrictAstNode>,
+  path: AstPath<PrintableNode>,
   print: PrintFunction,
   { useTabs, tabWidth }: ParserOptions<AstNode>
 ): Doc {
@@ -77,7 +77,7 @@ function experimentalTernaries(
 }
 
 function traditionalTernaries(
-  path: AstPath<StrictAstNode>,
+  path: AstPath<PrintableNode>,
   print: PrintFunction
 ): Doc {
   return group([

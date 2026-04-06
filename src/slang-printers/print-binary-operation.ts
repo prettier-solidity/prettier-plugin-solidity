@@ -8,7 +8,7 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type {
   AstNode,
   BinaryOperation,
-  StrictAstNode
+  PrintableNode
 } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
@@ -16,7 +16,7 @@ const { group, indent } = doc.builders;
 
 export const binaryGroupRulesBuilder =
   (shouldGroup: (node: BinaryOperation) => boolean) =>
-  (path: AstPath<StrictAstNode>) =>
+  (path: AstPath<PrintableNode>) =>
   (document: Doc): Doc => {
     const parent = path.parent!;
     if (!isBinaryOperation(parent)) return group(document);
@@ -31,8 +31,8 @@ const isStatementWithoutIndentedOperation = createKindCheckFunction([
 ]);
 
 export const shouldNotIndent = (
-  node: StrictAstNode,
-  path: AstPath<StrictAstNode>,
+  node: PrintableNode,
+  path: AstPath<PrintableNode>,
   index: number
 ): boolean =>
   isStatementWithoutIndentedOperation(node) ||
@@ -41,7 +41,7 @@ export const shouldNotIndent = (
 
 export const binaryIndentRulesBuilder =
   (shouldIndent: (node: BinaryOperation) => boolean) =>
-  (node: BinaryOperation, path: AstPath<StrictAstNode>) =>
+  (node: BinaryOperation, path: AstPath<PrintableNode>) =>
   (document: Doc): Doc => {
     for (let i = 1, current = node, parent; ; i++, current = parent) {
       parent = path.getNode(i)!;
@@ -57,7 +57,7 @@ export const printBinaryOperation = (
   shouldGroupAndIndent: (node: BinaryOperation) => boolean
 ): ((
   node: BinaryOperation,
-  path: AstPath<StrictAstNode>,
+  path: AstPath<PrintableNode>,
   print: PrintFunction,
   options: ParserOptions<AstNode>
 ) => Doc) =>

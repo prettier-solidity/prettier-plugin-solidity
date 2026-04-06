@@ -14,7 +14,7 @@ import type {
   CollectedMetadata,
   SlangAstNode
 } from '../types.d.ts';
-import type { Comment, StrictAstNode } from './types.d.ts';
+import type { Comment, PrintableNode } from './types.d.ts';
 import type { TerminalNode } from './TerminalNode.ts';
 
 function reversedIterator<T>(children: T[]): Iterable<T> {
@@ -121,7 +121,7 @@ export abstract class SlangNode {
   }
 
   updateMetadata(
-    ...childNodes: (StrictAstNode | TerminalNode | undefined)[]
+    ...childNodes: (PrintableNode | TerminalNode | undefined)[]
   ): void {
     const { loc } = this;
     // calculate correct loc object

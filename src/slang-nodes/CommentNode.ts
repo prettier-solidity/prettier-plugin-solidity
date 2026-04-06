@@ -1,6 +1,6 @@
 import type { TerminalNode } from '@nomicfoundation/slang/cst';
 import type { Location } from '../types.d.ts';
-import type { StrictAstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class CommentNode {
   loc: Location;
@@ -13,11 +13,11 @@ export class CommentNode {
 
   placement?: 'endOfLine' | 'ownLine' | 'remaining';
 
-  precedingNode?: StrictAstNode;
+  precedingNode?: PrintableNode;
 
-  enclosingNode?: StrictAstNode;
+  enclosingNode?: PrintableNode;
 
-  followingNode?: StrictAstNode;
+  followingNode?: PrintableNode;
 
   constructor(ast: TerminalNode, offset: number) {
     this.loc = {

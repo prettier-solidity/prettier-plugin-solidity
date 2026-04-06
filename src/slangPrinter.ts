@@ -1,15 +1,11 @@
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  StrictAstNode,
-  StrictPolymorphicNode
-} from './slang-nodes/types.d.ts';
+import type { AstNode, PrintableNode } from './slang-nodes/types.d.ts';
 import type { PrintFunction } from './types.d.ts';
 
 // Nodes take care of undefined and string properties so we can restrict path
 // to AstPath<StrictAstNode>
 function genericPrint(
-  path: AstPath<Exclude<StrictAstNode, StrictPolymorphicNode>>,
+  path: AstPath<PrintableNode>,
   options: ParserOptions<AstNode>,
   print: PrintFunction
 ): Doc {

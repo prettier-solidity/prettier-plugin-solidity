@@ -474,6 +474,8 @@ export type StrictPolymorphicNode = Extract<
   { variant: StrictAstNode | TerminalNode }
 >;
 
+export type PrintableNode = Exclude<StrictAstNode, StrictPolymorphicNode>;
+
 export type Collection = Extract<StrictAstNode, { items: unknown[] }>;
 
 export type StrictCollection = Extract<
