@@ -20,6 +20,6 @@ export class UsingDeconstruction extends SlangNode {
   }
 
   print(path: AstPath<UsingDeconstruction>, print: PrintFunction): Doc {
-    return ['{', path.call(print, 'symbols'), '}'];
+    return ['{', print('symbols'), '}'];
   }
 }

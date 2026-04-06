@@ -35,8 +35,8 @@ export class YulStackAssignmentStatement extends SlangNode {
 
   print(path: AstPath<YulStackAssignmentStatement>, print: PrintFunction): Doc {
     return [
-      path.call(print, 'assignment'),
-      printSeparatedItem(path.call(print, 'variable'), {
+      print('assignment'),
+      printSeparatedItem(print('variable'), {
         firstSeparator: line,
         lastSeparator: ''
       })

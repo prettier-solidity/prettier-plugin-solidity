@@ -38,8 +38,8 @@ export class EventDefinition extends SlangNode {
   print(path: AstPath<EventDefinition>, print: PrintFunction): Doc {
     return [
       'event ',
-      path.call(print, 'name'),
-      path.call(print, 'parameters'),
+      print('name'),
+      print('parameters'),
       this.anonymousKeyword ? ' anonymous;' : ';'
     ];
   }

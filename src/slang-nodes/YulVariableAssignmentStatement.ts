@@ -45,9 +45,9 @@ export class YulVariableAssignmentStatement extends SlangNode {
     print: PrintFunction
   ): Doc {
     return join(' ', [
-      path.call(print, 'variables'),
-      path.call(print, 'assignment'),
-      path.call(print, 'expression')
+      print('variables'),
+      print('assignment'),
+      print('expression')
     ]);
   }
 }

@@ -24,12 +24,6 @@ export class EnumDefinition extends SlangNode {
   }
 
   print(path: AstPath<EnumDefinition>, print: PrintFunction): Doc {
-    return [
-      'enum ',
-      path.call(print, 'name'),
-      ' {',
-      path.call(print, 'members'),
-      '}'
-    ];
+    return ['enum ', print('name'), ' {', print('members'), '}'];
   }
 }

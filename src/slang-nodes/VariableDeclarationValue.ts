@@ -31,7 +31,7 @@ export class VariableDeclarationValue extends SlangNode {
   print(path: AstPath<VariableDeclarationValue>, print: PrintFunction): Doc {
     return [
       ' =',
-      printAssignmentRightSide(path.call(print, 'expression'), this.expression)
+      printAssignmentRightSide(print('expression'), this.expression)
     ];
   }
 }

@@ -32,11 +32,6 @@ export class EmitStatement extends SlangNode {
   }
 
   print(path: AstPath<EmitStatement>, print: PrintFunction): Doc {
-    return [
-      'emit ',
-      path.call(print, 'event'),
-      path.call(print, 'arguments'),
-      ';'
-    ];
+    return ['emit ', print('event'), print('arguments'), ';'];
   }
 }

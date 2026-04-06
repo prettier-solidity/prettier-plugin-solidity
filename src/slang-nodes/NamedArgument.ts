@@ -30,6 +30,6 @@ export class NamedArgument extends SlangNode {
   }
 
   print(path: AstPath<NamedArgument>, print: PrintFunction): Doc {
-    return [path.call(print, 'name'), ': ', path.call(print, 'value')];
+    return [print('name'), ': ', print('value')];
   }
 }

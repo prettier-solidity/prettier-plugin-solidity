@@ -25,6 +25,6 @@ export class TupleExpression extends SlangNode {
   }
 
   print(path: AstPath<TupleExpression>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'items'), ')'];
+    return ['(', print('items'), ')'];
   }
 }

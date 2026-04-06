@@ -28,6 +28,6 @@ export class ImportDirective extends SlangNode {
   }
 
   print(path: AstPath<ImportDirective>, print: PrintFunction): Doc {
-    return ['import ', path.call(print, 'clause'), ';'];
+    return ['import ', print('clause'), ';'];
   }
 }

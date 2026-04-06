@@ -33,11 +33,6 @@ export class ErrorDefinition extends SlangNode {
   }
 
   print(path: AstPath<ErrorDefinition>, print: PrintFunction): Doc {
-    return [
-      'error ',
-      path.call(print, 'name'),
-      path.call(print, 'members'),
-      ';'
-    ];
+    return ['error ', print('name'), print('members'), ';'];
   }
 }

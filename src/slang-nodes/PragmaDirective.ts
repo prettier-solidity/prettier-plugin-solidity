@@ -26,6 +26,6 @@ export class PragmaDirective extends SlangNode {
   }
 
   print(path: AstPath<PragmaDirective>, print: PrintFunction): Doc {
-    return ['pragma ', path.call(print, 'pragma'), ';'];
+    return ['pragma ', print('pragma'), ';'];
   }
 }

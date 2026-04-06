@@ -21,6 +21,6 @@ export class YulLabel extends SlangNode {
   }
 
   print(path: AstPath<YulLabel>, print: PrintFunction): Doc {
-    return [dedent(line), path.call(print, 'label'), ':'];
+    return [dedent(line), print('label'), ':'];
   }
 }

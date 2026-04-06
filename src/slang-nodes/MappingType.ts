@@ -29,12 +29,6 @@ export class MappingType extends SlangNode {
   }
 
   print(path: AstPath<MappingType>, print: PrintFunction): Doc {
-    return [
-      'mapping(',
-      path.call(print, 'keyType'),
-      ' => ',
-      path.call(print, 'valueType'),
-      ')'
-    ];
+    return ['mapping(', print('keyType'), ' => ', print('valueType'), ')'];
   }
 }

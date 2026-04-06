@@ -30,6 +30,6 @@ export class YulValueCase extends SlangNode {
   }
 
   print(path: AstPath<YulValueCase>, print: PrintFunction): Doc {
-    return ['case ', path.call(print, 'value'), ' ', path.call(print, 'body')];
+    return ['case ', print('value'), ' ', print('body')];
   }
 }

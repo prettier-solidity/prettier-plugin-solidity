@@ -25,6 +25,6 @@ export class YulBlock extends SlangNode {
   }
 
   print(path: AstPath<YulBlock>, print: PrintFunction): Doc {
-    return ['{', path.call(print, 'statements'), '}'];
+    return ['{', print('statements'), '}'];
   }
 }

@@ -36,7 +36,7 @@ export class ElseBranch extends SlangNode {
     return [
       'else',
       printIndentedGroupOrSpacedDocument(
-        path.call(print, 'body'),
+        print('body'),
         !isIfStatementOrBlock(this.body)
       )
     ];

@@ -39,9 +39,6 @@ export class YulVariableDeclarationStatement extends SlangNode {
     path: AstPath<YulVariableDeclarationStatement>,
     print: PrintFunction
   ): Doc {
-    return joinExisting(' ', [
-      ['let', path.call(print, 'variables')],
-      path.call(print, 'value')
-    ]);
+    return joinExisting(' ', [['let', print('variables')], print('value')]);
   }
 }

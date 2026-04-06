@@ -56,14 +56,12 @@ export class VariableDeclarationStatement extends SlangNode {
   ): Doc {
     return printGroupAndIndentIfBreakPair(
       [
-        path.call(print, 'variableType'),
-        this.storageLocation
-          ? indent([line, path.call(print, 'storageLocation')])
-          : '',
+        print('variableType'),
+        this.storageLocation ? indent([line, print('storageLocation')]) : '',
         ' ',
-        path.call(print, 'name')
+        print('name')
       ],
-      [path.call(print, 'value'), ';']
+      [print('value'), ';']
     );
   }
 }

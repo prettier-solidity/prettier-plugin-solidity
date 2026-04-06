@@ -38,12 +38,9 @@ export class AssignmentExpression extends SlangNode {
 
   print(path: AstPath<AssignmentExpression>, print: PrintFunction): Doc {
     return [
-      path.call(print, 'leftOperand'),
+      print('leftOperand'),
       ` ${this.operator}`,
-      printAssignmentRightSide(
-        path.call(print, 'rightOperand'),
-        this.rightOperand
-      )
+      printAssignmentRightSide(print('rightOperand'), this.rightOperand)
     ];
   }
 }

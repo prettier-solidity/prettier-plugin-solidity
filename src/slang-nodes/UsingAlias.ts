@@ -20,6 +20,6 @@ export class UsingAlias extends SlangNode {
   }
 
   print(path: AstPath<UsingAlias>, print: PrintFunction): Doc {
-    return [' as ', path.call(print, 'operator')];
+    return [' as ', print('operator')];
   }
 }

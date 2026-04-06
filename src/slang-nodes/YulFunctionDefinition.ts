@@ -41,10 +41,10 @@ export class YulFunctionDefinition extends SlangNode {
   print(path: AstPath<YulFunctionDefinition>, print: PrintFunction): Doc {
     return [
       'function ',
-      path.call(print, 'name'),
-      path.call(print, 'parameters'),
-      path.call(print, 'returns') || ' ',
-      path.call(print, 'body')
+      print('name'),
+      print('parameters'),
+      print('returns') || ' ',
+      print('body')
     ];
   }
 }

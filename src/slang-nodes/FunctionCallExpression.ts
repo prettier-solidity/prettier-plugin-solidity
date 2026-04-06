@@ -36,8 +36,8 @@ export class FunctionCallExpression extends SlangNode {
 
   print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {
     return printPossibleMemberAccessChainItem(
-      path.call(print, 'operand'),
-      path.call(print, 'arguments')
+      print('operand'),
+      print('arguments')
     );
   }
 }

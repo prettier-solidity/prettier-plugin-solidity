@@ -32,11 +32,6 @@ export class YulFunctionCallExpression extends SlangNode {
   }
 
   print(path: AstPath<YulFunctionCallExpression>, print: PrintFunction): Doc {
-    return [
-      path.call(print, 'operand'),
-      '(',
-      path.call(print, 'arguments'),
-      ')'
-    ];
+    return [print('operand'), '(', print('arguments'), ')'];
   }
 }

@@ -36,6 +36,6 @@ export class ArrayTypeName extends SlangNode {
   }
 
   print(path: AstPath<ArrayTypeName>, print: PrintFunction): Doc {
-    return [path.call(print, 'operand'), '[', path.call(print, 'index'), ']'];
+    return [print('operand'), '[', print('index'), ']'];
   }
 }

@@ -43,9 +43,9 @@ export class IndexAccessExpression extends SlangNode {
   }
 
   print(path: AstPath<IndexAccessExpression>, print: PrintFunction): Doc {
-    return printPossibleMemberAccessChainItem(path.call(print, 'operand'), [
+    return printPossibleMemberAccessChainItem(print('operand'), [
       '[',
-      printSeparatedItem([path.call(print, 'start'), path.call(print, 'end')]),
+      printSeparatedItem([print('start'), print('end')]),
       ']'
     ]);
   }

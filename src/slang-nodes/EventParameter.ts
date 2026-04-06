@@ -39,9 +39,9 @@ export class EventParameter extends SlangNode {
 
   print(path: AstPath<EventParameter>, print: PrintFunction): Doc {
     return joinExisting(' ', [
-      path.call(print, 'typeName'),
+      print('typeName'),
       this.indexedKeyword,
-      path.call(print, 'name')
+      print('name')
     ]);
   }
 }

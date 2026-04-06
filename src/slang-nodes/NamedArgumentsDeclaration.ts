@@ -31,6 +31,6 @@ export class NamedArgumentsDeclaration extends SlangNode {
   }
 
   print(path: AstPath<NamedArgumentsDeclaration>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'arguments'), ')'];
+    return ['(', print('arguments'), ')'];
   }
 }

@@ -77,7 +77,7 @@ export class FunctionDefinition extends SlangNode {
 
   print(path: AstPath<FunctionDefinition>, print: PrintFunction): Doc {
     return printFunctionWithBody(
-      ['function ', path.call(print, 'name')],
+      ['function ', print('name')],
       this,
       path,
       print

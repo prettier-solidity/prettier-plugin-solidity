@@ -38,11 +38,11 @@ export class ConstantDefinition extends SlangNode {
 
   print(path: AstPath<ConstantDefinition>, print: PrintFunction): Doc {
     return [
-      path.call(print, 'typeName'),
+      print('typeName'),
       ' constant ',
-      path.call(print, 'name'),
+      print('name'),
       ' =',
-      printAssignmentRightSide(path.call(print, 'value'), this.value),
+      printAssignmentRightSide(print('value'), this.value),
       ';'
     ];
   }

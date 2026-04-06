@@ -32,6 +32,6 @@ export class ReturnsDeclaration extends SlangNode {
   }
 
   print(path: AstPath<ReturnsDeclaration>, print: PrintFunction): Doc {
-    return ['returns ', group(path.call(print, 'variables'))];
+    return ['returns ', group(print('variables'))];
   }
 }

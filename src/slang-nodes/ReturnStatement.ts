@@ -40,7 +40,7 @@ export class ReturnStatement extends SlangNode {
       'return',
       expressionVariantKind
         ? printIndentedGroupOrSpacedDocument(
-            path.call(print, 'expression'),
+            print('expression'),
             expressionVariantKind !== NonterminalKind.TupleExpression &&
               (!options.experimentalTernaries ||
                 expressionVariantKind !== NonterminalKind.ConditionalExpression)

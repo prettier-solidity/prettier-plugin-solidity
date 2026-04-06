@@ -29,6 +29,6 @@ export class ImportDeconstructionSymbol extends SlangNode {
   }
 
   print(path: AstPath<ImportDeconstructionSymbol>, print: PrintFunction): Doc {
-    return [path.call(print, 'name'), path.call(print, 'alias')];
+    return [print('name'), print('alias')];
   }
 }

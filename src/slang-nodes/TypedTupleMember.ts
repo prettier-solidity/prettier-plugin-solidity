@@ -43,9 +43,9 @@ export class TypedTupleMember extends SlangNode {
 
   print(path: AstPath<TypedTupleMember>, print: PrintFunction): Doc {
     return joinExisting(' ', [
-      path.call(print, 'typeName'),
-      path.call(print, 'storageLocation'),
-      path.call(print, 'name')
+      print('typeName'),
+      print('storageLocation'),
+      print('name')
     ]);
   }
 }

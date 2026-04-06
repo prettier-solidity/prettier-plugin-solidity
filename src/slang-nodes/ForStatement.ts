@@ -56,9 +56,9 @@ export class ForStatement extends SlangNode {
   }
 
   print(path: AstPath<ForStatement>, print: PrintFunction): Doc {
-    const initialization = path.call(print, 'initialization');
-    const condition = path.call(print, 'condition');
-    const iterator = path.call(print, 'iterator');
+    const initialization = print('initialization');
+    const condition = print('condition');
+    const iterator = print('iterator');
 
     return [
       'for (',
@@ -70,7 +70,7 @@ export class ForStatement extends SlangNode {
       }),
       ')',
       printIndentedGroupOrSpacedDocument(
-        path.call(print, 'body'),
+        print('body'),
         this.body.kind !== NonterminalKind.Block
       )
     ];

@@ -26,6 +26,6 @@ export class DecimalNumberExpression extends SlangNode {
   }
 
   print(path: AstPath<DecimalNumberExpression>, print: PrintFunction): Doc {
-    return joinExisting(' ', [this.literal, path.call(print, 'unit')]);
+    return joinExisting(' ', [this.literal, print('unit')]);
   }
 }

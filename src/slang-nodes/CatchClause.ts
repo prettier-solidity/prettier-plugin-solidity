@@ -31,6 +31,6 @@ export class CatchClause extends SlangNode {
   }
 
   print(path: AstPath<CatchClause>, print: PrintFunction): Doc {
-    return ['catch ', path.call(print, 'error'), path.call(print, 'body')];
+    return ['catch ', print('error'), print('body')];
   }
 }

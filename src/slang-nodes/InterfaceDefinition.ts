@@ -45,11 +45,11 @@ export class InterfaceDefinition extends SlangNode {
     return [
       group([
         'interface ',
-        path.call(print, 'name'),
-        this.inheritance ? [' ', path.call(print, 'inheritance')] : line,
+        print('name'),
+        this.inheritance ? [' ', print('inheritance')] : line,
         '{'
       ]),
-      path.call(print, 'members'),
+      print('members'),
       '}'
     ];
   }

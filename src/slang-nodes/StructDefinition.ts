@@ -29,12 +29,6 @@ export class StructDefinition extends SlangNode {
   }
 
   print(path: AstPath<StructDefinition>, print: PrintFunction): Doc {
-    return [
-      'struct ',
-      path.call(print, 'name'),
-      ' {',
-      path.call(print, 'members'),
-      '}'
-    ];
+    return ['struct ', print('name'), ' {', print('members'), '}'];
   }
 }

@@ -33,12 +33,6 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
     path: AstPath<UserDefinedValueTypeDefinition>,
     print: PrintFunction
   ): Doc {
-    return [
-      'type ',
-      path.call(print, 'name'),
-      ' is ',
-      path.call(print, 'valueType'),
-      ';'
-    ];
+    return ['type ', print('name'), ' is ', print('valueType'), ';'];
   }
 }

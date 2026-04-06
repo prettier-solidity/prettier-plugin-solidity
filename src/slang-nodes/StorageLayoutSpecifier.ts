@@ -34,7 +34,7 @@ export class StorageLayoutSpecifier extends SlangNode {
   print(path: AstPath<StorageLayoutSpecifier>, print: PrintFunction): Doc {
     return [
       'layout at',
-      printSeparatedItem(path.call(print, 'expression'), {
+      printSeparatedItem(print('expression'), {
         firstSeparator: line,
         // If this is the second ContractSpecifier we have to delegate printing
         // the line to the ContractSpecifiers node.

@@ -35,11 +35,6 @@ export class YulSwitchStatement extends SlangNode {
   }
 
   print(path: AstPath<YulSwitchStatement>, print: PrintFunction): Doc {
-    return [
-      'switch ',
-      path.call(print, 'expression'),
-      hardline,
-      path.call(print, 'cases')
-    ];
+    return ['switch ', print('expression'), hardline, print('cases')];
   }
 }

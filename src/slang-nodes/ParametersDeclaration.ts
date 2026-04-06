@@ -25,6 +25,6 @@ export class ParametersDeclaration extends SlangNode {
   }
 
   print(path: AstPath<ParametersDeclaration>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'parameters'), ')'];
+    return ['(', print('parameters'), ')'];
   }
 }

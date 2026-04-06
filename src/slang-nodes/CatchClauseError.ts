@@ -38,10 +38,6 @@ export class CatchClauseError extends SlangNode {
   }
 
   print(path: AstPath<CatchClauseError>, print: PrintFunction): Doc {
-    return [
-      path.call(print, 'name'),
-      group(path.call(print, 'parameters')),
-      ' '
-    ];
+    return [print('name'), group(print('parameters')), ' '];
   }
 }

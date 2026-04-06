@@ -25,6 +25,6 @@ export class AssemblyFlagsDeclaration extends SlangNode {
   }
 
   print(path: AstPath<AssemblyFlagsDeclaration>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'flags'), ')'];
+    return ['(', print('flags'), ')'];
   }
 }

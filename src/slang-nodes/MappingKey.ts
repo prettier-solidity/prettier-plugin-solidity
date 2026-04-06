@@ -28,9 +28,6 @@ export class MappingKey extends SlangNode {
   }
 
   print(path: AstPath<MappingKey>, print: PrintFunction): Doc {
-    return joinExisting(' ', [
-      path.call(print, 'keyType'),
-      path.call(print, 'name')
-    ]);
+    return joinExisting(' ', [print('keyType'), print('name')]);
   }
 }

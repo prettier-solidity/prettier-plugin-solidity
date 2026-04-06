@@ -24,6 +24,6 @@ export class VersionRange extends SlangNode {
   }
 
   print(path: AstPath<VersionRange>, print: PrintFunction): Doc {
-    return [path.call(print, 'start'), ' - ', path.call(print, 'end')];
+    return [print('start'), ' - ', print('end')];
   }
 }

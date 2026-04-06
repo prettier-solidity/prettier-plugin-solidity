@@ -25,6 +25,6 @@ export class UncheckedBlock extends SlangNode {
   }
 
   print(path: AstPath<UncheckedBlock>, print: PrintFunction): Doc {
-    return ['unchecked ', path.call(print, 'block')];
+    return ['unchecked ', print('block')];
   }
 }

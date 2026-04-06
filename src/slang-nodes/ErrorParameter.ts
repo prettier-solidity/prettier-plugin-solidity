@@ -35,9 +35,6 @@ export class ErrorParameter extends SlangNode {
   }
 
   print(path: AstPath<ErrorParameter>, print: PrintFunction): Doc {
-    return joinExisting(' ', [
-      path.call(print, 'typeName'),
-      path.call(print, 'name')
-    ]);
+    return joinExisting(' ', [print('typeName'), print('name')]);
   }
 }

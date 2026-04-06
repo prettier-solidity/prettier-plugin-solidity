@@ -30,9 +30,6 @@ export class UntypedTupleMember extends SlangNode {
   }
 
   print(path: AstPath<UntypedTupleMember>, print: PrintFunction): Doc {
-    return joinExisting(' ', [
-      path.call(print, 'storageLocation'),
-      path.call(print, 'name')
-    ]);
+    return joinExisting(' ', [print('storageLocation'), print('name')]);
   }
 }

@@ -25,6 +25,6 @@ export class YulDefaultCase extends SlangNode {
   }
 
   print(path: AstPath<YulDefaultCase>, print: PrintFunction): Doc {
-    return ['default ', path.call(print, 'body')];
+    return ['default ', print('body')];
   }
 }

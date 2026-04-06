@@ -29,6 +29,6 @@ export class NamedImport extends SlangNode {
   }
 
   print(path: AstPath<NamedImport>, print: PrintFunction): Doc {
-    return ['*', path.call(print, 'alias'), ' from ', path.call(print, 'path')];
+    return ['*', print('alias'), ' from ', print('path')];
   }
 }

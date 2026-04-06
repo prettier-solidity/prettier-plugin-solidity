@@ -79,7 +79,7 @@ export class ModifierDefinition extends SlangNode {
 
   print(path: AstPath<ModifierDefinition>, print: PrintFunction): Doc {
     return printFunctionWithBody(
-      ['modifier ', path.call(print, 'name')],
+      ['modifier ', print('name')],
       this,
       path,
       print

@@ -37,9 +37,9 @@ export class UsingDirective extends SlangNode {
   print(path: AstPath<UsingDirective>, print: PrintFunction): Doc {
     return [
       'using ',
-      path.call(print, 'clause'),
+      print('clause'),
       ' for ',
-      path.call(print, 'target'),
+      print('target'),
       this.globalKeyword ? ' global;' : ';'
     ];
   }

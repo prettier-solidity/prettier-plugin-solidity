@@ -26,6 +26,6 @@ export class HexNumberExpression extends SlangNode {
   }
 
   print(path: AstPath<HexNumberExpression>, print: PrintFunction): Doc {
-    return joinExisting(' ', [this.literal, path.call(print, 'unit')]);
+    return joinExisting(' ', [this.literal, print('unit')]);
   }
 }

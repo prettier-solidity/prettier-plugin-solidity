@@ -43,6 +43,6 @@ export class ModifierInvocation extends SlangNode {
   }
 
   print(path: AstPath<ModifierInvocation>, print: PrintFunction): Doc {
-    return [path.call(print, 'name'), path.call(print, 'arguments')];
+    return [print('name'), print('arguments')];
   }
 }

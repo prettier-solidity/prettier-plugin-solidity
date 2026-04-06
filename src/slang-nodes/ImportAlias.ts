@@ -18,6 +18,6 @@ export class ImportAlias extends SlangNode {
   }
 
   print(path: AstPath<ImportAlias>, print: PrintFunction): Doc {
-    return [' as ', path.call(print, 'identifier')];
+    return [' as ', print('identifier')];
   }
 }

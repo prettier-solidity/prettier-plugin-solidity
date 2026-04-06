@@ -47,10 +47,10 @@ export class IfStatement extends SlangNode {
     const { kind: bodyKind, comments: bodyComments } = this.body;
     return [
       'if (',
-      printSeparatedItem(path.call(print, 'condition')),
+      printSeparatedItem(print('condition')),
       ')',
       printIndentedGroupOrSpacedDocument(
-        path.call(print, 'body'),
+        print('body'),
         bodyKind !== NonterminalKind.Block,
         // `if` within `if`
         { shouldBreak: bodyKind === NonterminalKind.IfStatement }
@@ -64,7 +64,7 @@ export class IfStatement extends SlangNode {
             ) // or if body has trailing single line comments or a block comment on a new line
               ? hardline
               : ' ',
-            path.call(print, 'elseBranch')
+            print('elseBranch')
           ]
         : ''
     ];

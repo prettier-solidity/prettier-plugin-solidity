@@ -35,9 +35,6 @@ export class MappingValue extends SlangNode {
   }
 
   print(path: AstPath<MappingValue>, print: PrintFunction): Doc {
-    return joinExisting(' ', [
-      path.call(print, 'typeName'),
-      path.call(print, 'name')
-    ]);
+    return joinExisting(' ', [print('typeName'), print('name')]);
   }
 }

@@ -28,6 +28,6 @@ export class ExpressionStatement extends SlangNode {
   }
 
   print(path: AstPath<ExpressionStatement>, print: PrintFunction): Doc {
-    return [path.call(print, 'expression'), ';'];
+    return [print('expression'), ';'];
   }
 }

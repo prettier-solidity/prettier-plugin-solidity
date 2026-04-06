@@ -25,6 +25,6 @@ export class Block extends SlangNode {
   }
 
   print(path: AstPath<Block>, print: PrintFunction): Doc {
-    return ['{', path.call(print, 'statements'), '}'];
+    return ['{', print('statements'), '}'];
   }
 }

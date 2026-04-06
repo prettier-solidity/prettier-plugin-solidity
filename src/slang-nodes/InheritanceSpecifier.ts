@@ -25,6 +25,6 @@ export class InheritanceSpecifier extends SlangNode {
   }
 
   print(path: AstPath<InheritanceSpecifier>, print: PrintFunction): Doc {
-    return ['is', path.call(print, 'types')];
+    return ['is', print('types')];
   }
 }

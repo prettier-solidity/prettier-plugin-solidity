@@ -27,6 +27,6 @@ export class VersionTerm extends SlangNode {
   }
 
   print(path: AstPath<VersionTerm>, print: PrintFunction): Doc {
-    return [path.call(print, 'operator'), path.call(print, 'literal')];
+    return [print('operator'), print('literal')];
   }
 }

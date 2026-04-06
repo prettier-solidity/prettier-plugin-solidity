@@ -31,6 +31,6 @@ export class PathImport extends SlangNode {
   }
 
   print(path: AstPath<PathImport>, print: PrintFunction): Doc {
-    return [path.call(print, 'path'), path.call(print, 'alias')];
+    return [print('path'), print('alias')];
   }
 }

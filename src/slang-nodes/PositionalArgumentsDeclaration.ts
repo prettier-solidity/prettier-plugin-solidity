@@ -39,6 +39,6 @@ export class PositionalArgumentsDeclaration extends SlangNode {
     path: AstPath<PositionalArgumentsDeclaration>,
     print: PrintFunction
   ): Doc {
-    return ['(', path.call(print, 'arguments'), ')'];
+    return ['(', print('arguments'), ')'];
   }
 }

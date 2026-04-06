@@ -20,6 +20,6 @@ export class AbicoderPragma extends SlangNode {
   }
 
   print(path: AstPath<AbicoderPragma>, print: PrintFunction): Doc {
-    return ['abicoder ', path.call(print, 'version')];
+    return ['abicoder ', print('version')];
   }
 }

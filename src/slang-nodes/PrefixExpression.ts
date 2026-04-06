@@ -35,6 +35,6 @@ export class PrefixExpression extends SlangNode {
   }
 
   print(path: AstPath<PrefixExpression>, print: PrintFunction): Doc {
-    return [this.operator, path.call(print, 'operand')];
+    return [this.operator, print('operand')];
   }
 }

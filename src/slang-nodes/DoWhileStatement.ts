@@ -36,14 +36,14 @@ export class DoWhileStatement extends SlangNode {
   }
 
   print(path: AstPath<DoWhileStatement>, print: PrintFunction): Doc {
-    const body = path.call(print, 'body');
+    const body = print('body');
     return [
       'do',
       this.body.kind === NonterminalKind.Block
         ? [' ', body, ' ']
         : printSeparatedItem(body, { firstSeparator: line }),
       'while (',
-      printSeparatedItem(path.call(print, 'condition')),
+      printSeparatedItem(print('condition')),
       ');'
     ];
   }

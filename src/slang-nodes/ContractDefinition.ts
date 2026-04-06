@@ -63,12 +63,12 @@ export class ContractDefinition extends SlangNode {
       group([
         this.abstractKeyword ? 'abstract ' : '',
         'contract ',
-        path.call(print, 'name'),
-        path.call(print, 'specifiers'),
+        print('name'),
+        print('specifiers'),
         this.specifiers.items.length > 0 ? '' : line,
         '{'
       ]),
-      path.call(print, 'members'),
+      print('members'),
       '}'
     ];
   }

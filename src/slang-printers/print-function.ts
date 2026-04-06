@@ -18,13 +18,10 @@ export function printFunction(
 
   return group([
     functionName,
-    path.call(print, 'parameters'),
+    print('parameters'),
     indent(
       group([
-        joinExisting(line, [
-          path.call(print, 'attributes'),
-          path.call(print, 'returns')
-        ]),
+        joinExisting(line, [print('attributes'), print('returns')]),
         body && body.kind === NonterminalKind.Block ? dedent(line) : ''
       ])
     )
@@ -37,8 +34,5 @@ export function printFunctionWithBody(
   path: AstPath<FunctionWithBody>,
   print: PrintFunction
 ): Doc {
-  return [
-    printFunction(functionName, node, path, print),
-    path.call(print, 'body')
-  ];
+  return [printFunction(functionName, node, path, print), print('body')];
 }

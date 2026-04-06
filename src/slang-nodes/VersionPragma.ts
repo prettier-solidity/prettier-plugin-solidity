@@ -20,6 +20,6 @@ export class VersionPragma extends SlangNode {
   }
 
   print(path: AstPath<VersionPragma>, print: PrintFunction): Doc {
-    return ['solidity ', path.call(print, 'sets')];
+    return ['solidity ', print('sets')];
   }
 }

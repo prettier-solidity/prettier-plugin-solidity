@@ -28,6 +28,6 @@ export class ExperimentalPragma extends SlangNode {
   }
 
   print(path: AstPath<ExperimentalPragma>, print: PrintFunction): Doc {
-    return ['experimental ', path.call(print, 'feature')];
+    return ['experimental ', print('feature')];
   }
 }

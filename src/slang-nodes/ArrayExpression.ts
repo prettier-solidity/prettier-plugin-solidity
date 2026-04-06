@@ -25,6 +25,6 @@ export class ArrayExpression extends SlangNode {
   }
 
   print(path: AstPath<ArrayExpression>, print: PrintFunction): Doc {
-    return ['[', path.call(print, 'items'), ']'];
+    return ['[', print('items'), ']'];
   }
 }

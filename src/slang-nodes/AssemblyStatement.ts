@@ -40,9 +40,9 @@ export class AssemblyStatement extends SlangNode {
   print(path: AstPath<AssemblyStatement>, print: PrintFunction): Doc {
     return joinExisting(' ', [
       'assembly',
-      path.call(print, 'label'),
-      path.call(print, 'flags'),
-      path.call(print, 'body')
+      print('label'),
+      print('flags'),
+      print('body')
     ]);
   }
 }

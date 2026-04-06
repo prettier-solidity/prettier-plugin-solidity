@@ -22,6 +22,6 @@ export class OverrideSpecifier extends SlangNode {
   }
 
   print(path: AstPath<OverrideSpecifier>, print: PrintFunction): Doc {
-    return ['override', path.call(print, 'overridden')];
+    return ['override', print('overridden')];
   }
 }

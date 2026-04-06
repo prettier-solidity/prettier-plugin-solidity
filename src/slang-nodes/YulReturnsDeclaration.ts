@@ -24,7 +24,7 @@ export class YulReturnsDeclaration extends SlangNode {
   }
 
   print(path: AstPath<YulReturnsDeclaration>, print: PrintFunction): Doc {
-    return printSeparatedItem(['->', path.call(print, 'variables')], {
+    return printSeparatedItem(['->', print('variables')], {
       firstSeparator: line
     });
   }

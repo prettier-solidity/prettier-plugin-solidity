@@ -30,9 +30,6 @@ export class StateVariableDefinitionValue extends SlangNode {
     path: AstPath<StateVariableDefinitionValue>,
     print: PrintFunction
   ): Doc {
-    return [
-      ' =',
-      printAssignmentRightSide(path.call(print, 'value'), this.value)
-    ];
+    return [' =', printAssignmentRightSide(print('value'), this.value)];
   }
 }

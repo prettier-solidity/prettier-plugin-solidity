@@ -14,7 +14,7 @@ function rightOperandPrint(
   print: PrintFunction,
   options: ParserOptions<PrintableNode>
 ): Doc {
-  const rightOperand = path.call(print, 'rightOperand');
+  const rightOperand = print('rightOperand');
   const rightOperandDoc =
     options.experimentalOperatorPosition === 'end'
       ? [` ${operator}`, line, rightOperand]
@@ -49,7 +49,7 @@ export const createBinaryOperationPrinter =
     const indentRules = indentRulesBuilder(node, path);
 
     return groupRules([
-      path.call(print, 'leftOperand'),
+      print('leftOperand'),
       indentRules(rightOperandPrint(node, path, print, options))
     ]);
   };

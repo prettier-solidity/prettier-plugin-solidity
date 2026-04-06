@@ -48,10 +48,10 @@ export class YulForStatement extends SlangNode {
   print(path: AstPath<YulForStatement>, print: PrintFunction): Doc {
     return join(' ', [
       'for',
-      path.call(print, 'initialization'),
-      path.call(print, 'condition'),
-      path.call(print, 'iterator'),
-      path.call(print, 'body')
+      print('initialization'),
+      print('condition'),
+      print('iterator'),
+      print('body')
     ]);
   }
 }

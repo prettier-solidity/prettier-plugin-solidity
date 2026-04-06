@@ -31,6 +31,6 @@ export class PostfixExpression extends SlangNode {
   }
 
   print(path: AstPath<PostfixExpression>, print: PrintFunction): Doc {
-    return [path.call(print, 'operand'), this.operator];
+    return [print('operand'), this.operator];
   }
 }

@@ -46,8 +46,8 @@ export class LibraryDefinition extends SlangNode {
 
   print(path: AstPath<LibraryDefinition>, print: PrintFunction): Doc {
     return [
-      group(['library ', path.call(print, 'name'), line, '{']),
-      path.call(print, 'members'),
+      group(['library ', print('name'), line, '{']),
+      print('members'),
       '}'
     ];
   }

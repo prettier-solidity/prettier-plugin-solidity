@@ -32,6 +32,6 @@ export class StructMember extends SlangNode {
   }
 
   print(path: AstPath<StructMember>, print: PrintFunction): Doc {
-    return [path.call(print, 'typeName'), ' ', path.call(print, 'name'), ';'];
+    return [print('typeName'), ' ', print('name'), ';'];
   }
 }

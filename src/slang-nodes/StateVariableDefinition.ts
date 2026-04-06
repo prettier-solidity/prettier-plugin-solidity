@@ -51,13 +51,8 @@ export class StateVariableDefinition extends SlangNode {
 
   print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {
     return printGroupAndIndentIfBreakPair(
-      [
-        path.call(print, 'typeName'),
-        indent(path.call(print, 'attributes')),
-        ' ',
-        path.call(print, 'name')
-      ],
-      [path.call(print, 'value'), ';']
+      [print('typeName'), indent(print('attributes')), ' ', print('name')],
+      [print('value'), ';']
     );
   }
 }

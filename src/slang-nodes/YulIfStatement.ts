@@ -32,11 +32,6 @@ export class YulIfStatement extends SlangNode {
   }
 
   print(path: AstPath<YulIfStatement>, print: PrintFunction): Doc {
-    return [
-      'if ',
-      path.call(print, 'condition'),
-      ' ',
-      path.call(print, 'body')
-    ];
+    return ['if ', print('condition'), ' ', print('body')];
   }
 }

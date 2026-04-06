@@ -28,7 +28,7 @@ function experimentalTernaries(
 
   // If the `condition` breaks into multiple lines, we add parentheses,
   // unless it already is a `TupleExpression`.
-  const operand = path.call(print, 'operand');
+  const operand = print('operand');
   const operandDoc = group([
     node.operand.kind === NonterminalKind.TupleExpression
       ? operand
@@ -41,7 +41,7 @@ function experimentalTernaries(
   // `trueExpression`.
   const trueExpressionDoc = indent([
     isNestedAsTrueExpression ? hardline : line,
-    path.call(print, 'trueExpression')
+    print('trueExpression')
   ]);
 
   const groupId = Symbol('Slang.ConditionalExpression.trueExpression');
@@ -58,7 +58,7 @@ function experimentalTernaries(
       ? ' '.repeat(tabWidth - 1)
       : ' ';
 
-  const falseExpression = path.call(print, 'falseExpression');
+  const falseExpression = print('falseExpression');
   const falseExpressionDoc = [
     isNested ? hardline : line,
     ':',
@@ -81,7 +81,7 @@ function traditionalTernaries(
   print: PrintFunction
 ): Doc {
   return group([
-    path.call(print, 'operand'),
+    print('operand'),
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
       // line
@@ -89,10 +89,10 @@ function traditionalTernaries(
         ? hardline
         : line,
       '? ',
-      path.call(print, 'trueExpression'),
+      print('trueExpression'),
       line,
       ': ',
-      path.call(print, 'falseExpression')
+      print('falseExpression')
     ])
   ]);
 }

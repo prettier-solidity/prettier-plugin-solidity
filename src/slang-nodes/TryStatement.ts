@@ -54,13 +54,13 @@ export class TryStatement extends SlangNode {
   print(path: AstPath<TryStatement>, print: PrintFunction): Doc {
     return [
       'try',
-      printSeparatedItem(path.call(print, 'expression'), {
+      printSeparatedItem(print('expression'), {
         firstSeparator: line
       }),
       joinExisting(' ', [
-        path.call(print, 'returns'),
-        path.call(print, 'body'),
-        path.call(print, 'catchClauses')
+        print('returns'),
+        print('body'),
+        print('catchClauses')
       ])
     ];
   }

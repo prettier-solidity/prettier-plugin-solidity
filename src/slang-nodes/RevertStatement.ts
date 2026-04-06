@@ -32,11 +32,6 @@ export class RevertStatement extends SlangNode {
   }
 
   print(path: AstPath<RevertStatement>, print: PrintFunction): Doc {
-    return [
-      'revert ',
-      path.call(print, 'error'),
-      path.call(print, 'arguments'),
-      ';'
-    ];
+    return ['revert ', print('error'), print('arguments'), ';'];
   }
 }

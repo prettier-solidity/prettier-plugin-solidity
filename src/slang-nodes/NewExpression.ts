@@ -28,6 +28,6 @@ export class NewExpression extends SlangNode {
   }
 
   print(path: AstPath<NewExpression>, print: PrintFunction): Doc {
-    return ['new ', path.call(print, 'typeName')];
+    return ['new ', print('typeName')];
   }
 }

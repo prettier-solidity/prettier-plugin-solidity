@@ -20,6 +20,6 @@ export class YulParametersDeclaration extends SlangNode {
   }
 
   print(path: AstPath<YulParametersDeclaration>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'parameters'), ')'];
+    return ['(', print('parameters'), ')'];
   }
 }

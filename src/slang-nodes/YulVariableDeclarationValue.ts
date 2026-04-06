@@ -34,10 +34,6 @@ export class YulVariableDeclarationValue extends SlangNode {
   }
 
   print(path: AstPath<YulVariableDeclarationValue>, print: PrintFunction): Doc {
-    return [
-      path.call(print, 'assignment'),
-      ' ',
-      path.call(print, 'expression')
-    ];
+    return [print('assignment'), ' ', print('expression')];
   }
 }

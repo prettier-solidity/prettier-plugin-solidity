@@ -44,8 +44,8 @@ export class TupleDeconstructionStatement extends SlangNode {
     print: PrintFunction
   ): Doc {
     return printGroupAndIndentIfBreakPair(
-      [this.varKeyword ? 'var (' : '(', path.call(print, 'elements'), ') = '],
-      [path.call(print, 'expression'), ';']
+      [this.varKeyword ? 'var (' : '(', print('elements'), ') = '],
+      [print('expression'), ';']
     );
   }
 }

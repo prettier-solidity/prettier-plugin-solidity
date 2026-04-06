@@ -29,11 +29,6 @@ export class ImportDeconstruction extends SlangNode {
   }
 
   print(path: AstPath<ImportDeconstruction>, print: PrintFunction): Doc {
-    return [
-      '{',
-      path.call(print, 'symbols'),
-      '} from ',
-      path.call(print, 'path')
-    ];
+    return ['{', print('symbols'), '} from ', print('path')];
   }
 }

@@ -25,6 +25,6 @@ export class NamedArgumentGroup extends SlangNode {
   }
 
   print(path: AstPath<NamedArgumentGroup>, print: PrintFunction): Doc {
-    return ['{', path.call(print, 'arguments'), '}'];
+    return ['{', print('arguments'), '}'];
   }
 }

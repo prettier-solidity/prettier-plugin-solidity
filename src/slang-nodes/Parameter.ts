@@ -49,9 +49,9 @@ export class Parameter extends SlangNode {
   print(path: AstPath<Parameter>, print: PrintFunction): Doc {
     return group(
       joinExisting(' ', [
-        path.call(print, 'typeName'),
-        path.call(print, 'storageLocation'),
-        path.call(print, 'name')
+        print('typeName'),
+        print('storageLocation'),
+        print('name')
       ])
     );
   }

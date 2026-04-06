@@ -20,6 +20,6 @@ export class OverridePathsDeclaration extends SlangNode {
   }
 
   print(path: AstPath<OverridePathsDeclaration>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'paths'), ')'];
+    return ['(', print('paths'), ')'];
   }
 }

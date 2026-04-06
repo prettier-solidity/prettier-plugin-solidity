@@ -25,6 +25,6 @@ export class ErrorParametersDeclaration extends SlangNode {
   }
 
   print(path: AstPath<ErrorParametersDeclaration>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'parameters'), ')'];
+    return ['(', print('parameters'), ')'];
   }
 }

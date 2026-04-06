@@ -25,6 +25,6 @@ export class EventParametersDeclaration extends SlangNode {
   }
 
   print(path: AstPath<EventParametersDeclaration>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'parameters'), ')'];
+    return ['(', print('parameters'), ')'];
   }
 }

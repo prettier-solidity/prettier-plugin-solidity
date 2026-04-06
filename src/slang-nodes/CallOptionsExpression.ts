@@ -32,6 +32,6 @@ export class CallOptionsExpression extends SlangNode {
   }
 
   print(path: AstPath<CallOptionsExpression>, print: PrintFunction): Doc {
-    return [path.call(print, 'operand'), '{', path.call(print, 'options'), '}'];
+    return [print('operand'), '{', print('options'), '}'];
   }
 }
