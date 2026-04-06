@@ -25,7 +25,7 @@ export class AssemblyFlags extends SlangNode {
     );
   }
 
-  print(path: AstPath<AssemblyFlags>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<AssemblyFlags>): Doc {
     return printSeparatedList(path.map(print, 'items'));
   }
 }

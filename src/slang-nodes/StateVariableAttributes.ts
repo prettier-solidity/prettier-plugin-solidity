@@ -26,7 +26,7 @@ export class StateVariableAttributes extends SlangNode {
     this.items.sort(sortFunctionAttributes);
   }
 
-  print(path: AstPath<StateVariableAttributes>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<StateVariableAttributes>): Doc {
     return path.map(() => [line, print(path)], 'items');
   }
 }

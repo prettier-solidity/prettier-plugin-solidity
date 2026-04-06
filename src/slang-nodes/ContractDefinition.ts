@@ -7,7 +7,7 @@ import { ContractSpecifiers } from './ContractSpecifiers.js';
 import { ContractMembers } from './ContractMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -58,7 +58,7 @@ export class ContractDefinition extends SlangNode {
     }
   }
 
-  print(path: AstPath<ContractDefinition>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [
       group([
         this.abstractKeyword ? 'abstract ' : '',

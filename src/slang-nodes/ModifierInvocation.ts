@@ -5,7 +5,7 @@ import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -38,11 +38,11 @@ export class ModifierInvocation extends SlangNode {
       this.arguments?.kind === NonterminalKind.PositionalArgumentsDeclaration &&
       this.arguments.isEmpty
     ) {
-      delete this.arguments;
+      this.arguments = undefined;
     }
   }
 
-  print(path: AstPath<ModifierInvocation>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [print('name'), print('arguments')];
   }
 }

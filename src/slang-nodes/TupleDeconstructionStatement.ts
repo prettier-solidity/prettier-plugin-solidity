@@ -6,7 +6,7 @@ import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -39,10 +39,7 @@ export class TupleDeconstructionStatement extends SlangNode {
     this.updateMetadata(this.elements, this.expression);
   }
 
-  print(
-    path: AstPath<TupleDeconstructionStatement>,
-    print: PrintFunction
-  ): Doc {
+  print(print: PrintFunction): Doc {
     return printGroupAndIndentIfBreakPair(
       [this.varKeyword ? 'var (' : '(', print('elements'), ') = '],
       [print('expression'), ';']

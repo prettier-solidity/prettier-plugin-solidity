@@ -20,7 +20,7 @@ export class IdentifierPath extends SlangNode {
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
-  print(path: AstPath<IdentifierPath>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<IdentifierPath>): Doc {
     return join('.', path.map(print, 'items'));
   }
 }

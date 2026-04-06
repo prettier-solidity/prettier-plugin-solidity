@@ -25,7 +25,7 @@ export class ErrorParameters extends SlangNode {
     );
   }
 
-  print(path: AstPath<ErrorParameters>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<ErrorParameters>): Doc {
     return this.items.length > 0
       ? printSeparatedList(path.map(print, 'items'))
       : '';

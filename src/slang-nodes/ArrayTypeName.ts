@@ -5,7 +5,7 @@ import { TypeName } from './TypeName.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -35,7 +35,7 @@ export class ArrayTypeName extends SlangNode {
     this.updateMetadata(this.operand, this.index);
   }
 
-  print(path: AstPath<ArrayTypeName>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [print('operand'), '[', print('index'), ']'];
   }
 }

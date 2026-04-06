@@ -22,7 +22,7 @@ export class VersionExpressionSets extends SlangNode {
     );
   }
 
-  print(path: AstPath<VersionExpressionSets>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<VersionExpressionSets>): Doc {
     return join(' || ', path.map(print, 'items'));
   }
 }

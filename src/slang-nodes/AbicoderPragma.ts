@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 import { AbicoderVersion } from './AbicoderVersion.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class AbicoderPragma extends SlangNode {
@@ -19,7 +19,7 @@ export class AbicoderPragma extends SlangNode {
     this.updateMetadata(this.version);
   }
 
-  print(path: AstPath<AbicoderPragma>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return ['abicoder ', print('version')];
   }
 }

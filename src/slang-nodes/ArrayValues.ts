@@ -26,7 +26,7 @@ export class ArrayValues extends SlangNode {
     );
   }
 
-  print(path: AstPath<ArrayValues>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<ArrayValues>): Doc {
     return printSeparatedList(path.map(print, 'items'));
   }
 }

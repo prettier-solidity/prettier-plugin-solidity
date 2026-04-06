@@ -31,8 +31,8 @@ export class ReturnStatement extends SlangNode {
   }
 
   print(
-    path: AstPath<ReturnStatement>,
     print: PrintFunction,
+    _path: AstPath<ReturnStatement>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     const expressionVariantKind = this.expression?.kind;

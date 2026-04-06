@@ -32,7 +32,7 @@ export class ContractSpecifiers extends SlangNode {
     this.items.sort(sortContractSpecifiers);
   }
 
-  print(path: AstPath<ContractSpecifiers>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<ContractSpecifiers>): Doc {
     const [specifier1, specifier2] = path.map(print, 'items');
 
     if (specifier1 === undefined) return '';

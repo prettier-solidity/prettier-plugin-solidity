@@ -7,7 +7,7 @@ import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -33,7 +33,7 @@ export class WhileStatement extends SlangNode {
     this.updateMetadata(this.condition, this.body);
   }
 
-  print(path: AstPath<WhileStatement>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [
       'while (',
       printSeparatedItem(print('condition')),

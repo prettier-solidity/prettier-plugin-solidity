@@ -6,7 +6,7 @@ import { SlangNode } from './SlangNode.js';
 import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -32,7 +32,7 @@ export class ElseBranch extends SlangNode {
     this.updateMetadata(this.body);
   }
 
-  print(path: AstPath<ElseBranch>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [
       'else',
       printIndentedGroupOrSpacedDocument(

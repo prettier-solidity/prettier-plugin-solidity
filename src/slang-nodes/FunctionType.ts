@@ -6,7 +6,7 @@ import { FunctionTypeAttributes } from './FunctionTypeAttributes.js';
 import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -39,7 +39,7 @@ export class FunctionType extends SlangNode {
     this.updateMetadata(this.parameters, this.attributes, this.returns);
   }
 
-  print(path: AstPath<FunctionType>, print: PrintFunction): Doc {
-    return printFunction('function', this, path, print);
+  print(print: PrintFunction): Doc {
+    return printFunction('function', this, print);
   }
 }

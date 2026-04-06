@@ -53,8 +53,8 @@ export class BitwiseXorExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<BitwiseXorExpression>,
     print: PrintFunction,
+    path: AstPath<BitwiseXorExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printBitwiseXorExpression(this, path, print, options);

@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 import { AssemblyFlags } from './AssemblyFlags.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -24,7 +24,7 @@ export class AssemblyFlagsDeclaration extends SlangNode {
     this.updateMetadata(this.flags);
   }
 
-  print(path: AstPath<AssemblyFlagsDeclaration>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return ['(', print('flags'), ')'];
   }
 }

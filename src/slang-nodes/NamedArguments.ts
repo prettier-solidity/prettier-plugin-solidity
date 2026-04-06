@@ -29,8 +29,8 @@ export class NamedArguments extends SlangNode {
   }
 
   print(
-    path: AstPath<NamedArguments>,
     print: PrintFunction,
+    path: AstPath<NamedArguments>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printSeparatedList(path.map(print, 'items'), {

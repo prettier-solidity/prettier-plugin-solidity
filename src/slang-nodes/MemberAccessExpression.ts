@@ -130,7 +130,7 @@ export class MemberAccessExpression extends SlangNode {
     this.updateMetadata(this.operand);
   }
 
-  print(path: AstPath<MemberAccessExpression>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<MemberAccessExpression>): Doc {
     let operandDoc = print('operand');
     if (Array.isArray(operandDoc)) {
       operandDoc = operandDoc.flat();

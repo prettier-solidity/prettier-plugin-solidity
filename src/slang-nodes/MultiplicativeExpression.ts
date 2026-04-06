@@ -67,8 +67,8 @@ export class MultiplicativeExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<MultiplicativeExpression>,
     print: PrintFunction,
+    path: AstPath<MultiplicativeExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printMultiplicativeExpression(this, path, print, options);

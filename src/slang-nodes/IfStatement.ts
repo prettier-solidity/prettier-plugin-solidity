@@ -10,7 +10,7 @@ import { Statement } from './Statement.js';
 import { ElseBranch } from './ElseBranch.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -43,7 +43,7 @@ export class IfStatement extends SlangNode {
     this.updateMetadata(this.condition, this.body, this.elseBranch);
   }
 
-  print(path: AstPath<IfStatement>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     const { kind: bodyKind, comments: bodyComments } = this.body;
     return [
       'if (',

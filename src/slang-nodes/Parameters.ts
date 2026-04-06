@@ -28,8 +28,8 @@ export class Parameters extends SlangNode {
   }
 
   print(
-    path: AstPath<Parameters>,
     print: PrintFunction,
+    path: AstPath<Parameters>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     if (this.items.length > 0) {

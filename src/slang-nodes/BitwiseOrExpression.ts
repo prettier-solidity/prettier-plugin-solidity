@@ -63,8 +63,8 @@ export class BitwiseOrExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<BitwiseOrExpression>,
     print: PrintFunction,
+    path: AstPath<BitwiseOrExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printBitwiseOrExpression(this, path, print, options);

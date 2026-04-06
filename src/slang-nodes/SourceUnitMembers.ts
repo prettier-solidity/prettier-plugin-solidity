@@ -27,8 +27,8 @@ export class SourceUnitMembers extends SlangNode {
   }
 
   print(
-    path: AstPath<SourceUnitMembers>,
     print: PrintFunction,
+    path: AstPath<SourceUnitMembers>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printPreservingEmptyLines(this, path, print, options);

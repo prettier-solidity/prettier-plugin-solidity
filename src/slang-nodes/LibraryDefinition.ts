@@ -6,7 +6,7 @@ import { TerminalNode } from './TerminalNode.js';
 import { LibraryMembers } from './LibraryMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -44,7 +44,7 @@ export class LibraryDefinition extends SlangNode {
     }
   }
 
-  print(path: AstPath<LibraryDefinition>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [
       group(['library ', print('name'), line, '{']),
       print('members'),

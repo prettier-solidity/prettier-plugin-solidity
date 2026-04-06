@@ -25,7 +25,7 @@ export class EventParameters extends SlangNode {
     );
   }
 
-  print(path: AstPath<EventParameters>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<EventParameters>): Doc {
     return this.items.length > 0
       ? printSeparatedList(path.map(print, 'items'))
       : '';

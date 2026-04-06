@@ -31,7 +31,7 @@ export class StorageLayoutSpecifier extends SlangNode {
     this.updateMetadata(this.expression);
   }
 
-  print(path: AstPath<StorageLayoutSpecifier>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<StorageLayoutSpecifier>): Doc {
     return [
       'layout at',
       printSeparatedItem(print('expression'), {

@@ -27,7 +27,7 @@ export class UnicodeStringLiterals extends SlangNode {
     );
   }
 
-  print(path: AstPath<UnicodeStringLiterals>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<UnicodeStringLiterals>): Doc {
     return join(hardline, path.map(print, 'items'));
   }
 }

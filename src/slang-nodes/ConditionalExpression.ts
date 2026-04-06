@@ -156,8 +156,8 @@ export class ConditionalExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<ConditionalExpression>,
     print: PrintFunction,
+    path: AstPath<ConditionalExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return options.experimentalTernaries

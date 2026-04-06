@@ -57,8 +57,8 @@ export class AdditiveExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<AdditiveExpression>,
     print: PrintFunction,
+    path: AstPath<AdditiveExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printAdditiveExpression(this, path, print, options);

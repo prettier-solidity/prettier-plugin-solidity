@@ -4,7 +4,7 @@ import { SlangNode } from './SlangNode.js';
 import { VersionLiteral } from './VersionLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class VersionRange extends SlangNode {
@@ -23,7 +23,7 @@ export class VersionRange extends SlangNode {
     this.updateMetadata(this.start, this.end);
   }
 
-  print(path: AstPath<VersionRange>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [print('start'), ' - ', print('end')];
   }
 }

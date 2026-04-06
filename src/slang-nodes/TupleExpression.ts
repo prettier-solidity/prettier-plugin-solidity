@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 import { TupleValues } from './TupleValues.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -24,7 +24,7 @@ export class TupleExpression extends SlangNode {
     this.updateMetadata(this.items);
   }
 
-  print(path: AstPath<TupleExpression>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return ['(', print('items'), ')'];
   }
 }

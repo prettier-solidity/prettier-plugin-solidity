@@ -31,7 +31,7 @@ export class ConstructorAttributes extends SlangNode {
     this.items.sort(sortFunctionAttributes);
   }
 
-  print(path: AstPath<ConstructorAttributes>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<ConstructorAttributes>): Doc {
     return path.map(() => [line, print(path)], 'items');
   }
 }

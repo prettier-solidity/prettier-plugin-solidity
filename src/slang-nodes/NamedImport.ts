@@ -4,7 +4,7 @@ import { ImportAlias } from './ImportAlias.js';
 import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -28,7 +28,7 @@ export class NamedImport extends SlangNode {
     this.updateMetadata(this.alias, this.path);
   }
 
-  print(path: AstPath<NamedImport>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return ['*', print('alias'), ' from ', print('path')];
   }
 }

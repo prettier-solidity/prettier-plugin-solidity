@@ -5,7 +5,7 @@ import { StorageLocation } from './StorageLocation.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class UntypedTupleMember extends SlangNode {
@@ -29,7 +29,7 @@ export class UntypedTupleMember extends SlangNode {
     this.updateMetadata(this.storageLocation);
   }
 
-  print(path: AstPath<UntypedTupleMember>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return joinExisting(' ', [print('storageLocation'), print('name')]);
   }
 }

@@ -28,8 +28,8 @@ export class SourceUnit extends SlangNode {
   }
 
   print(
-    path: AstPath<SourceUnit>,
     print: PrintFunction,
+    _path: AstPath<SourceUnit>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return [

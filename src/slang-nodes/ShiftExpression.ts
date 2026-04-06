@@ -65,8 +65,8 @@ export class ShiftExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<ShiftExpression>,
     print: PrintFunction,
+    path: AstPath<ShiftExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printShiftExpression(this, path, print, options);

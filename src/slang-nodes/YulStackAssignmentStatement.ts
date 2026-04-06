@@ -7,7 +7,7 @@ import { YulStackAssignmentOperator } from './YulStackAssignmentOperator.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
@@ -33,7 +33,7 @@ export class YulStackAssignmentStatement extends SlangNode {
     this.updateMetadata(this.assignment);
   }
 
-  print(path: AstPath<YulStackAssignmentStatement>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [
       print('assignment'),
       printSeparatedItem(print('variable'), {

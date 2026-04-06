@@ -18,7 +18,7 @@ export class OverridePaths extends SlangNode {
     this.items = ast.items.map((item) => new IdentifierPath(item, collected));
   }
 
-  print(path: AstPath<OverridePaths>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<OverridePaths>): Doc {
     return printSeparatedList(path.map(print, 'items'));
   }
 }

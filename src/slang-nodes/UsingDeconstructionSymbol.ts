@@ -4,7 +4,7 @@ import { IdentifierPath } from './IdentifierPath.js';
 import { UsingAlias } from './UsingAlias.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class UsingDeconstructionSymbol extends SlangNode {
@@ -28,7 +28,7 @@ export class UsingDeconstructionSymbol extends SlangNode {
     this.updateMetadata(this.name, this.alias);
   }
 
-  print(path: AstPath<UsingDeconstructionSymbol>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [print('name'), print('alias')];
   }
 }

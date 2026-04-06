@@ -68,8 +68,8 @@ export class ExponentiationExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<ExponentiationExpression>,
     print: PrintFunction,
+    path: AstPath<ExponentiationExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printExponentiationExpression(this, path, print, options);

@@ -5,7 +5,7 @@ import { TerminalNode } from './TerminalNode.js';
 import { ElementaryType } from './ElementaryType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class UserDefinedValueTypeDefinition extends SlangNode {
@@ -29,10 +29,7 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
     this.updateMetadata(this.valueType);
   }
 
-  print(
-    path: AstPath<UserDefinedValueTypeDefinition>,
-    print: PrintFunction
-  ): Doc {
+  print(print: PrintFunction): Doc {
     return ['type ', print('name'), ' is ', print('valueType'), ';'];
   }
 }

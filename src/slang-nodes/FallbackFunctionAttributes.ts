@@ -31,7 +31,7 @@ export class FallbackFunctionAttributes extends SlangNode {
     this.items.sort(sortFunctionAttributes);
   }
 
-  print(path: AstPath<FallbackFunctionAttributes>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<FallbackFunctionAttributes>): Doc {
     return path.map(() => [line, print(path)], 'items');
   }
 }

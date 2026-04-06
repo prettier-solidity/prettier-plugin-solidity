@@ -26,7 +26,7 @@ export class ModifierAttributes extends SlangNode {
     this.items.sort(sortFunctionAttributes);
   }
 
-  print(path: AstPath<ModifierAttributes>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<ModifierAttributes>): Doc {
     return path.map(() => [line, print(path)], 'items');
   }
 }
