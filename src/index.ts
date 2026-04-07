@@ -9,6 +9,7 @@ import slangParse from './slangSolidityParser.js';
 import slangPrint from './slangPrinter.js';
 import { isBlockComment, isComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
+import { hasPrettierIgnore } from './slang-utils/has-prettier-ignore.js';
 
 import type {
   Parser,
@@ -78,6 +79,7 @@ const slangPrinter: Printer<AstNode> = {
   isBlockComment,
   massageAstNode,
   print: slangPrint,
+  hasPrettierIgnore,
   printComment
 };
 
