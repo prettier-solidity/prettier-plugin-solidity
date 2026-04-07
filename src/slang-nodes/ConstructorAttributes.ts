@@ -32,6 +32,6 @@ export class ConstructorAttributes extends SlangNode {
   }
 
   print(print: PrintFunction, path: AstPath<ConstructorAttributes>): Doc {
-    return path.map(() => [line, print(path)], 'items');
+    return path.map(() => [line, print()], 'items');
   }
 }

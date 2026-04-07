@@ -24,7 +24,7 @@ export function printPreservingEmptyLines(
           node.kind !== NonterminalKind.YulLabel
             ? hardline
             : '',
-          print(path),
+          print(),
           // Only attempt to append an empty line if `node` is not the last item
           !isLast &&
           // Append an empty line if the original text already had an one after the
