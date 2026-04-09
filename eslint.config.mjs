@@ -1,7 +1,7 @@
 import globals from 'globals';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import eslintImport from 'eslint-plugin-import';
+import eslintImportX from 'eslint-plugin-import-x';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
@@ -48,10 +48,10 @@ export default [
   },
   ...compat
     .extends(
-      'prettier',
       'plugin:@typescript-eslint/recommended',
       'plugin:@typescript-eslint/stylistic',
-      'plugin:@typescript-eslint/recommended-type-checked'
+      'plugin:@typescript-eslint/recommended-type-checked',
+      'prettier'
     )
     .map((config) => ({
       ...config,
@@ -61,7 +61,7 @@ export default [
     files: ['**/*.ts'],
 
     plugins: {
-      import: eslintImport,
+      'import-x': eslintImportX,
       '@typescript-eslint': typescriptEslint
     },
 
@@ -80,7 +80,7 @@ export default [
         'error',
         { ignoreCase: true, ignoreDeclarationSort: true }
       ],
-      'import/order': [
+      'import-x/order': [
         'error',
         {
           groups: [
