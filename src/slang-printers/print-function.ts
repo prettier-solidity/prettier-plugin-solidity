@@ -13,15 +13,15 @@ export function printFunction(
   node: FunctionLike,
   print: PrintFunction
 ): Doc {
-  const body = (node as FunctionWithBody).body;
-
   return group([
     functionName,
     print('parameters'),
     indent(
       group([
         joinExisting(line, [print('attributes'), print('returns')]),
-        body && body.kind === NonterminalKind.Block ? dedent(line) : ''
+        (node as FunctionWithBody).body?.kind === NonterminalKind.Block
+          ? dedent(line)
+          : ''
       ])
     )
   ]);
