@@ -6,7 +6,7 @@ import { Expression } from './Expression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class PrefixExpression extends SlangNode {
   readonly kind = NonterminalKind.PrefixExpression;
@@ -18,7 +18,7 @@ export class PrefixExpression extends SlangNode {
   constructor(
     ast: ast.PrefixExpression,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

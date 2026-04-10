@@ -5,11 +5,7 @@ import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  BinaryOperation,
-  PrintableNode
-} from '../slang-nodes/types.d.ts';
+import type { BinaryOperation, PrintableNode } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
 const { group, indent } = doc.builders;
@@ -59,7 +55,7 @@ export const printBinaryOperation = (
   node: BinaryOperation,
   path: AstPath<PrintableNode>,
   print: PrintFunction,
-  options: ParserOptions<AstNode>
+  options: ParserOptions<PrintableNode>
 ) => Doc) =>
   createBinaryOperationPrinter(
     binaryGroupRulesBuilder(shouldGroupAndIndent),

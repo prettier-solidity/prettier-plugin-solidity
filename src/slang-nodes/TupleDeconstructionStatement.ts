@@ -8,7 +8,7 @@ import { Expression } from './Expression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class TupleDeconstructionStatement extends SlangNode {
   readonly kind = NonterminalKind.TupleDeconstructionStatement;
@@ -22,7 +22,7 @@ export class TupleDeconstructionStatement extends SlangNode {
   constructor(
     ast: ast.TupleDeconstructionStatement,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

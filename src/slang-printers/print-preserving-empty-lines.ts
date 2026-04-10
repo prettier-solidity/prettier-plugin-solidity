@@ -4,7 +4,7 @@ import { locEnd } from '../slang-utils/loc.js';
 import { printComments } from './print-comments.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { AstNode, LineCollection } from '../slang-nodes/types.d.ts';
+import type { LineCollection, PrintableNode } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
 const { hardline } = doc.builders;
@@ -13,7 +13,7 @@ export function printPreservingEmptyLines(
   node: LineCollection,
   path: AstPath<LineCollection>,
   print: PrintFunction,
-  options: ParserOptions<AstNode>
+  options: ParserOptions<PrintableNode>
 ): Doc {
   return node.items.length > 0
     ? path.map(({ node, isFirst, isLast }) => {

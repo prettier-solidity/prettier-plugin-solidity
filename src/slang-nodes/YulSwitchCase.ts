@@ -7,7 +7,7 @@ import { YulValueCase } from './YulValueCase.js';
 
 import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.YulSwitchCase,
@@ -25,7 +25,7 @@ export class YulSwitchCase extends SlangNode {
   constructor(
     ast: ast.YulSwitchCase,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

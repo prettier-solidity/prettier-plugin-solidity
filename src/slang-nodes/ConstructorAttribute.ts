@@ -9,7 +9,7 @@ import { TerminalNode } from './TerminalNode.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class ConstructorAttribute extends SlangNode {
   readonly kind = NonterminalKind.ConstructorAttribute;
@@ -19,7 +19,7 @@ export class ConstructorAttribute extends SlangNode {
   constructor(
     ast: ast.ConstructorAttribute,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

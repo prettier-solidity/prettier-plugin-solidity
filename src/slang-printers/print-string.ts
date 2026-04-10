@@ -1,14 +1,14 @@
 import { util } from 'prettier';
 
 import type { ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes/types.d.ts';
+import type { PrintableNode } from '../slang-nodes/types.d.ts';
 
 const SINGLE_QUOTE: util.Quote = "'";
 const DOUBLE_QUOTE: util.Quote = '"';
 
 export function printString(
   rawContent: string,
-  options: ParserOptions<AstNode>
+  options: ParserOptions<PrintableNode>
 ): string {
   const preferred = options.singleQuote ? SINGLE_QUOTE : DOUBLE_QUOTE;
   const alternate = preferred === SINGLE_QUOTE ? DOUBLE_QUOTE : SINGLE_QUOTE;

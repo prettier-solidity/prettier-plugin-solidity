@@ -11,7 +11,7 @@ import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const { indent, line } = doc.builders;
 
@@ -29,7 +29,7 @@ export class VariableDeclarationStatement extends SlangNode {
   constructor(
     ast: ast.VariableDeclarationStatement,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

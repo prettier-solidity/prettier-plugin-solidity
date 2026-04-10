@@ -8,7 +8,7 @@ import { InterfaceMembers } from './InterfaceMembers.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const { group, line } = doc.builders;
 
@@ -24,7 +24,7 @@ export class InterfaceDefinition extends SlangNode {
   constructor(
     ast: ast.InterfaceDefinition,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

@@ -3,11 +3,7 @@ import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  BinaryOperation,
-  PrintableNode
-} from '../slang-nodes/types.d.ts';
+import type { BinaryOperation, PrintableNode } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
 
 const { group, line } = doc.builders;
@@ -16,7 +12,7 @@ function rightOperandPrint(
   { operator, leftOperand }: BinaryOperation,
   path: AstPath<PrintableNode>,
   print: PrintFunction,
-  options: ParserOptions<AstNode>
+  options: ParserOptions<PrintableNode>
 ): Doc {
   const rightOperand = path.call(print, 'rightOperand');
   const rightOperandDoc =
@@ -47,7 +43,7 @@ export const createBinaryOperationPrinter =
     node: BinaryOperation,
     path: AstPath<PrintableNode>,
     print: PrintFunction,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ): Doc => {
     const groupRules = groupRulesBuilder(path);
     const indentRules = indentRulesBuilder(node, path);

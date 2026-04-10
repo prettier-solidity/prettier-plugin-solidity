@@ -12,7 +12,7 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.ForStatementInitialization,
@@ -35,7 +35,7 @@ export class ForStatementInitialization extends SlangNode {
   constructor(
     ast: ast.ForStatementInitialization,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

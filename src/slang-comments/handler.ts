@@ -5,8 +5,8 @@ import type { Comment } from '../slang-nodes/types.d.ts';
 function handler(
   comment: Comment,
   text: string
-  // options: ParserOptions<AstNode>,
-  // ast: AstNode,
+  // options: ParserOptions<PrintableNode>,
+  // ast: PrintableNode,
   // isLastComment: boolean
 ): boolean {
   const { precedingNode, enclosingNode, followingNode } = comment;

@@ -9,7 +9,7 @@ import { Expression } from './Expression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const tryToHug = createHugFunction(['+', '-', '*', '/', '**', '<<', '>>', '&']);
 
@@ -34,7 +34,7 @@ export class BitwiseXorExpression extends SlangNode {
   constructor(
     ast: ast.BitwiseXorExpression,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 
@@ -55,7 +55,7 @@ export class BitwiseXorExpression extends SlangNode {
   print(
     path: AstPath<BitwiseXorExpression>,
     print: PrintFunction,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ): Doc {
     return printBitwiseXorExpression(this, path, print, options);
   }

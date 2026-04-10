@@ -501,10 +501,3 @@ export type ChainableExpression =
   | FunctionCallExpression
   | IndexAccessExpression
   | MemberAccessExpression;
-
-export type AstNode =
-  | StrictAstNode
-  | Comment
-  | TerminalNode
-  | string
-  | undefined;

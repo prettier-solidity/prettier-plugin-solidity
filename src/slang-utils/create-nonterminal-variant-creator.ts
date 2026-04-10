@@ -2,7 +2,10 @@
 import { extractVariant } from './extract-variant.js';
 
 import type { ParserOptions } from 'prettier';
-import type { AstNode, StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
+import type {
+  PrintableNode,
+  StrictPolymorphicNode
+} from '../slang-nodes/types.d.ts';
 import type {
   CollectedMetadata,
   SlangAstNode,
@@ -19,7 +22,7 @@ type NonterminalVariantFactory<
 > = (
   variant: U['variant'],
   collected: CollectedMetadata,
-  options?: ParserOptions<AstNode>
+  options?: ParserOptions<PrintableNode>
 ) => T['variant'];
 
 export function createNonterminalVariantSimpleCreator<

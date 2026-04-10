@@ -15,7 +15,7 @@ import type {
   CollectedMetadata,
   PrintFunction
 } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class ModifierDefinition extends SlangNode {
   readonly kind = NonterminalKind.ModifierDefinition;
@@ -31,7 +31,7 @@ export class ModifierDefinition extends SlangNode {
   constructor(
     ast: ast.ModifierDefinition,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

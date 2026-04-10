@@ -8,7 +8,7 @@ import { Expression } from './Expression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode, PrintableNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const { group, hardline, ifBreak, indent, line } = doc.builders;
 
@@ -16,7 +16,7 @@ function experimentalTernaries(
   node: ConditionalExpression,
   path: AstPath<PrintableNode>,
   print: PrintFunction,
-  { useTabs, tabWidth }: ParserOptions<AstNode>
+  { useTabs, tabWidth }: ParserOptions<PrintableNode>
 ): Doc {
   const parent = path.parent!;
   const isNested = parent.kind === NonterminalKind.ConditionalExpression;
@@ -117,7 +117,7 @@ export class ConditionalExpression extends SlangNode {
   constructor(
     ast: ast.ConditionalExpression,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 
@@ -158,7 +158,7 @@ export class ConditionalExpression extends SlangNode {
   print(
     path: AstPath<ConditionalExpression>,
     print: PrintFunction,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ): Doc {
     return options.experimentalTernaries
       ? experimentalTernaries(this, path, print, options)
