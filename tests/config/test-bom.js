@@ -1,10 +1,13 @@
 import { BOM } from "./constants.js";
 import { format } from "./run-prettier.js";
 
-async function testBom(source, formatResult, _filename, formatOptions) {
-  if (source.charAt(0) !== BOM) {
+async function testBom(testCase) {
+  const { code, formatOptions } = testCase;
+  const formatResult = await testCase.runFormat();
+
+  if (code.charAt(0) !== BOM) {
     const { eolVisualizedOutput: output } = await format(
-      BOM + source,
+      BOM + code,
       formatOptions,
     );
     const expected = BOM + formatResult.eolVisualizedOutput;

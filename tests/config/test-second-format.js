@@ -1,12 +1,15 @@
 import * as failedTests from "./failed-format-tests.js";
 import { format } from "./run-prettier.js";
 
-async function testSecondFormat(source, formatResult, filename, formatOptions) {
-  const isUnstableTest = failedTests.isUnstable(filename, formatOptions);
+async function testSecondFormat(testCase) {
+  const { code, filepath, formatOptions } = testCase;
+  const formatResult = await testCase.runFormat();
+
+  const isUnstableTest = failedTests.isUnstable(filepath, formatOptions);
   if (
     (formatResult.changed || isUnstableTest) &&
     // No range and cursor
-    formatResult.input === source
+    formatResult.input === code
   ) {
     const { eolVisualizedOutput: firstOutput, output } = formatResult;
     const { eolVisualizedOutput: secondOutput } = await format(

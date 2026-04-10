@@ -2,15 +2,13 @@ import path from "node:path";
 import createEsmUtils from "esm-utils";
 import compileContract from "./utils/compile-contract.js";
 
-async function testBytecodeCompare(
-  _source,
-  formatResult,
-  filename,
-  formatOptions,
-) {
-  if (shouldCompareBytecode(filename, formatOptions)) {
-    const output = compileContract(filename, formatResult.output);
-    const expected = compileContract(filename, formatResult.input);
+async function testBytecodeCompare(testCase) {
+  const { filepath, formatOptions } = testCase;
+  const formatResult = await testCase.runFormat();
+
+  if (shouldCompareBytecode(filepath, formatOptions)) {
+    const output = compileContract(filepath, formatResult.output);
+    const expected = compileContract(filepath, formatResult.input);
     expect(output).toEqual(expected);
   }
 }
@@ -41,8 +39,8 @@ const testsWithAstChanges = new Map(
   }),
 );
 
-const shouldCompareBytecode = (filename, options) => {
-  const testFunction = testsWithAstChanges.get(filename);
+const shouldCompareBytecode = (filepath, options) => {
+  const testFunction = testsWithAstChanges.get(filepath);
 
   if (!testFunction) {
     return false;
