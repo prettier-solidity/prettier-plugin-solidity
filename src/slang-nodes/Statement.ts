@@ -22,7 +22,7 @@ import { UncheckedBlock } from './UncheckedBlock.js';
 
 import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   slangAst.Statement,
@@ -71,7 +71,7 @@ export class Statement extends SlangNode {
   constructor(
     ast: slangAst.Statement,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

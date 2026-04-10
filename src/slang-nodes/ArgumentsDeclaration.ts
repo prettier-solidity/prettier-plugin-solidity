@@ -7,7 +7,7 @@ import { NamedArgumentsDeclaration } from './NamedArgumentsDeclaration.js';
 
 import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.ArgumentsDeclaration,
@@ -25,7 +25,7 @@ export class ArgumentsDeclaration extends SlangNode {
   constructor(
     ast: ast.ArgumentsDeclaration,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

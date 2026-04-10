@@ -17,7 +17,7 @@ import type {
   RequiredOptions,
   SupportLanguage
 } from 'prettier';
-import type { AstNode } from './slang-nodes/types.d.ts';
+import type { PrintableNode } from './slang-nodes/types.d.ts';
 
 const slangParserId = 'slang';
 const antlrParserId = 'antlr';
@@ -40,7 +40,7 @@ const languages: SupportLanguage[] = [
 
 // https://prettier.io/docs/en/plugins.html#parsers
 const antlrParser = { astFormat: antlrAstId, parse: antlrParse, ...loc };
-const slangParser: Parser<AstNode> = {
+const slangParser: Parser<PrintableNode> = {
   astFormat: slangAstId,
   parse: slangParse,
   locStart,
@@ -54,8 +54,7 @@ const parsers = {
 
 const antlrCanAttachComment = ({ type }: { type: string }): boolean =>
   typeof type === 'string' && type !== 'BlockComment' && type !== 'LineComment';
-const canAttachComment = (node: AstNode): boolean =>
-  typeof node !== 'string' &&
+const canAttachComment = (node: PrintableNode | undefined): boolean =>
   node !== undefined &&
   node.kind && // Make sure it's not Location
   !isComment(node);
@@ -73,7 +72,7 @@ const antlrPrinter = {
   print: antlrPrint,
   printComment: comments.printComment
 };
-const slangPrinter: Printer<AstNode> = {
+const slangPrinter: Printer<PrintableNode | undefined> = {
   canAttachComment,
   handleComments,
   isBlockComment,

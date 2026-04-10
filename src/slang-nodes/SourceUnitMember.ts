@@ -18,7 +18,7 @@ import { EventDefinition } from './EventDefinition.js';
 
 import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.SourceUnitMember,
@@ -60,7 +60,7 @@ export class SourceUnitMember extends SlangNode {
   constructor(
     ast: ast.SourceUnitMember,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

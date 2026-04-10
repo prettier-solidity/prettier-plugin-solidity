@@ -9,7 +9,7 @@ import { Expression } from './Expression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const tryToHug = createHugFunction(['%']);
 
@@ -38,7 +38,7 @@ export class AdditiveExpression extends SlangNode {
   constructor(
     ast: ast.AdditiveExpression,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 
@@ -59,7 +59,7 @@ export class AdditiveExpression extends SlangNode {
   print(
     path: AstPath<AdditiveExpression>,
     print: PrintFunction,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ): Doc {
     return printAdditiveExpression(this, path, print, options);
   }

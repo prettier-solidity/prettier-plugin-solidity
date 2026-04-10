@@ -6,7 +6,7 @@ import { StructMembers } from './StructMembers.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class StructDefinition extends SlangNode {
   readonly kind = NonterminalKind.StructDefinition;
@@ -18,7 +18,7 @@ export class StructDefinition extends SlangNode {
   constructor(
     ast: ast.StructDefinition,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

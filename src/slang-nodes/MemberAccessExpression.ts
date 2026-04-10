@@ -11,7 +11,7 @@ import { TerminalNode } from './TerminalNode.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode, ChainableExpression, StrictAstNode } from './types.d.ts';
+import type { ChainableExpression, PrintableNode } from './types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
 
@@ -19,7 +19,7 @@ const separatorLabel = Symbol('separator');
 
 function isEndOfChain(
   node: ChainableExpression,
-  path: AstPath<StrictAstNode>
+  path: AstPath<PrintableNode>
 ): boolean {
   for (let i = 1, current = node, parent; ; i++, current = parent) {
     parent = path.getNode(i)!;
@@ -118,7 +118,7 @@ export class MemberAccessExpression extends SlangNode {
   constructor(
     ast: ast.MemberAccessExpression,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

@@ -7,7 +7,7 @@ import { TupleValue } from './TupleValue.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 import type { Expression } from './Expression.ts';
 
 export class TupleValues extends SlangNode {
@@ -18,7 +18,7 @@ export class TupleValues extends SlangNode {
   constructor(
     ast: ast.TupleValues,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected, true);
 

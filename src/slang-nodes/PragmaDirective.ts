@@ -6,7 +6,7 @@ import { Pragma } from './Pragma.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class PragmaDirective extends SlangNode {
   readonly kind = NonterminalKind.PragmaDirective;
@@ -16,7 +16,7 @@ export class PragmaDirective extends SlangNode {
   constructor(
     ast: ast.PragmaDirective,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

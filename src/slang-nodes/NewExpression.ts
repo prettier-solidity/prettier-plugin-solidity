@@ -6,7 +6,7 @@ import { TypeName } from './TypeName.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class NewExpression extends SlangNode {
   readonly kind = NonterminalKind.NewExpression;
@@ -16,7 +16,7 @@ export class NewExpression extends SlangNode {
   constructor(
     ast: ast.NewExpression,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

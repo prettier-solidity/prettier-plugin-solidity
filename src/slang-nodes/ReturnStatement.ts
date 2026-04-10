@@ -7,7 +7,7 @@ import { Expression } from './Expression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class ReturnStatement extends SlangNode {
   readonly kind = NonterminalKind.ReturnStatement;
@@ -17,7 +17,7 @@ export class ReturnStatement extends SlangNode {
   constructor(
     ast: ast.ReturnStatement,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 
@@ -33,7 +33,7 @@ export class ReturnStatement extends SlangNode {
   print(
     path: AstPath<ReturnStatement>,
     print: PrintFunction,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ): Doc {
     const expressionVariantKind = this.expression?.kind;
     return [

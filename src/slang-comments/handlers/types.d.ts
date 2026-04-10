@@ -1,9 +1,9 @@
-import type { Comment, StrictAstNode } from '../../slang-nodes/types.d.ts';
+import type { Comment, PrintableNode } from '../../slang-nodes/types.d.ts';
 
 interface HandlerParams {
   text: string;
-  precedingNode?: StrictAstNode;
-  enclosingNode?: StrictAstNode;
-  followingNode?: StrictAstNode;
+  precedingNode?: PrintableNode;
+  enclosingNode?: PrintableNode;
+  followingNode?: PrintableNode;
   comment: Comment;
 }

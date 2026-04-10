@@ -31,6 +31,16 @@ contract StorageLayoutSpecifier8 is Contract1, Contract2, Contract3, Contract4, 
 contract StorageLayoutSpecifier9 is Contract1, Contract2, Contract3, Contract4, Contract5, Contract6, Contract7 layout   at veryVeryLongFunction(12345678901234567890 * 12345678901234567890 - 12345678901234567890 / 12345678901234567890 + 12345678901234567890 - 12345678901234567890){
 }
 
+contract StorageLayoutSpecifier10 layout   at 123 is Contract1, Contract2, Contract3, Contract4, Contract5, Contract6, Contract7 { 
+}
+
+contract StorageLayoutSpecifier11 layout   at 1234567890 * 1234567890 - 1234567890 / 1234567890 is Contract1, Contract2, Contract3, Contract4, Contract5, Contract6, Contract7 { 
+}
+
+contract StorageLayoutSpecifier12 layout   at veryVeryLongFunction(12345678901234567890 * 12345678901234567890 - 12345678901234567890 / 12345678901234567890 + 12345678901234567890 - 12345678901234567890)is Contract1, Contract2, Contract3, Contract4, Contract5, Contract6, Contract7 { 
+}
+
+
 contract InheritanceSpecifier1 is SomeOtherContract(1234,false) {}
 
 contract InheritanceSpecifier2 is SomeOtherContract(1234,false)  layout   at 123 {}

@@ -10,7 +10,7 @@ import { FunctionBody } from './FunctionBody.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class FallbackFunctionDefinition extends SlangNode {
   readonly kind = NonterminalKind.FallbackFunctionDefinition;
@@ -26,7 +26,7 @@ export class FallbackFunctionDefinition extends SlangNode {
   constructor(
     ast: ast.FallbackFunctionDefinition,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

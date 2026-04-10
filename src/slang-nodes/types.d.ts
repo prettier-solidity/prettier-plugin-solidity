@@ -474,6 +474,8 @@ export type StrictPolymorphicNode = Extract<
   { variant: StrictAstNode | TerminalNode }
 >;
 
+export type PrintableNode = Exclude<StrictAstNode, StrictPolymorphicNode>;
+
 export type Collection = Extract<StrictAstNode, { items: unknown[] }>;
 
 export type StrictCollection = Extract<
@@ -499,10 +501,3 @@ export type ChainableExpression =
   | FunctionCallExpression
   | IndexAccessExpression
   | MemberAccessExpression;
-
-export type AstNode =
-  | StrictAstNode
-  | Comment
-  | TerminalNode
-  | string
-  | undefined;

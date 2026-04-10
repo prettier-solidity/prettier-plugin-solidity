@@ -7,7 +7,7 @@ import { Expression } from './Expression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class AssignmentExpression extends SlangNode {
   readonly kind = NonterminalKind.AssignmentExpression;
@@ -21,7 +21,7 @@ export class AssignmentExpression extends SlangNode {
   constructor(
     ast: ast.AssignmentExpression,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

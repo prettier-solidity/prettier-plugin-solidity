@@ -11,7 +11,7 @@ import { Expression } from './Expression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const { group } = doc.builders;
 
@@ -49,7 +49,7 @@ export class ExponentiationExpression extends SlangNode {
   constructor(
     ast: ast.ExponentiationExpression,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 
@@ -70,7 +70,7 @@ export class ExponentiationExpression extends SlangNode {
   print(
     path: AstPath<ExponentiationExpression>,
     print: PrintFunction,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ): Doc {
     return printExponentiationExpression(this, path, print, options);
   }

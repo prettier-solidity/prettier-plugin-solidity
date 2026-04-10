@@ -1,9 +1,11 @@
 import { isComment } from '../slang-utils/is-comment.js';
 
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode } from '../slang-nodes/types.d.ts';
+import type { PrintableNode } from '../slang-nodes/types.d.ts';
 
-export function printComment({ node: comment }: AstPath<AstNode>): Doc {
+export function printComment({
+  node: comment
+}: AstPath<PrintableNode | undefined>): Doc {
   if (isComment(comment)) {
     return comment.print();
   }

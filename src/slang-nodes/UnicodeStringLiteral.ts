@@ -5,7 +5,7 @@ import { SlangNode } from './SlangNode.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class UnicodeStringLiteral extends SlangNode {
   readonly kind = NonterminalKind.UnicodeStringLiteral;
@@ -15,7 +15,7 @@ export class UnicodeStringLiteral extends SlangNode {
   constructor(
     ast: ast.UnicodeStringLiteral,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

@@ -7,7 +7,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class RevertStatement extends SlangNode {
   readonly kind = NonterminalKind.RevertStatement;
@@ -19,7 +19,7 @@ export class RevertStatement extends SlangNode {
   constructor(
     ast: ast.RevertStatement,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

@@ -10,7 +10,6 @@ import handleModifierInvocationComments from './handle-modifier-invocation-comme
 import handleParametersDeclarationComments from './handle-parameters-declaration-comments.js';
 import handlePositionalArgumentsDeclarationComments from './handle-positional-arguments-declaration-comments.js';
 import handleSourceUnitMembersComments from './handle-source-unit-members-comments.js';
-import handleStorageLayoutSpecifierComments from './handle-storage-layout-specifier-comments.js';
 import handleStructDefinitionComments from './handle-struct-definition-comments.js';
 import handleWhileStatementComments from './handle-while-statement-comments.js';
 import handleYulBlockComments from './handle-yul-block-comments.js';
@@ -28,7 +27,6 @@ export default [
   handleParametersDeclarationComments,
   handlePositionalArgumentsDeclarationComments,
   handleSourceUnitMembersComments,
-  handleStorageLayoutSpecifierComments,
   handleStructDefinitionComments,
   handleWhileStatementComments,
   handleYulBlockComments

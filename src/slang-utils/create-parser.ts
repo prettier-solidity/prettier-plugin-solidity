@@ -5,7 +5,7 @@ import { maxSatisfying } from 'semver';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
-import type { AstNode } from '../slang-nodes/types.d.ts';
+import type { PrintableNode } from '../slang-nodes/types.d.ts';
 
 const supportedVersions = LanguageFacts.allVersions();
 const supportedLength = supportedVersions.length;
@@ -32,7 +32,7 @@ function createError(
 
 export function createParser(
   text: string,
-  options: ParserOptions<AstNode>
+  options: ParserOptions<PrintableNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
   if (compiler) {

@@ -8,7 +8,7 @@ import { ImportDeconstruction } from './ImportDeconstruction.js';
 
 import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.ImportClause,
@@ -27,7 +27,7 @@ export class ImportClause extends SlangNode {
   constructor(
     ast: ast.ImportClause,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

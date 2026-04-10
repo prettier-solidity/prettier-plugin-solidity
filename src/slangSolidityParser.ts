@@ -4,12 +4,12 @@ import { createParser } from './slang-utils/create-parser.js';
 import { SourceUnit } from './slang-nodes/SourceUnit.js';
 
 import type { ParserOptions } from 'prettier';
-import type { AstNode, Comment } from './slang-nodes/types.d.ts';
+import type { Comment, PrintableNode } from './slang-nodes/types.d.ts';
 
 export default function parse(
   text: string,
-  options: ParserOptions<AstNode>
-): AstNode {
+  options: ParserOptions<PrintableNode>
+): PrintableNode {
   const { parser, parseOutput } = createParser(text, options);
 
   // We update the compiler version by the inferred one.

@@ -4,11 +4,7 @@ import { joinExisting } from '../slang-utils/join-existing.js';
 import { locEnd } from '../slang-utils/loc.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type {
-  AstNode,
-  Comment,
-  StrictAstNode
-} from '../slang-nodes/types.d.ts';
+import type { Comment, PrintableNode } from '../slang-nodes/types.d.ts';
 
 const { hardline, line } = doc.builders;
 
@@ -17,9 +13,9 @@ function isPrintable(comment: Comment): boolean {
 }
 
 export function printComments(
-  node: StrictAstNode,
-  path: AstPath<StrictAstNode>,
-  options: ParserOptions<AstNode>
+  node: PrintableNode,
+  path: AstPath<PrintableNode>,
+  options: ParserOptions<PrintableNode>
 ): Doc[] {
   const lastPrintableIndex = (node.comments ?? []).findLastIndex(isPrintable);
   if (lastPrintableIndex === -1) {

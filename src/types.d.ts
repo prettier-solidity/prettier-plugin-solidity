@@ -1,6 +1,6 @@
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
-import type { AstNode, Comment } from './slang-nodes/types.d.ts';
+import type { Comment, PrintableNode } from './slang-nodes/types.d.ts';
 
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {
@@ -24,7 +24,7 @@ interface AstLocation extends Location {
   outerEnd: number;
 }
 
-type PrintFunction = (path: AstPath<AstNode>) => Doc;
+type PrintFunction = (path: AstPath<PrintableNode | undefined>) => Doc;
 
 // This the union of all the types in the namespace `ast`.
 type TypeOfAst = typeof ast;

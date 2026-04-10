@@ -18,7 +18,7 @@ import { YulExpression } from './YulExpression.js';
 
 import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   slangAst.YulStatement,
@@ -61,7 +61,7 @@ export class YulStatement extends SlangNode {
   constructor(
     ast: slangAst.YulStatement,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

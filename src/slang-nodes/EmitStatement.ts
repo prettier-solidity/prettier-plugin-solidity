@@ -7,7 +7,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 export class EmitStatement extends SlangNode {
   readonly kind = NonterminalKind.EmitStatement;
@@ -19,7 +19,7 @@ export class EmitStatement extends SlangNode {
   constructor(
     ast: ast.EmitStatement,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 

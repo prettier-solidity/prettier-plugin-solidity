@@ -7,7 +7,7 @@ import { UntypedTupleMember } from './UntypedTupleMember.js';
 
 import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { AstNode } from './types.d.ts';
+import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.TupleMember,
@@ -25,7 +25,7 @@ export class TupleMember extends SlangNode {
   constructor(
     ast: ast.TupleMember,
     collected: CollectedMetadata,
-    options: ParserOptions<AstNode>
+    options: ParserOptions<PrintableNode>
   ) {
     super(ast, collected);
 
