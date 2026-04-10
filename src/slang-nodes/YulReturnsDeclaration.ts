@@ -5,7 +5,7 @@ import { SlangNode } from './SlangNode.js';
 import { YulVariableNames } from './YulVariableNames.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
@@ -23,8 +23,8 @@ export class YulReturnsDeclaration extends SlangNode {
     this.updateMetadata(this.variables);
   }
 
-  print(path: AstPath<YulReturnsDeclaration>, print: PrintFunction): Doc {
-    return printSeparatedItem(['->', path.call(print, 'variables')], {
+  print(print: PrintFunction): Doc {
+    return printSeparatedItem(['->', print('variables')], {
       firstSeparator: line
     });
   }

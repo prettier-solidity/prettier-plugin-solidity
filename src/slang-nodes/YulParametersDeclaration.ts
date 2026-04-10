@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 import { YulParameters } from './YulParameters.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class YulParametersDeclaration extends SlangNode {
@@ -19,7 +19,7 @@ export class YulParametersDeclaration extends SlangNode {
     this.updateMetadata(this.parameters);
   }
 
-  print(path: AstPath<YulParametersDeclaration>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'parameters'), ')'];
+  print(print: PrintFunction): Doc {
+    return ['(', print('parameters'), ')'];
   }
 }

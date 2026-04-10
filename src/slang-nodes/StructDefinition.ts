@@ -4,7 +4,7 @@ import { TerminalNode } from './TerminalNode.js';
 import { StructMembers } from './StructMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -28,13 +28,7 @@ export class StructDefinition extends SlangNode {
     this.updateMetadata(this.members);
   }
 
-  print(path: AstPath<StructDefinition>, print: PrintFunction): Doc {
-    return [
-      'struct ',
-      path.call(print, 'name'),
-      ' {',
-      path.call(print, 'members'),
-      '}'
-    ];
+  print(print: PrintFunction): Doc {
+    return ['struct ', print('name'), ' {', print('members'), '}'];
   }
 }

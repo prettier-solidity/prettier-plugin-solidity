@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 import { OverridePaths } from './OverridePaths.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class OverridePathsDeclaration extends SlangNode {
@@ -19,7 +19,7 @@ export class OverridePathsDeclaration extends SlangNode {
     this.updateMetadata(this.paths);
   }
 
-  print(path: AstPath<OverridePathsDeclaration>, print: PrintFunction): Doc {
-    return ['(', path.call(print, 'paths'), ')'];
+  print(print: PrintFunction): Doc {
+    return ['(', print('paths'), ')'];
   }
 }

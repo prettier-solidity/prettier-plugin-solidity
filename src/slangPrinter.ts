@@ -12,7 +12,7 @@ function genericPrint(
   // Since each node has a print function with a specific AstPath, the union of
   // all nodes in PrintableNode creates a print function with an AstPath of the
   // intersection of all nodes. This forces us to cast this with a never type.
-  return path.node.print(path as AstPath<never>, print, options);
+  return path.node.print(print, path as AstPath<never>, options);
 }
 
 export default genericPrint;

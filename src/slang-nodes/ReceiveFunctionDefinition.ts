@@ -7,7 +7,7 @@ import { ReceiveFunctionAttributes } from './ReceiveFunctionAttributes.js';
 import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -48,7 +48,7 @@ export class ReceiveFunctionDefinition extends SlangNode {
     }
   }
 
-  print(path: AstPath<ReceiveFunctionDefinition>, print: PrintFunction): Doc {
-    return printFunctionWithBody('receive', this, path, print);
+  print(print: PrintFunction): Doc {
+    return printFunctionWithBody('receive', this, print);
   }
 }

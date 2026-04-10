@@ -21,7 +21,7 @@ export class EnumMembers extends SlangNode {
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
-  print(path: AstPath<EnumMembers>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<EnumMembers>): Doc {
     return printSeparatedList(path.map(print, 'items'), {
       firstSeparator: hardline
     });

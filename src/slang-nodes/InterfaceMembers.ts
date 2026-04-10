@@ -31,8 +31,8 @@ export class InterfaceMembers extends SlangNode {
   }
 
   print(
-    path: AstPath<InterfaceMembers>,
     print: PrintFunction,
+    path: AstPath<InterfaceMembers>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return this.items.length > 0 || (this.comments?.length || 0) > 0

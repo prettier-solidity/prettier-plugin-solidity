@@ -24,7 +24,13 @@ interface AstLocation extends Location {
   outerEnd: number;
 }
 
-type PrintFunction = (path: AstPath<PrintableNode | undefined>) => Doc;
+type PrintFunction = (
+  selector?:
+    | string
+    | number
+    | (string | number)[]
+    | AstPath<PrintableNode | undefined>
+) => Doc;
 
 // This the union of all the types in the namespace `ast`.
 type TypeOfAst = typeof ast;

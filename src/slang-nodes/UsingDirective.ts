@@ -5,7 +5,7 @@ import { UsingClause } from './UsingClause.js';
 import { UsingTarget } from './UsingTarget.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -34,12 +34,12 @@ export class UsingDirective extends SlangNode {
     this.updateMetadata(this.clause, this.target);
   }
 
-  print(path: AstPath<UsingDirective>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [
       'using ',
-      path.call(print, 'clause'),
+      print('clause'),
       ' for ',
-      path.call(print, 'target'),
+      print('target'),
       this.globalKeyword ? ' global;' : ';'
     ];
   }

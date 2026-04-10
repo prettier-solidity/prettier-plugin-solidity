@@ -4,7 +4,7 @@ import { CatchClauseError } from './CatchClauseError.js';
 import { Block } from './Block.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -30,7 +30,7 @@ export class CatchClause extends SlangNode {
     this.updateMetadata(this.error, this.body);
   }
 
-  print(path: AstPath<CatchClause>, print: PrintFunction): Doc {
-    return ['catch ', path.call(print, 'error'), path.call(print, 'body')];
+  print(print: PrintFunction): Doc {
+    return ['catch ', print('error'), print('body')];
   }
 }

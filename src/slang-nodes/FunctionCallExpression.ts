@@ -6,7 +6,7 @@ import { Expression } from './Expression.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -34,10 +34,10 @@ export class FunctionCallExpression extends SlangNode {
     this.updateMetadata(this.operand, this.arguments);
   }
 
-  print(path: AstPath<FunctionCallExpression>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return printPossibleMemberAccessChainItem(
-      path.call(print, 'operand'),
-      path.call(print, 'arguments')
+      print('operand'),
+      print('arguments')
     );
   }
 }

@@ -28,12 +28,12 @@ export class SourceUnit extends SlangNode {
   }
 
   print(
-    path: AstPath<SourceUnit>,
     print: PrintFunction,
+    _path: AstPath<SourceUnit>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return [
-      path.call(print, 'members'),
+      print('members'),
       // Prettier's Markdown formatter already appends a new line on code
       // blocks, therefore we avoid trailing with a new line at the end of
       // a file in this case.

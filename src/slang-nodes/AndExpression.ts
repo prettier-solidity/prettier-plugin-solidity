@@ -37,8 +37,8 @@ export class AndExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<AndExpression>,
     print: PrintFunction,
+    path: AstPath<AndExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printLogicalOperation(this, path, print, options);

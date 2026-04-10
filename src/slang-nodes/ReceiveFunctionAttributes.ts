@@ -31,7 +31,7 @@ export class ReceiveFunctionAttributes extends SlangNode {
     this.items.sort(sortFunctionAttributes);
   }
 
-  print(path: AstPath<ReceiveFunctionAttributes>, print: PrintFunction): Doc {
-    return path.map(() => [line, print(path)], 'items');
+  print(print: PrintFunction, path: AstPath<ReceiveFunctionAttributes>): Doc {
+    return path.map(() => [line, print()], 'items');
   }
 }

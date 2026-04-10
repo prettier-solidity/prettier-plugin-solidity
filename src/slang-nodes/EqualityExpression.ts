@@ -50,8 +50,8 @@ export class EqualityExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<EqualityExpression>,
     print: PrintFunction,
+    path: AstPath<EqualityExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printEqualityExpression(this, path, print, options);

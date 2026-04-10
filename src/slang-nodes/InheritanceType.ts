@@ -5,7 +5,7 @@ import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -33,7 +33,7 @@ export class InheritanceType extends SlangNode {
     this.updateMetadata(this.typeName, this.arguments);
   }
 
-  print(path: AstPath<InheritanceType>, print: PrintFunction): Doc {
-    return [path.call(print, 'typeName'), path.call(print, 'arguments')];
+  print(print: PrintFunction): Doc {
+    return [print('typeName'), print('arguments')];
   }
 }

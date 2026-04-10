@@ -43,8 +43,8 @@ export class OrExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<OrExpression>,
     print: PrintFunction,
+    path: AstPath<OrExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printLogicalOperation(this, path, print, options);

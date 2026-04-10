@@ -31,8 +31,8 @@ export class YulStatements extends SlangNode {
   }
 
   print(
-    path: AstPath<YulStatements>,
     print: PrintFunction,
+    path: AstPath<YulStatements>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return this.items.length > 0 || (this.comments?.length || 0) > 0

@@ -28,7 +28,7 @@ export class InheritanceTypes extends SlangNode {
     );
   }
 
-  print(path: AstPath<InheritanceTypes>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<InheritanceTypes>): Doc {
     return printSeparatedList(path.map(print, 'items'), {
       firstSeparator: line
     });

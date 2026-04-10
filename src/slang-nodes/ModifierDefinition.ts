@@ -9,7 +9,7 @@ import { ModifierAttributes } from './ModifierAttributes.js';
 import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type {
   AstLocation,
   CollectedMetadata,
@@ -62,13 +62,13 @@ export class ModifierDefinition extends SlangNode {
         {
           kind: NonterminalKind.ParametersDeclaration,
           loc: { ...parametersLoc },
-          comments: [],
+          comments: undefined,
           parameters: Object.assign(
             Object.create(Parameters.prototype) as Parameters,
             {
               kind: NonterminalKind.Parameters,
               loc: { ...parametersLoc },
-              comments: [],
+              comments: undefined,
               items: []
             }
           )
@@ -77,12 +77,7 @@ export class ModifierDefinition extends SlangNode {
     }
   }
 
-  print(path: AstPath<ModifierDefinition>, print: PrintFunction): Doc {
-    return printFunctionWithBody(
-      ['modifier ', path.call(print, 'name')],
-      this,
-      path,
-      print
-    );
+  print(print: PrintFunction): Doc {
+    return printFunctionWithBody(['modifier ', print('name')], this, print);
   }
 }

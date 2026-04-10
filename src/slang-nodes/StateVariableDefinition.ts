@@ -9,7 +9,7 @@ import { TerminalNode } from './TerminalNode.js';
 import { StateVariableDefinitionValue } from './StateVariableDefinitionValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -49,15 +49,10 @@ export class StateVariableDefinition extends SlangNode {
     this.updateMetadata(this.typeName, this.attributes, this.value);
   }
 
-  print(path: AstPath<StateVariableDefinition>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return printGroupAndIndentIfBreakPair(
-      [
-        path.call(print, 'typeName'),
-        indent(path.call(print, 'attributes')),
-        ' ',
-        path.call(print, 'name')
-      ],
-      [path.call(print, 'value'), ';']
+      [print('typeName'), indent(print('attributes')), ' ', print('name')],
+      [print('value'), ';']
     );
   }
 }

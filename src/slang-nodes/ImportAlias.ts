@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class ImportAlias extends SlangNode {
@@ -17,7 +17,7 @@ export class ImportAlias extends SlangNode {
     this.identifier = new TerminalNode(ast.identifier, collected);
   }
 
-  print(path: AstPath<ImportAlias>, print: PrintFunction): Doc {
-    return [' as ', path.call(print, 'identifier')];
+  print(print: PrintFunction): Doc {
+    return [' as ', print('identifier')];
   }
 }

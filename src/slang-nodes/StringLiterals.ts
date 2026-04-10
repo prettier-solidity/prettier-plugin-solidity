@@ -27,7 +27,7 @@ export class StringLiterals extends SlangNode {
     );
   }
 
-  print(path: AstPath<StringLiterals>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<StringLiterals>): Doc {
     return join(hardline, path.map(print, 'items'));
   }
 }

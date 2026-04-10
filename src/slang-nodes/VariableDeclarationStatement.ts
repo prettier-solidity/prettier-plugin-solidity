@@ -9,7 +9,7 @@ import { TerminalNode } from './TerminalNode.js';
 import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -50,20 +50,15 @@ export class VariableDeclarationStatement extends SlangNode {
     this.updateMetadata(this.variableType, this.storageLocation, this.value);
   }
 
-  print(
-    path: AstPath<VariableDeclarationStatement>,
-    print: PrintFunction
-  ): Doc {
+  print(print: PrintFunction): Doc {
     return printGroupAndIndentIfBreakPair(
       [
-        path.call(print, 'variableType'),
-        this.storageLocation
-          ? indent([line, path.call(print, 'storageLocation')])
-          : '',
+        print('variableType'),
+        this.storageLocation ? indent([line, print('storageLocation')]) : '',
         ' ',
-        path.call(print, 'name')
+        print('name')
       ],
-      [path.call(print, 'value'), ';']
+      [print('value'), ';']
     );
   }
 }

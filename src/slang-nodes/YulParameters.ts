@@ -18,7 +18,7 @@ export class YulParameters extends SlangNode {
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
-  print(path: AstPath<YulParameters>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<YulParameters>): Doc {
     return printSeparatedList(path.map(print, 'items'));
   }
 }

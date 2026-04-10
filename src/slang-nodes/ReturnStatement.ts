@@ -31,8 +31,8 @@ export class ReturnStatement extends SlangNode {
   }
 
   print(
-    path: AstPath<ReturnStatement>,
     print: PrintFunction,
+    _path: AstPath<ReturnStatement>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     const expressionVariantKind = this.expression?.kind;
@@ -40,7 +40,7 @@ export class ReturnStatement extends SlangNode {
       'return',
       expressionVariantKind
         ? printIndentedGroupOrSpacedDocument(
-            path.call(print, 'expression'),
+            print('expression'),
             expressionVariantKind !== NonterminalKind.TupleExpression &&
               (!options.experimentalTernaries ||
                 expressionVariantKind !== NonterminalKind.ConditionalExpression)

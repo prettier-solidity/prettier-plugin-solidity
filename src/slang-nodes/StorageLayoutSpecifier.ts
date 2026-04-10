@@ -31,10 +31,10 @@ export class StorageLayoutSpecifier extends SlangNode {
     this.updateMetadata(this.expression);
   }
 
-  print(path: AstPath<StorageLayoutSpecifier>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<StorageLayoutSpecifier>): Doc {
     return [
       'layout at',
-      printSeparatedItem(path.call(print, 'expression'), {
+      printSeparatedItem(print('expression'), {
         firstSeparator: line,
         // If this is the second ContractSpecifier we have to delegate printing
         // the line to the ContractSpecifiers node.

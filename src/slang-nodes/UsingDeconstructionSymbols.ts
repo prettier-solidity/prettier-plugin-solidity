@@ -28,8 +28,8 @@ export class UsingDeconstructionSymbols extends SlangNode {
   }
 
   print(
-    path: AstPath<UsingDeconstructionSymbols>,
     print: PrintFunction,
+    path: AstPath<UsingDeconstructionSymbols>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printSeparatedList(path.map(print, 'items'), {

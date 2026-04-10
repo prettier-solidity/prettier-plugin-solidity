@@ -29,7 +29,7 @@ export class CatchClauses extends SlangNode {
     this.updateMetadata(...this.items);
   }
 
-  print(path: AstPath<CatchClauses>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<CatchClauses>): Doc {
     return join(' ', path.map(print, 'items'));
   }
 }

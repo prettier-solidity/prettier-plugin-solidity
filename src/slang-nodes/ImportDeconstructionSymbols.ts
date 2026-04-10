@@ -29,8 +29,8 @@ export class ImportDeconstructionSymbols extends SlangNode {
   }
 
   print(
-    path: AstPath<ImportDeconstructionSymbols>,
     print: PrintFunction,
+    path: AstPath<ImportDeconstructionSymbols>,
     { compiler, bracketSpacing }: ParserOptions<PrintableNode>
   ): Doc {
     const items = path.map(print, 'items');

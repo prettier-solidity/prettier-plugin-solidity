@@ -5,7 +5,7 @@ import { YulExpression } from './YulExpression.js';
 import { YulBlock } from './YulBlock.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -31,12 +31,7 @@ export class YulIfStatement extends SlangNode {
     this.updateMetadata(this.condition, this.body);
   }
 
-  print(path: AstPath<YulIfStatement>, print: PrintFunction): Doc {
-    return [
-      'if ',
-      path.call(print, 'condition'),
-      ' ',
-      path.call(print, 'body')
-    ];
+  print(print: PrintFunction): Doc {
+    return ['if ', print('condition'), ' ', print('body')];
   }
 }

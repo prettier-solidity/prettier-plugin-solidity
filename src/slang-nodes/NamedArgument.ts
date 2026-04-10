@@ -5,7 +5,7 @@ import { TerminalNode } from './TerminalNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -29,7 +29,7 @@ export class NamedArgument extends SlangNode {
     this.updateMetadata(this.value);
   }
 
-  print(path: AstPath<NamedArgument>, print: PrintFunction): Doc {
-    return [path.call(print, 'name'), ': ', path.call(print, 'value')];
+  print(print: PrintFunction): Doc {
+    return [print('name'), ': ', print('value')];
   }
 }

@@ -32,7 +32,7 @@ export class TupleValues extends SlangNode {
     return items.length === 1 ? items[0].expression : undefined;
   }
 
-  print(path: AstPath<TupleValues>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<TupleValues>): Doc {
     const singleExpression = this.getSingleExpression();
     const items = path.map(print, 'items');
     return singleExpression && isBinaryOperation(singleExpression)

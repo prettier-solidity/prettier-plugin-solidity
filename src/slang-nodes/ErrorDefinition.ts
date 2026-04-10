@@ -4,7 +4,7 @@ import { TerminalNode } from './TerminalNode.js';
 import { ErrorParametersDeclaration } from './ErrorParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -32,12 +32,7 @@ export class ErrorDefinition extends SlangNode {
     this.updateMetadata(this.members);
   }
 
-  print(path: AstPath<ErrorDefinition>, print: PrintFunction): Doc {
-    return [
-      'error ',
-      path.call(print, 'name'),
-      path.call(print, 'members'),
-      ';'
-    ];
+  print(print: PrintFunction): Doc {
+    return ['error ', print('name'), print('members'), ';'];
   }
 }

@@ -5,7 +5,7 @@ import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -28,10 +28,10 @@ export class VariableDeclarationValue extends SlangNode {
     this.updateMetadata(this.expression);
   }
 
-  print(path: AstPath<VariableDeclarationValue>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [
       ' =',
-      printAssignmentRightSide(path.call(print, 'expression'), this.expression)
+      printAssignmentRightSide(print('expression'), this.expression)
     ];
   }
 }

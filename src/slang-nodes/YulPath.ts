@@ -20,7 +20,7 @@ export class YulPath extends SlangNode {
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
-  print(path: AstPath<YulPath>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<YulPath>): Doc {
     return join('.', path.map(print, 'items'));
   }
 }

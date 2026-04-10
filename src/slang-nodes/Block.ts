@@ -3,7 +3,7 @@ import { SlangNode } from './SlangNode.js';
 import { Statements } from './Statements.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -24,7 +24,7 @@ export class Block extends SlangNode {
     this.updateMetadata(this.statements);
   }
 
-  print(path: AstPath<Block>, print: PrintFunction): Doc {
-    return ['{', path.call(print, 'statements'), '}'];
+  print(print: PrintFunction): Doc {
+    return ['{', print('statements'), '}'];
   }
 }

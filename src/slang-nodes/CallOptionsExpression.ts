@@ -5,7 +5,7 @@ import { Expression } from './Expression.js';
 import { CallOptions } from './CallOptions.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -31,7 +31,7 @@ export class CallOptionsExpression extends SlangNode {
     this.updateMetadata(this.operand, this.options);
   }
 
-  print(path: AstPath<CallOptionsExpression>, print: PrintFunction): Doc {
-    return [path.call(print, 'operand'), '{', path.call(print, 'options'), '}'];
+  print(print: PrintFunction): Doc {
+    return [print('operand'), '{', print('options'), '}'];
   }
 }

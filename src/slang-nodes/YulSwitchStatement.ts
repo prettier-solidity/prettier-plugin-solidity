@@ -6,7 +6,7 @@ import { YulExpression } from './YulExpression.js';
 import { YulSwitchCases } from './YulSwitchCases.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -34,12 +34,7 @@ export class YulSwitchStatement extends SlangNode {
     this.updateMetadata(this.expression, this.cases);
   }
 
-  print(path: AstPath<YulSwitchStatement>, print: PrintFunction): Doc {
-    return [
-      'switch ',
-      path.call(print, 'expression'),
-      hardline,
-      path.call(print, 'cases')
-    ];
+  print(print: PrintFunction): Doc {
+    return ['switch ', print('expression'), hardline, print('cases')];
   }
 }

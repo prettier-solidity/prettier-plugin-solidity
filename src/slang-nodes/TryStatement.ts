@@ -10,7 +10,7 @@ import { Block } from './Block.js';
 import { CatchClauses } from './CatchClauses.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -51,16 +51,16 @@ export class TryStatement extends SlangNode {
     );
   }
 
-  print(path: AstPath<TryStatement>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [
       'try',
-      printSeparatedItem(path.call(print, 'expression'), {
+      printSeparatedItem(print('expression'), {
         firstSeparator: line
       }),
       joinExisting(' ', [
-        path.call(print, 'returns'),
-        path.call(print, 'body'),
-        path.call(print, 'catchClauses')
+        print('returns'),
+        print('body'),
+        print('catchClauses')
       ])
     ];
   }

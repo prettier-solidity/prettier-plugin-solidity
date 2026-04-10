@@ -130,8 +130,8 @@ export class MemberAccessExpression extends SlangNode {
     this.updateMetadata(this.operand);
   }
 
-  print(path: AstPath<MemberAccessExpression>, print: PrintFunction): Doc {
-    let operandDoc = path.call(print, 'operand');
+  print(print: PrintFunction, path: AstPath<MemberAccessExpression>): Doc {
+    let operandDoc = print('operand');
     if (Array.isArray(operandDoc)) {
       operandDoc = operandDoc.flat();
     }
@@ -139,7 +139,7 @@ export class MemberAccessExpression extends SlangNode {
     const document = [
       operandDoc,
       label(separatorLabel, [softline, '.']),
-      path.call(print, 'member')
+      print('member')
     ].flat();
 
     return isEndOfChain(this, path) ? processChain(document) : document;

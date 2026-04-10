@@ -6,7 +6,7 @@ import { TypeName } from './TypeName.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -37,11 +37,11 @@ export class EventParameter extends SlangNode {
     this.updateMetadata(this.typeName);
   }
 
-  print(path: AstPath<EventParameter>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return joinExisting(' ', [
-      path.call(print, 'typeName'),
+      print('typeName'),
       this.indexedKeyword,
-      path.call(print, 'name')
+      print('name')
     ]);
   }
 }

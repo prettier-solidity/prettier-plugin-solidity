@@ -10,7 +10,7 @@ import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -55,10 +55,10 @@ export class ForStatement extends SlangNode {
     );
   }
 
-  print(path: AstPath<ForStatement>, print: PrintFunction): Doc {
-    const initialization = path.call(print, 'initialization');
-    const condition = path.call(print, 'condition');
-    const iterator = path.call(print, 'iterator');
+  print(print: PrintFunction): Doc {
+    const initialization = print('initialization');
+    const condition = print('condition');
+    const iterator = print('iterator');
 
     return [
       'for (',
@@ -70,7 +70,7 @@ export class ForStatement extends SlangNode {
       }),
       ')',
       printIndentedGroupOrSpacedDocument(
-        path.call(print, 'body'),
+        print('body'),
         this.body.kind !== NonterminalKind.Block
       )
     ];

@@ -4,7 +4,7 @@ import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -27,7 +27,7 @@ export class NewExpression extends SlangNode {
     this.updateMetadata(this.typeName);
   }
 
-  print(path: AstPath<NewExpression>, print: PrintFunction): Doc {
-    return ['new ', path.call(print, 'typeName')];
+  print(print: PrintFunction): Doc {
+    return ['new ', print('typeName')];
   }
 }

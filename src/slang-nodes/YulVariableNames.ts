@@ -21,7 +21,7 @@ export class YulVariableNames extends SlangNode {
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
-  print(path: AstPath<YulVariableNames>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<YulVariableNames>): Doc {
     return printSeparatedList(path.map(print, 'items'), {
       firstSeparator: line,
       lastSeparator: ''

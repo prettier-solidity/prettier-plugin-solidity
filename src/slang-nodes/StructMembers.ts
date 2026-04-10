@@ -28,7 +28,7 @@ export class StructMembers extends SlangNode {
     );
   }
 
-  print(path: AstPath<StructMembers>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<StructMembers>): Doc {
     return this.items.length > 0
       ? printSeparatedList(path.map(print, 'items'), {
           firstSeparator: hardline,

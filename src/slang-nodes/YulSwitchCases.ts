@@ -28,7 +28,7 @@ export class YulSwitchCases extends SlangNode {
     );
   }
 
-  print(path: AstPath<YulSwitchCases>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<YulSwitchCases>): Doc {
     return join(hardline, path.map(print, 'items'));
   }
 }

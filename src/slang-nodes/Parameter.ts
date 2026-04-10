@@ -8,7 +8,7 @@ import { StorageLocation } from './StorageLocation.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -46,12 +46,12 @@ export class Parameter extends SlangNode {
     this.updateMetadata(this.typeName, this.storageLocation);
   }
 
-  print(path: AstPath<Parameter>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return group(
       joinExisting(' ', [
-        path.call(print, 'typeName'),
-        path.call(print, 'storageLocation'),
-        path.call(print, 'name')
+        print('typeName'),
+        print('storageLocation'),
+        print('name')
       ])
     );
   }

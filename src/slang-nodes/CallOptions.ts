@@ -29,8 +29,8 @@ export class CallOptions extends SlangNode {
   }
 
   print(
-    path: AstPath<CallOptions>,
     print: PrintFunction,
+    path: AstPath<CallOptions>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printSeparatedList(path.map(print, 'items'), {

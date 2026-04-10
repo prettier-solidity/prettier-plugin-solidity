@@ -46,8 +46,8 @@ export class InequalityExpression extends SlangNode {
   }
 
   print(
-    path: AstPath<InequalityExpression>,
     print: PrintFunction,
+    path: AstPath<InequalityExpression>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return printComparisonExpression(this, path, print, options);

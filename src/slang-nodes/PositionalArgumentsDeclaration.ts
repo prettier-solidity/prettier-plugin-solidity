@@ -4,7 +4,7 @@ import { SlangNode } from './SlangNode.js';
 import { PositionalArguments } from './PositionalArguments.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -35,10 +35,7 @@ export class PositionalArgumentsDeclaration extends SlangNode {
       !ast.cst.children().some(({ node }) => isBlockComment(node)); // no block comments
   }
 
-  print(
-    path: AstPath<PositionalArgumentsDeclaration>,
-    print: PrintFunction
-  ): Doc {
-    return ['(', path.call(print, 'arguments'), ')'];
+  print(print: PrintFunction): Doc {
+    return ['(', print('arguments'), ')'];
   }
 }

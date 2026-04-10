@@ -25,7 +25,7 @@ export class TupleDeconstructionElements extends SlangNode {
     );
   }
 
-  print(path: AstPath<TupleDeconstructionElements>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<TupleDeconstructionElements>): Doc {
     return printSeparatedList(path.map(print, 'items'));
   }
 }

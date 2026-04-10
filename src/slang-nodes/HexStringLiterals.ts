@@ -27,7 +27,7 @@ export class HexStringLiterals extends SlangNode {
     );
   }
 
-  print(path: AstPath<HexStringLiterals>, print: PrintFunction): Doc {
+  print(print: PrintFunction, path: AstPath<HexStringLiterals>): Doc {
     return join(hardline, path.map(print, 'items'));
   }
 }

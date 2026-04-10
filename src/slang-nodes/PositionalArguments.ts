@@ -29,8 +29,8 @@ export class PositionalArguments extends SlangNode {
   }
 
   print(
-    path: AstPath<PositionalArguments>,
     print: PrintFunction,
+    path: AstPath<PositionalArguments>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     if (this.items.length > 0) {

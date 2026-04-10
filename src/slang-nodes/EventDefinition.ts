@@ -4,7 +4,7 @@ import { EventParametersDeclaration } from './EventParametersDeclaration.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -35,11 +35,11 @@ export class EventDefinition extends SlangNode {
     this.updateMetadata(this.parameters);
   }
 
-  print(path: AstPath<EventDefinition>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return [
       'event ',
-      path.call(print, 'name'),
-      path.call(print, 'parameters'),
+      print('name'),
+      print('parameters'),
       this.anonymousKeyword ? ' anonymous;' : ';'
     ];
   }

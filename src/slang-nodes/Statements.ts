@@ -31,8 +31,8 @@ export class Statements extends SlangNode {
   }
 
   print(
-    path: AstPath<Statements>,
     print: PrintFunction,
+    path: AstPath<Statements>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return this.items.length > 0 || (this.comments?.length || 0) > 0

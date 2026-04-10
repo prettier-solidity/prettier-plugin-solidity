@@ -12,7 +12,10 @@ import { locEnd, locStart } from './slang-utils/loc.js';
 import { hasPrettierIgnore } from './slang-utils/has-prettier-ignore.js';
 
 import type {
+  AstPath,
+  Doc,
   Parser,
+  ParserOptions,
   Printer,
   RequiredOptions,
   SupportLanguage
@@ -77,7 +80,12 @@ const slangPrinter: Printer<PrintableNode | undefined> = {
   handleComments,
   isBlockComment,
   massageAstNode,
-  print: slangPrint,
+  print: slangPrint as (
+    path: AstPath<PrintableNode | undefined>,
+    options: ParserOptions<PrintableNode | undefined>,
+    print: (path: AstPath<PrintableNode | undefined>) => Doc,
+    args?: unknown
+  ) => Doc,
   hasPrettierIgnore,
   printComment
 };

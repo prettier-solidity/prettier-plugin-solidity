@@ -31,8 +31,8 @@ export class LibraryMembers extends SlangNode {
   }
 
   print(
-    path: AstPath<LibraryMembers>,
     print: PrintFunction,
+    path: AstPath<LibraryMembers>,
     options: ParserOptions<PrintableNode>
   ): Doc {
     return this.items.length > 0 || (this.comments?.length || 0) > 0

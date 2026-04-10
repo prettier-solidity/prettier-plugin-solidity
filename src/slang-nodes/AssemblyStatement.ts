@@ -6,7 +6,7 @@ import { AssemblyFlagsDeclaration } from './AssemblyFlagsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
@@ -37,12 +37,12 @@ export class AssemblyStatement extends SlangNode {
     this.updateMetadata(this.label, this.flags, this.body);
   }
 
-  print(path: AstPath<AssemblyStatement>, print: PrintFunction): Doc {
+  print(print: PrintFunction): Doc {
     return joinExisting(' ', [
       'assembly',
-      path.call(print, 'label'),
-      path.call(print, 'flags'),
-      path.call(print, 'body')
+      print('label'),
+      print('flags'),
+      print('body')
     ]);
   }
 }

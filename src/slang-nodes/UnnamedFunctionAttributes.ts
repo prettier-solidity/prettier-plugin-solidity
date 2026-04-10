@@ -31,7 +31,7 @@ export class UnnamedFunctionAttributes extends SlangNode {
     this.items.sort(sortFunctionAttributes);
   }
 
-  print(path: AstPath<UnnamedFunctionAttributes>, print: PrintFunction): Doc {
-    return path.map(() => [line, print(path)], 'items');
+  print(print: PrintFunction, path: AstPath<UnnamedFunctionAttributes>): Doc {
+    return path.map(() => [line, print()], 'items');
   }
 }
