@@ -11,13 +11,11 @@ import type {
 export const isBlockComment = createKindCheckFunction([
   TerminalKind.MultiLineComment,
   TerminalKind.MultiLineNatSpecComment
-]) as (
-  node: PrintableNode | Comment | Node | undefined
-) => node is BlockComment;
+]) as (node: PrintableNode | Comment | Node) => node is BlockComment;
 
 export const isComment = createKindCheckFunction([
   TerminalKind.MultiLineComment,
   TerminalKind.MultiLineNatSpecComment,
   TerminalKind.SingleLineComment,
   TerminalKind.SingleLineNatSpecComment
-]) as (node: PrintableNode | Comment | Node | undefined) => node is Comment;
+]) as (node: PrintableNode | Comment | Node) => node is Comment;

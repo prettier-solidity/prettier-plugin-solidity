@@ -10,6 +10,7 @@ import slangPrint from './slangPrinter.js';
 import { isBlockComment, isComment } from './slang-utils/is-comment.js';
 import { locEnd, locStart } from './slang-utils/loc.js';
 import { hasPrettierIgnore } from './slang-utils/has-prettier-ignore.js';
+import { getVisitorKeys } from './slang-utils/get-visitor-keys.js';
 
 import type {
   AstPath,
@@ -57,10 +58,9 @@ const parsers = {
 
 const antlrCanAttachComment = ({ type }: { type: string }): boolean =>
   typeof type === 'string' && type !== 'BlockComment' && type !== 'LineComment';
-const canAttachComment = (node: PrintableNode | undefined): boolean =>
-  node !== undefined &&
-  node.kind && // Make sure it's not Location
-  !isComment(node);
+const canAttachComment = (node: PrintableNode): boolean =>
+  // Make sure it's not Location
+  node.kind && !isComment(node);
 
 // https://prettier.io/docs/en/plugins.html#printers
 const antlrPrinter = {
@@ -75,18 +75,19 @@ const antlrPrinter = {
   print: antlrPrint,
   printComment: comments.printComment
 };
-const slangPrinter: Printer<PrintableNode | undefined> = {
+const slangPrinter: Printer<PrintableNode> = {
   canAttachComment,
   handleComments,
   isBlockComment,
   massageAstNode,
   print: slangPrint as (
-    path: AstPath<PrintableNode | undefined>,
-    options: ParserOptions<PrintableNode | undefined>,
-    print: (path: AstPath<PrintableNode | undefined>) => Doc,
+    path: AstPath<PrintableNode>,
+    options: ParserOptions<PrintableNode>,
+    print: (path: AstPath<PrintableNode>) => Doc,
     args?: unknown
   ) => Doc,
   hasPrettierIgnore,
+  getVisitorKeys,
   printComment
 };
 
