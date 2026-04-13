@@ -26,6 +26,6 @@ export class DecimalNumberExpression extends SlangNode {
 
   print(print: PrintFunction): Doc {
     const unitDoc = print('unit');
-    return [this.literal, unitDoc ? [' ', unitDoc] : ''];
+    return [this.literal, unitDoc ? [' ', unitDoc] : unitDoc];
   }
 }

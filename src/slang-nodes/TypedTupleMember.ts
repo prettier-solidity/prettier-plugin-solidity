@@ -44,7 +44,7 @@ export class TypedTupleMember extends SlangNode {
     const storageLocationDoc = print('storageLocation');
     return [
       print('typeName'),
-      storageLocationDoc ? [' ', storageLocationDoc] : '',
+      storageLocationDoc ? [' ', storageLocationDoc] : storageLocationDoc,
       ' ',
       print('name')
     ];

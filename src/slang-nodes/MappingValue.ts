@@ -35,6 +35,6 @@ export class MappingValue extends SlangNode {
 
   print(print: PrintFunction): Doc {
     const nameDoc = print('name');
-    return [print('typeName'), nameDoc ? [' ', nameDoc] : ''];
+    return [print('typeName'), nameDoc ? [' ', nameDoc] : nameDoc];
   }
 }

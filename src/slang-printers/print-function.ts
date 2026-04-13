@@ -20,7 +20,7 @@ export function printFunction(
       indent(
         group([
           print('attributes'),
-          returnsDoc ? [line, returnsDoc] : '',
+          returnsDoc ? [line, returnsDoc] : returnsDoc,
           (node as FunctionWithBody).body?.kind === NonterminalKind.Block
             ? dedent(line)
             : ''

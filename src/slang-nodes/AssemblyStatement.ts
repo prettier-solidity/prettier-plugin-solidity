@@ -41,8 +41,8 @@ export class AssemblyStatement extends SlangNode {
     const flagsDoc = print('flags');
     return [
       'assembly ',
-      labelDoc ? [labelDoc, ' '] : '',
-      flagsDoc ? [flagsDoc, ' '] : '',
+      labelDoc ? [labelDoc, ' '] : labelDoc,
+      flagsDoc ? [flagsDoc, ' '] : flagsDoc,
       print('body')
     ];
   }

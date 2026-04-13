@@ -50,8 +50,8 @@ export class Parameter extends SlangNode {
     const nameDoc = print('name');
     return group([
       print('typeName'),
-      storageLocationDoc ? [' ', storageLocationDoc] : '',
-      nameDoc ? [' ', nameDoc] : ''
+      storageLocationDoc ? [' ', storageLocationDoc] : storageLocationDoc,
+      nameDoc ? [' ', nameDoc] : nameDoc
     ]);
   }
 }

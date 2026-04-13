@@ -58,7 +58,7 @@ export class TryStatement extends SlangNode {
         firstSeparator: line
       }),
       [
-        returnsDoc ? [returnsDoc, ' '] : '',
+        returnsDoc ? [returnsDoc, ' '] : returnsDoc,
         print('body'),
         ' ',
         print('catchClauses')

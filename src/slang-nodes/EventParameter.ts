@@ -40,8 +40,8 @@ export class EventParameter extends SlangNode {
     const nameDoc = print('name');
     return [
       print('typeName'),
-      this.indexedKeyword ? ` ${this.indexedKeyword}` : '',
-      nameDoc ? [' ', nameDoc] : ''
+      this.indexedKeyword ? ' indexed' : '',
+      nameDoc ? [' ', nameDoc] : nameDoc
     ];
   }
 }
