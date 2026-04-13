@@ -58,7 +58,7 @@ export class VariableDeclarationStatement extends SlangNode {
         ' ',
         print('name')
       ],
-      [print('value'), ';']
+      [this.value ? print('value') : '', ';']
     );
   }
 }

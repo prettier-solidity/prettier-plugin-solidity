@@ -46,12 +46,10 @@ export class Parameter extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    const storageLocationDoc = print('storageLocation');
-    const nameDoc = print('name');
     return group([
       print('typeName'),
-      storageLocationDoc ? [' ', storageLocationDoc] : storageLocationDoc,
-      nameDoc ? [' ', nameDoc] : nameDoc
+      this.storageLocation ? [' ', print('storageLocation')] : '',
+      this.name ? [' ', print('name')] : ''
     ]);
   }
 }

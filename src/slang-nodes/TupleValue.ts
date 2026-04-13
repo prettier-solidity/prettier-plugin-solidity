@@ -30,6 +30,6 @@ export class TupleValue extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return print('expression');
+    return this.expression ? print('expression') : '';
   }
 }

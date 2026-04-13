@@ -37,11 +37,10 @@ export class EventParameter extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    const nameDoc = print('name');
     return [
       print('typeName'),
       this.indexedKeyword ? ' indexed' : '',
-      nameDoc ? [' ', nameDoc] : nameDoc
+      this.name ? [' ', print('name')] : ''
     ];
   }
 }

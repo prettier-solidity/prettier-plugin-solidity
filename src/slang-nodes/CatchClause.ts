@@ -31,6 +31,6 @@ export class CatchClause extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return ['catch ', print('error'), print('body')];
+    return ['catch ', this.error ? print('error') : '', print('body')];
   }
 }

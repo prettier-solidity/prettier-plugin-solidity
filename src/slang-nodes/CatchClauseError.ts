@@ -38,6 +38,6 @@ export class CatchClauseError extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return [print('name'), group(print('parameters')), ' '];
+    return [this.name ? print('name') : '', group(print('parameters')), ' '];
   }
 }

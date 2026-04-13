@@ -27,7 +27,6 @@ export class MappingKey extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    const nameDoc = print('name');
-    return [print('keyType'), nameDoc ? [' ', nameDoc] : nameDoc];
+    return [print('keyType'), this.name ? [' ', print('name')] : ''];
   }
 }

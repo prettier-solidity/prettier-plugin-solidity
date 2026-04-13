@@ -22,6 +22,6 @@ export class OverrideSpecifier extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return ['override', print('overridden')];
+    return ['override', this.overridden ? print('overridden') : ''];
   }
 }

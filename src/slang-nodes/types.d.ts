@@ -462,6 +462,11 @@ export type StrictAstNode =
   | YulPaths
   | YulPath;
 
+export type FunctionWithReturns = Extract<
+  FunctionLike,
+  { returns?: ReturnsDeclaration }
+>;
+
 export type FunctionWithBody = Extract<
   FunctionLike,
   { body: FunctionBody['variant'] }

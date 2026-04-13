@@ -34,6 +34,6 @@ export class InheritanceType extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return [print('typeName'), print('arguments')];
+    return [print('typeName'), this.arguments ? print('arguments') : ''];
   }
 }

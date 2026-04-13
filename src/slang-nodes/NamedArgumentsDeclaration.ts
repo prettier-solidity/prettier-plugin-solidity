@@ -31,6 +31,6 @@ export class NamedArgumentsDeclaration extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return ['(', print('arguments'), ')'];
+    return ['(', this.arguments ? print('arguments') : '', ')'];
   }
 }

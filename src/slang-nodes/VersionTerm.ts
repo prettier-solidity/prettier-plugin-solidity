@@ -27,6 +27,6 @@ export class VersionTerm extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return [print('operator'), print('literal')];
+    return [this.operator ? print('operator') : '', print('literal')];
   }
 }

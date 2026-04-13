@@ -29,6 +29,6 @@ export class ImportDeconstructionSymbol extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return [print('name'), print('alias')];
+    return [print('name'), this.alias ? print('alias') : ''];
   }
 }

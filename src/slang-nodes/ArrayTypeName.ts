@@ -36,6 +36,6 @@ export class ArrayTypeName extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return [print('operand'), '[', print('index'), ']'];
+    return [print('operand'), '[', this.index ? print('index') : '', ']'];
   }
 }

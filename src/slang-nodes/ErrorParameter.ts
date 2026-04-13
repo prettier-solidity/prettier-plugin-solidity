@@ -34,7 +34,6 @@ export class ErrorParameter extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    const nameDoc = print('name');
-    return [print('typeName'), nameDoc ? [' ', nameDoc] : nameDoc];
+    return [print('typeName'), this.name ? [' ', print('name')] : ''];
   }
 }

@@ -31,6 +31,6 @@ export class PathImport extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return [print('path'), print('alias')];
+    return [print('path'), this.alias ? print('alias') : ''];
   }
 }

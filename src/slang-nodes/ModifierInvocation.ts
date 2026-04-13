@@ -43,6 +43,6 @@ export class ModifierInvocation extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return [print('name'), print('arguments')];
+    return [print('name'), this.arguments ? print('arguments') : ''];
   }
 }

@@ -43,7 +43,7 @@ export class YulFunctionDefinition extends SlangNode {
       'function ',
       print('name'),
       print('parameters'),
-      print('returns') || ' ',
+      this.returns ? print('returns') : ' ',
       print('body')
     ];
   }

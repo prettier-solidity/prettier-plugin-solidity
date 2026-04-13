@@ -30,6 +30,6 @@ export class TupleDeconstructionElement extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return print('member');
+    return this.member ? print('member') : '';
   }
 }

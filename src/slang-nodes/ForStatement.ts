@@ -58,7 +58,7 @@ export class ForStatement extends SlangNode {
   print(print: PrintFunction): Doc {
     const initialization = print('initialization');
     const condition = print('condition');
-    const iterator = print('iterator');
+    const iterator = this.iterator ? print('iterator') : '';
 
     return [
       'for (',

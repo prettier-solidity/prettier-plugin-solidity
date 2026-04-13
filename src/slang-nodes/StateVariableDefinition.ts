@@ -52,7 +52,7 @@ export class StateVariableDefinition extends SlangNode {
   print(print: PrintFunction): Doc {
     return printGroupAndIndentIfBreakPair(
       [print('typeName'), indent(print('attributes')), ' ', print('name')],
-      [print('value'), ';']
+      [this.value ? print('value') : '', ';']
     );
   }
 }

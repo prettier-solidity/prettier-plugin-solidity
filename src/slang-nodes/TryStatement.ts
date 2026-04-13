@@ -51,14 +51,13 @@ export class TryStatement extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    const returnsDoc = print('returns');
     return [
       'try',
       printSeparatedItem(print('expression'), {
         firstSeparator: line
       }),
       [
-        returnsDoc ? [returnsDoc, ' '] : returnsDoc,
+        this.returns ? [print('returns'), ' '] : '',
         print('body'),
         ' ',
         print('catchClauses')

@@ -35,7 +35,6 @@ export class YulVariableDeclarationStatement extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    const valueDoc = print('value');
-    return ['let', print('variables'), valueDoc ? [' ', valueDoc] : valueDoc];
+    return ['let', print('variables'), this.value ? [' ', print('value')] : ''];
   }
 }

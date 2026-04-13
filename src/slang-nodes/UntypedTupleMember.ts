@@ -29,9 +29,8 @@ export class UntypedTupleMember extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    const storageLocationDoc = print('storageLocation');
     return [
-      storageLocationDoc ? [storageLocationDoc, ' '] : storageLocationDoc,
+      this.storageLocation ? [print('storageLocation'), ' '] : '',
       print('name')
     ];
   }

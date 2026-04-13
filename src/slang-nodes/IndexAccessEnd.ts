@@ -28,6 +28,6 @@ export class IndexAccessEnd extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return [':', print('end')];
+    return [':', this.end ? print('end') : ''];
   }
 }
