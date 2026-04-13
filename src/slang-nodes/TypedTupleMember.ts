@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
@@ -42,10 +41,12 @@ export class TypedTupleMember extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return joinExisting(' ', [
+    const storageLocationDoc = print('storageLocation');
+    return [
       print('typeName'),
-      print('storageLocation'),
+      storageLocationDoc ? [' ', storageLocationDoc] : '',
+      ' ',
       print('name')
-    ]);
+    ];
   }
 }

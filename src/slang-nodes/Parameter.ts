@@ -1,6 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
@@ -47,12 +46,12 @@ export class Parameter extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return group(
-      joinExisting(' ', [
-        print('typeName'),
-        print('storageLocation'),
-        print('name')
-      ])
-    );
+    const storageLocationDoc = print('storageLocation');
+    const nameDoc = print('name');
+    return group([
+      print('typeName'),
+      storageLocationDoc ? [' ', storageLocationDoc] : '',
+      nameDoc ? [' ', nameDoc] : ''
+    ]);
   }
 }

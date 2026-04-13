@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TypeName } from './TypeName.js';
@@ -38,10 +37,11 @@ export class EventParameter extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return joinExisting(' ', [
+    const nameDoc = print('name');
+    return [
       print('typeName'),
-      this.indexedKeyword,
-      print('name')
-    ]);
+      this.indexedKeyword ? ` ${this.indexedKeyword}` : '',
+      nameDoc ? [' ', nameDoc] : ''
+    ];
   }
 }
