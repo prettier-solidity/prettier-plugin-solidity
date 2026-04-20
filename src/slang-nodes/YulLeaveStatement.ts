@@ -1,18 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { SimpleStatement } from './SimpleStatement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 
-export class YulLeaveStatement extends SlangNode {
+export class YulLeaveStatement extends SimpleStatement {
   readonly kind = NonterminalKind.YulLeaveStatement;
 
   constructor(ast: ast.YulLeaveStatement, collected: CollectedMetadata) {
-    super(ast, collected);
-  }
-
-  print(): Doc {
-    return 'leave';
+    super(ast, collected, 'leave');
   }
 }
