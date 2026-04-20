@@ -1,18 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { SimpleStatement } from './SimpleStatement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
 
-export class ThrowStatement extends SlangNode {
+export class ThrowStatement extends SimpleStatement {
   readonly kind = NonterminalKind.ThrowStatement;
 
   constructor(ast: ast.ThrowStatement, collected: CollectedMetadata) {
-    super(ast, collected);
-  }
-
-  print(): Doc {
-    return 'throw;';
+    super(ast, collected, 'throw;');
   }
 }
