@@ -4,9 +4,7 @@ import { createBinaryOperationPrinter } from '../slang-printers/create-binary-op
 import { binaryIndentRulesBuilder } from '../slang-printers/print-binary-operation.js';
 import { createHugFunction } from '../slang-utils/create-hug-function.js';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { Expression } from './Expression.js';
+import { BinaryOperation } from './BinaryOperation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
@@ -37,27 +35,11 @@ const printExponentiationExpression = createBinaryOperationPrinter(
   binaryIndentRulesBuilder(shouldIndent) // indent as a binary operation with some exceptions
 );
 
-export class ExponentiationExpression extends SlangNode {
+export class ExponentiationExpression extends BinaryOperation {
   readonly kind = NonterminalKind.ExponentiationExpression;
-
-  leftOperand: Expression['variant'];
-
-  operator: string;
-
-  rightOperand: Expression['variant'];
 
   constructor(ast: ast.ExponentiationExpression, collected: CollectedMetadata) {
     super(ast, collected);
-
-    this.leftOperand = extractVariant(
-      new Expression(ast.leftOperand, collected)
-    );
-    this.operator = ast.operator.unparse();
-    this.rightOperand = extractVariant(
-      new Expression(ast.rightOperand, collected)
-    );
-
-    this.updateMetadata(this.leftOperand, this.rightOperand);
 
     this.rightOperand = tryToHug(this.rightOperand);
     this.leftOperand = tryToHug(this.leftOperand);

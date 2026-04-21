@@ -1,35 +1,17 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printLogicalOperation } from '../slang-printers/print-logical-operation.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { Expression } from './Expression.js';
+import { BinaryOperation } from './BinaryOperation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
-export class AndExpression extends SlangNode {
+export class AndExpression extends BinaryOperation {
   readonly kind = NonterminalKind.AndExpression;
-
-  leftOperand: Expression['variant'];
-
-  operator: string;
-
-  rightOperand: Expression['variant'];
 
   constructor(ast: ast.AndExpression, collected: CollectedMetadata) {
     super(ast, collected);
-
-    this.leftOperand = extractVariant(
-      new Expression(ast.leftOperand, collected)
-    );
-    this.operator = ast.operator.unparse();
-    this.rightOperand = extractVariant(
-      new Expression(ast.rightOperand, collected)
-    );
-
-    this.updateMetadata(this.leftOperand, this.rightOperand);
   }
 
   print(
