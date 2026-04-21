@@ -1,26 +1,15 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { Expression } from './Expression.js';
+import { UnaryExpression } from './UnaryExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
-export class PrefixExpression extends SlangNode {
+export class PrefixExpression extends UnaryExpression {
   readonly kind = NonterminalKind.PrefixExpression;
-
-  operator: string;
-
-  operand: Expression['variant'];
 
   constructor(ast: ast.PrefixExpression, collected: CollectedMetadata) {
     super(ast, collected);
-
-    this.operator = ast.operator.unparse();
-    this.operand = extractVariant(new Expression(ast.operand, collected));
-
-    this.updateMetadata(this.operand);
 
     if (this.operator === 'delete') {
       this.operator = 'delete ';
