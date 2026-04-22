@@ -1,7 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
-import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
+import { printIndentedPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { ContractMember } from './ContractMember.js';
@@ -10,8 +8,6 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
-
-const { hardline } = doc.builders;
 
 export class LibraryMembers extends SlangNode {
   readonly kind = NonterminalKind.LibraryMembers;
@@ -35,11 +31,6 @@ export class LibraryMembers extends SlangNode {
     path: AstPath<LibraryMembers>,
     options: ParserOptions<PrintableNode>
   ): Doc {
-    return this.items.length > 0 || (this.comments?.length || 0) > 0
-      ? printSeparatedItem(
-          printPreservingEmptyLines(this, path, print, options),
-          { firstSeparator: hardline }
-        )
-      : '';
+    return printIndentedPreservingEmptyLines(this, path, print, options);
   }
 }

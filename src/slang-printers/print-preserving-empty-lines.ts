@@ -2,6 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc, util } from 'prettier';
 import { locEnd } from '../slang-utils/loc.js';
 import { printComments } from './print-comments.js';
+import { printSeparatedItem } from './print-separated-item.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { LineCollection, PrintableNode } from '../slang-nodes/types.d.ts';
@@ -35,4 +36,18 @@ export function printPreservingEmptyLines(
         ];
       }, 'items')
     : printComments(node, path, options);
+}
+
+export function printIndentedPreservingEmptyLines(
+  node: LineCollection,
+  path: AstPath<LineCollection>,
+  print: PrintFunction,
+  options: ParserOptions<PrintableNode>
+): Doc {
+  return node.items.length > 0 || (node.comments?.length || 0) > 0
+    ? printSeparatedItem(
+        printPreservingEmptyLines(node, path, print, options),
+        { firstSeparator: hardline }
+      )
+    : '';
 }
