@@ -16,15 +16,11 @@ export class PositionalArguments extends SlangNode {
 
   items: Expression['variant'][];
 
-  constructor(
-    ast: ast.PositionalArguments,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.PositionalArguments, collected: CollectedMetadata) {
     super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new Expression(item, collected, options))
+      extractVariant(new Expression(item, collected))
     );
   }
 

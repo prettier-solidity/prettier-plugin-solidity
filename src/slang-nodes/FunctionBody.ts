@@ -7,20 +7,14 @@ import { Block } from './Block.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class FunctionBody extends SlangNode {
   readonly kind = NonterminalKind.FunctionBody;
 
   variant: Block | TerminalNode;
 
-  constructor(
-    ast: ast.FunctionBody,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.FunctionBody, collected: CollectedMetadata) {
     super(ast, collected);
 
     const variant = ast.variant;
@@ -28,7 +22,7 @@ export class FunctionBody extends SlangNode {
       this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = new Block(variant, collected, options);
+    this.variant = new Block(variant, collected);
 
     this.updateMetadata(this.variant);
   }

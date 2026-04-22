@@ -6,9 +6,8 @@ import { YulReturnsDeclaration } from './YulReturnsDeclaration.js';
 import { YulBlock } from './YulBlock.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class YulFunctionDefinition extends SlangNode {
   readonly kind = NonterminalKind.YulFunctionDefinition;
@@ -21,11 +20,7 @@ export class YulFunctionDefinition extends SlangNode {
 
   body: YulBlock;
 
-  constructor(
-    ast: ast.YulFunctionDefinition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.YulFunctionDefinition, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.name = new TerminalNode(ast.name, collected);
@@ -33,7 +28,7 @@ export class YulFunctionDefinition extends SlangNode {
     if (ast.returns) {
       this.returns = new YulReturnsDeclaration(ast.returns, collected);
     }
-    this.body = new YulBlock(ast.body, collected, options);
+    this.body = new YulBlock(ast.body, collected);
 
     this.updateMetadata(this.parameters, this.returns, this.body);
   }

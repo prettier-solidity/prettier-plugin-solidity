@@ -14,15 +14,11 @@ export class LibraryMembers extends SlangNode {
 
   items: ContractMember['variant'][];
 
-  constructor(
-    ast: ast.LibraryMembers,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.LibraryMembers, collected: CollectedMetadata) {
     super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new ContractMember(item, collected, options))
+      extractVariant(new ContractMember(item, collected))
     );
   }
 

@@ -14,16 +14,12 @@ export class ReturnStatement extends SlangNode {
 
   expression?: Expression['variant'];
 
-  constructor(
-    ast: ast.ReturnStatement,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ReturnStatement, collected: CollectedMetadata) {
     super(ast, collected);
 
     if (ast.expression) {
       this.expression = extractVariant(
-        new Expression(ast.expression, collected, options)
+        new Expression(ast.expression, collected)
       );
     }
 

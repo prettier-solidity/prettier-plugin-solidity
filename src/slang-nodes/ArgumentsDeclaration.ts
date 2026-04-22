@@ -5,9 +5,7 @@ import { SlangNode } from './SlangNode.js';
 import { PositionalArgumentsDeclaration } from './PositionalArgumentsDeclaration.js';
 import { NamedArgumentsDeclaration } from './NamedArgumentsDeclaration.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.ArgumentsDeclaration,
@@ -22,14 +20,10 @@ export class ArgumentsDeclaration extends SlangNode {
 
   variant: PositionalArgumentsDeclaration | NamedArgumentsDeclaration;
 
-  constructor(
-    ast: ast.ArgumentsDeclaration,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ArgumentsDeclaration, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, collected, options);
+    this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);
   }

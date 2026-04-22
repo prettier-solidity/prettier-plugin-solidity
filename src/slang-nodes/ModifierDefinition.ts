@@ -9,13 +9,12 @@ import { ModifierAttributes } from './ModifierAttributes.js';
 import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type {
   AstLocation,
   CollectedMetadata,
   PrintFunction
 } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class ModifierDefinition extends SlangNode {
   readonly kind = NonterminalKind.ModifierDefinition;
@@ -28,23 +27,15 @@ export class ModifierDefinition extends SlangNode {
 
   body: FunctionBody['variant'];
 
-  constructor(
-    ast: ast.ModifierDefinition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ModifierDefinition, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.name = new TerminalNode(ast.name, collected);
     if (ast.parameters) {
-      this.parameters = new ParametersDeclaration(
-        ast.parameters,
-        collected,
-        options
-      );
+      this.parameters = new ParametersDeclaration(ast.parameters, collected);
     }
     this.attributes = new ModifierAttributes(ast.attributes, collected);
-    this.body = extractVariant(new FunctionBody(ast.body, collected, options));
+    this.body = extractVariant(new FunctionBody(ast.body, collected));
 
     this.updateMetadata(this.parameters, this.attributes, this.body);
 

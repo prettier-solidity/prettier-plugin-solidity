@@ -20,9 +20,7 @@ import { AssemblyStatement } from './AssemblyStatement.js';
 import { Block } from './Block.js';
 import { UncheckedBlock } from './UncheckedBlock.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   slangAst.Statement,
@@ -68,18 +66,14 @@ export class Statement extends SlangNode {
     | Block
     | UncheckedBlock;
 
-  constructor(
-    ast: slangAst.Statement,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: slangAst.Statement, collected: CollectedMetadata) {
     super(ast, collected);
 
     const variant = ast.variant;
     this.variant =
       variant instanceof slangAst.Block
-        ? new Block(variant, collected, options)
-        : createNonterminalVariant(variant, collected, options);
+        ? new Block(variant, collected)
+        : createNonterminalVariant(variant, collected);
 
     this.updateMetadata(this.variant);
   }

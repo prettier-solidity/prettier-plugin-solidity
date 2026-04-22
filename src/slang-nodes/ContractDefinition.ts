@@ -7,9 +7,8 @@ import { ContractSpecifiers } from './ContractSpecifiers.js';
 import { ContractMembers } from './ContractMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const { group, line } = doc.builders;
 
@@ -24,21 +23,13 @@ export class ContractDefinition extends SlangNode {
 
   members: ContractMembers;
 
-  constructor(
-    ast: ast.ContractDefinition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ContractDefinition, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.abstractKeyword = ast.abstractKeyword?.unparse();
     this.name = new TerminalNode(ast.name, collected);
-    this.specifiers = new ContractSpecifiers(
-      ast.specifiers,
-      collected,
-      options
-    );
-    this.members = new ContractMembers(ast.members, collected, options);
+    this.specifiers = new ContractSpecifiers(ast.specifiers, collected);
+    this.members = new ContractMembers(ast.members, collected);
 
     this.updateMetadata(this.specifiers, this.members);
 
@@ -46,7 +37,7 @@ export class ContractDefinition extends SlangNode {
     // the same name as the contract.
     // So we delegate to the parents the responsibility of cleaning the
     // arguments of modifier invocations.
-    if (!satisfies(options.compiler, '>=0.5.0')) {
+    if (!satisfies(collected.options.compiler, '>=0.5.0')) {
       for (const member of this.members.items) {
         if (
           member.kind === NonterminalKind.FunctionDefinition &&

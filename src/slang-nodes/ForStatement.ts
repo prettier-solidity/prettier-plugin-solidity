@@ -10,9 +10,8 @@ import { Expression } from './Expression.js';
 import { Statement } from './Statement.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const { line } = doc.builders;
 
@@ -27,25 +26,19 @@ export class ForStatement extends SlangNode {
 
   body: Statement['variant'];
 
-  constructor(
-    ast: ast.ForStatement,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ForStatement, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.initialization = extractVariant(
-      new ForStatementInitialization(ast.initialization, collected, options)
+      new ForStatementInitialization(ast.initialization, collected)
     );
     this.condition = extractVariant(
-      new ForStatementCondition(ast.condition, collected, options)
+      new ForStatementCondition(ast.condition, collected)
     );
     if (ast.iterator) {
-      this.iterator = extractVariant(
-        new Expression(ast.iterator, collected, options)
-      );
+      this.iterator = extractVariant(new Expression(ast.iterator, collected));
     }
-    this.body = extractVariant(new Statement(ast.body, collected, options));
+    this.body = extractVariant(new Statement(ast.body, collected));
 
     this.updateMetadata(
       this.initialization,

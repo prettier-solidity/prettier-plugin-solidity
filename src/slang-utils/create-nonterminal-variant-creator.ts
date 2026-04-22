@@ -12,7 +12,7 @@ import type {
   SlangAstNodeClass
 } from '../types.d.ts';
 
-type Constructor<T> = new (...args: any) => T;
+type Constructor<T> = new (ast: any, collected: CollectedMetadata) => T;
 type ConstructorsFromInstances<U> = U extends any ? Constructor<U> : never;
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
@@ -31,10 +31,10 @@ export function createNonterminalVariantSimpleCreator<
 >(
   constructors: [SlangAstNodeClass, ConstructorsFromInstances<T['variant']>][]
 ): NonterminalVariantFactory<U, T> {
-  return (variant, collected, options?) => {
+  return (variant, collected) => {
     for (const [slangAstClass, constructor] of constructors) {
       if (variant instanceof slangAstClass)
-        return new constructor(variant, collected, options);
+        return new constructor(variant, collected);
     }
 
     throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
@@ -55,12 +55,12 @@ export function createNonterminalVariantCreator<
     constructors
   );
 
-  return (variant, collected, options?) => {
+  return (variant, collected) => {
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass)
-        return extractVariant(new constructor(variant, collected, options));
+        return extractVariant(new constructor(variant, collected));
     }
 
-    return simpleCreator(variant, collected, options);
+    return simpleCreator(variant, collected);
   };
 }

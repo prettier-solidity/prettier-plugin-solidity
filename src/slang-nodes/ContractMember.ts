@@ -16,9 +16,7 @@ import { StateVariableDefinition } from './StateVariableDefinition.js';
 import { ErrorDefinition } from './ErrorDefinition.js';
 import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.ContractMember,
@@ -57,14 +55,10 @@ export class ContractMember extends SlangNode {
     | ErrorDefinition
     | UserDefinedValueTypeDefinition;
 
-  constructor(
-    ast: ast.ContractMember,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ContractMember, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, collected, options);
+    this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);
   }
