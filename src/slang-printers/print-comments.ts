@@ -17,7 +17,7 @@ export function printComments(
   path: AstPath<PrintableNode>,
   options: ParserOptions<PrintableNode>
 ): Doc[] {
-  const lastPrintableIndex = (node.comments ?? []).findLastIndex(isPrintable);
+  const lastPrintableIndex = node.comments?.findLastIndex(isPrintable) ?? -1;
   if (lastPrintableIndex === -1) {
     return [];
   }

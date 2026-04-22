@@ -44,7 +44,7 @@ export function printIndentedPreservingEmptyLines(
   print: PrintFunction,
   options: ParserOptions<PrintableNode>
 ): Doc {
-  return node.items.length > 0 || (node.comments?.length || 0) > 0
+  return node.items.length > 0 || (node.comments?.length ?? 0) > 0
     ? printSeparatedItem(
         printPreservingEmptyLines(node, path, print, options),
         { firstSeparator: hardline }
