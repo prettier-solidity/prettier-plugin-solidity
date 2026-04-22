@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { extractVariant } from './extract-variant.js';
 
-import type { ParserOptions } from 'prettier';
-import type {
-  PrintableNode,
-  StrictPolymorphicNode
-} from '../slang-nodes/types.d.ts';
+import type { StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
 import type {
   CollectedMetadata,
   SlangAstNode,
@@ -18,11 +14,7 @@ type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 type NonterminalVariantFactory<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
-> = (
-  variant: U['variant'],
-  collected: CollectedMetadata,
-  options?: ParserOptions<PrintableNode>
-) => T['variant'];
+> = (variant: U['variant'], collected: CollectedMetadata) => T['variant'];
 
 export function createNonterminalVariantSimpleCreator<
   U extends SlangPolymorphicNode,
