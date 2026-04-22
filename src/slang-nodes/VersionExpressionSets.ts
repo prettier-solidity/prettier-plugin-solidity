@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { SlangNode } from './SlangNode.js';
+import { NodeCollection } from './NodeCollection.js';
 import { VersionExpressionSet } from './VersionExpressionSet.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -9,17 +9,14 @@ import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { join } = doc.builders;
 
-export class VersionExpressionSets extends SlangNode {
+export class VersionExpressionSets extends NodeCollection<
+  ast.VersionExpressionSets,
+  VersionExpressionSet
+> {
   readonly kind = NonterminalKind.VersionExpressionSets;
 
-  items: VersionExpressionSet[];
-
   constructor(ast: ast.VersionExpressionSets, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map(
-      (item) => new VersionExpressionSet(item, collected)
-    );
+    super(ast, collected, VersionExpressionSet);
   }
 
   print(print: PrintFunction, path: AstPath<VersionExpressionSets>): Doc {

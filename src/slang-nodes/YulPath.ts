@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { SlangNode } from './SlangNode.js';
+import { NodeCollection } from './NodeCollection.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -9,15 +9,11 @@ import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { join } = doc.builders;
 
-export class YulPath extends SlangNode {
+export class YulPath extends NodeCollection<ast.YulPath, TerminalNode> {
   readonly kind = NonterminalKind.YulPath;
 
-  items: TerminalNode[];
-
   constructor(ast: ast.YulPath, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) => new TerminalNode(item, collected));
+    super(ast, collected, TerminalNode);
   }
 
   print(print: PrintFunction, path: AstPath<YulPath>): Doc {

@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { SlangNode } from './SlangNode.js';
+import { NodeCollection } from './NodeCollection.js';
 import { NamedArgument } from './NamedArgument.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -11,15 +11,14 @@ import type { PrintableNode } from './types.d.ts';
 
 const { line, softline } = doc.builders;
 
-export class NamedArguments extends SlangNode {
+export class NamedArguments extends NodeCollection<
+  ast.NamedArguments,
+  NamedArgument
+> {
   readonly kind = NonterminalKind.NamedArguments;
 
-  items: NamedArgument[];
-
   constructor(ast: ast.NamedArguments, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) => new NamedArgument(item, collected));
+    super(ast, collected, NamedArgument);
   }
 
   print(

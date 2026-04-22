@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printComments } from '../slang-printers/print-comments.js';
-import { SlangNode } from './SlangNode.js';
+import { NodeCollection } from './NodeCollection.js';
 import { Parameter } from './Parameter.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -10,15 +10,11 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
-export class Parameters extends SlangNode {
+export class Parameters extends NodeCollection<ast.Parameters, Parameter> {
   readonly kind = NonterminalKind.Parameters;
 
-  items: Parameter[];
-
   constructor(ast: ast.Parameters, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) => new Parameter(item, collected));
+    super(ast, collected, Parameter);
   }
 
   print(
