@@ -1,6 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { sortContractSpecifiers } from '../slang-utils/sort-contract-specifiers.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { VariantCollection } from './VariantCollection.js';
 import { ContractSpecifier } from './ContractSpecifier.js';
@@ -10,6 +9,25 @@ import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { group, ifBreak, line, softline } = doc.builders;
+
+function sortContractSpecifiers(
+  { kind: aKind }: ContractSpecifier['variant'],
+  { kind: bKind }: ContractSpecifier['variant']
+): number {
+  // OverrideSpecifiers before ModifierInvocation
+  if (
+    aKind === NonterminalKind.InheritanceSpecifier &&
+    bKind === NonterminalKind.StorageLayoutSpecifier
+  )
+    return -1;
+  if (
+    bKind === NonterminalKind.InheritanceSpecifier &&
+    aKind === NonterminalKind.StorageLayoutSpecifier
+  )
+    return 1;
+
+  return 0;
+}
 
 export class ContractSpecifiers extends VariantCollection<
   ast.ContractSpecifiers,
