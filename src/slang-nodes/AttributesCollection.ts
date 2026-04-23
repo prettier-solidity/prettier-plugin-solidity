@@ -1,7 +1,17 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { TerminalNode } from '../slang-nodes/TerminalNode.js';
+import { doc } from 'prettier';
+import { VariantCollection } from './VariantCollection.js';
+import { TerminalNode } from './TerminalNode.js';
 
+import type { AstPath, Doc } from 'prettier';
+import type {
+  CollectedMetadata,
+  PrintFunction,
+  SlangVariantCollection
+} from '../types.d.ts';
 import type { SortableAttribute } from './types.d.ts';
+
+const { line } = doc.builders;
 
 const visibilityKeyWords = new Set([
   'external',
@@ -12,9 +22,9 @@ const visibilityKeyWords = new Set([
 
 const mutabilityKeyWords = new Set(['pure', 'constant', 'payable', 'view']);
 
-export function sortFunctionAttributes(
-  aVariant: SortableAttribute,
-  bVariant: SortableAttribute
+function sortFunctionAttributes(
+  aVariant: SortableAttribute['variant'],
+  bVariant: SortableAttribute['variant']
 ): number {
   const aIsString = aVariant instanceof TerminalNode;
   const bIsString = bVariant instanceof TerminalNode;
@@ -49,4 +59,26 @@ export function sortFunctionAttributes(
     return 1;
 
   return 0;
+}
+
+export abstract class AttributesCollection<
+  A extends SlangVariantCollection,
+  I extends SortableAttribute
+> extends VariantCollection<A, I> {
+  protected constructor(
+    ast: A,
+    collected: CollectedMetadata,
+    constructor: new (
+      ast: A['items'][number],
+      collected: CollectedMetadata
+    ) => I
+  ) {
+    super(ast, collected, constructor);
+
+    this.items.sort(sortFunctionAttributes);
+  }
+
+  print(print: PrintFunction, path: AstPath<{ items: I['variant'][] }>): Doc {
+    return path.map(() => [line, print()], 'items');
+  }
 }
