@@ -462,6 +462,16 @@ export type StrictAstNode =
   | YulPaths
   | YulPath;
 
+export type SortableAttribute =
+  | ConstructorAttribute
+  | FallbackFunctionAttribute
+  | FunctionAttribute
+  | FunctionTypeAttribute
+  | ModifierAttribute
+  | ReceiveFunctionAttribute
+  | StateVariableAttribute
+  | UnnamedFunctionAttribute;
+
 export type FunctionWithBody = Extract<
   FunctionLike,
   { body: FunctionBody['variant'] }
