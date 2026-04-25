@@ -5,9 +5,7 @@ import { createKindCheckFunction } from '../slang-utils/create-kind-check-functi
 import { BinaryOperation } from './BinaryOperation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
+import type { CollectedMetadata } from '../types.d.ts';
 
 const tryToHug = createHugFunction([
   '+',
@@ -34,14 +32,6 @@ export class BitwiseOrExpression extends BinaryOperation {
   readonly kind = NonterminalKind.BitwiseOrExpression;
 
   constructor(ast: ast.BitwiseOrExpression, collected: CollectedMetadata) {
-    super(ast, collected, tryToHug, tryToHug);
-  }
-
-  print(
-    print: PrintFunction,
-    path: AstPath<BitwiseOrExpression>,
-    options: ParserOptions<PrintableNode>
-  ): Doc {
-    return printBitwiseOrExpression(this, path, print, options);
+    super(ast, collected, printBitwiseOrExpression, tryToHug, tryToHug);
   }
 }

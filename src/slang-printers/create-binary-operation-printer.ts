@@ -41,8 +41,8 @@ export const createBinaryOperationPrinter =
   ) =>
   (
     node: BinaryOperation,
-    path: AstPath<PrintableNode>,
     print: PrintFunction,
+    path: AstPath<PrintableNode>,
     options: ParserOptions<PrintableNode>
   ): Doc => {
     const groupRules = groupRulesBuilder(path);

@@ -7,8 +7,8 @@ import type {
 } from '../slang-nodes/types.d.ts';
 import type {
   CollectedMetadata,
-  SlangAstNode,
-  SlangAstNodeClass
+  SlangAstNodeClass,
+  SlangPolymorphicNode
 } from '../types.d.ts';
 
 type NodeConstructor<T> = new (
@@ -16,7 +16,6 @@ type NodeConstructor<T> = new (
   collected: CollectedMetadata,
   initializationAttributes?: NodeInitializationAttributes
 ) => T;
-type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
 type NonterminalVariantFactory<
   U extends SlangPolymorphicNode,
