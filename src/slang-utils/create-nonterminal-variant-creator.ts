@@ -4,12 +4,11 @@ import { extractVariant } from './extract-variant.js';
 import type { StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
 import type {
   CollectedMetadata,
-  SlangAstNode,
-  SlangAstNodeClass
+  SlangAstNodeClass,
+  SlangPolymorphicNode
 } from '../types.d.ts';
 
 type NodeConstructor<T> = new (ast: any, collected: CollectedMetadata) => T;
-type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
 type NonterminalVariantFactory<
   U extends SlangPolymorphicNode,

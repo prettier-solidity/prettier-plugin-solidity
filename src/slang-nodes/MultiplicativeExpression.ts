@@ -5,9 +5,7 @@ import { createKindCheckFunction } from '../slang-utils/create-kind-check-functi
 import { BinaryOperation } from './BinaryOperation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
+import type { CollectedMetadata } from '../types.d.ts';
 
 const hugFunctions = {
   '*': createHugFunction(['/', '%']),
@@ -33,7 +31,7 @@ export class MultiplicativeExpression extends BinaryOperation {
   readonly kind = NonterminalKind.MultiplicativeExpression;
 
   constructor(ast: ast.MultiplicativeExpression, collected: CollectedMetadata) {
-    super(ast, collected);
+    super(ast, collected, printMultiplicativeExpression);
 
     const tryToHug = hugFunctions[this.operator as keyof typeof hugFunctions];
 
@@ -42,13 +40,5 @@ export class MultiplicativeExpression extends BinaryOperation {
     }
 
     this.leftOperand = tryToHug(this.leftOperand);
-  }
-
-  print(
-    print: PrintFunction,
-    path: AstPath<MultiplicativeExpression>,
-    options: ParserOptions<PrintableNode>
-  ): Doc {
-    return printMultiplicativeExpression(this, path, print, options);
   }
 }

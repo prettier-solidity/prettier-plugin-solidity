@@ -53,8 +53,8 @@ export const printBinaryOperation = (
   shouldGroupAndIndent: (node: BinaryOperation) => boolean
 ): ((
   node: BinaryOperation,
-  path: AstPath<PrintableNode>,
   print: PrintFunction,
+  path: AstPath<PrintableNode>,
   options: ParserOptions<PrintableNode>
 ) => Doc) =>
   createBinaryOperationPrinter(

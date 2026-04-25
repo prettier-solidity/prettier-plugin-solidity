@@ -5,9 +5,7 @@ import { createKindCheckFunction } from '../slang-utils/create-kind-check-functi
 import { BinaryOperation } from './BinaryOperation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
+import type { CollectedMetadata } from '../types.d.ts';
 
 const tryToHugLeftOperand = createHugFunction([
   '+',
@@ -36,17 +34,9 @@ export class ShiftExpression extends BinaryOperation {
   readonly kind = NonterminalKind.ShiftExpression;
 
   constructor(ast: ast.ShiftExpression, collected: CollectedMetadata) {
-    super(ast, collected);
+    super(ast, collected, printShiftExpression);
 
     this.leftOperand = tryToHugLeftOperand(this.leftOperand);
     this.rightOperand = tryToHugRightOperand(this.rightOperand);
-  }
-
-  print(
-    print: PrintFunction,
-    path: AstPath<ShiftExpression>,
-    options: ParserOptions<PrintableNode>
-  ): Doc {
-    return printShiftExpression(this, path, print, options);
   }
 }

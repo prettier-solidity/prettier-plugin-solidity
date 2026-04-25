@@ -7,9 +7,8 @@ import { createKindCheckFunction } from '../slang-utils/create-kind-check-functi
 import { BinaryOperation } from './BinaryOperation.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
+import type { Doc } from 'prettier';
+import type { CollectedMetadata } from '../types.d.ts';
 
 const { group } = doc.builders;
 
@@ -39,17 +38,9 @@ export class ExponentiationExpression extends BinaryOperation {
   readonly kind = NonterminalKind.ExponentiationExpression;
 
   constructor(ast: ast.ExponentiationExpression, collected: CollectedMetadata) {
-    super(ast, collected);
+    super(ast, collected, printExponentiationExpression);
 
     this.rightOperand = tryToHug(this.rightOperand);
     this.leftOperand = tryToHug(this.leftOperand);
-  }
-
-  print(
-    print: PrintFunction,
-    path: AstPath<ExponentiationExpression>,
-    options: ParserOptions<PrintableNode>
-  ): Doc {
-    return printExponentiationExpression(this, path, print, options);
   }
 }
