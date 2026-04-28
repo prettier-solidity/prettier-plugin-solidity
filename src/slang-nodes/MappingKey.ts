@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { MappingKeyType } from './MappingKeyType.js';
@@ -28,6 +27,7 @@ export class MappingKey extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return joinExisting(' ', [print('keyType'), print('name')]);
+    const nameDoc = print('name');
+    return [print('keyType'), nameDoc ? [' ', nameDoc] : nameDoc];
   }
 }

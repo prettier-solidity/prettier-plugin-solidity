@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { SlangNode } from './SlangNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { AssemblyFlagsDeclaration } from './AssemblyFlagsDeclaration.js';
@@ -38,11 +37,13 @@ export class AssemblyStatement extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return joinExisting(' ', [
-      'assembly',
-      print('label'),
-      print('flags'),
+    const labelDoc = print('label');
+    const flagsDoc = print('flags');
+    return [
+      'assembly ',
+      labelDoc ? [labelDoc, ' '] : labelDoc,
+      flagsDoc ? [flagsDoc, ' '] : flagsDoc,
       print('body')
-    ]);
+    ];
   }
 }

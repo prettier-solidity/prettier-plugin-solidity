@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { SlangNode } from './SlangNode.js';
 import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.js';
 import { YulVariableNames } from './YulVariableNames.js';
@@ -36,6 +35,7 @@ export class YulVariableDeclarationStatement extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return joinExisting(' ', [['let', print('variables')], print('value')]);
+    const valueDoc = print('value');
+    return ['let', print('variables'), valueDoc ? [' ', valueDoc] : valueDoc];
   }
 }

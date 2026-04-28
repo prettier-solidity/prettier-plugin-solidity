@@ -1,5 +1,4 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { joinExisting } from '../slang-utils/join-existing.js';
 import { SlangNode } from './SlangNode.js';
 import { NumberUnit } from './NumberUnit.js';
 
@@ -26,6 +25,7 @@ export class DecimalNumberExpression extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return joinExisting(' ', [this.literal, print('unit')]);
+    const unitDoc = print('unit');
+    return [this.literal, unitDoc ? [' ', unitDoc] : unitDoc];
   }
 }

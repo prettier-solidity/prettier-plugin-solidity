@@ -1,6 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { joinExisting } from '../slang-utils/join-existing.js';
 
 import type { Doc } from 'prettier';
 import type { FunctionLike, FunctionWithBody } from '../slang-nodes/types.d.ts';
@@ -13,24 +12,21 @@ export function printFunction(
   node: FunctionLike,
   print: PrintFunction
 ): Doc {
-  return group([
-    functionName,
-    print('parameters'),
-    indent(
-      group([
-        joinExisting(line, [print('attributes'), print('returns')]),
-        (node as FunctionWithBody).body?.kind === NonterminalKind.Block
-          ? dedent(line)
-          : ''
-      ])
-    )
-  ]);
-}
-
-export function printFunctionWithBody(
-  functionName: Doc,
-  node: FunctionLike,
-  print: PrintFunction
-): Doc {
-  return [printFunction(functionName, node, print), print('body')];
+  const returnsDoc = print('returns');
+  return [
+    group([
+      functionName,
+      print('parameters'),
+      indent(
+        group([
+          print('attributes'),
+          returnsDoc ? [line, returnsDoc] : returnsDoc,
+          (node as FunctionWithBody).body?.kind === NonterminalKind.Block
+            ? dedent(line)
+            : ''
+        ])
+      )
+    ]),
+    print('body')
+  ];
 }

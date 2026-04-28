@@ -46,7 +46,8 @@ export class LibraryDefinition extends SlangNode {
 
   print(print: PrintFunction): Doc {
     return [
-      group(['library ', print('name'), line, '{']),
+      'library ',
+      group([print('name'), line, '{']),
       print('members'),
       '}'
     ];

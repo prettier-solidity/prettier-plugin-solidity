@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunctionWithBody } from '../slang-printers/print-function.js';
+import { printFunction } from '../slang-printers/print-function.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
@@ -78,6 +78,6 @@ export class ModifierDefinition extends SlangNode {
   }
 
   print(print: PrintFunction): Doc {
-    return printFunctionWithBody(['modifier ', print('name')], this, print);
+    return printFunction(['modifier ', print('name')], this, print);
   }
 }

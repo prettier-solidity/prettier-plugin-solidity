@@ -43,8 +43,8 @@ export class InterfaceDefinition extends SlangNode {
 
   print(print: PrintFunction): Doc {
     return [
+      'interface ',
       group([
-        'interface ',
         print('name'),
         this.inheritance ? [' ', print('inheritance')] : line,
         '{'

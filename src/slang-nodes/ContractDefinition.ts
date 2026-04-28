@@ -60,9 +60,8 @@ export class ContractDefinition extends SlangNode {
 
   print(print: PrintFunction): Doc {
     return [
+      `${this.abstractKeyword ? 'abstract ' : ''}contract `,
       group([
-        this.abstractKeyword ? 'abstract ' : '',
-        'contract ',
         print('name'),
         print('specifiers'),
         this.specifiers.items.length > 0 ? '' : line,
