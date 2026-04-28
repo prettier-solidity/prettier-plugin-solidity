@@ -3,8 +3,7 @@
 exports[`strings.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 /*
  * @title String & slice utility library for Solidity contracts.

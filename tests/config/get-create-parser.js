@@ -1,5 +1,7 @@
+import { TEST_STANDALONE } from "./constants.js";
+
 function getCreateParserInternal() {
-  const entry = process.env.TEST_STANDALONE
+  const entry = TEST_STANDALONE
     ? "../../dist/create-parser.js"
     : "../../src/slang-utils/create-parser.js";
 

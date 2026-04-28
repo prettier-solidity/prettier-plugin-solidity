@@ -4,8 +4,7 @@ exports[`BinaryOperators.sol - {"experimentalOperatorPosition":"start"} format 1
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract ArithmeticOperators {
   // ['+', '-', '*', '/', '%']
@@ -687,8 +686,7 @@ contract LogicalOperators {
 exports[`BinaryOperators.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract ArithmeticOperators {
   // ['+', '-', '*', '/', '%']
@@ -1371,8 +1369,7 @@ exports[`Parentheses.sol - {"experimentalOperatorPosition":"start"} format 1`] =
 ====================================options=====================================
 experimentalOperatorPosition: "start"
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 pragma solidity 0.5.8;
 
@@ -1646,8 +1643,7 @@ contract Parentheses {
 exports[`Parentheses.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 pragma solidity 0.5.8;
 

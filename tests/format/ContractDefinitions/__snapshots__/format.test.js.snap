@@ -3,8 +3,7 @@
 exports[`ContractDefinitions.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract ContractDefinition is Contract1, Contract2, Contract3, Contract4, Contract5 {
 }

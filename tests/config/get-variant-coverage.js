@@ -1,5 +1,7 @@
+import { TEST_STANDALONE } from "./constants.js";
+
 function getVariantCoverageInternal() {
-  const entry = process.env.TEST_STANDALONE
+  const entry = TEST_STANDALONE
     ? "../../dist/variant-coverage.js"
     : "../../variant-coverage/index.js";
 

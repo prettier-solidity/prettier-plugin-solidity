@@ -1,24 +1,51 @@
 import * as failedTests from "./failed-format-tests.js";
 import { parse } from "./run-prettier.js";
 
-async function testAstCompare(testCase) {
-  const { code, filepath, formatOptions } = testCase;
-  const formatResult = await testCase.runFormat();
+/**
+@import {TestCase} from "./run-test.js"
+*/
 
-  const isAstUnstableTest = failedTests.isAstUnstable(filepath, formatOptions);
-  // Some parsers skip parsing empty files
-  if (formatResult.changed && code.trim()) {
+/**
+@param {TestCase} testCase
+@param {string} name
+*/
+function testAstCompare(testCase, name) {
+  test(name, async () => {
+    const formatResult = await testCase.runFormat();
+
+    if (!formatResult.changed) {
+      return;
+    }
+
     const [originalAst, formattedAst] = await Promise.all(
       [formatResult.input, formatResult.output].map((code) =>
         parse(code, formatResult.options),
       ),
     );
+    const { filepath, formatOptions } = testCase;
+    const isAstUnstableTest = failedTests.isAstUnstable(
+      filepath,
+      formatOptions,
+    );
+
     if (isAstUnstableTest) {
-      expect(formattedAst).not.toEqual(originalAst);
+      expect(formattedAst).not.toStrictEqual(originalAst);
     } else {
-      expect(formattedAst).toEqual(originalAst);
+      expect(formattedAst).toStrictEqual(originalAst);
     }
-  }
+  });
 }
 
-export { testAstCompare as run };
+/**
+@param {TestCase} testCase
+@return {boolean}
+*/
+function shouldSkip(testCase) {
+  return (
+    testCase.expectFail ||
+    // Some parsers skip parsing empty files
+    testCase.isEmpty
+  );
+}
+
+export { testAstCompare as run, shouldSkip as skip };

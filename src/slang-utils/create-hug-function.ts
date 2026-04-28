@@ -18,20 +18,20 @@ export function createHugFunction(
         {
           kind: NonterminalKind.TupleExpression,
           loc: { ...loc },
-          comments: [],
+          comments: undefined,
           items: Object.assign(
             Object.create(TupleValues.prototype) as TupleValues,
             {
               kind: NonterminalKind.TupleValues,
               loc: { ...loc },
-              comments: [],
+              comments: undefined,
               items: [
                 Object.assign(
                   Object.create(TupleValue.prototype) as TupleValue,
                   {
                     kind: NonterminalKind.TupleValue,
                     loc: { ...loc },
-                    comments: [],
+                    comments: undefined,
                     expression: node
                   }
                 )

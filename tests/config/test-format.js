@@ -1,45 +1,51 @@
-import consistentEndOfLine from "./utils/consistent-end-of-line.js";
-import createSnapshot from "./utils/create-snapshot.js";
-import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import consistentEndOfLine from "./consistent-end-of-line.js";
+import createSnapshot from "./create-snapshot.js";
+import visualizeEndOfLine from "./visualize-end-of-line.js";
 
-async function testFormat(testCase) {
-  const { code, parser, expectedOutput, formatOptions } = testCase;
-  const formatResult = await testCase.runFormat();
+/**
+@import {TestCase} from "./run-test.js"
+*/
 
-  // Verify parsers or error tests
-  if (formatOptions.parser !== parser) {
-    const runFormat = () => format(code, formatOptions);
-
-    if (shouldThrowOnFormat(name, formatOptions)) {
-      await expect(runFormat()).rejects.toThrowErrorMatchingSnapshot();
+/**
+@param {TestCase} testCase
+@param {string} name
+@param {TestCase} testCaseForSnapshot
+*/
+function testFormat(testCase, name, testCaseForSnapshot) {
+  test(name, async () => {
+    if (testCase.expectFail) {
+      await expect(testCase.runFormat).rejects.toThrowErrorMatchingSnapshot();
       return;
     }
 
-    // Verify parsers format result should be the same as main parser
-    output = formatResult.outputWithCursor;
-    formatResult = await runFormat();
-  }
+    const formatResult = await testCase.runFormat();
+    expect(formatResult).toBeDefined();
 
-  // Make sure output has consistent EOL
-  expect(formatResult.eolVisualizedOutput).toEqual(
-    visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor)),
-  );
-
-  // The result is assert to equals to `expectedOutput`
-  if (typeof expectedOutput === "string") {
-    expect(formatResult.eolVisualizedOutput).toEqual(
-      visualizeEndOfLine(expectedOutput),
+    // Make sure output has consistent EOL
+    expect(formatResult.eolVisualizedOutput).toBe(
+      visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor)),
     );
-    return;
-  }
 
-  // All parsers have the same result, only snapshot the result from main parser
-  expect(
-    createSnapshot(formatResult, {
-      parsers: testCase.context.parsers,
-      formatOptions,
-    }),
-  ).toMatchSnapshot();
+    if (typeof testCase.expectedOutput === "string") {
+      expect(formatResult.eolVisualizedOutput).toBe(testCase.expectedOutput);
+      return;
+    }
+
+    if (testCase !== testCaseForSnapshot) {
+      const { eolVisualizedOutput } = await testCaseForSnapshot.runFormat();
+      expect(formatResult.eolVisualizedOutput).toStrictEqual(
+        eolVisualizedOutput,
+      );
+      return;
+    }
+
+    expect(
+      createSnapshot(formatResult, {
+        parsers: testCase.context.explicitParsers,
+        formatOptions: testCase.formatOptions,
+      }),
+    ).toMatchSnapshot();
+  });
 }
 
 export { testFormat as run };

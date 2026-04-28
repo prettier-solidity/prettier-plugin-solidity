@@ -4,8 +4,7 @@ exports[`BreakingChangesV0.8.0.sol - {"compiler":"0.7.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.7.0"
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;
@@ -92,8 +91,7 @@ exports[`BreakingChangesV0.8.0.sol - {"compiler":"0.8.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.8.0"
 parsers: ["antlr"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;
@@ -179,8 +177,7 @@ contract BreakingChangesV080 {
 exports[`BreakingChangesV0.8.0.sol format 1`] = `
 ====================================options=====================================
 parsers: ["antlr"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0 <=0.8.5;

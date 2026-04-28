@@ -1,7 +1,7 @@
+import { TEST_STANDALONE } from "./constants.js";
+
 function getPrettierInternal() {
-  const entry = process.env.TEST_STANDALONE
-    ? "prettier/standalone"
-    : "prettier";
+  const entry = TEST_STANDALONE ? "prettier/standalone" : "prettier";
 
   return import(entry).then((module) => module.default);
 }

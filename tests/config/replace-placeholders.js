@@ -19,6 +19,10 @@ const indexProperties = [
   },
 ];
 
+/**
+@param {string} originalText
+@param {any} originalOptions
+*/
 function replacePlaceholders(originalText, originalOptions) {
   const indexes = indexProperties
     .map(({ property, placeholder }) => {

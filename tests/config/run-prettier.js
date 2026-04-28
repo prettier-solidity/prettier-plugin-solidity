@@ -1,12 +1,10 @@
 import getPrettier from "./get-prettier.js";
 import getPlugins from "./get-plugins.js";
 import { CURSOR_PLACEHOLDER } from "./constants.js";
-import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
-import { replacePlaceholders } from "./replace-placeholders.js";
+import visualizeEndOfLine from "./visualize-end-of-line.js";
 
 async function parse(input, options) {
   const prettier = await getPrettier();
-
   const { ast } = await prettier.__debug.parse(
     input,
     await loadPlugins(options),
@@ -15,11 +13,7 @@ async function parse(input, options) {
   return ast;
 }
 
-async function format(originalText, originalOptions) {
-  const { text: input, options } = replacePlaceholders(
-    originalText,
-    originalOptions,
-  );
+async function format(input, options) {
   const inputWithCursor = insertCursor(input, options.cursorOffset);
   const prettier = await getPrettier();
 

@@ -1,11 +1,12 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import getPrettier from "./get-prettier.js";
+import { TEST_STANDALONE } from "./constants.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
 // populate the root object for the standalone in node
-if (process.env.TEST_STANDALONE) {
+if (TEST_STANDALONE) {
   const root =
     typeof globalThis !== "undefined"
       ? globalThis
@@ -19,7 +20,7 @@ if (process.env.TEST_STANDALONE) {
 
 function getPluginsInternal() {
   return Promise.all(
-    process.env.TEST_STANDALONE
+    TEST_STANDALONE
       ? [
           import("prettier/plugins/babel"),
           import("prettier/plugins/estree"),

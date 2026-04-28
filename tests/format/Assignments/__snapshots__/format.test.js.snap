@@ -3,8 +3,7 @@
 exports[`Assignments.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract Assignments {
     address payable public inParentheses = (contractPointer.functionCall(data.data1,data.data2,IERC20(data.token).decimals(),currency));

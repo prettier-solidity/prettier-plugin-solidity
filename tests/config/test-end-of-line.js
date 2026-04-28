@@ -1,36 +1,56 @@
+import { replacePlaceholders } from "./replace-placeholders.js";
 import { format } from "./run-prettier.js";
-import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import visualizeEndOfLine from "./visualize-end-of-line.js";
 
-async function testEndOfLine(testCase, eol) {
-  const { code, formatOptions } = testCase;
-  const formatResult = await testCase.runFormat();
+/**
+@import {TestCase} from "./run-test.js"
+*/
 
-  if (!shouldSkipEolTest(code, formatResult.options)) {
-    const { eolVisualizedOutput: output } = await format(
-      code.replace(/\n/gu, eol),
-      formatOptions,
+/**
+@param {TestCase} testCase
+@param {string} name
+@param {"\r\n" | "\r"} eol
+*/
+function testEndOfLine(testCase, name, eol) {
+  test(name, async () => {
+    const { text, options } = replacePlaceholders(
+      testCase.originalText.replace(/\n/g, eol),
+      testCase.formatOptions,
     );
-    // Only if `endOfLine: "auto"` the result will be different
+
+    const [formatResult, { eolVisualizedOutput: output }] = await Promise.all([
+      testCase.runFormat(),
+      format(text, options),
+    ]);
+
     const expected =
-      formatOptions.endOfLine === "auto"
+      options.endOfLine === "auto"
         ? visualizeEndOfLine(
             // All `code` use `LF`, so the `eol` of result is always `LF`
-            formatResult.outputWithCursor.replace(/\n/gu, eol),
+            formatResult.outputWithCursor.replace(/\n/g, eol),
           )
         : formatResult.eolVisualizedOutput;
-    expect(output).toEqual(expected);
-  }
+
+    expect(output).toBe(expected);
+  });
 }
 
-function shouldSkipEolTest(source, options) {
-  if (source.includes("\r")) {
-    return true;
-  }
-  const { requirePragma, rangeStart, rangeEnd } = options;
-  if (requirePragma) {
+/**
+@param {TestCase} testCase
+@return {boolean}
+*/
+function shouldSkip(testCase) {
+  if (testCase.expectFail || testCase.isEmpty || testCase.code.includes("\r")) {
     return true;
   }
 
+  // They may prevent code been formatted
+  const { requirePragma, checkIgnorePragma } = testCase.formatOptions;
+  if (requirePragma || checkIgnorePragma) {
+    return true;
+  }
+
+  const { rangeStart, rangeEnd } = testCase.formatOptions;
   if (
     typeof rangeStart === "number" &&
     typeof rangeEnd === "number" &&
@@ -38,7 +58,8 @@ function shouldSkipEolTest(source, options) {
   ) {
     return true;
   }
+
   return false;
 }
 
-export { testEndOfLine as run };
+export { testEndOfLine as run, shouldSkip as skip };

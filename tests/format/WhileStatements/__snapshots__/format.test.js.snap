@@ -3,8 +3,7 @@
 exports[`WhileStatements.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
 contract WhileStatements {
     uint constant LONG_VARIABLE = 1;

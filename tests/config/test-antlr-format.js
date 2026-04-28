@@ -3,14 +3,19 @@ import getPrettier from "./get-prettier.js";
 import getCreateParser from "./get-create-parser.js";
 import getPlugins from "./get-plugins.js";
 
-async function testAntlrFormat(testCase) {
-  const { code, filepath, formatOptions } = testCase;
-  const formatResult = await testCase.runFormat();
+/**
+@import {TestCase} from "./run-test.js"
+*/
 
-  if (
-    formatOptions.parser === "slang" &&
-    !failedTests.isAntlrMismatch(filepath, formatOptions)
-  ) {
+/**
+@param {TestCase} testCase
+@param {string} name
+*/
+function testAntlrFormat(testCase, name) {
+  test(name, async () => {
+    const { code, formatOptions } = testCase;
+    const formatResult = await testCase.runFormat();
+
     // Compare with ANTLR's format
     const createParser = await getCreateParser();
     const { parser } = createParser(code, formatOptions);
@@ -24,7 +29,18 @@ async function testAntlrFormat(testCase) {
       plugins: await getPlugins(),
     });
     expect(antlrOutput).toEqual(formatResult.output);
-  }
+  });
 }
 
-export { testAntlrFormat as run };
+/**
+@param {TestCase} testCase
+@return {boolean}
+*/
+function shouldSkip(testCase) {
+  return (
+    testCase.expectFail ||
+    failedTests.isAntlrMismatch(testCase.filepath, testCase.formatOptions)
+  );
+}
+
+export { testAntlrFormat as run, shouldSkip as skip };

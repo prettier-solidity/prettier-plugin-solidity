@@ -20,4 +20,4 @@ const shouldThrowOnFormat = ({ filename }, options) => {
   return false;
 };
 
-export { normalizeDirectory, isErrorTest, shouldThrowOnFormat };
+export { isErrorTest, normalizeDirectory, shouldThrowOnFormat };

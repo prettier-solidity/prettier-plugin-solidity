@@ -4,8 +4,7 @@ exports[`Libraries.sol - {"bracketSpacing":true} format 1`] = `
 ====================================options=====================================
 bracketSpacing: true
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
   using   Lib    for uint;
 using Lib for
@@ -56,8 +55,7 @@ using {
 exports[`Libraries.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
-printWidth: 80
-                                                                printWidth: 80 |
+                                                      printWidth: 80 (default) |
 =====================================input======================================
   using   Lib    for uint;
 using Lib for
