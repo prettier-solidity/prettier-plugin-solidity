@@ -25,11 +25,7 @@ interface AstLocation extends Location {
 }
 
 type PrintFunction = (
-  selector?:
-    | string
-    | number
-    | (string | number)[]
-    | AstPath<PrintableNode | undefined>
+  selector?: string | number | (string | number)[] | AstPath<PrintableNode>
 ) => Doc;
 
 // This the union of all the types in the namespace `ast`.
