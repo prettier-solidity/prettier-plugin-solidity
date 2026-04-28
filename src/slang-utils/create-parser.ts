@@ -9,25 +9,22 @@ import type { PrintableNode } from '../slang-nodes/types.d.ts';
 
 const supportedVersions = LanguageFacts.allVersions();
 const supportedLength = supportedVersions.length;
+const latestSupportedVersion = LanguageFacts.latestVersion();
 
 function parserAndOutput(
   text: string,
-  version: string
+  version: string,
+  reason: string
 ): { parser: Parser; parseOutput: ParseOutput } {
   const parser = Parser.create(version);
-  return {
-    parser,
-    parseOutput: parser.parseNonterminal(NonterminalKind.SourceUnit, text)
-  };
-}
+  const parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
 
-function createError(
-  result: { parseOutput: ParseOutput },
-  reason: string
-): Error {
-  return new Error(
-    `We encountered the following syntax error:\n\n\t${result.parseOutput.errors()[0].message}\n\n${reason}`
-  );
+  if (!parseOutput.isValid())
+    throw new Error(
+      `We encountered the following syntax error:\n\n\t${parseOutput.errors()[0].message}\n\n${reason}`
+    );
+
+  return { parser, parseOutput };
 }
 
 export function createParser(
@@ -36,50 +33,28 @@ export function createParser(
 ): { parser: Parser; parseOutput: ParseOutput } {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
   if (compiler) {
-    const result = parserAndOutput(text, compiler);
-
-    if (!result.parseOutput.isValid())
-      throw createError(
-        result,
-        `Based on the compiler option provided, we inferred your code to be using Solidity version ${
-          result.parser.languageVersion
-        }. If you would like to change that, specify a different version in your \`.prettierrc\` file.`
-      );
-
-    return result;
+    return parserAndOutput(
+      text,
+      compiler,
+      `Based on the compiler option provided, we inferred your code to be using Solidity version ${compiler}. If you would like to change that, specify a different version in your \`.prettierrc\` file.`
+    );
   }
 
   const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
   const inferredLength = inferredRanges.length;
 
   if (inferredLength === 0 || inferredLength === supportedLength) {
-    const result = parserAndOutput(
+    return parserAndOutput(
       text,
-      supportedVersions[supportedLength - 1]
+      latestSupportedVersion,
+      `We couldn't infer a Solidity version based on the pragma statements in your code so we defaulted to ${latestSupportedVersion}. You might be attempting to use a syntax not yet supported by Slang or you might want to specify a version in your \`.prettierrc\` file.`
     );
-
-    if (!result.parseOutput.isValid())
-      throw createError(
-        result,
-        `We couldn't infer a Solidity version based on the pragma statements in your code so we defaulted to ${
-          result.parser.languageVersion
-        }. You might be attempting to use a syntax not yet supported by Slang or you might want to specify a version in your \`.prettierrc\` file.`
-      );
-    return result;
   }
 
-  const result = parserAndOutput(
+  const inferredVersion = inferredRanges[inferredLength - 1];
+  return parserAndOutput(
     text,
-    inferredRanges[inferredRanges.length - 1]
+    inferredVersion,
+    `Based on the pragma statements, we inferred your code to be using Solidity version ${inferredVersion}. If you would like to change that, update the pragmas in your source file, or specify a version in your \`.prettierrc\` file.`
   );
-
-  if (!result.parseOutput.isValid())
-    throw createError(
-      result,
-      `Based on the pragma statements, we inferred your code to be using Solidity version ${
-        result.parser.languageVersion
-      }. If you would like to change that, update the pragmas in your source file, or specify a version in your \`.prettierrc\` file.`
-    );
-
-  return result;
 }
