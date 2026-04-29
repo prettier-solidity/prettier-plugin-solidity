@@ -1,10 +1,7 @@
 import * as ast from '@nomicfoundation/slang/ast';
-import {
-  NonterminalKind,
-  TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { AssignmentExpression } from './AssignmentExpression.js';
 import { ConditionalExpression } from './ConditionalExpression.js';
 import { OrExpression } from './OrExpression.js';
@@ -32,9 +29,9 @@ import { HexNumberExpression } from './HexNumberExpression.js';
 import { DecimalNumberExpression } from './DecimalNumberExpression.js';
 import { StringExpression } from './StringExpression.js';
 import { ElementaryType } from './ElementaryType.js';
-import { TerminalNode } from './TerminalNode.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
+import type { TerminalNode } from './TerminalNode.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.Expression,
@@ -73,49 +70,42 @@ const createNonterminalVariant = createNonterminalVariantCreator<
   ]
 );
 
-export class Expression extends SlangNode {
+export class Expression extends PolymorphicNode<
+  ast.Expression,
+  | AssignmentExpression
+  | ConditionalExpression
+  | OrExpression
+  | AndExpression
+  | EqualityExpression
+  | InequalityExpression
+  | BitwiseOrExpression
+  | BitwiseXorExpression
+  | BitwiseAndExpression
+  | ShiftExpression
+  | AdditiveExpression
+  | MultiplicativeExpression
+  | ExponentiationExpression
+  | PostfixExpression
+  | PrefixExpression
+  | FunctionCallExpression
+  | CallOptionsExpression
+  | MemberAccessExpression
+  | IndexAccessExpression
+  | NewExpression
+  | TupleExpression
+  | TypeExpression
+  | ArrayExpression
+  | HexNumberExpression
+  | DecimalNumberExpression
+  | StringExpression['variant']
+  | ElementaryType['variant']
+  | TerminalNode
+> {
   readonly kind = NonterminalKind.Expression;
 
-  variant:
-    | AssignmentExpression
-    | ConditionalExpression
-    | OrExpression
-    | AndExpression
-    | EqualityExpression
-    | InequalityExpression
-    | BitwiseOrExpression
-    | BitwiseXorExpression
-    | BitwiseAndExpression
-    | ShiftExpression
-    | AdditiveExpression
-    | MultiplicativeExpression
-    | ExponentiationExpression
-    | PostfixExpression
-    | PrefixExpression
-    | FunctionCallExpression
-    | CallOptionsExpression
-    | MemberAccessExpression
-    | IndexAccessExpression
-    | NewExpression
-    | TupleExpression
-    | TypeExpression
-    | ArrayExpression
-    | HexNumberExpression
-    | DecimalNumberExpression
-    | StringExpression['variant']
-    | ElementaryType['variant']
-    | TerminalNode;
-
   constructor(ast: ast.Expression, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    const variant = ast.variant;
-    if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant, collected);
-      return;
-    }
-    this.variant = createNonterminalVariant(variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, (variant) =>
+      createNonterminalVariant(variant, collected)
+    );
   }
 }
