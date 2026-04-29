@@ -1,30 +1,21 @@
-import {
-  NonterminalKind,
-  TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { TypeName } from './TypeName.js';
-import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
+import type { TerminalNode } from './TerminalNode.ts';
 
-export class VariableDeclarationType extends SlangNode {
+export class VariableDeclarationType extends PolymorphicNode<
+  ast.VariableDeclarationType,
+  TypeName['variant'] | TerminalNode
+> {
   readonly kind = NonterminalKind.VariableDeclarationType;
 
-  variant: TypeName['variant'] | TerminalNode;
-
   constructor(ast: ast.VariableDeclarationType, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    const variant = ast.variant;
-    if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant, collected);
-      return;
-    }
-    this.variant = extractVariant(new TypeName(variant, collected));
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, (variant) =>
+      extractVariant(new TypeName(variant, collected))
+    );
   }
 }

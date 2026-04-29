@@ -1,7 +1,7 @@
 import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { YulBlock } from './YulBlock.js';
 import { YulFunctionDefinition } from './YulFunctionDefinition.js';
 import { YulVariableDeclarationStatement } from './YulVariableDeclarationStatement.js';
@@ -38,33 +38,29 @@ const createNonterminalVariant = createNonterminalVariantCreator<
   [[slangAst.YulExpression, YulExpression]]
 );
 
-export class YulStatement extends SlangNode {
+export class YulStatement extends PolymorphicNode<
+  slangAst.YulStatement,
+  | YulBlock
+  | YulFunctionDefinition
+  | YulVariableDeclarationStatement
+  | YulVariableAssignmentStatement
+  | YulStackAssignmentStatement
+  | YulIfStatement
+  | YulForStatement
+  | YulSwitchStatement
+  | YulLeaveStatement
+  | YulBreakStatement
+  | YulContinueStatement
+  | YulLabel
+  | YulExpression['variant']
+> {
   readonly kind = NonterminalKind.YulStatement;
 
-  variant:
-    | YulBlock
-    | YulFunctionDefinition
-    | YulVariableDeclarationStatement
-    | YulVariableAssignmentStatement
-    | YulStackAssignmentStatement
-    | YulIfStatement
-    | YulForStatement
-    | YulSwitchStatement
-    | YulLeaveStatement
-    | YulBreakStatement
-    | YulContinueStatement
-    | YulLabel
-    | YulExpression['variant'];
-
   constructor(ast: slangAst.YulStatement, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    const variant = ast.variant;
-    this.variant =
+    super(ast, collected, (variant) =>
       variant instanceof slangAst.YulBlock
         ? new YulBlock(variant, collected)
-        : createNonterminalVariant(variant, collected);
-
-    this.updateMetadata(this.variant);
+        : createNonterminalVariant(variant, collected)
+    );
   }
 }
