@@ -1,7 +1,7 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNonterminalNode } from './PolymorphicNonterminalNode.js';
 import { StringLiteral } from './StringLiteral.js';
 import { StringLiterals } from './StringLiterals.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
@@ -21,21 +21,17 @@ const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   [ast.UnicodeStringLiterals, UnicodeStringLiterals]
 ]);
 
-export class StringExpression extends SlangNode {
+export class StringExpression extends PolymorphicNonterminalNode<
+  ast.StringExpression,
+  | StringLiteral
+  | StringLiterals
+  | HexStringLiteral
+  | HexStringLiterals
+  | UnicodeStringLiterals
+> {
   readonly kind = NonterminalKind.StringExpression;
 
-  variant:
-    | StringLiteral
-    | StringLiterals
-    | HexStringLiteral
-    | HexStringLiterals
-    | UnicodeStringLiterals;
-
   constructor(ast: ast.StringExpression, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.variant = createNonterminalVariant(ast.variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, createNonterminalVariant);
   }
 }

@@ -1,7 +1,7 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNonterminalNode } from './PolymorphicNonterminalNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { StorageLayoutSpecifier } from './StorageLayoutSpecifier.js';
 
@@ -15,16 +15,13 @@ const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   [ast.StorageLayoutSpecifier, StorageLayoutSpecifier]
 ]);
 
-export class ContractSpecifier extends SlangNode {
+export class ContractSpecifier extends PolymorphicNonterminalNode<
+  ast.ContractSpecifier,
+  InheritanceSpecifier | StorageLayoutSpecifier
+> {
   readonly kind = NonterminalKind.ContractSpecifier;
 
-  variant: InheritanceSpecifier | StorageLayoutSpecifier;
-
   constructor(ast: ast.ContractSpecifier, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.variant = createNonterminalVariant(ast.variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, createNonterminalVariant);
   }
 }
