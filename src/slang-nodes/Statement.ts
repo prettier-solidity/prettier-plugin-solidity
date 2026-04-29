@@ -1,7 +1,7 @@
 import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
 import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js';
@@ -44,37 +44,33 @@ const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   [slangAst.UncheckedBlock, UncheckedBlock]
 ]);
 
-export class Statement extends SlangNode {
+export class Statement extends PolymorphicNode<
+  slangAst.Statement,
+  | ExpressionStatement
+  | VariableDeclarationStatement
+  | TupleDeconstructionStatement
+  | IfStatement
+  | ForStatement
+  | WhileStatement
+  | DoWhileStatement
+  | ContinueStatement
+  | BreakStatement
+  | ReturnStatement
+  | ThrowStatement
+  | EmitStatement
+  | TryStatement
+  | RevertStatement
+  | AssemblyStatement
+  | Block
+  | UncheckedBlock
+> {
   readonly kind = NonterminalKind.Statement;
 
-  variant:
-    | ExpressionStatement
-    | VariableDeclarationStatement
-    | TupleDeconstructionStatement
-    | IfStatement
-    | ForStatement
-    | WhileStatement
-    | DoWhileStatement
-    | ContinueStatement
-    | BreakStatement
-    | ReturnStatement
-    | ThrowStatement
-    | EmitStatement
-    | TryStatement
-    | RevertStatement
-    | AssemblyStatement
-    | Block
-    | UncheckedBlock;
-
   constructor(ast: slangAst.Statement, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    const variant = ast.variant;
-    this.variant =
+    super(ast, collected, (variant) =>
       variant instanceof slangAst.Block
         ? new Block(variant, collected)
-        : createNonterminalVariant(variant, collected);
-
-    this.updateMetadata(this.variant);
+        : createNonterminalVariant(variant, collected)
+    );
   }
 }

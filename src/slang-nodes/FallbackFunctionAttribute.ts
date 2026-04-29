@@ -1,15 +1,12 @@
 import * as ast from '@nomicfoundation/slang/ast';
-import {
-  NonterminalKind,
-  TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
-import { TerminalNode } from './TerminalNode.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
+import type { TerminalNode } from './TerminalNode.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.FallbackFunctionAttribute,
@@ -19,24 +16,16 @@ const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   [ast.OverrideSpecifier, OverrideSpecifier]
 ]);
 
-export class FallbackFunctionAttribute extends SlangNode {
+export class FallbackFunctionAttribute extends PolymorphicNode<
+  ast.FallbackFunctionAttribute,
+  ModifierInvocation | OverrideSpecifier | TerminalNode
+> {
   readonly kind = NonterminalKind.FallbackFunctionAttribute;
-
-  variant: ModifierInvocation | OverrideSpecifier | TerminalNode;
 
   constructor(
     ast: ast.FallbackFunctionAttribute,
     collected: CollectedMetadata
   ) {
-    super(ast, collected);
-
-    const variant = ast.variant;
-    if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant, collected);
-      return;
-    }
-    this.variant = createNonterminalVariant(variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, createNonterminalVariant);
   }
 }

@@ -1,29 +1,22 @@
-import {
-  NonterminalKind,
-  TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
-import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
+import type { TerminalNode } from './TerminalNode.ts';
 
-export class StateVariableAttribute extends SlangNode {
+export class StateVariableAttribute extends PolymorphicNode<
+  ast.StateVariableAttribute,
+  OverrideSpecifier | TerminalNode
+> {
   readonly kind = NonterminalKind.StateVariableAttribute;
 
-  variant: OverrideSpecifier | TerminalNode;
-
   constructor(ast: ast.StateVariableAttribute, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    const variant = ast.variant;
-    if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant, collected);
-      return;
-    }
-    this.variant = new OverrideSpecifier(variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(
+      ast,
+      collected,
+      (variant) => new OverrideSpecifier(variant, collected)
+    );
   }
 }
