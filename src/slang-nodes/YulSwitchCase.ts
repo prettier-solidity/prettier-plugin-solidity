@@ -1,7 +1,7 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNonterminalNode } from './PolymorphicNonterminalNode.js';
 import { YulDefaultCase } from './YulDefaultCase.js';
 import { YulValueCase } from './YulValueCase.js';
 
@@ -15,16 +15,13 @@ const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   [ast.YulValueCase, YulValueCase]
 ]);
 
-export class YulSwitchCase extends SlangNode {
+export class YulSwitchCase extends PolymorphicNonterminalNode<
+  ast.YulSwitchCase,
+  YulDefaultCase | YulValueCase
+> {
   readonly kind = NonterminalKind.YulSwitchCase;
 
-  variant: YulDefaultCase | YulValueCase;
-
   constructor(ast: ast.YulSwitchCase, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.variant = createNonterminalVariant(ast.variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, createNonterminalVariant);
   }
 }
