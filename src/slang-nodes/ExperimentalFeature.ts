@@ -1,29 +1,18 @@
-import {
-  NonterminalKind,
-  TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { StringLiteral } from './StringLiteral.js';
-import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
+import type { TerminalNode } from './TerminalNode.ts';
 
-export class ExperimentalFeature extends SlangNode {
+export class ExperimentalFeature extends PolymorphicNode<
+  ast.ExperimentalFeature,
+  StringLiteral | TerminalNode
+> {
   readonly kind = NonterminalKind.ExperimentalFeature;
 
-  variant: StringLiteral | TerminalNode;
-
   constructor(ast: ast.ExperimentalFeature, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    const variant = ast.variant;
-    if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant, collected);
-      return;
-    }
-    this.variant = new StringLiteral(variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, (variant) => new StringLiteral(variant, collected));
   }
 }

@@ -1,32 +1,25 @@
-import {
-  NonterminalKind,
-  TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
+import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { PolymorphicNode } from './PolymorphicNode.js';
 import { YulEqualAndColon } from './YulEqualAndColon.js';
-import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
+import type { TerminalNode } from './TerminalNode.ts';
 
-export class YulStackAssignmentOperator extends SlangNode {
+export class YulStackAssignmentOperator extends PolymorphicNode<
+  ast.YulStackAssignmentOperator,
+  YulEqualAndColon | TerminalNode
+> {
   readonly kind = NonterminalKind.YulStackAssignmentOperator;
-
-  variant: YulEqualAndColon | TerminalNode;
 
   constructor(
     ast: ast.YulStackAssignmentOperator,
     collected: CollectedMetadata
   ) {
-    super(ast, collected);
-
-    const variant = ast.variant;
-    if (variant instanceof SlangTerminalNode) {
-      this.variant = new TerminalNode(variant, collected);
-      return;
-    }
-    this.variant = new YulEqualAndColon(variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(
+      ast,
+      collected,
+      (variant) => new YulEqualAndColon(variant, collected)
+    );
   }
 }
