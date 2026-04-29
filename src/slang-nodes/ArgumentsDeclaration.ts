@@ -1,7 +1,7 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNonterminalNode } from './PolymorphicNonterminalNode.js';
 import { PositionalArgumentsDeclaration } from './PositionalArgumentsDeclaration.js';
 import { NamedArgumentsDeclaration } from './NamedArgumentsDeclaration.js';
 
@@ -15,16 +15,13 @@ const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   [ast.NamedArgumentsDeclaration, NamedArgumentsDeclaration]
 ]);
 
-export class ArgumentsDeclaration extends SlangNode {
+export class ArgumentsDeclaration extends PolymorphicNonterminalNode<
+  ast.ArgumentsDeclaration,
+  PositionalArgumentsDeclaration | NamedArgumentsDeclaration
+> {
   readonly kind = NonterminalKind.ArgumentsDeclaration;
 
-  variant: PositionalArgumentsDeclaration | NamedArgumentsDeclaration;
-
   constructor(ast: ast.ArgumentsDeclaration, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.variant = createNonterminalVariant(ast.variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, createNonterminalVariant);
   }
 }

@@ -1,7 +1,7 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNonterminalNode } from './PolymorphicNonterminalNode.js';
 import { UsingDirective } from './UsingDirective.js';
 import { FunctionDefinition } from './FunctionDefinition.js';
 import { ConstructorDefinition } from './ConstructorDefinition.js';
@@ -37,29 +37,25 @@ const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   [ast.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition]
 ]);
 
-export class ContractMember extends SlangNode {
+export class ContractMember extends PolymorphicNonterminalNode<
+  ast.ContractMember,
+  | UsingDirective
+  | FunctionDefinition
+  | ConstructorDefinition
+  | ReceiveFunctionDefinition
+  | FallbackFunctionDefinition
+  | UnnamedFunctionDefinition
+  | ModifierDefinition
+  | StructDefinition
+  | EnumDefinition
+  | EventDefinition
+  | StateVariableDefinition
+  | ErrorDefinition
+  | UserDefinedValueTypeDefinition
+> {
   readonly kind = NonterminalKind.ContractMember;
 
-  variant:
-    | UsingDirective
-    | FunctionDefinition
-    | ConstructorDefinition
-    | ReceiveFunctionDefinition
-    | FallbackFunctionDefinition
-    | UnnamedFunctionDefinition
-    | ModifierDefinition
-    | StructDefinition
-    | EnumDefinition
-    | EventDefinition
-    | StateVariableDefinition
-    | ErrorDefinition
-    | UserDefinedValueTypeDefinition;
-
   constructor(ast: ast.ContractMember, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.variant = createNonterminalVariant(ast.variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, createNonterminalVariant);
   }
 }

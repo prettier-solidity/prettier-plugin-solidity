@@ -1,7 +1,7 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNonterminalNode } from './PolymorphicNonterminalNode.js';
 import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
@@ -15,16 +15,13 @@ const createNonterminalVariant = createNonterminalVariantCreator<
   [[ast.ElementaryType, ElementaryType]]
 );
 
-export class MappingKeyType extends SlangNode {
+export class MappingKeyType extends PolymorphicNonterminalNode<
+  ast.MappingKeyType,
+  ElementaryType['variant'] | IdentifierPath
+> {
   readonly kind = NonterminalKind.MappingKeyType;
 
-  variant: ElementaryType['variant'] | IdentifierPath;
-
   constructor(ast: ast.MappingKeyType, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.variant = createNonterminalVariant(ast.variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, createNonterminalVariant);
   }
 }

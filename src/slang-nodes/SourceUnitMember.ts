@@ -1,7 +1,7 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
+import { PolymorphicNonterminalNode } from './PolymorphicNonterminalNode.js';
 import { PragmaDirective } from './PragmaDirective.js';
 import { ImportDirective } from './ImportDirective.js';
 import { ContractDefinition } from './ContractDefinition.js';
@@ -37,29 +37,25 @@ const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   [ast.EventDefinition, EventDefinition]
 ]);
 
-export class SourceUnitMember extends SlangNode {
+export class SourceUnitMember extends PolymorphicNonterminalNode<
+  ast.SourceUnitMember,
+  | PragmaDirective
+  | ImportDirective
+  | ContractDefinition
+  | InterfaceDefinition
+  | LibraryDefinition
+  | StructDefinition
+  | EnumDefinition
+  | FunctionDefinition
+  | ConstantDefinition
+  | ErrorDefinition
+  | UserDefinedValueTypeDefinition
+  | UsingDirective
+  | EventDefinition
+> {
   readonly kind = NonterminalKind.SourceUnitMember;
 
-  variant:
-    | PragmaDirective
-    | ImportDirective
-    | ContractDefinition
-    | InterfaceDefinition
-    | LibraryDefinition
-    | StructDefinition
-    | EnumDefinition
-    | FunctionDefinition
-    | ConstantDefinition
-    | ErrorDefinition
-    | UserDefinedValueTypeDefinition
-    | UsingDirective
-    | EventDefinition;
-
   constructor(ast: ast.SourceUnitMember, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.variant = createNonterminalVariant(ast.variant, collected);
-
-    this.updateMetadata(this.variant);
+    super(ast, collected, createNonterminalVariant);
   }
 }
