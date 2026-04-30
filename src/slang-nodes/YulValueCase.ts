@@ -5,9 +5,8 @@ import { YulLiteral } from './YulLiteral.js';
 import { YulBlock } from './YulBlock.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class YulValueCase extends SlangNode {
   readonly kind = NonterminalKind.YulValueCase;
@@ -16,15 +15,11 @@ export class YulValueCase extends SlangNode {
 
   body: YulBlock;
 
-  constructor(
-    ast: ast.YulValueCase,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.YulValueCase, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.value = extractVariant(new YulLiteral(ast.value, collected, options));
-    this.body = new YulBlock(ast.body, collected, options);
+    this.value = extractVariant(new YulLiteral(ast.value, collected));
+    this.body = new YulBlock(ast.body, collected);
 
     this.updateMetadata(this.value, this.body);
   }

@@ -4,23 +4,18 @@ import { SlangNode } from './SlangNode.js';
 import { Pragma } from './Pragma.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class PragmaDirective extends SlangNode {
   readonly kind = NonterminalKind.PragmaDirective;
 
   pragma: Pragma['variant'];
 
-  constructor(
-    ast: ast.PragmaDirective,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.PragmaDirective, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.pragma = extractVariant(new Pragma(ast.pragma, collected, options));
+    this.pragma = extractVariant(new Pragma(ast.pragma, collected));
 
     this.updateMetadata(this.pragma);
   }

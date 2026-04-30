@@ -18,8 +18,7 @@ export default function parse(
   const comments: Comment[] = [];
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
-    { offsets: new Map<number, number>(), comments },
-    options
+    { offsets: new Map<number, number>(), comments, options }
   );
 
   // Comments are extracted in nested order; sort them by location.

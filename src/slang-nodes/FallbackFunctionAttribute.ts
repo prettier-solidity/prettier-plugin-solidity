@@ -9,9 +9,7 @@ import { ModifierInvocation } from './ModifierInvocation.js';
 import { OverrideSpecifier } from './OverrideSpecifier.js';
 import { TerminalNode } from './TerminalNode.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.FallbackFunctionAttribute,
@@ -28,8 +26,7 @@ export class FallbackFunctionAttribute extends SlangNode {
 
   constructor(
     ast: ast.FallbackFunctionAttribute,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
+    collected: CollectedMetadata
   ) {
     super(ast, collected);
 
@@ -38,7 +35,7 @@ export class FallbackFunctionAttribute extends SlangNode {
       this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = createNonterminalVariant(variant, collected, options);
+    this.variant = createNonterminalVariant(variant, collected);
 
     this.updateMetadata(this.variant);
   }

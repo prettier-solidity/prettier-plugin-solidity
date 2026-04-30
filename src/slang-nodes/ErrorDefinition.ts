@@ -4,9 +4,8 @@ import { TerminalNode } from './TerminalNode.js';
 import { ErrorParametersDeclaration } from './ErrorParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class ErrorDefinition extends SlangNode {
   readonly kind = NonterminalKind.ErrorDefinition;
@@ -15,19 +14,11 @@ export class ErrorDefinition extends SlangNode {
 
   members: ErrorParametersDeclaration;
 
-  constructor(
-    ast: ast.ErrorDefinition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ErrorDefinition, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.name = new TerminalNode(ast.name, collected);
-    this.members = new ErrorParametersDeclaration(
-      ast.members,
-      collected,
-      options
-    );
+    this.members = new ErrorParametersDeclaration(ast.members, collected);
 
     this.updateMetadata(this.members);
   }

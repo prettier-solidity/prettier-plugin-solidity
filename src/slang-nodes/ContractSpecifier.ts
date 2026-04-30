@@ -5,9 +5,7 @@ import { SlangNode } from './SlangNode.js';
 import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { StorageLayoutSpecifier } from './StorageLayoutSpecifier.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.ContractSpecifier,
@@ -22,14 +20,10 @@ export class ContractSpecifier extends SlangNode {
 
   variant: InheritanceSpecifier | StorageLayoutSpecifier;
 
-  constructor(
-    ast: ast.ContractSpecifier,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ContractSpecifier, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, collected, options);
+    this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);
   }

@@ -34,9 +34,7 @@ import { StringExpression } from './StringExpression.js';
 import { ElementaryType } from './ElementaryType.js';
 import { TerminalNode } from './TerminalNode.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.Expression,
@@ -108,11 +106,7 @@ export class Expression extends SlangNode {
     | ElementaryType['variant']
     | TerminalNode;
 
-  constructor(
-    ast: ast.Expression,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.Expression, collected: CollectedMetadata) {
     super(ast, collected);
 
     const variant = ast.variant;
@@ -120,7 +114,7 @@ export class Expression extends SlangNode {
       this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = createNonterminalVariant(variant, collected, options);
+    this.variant = createNonterminalVariant(variant, collected);
 
     this.updateMetadata(this.variant);
   }

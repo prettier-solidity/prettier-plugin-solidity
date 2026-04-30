@@ -6,9 +6,8 @@ import { FunctionTypeAttributes } from './FunctionTypeAttributes.js';
 import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class FunctionType extends SlangNode {
   readonly kind = NonterminalKind.FunctionType;
@@ -19,21 +18,13 @@ export class FunctionType extends SlangNode {
 
   returns?: ReturnsDeclaration;
 
-  constructor(
-    ast: ast.FunctionType,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.FunctionType, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.parameters = new ParametersDeclaration(
-      ast.parameters,
-      collected,
-      options
-    );
+    this.parameters = new ParametersDeclaration(ast.parameters, collected);
     this.attributes = new FunctionTypeAttributes(ast.attributes, collected);
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, collected, options);
+      this.returns = new ReturnsDeclaration(ast.returns, collected);
     }
 
     this.updateMetadata(this.parameters, this.attributes, this.returns);

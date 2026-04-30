@@ -5,9 +5,8 @@ import { YulExpression } from './YulExpression.js';
 import { YulBlock } from './YulBlock.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class YulIfStatement extends SlangNode {
   readonly kind = NonterminalKind.YulIfStatement;
@@ -16,17 +15,13 @@ export class YulIfStatement extends SlangNode {
 
   body: YulBlock;
 
-  constructor(
-    ast: ast.YulIfStatement,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.YulIfStatement, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.condition = extractVariant(
-      new YulExpression(ast.condition, collected, options)
+      new YulExpression(ast.condition, collected)
     );
-    this.body = new YulBlock(ast.body, collected, options);
+    this.body = new YulBlock(ast.body, collected);
 
     this.updateMetadata(this.condition, this.body);
   }

@@ -6,9 +6,8 @@ import { SlangNode } from './SlangNode.js';
 import { FallbackFunctionAttribute } from './FallbackFunctionAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const { line } = doc.builders;
 
@@ -19,13 +18,12 @@ export class FallbackFunctionAttributes extends SlangNode {
 
   constructor(
     ast: ast.FallbackFunctionAttributes,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
+    collected: CollectedMetadata
   ) {
     super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new FallbackFunctionAttribute(item, collected, options))
+      extractVariant(new FallbackFunctionAttribute(item, collected))
     );
 
     this.items.sort(sortFunctionAttributes);

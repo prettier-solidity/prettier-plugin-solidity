@@ -6,9 +6,8 @@ import { InheritanceSpecifier } from './InheritanceSpecifier.js';
 import { InterfaceMembers } from './InterfaceMembers.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const { group, line } = doc.builders;
 
@@ -21,22 +20,14 @@ export class InterfaceDefinition extends SlangNode {
 
   members: InterfaceMembers;
 
-  constructor(
-    ast: ast.InterfaceDefinition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.InterfaceDefinition, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.name = new TerminalNode(ast.name, collected);
     if (ast.inheritance) {
-      this.inheritance = new InheritanceSpecifier(
-        ast.inheritance,
-        collected,
-        options
-      );
+      this.inheritance = new InheritanceSpecifier(ast.inheritance, collected);
     }
-    this.members = new InterfaceMembers(ast.members, collected, options);
+    this.members = new InterfaceMembers(ast.members, collected);
 
     this.updateMetadata(this.inheritance, this.members);
   }

@@ -14,15 +14,11 @@ export class Statements extends SlangNode {
 
   items: Statement['variant'][];
 
-  constructor(
-    ast: ast.Statements,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.Statements, collected: CollectedMetadata) {
     super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new Statement(item, collected, options))
+      extractVariant(new Statement(item, collected))
     );
   }
 

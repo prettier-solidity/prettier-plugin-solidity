@@ -10,9 +10,8 @@ import { ReturnsDeclaration } from './ReturnsDeclaration.js';
 import { FunctionBody } from './FunctionBody.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class FunctionDefinition extends SlangNode {
   readonly kind = NonterminalKind.FunctionDefinition;
@@ -27,28 +26,16 @@ export class FunctionDefinition extends SlangNode {
 
   body: FunctionBody['variant'];
 
-  constructor(
-    ast: ast.FunctionDefinition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.FunctionDefinition, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.name = extractVariant(new FunctionName(ast.name, collected));
-    this.parameters = new ParametersDeclaration(
-      ast.parameters,
-      collected,
-      options
-    );
-    this.attributes = new FunctionAttributes(
-      ast.attributes,
-      collected,
-      options
-    );
+    this.parameters = new ParametersDeclaration(ast.parameters, collected);
+    this.attributes = new FunctionAttributes(ast.attributes, collected);
     if (ast.returns) {
-      this.returns = new ReturnsDeclaration(ast.returns, collected, options);
+      this.returns = new ReturnsDeclaration(ast.returns, collected);
     }
-    this.body = extractVariant(new FunctionBody(ast.body, collected, options));
+    this.body = extractVariant(new FunctionBody(ast.body, collected));
 
     this.updateMetadata(
       this.name,
@@ -62,7 +49,7 @@ export class FunctionDefinition extends SlangNode {
     // the same name as the contract.
     // So we delegate to the parents the responsibility of cleaning the
     // arguments of modifier invocations.
-    if (satisfies(options.compiler, '>=0.5.0')) {
+    if (satisfies(collected.options.compiler, '>=0.5.0')) {
       this.cleanModifierInvocationArguments();
     }
   }

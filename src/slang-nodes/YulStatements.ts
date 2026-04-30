@@ -14,15 +14,11 @@ export class YulStatements extends SlangNode {
 
   items: YulStatement['variant'][];
 
-  constructor(
-    ast: ast.YulStatements,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.YulStatements, collected: CollectedMetadata) {
     super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new YulStatement(item, collected, options))
+      extractVariant(new YulStatement(item, collected))
     );
   }
 

@@ -9,9 +9,8 @@ import { TerminalNode } from './TerminalNode.js';
 import { StateVariableDefinitionValue } from './StateVariableDefinitionValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const { indent } = doc.builders;
 
@@ -26,24 +25,14 @@ export class StateVariableDefinition extends SlangNode {
 
   value?: StateVariableDefinitionValue;
 
-  constructor(
-    ast: ast.StateVariableDefinition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.StateVariableDefinition, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.typeName = extractVariant(
-      new TypeName(ast.typeName, collected, options)
-    );
+    this.typeName = extractVariant(new TypeName(ast.typeName, collected));
     this.attributes = new StateVariableAttributes(ast.attributes, collected);
     this.name = new TerminalNode(ast.name, collected);
     if (ast.value) {
-      this.value = new StateVariableDefinitionValue(
-        ast.value,
-        collected,
-        options
-      );
+      this.value = new StateVariableDefinitionValue(ast.value, collected);
     }
 
     this.updateMetadata(this.typeName, this.attributes, this.value);
