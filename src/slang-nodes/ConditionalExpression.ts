@@ -14,8 +14,8 @@ const { group, hardline, ifBreak, indent, line } = doc.builders;
 
 function experimentalTernaries(
   node: ConditionalExpression,
-  path: AstPath<PrintableNode>,
   print: PrintFunction,
+  path: AstPath<PrintableNode>,
   { useTabs, tabWidth }: ParserOptions<PrintableNode>
 ): Doc {
   const parent = path.parent!;
@@ -77,8 +77,8 @@ function experimentalTernaries(
 }
 
 function traditionalTernaries(
-  path: AstPath<PrintableNode>,
-  print: PrintFunction
+  print: PrintFunction,
+  path: AstPath<PrintableNode>
 ): Doc {
   return group([
     print('operand'),
@@ -161,7 +161,7 @@ export class ConditionalExpression extends SlangNode {
     options: ParserOptions<PrintableNode>
   ): Doc {
     return options.experimentalTernaries
-      ? experimentalTernaries(this, path, print, options)
-      : traditionalTernaries(path, print);
+      ? experimentalTernaries(this, print, path, options)
+      : traditionalTernaries(print, path);
   }
 }

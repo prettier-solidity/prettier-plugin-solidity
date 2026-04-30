@@ -10,8 +10,8 @@ const { group, line } = doc.builders;
 
 function rightOperandPrint(
   { operator, leftOperand }: BinaryOperation,
-  path: AstPath<PrintableNode>,
   print: PrintFunction,
+  path: AstPath<PrintableNode>,
   options: ParserOptions<PrintableNode>
 ): Doc {
   const rightOperand = print('rightOperand');
@@ -50,6 +50,6 @@ export const createBinaryOperationPrinter =
 
     return groupRules([
       print('leftOperand'),
-      indentRules(rightOperandPrint(node, path, print, options))
+      indentRules(rightOperandPrint(node, print, path, options))
     ]);
   };
