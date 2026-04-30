@@ -6,7 +6,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.34;
+pragma solidity 0.8.35;
 
 contract NumberLiteral {
   function numbers()public {
@@ -21,7 +21,7 @@ contract NumberLiteral {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.34;
+pragma solidity 0.8.35;
 
 contract NumberLiteral {
     function numbers() public {
