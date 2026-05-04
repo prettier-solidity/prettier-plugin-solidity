@@ -24,10 +24,7 @@ export class BitwiseAndExpression extends BinaryOperation {
   readonly kind = NonterminalKind.BitwiseAndExpression;
 
   constructor(ast: ast.BitwiseAndExpression, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.leftOperand = tryToHug(this.leftOperand);
-    this.rightOperand = tryToHug(this.rightOperand);
+    super(ast, collected, tryToHug, tryToHug);
   }
 
   print(

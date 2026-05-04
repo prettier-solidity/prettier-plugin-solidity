@@ -28,10 +28,7 @@ export class AdditiveExpression extends BinaryOperation {
   readonly kind = NonterminalKind.AdditiveExpression;
 
   constructor(ast: ast.AdditiveExpression, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.leftOperand = tryToHug(this.leftOperand);
-    this.rightOperand = tryToHug(this.rightOperand);
+    super(ast, collected, tryToHug, tryToHug);
   }
 
   print(

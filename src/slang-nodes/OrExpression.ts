@@ -14,10 +14,7 @@ export class OrExpression extends BinaryOperation {
   readonly kind = NonterminalKind.OrExpression;
 
   constructor(ast: ast.OrExpression, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.leftOperand = tryToHug(this.leftOperand);
-    this.rightOperand = tryToHug(this.rightOperand);
+    super(ast, collected, tryToHug, tryToHug);
   }
 
   print(
