@@ -39,10 +39,7 @@ export class ExponentiationExpression extends BinaryOperation {
   readonly kind = NonterminalKind.ExponentiationExpression;
 
   constructor(ast: ast.ExponentiationExpression, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.rightOperand = tryToHug(this.rightOperand);
-    this.leftOperand = tryToHug(this.leftOperand);
+    super(ast, collected, tryToHug, tryToHug);
   }
 
   print(
