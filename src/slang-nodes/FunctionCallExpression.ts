@@ -8,6 +8,7 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
+import type { ChainableExpression } from './types.d.ts';
 
 export class FunctionCallExpression extends SlangNode {
   readonly kind = NonterminalKind.FunctionCallExpression;
@@ -25,6 +26,10 @@ export class FunctionCallExpression extends SlangNode {
     );
 
     this.updateMetadata(this.operand, this.arguments);
+  }
+
+  putInChain(): void {
+    (this.operand as ChainableExpression).putInChain?.();
   }
 
   print(print: PrintFunction): Doc {

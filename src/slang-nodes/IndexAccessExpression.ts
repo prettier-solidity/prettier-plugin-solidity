@@ -9,6 +9,7 @@ import { IndexAccessEnd } from './IndexAccessEnd.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
+import type { ChainableExpression } from './types.d.ts';
 
 export class IndexAccessExpression extends SlangNode {
   readonly kind = NonterminalKind.IndexAccessExpression;
@@ -31,6 +32,10 @@ export class IndexAccessExpression extends SlangNode {
     }
 
     this.updateMetadata(this.operand, this.start, this.end);
+  }
+
+  putInChain(): void {
+    (this.operand as ChainableExpression).putInChain?.();
   }
 
   print(print: PrintFunction): Doc {
