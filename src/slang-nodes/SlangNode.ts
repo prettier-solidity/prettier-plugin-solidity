@@ -38,7 +38,7 @@ export abstract class SlangNode {
 
   loc: AstLocation;
 
-  constructor(
+  protected constructor(
     ast: SlangAstNode | SlangTerminalNode,
     collected: CollectedMetadata,
     enclosePeripheralComments = false
