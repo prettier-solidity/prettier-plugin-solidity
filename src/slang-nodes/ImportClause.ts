@@ -6,9 +6,7 @@ import { PathImport } from './PathImport.js';
 import { NamedImport } from './NamedImport.js';
 import { ImportDeconstruction } from './ImportDeconstruction.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.ImportClause,
@@ -24,14 +22,10 @@ export class ImportClause extends SlangNode {
 
   variant: PathImport | NamedImport | ImportDeconstruction;
 
-  constructor(
-    ast: ast.ImportClause,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ImportClause, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, collected, options);
+    this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);
   }

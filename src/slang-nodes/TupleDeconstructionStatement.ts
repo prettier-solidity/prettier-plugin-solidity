@@ -6,9 +6,8 @@ import { TupleDeconstructionElements } from './TupleDeconstructionElements.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class TupleDeconstructionStatement extends SlangNode {
   readonly kind = NonterminalKind.TupleDeconstructionStatement;
@@ -21,20 +20,13 @@ export class TupleDeconstructionStatement extends SlangNode {
 
   constructor(
     ast: ast.TupleDeconstructionStatement,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
+    collected: CollectedMetadata
   ) {
     super(ast, collected);
 
     this.varKeyword = ast.varKeyword?.unparse();
-    this.elements = new TupleDeconstructionElements(
-      ast.elements,
-      collected,
-      options
-    );
-    this.expression = extractVariant(
-      new Expression(ast.expression, collected, options)
-    );
+    this.elements = new TupleDeconstructionElements(ast.elements, collected);
+    this.expression = extractVariant(new Expression(ast.expression, collected));
 
     this.updateMetadata(this.elements, this.expression);
   }

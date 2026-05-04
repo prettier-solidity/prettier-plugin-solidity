@@ -114,21 +114,15 @@ export class ConditionalExpression extends SlangNode {
 
   falseExpression: Expression['variant'];
 
-  constructor(
-    ast: ast.ConditionalExpression,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ConditionalExpression, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.operand = extractVariant(
-      new Expression(ast.operand, collected, options)
-    );
+    this.operand = extractVariant(new Expression(ast.operand, collected));
     this.trueExpression = extractVariant(
-      new Expression(ast.trueExpression, collected, options)
+      new Expression(ast.trueExpression, collected)
     );
     this.falseExpression = extractVariant(
-      new Expression(ast.falseExpression, collected, options)
+      new Expression(ast.falseExpression, collected)
     );
 
     this.updateMetadata(
@@ -137,7 +131,7 @@ export class ConditionalExpression extends SlangNode {
       this.falseExpression
     );
 
-    if (options.experimentalTernaries) {
+    if (collected.options.experimentalTernaries) {
       // We can remove parentheses only because we are sure that the
       // `condition` must be a single `bool` value.
       const operandLoc = this.operand.loc;

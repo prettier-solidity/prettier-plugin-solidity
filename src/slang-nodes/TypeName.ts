@@ -8,9 +8,7 @@ import { MappingType } from './MappingType.js';
 import { ElementaryType } from './ElementaryType.js';
 import { IdentifierPath } from './IdentifierPath.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.TypeName,
@@ -35,14 +33,10 @@ export class TypeName extends SlangNode {
     | ElementaryType['variant']
     | IdentifierPath;
 
-  constructor(
-    ast: ast.TypeName,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.TypeName, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, collected, options);
+    this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);
   }

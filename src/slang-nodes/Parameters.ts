@@ -15,16 +15,10 @@ export class Parameters extends SlangNode {
 
   items: Parameter[];
 
-  constructor(
-    ast: ast.Parameters,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.Parameters, collected: CollectedMetadata) {
     super(ast, collected, true);
 
-    this.items = ast.items.map(
-      (item) => new Parameter(item, collected, options)
-    );
+    this.items = ast.items.map((item) => new Parameter(item, collected));
   }
 
   print(

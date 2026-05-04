@@ -7,20 +7,14 @@ import { ExpressionStatement } from './ExpressionStatement.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class ForStatementCondition extends SlangNode {
   readonly kind = NonterminalKind.ForStatementCondition;
 
   variant: ExpressionStatement | TerminalNode;
 
-  constructor(
-    ast: ast.ForStatementCondition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ForStatementCondition, collected: CollectedMetadata) {
     super(ast, collected);
 
     const variant = ast.variant;
@@ -28,7 +22,7 @@ export class ForStatementCondition extends SlangNode {
       this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = new ExpressionStatement(variant, collected, options);
+    this.variant = new ExpressionStatement(variant, collected);
 
     this.updateMetadata(this.variant);
   }

@@ -5,24 +5,19 @@ import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class ArrayValues extends SlangNode {
   readonly kind = NonterminalKind.ArrayValues;
 
   items: Expression['variant'][];
 
-  constructor(
-    ast: ast.ArrayValues,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ArrayValues, collected: CollectedMetadata) {
     super(ast, collected, true);
 
     this.items = ast.items.map((item) =>
-      extractVariant(new Expression(item, collected, options))
+      extractVariant(new Expression(item, collected))
     );
   }
 

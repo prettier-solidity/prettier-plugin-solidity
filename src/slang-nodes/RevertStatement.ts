@@ -5,9 +5,8 @@ import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class RevertStatement extends SlangNode {
   readonly kind = NonterminalKind.RevertStatement;
@@ -16,16 +15,12 @@ export class RevertStatement extends SlangNode {
 
   arguments: ArgumentsDeclaration['variant'];
 
-  constructor(
-    ast: ast.RevertStatement,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.RevertStatement, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.error = new IdentifierPath(ast.error, collected);
     this.arguments = extractVariant(
-      new ArgumentsDeclaration(ast.arguments, collected, options)
+      new ArgumentsDeclaration(ast.arguments, collected)
     );
 
     this.updateMetadata(this.error, this.arguments);

@@ -16,9 +16,7 @@ import { YulContinueStatement } from './YulContinueStatement.js';
 import { YulLabel } from './YulLabel.js';
 import { YulExpression } from './YulExpression.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   slangAst.YulStatement,
@@ -58,18 +56,14 @@ export class YulStatement extends SlangNode {
     | YulLabel
     | YulExpression['variant'];
 
-  constructor(
-    ast: slangAst.YulStatement,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: slangAst.YulStatement, collected: CollectedMetadata) {
     super(ast, collected);
 
     const variant = ast.variant;
     this.variant =
       variant instanceof slangAst.YulBlock
-        ? new YulBlock(variant, collected, options)
-        : createNonterminalVariant(variant, collected, options);
+        ? new YulBlock(variant, collected)
+        : createNonterminalVariant(variant, collected);
 
     this.updateMetadata(this.variant);
   }

@@ -8,9 +8,7 @@ import { HexStringLiteral } from './HexStringLiteral.js';
 import { HexStringLiterals } from './HexStringLiterals.js';
 import { UnicodeStringLiterals } from './UnicodeStringLiterals.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.StringExpression,
@@ -33,14 +31,10 @@ export class StringExpression extends SlangNode {
     | HexStringLiterals
     | UnicodeStringLiterals;
 
-  constructor(
-    ast: ast.StringExpression,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.StringExpression, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, collected, options);
+    this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);
   }

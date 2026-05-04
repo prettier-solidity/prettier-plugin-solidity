@@ -5,9 +5,8 @@ import { YulAssignmentOperator } from './YulAssignmentOperator.js';
 import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class YulVariableDeclarationValue extends SlangNode {
   readonly kind = NonterminalKind.YulVariableDeclarationValue;
@@ -18,8 +17,7 @@ export class YulVariableDeclarationValue extends SlangNode {
 
   constructor(
     ast: ast.YulVariableDeclarationValue,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
+    collected: CollectedMetadata
   ) {
     super(ast, collected);
 
@@ -27,7 +25,7 @@ export class YulVariableDeclarationValue extends SlangNode {
       new YulAssignmentOperator(ast.assignment, collected)
     );
     this.expression = extractVariant(
-      new YulExpression(ast.expression, collected, options)
+      new YulExpression(ast.expression, collected)
     );
 
     this.updateMetadata(this.assignment, this.expression);

@@ -16,16 +16,10 @@ export class NamedArguments extends SlangNode {
 
   items: NamedArgument[];
 
-  constructor(
-    ast: ast.NamedArguments,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.NamedArguments, collected: CollectedMetadata) {
     super(ast, collected, true);
 
-    this.items = ast.items.map(
-      (item) => new NamedArgument(item, collected, options)
-    );
+    this.items = ast.items.map((item) => new NamedArgument(item, collected));
   }
 
   print(

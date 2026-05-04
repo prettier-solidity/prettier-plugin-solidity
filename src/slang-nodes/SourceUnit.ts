@@ -15,14 +15,10 @@ export class SourceUnit extends SlangNode {
 
   members: SourceUnitMembers;
 
-  constructor(
-    ast: ast.SourceUnit,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.SourceUnit, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.members = new SourceUnitMembers(ast.members, collected, options);
+    this.members = new SourceUnitMembers(ast.members, collected);
 
     this.updateMetadata(this.members);
   }

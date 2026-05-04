@@ -8,20 +8,14 @@ import { TypeName } from './TypeName.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class UsingTarget extends SlangNode {
   readonly kind = NonterminalKind.UsingTarget;
 
   variant: TypeName['variant'] | TerminalNode;
 
-  constructor(
-    ast: ast.UsingTarget,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.UsingTarget, collected: CollectedMetadata) {
     super(ast, collected);
 
     const variant = ast.variant;
@@ -29,7 +23,7 @@ export class UsingTarget extends SlangNode {
       this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = extractVariant(new TypeName(variant, collected, options));
+    this.variant = extractVariant(new TypeName(variant, collected));
 
     this.updateMetadata(this.variant);
   }

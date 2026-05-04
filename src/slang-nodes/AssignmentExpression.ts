@@ -5,9 +5,8 @@ import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class AssignmentExpression extends SlangNode {
   readonly kind = NonterminalKind.AssignmentExpression;
@@ -18,19 +17,15 @@ export class AssignmentExpression extends SlangNode {
 
   rightOperand: Expression['variant'];
 
-  constructor(
-    ast: ast.AssignmentExpression,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.AssignmentExpression, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.leftOperand = extractVariant(
-      new Expression(ast.leftOperand, collected, options)
+      new Expression(ast.leftOperand, collected)
     );
     this.operator = ast.operator.unparse();
     this.rightOperand = extractVariant(
-      new Expression(ast.rightOperand, collected, options)
+      new Expression(ast.rightOperand, collected)
     );
 
     this.updateMetadata(this.leftOperand, this.rightOperand);

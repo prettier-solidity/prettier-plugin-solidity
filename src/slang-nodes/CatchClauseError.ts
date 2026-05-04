@@ -5,9 +5,8 @@ import { TerminalNode } from './TerminalNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const { group } = doc.builders;
 
@@ -18,21 +17,13 @@ export class CatchClauseError extends SlangNode {
 
   parameters: ParametersDeclaration;
 
-  constructor(
-    ast: ast.CatchClauseError,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.CatchClauseError, collected: CollectedMetadata) {
     super(ast, collected);
 
     if (ast.name) {
       this.name = new TerminalNode(ast.name, collected);
     }
-    this.parameters = new ParametersDeclaration(
-      ast.parameters,
-      collected,
-      options
-    );
+    this.parameters = new ParametersDeclaration(ast.parameters, collected);
 
     this.updateMetadata(this.parameters);
   }

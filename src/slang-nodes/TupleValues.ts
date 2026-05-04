@@ -5,9 +5,8 @@ import { SlangNode } from './SlangNode.js';
 import { TupleValue } from './TupleValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 import type { Expression } from './Expression.ts';
 
 export class TupleValues extends SlangNode {
@@ -15,16 +14,10 @@ export class TupleValues extends SlangNode {
 
   items: TupleValue[];
 
-  constructor(
-    ast: ast.TupleValues,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.TupleValues, collected: CollectedMetadata) {
     super(ast, collected, true);
 
-    this.items = ast.items.map(
-      (item) => new TupleValue(item, collected, options)
-    );
+    this.items = ast.items.map((item) => new TupleValue(item, collected));
   }
 
   getSingleExpression(): Expression['variant'] | undefined {

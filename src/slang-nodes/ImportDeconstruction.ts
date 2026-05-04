@@ -4,9 +4,8 @@ import { ImportDeconstructionSymbols } from './ImportDeconstructionSymbols.js';
 import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class ImportDeconstruction extends SlangNode {
   readonly kind = NonterminalKind.ImportDeconstruction;
@@ -15,15 +14,11 @@ export class ImportDeconstruction extends SlangNode {
 
   path: StringLiteral;
 
-  constructor(
-    ast: ast.ImportDeconstruction,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ImportDeconstruction, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.symbols = new ImportDeconstructionSymbols(ast.symbols, collected);
-    this.path = new StringLiteral(ast.path, collected, options);
+    this.path = new StringLiteral(ast.path, collected);
 
     this.updateMetadata(this.symbols, this.path);
   }

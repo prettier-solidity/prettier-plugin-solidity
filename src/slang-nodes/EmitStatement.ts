@@ -5,9 +5,8 @@ import { IdentifierPath } from './IdentifierPath.js';
 import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class EmitStatement extends SlangNode {
   readonly kind = NonterminalKind.EmitStatement;
@@ -16,16 +15,12 @@ export class EmitStatement extends SlangNode {
 
   arguments: ArgumentsDeclaration['variant'];
 
-  constructor(
-    ast: ast.EmitStatement,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.EmitStatement, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.event = new IdentifierPath(ast.event, collected);
     this.arguments = extractVariant(
-      new ArgumentsDeclaration(ast.arguments, collected, options)
+      new ArgumentsDeclaration(ast.arguments, collected)
     );
 
     this.updateMetadata(this.event, this.arguments);

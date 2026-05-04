@@ -4,9 +4,8 @@ import { EventParametersDeclaration } from './EventParametersDeclaration.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class EventDefinition extends SlangNode {
   readonly kind = NonterminalKind.EventDefinition;
@@ -17,19 +16,11 @@ export class EventDefinition extends SlangNode {
 
   anonymousKeyword?: string;
 
-  constructor(
-    ast: ast.EventDefinition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.EventDefinition, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.name = new TerminalNode(ast.name, collected);
-    this.parameters = new EventParametersDeclaration(
-      ast.parameters,
-      collected,
-      options
-    );
+    this.parameters = new EventParametersDeclaration(ast.parameters, collected);
     this.anonymousKeyword = ast.anonymousKeyword?.unparse();
 
     this.updateMetadata(this.parameters);

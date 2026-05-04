@@ -16,9 +16,7 @@ import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition
 import { UsingDirective } from './UsingDirective.js';
 import { EventDefinition } from './EventDefinition.js';
 
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantSimpleCreator<
   ast.SourceUnitMember,
@@ -57,14 +55,10 @@ export class SourceUnitMember extends SlangNode {
     | UsingDirective
     | EventDefinition;
 
-  constructor(
-    ast: ast.SourceUnitMember,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.SourceUnitMember, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.variant = createNonterminalVariant(ast.variant, collected, options);
+    this.variant = createNonterminalVariant(ast.variant, collected);
 
     this.updateMetadata(this.variant);
   }

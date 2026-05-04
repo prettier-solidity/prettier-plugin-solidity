@@ -5,9 +5,8 @@ import { SlangNode } from './SlangNode.js';
 import { StructMember } from './StructMember.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc, ParserOptions } from 'prettier';
+import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 const { hardline } = doc.builders;
 
@@ -16,16 +15,10 @@ export class StructMembers extends SlangNode {
 
   items: StructMember[];
 
-  constructor(
-    ast: ast.StructMembers,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.StructMembers, collected: CollectedMetadata) {
     super(ast, collected, true);
 
-    this.items = ast.items.map(
-      (item) => new StructMember(item, collected, options)
-    );
+    this.items = ast.items.map((item) => new StructMember(item, collected));
   }
 
   print(print: PrintFunction, path: AstPath<StructMembers>): Doc {

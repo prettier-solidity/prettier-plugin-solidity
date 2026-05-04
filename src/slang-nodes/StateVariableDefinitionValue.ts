@@ -5,9 +5,8 @@ import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class StateVariableDefinitionValue extends SlangNode {
   readonly kind = NonterminalKind.StateVariableDefinitionValue;
@@ -16,12 +15,11 @@ export class StateVariableDefinitionValue extends SlangNode {
 
   constructor(
     ast: ast.StateVariableDefinitionValue,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
+    collected: CollectedMetadata
   ) {
     super(ast, collected);
 
-    this.value = extractVariant(new Expression(ast.value, collected, options));
+    this.value = extractVariant(new Expression(ast.value, collected));
 
     this.updateMetadata(this.value);
   }

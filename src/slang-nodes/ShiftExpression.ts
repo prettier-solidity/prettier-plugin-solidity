@@ -43,19 +43,15 @@ export class ShiftExpression extends SlangNode {
 
   rightOperand: Expression['variant'];
 
-  constructor(
-    ast: ast.ShiftExpression,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ShiftExpression, collected: CollectedMetadata) {
     super(ast, collected);
 
     this.leftOperand = extractVariant(
-      new Expression(ast.leftOperand, collected, options)
+      new Expression(ast.leftOperand, collected)
     );
     this.operator = ast.operator.unparse();
     this.rightOperand = extractVariant(
-      new Expression(ast.rightOperand, collected, options)
+      new Expression(ast.rightOperand, collected)
     );
 
     this.updateMetadata(this.leftOperand, this.rightOperand);

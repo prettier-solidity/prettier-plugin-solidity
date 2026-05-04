@@ -6,9 +6,8 @@ import { ConstructorAttributes } from './ConstructorAttributes.js';
 import { Block } from './Block.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class ConstructorDefinition extends SlangNode {
   readonly kind = NonterminalKind.ConstructorDefinition;
@@ -19,24 +18,12 @@ export class ConstructorDefinition extends SlangNode {
 
   body: Block;
 
-  constructor(
-    ast: ast.ConstructorDefinition,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ConstructorDefinition, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.parameters = new ParametersDeclaration(
-      ast.parameters,
-      collected,
-      options
-    );
-    this.attributes = new ConstructorAttributes(
-      ast.attributes,
-      collected,
-      options
-    );
-    this.body = new Block(ast.body, collected, options);
+    this.parameters = new ParametersDeclaration(ast.parameters, collected);
+    this.attributes = new ConstructorAttributes(ast.attributes, collected);
+    this.body = new Block(ast.body, collected);
 
     this.updateMetadata(this.parameters, this.attributes, this.body);
   }

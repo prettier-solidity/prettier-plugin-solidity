@@ -7,20 +7,14 @@ import { ModifierInvocation } from './ModifierInvocation.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { ParserOptions } from 'prettier';
 import type { CollectedMetadata } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class ConstructorAttribute extends SlangNode {
   readonly kind = NonterminalKind.ConstructorAttribute;
 
   variant: ModifierInvocation | TerminalNode;
 
-  constructor(
-    ast: ast.ConstructorAttribute,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.ConstructorAttribute, collected: CollectedMetadata) {
     super(ast, collected);
 
     const variant = ast.variant;
@@ -28,7 +22,7 @@ export class ConstructorAttribute extends SlangNode {
       this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = new ModifierInvocation(variant, collected, options);
+    this.variant = new ModifierInvocation(variant, collected);
 
     this.updateMetadata(this.variant);
   }

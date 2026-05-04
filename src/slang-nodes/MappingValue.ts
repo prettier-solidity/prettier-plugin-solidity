@@ -5,9 +5,8 @@ import { TypeName } from './TypeName.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class MappingValue extends SlangNode {
   readonly kind = NonterminalKind.MappingValue;
@@ -16,16 +15,10 @@ export class MappingValue extends SlangNode {
 
   name?: TerminalNode;
 
-  constructor(
-    ast: ast.MappingValue,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.MappingValue, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.typeName = extractVariant(
-      new TypeName(ast.typeName, collected, options)
-    );
+    this.typeName = extractVariant(new TypeName(ast.typeName, collected));
     if (ast.name) {
       this.name = new TerminalNode(ast.name, collected);
     }

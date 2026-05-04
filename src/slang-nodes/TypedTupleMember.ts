@@ -6,9 +6,8 @@ import { StorageLocation } from './StorageLocation.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc, ParserOptions } from 'prettier';
+import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { PrintableNode } from './types.d.ts';
 
 export class TypedTupleMember extends SlangNode {
   readonly kind = NonterminalKind.TypedTupleMember;
@@ -19,16 +18,10 @@ export class TypedTupleMember extends SlangNode {
 
   name: TerminalNode;
 
-  constructor(
-    ast: ast.TypedTupleMember,
-    collected: CollectedMetadata,
-    options: ParserOptions<PrintableNode>
-  ) {
+  constructor(ast: ast.TypedTupleMember, collected: CollectedMetadata) {
     super(ast, collected);
 
-    this.typeName = extractVariant(
-      new TypeName(ast.typeName, collected, options)
-    );
+    this.typeName = extractVariant(new TypeName(ast.typeName, collected));
     if (ast.storageLocation) {
       this.storageLocation = new StorageLocation(
         ast.storageLocation,
