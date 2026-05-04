@@ -7,6 +7,7 @@ import type { ModifierAttribute } from '../slang-nodes/ModifierAttribute.ts';
 import type { ReceiveFunctionAttribute } from '../slang-nodes/ReceiveFunctionAttribute.ts';
 import type { StateVariableAttribute } from '../slang-nodes/StateVariableAttribute.ts';
 import type { UnnamedFunctionAttribute } from '../slang-nodes/UnnamedFunctionAttribute.ts';
+import type { Expression } from '../slang-nodes/Expression.ts';
 
 type SortableAttribute =
   | ConstructorAttribute['variant']
@@ -17,3 +18,5 @@ type SortableAttribute =
   | ReceiveFunctionAttribute['variant']
   | StateVariableAttribute['variant']
   | UnnamedFunctionAttribute['variant'];
+
+type HugFunction = (node: Expression['variant']) => Expression['variant'];

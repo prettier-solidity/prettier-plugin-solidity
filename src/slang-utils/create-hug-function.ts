@@ -5,10 +5,9 @@ import { TupleValue } from '../slang-nodes/TupleValue.js';
 import { isBinaryOperation } from './is-binary-operation.js';
 
 import type { Expression } from '../slang-nodes/Expression.ts';
+import type { HugFunction } from './types.d.ts';
 
-export function createHugFunction(
-  huggableOperators: string[]
-): (node: Expression['variant']) => Expression['variant'] {
+export function createHugFunction(huggableOperators: string[]): HugFunction {
   const operators = new Set(huggableOperators);
   return (node: Expression['variant']): Expression['variant'] => {
     if (isBinaryOperation(node) && operators.has(node.operator)) {
