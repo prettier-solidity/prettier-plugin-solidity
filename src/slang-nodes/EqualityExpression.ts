@@ -22,9 +22,7 @@ export class EqualityExpression extends BinaryOperation {
   readonly kind = NonterminalKind.EqualityExpression;
 
   constructor(ast: ast.EqualityExpression, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.leftOperand = tryToHug(this.leftOperand);
+    super(ast, collected, tryToHug);
   }
 
   print(

@@ -36,10 +36,7 @@ export class ShiftExpression extends BinaryOperation {
   readonly kind = NonterminalKind.ShiftExpression;
 
   constructor(ast: ast.ShiftExpression, collected: CollectedMetadata) {
-    super(ast, collected);
-
-    this.leftOperand = tryToHugLeftOperand(this.leftOperand);
-    this.rightOperand = tryToHugRightOperand(this.rightOperand);
+    super(ast, collected, tryToHugLeftOperand, tryToHugRightOperand);
   }
 
   print(

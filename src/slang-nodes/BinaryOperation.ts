@@ -13,7 +13,9 @@ export abstract class BinaryOperation extends SlangNode {
 
   protected constructor(
     ast: SlangBinaryOperation,
-    collected: CollectedMetadata
+    collected: CollectedMetadata,
+    hugLeft?: (node: Expression['variant']) => Expression['variant'],
+    hugRight?: (node: Expression['variant']) => Expression['variant']
   ) {
     super(ast, collected);
 
@@ -26,5 +28,12 @@ export abstract class BinaryOperation extends SlangNode {
     );
 
     this.updateMetadata(this.leftOperand, this.rightOperand);
+
+    if (hugLeft) {
+      this.leftOperand = hugLeft(this.leftOperand);
+    }
+    if (hugRight) {
+      this.rightOperand = hugRight(this.rightOperand);
+    }
   }
 }
