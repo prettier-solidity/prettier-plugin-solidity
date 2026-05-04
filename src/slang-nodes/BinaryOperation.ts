@@ -2,6 +2,7 @@ import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { Expression } from './Expression.js';
 
+import type { HugFunction } from '../slang-utils/types.d.ts';
 import type { CollectedMetadata, SlangBinaryOperation } from '../types.d.ts';
 
 export abstract class BinaryOperation extends SlangNode {
@@ -14,8 +15,8 @@ export abstract class BinaryOperation extends SlangNode {
   protected constructor(
     ast: SlangBinaryOperation,
     collected: CollectedMetadata,
-    hugLeft?: (node: Expression['variant']) => Expression['variant'],
-    hugRight?: (node: Expression['variant']) => Expression['variant']
+    hugLeft?: HugFunction,
+    hugRight?: HugFunction
   ) {
     super(ast, collected);
 
