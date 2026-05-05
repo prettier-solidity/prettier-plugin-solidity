@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { extractVariant } from './extract-variant.js';
 
-import type { StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
+import type {
+  NodeInitializationAttributes,
+  StrictPolymorphicNode
+} from '../slang-nodes/types.d.ts';
 import type {
   CollectedMetadata,
   SlangAstNode,
@@ -11,7 +14,7 @@ import type {
 type NodeConstructor<T> = new (
   ast: any,
   collected: CollectedMetadata,
-  endOfChain?: boolean
+  initializationAttributes?: NodeInitializationAttributes
 ) => T;
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
@@ -21,7 +24,7 @@ type NonterminalVariantFactory<
 > = (
   variant: U['variant'],
   collected: CollectedMetadata,
-  endOfChain?: boolean
+  initializationAttributes?: NodeInitializationAttributes
 ) => T['variant'];
 
 export function createNonterminalVariantSimpleCreator<
@@ -30,10 +33,10 @@ export function createNonterminalVariantSimpleCreator<
 >(
   constructors: [SlangAstNodeClass, NodeConstructor<T['variant']>][]
 ): NonterminalVariantFactory<U, T> {
-  return (variant, collected, endOfChain) => {
+  return (variant, collected, initializationAttributes) => {
     for (const [slangAstClass, constructor] of constructors) {
       if (variant instanceof slangAstClass)
-        return new constructor(variant, collected, endOfChain);
+        return new constructor(variant, collected, initializationAttributes);
     }
 
     throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
@@ -54,12 +57,14 @@ export function createNonterminalVariantCreator<
     constructors
   );
 
-  return (variant, collected, endOfChain) => {
+  return (variant, collected, initializationAttributes) => {
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass)
-        return extractVariant(new constructor(variant, collected, endOfChain));
+        return extractVariant(
+          new constructor(variant, collected, initializationAttributes)
+        );
     }
 
-    return simpleCreator(variant, collected, endOfChain);
+    return simpleCreator(variant, collected, initializationAttributes);
   };
 }

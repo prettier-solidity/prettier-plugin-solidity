@@ -224,6 +224,10 @@ import type { YulVariableDeclarationStatement } from './YulVariableDeclarationSt
 import type { YulVariableDeclarationValue } from './YulVariableDeclarationValue.ts';
 import type { YulVariableNames } from './YulVariableNames.ts';
 
+export interface NodeInitializationAttributes {
+  endOfChain?: boolean;
+}
+
 export type FunctionLike =
   | ConstructorDefinition
   | FallbackFunctionDefinition

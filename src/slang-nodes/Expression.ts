@@ -35,6 +35,7 @@ import { ElementaryType } from './ElementaryType.js';
 import { TerminalNode } from './TerminalNode.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
+import type { NodeInitializationAttributes } from './types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.Expression,
@@ -109,7 +110,7 @@ export class Expression extends SlangNode {
   constructor(
     ast: ast.Expression,
     collected: CollectedMetadata,
-    endOfChain?: boolean
+    initializationAttributes: NodeInitializationAttributes = {}
   ) {
     super(ast, collected);
 
@@ -118,7 +119,9 @@ export class Expression extends SlangNode {
       this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = createNonterminalVariant(variant, collected, endOfChain);
+    this.variant = createNonterminalVariant(variant, collected, {
+      ...initializationAttributes
+    });
 
     this.updateMetadata(this.variant);
   }

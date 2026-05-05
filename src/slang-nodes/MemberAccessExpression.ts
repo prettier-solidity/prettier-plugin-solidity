@@ -10,6 +10,7 @@ import { TerminalNode } from './TerminalNode.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
+import type { NodeInitializationAttributes } from './types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
 
@@ -88,18 +89,18 @@ export class MemberAccessExpression extends SlangNode {
   constructor(
     ast: ast.MemberAccessExpression,
     collected: CollectedMetadata,
-    endOfChain = true
+    { endOfChain }: NodeInitializationAttributes = {}
   ) {
     super(ast, collected);
 
     this.operand = extractVariant(
-      new Expression(ast.operand, collected, false)
+      new Expression(ast.operand, collected, { endOfChain: false })
     );
     this.member = new TerminalNode(ast.member, collected);
 
     this.updateMetadata(this.operand);
 
-    this.#endOfChain = endOfChain;
+    this.#endOfChain = endOfChain ?? true;
   }
 
   print(print: PrintFunction): Doc {
