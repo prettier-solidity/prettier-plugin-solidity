@@ -9,7 +9,6 @@ import { IndexAccessEnd } from './IndexAccessEnd.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { ChainableExpression } from './types.d.ts';
 
 export class IndexAccessExpression extends SlangNode {
   readonly kind = NonterminalKind.IndexAccessExpression;
@@ -20,10 +19,16 @@ export class IndexAccessExpression extends SlangNode {
 
   end?: IndexAccessEnd;
 
-  constructor(ast: ast.IndexAccessExpression, collected: CollectedMetadata) {
+  constructor(
+    ast: ast.IndexAccessExpression,
+    collected: CollectedMetadata,
+    endOfChain?: boolean
+  ) {
     super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, collected));
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, endOfChain)
+    );
     if (ast.start) {
       this.start = extractVariant(new Expression(ast.start, collected));
     }
@@ -32,10 +37,6 @@ export class IndexAccessExpression extends SlangNode {
     }
 
     this.updateMetadata(this.operand, this.start, this.end);
-  }
-
-  putInChain(): void {
-    (this.operand as ChainableExpression).putInChain?.();
   }
 
   print(print: PrintFunction): Doc {

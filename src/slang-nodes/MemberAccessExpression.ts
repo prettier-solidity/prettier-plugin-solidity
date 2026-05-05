@@ -10,7 +10,6 @@ import { TerminalNode } from './TerminalNode.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { ChainableExpression } from './types.d.ts';
 
 const { group, indent, label, softline } = doc.builders;
 
@@ -80,28 +79,27 @@ function processChain(chain: Doc[]): Doc {
 export class MemberAccessExpression extends SlangNode {
   readonly kind = NonterminalKind.MemberAccessExpression;
 
-  #endOfChain = true;
+  readonly #endOfChain: boolean;
 
   operand: Expression['variant'];
 
   member: TerminalNode;
 
-  constructor(ast: ast.MemberAccessExpression, collected: CollectedMetadata) {
+  constructor(
+    ast: ast.MemberAccessExpression,
+    collected: CollectedMetadata,
+    endOfChain = true
+  ) {
     super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, collected));
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, false)
+    );
     this.member = new TerminalNode(ast.member, collected);
 
     this.updateMetadata(this.operand);
 
-    (this.operand as ChainableExpression).putInChain?.();
-  }
-
-  putInChain(): void {
-    if (this.#endOfChain) {
-      this.#endOfChain = false;
-      (this.operand as ChainableExpression).putInChain?.();
-    }
+    this.#endOfChain = endOfChain;
   }
 
   print(print: PrintFunction): Doc {

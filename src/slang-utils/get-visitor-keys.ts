@@ -8,8 +8,7 @@ const ignoredKeys = new Set([
   'isEmpty',
   'updateMetadata',
   'cleanModifierInvocationArguments',
-  'getSingleExpression',
-  'putInChain'
+  'getSingleExpression'
 ]);
 
 export function getVisitorKeys(

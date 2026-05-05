@@ -8,7 +8,6 @@ import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-import type { ChainableExpression } from './types.d.ts';
 
 export class FunctionCallExpression extends SlangNode {
   readonly kind = NonterminalKind.FunctionCallExpression;
@@ -17,19 +16,21 @@ export class FunctionCallExpression extends SlangNode {
 
   arguments: ArgumentsDeclaration['variant'];
 
-  constructor(ast: ast.FunctionCallExpression, collected: CollectedMetadata) {
+  constructor(
+    ast: ast.FunctionCallExpression,
+    collected: CollectedMetadata,
+    endOfChain?: boolean
+  ) {
     super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, collected));
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, endOfChain)
+    );
     this.arguments = extractVariant(
       new ArgumentsDeclaration(ast.arguments, collected)
     );
 
     this.updateMetadata(this.operand, this.arguments);
-  }
-
-  putInChain(): void {
-    (this.operand as ChainableExpression).putInChain?.();
   }
 
   print(print: PrintFunction): Doc {
