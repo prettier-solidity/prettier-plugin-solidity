@@ -61,19 +61,20 @@ We follow Prettier's strategy for populating their plugins in the object `pretti
 
 ```html
 <script type="module">
-  const prettier =
-    await import('https://unpkg.com/prettier-plugin-solidity@latest');
-  const prettierSolidity =
-    await import('https://unpkg.com/prettier-plugin-solidity@next');
+  await import('https://unpkg.com/prettier@latest');
+  await import('https://unpkg.com/prettier-plugin-solidity@next');
+
+  // The global variables `prettier` and `prettierPlugins` are automatically
+  // created and populated by the importing each plugins.
 
   async function format(code) {
     return await prettier.format(code, {
       parser: 'slang',
-      plugins: [solidityPlugin]
+      plugins: [prettierPlugins.solidity]
     });
   }
 
-  const originalCode = 'contract Foo {}';
+  const originalCode = 'contract Foo    {}';
   const formattedCode = format(originalCode);
 </script>
 ```
