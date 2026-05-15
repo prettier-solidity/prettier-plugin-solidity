@@ -65,7 +65,7 @@ We follow Prettier's strategy for populating their plugins in the object `pretti
   await import('https://unpkg.com/prettier-plugin-solidity@latest');
 
   // The global variables `prettier` and `prettierPlugins` are automatically
-  // created and populated by importing each plugins.
+  // created and populated by importing each module.
 
   async function format(code) {
     return await prettier.format(code, {
