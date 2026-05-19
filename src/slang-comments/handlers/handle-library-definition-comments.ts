@@ -22,7 +22,7 @@ export default function handleLibraryDefinitionComments({
     locEnd(comment)
   );
 
-  // The comment is at the end of the body of the ContractDefinition.
+  // The comment is at the end of the body of the LibraryDefinition.
   if (precedingNode?.kind === NonterminalKind.LibraryMembers) {
     addCollectionLastComment(precedingNode, comment);
     return true;

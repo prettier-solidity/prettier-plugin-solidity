@@ -38,7 +38,7 @@ function isEndOfChain(
         break;
       case NonterminalKind.FunctionCallExpression:
         // If `parent` is a FunctionCallExpression and `current` is not
-        // the operand then it must be and argument in which case it is the end
+        // the operand then it must be an argument in which case it is the end
         // of the chain.
         if (current !== parent.operand) return true;
         break;
@@ -87,7 +87,7 @@ function isEndOfChain(
  * ```
  *
  * NOTE: As described in the examples above, the rest of the chain will be grouped
- * and try to stay in the same line as the end of the first element.
+ * and try to stay on the same line as the end of the first element.
  *
  * @param {doc[]} chain is the full chain of MemberAccess
  * @returns a processed doc[] with the proper grouping and indentation ready to
