@@ -8,13 +8,21 @@ import type {
   SlangAstNodeClass
 } from '../types.d.ts';
 
-type NodeConstructor<T> = new (ast: any, collected: CollectedMetadata) => T;
+type NodeConstructor<T> = new (
+  ast: any,
+  collected: CollectedMetadata,
+  endOfChain?: boolean
+) => T;
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
 type NonterminalVariantFactory<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
-> = (variant: U['variant'], collected: CollectedMetadata) => T['variant'];
+> = (
+  variant: U['variant'],
+  collected: CollectedMetadata,
+  endOfChain?: boolean
+) => T['variant'];
 
 export function createNonterminalVariantSimpleCreator<
   U extends SlangPolymorphicNode,
@@ -22,10 +30,10 @@ export function createNonterminalVariantSimpleCreator<
 >(
   constructors: [SlangAstNodeClass, NodeConstructor<T['variant']>][]
 ): NonterminalVariantFactory<U, T> {
-  return (variant, collected) => {
+  return (variant, collected, endOfChain) => {
     for (const [slangAstClass, constructor] of constructors) {
       if (variant instanceof slangAstClass)
-        return new constructor(variant, collected);
+        return new constructor(variant, collected, endOfChain);
     }
 
     throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
@@ -46,12 +54,12 @@ export function createNonterminalVariantCreator<
     constructors
   );
 
-  return (variant, collected) => {
+  return (variant, collected, endOfChain) => {
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass)
-        return extractVariant(new constructor(variant, collected));
+        return extractVariant(new constructor(variant, collected, endOfChain));
     }
 
-    return simpleCreator(variant, collected);
+    return simpleCreator(variant, collected, endOfChain);
   };
 }

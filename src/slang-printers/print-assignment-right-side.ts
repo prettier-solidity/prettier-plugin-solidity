@@ -1,9 +1,19 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { isChainableExpression } from '../slang-utils/is-chainable-expression.js';
+import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { printIndentedGroupOrSpacedDocument } from './print-indented-group-or-spaced-document.js';
 
 import type { Doc, doc } from 'prettier';
 import type { Expression } from '../slang-nodes/Expression.ts';
+import type {
+  ChainableExpression,
+  PrintableNode
+} from '../slang-nodes/types.d.ts';
+
+const isChainableExpression = createKindCheckFunction([
+  NonterminalKind.FunctionCallExpression,
+  NonterminalKind.IndexAccessExpression,
+  NonterminalKind.MemberAccessExpression
+]) as (node: PrintableNode) => node is ChainableExpression;
 
 export function printAssignmentRightSide(
   document: Doc,
