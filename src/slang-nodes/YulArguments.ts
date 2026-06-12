@@ -1,24 +1,20 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
+import { VariantCollection } from './VariantCollection.js';
 import { YulExpression } from './YulExpression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
-export class YulArguments extends SlangNode {
+export class YulArguments extends VariantCollection<
+  ast.YulArguments,
+  YulExpression
+> {
   readonly kind = NonterminalKind.YulArguments;
 
-  items: YulExpression['variant'][];
-
   constructor(ast: ast.YulArguments, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) =>
-      extractVariant(new YulExpression(item, collected))
-    );
+    super(ast, collected, YulExpression);
   }
 
   print(print: PrintFunction, path: AstPath<YulArguments>): Doc {
