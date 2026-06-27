@@ -106,7 +106,11 @@ export class Expression extends SlangNode {
     | ElementaryType['variant']
     | TerminalNode;
 
-  constructor(ast: ast.Expression, collected: CollectedMetadata) {
+  constructor(
+    ast: ast.Expression,
+    collected: CollectedMetadata,
+    endOfChain?: boolean
+  ) {
     super(ast, collected);
 
     const variant = ast.variant;
@@ -114,7 +118,7 @@ export class Expression extends SlangNode {
       this.variant = new TerminalNode(variant, collected);
       return;
     }
-    this.variant = createNonterminalVariant(variant, collected);
+    this.variant = createNonterminalVariant(variant, collected, endOfChain);
 
     this.updateMetadata(this.variant);
   }
