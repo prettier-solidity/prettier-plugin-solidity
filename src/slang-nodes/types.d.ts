@@ -498,6 +498,4 @@ export type BinaryOperation = Extract<
 >;
 
 export type ChainableExpression =
-  | FunctionCallExpression
-  | IndexAccessExpression
-  | MemberAccessExpression;
+  FunctionCallExpression | IndexAccessExpression | MemberAccessExpression;
