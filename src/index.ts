@@ -13,10 +13,7 @@ import { hasPrettierIgnore } from './slang-utils/has-prettier-ignore.js';
 import { getVisitorKeys } from './slang-utils/get-visitor-keys.js';
 
 import type {
-  AstPath,
-  Doc,
   Parser,
-  ParserOptions,
   Printer,
   RequiredOptions,
   SupportLanguage
@@ -80,12 +77,7 @@ const slangPrinter: Printer<PrintableNode> = {
   handleComments,
   isBlockComment,
   massageAstNode,
-  print: slangPrint as (
-    path: AstPath<PrintableNode>,
-    options: ParserOptions<PrintableNode>,
-    print: (path: AstPath<PrintableNode>) => Doc,
-    args?: unknown
-  ) => Doc,
+  print: slangPrint,
   hasPrettierIgnore,
   getVisitorKeys,
   printComment
