@@ -16,10 +16,16 @@ export class FunctionCallExpression extends SlangNode {
 
   arguments: ArgumentsDeclaration['variant'];
 
-  constructor(ast: ast.FunctionCallExpression, collected: CollectedMetadata) {
+  constructor(
+    ast: ast.FunctionCallExpression,
+    collected: CollectedMetadata,
+    endOfChain?: boolean
+  ) {
     super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, collected));
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, endOfChain)
+    );
     this.arguments = extractVariant(
       new ArgumentsDeclaration(ast.arguments, collected)
     );
