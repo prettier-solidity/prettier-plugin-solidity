@@ -90,8 +90,8 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^26.0.1",
     "@types/semver": "^7.7.1",
-    "@typescript-eslint/eslint-plugin": "^8.62.0",
-    "@typescript-eslint/parser": "^8.62.0",
+    "@typescript-eslint/eslint-plugin": "^8.62.1",
+    "@typescript-eslint/parser": "^8.62.1",
     "c8": "^11.0.0",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.4",
@@ -111,7 +111,7 @@
     "ts-loader": "^9.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
-    "webpack": "^5.108.1",
+    "webpack": "^5.108.3",
     "webpack-cli": "^7.1.0"
   },
   "dependencies": {
