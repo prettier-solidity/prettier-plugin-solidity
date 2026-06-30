@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { SlangNode } from './SlangNode.js';
+import { NodeCollection } from './NodeCollection.js';
 import { InheritanceType } from './InheritanceType.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -10,15 +10,14 @@ import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
-export class InheritanceTypes extends SlangNode {
+export class InheritanceTypes extends NodeCollection<
+  ast.InheritanceTypes,
+  InheritanceType
+> {
   readonly kind = NonterminalKind.InheritanceTypes;
 
-  items: InheritanceType[];
-
   constructor(ast: ast.InheritanceTypes, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) => new InheritanceType(item, collected));
+    super(ast, collected, InheritanceType);
   }
 
   print(print: PrintFunction, path: AstPath<InheritanceTypes>): Doc {
