@@ -135,7 +135,7 @@ export class ConditionalExpression extends SlangNode {
       // We can remove parentheses only because we are sure that the
       // `condition` must be a single `bool` value.
       const operandLoc = this.operand.loc;
-      for (let operandSingleExpression; ; ) {
+      for (let operandSingleExpression; ;) {
         operandSingleExpression = getOperandSingleExpression(this.operand);
         if (
           operandSingleExpression === undefined ||
