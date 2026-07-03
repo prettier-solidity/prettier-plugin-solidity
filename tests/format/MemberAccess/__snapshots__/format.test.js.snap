@@ -251,7 +251,7 @@ contract MemberAccessIsEndOfChainCases {
         while (b.c) {}
         // break if is a part of a ForStatement
         // for (b.c;;) {}
-        for (; b.c; ) {}
+        for (; b.c;) {}
         // for (;;b.c) {}
         // break if is a part of a VariableDeclarationStatement
         uint a = b.c;
