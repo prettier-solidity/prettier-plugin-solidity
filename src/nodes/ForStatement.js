@@ -3,14 +3,15 @@ import { printSeparatedItem } from '../common/printer-helpers.js';
 
 const { group, indent, line } = doc.builders;
 
-const initExpression = (node, path, print) =>
-  node.initExpression ? path.call(print, 'initExpression') : '';
+const initExpression = (node, path, print) => [
+  node.initExpression ? path.call(print, 'initExpression') : '',
+  ';'
+];
 
-const conditionExpression = (node, path, print) =>
-  node.conditionExpression ? path.call(print, 'conditionExpression') : '';
-
-const loopExpression = (node, path, print) =>
-  node.loopExpression.expression ? path.call(print, 'loopExpression') : '';
+const conditionExpression = (node, path, print) => [
+  node.conditionExpression ? path.call(print, 'conditionExpression') : '',
+  ';'
+];
 
 const printBody = (node, path, print) =>
   node.body.type === 'Block'
@@ -24,16 +25,15 @@ export const ForStatement = {
       node.loopExpression.expression
         ? [
             initExpression(node, path, print),
-            [';', line],
+            line,
             conditionExpression(node, path, print),
-            [';', line],
-            loopExpression(node, path, print)
+            line,
+            path.call(print, 'loopExpression')
           ]
         : [
             initExpression(node, path, print),
-            node.initExpression || node.conditionExpression ? [';', line] : ';',
-            conditionExpression(node, path, print),
-            ';'
+            node.initExpression || node.conditionExpression ? line : '',
+            conditionExpression(node, path, print)
           ]
     ),
     ')',
