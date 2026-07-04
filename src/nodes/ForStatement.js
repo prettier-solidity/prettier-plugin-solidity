@@ -1,5 +1,5 @@
 import { doc } from 'prettier';
-import { printSeparatedList } from '../common/printer-helpers.js';
+import { printSeparatedItem } from '../common/printer-helpers.js';
 
 const { group, indent, line } = doc.builders;
 
@@ -20,20 +20,21 @@ const printBody = (node, path, print) =>
 export const ForStatement = {
   print: ({ node, path, print }) => [
     'for (',
-    printSeparatedList(
-      [
-        initExpression(node, path, print),
-        conditionExpression(node, path, print),
-        loopExpression(node, path, print)
-      ],
-      {
-        separator:
-          node.initExpression ||
-          node.conditionExpression ||
-          node.loopExpression.expression
-            ? [';', line]
-            : ';'
-      }
+    printSeparatedItem(
+      node.loopExpression.expression
+        ? [
+            initExpression(node, path, print),
+            [';', line],
+            conditionExpression(node, path, print),
+            [';', line],
+            loopExpression(node, path, print)
+          ]
+        : [
+            initExpression(node, path, print),
+            node.initExpression || node.conditionExpression ? [';', line] : ';',
+            conditionExpression(node, path, print),
+            ';'
+          ]
     ),
     ')',
     printBody(node, path, print)
