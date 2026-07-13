@@ -18,6 +18,12 @@ for ((uint i, uint j) = getIndexes(); i < 100; i++) a++;
 
         for (veryLongVariableName = 0; veryLongVariableName < 100; veryLongVariableName++) { a++; }
 
+        for (veryVeryVeryVeryLongVariableName = 0; veryVeryVeryVeryLongVariableName < 100; ) { a++; }
+
+        for (veryVeryVeryVeryLongVariableName = 0; ; veryVeryVeryVeryLongVariableName++) { a++; }
+
+        for (; veryVeryVeryVeryLongVariableName < 100; veryVeryVeryVeryLongVariableName++) { a++; }
+
         for (; ; ) { // #178
         }
 

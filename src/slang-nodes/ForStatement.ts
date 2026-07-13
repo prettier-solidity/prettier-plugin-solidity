@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { printSeparatedList } from '../slang-printers/print-separated-list.js';
+import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
@@ -55,12 +55,15 @@ export class ForStatement extends SlangNode {
 
     return [
       'for (',
-      printSeparatedList([initialization, condition, iterator], {
-        separator:
-          initialization !== ';' || condition !== ';' || iterator !== ''
-            ? line
-            : ''
-      }),
+      printSeparatedItem(
+        iterator === ''
+          ? [
+              initialization,
+              initialization === ';' && condition === ';' ? '' : line,
+              condition
+            ]
+          : [initialization, line, condition, line, iterator]
+      ),
       ')',
       printIndentedGroupOrSpacedDocument(
         print('body'),

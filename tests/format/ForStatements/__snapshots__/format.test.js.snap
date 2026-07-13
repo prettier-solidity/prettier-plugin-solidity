@@ -25,6 +25,12 @@ for ((uint i, uint j) = getIndexes(); i < 100; i++) a++;
 
         for (veryLongVariableName = 0; veryLongVariableName < 100; veryLongVariableName++) { a++; }
 
+        for (veryVeryVeryVeryLongVariableName = 0; veryVeryVeryVeryLongVariableName < 100; ) { a++; }
+
+        for (veryVeryVeryVeryLongVariableName = 0; ; veryVeryVeryVeryLongVariableName++) { a++; }
+
+        for (; veryVeryVeryVeryLongVariableName < 100; veryVeryVeryVeryLongVariableName++) { a++; }
+
         for (; ; ) { // #178
         }
 
@@ -87,13 +93,36 @@ contract ForStatements {
             a++;
         }
 
+        for (
+            veryVeryVeryVeryLongVariableName = 0;
+            veryVeryVeryVeryLongVariableName < 100;
+        ) {
+            a++;
+        }
+
+        for (
+            veryVeryVeryVeryLongVariableName = 0;
+            ;
+            veryVeryVeryVeryLongVariableName++
+        ) {
+            a++;
+        }
+
+        for (
+            ;
+            veryVeryVeryVeryLongVariableName < 100;
+            veryVeryVeryVeryLongVariableName++
+        ) {
+            a++;
+        }
+
         for (;;) {
             // #178
         }
 
-        for (i = 0; ; ) {}
+        for (i = 0; ;) {}
 
-        for (i = 0; i < 100; ) {}
+        for (i = 0; i < 100;) {}
 
         for (i = 0; ; i++) {}
 
@@ -101,7 +130,7 @@ contract ForStatements {
 
         for (; i < 100; i++) {}
 
-        for (; i < 100; ) {}
+        for (; i < 100;) {}
 
         for (; ; i++) {}
     }
