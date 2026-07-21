@@ -19,10 +19,16 @@ export class IndexAccessExpression extends SlangNode {
 
   end?: IndexAccessEnd;
 
-  constructor(ast: ast.IndexAccessExpression, collected: CollectedMetadata) {
+  constructor(
+    ast: ast.IndexAccessExpression,
+    collected: CollectedMetadata,
+    endOfChain?: boolean
+  ) {
     super(ast, collected);
 
-    this.operand = extractVariant(new Expression(ast.operand, collected));
+    this.operand = extractVariant(
+      new Expression(ast.operand, collected, endOfChain)
+    );
     if (ast.start) {
       this.start = extractVariant(new Expression(ast.start, collected));
     }
