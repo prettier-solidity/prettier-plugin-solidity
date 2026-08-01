@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-solidity",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "A Prettier Plugin for automatically formatting your Solidity code.",
   "type": "module",
   "main": "./dist/index.js",
@@ -105,7 +105,7 @@
     "jest-snapshot-serializer-ansi": "^2.2.1",
     "jest-snapshot-serializer-raw": "^2.0.0",
     "jest-watch-typeahead": "^3.0.1",
-    "knip": "^6.29.0",
+    "knip": "^6.31.0",
     "prettier": "^3.9.6",
     "solc": "^0.8.36",
     "ts-loader": "^9.6.2",
