@@ -1,12 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
+import { group, line } from './prettier-builders.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { BinaryOperation, PrintableNode } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-
-const { group, line } = doc.builders;
 
 function rightOperandPrint(
   { operator, leftOperand }: BinaryOperation,

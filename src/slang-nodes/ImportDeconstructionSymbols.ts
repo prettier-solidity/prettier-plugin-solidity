@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
 import { satisfies } from 'semver';
+import { line, softline } from '../slang-printers/prettier-builders.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { SlangNode } from './SlangNode.js';
 import { ImportDeconstructionSymbol } from './ImportDeconstructionSymbol.js';
@@ -9,8 +9,6 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
-
-const { line, softline } = doc.builders;
 
 export class ImportDeconstructionSymbols extends SlangNode {
   readonly kind = NonterminalKind.ImportDeconstructionSymbols;

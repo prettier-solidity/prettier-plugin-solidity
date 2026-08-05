@@ -1,11 +1,10 @@
-import { doc, util } from 'prettier';
 import { printComment } from '../slang-comments/printer.js';
+import { isNextLineEmpty } from '../slang-utils/prettier-utils.js';
 import { locEnd } from '../slang-utils/loc.js';
+import { hardline } from './prettier-builders.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { Comment, PrintableNode } from '../slang-nodes/types.d.ts';
-
-const { hardline } = doc.builders;
 
 function isPrintable(comment: Comment): boolean {
   return !comment.trailing && !comment.leading && !comment.printed;
@@ -30,7 +29,7 @@ export function printComments(
       index !== lastPrintableIndex
         ? [
             hardline,
-            util.isNextLineEmpty(options.originalText, locEnd(comment))
+            isNextLineEmpty(options.originalText, locEnd(comment))
               ? hardline
               : ''
           ]

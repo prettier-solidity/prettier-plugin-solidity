@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { line } from '../slang-printers/prettier-builders.js';
 import { SlangNode } from './SlangNode.js';
 import { SourceUnitMembers } from './SourceUnitMembers.js';
 
@@ -7,8 +7,6 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
-
-const { line } = doc.builders;
 
 export class SourceUnit extends SlangNode {
   readonly kind = NonterminalKind.SourceUnit;

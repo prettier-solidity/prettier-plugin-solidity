@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { util } from 'prettier';
+import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/prettier-utils.js';
 import { locEnd } from '../../slang-utils/loc.js';
 import addCollectionFirstComment from './add-collection-first-comment.js';
 import addCollectionLastComment from './add-collection-last-comment.js';
@@ -17,7 +17,7 @@ export default function handleInterfaceDefinitionComments({
     return false;
   }
 
-  const nextCharacter = util.getNextNonSpaceNonCommentCharacter(
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
     locEnd(comment)
   );

@@ -1,11 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { util } from 'prettier';
+import {
+  addLeadingComment,
+  addTrailingComment,
+  getNextNonSpaceNonCommentCharacter
+} from '../../slang-utils/prettier-utils.js';
 import { locEnd } from '../../slang-utils/loc.js';
 import addCollectionFirstComment from './add-collection-first-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
-
-const { addLeadingComment, addTrailingComment } = util;
 
 export default function handleWhileStatementComments({
   text,
@@ -23,7 +25,7 @@ export default function handleWhileStatementComments({
   //   while (a /* comment */) {}
   // The only workaround I found is to look at the next character to see if
   // it is a ).
-  const nextCharacter = util.getNextNonSpaceNonCommentCharacter(
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
     locEnd(comment)
   );

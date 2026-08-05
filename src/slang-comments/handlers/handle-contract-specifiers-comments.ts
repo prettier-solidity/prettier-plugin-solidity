@@ -1,10 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { util } from 'prettier';
+import { addTrailingComment } from '../../slang-utils/prettier-utils.js';
 import addCollectionLastComment from './add-collection-last-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
-
-const { addTrailingComment } = util;
 
 export default function handleContractSpecifiersComments({
   precedingNode,

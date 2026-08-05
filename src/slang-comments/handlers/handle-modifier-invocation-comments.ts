@@ -1,11 +1,12 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { util } from 'prettier';
+import {
+  addTrailingComment,
+  getNextNonSpaceNonCommentCharacter
+} from '../../slang-utils/prettier-utils.js';
 import { locEnd } from '../../slang-utils/loc.js';
 import addCollectionFirstComment from './add-collection-first-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
-
-const { addTrailingComment } = util;
 
 export default function handleModifierInvocationComments({
   text,
@@ -18,7 +19,7 @@ export default function handleModifierInvocationComments({
     return false;
   }
 
-  const nextCharacter = util.getNextNonSpaceNonCommentCharacter(
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
     locEnd(comment)
   );

@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { hardline } from '../slang-printers/prettier-builders.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { SlangNode } from './SlangNode.js';
 import { StructMember } from './StructMember.js';
@@ -7,8 +7,6 @@ import { StructMember } from './StructMember.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-
-const { hardline } = doc.builders;
 
 export class StructMembers extends SlangNode {
   readonly kind = NonterminalKind.StructMembers;

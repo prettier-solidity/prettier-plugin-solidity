@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { indent, line } from '../slang-printers/prettier-builders.js';
 import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
@@ -11,8 +11,6 @@ import { VariableDeclarationValue } from './VariableDeclarationValue.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-
-const { indent, line } = doc.builders;
 
 export class VariableDeclarationStatement extends SlangNode {
   readonly kind = NonterminalKind.VariableDeclarationStatement;

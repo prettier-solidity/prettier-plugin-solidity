@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { hardline, join } from '../slang-printers/prettier-builders.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulSwitchCase } from './YulSwitchCase.js';
@@ -7,8 +7,6 @@ import { YulSwitchCase } from './YulSwitchCase.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-
-const { hardline, join } = doc.builders;
 
 export class YulSwitchCases extends SlangNode {
   readonly kind = NonterminalKind.YulSwitchCases;

@@ -1,5 +1,11 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import {
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  line
+} from '../slang-printers/prettier-builders.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
@@ -9,8 +15,6 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
-
-const { group, hardline, ifBreak, indent, line } = doc.builders;
 
 function experimentalTernaries(
   node: ConditionalExpression,

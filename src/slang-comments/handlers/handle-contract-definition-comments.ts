@@ -1,11 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { util } from 'prettier';
+import {
+  addLeadingComment,
+  addTrailingComment,
+  getNextNonSpaceNonCommentCharacter
+} from '../../slang-utils/prettier-utils.js';
 import { locEnd } from '../../slang-utils/loc.js';
 import addCollectionLastComment from './add-collection-last-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
-
-const { addLeadingComment, addTrailingComment } = util;
 
 export default function handleContractDefinitionComments({
   text,
@@ -18,7 +20,7 @@ export default function handleContractDefinitionComments({
     return false;
   }
 
-  const nextCharacter = util.getNextNonSpaceNonCommentCharacter(
+  const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
     locEnd(comment)
   );

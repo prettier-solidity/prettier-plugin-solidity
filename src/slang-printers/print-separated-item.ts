@@ -1,9 +1,7 @@
-import { doc } from 'prettier';
+import { group, hardline, indent, softline } from './prettier-builders.js';
 
-import type { Doc } from 'prettier';
+import type { Doc, doc } from 'prettier';
 import type { PrintSeparatedOptions } from './types.d.ts';
-
-const { group, hardline, indent, softline } = doc.builders;
 
 // This function will add an indentation to the `item` and separate it from the
 // rest of the `doc` in most cases by a `softline`.

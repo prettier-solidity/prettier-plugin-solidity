@@ -1,14 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc, util } from 'prettier';
+import { isNextLineEmpty } from '../slang-utils/prettier-utils.js';
 import { locEnd } from '../slang-utils/loc.js';
+import { hardline } from './prettier-builders.js';
 import { printComments } from './print-comments.js';
 import { printSeparatedItem } from './print-separated-item.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { LineCollection, PrintableNode } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-
-const { hardline } = doc.builders;
 
 export function printPreservingEmptyLines(
   node: LineCollection,
@@ -30,7 +29,7 @@ export function printPreservingEmptyLines(
           !isLast &&
           // Append an empty line if the original text already had an one after the
           // current `node`
-          util.isNextLineEmpty(options.originalText, locEnd(node))
+          isNextLineEmpty(options.originalText, locEnd(node))
             ? hardline
             : ''
         ];
