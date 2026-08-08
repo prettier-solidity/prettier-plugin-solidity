@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { satisfies } from 'semver';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { SlangNode } from './SlangNode.js';
+import { NodeCollection } from './NodeCollection.js';
 import { ImportDeconstructionSymbol } from './ImportDeconstructionSymbol.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -12,20 +12,17 @@ import type { PrintableNode } from './types.d.ts';
 
 const { line, softline } = doc.builders;
 
-export class ImportDeconstructionSymbols extends SlangNode {
+export class ImportDeconstructionSymbols extends NodeCollection<
+  ast.ImportDeconstructionSymbols,
+  ImportDeconstructionSymbol
+> {
   readonly kind = NonterminalKind.ImportDeconstructionSymbols;
-
-  items: ImportDeconstructionSymbol[];
 
   constructor(
     ast: ast.ImportDeconstructionSymbols,
     collected: CollectedMetadata
   ) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map(
-      (item) => new ImportDeconstructionSymbol(item, collected)
-    );
+    super(ast, collected, ImportDeconstructionSymbol);
   }
 
   print(

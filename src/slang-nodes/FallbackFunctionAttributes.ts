@@ -1,8 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
+import { VariantCollection } from './VariantCollection.js';
 import { FallbackFunctionAttribute } from './FallbackFunctionAttribute.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -11,20 +10,17 @@ import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { line } = doc.builders;
 
-export class FallbackFunctionAttributes extends SlangNode {
+export class FallbackFunctionAttributes extends VariantCollection<
+  ast.FallbackFunctionAttributes,
+  FallbackFunctionAttribute
+> {
   readonly kind = NonterminalKind.FallbackFunctionAttributes;
-
-  items: FallbackFunctionAttribute['variant'][];
 
   constructor(
     ast: ast.FallbackFunctionAttributes,
     collected: CollectedMetadata
   ) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) =>
-      extractVariant(new FallbackFunctionAttribute(item, collected))
-    );
+    super(ast, collected, FallbackFunctionAttribute);
 
     this.items.sort(sortFunctionAttributes);
   }

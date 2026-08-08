@@ -1,8 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
+import { VariantCollection } from './VariantCollection.js';
 import { ContractSpecifier } from './ContractSpecifier.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -30,17 +29,14 @@ function sortContractSpecifiers(
   return 0;
 }
 
-export class ContractSpecifiers extends SlangNode {
+export class ContractSpecifiers extends VariantCollection<
+  ast.ContractSpecifiers,
+  ContractSpecifier
+> {
   readonly kind = NonterminalKind.ContractSpecifiers;
 
-  items: ContractSpecifier['variant'][];
-
   constructor(ast: ast.ContractSpecifiers, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) =>
-      extractVariant(new ContractSpecifier(item, collected))
-    );
+    super(ast, collected, ContractSpecifier);
 
     this.items.sort(sortContractSpecifiers);
   }

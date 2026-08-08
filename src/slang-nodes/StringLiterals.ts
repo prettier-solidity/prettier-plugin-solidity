@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { doc } from 'prettier';
-import { SlangNode } from './SlangNode.js';
+import { NodeCollection } from './NodeCollection.js';
 import { StringLiteral } from './StringLiteral.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -9,15 +9,14 @@ import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 const { join, hardline } = doc.builders;
 
-export class StringLiterals extends SlangNode {
+export class StringLiterals extends NodeCollection<
+  ast.StringLiterals,
+  StringLiteral
+> {
   readonly kind = NonterminalKind.StringLiterals;
 
-  items: StringLiteral[];
-
   constructor(ast: ast.StringLiterals, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) => new StringLiteral(item, collected));
+    super(ast, collected, StringLiteral);
   }
 
   print(print: PrintFunction, path: AstPath<StringLiterals>): Doc {

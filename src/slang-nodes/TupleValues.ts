@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
-import { SlangNode } from './SlangNode.js';
+import { NodeCollection } from './NodeCollection.js';
 import { TupleValue } from './TupleValue.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -9,15 +9,11 @@ import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { Expression } from './Expression.ts';
 
-export class TupleValues extends SlangNode {
+export class TupleValues extends NodeCollection<ast.TupleValues, TupleValue> {
   readonly kind = NonterminalKind.TupleValues;
 
-  items: TupleValue[];
-
   constructor(ast: ast.TupleValues, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) => new TupleValue(item, collected));
+    super(ast, collected, TupleValue);
   }
 
   getSingleExpression(): Expression['variant'] | undefined {

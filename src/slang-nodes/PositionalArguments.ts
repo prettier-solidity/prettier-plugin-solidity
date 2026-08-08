@@ -2,8 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { printComments } from '../slang-printers/print-comments.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
+import { VariantCollection } from './VariantCollection.js';
 import { Expression } from './Expression.js';
 
 import type * as ast from '@nomicfoundation/slang/ast';
@@ -11,17 +10,14 @@ import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
-export class PositionalArguments extends SlangNode {
+export class PositionalArguments extends VariantCollection<
+  ast.PositionalArguments,
+  Expression
+> {
   readonly kind = NonterminalKind.PositionalArguments;
 
-  items: Expression['variant'][];
-
   constructor(ast: ast.PositionalArguments, collected: CollectedMetadata) {
-    super(ast, collected, true);
-
-    this.items = ast.items.map((item) =>
-      extractVariant(new Expression(item, collected))
-    );
+    super(ast, collected, Expression);
   }
 
   print(
