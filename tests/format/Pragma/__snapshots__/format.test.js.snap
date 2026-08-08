@@ -19,6 +19,7 @@ pragma   experimental     SMTChecker;
 pragma   experimental     "ABIEncoderV2";
 pragma   experimental     "SMTChecker";
 pragma       abicoder     v2;
+pragma   experimental     solidity;
 
 =====================================output=====================================
 pragma solidity >=0.4.21 <0.6.0;
@@ -35,6 +36,7 @@ pragma experimental SMTChecker;
 pragma experimental "ABIEncoderV2";
 pragma experimental "SMTChecker";
 pragma abicoder v2;
+pragma experimental solidity;
 
 ================================================================================
 `;
