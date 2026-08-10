@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { group } from '../slang-printers/prettier-builders.js';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 import { ParametersDeclaration } from './ParametersDeclaration.js';
@@ -7,8 +7,6 @@ import { ParametersDeclaration } from './ParametersDeclaration.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-
-const { group } = doc.builders;
 
 export class CatchClauseError extends SlangNode {
   readonly kind = NonterminalKind.CatchClauseError;

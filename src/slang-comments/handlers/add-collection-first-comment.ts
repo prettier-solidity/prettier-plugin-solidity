@@ -1,8 +1,9 @@
-import { util } from 'prettier';
+import {
+  addDanglingComment,
+  addLeadingComment
+} from '../../slang-utils/prettier-utils.js';
 
 import type { Comment, StrictCollection } from '../../slang-nodes/types.d.ts';
-
-const { addDanglingComment, addLeadingComment } = util;
 
 export default function addCollectionFirstComment(
   node: StrictCollection,

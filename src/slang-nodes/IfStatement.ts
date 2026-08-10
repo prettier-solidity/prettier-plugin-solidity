@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { hardline } from '../slang-printers/prettier-builders.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
 import { isBlockComment } from '../slang-utils/is-comment.js';
@@ -12,8 +12,6 @@ import { ElseBranch } from './ElseBranch.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-
-const { hardline } = doc.builders;
 
 export class IfStatement extends SlangNode {
   readonly kind = NonterminalKind.IfStatement;

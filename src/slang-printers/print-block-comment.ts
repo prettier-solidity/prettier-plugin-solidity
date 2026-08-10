@@ -1,9 +1,7 @@
-import { doc } from 'prettier';
+import { hardline, join, literalline } from './prettier-builders.js';
 
 import type { Doc } from 'prettier';
 import type { BlockComment } from '../slang-nodes/types.d.ts';
-
-const { hardline, join, literalline } = doc.builders;
 
 function trimmedIndentableLines(lines: string[]): string[] | undefined {
   // If the comment has multiple lines and every line starts with a star

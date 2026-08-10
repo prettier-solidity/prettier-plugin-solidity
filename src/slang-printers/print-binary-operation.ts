@@ -1,14 +1,12 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
+import { group, indent } from './prettier-builders.js';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { BinaryOperation, PrintableNode } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-
-const { group, indent } = doc.builders;
 
 export const binaryGroupRulesBuilder =
   (shouldGroup: (node: BinaryOperation) => boolean) =>

@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { join } from '../slang-printers/prettier-builders.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
 import { YulPaths } from './YulPaths.js';
@@ -9,8 +9,6 @@ import { YulExpression } from './YulExpression.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-
-const { join } = doc.builders;
 
 export class YulVariableAssignmentStatement extends SlangNode {
   readonly kind = NonterminalKind.YulVariableAssignmentStatement;

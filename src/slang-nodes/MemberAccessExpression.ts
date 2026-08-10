@@ -1,5 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import {
+  group,
+  indent,
+  label,
+  softline
+} from '../slang-printers/prettier-builders.js';
 import { isLabel } from '../slang-utils/is-label.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { isChainableExpression } from '../slang-utils/is-chainable-expression.js';
@@ -12,8 +17,6 @@ import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { ChainableExpression, PrintableNode } from './types.d.ts';
-
-const { group, indent, label, softline } = doc.builders;
 
 const separatorLabel = Symbol('separator');
 

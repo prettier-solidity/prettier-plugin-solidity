@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
 import { satisfies } from 'semver';
+import { group, line } from '../slang-printers/prettier-builders.js';
 import { SlangNode } from './SlangNode.js';
 import { TerminalNode } from './TerminalNode.js';
 import { ContractSpecifiers } from './ContractSpecifiers.js';
@@ -9,8 +9,6 @@ import { ContractMembers } from './ContractMembers.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-
-const { group, line } = doc.builders;
 
 export class ContractDefinition extends SlangNode {
   readonly kind = NonterminalKind.ContractDefinition;

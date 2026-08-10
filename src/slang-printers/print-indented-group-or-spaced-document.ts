@@ -1,8 +1,6 @@
-import { doc } from 'prettier';
+import { group, indent, line } from './prettier-builders.js';
 
-import type { Doc } from 'prettier';
-
-const { group, indent, line } = doc.builders;
+import type { Doc, doc } from 'prettier';
 
 export function printIndentedGroupOrSpacedDocument(
   document: Doc,

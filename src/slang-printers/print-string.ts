@@ -1,6 +1,6 @@
-import { util } from 'prettier';
+import { makeString } from '../slang-utils/prettier-utils.js';
 
-import type { ParserOptions } from 'prettier';
+import type { ParserOptions, util } from 'prettier';
 import type { PrintableNode } from '../slang-nodes/types.d.ts';
 
 const SINGLE_QUOTE: util.Quote = "'";
@@ -30,5 +30,5 @@ export function printString(
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  return util.makeString(rawContent, enclosingQuote);
+  return makeString(rawContent, enclosingQuote);
 }

@@ -1,9 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { util } from 'prettier';
+import {
+  addDanglingComment,
+  addLeadingComment
+} from '../../slang-utils/prettier-utils.js';
 
 import type { HandlerParams } from './types.d.ts';
-
-const { addLeadingComment, addDanglingComment } = util;
 
 export default function handleYulBlockComments({
   precedingNode,

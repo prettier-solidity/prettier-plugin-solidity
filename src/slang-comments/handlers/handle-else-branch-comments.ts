@@ -1,10 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { util } from 'prettier';
+import { addLeadingComment } from '../../slang-utils/prettier-utils.js';
 import addCollectionFirstComment from './add-collection-first-comment.js';
 
 import type { HandlerParams } from './types.d.ts';
-
-const { addLeadingComment } = util;
 
 export default function handleElseBranchComments({
   enclosingNode,

@@ -1,5 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import {
+  group,
+  ifBreak,
+  line,
+  softline
+} from '../slang-printers/prettier-builders.js';
 import { printSeparatedList } from '../slang-printers/print-separated-list.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
@@ -8,8 +13,6 @@ import { ContractSpecifier } from './ContractSpecifier.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-
-const { group, ifBreak, line, softline } = doc.builders;
 
 function sortContractSpecifiers(
   { kind: aKind }: ContractSpecifier['variant'],

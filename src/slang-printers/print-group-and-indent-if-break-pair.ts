@@ -1,8 +1,6 @@
-import { doc } from 'prettier';
+import { group, indentIfBreak } from './prettier-builders.js';
 
-import type { Doc } from 'prettier';
-
-const { group, indentIfBreak } = doc.builders;
+import type { Doc, doc } from 'prettier';
 
 export function printGroupAndIndentIfBreakPair(
   groupDoc: Doc,

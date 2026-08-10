@@ -1,11 +1,9 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { dedent, group, indent, line } from './prettier-builders.js';
 
 import type { Doc } from 'prettier';
 import type { FunctionLike, FunctionWithBody } from '../slang-nodes/types.d.ts';
 import type { PrintFunction } from '../types.d.ts';
-
-const { dedent, group, indent, line } = doc.builders;
 
 export function printFunction(
   functionName: Doc,

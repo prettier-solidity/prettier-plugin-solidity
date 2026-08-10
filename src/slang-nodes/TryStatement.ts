@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
+import { line } from '../slang-printers/prettier-builders.js';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
 import { extractVariant } from '../slang-utils/extract-variant.js';
 import { SlangNode } from './SlangNode.js';
@@ -11,8 +11,6 @@ import { CatchClauses } from './CatchClauses.js';
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
-
-const { line } = doc.builders;
 
 export class TryStatement extends SlangNode {
   readonly kind = NonterminalKind.TryStatement;

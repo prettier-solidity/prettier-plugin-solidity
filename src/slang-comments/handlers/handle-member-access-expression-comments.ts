@@ -1,9 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { util } from 'prettier';
+import {
+  addLeadingComment,
+  addTrailingComment
+} from '../../slang-utils/prettier-utils.js';
 
 import type { HandlerParams } from './types.d.ts';
-
-const { addLeadingComment, addTrailingComment } = util;
 
 export default function handleMemberAccessExpressionComments({
   precedingNode,

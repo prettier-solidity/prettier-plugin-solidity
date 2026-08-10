@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { doc } from 'prettier';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
+import { indent } from './prettier-builders.js';
 import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
 import {
   binaryGroupRulesBuilder,
@@ -9,8 +9,6 @@ import {
 
 import type { AstPath, Doc } from 'prettier';
 import type { BinaryOperation, PrintableNode } from '../slang-nodes/types.d.ts';
-
-const { indent } = doc.builders;
 
 const logicalGroupRulesBuilder = binaryGroupRulesBuilder(() => false);
 
