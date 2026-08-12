@@ -29,8 +29,8 @@ export default function handleContractDefinitionComments({
   // the ContractDefinition.
   if (
     followingNode?.kind === NonterminalKind.ContractSpecifiers ||
-    (followingNode?.kind === NonterminalKind.ContractMembers &&
-      nextCharacter !== '{')
+    (nextCharacter !== '{' &&
+      followingNode?.kind === NonterminalKind.ContractMembers)
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -43,26 +43,25 @@ export default function handleContractDefinitionComments({
   }
 
   // The last comments before the body.
-  if (nextCharacter === '{') {
-    if (precedingNode?.kind === NonterminalKind.ContractSpecifiers) {
-      if (precedingNode.items.length === 0) {
-        addTrailingComment(precedingNode, comment);
-        return true;
-      }
-      const lastContractSpecifier =
-        precedingNode.items[precedingNode.items.length - 1];
-      // If the last ContractSpecifier's an InheritanceSpecifier, the comment
-      // is appended to the last InheritanceType.
-      if (lastContractSpecifier.kind === NonterminalKind.InheritanceSpecifier) {
-        addCollectionLastComment(lastContractSpecifier.types, comment);
-        return true;
-      }
-      if (
-        lastContractSpecifier.kind === NonterminalKind.StorageLayoutSpecifier
-      ) {
-        addTrailingComment(lastContractSpecifier.expression, comment);
-        return true;
-      }
+  if (
+    nextCharacter === '{' &&
+    precedingNode?.kind === NonterminalKind.ContractSpecifiers
+  ) {
+    if (precedingNode.items.length === 0) {
+      addTrailingComment(precedingNode, comment);
+      return true;
+    }
+    const lastContractSpecifier =
+      precedingNode.items[precedingNode.items.length - 1];
+    // If the last ContractSpecifier's an InheritanceSpecifier, the comment
+    // is appended to the last InheritanceType.
+    if (lastContractSpecifier.kind === NonterminalKind.InheritanceSpecifier) {
+      addCollectionLastComment(lastContractSpecifier.types, comment);
+      return true;
+    }
+    if (lastContractSpecifier.kind === NonterminalKind.StorageLayoutSpecifier) {
+      addTrailingComment(lastContractSpecifier.expression, comment);
+      return true;
     }
   }
 

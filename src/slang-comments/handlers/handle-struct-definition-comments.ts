@@ -23,8 +23,8 @@ export default function handleStructDefinitionComments({
   );
 
   if (
-    precedingNode?.kind === NonterminalKind.StructMembers &&
-    nextCharacter === '}'
+    nextCharacter === '}' &&
+    precedingNode?.kind === NonterminalKind.StructMembers
   ) {
     addCollectionLastComment(precedingNode, comment);
     return true;
