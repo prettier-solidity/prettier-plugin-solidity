@@ -26,14 +26,14 @@ export function printComments(
     comment.printed = true;
     return [
       printComment(path),
-      index !== lastPrintableIndex
-        ? [
+      index === lastPrintableIndex
+        ? ''
+        : [
             hardline,
             isNextLineEmpty(options.originalText, locEnd(comment))
               ? hardline
               : ''
           ]
-        : ''
     ];
   }, 'comments');
 }

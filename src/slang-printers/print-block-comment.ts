@@ -6,17 +6,17 @@ import type { BlockComment } from '../slang-nodes/types.d.ts';
 function trimmedIndentableLines(lines: string[]): string[] | undefined {
   // If the comment has multiple lines and every line starts with a star
   // we can fix the indentation of each line.
-  if (lines.length > 1) {
-    const trimmedLines = [];
-    for (let line of lines) {
-      line = line.trimStart();
-      if (!line.startsWith('*')) {
-        return;
-      }
-      trimmedLines.push(line);
+  if (lines.length <= 1) return;
+
+  const trimmedLines = [];
+  for (let line of lines) {
+    line = line.trimStart();
+    if (!line.startsWith('*')) {
+      return;
     }
-    return trimmedLines;
+    trimmedLines.push(line);
   }
+  return trimmedLines;
 }
 
 function printIndentableBlockComment(lines: string[]): Doc {

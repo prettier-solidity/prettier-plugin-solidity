@@ -30,7 +30,7 @@ export class PositionalArgumentsDeclaration extends SlangNode {
     // the ast directly for possible block comments.
     this.isEmpty =
       this.arguments.items.length === 0 && // no arguments
-      !ast.cst.children().some(({ node }) => isBlockComment(node)); // no block comments
+      ast.cst.children().every(({ node }) => !isBlockComment(node)); // no block comments
   }
 
   print(print: PrintFunction): Doc {
