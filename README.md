@@ -210,10 +210,7 @@ You might have a multi-version project, where different files are compiled with 
 
 ### Parser
 
-You can configure the parser used by Prettier Solidity. Two Solidity parsers are supported:
-
-- [Slang](https://nomicfoundation.github.io/slang) (the default), a more powerful and correct parser that results in better formatting for some edge cases, especially when comments are involved.
-- [Solidity Parser for JavaScript](https://github.com/solidity-parser/parser/), an [ANTLR](https://www.antlr.org/)-based parser. This is the version that Prettier Solidity v1 used by default. This parser has not been supported since v2.3, the option is still recognised but the plugin uses `slang` under the hood and will be removed in the next major version.
+- [Slang](https://nomicfoundation.github.io/slang), a powerful parser created and maintained by Nomic Foundation.
 
 | Default | CLI Override        | API Override         |
 | ------- | ------------------- | -------------------- |
