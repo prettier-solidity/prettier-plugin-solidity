@@ -26,7 +26,7 @@ export default function parse(
 ): PrintableNode {
   if (options.parser === 'antlr') {
     printWarning(
-      `The 'antlr' parser has been deprecated, please use 'slang' instead.`
+      `The 'antlr' parser is no longer supported, use 'slang' instead.`
     );
   }
   const { parser, parseOutput } = createParser(text, options);
