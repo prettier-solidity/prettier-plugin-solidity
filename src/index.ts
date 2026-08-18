@@ -17,7 +17,6 @@ import type {
 import type { PrintableNode } from './slang-nodes/types.d.ts';
 
 const slangParserId = 'slang';
-const antlrParserId = 'antlr';
 const slangAstId = 'slang-ast';
 
 // https://prettier.io/docs/en/plugins.html#languages
@@ -29,7 +28,7 @@ const languages: SupportLanguage[] = [
     aceMode: 'text',
     tmScope: 'source.solidity',
     extensions: ['.sol'],
-    parsers: [slangParserId, antlrParserId],
+    parsers: [slangParserId],
     vscodeLanguageIds: ['solidity']
   }
 ];
@@ -42,7 +41,7 @@ const slangParser: Parser<PrintableNode> = {
   locEnd
 };
 
-const parsers = { [slangParserId]: slangParser, [antlrParserId]: slangParser };
+const parsers = { [slangParserId]: slangParser };
 
 const canAttachComment = (node: PrintableNode): boolean =>
   // Make sure it's not Location
