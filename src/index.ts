@@ -44,11 +44,9 @@ const slangParser: Parser<PrintableNode> = {
 
 const parsers = { [slangParserId]: slangParser, [antlrParserId]: slangParser };
 
-const canAttachComment = (node: PrintableNode | undefined): boolean =>
-  typeof node !== 'string' &&
-  node !== undefined &&
-  node.kind && // Make sure it's not Location
-  !isComment(node);
+const canAttachComment = (node: PrintableNode): boolean =>
+  // Make sure it's not Location
+  node.kind && !isComment(node);
 
 // https://prettier.io/docs/en/plugins.html#printers
 const slangPrinter: Printer<PrintableNode> = {
