@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import { printSeparatedItem } from '../common/printer-helpers.js';
 
-const { group, hardline, ifBreak, indent, line, softline } = doc.builders;
+const { group, hardline, ifBreak, indent, line } = doc.builders;
 
 const experimentalTernaries = (node, path, print, options) => {
   const { parent } = path;
