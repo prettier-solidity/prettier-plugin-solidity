@@ -1,9 +1,8 @@
 import path from "node:path";
-import createEsmUtils from "esm-utils";
 import getPrettier from "./get-prettier.js";
 import { TEST_STANDALONE } from "./constants.js";
 
-const { __dirname } = createEsmUtils(import.meta);
+const __dirname = import.meta.dirname;
 
 // populate the root object for the standalone in node
 if (TEST_STANDALONE) {
