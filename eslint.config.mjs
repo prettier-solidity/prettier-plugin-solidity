@@ -1,72 +1,52 @@
-import globals from 'globals';
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
-import eslintImport from 'eslint-plugin-import';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintImport from 'eslint-plugin-import';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
-});
-
-export default [
-  {
-    ignores: [
-      'coverage/**/*.js',
-      'dist/**/*.cjs',
-      'dist/**/*.js',
-      'tests/**/*.snap',
-      'tests/format/**/*.sol',
-      'tests/format/Markdown/Markdown.md',
-      'tests/format/RespectDefaultOptions/respect-default-options.js',
-      'tests/config/**/*.*js',
-      'src/prettier-comments/**/*.js'
-    ]
-  },
+export default defineConfig([
+  globalIgnores([
+    'coverage/**/*.js',
+    'dist/**/*.cjs',
+    'dist/**/*.js',
+    'tests/**/*.snap',
+    'tests/format/**/*.sol',
+    'tests/format/Markdown/Markdown.md',
+    'tests/format/RespectDefaultOptions/respect-default-options.js',
+    'tests/config/**/*.*js',
+    'src/prettier-comments/**/*.js'
+  ]),
   {
     languageOptions: {
       globals: {
+        ...globals.node,
         ...globals.jest,
         runFormatTest: 'readonly'
       }
     },
 
     rules: {
-      'no-console': [
-        'warn',
-        {
-          allow: ['warn']
-        }
-      ]
+      'no-console': ['warn', { allow: ['warn'] }]
     }
   },
-  ...compat
-    .extends(
-      'prettier',
-      'plugin:@typescript-eslint/recommended',
-      'plugin:@typescript-eslint/stylistic',
-      'plugin:@typescript-eslint/recommended-type-checked'
-    )
-    .map((config) => ({
-      ...config,
-      files: ['**/*.ts']
-    })),
   {
     files: ['**/*.ts'],
 
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      tseslint.configs.stylistic,
+      tseslint.configs.recommendedTypeChecked,
+      eslintConfigPrettier
+    ],
+
     plugins: {
-      import: eslintImport,
-      '@typescript-eslint': typescriptEslint
+      import: eslintImport
     },
 
     languageOptions: {
-      parser: tsParser,
+      parser: tseslint.parser,
       ecmaVersion: 5,
       sourceType: 'script',
 
@@ -99,16 +79,14 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'error'
     }
   },
-  ...compat.extends('prettier').map((config) => ({
-    ...config,
-    files: ['**/*.*js']
-  })),
   {
     files: ['**/*.*js'],
+
+    extends: [js.configs.recommended, eslintConfigPrettier],
 
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module'
     }
   }
-];
+]);

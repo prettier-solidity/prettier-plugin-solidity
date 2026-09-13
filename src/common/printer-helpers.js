@@ -41,7 +41,7 @@ export const printComments = (node, path, options, filter = () => true) => {
 
 export function printPreservingEmptyLines(path, key, options, print) {
   const parts = [];
-  path.each((childPath, index) => {
+  path.each((childPath) => {
     const node = childPath.getValue();
     const nodeType = node.type;
 
