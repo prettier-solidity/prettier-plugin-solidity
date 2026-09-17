@@ -43,6 +43,11 @@ jobs:
           cache: 'npm'
       - name: Install
         run: npm ci
+      - name: Cache Playwright browser
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('node_modules/playwright/package.json') }}
       - name: Build
         run: npm run build
       - name: Build test app
