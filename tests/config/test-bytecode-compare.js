@@ -15,8 +15,8 @@ function testBytecodeCompare(testCase, name) {
     const { filepath } = testCase;
     const formatResult = await testCase.runFormat();
 
-    const output = compileContract(filepath, formatResult.output);
-    const expected = compileContract(filepath, formatResult.input);
+    const output = await compileContract(filepath, formatResult.output);
+    const expected = await compileContract(filepath, formatResult.input);
     expect(output).toEqual(expected);
   });
 }
