@@ -1,7 +1,6 @@
-import { createServer } from "node:http";
-import { readFile } from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
+import { startStaticServer } from "./static-server.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -37,53 +36,16 @@ const html = `<!doctype html>
   };
 </script>`;
 
-const contentTypes = {
-  ".js": "text/javascript",
-  ".mjs": "text/javascript",
-  ".wasm": "application/wasm",
-  ".html": "text/html",
-};
-
-function respond(res, content, ext) {
-  res.writeHead(200, {
-    "Content-Type": contentTypes[ext] || "application/octet-stream",
-  });
-  res.end(content);
-}
-
-const roots = [
-  ["/dist/", distDir],
-  ["/prettier/", prettierDir],
-];
-
 function startStandaloneServer() {
-  return new Promise((resolve, reject) => {
-    const server = createServer((req, res) => {
-      if (req.url === "/" || req.url === "/index.html") {
-        respond(res, html, ".html");
-        return;
-      }
-
-      const root = roots.find(([prefix]) => req.url.startsWith(prefix));
-      if (root) {
-        const [prefix, dir] = root;
-        const relativePath = req.url.slice(prefix.length);
-        readFile(path.join(dir, relativePath)).then(
-          (content) => respond(res, content, path.extname(relativePath)),
-          () => {
-            res.writeHead(404);
-            res.end();
-          },
-        );
-        return;
-      }
-
-      res.writeHead(404);
-      res.end();
-    });
-
-    server.on("error", reject);
-    server.listen(0, () => resolve(server));
+  return startStaticServer({
+    pages: [
+      ["/", html],
+      ["/index.html", html],
+    ],
+    roots: [
+      ["/dist/", distDir],
+      ["/prettier/", prettierDir],
+    ],
   });
 }
 
