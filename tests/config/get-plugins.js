@@ -11,7 +11,7 @@ function getPluginsInternal() {
           import("prettier/plugins/babel"),
           import("prettier/plugins/estree"),
           import("prettier/plugins/markdown"),
-          import(path.join(__dirname, "../../dist/standalone.js")),
+          import("prettier-plugin-solidity/standalone"),
         ]
       : [path.join(__dirname, "../../src/index.ts")],
   ).then((modules) => modules.map((module) => module.default ?? module));

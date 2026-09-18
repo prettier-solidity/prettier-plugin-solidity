@@ -1,6 +1,10 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
-  "entry": ["tests/**/*.test.js"],
+  "entry": [
+    "tests/**/*.test.js",
+    "tests/config/browser-standalone-global-setup.js",
+    "tests/config/browser-standalone-global-teardown.js"
+  ],
   "ignoreFiles": [
     "tests/format/RespectDefaultOptions/respect-default-options.js"
   ],
