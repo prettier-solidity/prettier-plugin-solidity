@@ -1,7 +1,6 @@
-import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from 'playwright';
+import { startStaticServer } from '../../config/static-server.js';
 
 const __dirname = import.meta.dirname;
 const distDir = path.resolve(__dirname, '../../../dist');
@@ -50,62 +49,11 @@ const tests = [
   }
 ];
 
-const contentTypes = {
-  '.js': 'text/javascript',
-  '.wasm': 'application/wasm',
-  '.html': 'text/html'
-};
-
-function respond(res, content, ext) {
-  res.writeHead(200, {
-    'Content-Type': contentTypes[ext] || 'application/octet-stream'
-  });
-  res.end(content);
-}
-
 function startServer() {
-  return new Promise((resolve, reject) => {
-    const server = createServer((req, res) => {
-      const page = tests.find(({ url }) => url === req.url);
-      if (page) {
-        respond(res, page.content, '.html');
-        return;
-      }
-
-      if (req.url === '/prettier-standalone.js') {
-        readFile(prettierStandalonePath).then((content) =>
-          respond(res, content, '.js')
-        );
-        return;
-      }
-
-      if (req.url.startsWith('/dist/')) {
-        const relativePath = req.url.slice('/dist/'.length);
-        const filePath = path.join(distDir, relativePath);
-
-        // Reject `..` segments that would resolve outside of `distDir`.
-        if (filePath !== distDir && !filePath.startsWith(distDir + path.sep)) {
-          res.writeHead(404);
-          res.end();
-          return;
-        }
-
-        readFile(filePath).then(
-          (content) => respond(res, content, path.extname(filePath)),
-          () => {
-            res.writeHead(404);
-            res.end();
-          }
-        );
-        return;
-      }
-
-      res.writeHead(404);
-      res.end();
-    });
-
-    server.on('error', reject);
-    server.listen(0, () => resolve(server));
+  return startStaticServer({
+    pages: tests.map(({ url, content }) => [url, content]),
+    files: [['/prettier-standalone.js', prettierStandalonePath]],
+    roots: [['/dist/', distDir]]
   });
 }
 
