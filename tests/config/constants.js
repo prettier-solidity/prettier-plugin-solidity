@@ -9,7 +9,9 @@ export const FORMAT_TEST_DIRECTORY = normalizeDirectory(
   path.join(__dirname, "../format/"),
 );
 
-export const { FULL_TEST, TEST_STANDALONE } = process.env;
+export const { FULL_TEST, TEST_STANDALONE_BROWSER } = process.env;
+export const TEST_STANDALONE =
+  process.env.TEST_STANDALONE || TEST_STANDALONE_BROWSER;
 export const BOM = "\uFEFF";
 
 export const CURSOR_PLACEHOLDER = "<|>";

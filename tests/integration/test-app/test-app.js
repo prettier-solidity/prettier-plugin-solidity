@@ -1,12 +1,12 @@
 import prettier from 'prettier/standalone';
-import '../../../dist/standalone.js';
+import solidityPlugin from 'prettier-plugin-solidity/standalone';
 
 /* global prettierPlugins */
 
 export default async function format(code) {
   const formattedCode = await prettier.format(code, {
     parser: 'slang',
-    plugins: prettierPlugins
+    plugins: [solidityPlugin]
   });
   return formattedCode;
 }
