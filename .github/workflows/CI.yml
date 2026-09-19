@@ -56,6 +56,8 @@ jobs:
         run: npm run build:test
       - name: Run tests
         run: npm run test:standalone -- --runInBand
+      - name: Run tests in browser
+        run: npm run test:browser -- --runInBand
 
   test:
     name: Test on ${{ matrix.name }} with Node ${{ matrix.node }}
