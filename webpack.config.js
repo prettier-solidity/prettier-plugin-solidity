@@ -1,8 +1,7 @@
 import path from 'node:path';
-import createEsmUtils from 'esm-utils';
 import webpack from 'webpack';
 
-const { __dirname } = createEsmUtils(import.meta);
+const __dirname = import.meta.dirname;
 
 const globalObject = `typeof globalThis !== 'undefined' ? globalThis
   : typeof global !== 'undefined' ? global

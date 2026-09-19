@@ -1,7 +1,6 @@
 import path from 'node:path';
-import createEsmUtils from 'esm-utils';
 
-const { __dirname } = createEsmUtils(import.meta);
+const __dirname = import.meta.dirname;
 
 export default {
   entry: {
