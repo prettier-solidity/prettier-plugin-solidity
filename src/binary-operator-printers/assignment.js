@@ -1,7 +1,4 @@
-import { doc } from 'prettier';
 import { printAssignmentRightSide } from '../common/printer-helpers.js';
-
-const { group, line, indent } = doc.builders;
 
 export const assignment = {
   match: (op) =>

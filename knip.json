@@ -4,7 +4,6 @@
   "ignoreFiles": [
     "tests/format/RespectDefaultOptions/respect-default-options.js"
   ],
-  "ignoreDependencies": ["eslint-config-prettier"],
   "ignoreExportsUsedInFile": {
     "interface": true,
     "type": true

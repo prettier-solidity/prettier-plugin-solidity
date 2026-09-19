@@ -4,7 +4,7 @@ import {
   printSeparatedList
 } from '../common/printer-helpers.js';
 
-const { group, indentIfBreak, line } = doc.builders;
+const { group, indentIfBreak } = doc.builders;
 
 const embraceVariables = (document, embrace) =>
   embrace ? ['(', printSeparatedList(document), ')'] : document;
