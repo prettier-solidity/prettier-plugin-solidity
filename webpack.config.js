@@ -17,9 +17,7 @@ export default (webpackEnv) => {
   return {
     entry: './src/index.js',
 
-    // Avoid bundling Prettier
     externals: {
-      prettier: 'global prettier',
       'node:fs/promises': 'import node:fs/promises'
     },
 
