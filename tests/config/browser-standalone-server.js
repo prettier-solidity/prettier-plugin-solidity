@@ -1,6 +1,7 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import { startStaticServer } from "./static-server.js";
+import { PRETTIER_PLUGIN_NAMES } from "./constants.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 
@@ -12,27 +13,28 @@ const prettierDir = path.resolve(__dirname, "../../node_modules/prettier");
 // over HTTP so a real browser can `import()` them.
 const html = `<!doctype html>
 <script type="module">
-  const [prettier, babel, estree, markdown, solidity] = await Promise.all([
+  const [prettier, ...plugins] = await Promise.all([
     import('/prettier/standalone.mjs'),
-    import('/prettier/plugins/babel.mjs'),
-    import('/prettier/plugins/estree.mjs'),
-    import('/prettier/plugins/markdown.mjs'),
+    ${PRETTIER_PLUGIN_NAMES.map((name) => `import('/prettier/plugins/${name}.mjs')`).join(",\n    ")},
     import('/dist/standalone.js'),
   ]);
   window.__prettier = prettier;
-  window.__plugins = [babel, estree, markdown, solidity].map(
-    (module) => module.default ?? module,
-  );
+  window.__plugins = plugins.map((module) => module.default ?? module);
 
   // Plugin objects (functions and all) can't be sent from Node over
-  // page.evaluate, so Node sends indices into \`window.__plugins\` instead
-  // (see get-browser-prettier.js) and this swaps them back before the real
-  // Prettier call.
+  // page.evaluate, so Node sends "all" or "solidity" instead, matching
+  // whichever of those two shapes \`options.plugins\` was (see
+  // get-browser-prettier.js), and this swaps in the real plugins before the
+  // real Prettier call.
   window.__resolveOptions = (options) => {
-    const { pluginIndices, ...rest } = options;
-    return pluginIndices
-      ? { ...rest, plugins: pluginIndices.map((index) => window.__plugins[index]) }
-      : options;
+    const { plugins, ...rest } = options;
+    if (plugins === "all") {
+      return { ...rest, plugins: window.__plugins };
+    }
+    if (plugins === "solidity") {
+      return { ...rest, plugins: [window.__plugins.at(-1)] };
+    }
+    return options;
   };
 </script>`;
 

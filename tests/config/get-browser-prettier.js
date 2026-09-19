@@ -2,43 +2,61 @@ import { chromium } from "playwright";
 import getPlugins from "./get-plugins.js";
 
 // `options.plugins` is a real array of imported module objects (functions
-// and all), which can't cross the Node <-> browser boundary. The page has
-// the same plugins loaded, in the same order (see
-// browser-standalone-server.js), so each plugin is swapped for its index in
-// that list, and the page's `window.__resolveOptions` swaps it back before
-// calling into Prettier.
-async function withPluginIndices({ plugins, ...rest }) {
+// and all), which can't cross the Node <-> browser boundary. There are only
+// two shapes any test actually passes: the full canonical set from
+// get-plugins.js, or just the solidity plugin alone. So rather than
+// identifying individual plugins, this matches the whole array against
+// those two shapes and sends which one it was; the page has the same two
+// shapes available (see browser-standalone-server.js) and
+// `window.__resolveOptions` swaps the flag back before calling into
+// Prettier.
+async function withPlugins({ plugins, ...rest }) {
   if (!Array.isArray(plugins)) {
     return rest;
   }
 
   const canonicalPlugins = await getPlugins();
-  const pluginIndices = plugins.map((plugin) => {
-    const index = canonicalPlugins.indexOf(plugin);
-    if (index === -1) {
-      throw new Error(
-        "TEST_STANDALONE_BROWSER only knows how to resolve plugins loaded through get-plugins.js.",
-      );
-    }
-    return index;
-  });
+  if (plugins.length === canonicalPlugins.length) {
+    return { ...rest, plugins: "all" };
+  }
 
-  return { ...rest, pluginIndices };
+  if (plugins.length === 1 && plugins[0] === canonicalPlugins.at(-1)) {
+    return { ...rest, plugins: "solidity" };
+  }
+
+  throw new Error(
+    "TEST_STANDALONE_BROWSER only knows how to resolve the full plugin set or the solidity plugin alone, both loaded through get-plugins.js.",
+  );
 }
 
-// `page.evaluate` rejects with its own `PlaywrightError` when the evaluated
-// function throws, prefixing the message (e.g. `page.evaluate: Error: ...`)
-// and appending the browser-side stack trace. That would break
-// `toThrowErrorMatchingSnapshot()` even though the underlying Prettier error
-// message is identical to the Node build's. So each call below catches
-// inside the page, hands back a plain serializable `{ ok, value | message }`,
-// and this reconstructs a normal `Error` here instead of letting one cross
-// the boundary directly.
-function unwrap({ ok, value, message }) {
-  if (!ok) {
-    throw new Error(message);
-  }
-  return value;
+function callBrowserPrettier(page, path, args) {
+  return page
+    .evaluate(
+      async ([path, args]) => {
+        try {
+          args.options = window.__resolveOptions(args.options);
+          // e.g. "__debug.parse" reaches window.__prettier.__debug.parse
+          const method = path
+            .split(".")
+            .reduce((object, key) => object[key], window.__prettier);
+          // args's own values, in declaration order, as positional arguments
+          const value = await method(...Object.values(args));
+          return { ok: true, value };
+        } catch (error) {
+          // Caught here and rethrown below, rather than left to cross the
+          // boundary, since page.evaluate wraps it in its own
+          // PlaywrightError and breaks toThrowErrorMatchingSnapshot().
+          return { ok: false, message: error.message };
+        }
+      },
+      [path, args],
+    )
+    .then(({ ok, value, message }) => {
+      if (!ok) {
+        throw new Error(message);
+      }
+      return value;
+    });
 }
 
 async function createBrowserPrettier() {
@@ -58,7 +76,7 @@ async function createBrowserPrettier() {
   page.on("pageerror", (error) => pageErrors.push(error));
 
   await page.goto(`http://localhost:${port}/`);
-  await page.waitForFunction(() => Array.isArray(window.__plugins));
+  await page.waitForFunction(() => window.__plugins != null);
 
   if (pageErrors.length > 0) {
     throw pageErrors[0];
@@ -66,59 +84,23 @@ async function createBrowserPrettier() {
 
   return {
     formatWithCursor: async (input, options) =>
-      page
-        .evaluate(
-          async ([input, options]) => {
-            try {
-              const value = await window.__prettier.formatWithCursor(
-                input,
-                window.__resolveOptions(options),
-              );
-              return { ok: true, value };
-            } catch (error) {
-              return { ok: false, message: error.message };
-            }
-          },
-          [input, await withPluginIndices(options)],
-        )
-        .then(unwrap),
+      callBrowserPrettier(page, "formatWithCursor", {
+        input,
+        options: await withPlugins(options),
+      }),
 
     getSupportInfo: async (options) =>
-      page
-        .evaluate(
-          async (options) => {
-            try {
-              const value = await window.__prettier.getSupportInfo(
-                window.__resolveOptions(options),
-              );
-              return { ok: true, value };
-            } catch (error) {
-              return { ok: false, message: error.message };
-            }
-          },
-          await withPluginIndices(options),
-        )
-        .then(unwrap),
+      callBrowserPrettier(page, "getSupportInfo", {
+        options: await withPlugins(options),
+      }),
 
     __debug: {
       parse: async (input, options, extra) =>
-        page
-          .evaluate(
-            async ([input, options, extra]) => {
-              try {
-                const value = await window.__prettier.__debug.parse(
-                  input,
-                  window.__resolveOptions(options),
-                  extra,
-                );
-                return { ok: true, value };
-              } catch (error) {
-                return { ok: false, message: error.message };
-              }
-            },
-            [input, await withPluginIndices(options), extra],
-          )
-          .then(unwrap),
+        callBrowserPrettier(page, "__debug.parse", {
+          input,
+          options: await withPlugins(options),
+          extra,
+        }),
     },
   };
 }
