@@ -48,6 +48,8 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('node_modules/playwright/package.json') }}
+      - name: Install Playwright OS dependencies
+        run: npx playwright install-deps chromium
       - name: Build
         run: npm run build
       - name: Build test app
