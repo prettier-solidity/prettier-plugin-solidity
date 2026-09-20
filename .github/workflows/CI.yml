@@ -16,6 +16,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -30,6 +31,7 @@ jobs:
   test_bundle:
     name: Test production
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -48,6 +50,7 @@ jobs:
   test:
     name: Test on ${{ matrix.name }} with Node ${{ matrix.node }}
     runs-on: ${{ matrix.image }}
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
