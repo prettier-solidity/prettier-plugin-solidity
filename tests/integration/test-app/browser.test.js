@@ -81,8 +81,17 @@ function startServer() {
 
       if (req.url.startsWith('/dist/')) {
         const relativePath = req.url.slice('/dist/'.length);
-        readFile(path.join(distDir, relativePath)).then(
-          (content) => respond(res, content, path.extname(relativePath)),
+        const filePath = path.join(distDir, relativePath);
+
+        // Reject `..` segments that would resolve outside of `distDir`.
+        if (filePath !== distDir && !filePath.startsWith(distDir + path.sep)) {
+          res.writeHead(404);
+          res.end();
+          return;
+        }
+
+        readFile(filePath).then(
+          (content) => respond(res, content, path.extname(filePath)),
           () => {
             res.writeHead(404);
             res.end();
