@@ -41,45 +41,23 @@ jobs:
       - name: Run tests
         run: npm run test:standalone -- --runInBand
 
-  test_linux:
-    name: Test on Linux with Node ${{ matrix.node }}
-    runs-on: ubuntu-latest
+  test:
+    name: Test on ${{ matrix.name }} with Node ${{ matrix.node }}
+    runs-on: ${{ matrix.image }}
     strategy:
+      fail-fast: false
       matrix:
-        node: [22, 24, 26]
+        include:
+          - { name: Linux, image: ubuntu-latest, node: 22 }
+          - { name: Linux, image: ubuntu-latest, node: 24 }
+          - { name: Linux, image: ubuntu-latest, node: 26 }
+          - { name: MacOS, image: macos-latest, node: 22 }
+          - { name: Windows, image: windows-latest, node: 22 }
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node }}
-          cache: 'npm'
-      - name: Install
-        run: npm ci
-      - name: Run tests
-        run: npm run test:all -- --runInBand
-
-  test_macos:
-    name: Test on MacOS with Node 22
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: 'npm'
-      - name: Install
-        run: npm ci
-      - name: Run tests
-        run: npm run test:all -- --runInBand
-
-  test_windows:
-    name: Test on Windows with Node 22
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
           cache: 'npm'
       - name: Install
         run: npm ci
