@@ -1,55 +1,27 @@
 import { chromium } from "playwright";
-import getPlugins from "./get-plugins.js";
 
-// `options.plugins` is a real array of imported module objects (functions
-// and all), which can't cross the Node <-> browser boundary. There are only
-// two shapes any test actually passes: the full canonical set from
-// get-plugins.js, or just the solidity plugin alone. So rather than
-// identifying individual plugins, this matches the whole array against
-// those two shapes and sends which one it was; the page has the same two
-// shapes available (see browser-standalone-server.js) and
-// `window.__resolveOptions` swaps the flag back before calling into
-// Prettier.
-async function withPlugins({ plugins, ...rest }) {
-  if (!Array.isArray(plugins)) {
-    return rest;
-  }
-
-  const canonicalPlugins = await getPlugins();
-  if (plugins.length === canonicalPlugins.length) {
-    return { ...rest, plugins: "all" };
-  }
-
-  if (plugins.length === 1 && plugins[0] === canonicalPlugins.at(-1)) {
-    return { ...rest, plugins: "solidity" };
-  }
-
-  throw new Error(
-    "TEST_STANDALONE_BROWSER only knows how to resolve the full plugin set or the solidity plugin alone, both loaded through get-plugins.js.",
-  );
-}
-
-function callBrowserPrettier(page, path, args) {
+// `args` are the real Prettier function's own positional arguments, with
+// `options` at `optionsIndex` (matching that function's signature).
+function callBrowserPrettier(page, path, args, optionsIndex = 1) {
   return page
     .evaluate(
-      async ([path, args]) => {
+      async ([path, args, optionsIndex]) => {
         try {
-          args.options = window.__resolveOptions(args.options);
+          args[optionsIndex] = window.__withPlugins(args[optionsIndex]);
+          // we navigate from window.__prettier to fetch the method to execute
           // e.g. "__debug.parse" reaches window.__prettier.__debug.parse
           const method = path
             .split(".")
             .reduce((object, key) => object[key], window.__prettier);
-          // args's own values, in declaration order, as positional arguments
-          const value = await method(...Object.values(args));
+          const value = await method(...args);
           return { ok: true, value };
         } catch (error) {
-          // Caught here and rethrown below, rather than left to cross the
-          // boundary, since page.evaluate wraps it in its own
-          // PlaywrightError and breaks toThrowErrorMatchingSnapshot().
+          // We catch the error and send it the message so Playwright doesn't
+          // use its own PlaywrightError.
           return { ok: false, message: error.message };
         }
       },
-      [path, args],
+      [path, args, optionsIndex],
     )
     .then(({ ok, value, message }) => {
       if (!ok) {
@@ -76,31 +48,28 @@ async function createBrowserPrettier() {
   page.on("pageerror", (error) => pageErrors.push(error));
 
   await page.goto(`http://localhost:${port}/`);
-  await page.waitForFunction(() => window.__plugins != null);
+  await page.waitForFunction(
+    () => window.__prettier != null && window.__plugins != null,
+  );
 
   if (pageErrors.length > 0) {
     throw pageErrors[0];
   }
 
+  // `plugins` holds real imported module objects (functions and all), which
+  // can't cross the Node <-> browser boundary, so it's dropped here; the
+  // page already has its own copy loaded (see browser-standalone-server.js)
+  // and merges it back in before calling into Prettier.
   return {
-    formatWithCursor: async (input, options) =>
-      callBrowserPrettier(page, "formatWithCursor", {
-        input,
-        options: await withPlugins(options),
-      }),
+    formatWithCursor: async (input, { plugins, ...options }) =>
+      callBrowserPrettier(page, "formatWithCursor", [input, options]),
 
-    getSupportInfo: async (options) =>
-      callBrowserPrettier(page, "getSupportInfo", {
-        options: await withPlugins(options),
-      }),
+    getSupportInfo: async ({ plugins, ...options }) =>
+      callBrowserPrettier(page, "getSupportInfo", [options], 0),
 
     __debug: {
-      parse: async (input, options, extra) =>
-        callBrowserPrettier(page, "__debug.parse", {
-          input,
-          options: await withPlugins(options),
-          extra,
-        }),
+      parse: async (input, { plugins, ...options }, extra) =>
+        callBrowserPrettier(page, "__debug.parse", [input, options, extra]),
     },
   };
 }

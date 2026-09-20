@@ -56,8 +56,20 @@ function startStaticServer({ pages = [], files = [], roots = [] } = {}) {
       if (root) {
         const [prefix, dir] = root;
         const relativePath = req.url.slice(prefix.length);
-        readFile(path.join(dir, relativePath)).then(
-          (content) => respond(res, content, path.extname(relativePath)),
+        const resolvedDir = path.resolve(dir);
+        const filePath = path.join(resolvedDir, relativePath);
+
+        // Reject `..` segments that would resolve outside of `dir`.
+        if (
+          filePath !== resolvedDir &&
+          !filePath.startsWith(resolvedDir + path.sep)
+        ) {
+          notFound(res);
+          return;
+        }
+
+        readFile(filePath).then(
+          (content) => respond(res, content, path.extname(filePath)),
           () => notFound(res),
         );
         return;
