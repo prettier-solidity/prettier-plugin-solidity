@@ -1,13 +1,14 @@
-import { chromium } from "playwright";
 import { startStandaloneServer } from "./browser-standalone-server.js";
+import getRuntimeBrowser from "./get-runtime-browser.js";
 import state from "./browser-standalone-state.js";
 
 // Runs once for the whole `jest` invocation (not per worker), so every
 // worker's page connects to the same browser and file server instead of
-// each spawning its own Chromium process.
+// each spawning its own browser process.
 export default async function globalSetup() {
   const server = await startStandaloneServer();
-  const browserServer = await chromium.launchServer({ headless: true });
+  const browserType = getRuntimeBrowser();
+  const browserServer = await browserType.launchServer({ headless: true });
 
   Object.assign(state, { server, browserServer });
 

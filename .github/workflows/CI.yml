@@ -48,16 +48,20 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('node_modules/playwright/package.json') }}
-      - name: Install Playwright OS dependencies
-        run: npx playwright install-deps chromium
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox
       - name: Build
         run: npm run build
       - name: Build test app
         run: npm run build:test
       - name: Run tests
         run: npm run test:standalone -- --runInBand
-      - name: Run tests in browser
+      - name: Run tests in Chromium
         run: npm run test:browser -- --runInBand
+      - name: Run tests in Firefox
+        run: npm run test:browser -- --runInBand
+        env:
+          TEST_RUNTIME_BROWSER: firefox
 
   test:
     name: Test on ${{ matrix.name }} with Node ${{ matrix.node }}

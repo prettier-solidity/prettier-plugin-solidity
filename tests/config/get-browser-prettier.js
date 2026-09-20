@@ -1,4 +1,4 @@
-import { chromium } from "playwright";
+import getRuntimeBrowser from "./get-runtime-browser.js";
 
 // `args` are the real Prettier function's own positional arguments, with
 // `options` at `optionsIndex` (matching that function's signature).
@@ -41,7 +41,8 @@ async function createBrowserPrettier() {
     );
   }
 
-  const browser = await chromium.connect(wsEndpoint);
+  const browserType = getRuntimeBrowser();
+  const browser = await browserType.connect(wsEndpoint);
   const page = await browser.newPage();
 
   const pageErrors = [];

@@ -1,6 +1,6 @@
 import path from 'node:path';
-import { chromium } from 'playwright';
 import { startStaticServer } from '../../config/static-server.js';
+import getRuntimeBrowser from '../../config/get-runtime-browser.js';
 
 const __dirname = import.meta.dirname;
 const distDir = path.resolve(__dirname, '../../../dist');
@@ -45,6 +45,7 @@ const tests = [
     <script type="module">
       const { default: format } = await import('/dist/test.js');
       window.__format = format;
+      window.__done = true;
     </script>`
   }
 ];
@@ -65,7 +66,7 @@ describe('standalone bundle in a real browser', () => {
   beforeAll(async () => {
     server = await startServer();
     port = server.address().port;
-    browser = await chromium.launch();
+    browser = await getRuntimeBrowser().launch();
   }, 30000);
 
   afterAll(async () => {
@@ -82,7 +83,9 @@ describe('standalone bundle in a real browser', () => {
         page.on('pageerror', (error) => pageErrors.push(error));
 
         await page.goto(`http://localhost:${port}${url}`);
-        await page.waitForFunction(() => typeof window.__format === 'function');
+        await page.waitForFunction(
+          () => (window.prettier && window.prettierPlugins) || window.__done
+        );
 
         if (pageErrors.length > 0) {
           throw pageErrors[0];
