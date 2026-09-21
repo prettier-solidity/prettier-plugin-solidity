@@ -20,6 +20,8 @@ function rightOperandPrint(
 
   // If there's only a single binary expression, we want to create a group in
   // order to avoid having a small right part like -1 be on its own line.
+  // `path.parent` is only `null` at the document root, and a BinaryOperation
+  // can never itself be that root.
   const parent = path.parent!;
   const shouldGroup =
     !isBinaryOperation(leftOperand) &&
