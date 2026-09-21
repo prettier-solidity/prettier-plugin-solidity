@@ -40,7 +40,7 @@ export function createParser(
     );
   }
 
-  const inferredRanges: string[] = LanguageFacts.inferLanguageVersions(text);
+  const inferredRanges = LanguageFacts.inferLanguageVersions(text);
   const inferredLength = inferredRanges.length;
 
   if (inferredLength === 0 || inferredLength === supportedLength) {
