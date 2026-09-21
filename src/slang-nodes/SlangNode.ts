@@ -22,9 +22,11 @@ function reversedIterator<T>(children: T[]): Iterable<T> {
     [Symbol.iterator](): Iterator<T> {
       let index = children.length;
       return {
-        next: function (): IteratorResult<T, T> {
+        next: function (): IteratorResult<T, undefined> {
           index--;
-          return { done: index < 0, value: children[index] };
+          return index < 0
+            ? { done: true, value: undefined }
+            : { done: false, value: children[index] };
         }
       };
     }
