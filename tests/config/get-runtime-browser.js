@@ -1,7 +1,7 @@
-import { chromium, firefox } from "playwright";
+import { chromium, firefox, webkit } from "playwright";
 import { TEST_RUNTIME_BROWSER } from "./constants.js";
 
-const browserTypes = { chromium, firefox };
+const browserTypes = { chromium, firefox, webkit };
 
 function getRuntimeBrowser() {
   const browserType = browserTypes[TEST_RUNTIME_BROWSER];
