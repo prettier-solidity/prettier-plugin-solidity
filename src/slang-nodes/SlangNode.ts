@@ -31,6 +31,14 @@ function reversedIterator<T>(children: T[]): Iterable<T> {
   };
 }
 
+// Every own data field of a node, excluding its methods (`print`,
+// `updateMetadata`, and any node-specific ones like `getSingleExpression`).
+type Fields<T> = {
+  [
+    K in keyof T as T[K] extends (...args: never[]) => unknown ? never : K
+  ]: T[K];
+};
+
 export abstract class SlangNode {
   abstract readonly kind: TerminalKind | NonterminalKind;
 
@@ -149,5 +157,18 @@ export abstract class SlangNode {
       }
     }
     this.loc = loc;
+  }
+
+  // Builds an instance with the right prototype (so `instanceof` and the
+  // class's own methods work) without its constructor, which expects a real
+  // slang-parsed AST node to derive `loc`/`comments`/children from. For
+  // nodes synthesized for printing that were never actually parsed, e.g. a
+  // hugged expression's synthetic tuple wrapper, that constructor doesn't
+  // apply — this fills in the exact fields such a node needs directly.
+  static createSynthetic<T extends SlangNode>(
+    this: (new (...args: never[]) => T) & { prototype: T },
+    fields: Fields<T>
+  ): T {
+    return Object.assign(Object.create(this.prototype) as T, fields);
   }
 }

@@ -48,23 +48,17 @@ export class ModifierDefinition extends SlangNode {
         end: parametersOffset
       };
 
-      this.parameters = Object.assign(
-        Object.create(ParametersDeclaration.prototype) as ParametersDeclaration,
-        {
-          kind: NonterminalKind.ParametersDeclaration,
+      this.parameters = ParametersDeclaration.createSynthetic({
+        kind: NonterminalKind.ParametersDeclaration,
+        loc: { ...parametersLoc },
+        comments: undefined,
+        parameters: Parameters.createSynthetic({
+          kind: NonterminalKind.Parameters,
           loc: { ...parametersLoc },
           comments: undefined,
-          parameters: Object.assign(
-            Object.create(Parameters.prototype) as Parameters,
-            {
-              kind: NonterminalKind.Parameters,
-              loc: { ...parametersLoc },
-              comments: undefined,
-              items: []
-            }
-          )
-        }
-      );
+          items: []
+        })
+      });
     }
   }
 
