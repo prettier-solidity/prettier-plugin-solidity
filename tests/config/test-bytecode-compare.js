@@ -1,5 +1,4 @@
 import path from "node:path";
-import createEsmUtils from "esm-utils";
 import compileContract from "./compile-contract.js";
 
 /**
@@ -21,7 +20,7 @@ function testBytecodeCompare(testCase, name) {
   });
 }
 
-const { __dirname } = createEsmUtils(import.meta);
+const __dirname = import.meta.dirname;
 
 const testsWithAstChanges = new Map(
   [

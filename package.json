@@ -81,7 +81,7 @@
   },
   "homepage": "https://github.com/prettier-solidity/prettier-plugin-solidity#readme",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "devDependencies": {
     "@babel/code-frame": "^8.0.6",
@@ -97,7 +97,6 @@
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "esm-utils": "^4.4.2",
     "globals": "^17.12.0",
     "index-to-position": "^1.2.0",
     "jest": "^30.5.2",
