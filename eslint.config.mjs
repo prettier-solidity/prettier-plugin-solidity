@@ -14,6 +14,7 @@ const authoredTestConfigFiles = [
   'browser-standalone-server.js',
   'browser-standalone-state.js',
   'compile-contract.js',
+  'constants.js',
   'get-browser-prettier.js',
   'get-create-parser.js',
   'get-plugins.js',

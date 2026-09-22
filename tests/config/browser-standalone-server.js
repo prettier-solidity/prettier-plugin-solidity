@@ -1,11 +1,5 @@
-import path from "node:path";
 import { startStaticServer } from "./static-server.js";
-import { PRETTIER_PLUGIN_NAMES } from "./constants.js";
-
-const __dirname = import.meta.dirname;
-
-const distDir = path.resolve(__dirname, "../../dist");
-const prettierDir = path.resolve(__dirname, "../../node_modules/prettier");
+import { BROWSER_TEST_ROOTS, PRETTIER_PLUGIN_NAMES } from "./constants.js";
 
 // Loaded once per worker page. Mirrors what `get-plugins.js` loads in Node
 // for `TEST_STANDALONE`, plus Prettier itself, all as real ES modules served
@@ -35,10 +29,7 @@ function startStandaloneServer() {
       ["/", html],
       ["/index.html", html],
     ],
-    roots: [
-      ["/dist/", distDir],
-      ["/prettier/", prettierDir],
-    ],
+    roots: BROWSER_TEST_ROOTS,
   });
 }
 

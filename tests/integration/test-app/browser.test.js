@@ -1,10 +1,6 @@
-import path from 'node:path';
 import { startStaticServer } from '../../config/static-server.js';
 import getRuntimeBrowser from '../../config/get-runtime-browser.js';
-
-const __dirname = import.meta.dirname;
-const distDir = path.resolve(__dirname, '../../../dist');
-const prettierDir = path.resolve(__dirname, '../../../node_modules/prettier');
+import { BROWSER_TEST_ROOTS } from '../../config/constants.js';
 
 const tests = [
   {
@@ -50,10 +46,7 @@ const tests = [
 function startServer() {
   return startStaticServer({
     pages: tests.map(({ url, content }) => [url, content]),
-    roots: [
-      ['/dist/', distDir],
-      ['/prettier/', prettierDir]
-    ]
+    roots: BROWSER_TEST_ROOTS
   });
 }
 
