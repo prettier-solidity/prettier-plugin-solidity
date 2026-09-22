@@ -27,28 +27,16 @@ real browser to `fetch`/`import` served content.
 
 @param {[url: string, content: string][]} [pages] Exact URLs served as
   inline HTML content.
-@param {[url: string, filePath: string][]} [files] Exact URLs served from a
-  single file on disk, with the content type inferred from its extension.
 @param {[urlPrefix: string, directory: string][]} [roots] URL prefixes
   served from a directory on disk, with the content type inferred per file.
 @returns {Promise<import("node:http").Server>}
 */
-function startStaticServer({ pages = [], files = [], roots = [] } = {}) {
+function startStaticServer({ pages = [], roots = [] } = {}) {
   return new Promise((resolve, reject) => {
     const server = createServer((req, res) => {
       const page = pages.find(([url]) => url === req.url);
       if (page) {
         respond(res, page[1], ".html");
-        return;
-      }
-
-      const file = files.find(([url]) => url === req.url);
-      if (file) {
-        const [, filePath] = file;
-        readFile(filePath).then(
-          (content) => respond(res, content, path.extname(filePath)),
-          () => notFound(res),
-        );
         return;
       }
 
