@@ -18,14 +18,6 @@ export default defineConfig([
     'src/prettier-comments/**/*.js'
   ]),
   {
-    languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest,
-        runFormatTest: 'readonly'
-      }
-    },
-
     rules: {
       'no-console': ['warn', { allow: ['warn'] }]
     }
@@ -85,6 +77,12 @@ export default defineConfig([
     extends: [js.configs.recommended, eslintConfigPrettier],
 
     languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+        ...globals.jest,
+        runFormatTest: 'readonly'
+      },
       ecmaVersion: 'latest',
       sourceType: 'module'
     }
