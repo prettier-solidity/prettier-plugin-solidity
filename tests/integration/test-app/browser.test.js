@@ -56,9 +56,17 @@ describe('standalone bundle in a real browser', () => {
   let browser;
 
   beforeAll(async () => {
+    const wsEndpoint = process.env.BROWSER_STANDALONE_WS_ENDPOINT;
+
+    if (!wsEndpoint) {
+      throw new Error(
+        'TEST_STANDALONE_BROWSER requires the browser-standalone globalSetup to have run. Use `npm run test:browser` rather than invoking jest directly.'
+      );
+    }
+
     server = await startServer();
     port = server.address().port;
-    browser = await getRuntimeBrowser().launch();
+    browser = await getRuntimeBrowser().connect(wsEndpoint);
   }, 30000);
 
   afterAll(async () => {
