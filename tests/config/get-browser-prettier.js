@@ -37,7 +37,7 @@ async function createBrowserPrettier() {
 
   if (!wsEndpoint || !port) {
     throw new Error(
-      "TEST_STANDALONE_BROWSER requires the browser-standalone globalSetup to have run. Use `npm run test:standalone:browser` rather than invoking jest directly.",
+      "TEST_STANDALONE_BROWSER requires the browser-standalone globalSetup to have run. Use `npm run test:browser` rather than invoking jest directly.",
     );
   }
 
