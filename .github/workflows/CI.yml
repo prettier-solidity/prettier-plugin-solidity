@@ -107,4 +107,4 @@ jobs:
       - name: Install
         run: npm ci
       - name: Run tests
-        run: npm run test:all -- --runInBand
+        run: npm run test:all
