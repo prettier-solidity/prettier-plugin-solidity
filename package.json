@@ -23,7 +23,7 @@
     "test:all": "cross-env FULL_TEST=1 NODE_OPTIONS=\"--loader=ts-node/esm\" c8 jest",
     "test:standalone": "cross-env TEST_STANDALONE=1 FULL_TEST=1 jest",
     "pretest:browser": "playwright install chromium firefox webkit",
-    "test:browser": "cross-env TEST_STANDALONE_BROWSER=1 FULL_TEST=1 node --env-file-if-exists=.env node_modules/.bin/jest",
+    "test:browser": "cross-env TEST_STANDALONE_BROWSER=1 FULL_TEST=1 jest",
     "knip": "knip"
   },
   "files": [
