@@ -31,26 +31,7 @@ jobs:
       - name: lint
         run: npm run lint
 
-  test_bundle_node:
-    name: Test production (Node)
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: 'npm'
-      - name: Install
-        run: npm ci
-      - name: Build
-        run: npm run build
-      - name: Build test app
-        run: npm run build:test
-      - name: Run tests
-        run: npm run test:standalone
-
-  test_bundle_browser:
+  test_bundle:
     name: Test production (${{ matrix.name }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -58,9 +39,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { name: Chromium, browser: chromium }
-          - { name: Firefox, browser: firefox }
-          - { name: Safari, browser: webkit }
+          - { name: Node, script: 'test:standalone' }
+          - { name: Chromium, script: 'test:browser', browser: chromium }
+          - { name: Firefox, script: 'test:browser', browser: firefox }
+          - { name: Safari, script: 'test:browser', browser: webkit }
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -70,18 +52,20 @@ jobs:
       - name: Install
         run: npm ci
       - name: Cache Playwright browser
+        if: matrix.browser
         uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('node_modules/playwright/package.json') }}
       - name: Install Playwright OS dependencies
+        if: matrix.browser
         run: npx playwright install-deps ${{ matrix.browser }}
       - name: Build
         run: npm run build
       - name: Build test app
         run: npm run build:test
       - name: Run tests
-        run: npm run test:browser
+        run: npm run ${{ matrix.script }}
         env:
           TEST_RUNTIME_BROWSER: ${{ matrix.browser }}
 
