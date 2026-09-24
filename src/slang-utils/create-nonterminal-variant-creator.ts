@@ -7,7 +7,18 @@ import type {
   SlangAstNodeClass
 } from '../types.d.ts';
 
+// A polymorphic node is a node that has a variant property.
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
+
+// Filter the constructors to only include those that are variants of the
+// polymorphic node.
+type SlangVariantClass<U extends SlangPolymorphicNode> = Extract<
+  SlangAstNodeClass,
+  new (...args: never[]) => U['variant']
+>;
+
+// Pair a SlangAstNodeClass with a constructor of a SlangNode that matches that class.
+// Thus creating a mapping between the Slang AST and the Slang Node classes.
 type ConstructorEntry<
   Class extends SlangAstNodeClass,
   T
@@ -24,11 +35,13 @@ export function createNonterminalVariantSimpleCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
 >(
-  constructors: ConstructorEntry<SlangAstNodeClass, T['variant']>[]
+  constructors: ConstructorEntry<SlangVariantClass<U>, T['variant']>[]
 ): NonterminalVariantFactory<U, T> {
   return (variant, collected) => {
     for (const [slangAstClass, constructor] of constructors) {
       if (variant instanceof slangAstClass) {
+        // Casting is safe because ConstructorEntry guarantees that the
+        // constructor matches the variant.
         return new (
           constructor as new (
             ast: typeof variant,
@@ -46,10 +59,10 @@ export function createNonterminalVariantCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
 >(
-  constructors: ConstructorEntry<SlangAstNodeClass, T['variant']>[],
+  constructors: ConstructorEntry<SlangVariantClass<U>, T['variant']>[],
   extractVariantConstructors: ConstructorEntry<
-    SlangAstNodeClass,
-    StrictPolymorphicNode
+    SlangVariantClass<U>,
+    Extract<StrictPolymorphicNode, { variant: T['variant'] }>
   >[]
 ): NonterminalVariantFactory<U, T> {
   const simpleCreator = createNonterminalVariantSimpleCreator<U, T>(
@@ -60,6 +73,8 @@ export function createNonterminalVariantCreator<
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass) {
         return extractVariant(
+          // Casting is safe because ConstructorEntry guarantees that the
+          // constructor matches the variant.
           new (
             constructor as new (
               ast: typeof variant,
