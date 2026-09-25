@@ -33,24 +33,19 @@ type ConstructorEntry<
   ? [Class, NodeConstructor<InstanceType<Class>, T>]
   : never;
 
-type NonterminalVariantFactory<
-  U extends SlangPolymorphicNode,
-  T extends StrictPolymorphicNode
-> = (variant: U['variant'], collected: CollectedMetadata) => T['variant'];
+type VariantOf<T extends NodeConstructor<never, StrictPolymorphicNode>> =
+  InstanceType<T>['variant'];
 
 export function createNonterminalVariantCreator<
   U extends SlangPolymorphicNode,
   T extends NodeConstructor<U, StrictPolymorphicNode>
 >(
-  constructors: ConstructorEntry<
-    SlangVariantClass<U>,
-    InstanceType<T>['variant']
-  >[],
+  constructors: ConstructorEntry<SlangVariantClass<U>, VariantOf<T>>[],
   extractVariantConstructors: ConstructorEntry<
     SlangVariantClass<U>,
-    StrictPolymorphicNode & { variant: InstanceType<T>['variant'] }
+    StrictPolymorphicNode & { variant: VariantOf<T> }
   >[] = []
-): NonterminalVariantFactory<U, InstanceType<T>> {
+): (variant: U['variant'], collected: CollectedMetadata) => VariantOf<T> {
   return (variant, collected) => {
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass) {
