@@ -9,7 +9,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.TupleMember,
-  TupleMember
+  typeof TupleMember
 >([
   [ast.TypedTupleMember, TypedTupleMember],
   [ast.UntypedTupleMember, UntypedTupleMember]

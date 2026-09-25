@@ -13,7 +13,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.FunctionAttribute,
-  FunctionAttribute
+  typeof FunctionAttribute
 >([
   [ast.ModifierInvocation, ModifierInvocation],
   [ast.OverrideSpecifier, OverrideSpecifier]

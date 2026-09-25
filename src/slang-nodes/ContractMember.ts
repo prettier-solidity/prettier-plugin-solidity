@@ -20,7 +20,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.ContractMember,
-  ContractMember
+  typeof ContractMember
 >([
   [ast.UsingDirective, UsingDirective],
   [ast.FunctionDefinition, FunctionDefinition],
