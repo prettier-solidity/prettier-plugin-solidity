@@ -37,30 +37,6 @@ type NonterminalVariantFactory<
   T extends StrictPolymorphicNode
 > = (variant: U['variant'], collected: CollectedMetadata) => T['variant'];
 
-export function createNonterminalVariantSimpleCreator<
-  U extends SlangPolymorphicNode,
-  T extends StrictPolymorphicNode
->(
-  constructors: ConstructorEntry<SlangVariantClass<U>, T['variant']>[]
-): NonterminalVariantFactory<U, T> {
-  return (variant, collected) => {
-    for (const [slangAstClass, constructor] of constructors) {
-      if (variant instanceof slangAstClass) {
-        // Casting is safe because ConstructorEntry guarantees that the
-        // constructor matches the variant.
-        return new (
-          constructor as NodeConstructor<
-            typeof variant,
-            InstanceType<typeof constructor>
-          >
-        )(variant, collected);
-      }
-    }
-
-    throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
-  };
-}
-
 export function createNonterminalVariantCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
@@ -69,12 +45,8 @@ export function createNonterminalVariantCreator<
   extractVariantConstructors: ConstructorEntry<
     SlangVariantClass<U>,
     Extract<StrictPolymorphicNode, { variant: T['variant'] }>
-  >[]
+  >[] = []
 ): NonterminalVariantFactory<U, T> {
-  const simpleCreator = createNonterminalVariantSimpleCreator<U, T>(
-    constructors
-  );
-
   return (variant, collected) => {
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass) {
@@ -91,6 +63,19 @@ export function createNonterminalVariantCreator<
       }
     }
 
-    return simpleCreator(variant, collected);
+    for (const [slangAstClass, constructor] of constructors) {
+      if (variant instanceof slangAstClass) {
+        // Casting is safe because ConstructorEntry guarantees that the
+        // constructor matches the variant.
+        return new (
+          constructor as NodeConstructor<
+            typeof variant,
+            InstanceType<typeof constructor>
+          >
+        )(variant, collected);
+      }
+    }
+
+    throw new Error(`Unexpected variant: ${JSON.stringify(variant)}`);
   };
 }

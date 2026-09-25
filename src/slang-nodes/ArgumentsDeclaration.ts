@@ -1,13 +1,13 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { PositionalArgumentsDeclaration } from './PositionalArgumentsDeclaration.js';
 import { NamedArgumentsDeclaration } from './NamedArgumentsDeclaration.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
-const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+const createNonterminalVariant = createNonterminalVariantCreator<
   ast.ArgumentsDeclaration,
   ArgumentsDeclaration
 >([

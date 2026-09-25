@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { UsingDirective } from './UsingDirective.js';
 import { FunctionDefinition } from './FunctionDefinition.js';
@@ -18,7 +18,7 @@ import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition
 
 import type { CollectedMetadata } from '../types.d.ts';
 
-const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+const createNonterminalVariant = createNonterminalVariantCreator<
   ast.ContractMember,
   ContractMember
 >([
