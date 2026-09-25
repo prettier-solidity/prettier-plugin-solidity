@@ -241,10 +241,11 @@ export type Comment = BlockComment | LineComment;
 
 export type StrictAstNode =
   | TerminalNode
+
+  // Source file structure: pragmas, imports, and using directives
   | SourceUnit
   | PragmaDirective
   | AbicoderPragma
-  | AbicoderVersion
   | ExperimentalPragma
   | VersionPragma
   | VersionRange
@@ -259,6 +260,8 @@ export type StrictAstNode =
   | UsingDeconstruction
   | UsingDeconstructionSymbol
   | UsingAlias
+
+  // Contract, interface, and library definitions
   | ContractDefinition
   | InheritanceSpecifier
   | InheritanceType
@@ -271,6 +274,8 @@ export type StrictAstNode =
   | ConstantDefinition
   | StateVariableDefinition
   | StateVariableDefinitionValue
+
+  // Functions, modifiers, events, and errors
   | FunctionDefinition
   | ParametersDeclaration
   | Parameter
@@ -290,12 +295,16 @@ export type StrictAstNode =
   | ErrorDefinition
   | ErrorParametersDeclaration
   | ErrorParameter
+
+  // Types
   | ArrayTypeName
   | FunctionType
   | MappingType
   | MappingKey
   | MappingValue
   | AddressType
+
+  // Statements
   | Block
   | UncheckedBlock
   | ExpressionStatement
@@ -321,6 +330,8 @@ export type StrictAstNode =
   | CatchClauseError
   | RevertStatement
   | ThrowStatement
+
+  // Expressions
   | AssignmentExpression
   | ConditionalExpression
   | OrExpression
@@ -352,6 +363,8 @@ export type StrictAstNode =
   | ArrayExpression
   | HexNumberExpression
   | DecimalNumberExpression
+
+  // Yul (inline assembly)
   | YulBlock
   | YulFunctionDefinition
   | YulParametersDeclaration
@@ -359,9 +372,8 @@ export type StrictAstNode =
   | YulVariableDeclarationStatement
   | YulVariableDeclarationValue
   | YulVariableAssignmentStatement
-  | YulStackAssignmentStatement
-  | YulStackAssignmentOperator
   | YulColonAndEqual
+  | YulStackAssignmentStatement
   | YulEqualAndColon
   | YulIfStatement
   | YulForStatement
@@ -373,8 +385,11 @@ export type StrictAstNode =
   | YulContinueStatement
   | YulLabel
   | YulFunctionCallExpression
+
+  // Polymorphic nodes: each wraps one of several possible variants
   | SourceUnitMember
   | Pragma
+  | AbicoderVersion
   | ExperimentalFeature
   | VersionExpression
   | VersionOperator
@@ -383,6 +398,7 @@ export type StrictAstNode =
   | UsingClause
   | UsingOperator
   | UsingTarget
+  | ContractSpecifier
   | ContractMember
   | StateVariableAttribute
   | FunctionName
@@ -412,12 +428,14 @@ export type StrictAstNode =
   | UnicodeStringLiteral
   | YulStatement
   | YulAssignmentOperator
+  | YulStackAssignmentOperator
   | YulSwitchCase
   | YulExpression
   | YulLiteral
+
+  // Collection nodes: each wraps a list of items
   | SourceUnitMembers
   | VersionExpressionSet
-  | ContractSpecifier
   | ContractSpecifiers
   | ContractMembers
   | InterfaceMembers

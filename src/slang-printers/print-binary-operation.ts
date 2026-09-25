@@ -12,6 +12,8 @@ export const binaryGroupRulesBuilder =
   (shouldGroup: (node: BinaryOperation) => boolean) =>
   (path: AstPath<PrintableNode>) =>
   (document: Doc): Doc => {
+    // `path.parent` is only `null` at the document root, and a
+    // BinaryOperation can never itself be that root.
     const parent = path.parent!;
     if (!isBinaryOperation(parent)) return group(document);
     if (shouldGroup(parent)) return group(document);
@@ -30,6 +32,9 @@ export const shouldNotIndent = (
   index: number
 ): boolean =>
   isStatementWithoutIndentedOperation(node) ||
+  // `path.getNode(index + 1)` (one level further up than `node` itself) is
+  // only `null` past the document root, and an ExpressionStatement always
+  // has an enclosing parent of its own, so it can't be at that root.
   (node.kind === NonterminalKind.ExpressionStatement &&
     path.getNode(index + 1)!.kind === NonterminalKind.ForStatement);
 
@@ -37,6 +42,9 @@ export const binaryIndentRulesBuilder =
   (shouldIndent: (node: BinaryOperation) => boolean) =>
   (node: BinaryOperation, path: AstPath<PrintableNode>) =>
   (document: Doc): Doc => {
+    // `path.getNode(i)` is only `null` past the document root. This loop
+    // always breaks or returns at or before reaching it, since the root is
+    // never a BinaryOperation and never matches `shouldNotIndent`.
     for (let i = 1, current = node, parent; ; i++, current = parent) {
       parent = path.getNode(i)!;
       if (shouldNotIndent(parent, path, i)) break;

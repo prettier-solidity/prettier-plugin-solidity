@@ -24,6 +24,9 @@ function isEndOfChain(
   node: ChainableExpression,
   path: AstPath<PrintableNode>
 ): boolean {
+  // `path.getNode(i)` is only `null` past the document root. This loop
+  // always breaks at or before reaching it, since the root is never a
+  // ChainableExpression.
   for (let i = 1, current = node, parent; ; i++, current = parent) {
     parent = path.getNode(i)!;
     if (!isChainableExpression(parent)) break;

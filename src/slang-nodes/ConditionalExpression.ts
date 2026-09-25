@@ -22,6 +22,8 @@ function experimentalTernaries(
   path: AstPath<PrintableNode>,
   { useTabs, tabWidth }: ParserOptions<PrintableNode>
 ): Doc {
+  // `path.parent` is only `null` at the document root, and a
+  // ConditionalExpression can never itself be that root.
   const parent = path.parent!;
   const isNested = parent.kind === NonterminalKind.ConditionalExpression;
   const isNestedAsTrueExpression = isNested && parent.trueExpression === node;
@@ -88,7 +90,9 @@ function traditionalTernaries(
     print('operand'),
     indent([
       // Nested trueExpression and falseExpression are always printed in a new
-      // line
+      // line.
+      // `path.parent` is only `null` at the document root, and this is itself
+      // a ConditionalExpression, which can never be that root.
       path.parent!.kind === NonterminalKind.ConditionalExpression
         ? hardline
         : line,

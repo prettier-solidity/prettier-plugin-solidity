@@ -15,6 +15,9 @@ const logicalGroupRulesBuilder = binaryGroupRulesBuilder(() => false);
 const logicalIndentRulesBuilder =
   (node: BinaryOperation, path: AstPath<PrintableNode>) =>
   (document: Doc): Doc => {
+    // `path.getNode(i)` is only `null` past the document root. This loop
+    // always breaks or returns at or before reaching it, since the root is
+    // never a BinaryOperation and never matches `shouldNotIndent`.
     for (let i = 1, current = node, parent; ; i++, current = parent) {
       parent = path.getNode(i)!;
       if (shouldNotIndent(parent, path, i)) break;
