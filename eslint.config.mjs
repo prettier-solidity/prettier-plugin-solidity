@@ -61,8 +61,8 @@ export default defineConfig([
 
     languageOptions: {
       parser: tseslint.parser,
-      ecmaVersion: 5,
-      sourceType: 'script',
+      ecmaVersion: 'latest',
+      sourceType: 'module',
 
       parserOptions: {
         project: ['tsconfig.test.json']
