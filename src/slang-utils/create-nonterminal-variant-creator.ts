@@ -7,6 +7,12 @@ import type {
   SlangAstNodeClass
 } from '../types.d.ts';
 
+// The shape of every node constructor: it wraps a slang `Ast` node.
+type NodeConstructor<Ast, Node> = new (
+  ast: Ast,
+  collected: CollectedMetadata
+) => Node;
+
 // A polymorphic node is a node that has a variant property.
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
@@ -23,7 +29,7 @@ type ConstructorEntry<
   Class extends SlangAstNodeClass,
   T
 > = Class extends unknown
-  ? [Class, new (ast: InstanceType<Class>, collected: CollectedMetadata) => T]
+  ? [Class, NodeConstructor<InstanceType<Class>, T>]
   : never;
 
 type NonterminalVariantFactory<
@@ -43,10 +49,10 @@ export function createNonterminalVariantSimpleCreator<
         // Casting is safe because ConstructorEntry guarantees that the
         // constructor matches the variant.
         return new (
-          constructor as new (
-            ast: typeof variant,
-            collected: CollectedMetadata
-          ) => InstanceType<typeof constructor>
+          constructor as NodeConstructor<
+            typeof variant,
+            InstanceType<typeof constructor>
+          >
         )(variant, collected);
       }
     }
@@ -76,10 +82,10 @@ export function createNonterminalVariantCreator<
           // Casting is safe because ConstructorEntry guarantees that the
           // constructor matches the variant.
           new (
-            constructor as new (
-              ast: typeof variant,
-              collected: CollectedMetadata
-            ) => InstanceType<typeof constructor>
+            constructor as NodeConstructor<
+              typeof variant,
+              InstanceType<typeof constructor>
+            >
           )(variant, collected)
         );
       }
