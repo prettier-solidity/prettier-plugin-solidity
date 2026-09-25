@@ -1,6 +1,6 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { PragmaDirective } from './PragmaDirective.js';
 import { ImportDirective } from './ImportDirective.js';
@@ -18,7 +18,7 @@ import { EventDefinition } from './EventDefinition.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
-const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+const createNonterminalVariant = createNonterminalVariantCreator<
   ast.SourceUnitMember,
   SourceUnitMember
 >([

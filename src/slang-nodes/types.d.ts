@@ -480,11 +480,6 @@ export type StrictAstNode =
   | YulPaths
   | YulPath;
 
-export type FunctionWithBody = Extract<
-  FunctionLike,
-  { body: FunctionBody['variant'] }
->;
-
 export type PolymorphicNode = Extract<StrictAstNode, { variant: unknown }>;
 
 export type StrictPolymorphicNode = Extract<

@@ -1,6 +1,6 @@
 import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { ExpressionStatement } from './ExpressionStatement.js';
 import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
@@ -22,7 +22,7 @@ import { UncheckedBlock } from './UncheckedBlock.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
-const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+const createNonterminalVariant = createNonterminalVariantCreator<
   slangAst.Statement,
   Statement
 >([

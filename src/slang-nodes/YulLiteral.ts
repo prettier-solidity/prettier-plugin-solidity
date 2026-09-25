@@ -3,7 +3,7 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantSimpleCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
 import { SlangNode } from './SlangNode.js';
 import { HexStringLiteral } from './HexStringLiteral.js';
 import { StringLiteral } from './StringLiteral.js';
@@ -11,7 +11,7 @@ import { TerminalNode } from './TerminalNode.js';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
-const createNonterminalVariant = createNonterminalVariantSimpleCreator<
+const createNonterminalVariant = createNonterminalVariantCreator<
   ast.YulLiteral,
   YulLiteral
 >([
