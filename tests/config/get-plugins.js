@@ -1,5 +1,5 @@
 import path from "node:path";
-import { TEST_STANDALONE } from "./constants.js";
+import { TEST_STANDALONE, PRETTIER_PLUGIN_NAMES } from "./constants.js";
 
 const __dirname = import.meta.dirname;
 
@@ -7,10 +7,10 @@ function getPluginsInternal() {
   return Promise.all(
     TEST_STANDALONE
       ? [
-          import("prettier/plugins/babel"),
-          import("prettier/plugins/estree"),
-          import("prettier/plugins/markdown"),
-          import(path.join(__dirname, "../../dist/standalone.js")),
+          ...PRETTIER_PLUGIN_NAMES.map(
+            (name) => import(`prettier/plugins/${name}`),
+          ),
+          import("prettier-plugin-solidity/standalone"),
         ]
       : [path.join(__dirname, "../../src/index.ts")],
   ).then((modules) => modules.map((module) => module.default ?? module));

@@ -416,6 +416,8 @@ To fix it, simply update the `parser` option in your `.prettierrc`:
 5. Push to the branch (`git push origin feature/fooBar`)
 6. Create a new Pull Request
 
+Running the Firefox browser tests (`TEST_RUNTIME_BROWSER=firefox npm run test:browser`) on macOS may hit a Playwright launch bug — see `.env.example` for the fix.
+
 ## License
 
 Distributed under the MIT license. See [LICENSE](LICENSE) for more information.

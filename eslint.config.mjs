@@ -5,6 +5,27 @@ import eslintImport from 'eslint-plugin-import';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
+// Most of tests/config/ is copied from Prettier's own test setup with light
+// modifications; we don't want to maintain those to our lint standards.
+// These files, though, are fully authored by us, so we lint them.
+const authoredTestConfigFiles = [
+  'browser-standalone-global-setup.js',
+  'browser-standalone-global-teardown.js',
+  'browser-standalone-server.js',
+  'browser-standalone-state.js',
+  'compile-contract.js',
+  'constants.js',
+  'get-browser-prettier.js',
+  'get-create-parser.js',
+  'get-plugins.js',
+  'get-prettier.js',
+  'get-runtime-browser.js',
+  'get-variant-coverage.js',
+  'static-server.js',
+  'test-bytecode-compare.js',
+  'test-variant-coverage.js'
+];
+
 export default defineConfig([
   globalIgnores([
     'coverage/**/*.js',
@@ -15,6 +36,7 @@ export default defineConfig([
     'tests/format/Markdown/Markdown.md',
     'tests/format/RespectDefaultOptions/respect-default-options.js',
     'tests/config/**/*.*js',
+    ...authoredTestConfigFiles.map((file) => `!tests/config/${file}`),
     'src/prettier-comments/**/*.js'
   ]),
   {
@@ -85,6 +107,12 @@ export default defineConfig([
       },
       ecmaVersion: 'latest',
       sourceType: 'module'
+    },
+
+    rules: {
+      // allow destructuring a property purely to exclude it from a rest
+      // sibling, e.g. `({ plugins, ...options }) => ...`
+      'no-unused-vars': ['error', { ignoreRestSiblings: true }]
     }
   }
 ]);

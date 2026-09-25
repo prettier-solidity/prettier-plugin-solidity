@@ -21,8 +21,9 @@
     "prettier": "prettier './*.{ts,js,cjs,json,md,yml}' '{src,tests}/**/*.{ts,js,cjs}'",
     "test": "NODE_OPTIONS=\"--loader=ts-node/esm\" jest",
     "test:all": "cross-env FULL_TEST=1 NODE_OPTIONS=\"--loader=ts-node/esm\" c8 jest",
-    "pretest:standalone": "playwright install chromium",
     "test:standalone": "cross-env TEST_STANDALONE=1 FULL_TEST=1 jest",
+    "pretest:browser": "playwright install chromium firefox webkit",
+    "test:browser": "cross-env TEST_STANDALONE_BROWSER=1 FULL_TEST=1 jest",
     "knip": "knip"
   },
   "files": [
