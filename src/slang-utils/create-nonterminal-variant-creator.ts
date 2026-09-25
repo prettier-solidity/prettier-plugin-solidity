@@ -45,7 +45,7 @@ export function createNonterminalVariantCreator<
   constructors: ConstructorEntry<SlangVariantClass<U>, T['variant']>[],
   extractVariantConstructors: ConstructorEntry<
     SlangVariantClass<U>,
-    Extract<StrictPolymorphicNode, { variant: T['variant'] }>
+    StrictPolymorphicNode & { variant: T['variant'] }
   >[] = []
 ): NonterminalVariantFactory<U, T> {
   return (variant, collected) => {
