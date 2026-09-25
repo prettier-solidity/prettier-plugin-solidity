@@ -60,10 +60,6 @@ export default defineConfig([
     },
 
     languageOptions: {
-      parser: tseslint.parser,
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-
       parserOptions: {
         project: ['tsconfig.test.json']
       }
@@ -104,9 +100,7 @@ export default defineConfig([
         ...globals.browser,
         ...globals.jest,
         runFormatTest: 'readonly'
-      },
-      ecmaVersion: 'latest',
-      sourceType: 'module'
+      }
     },
 
     rules: {
