@@ -13,7 +13,7 @@ type NodeConstructor<Ast, Node> = new (
   collected: CollectedMetadata
 ) => Node;
 
-// A polymorphic node is a node that has a variant property.
+// A Slang's polymorphic node is a node that has a variant property.
 type SlangPolymorphicNode = Extract<SlangAstNode, { variant: unknown }>;
 
 // Filter the constructors to only include those that are variants of the
@@ -23,7 +23,8 @@ type SlangVariantClass<U extends SlangPolymorphicNode> = Extract<
   new (...args: never[]) => U['variant']
 >;
 
-// Pair a SlangAstNodeClass with a constructor of a SlangNode that matches that class.
+// Pair a SlangAstNodeClass with a constructor of a SlangNode that matches that
+// class.
 // Thus creating a mapping between the Slang AST and the Slang Node classes.
 type ConstructorEntry<
   Class extends SlangAstNodeClass,
