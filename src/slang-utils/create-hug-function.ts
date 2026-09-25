@@ -13,33 +13,24 @@ export function createHugFunction(
   return (node: Expression['variant']): Expression['variant'] => {
     if (isBinaryOperation(node) && operators.has(node.operator)) {
       const loc = node.loc;
-      return Object.assign(
-        Object.create(TupleExpression.prototype) as TupleExpression,
-        {
-          kind: NonterminalKind.TupleExpression,
+      return TupleExpression.createSynthetic({
+        kind: NonterminalKind.TupleExpression,
+        loc: { ...loc },
+        comments: undefined,
+        items: TupleValues.createSynthetic({
+          kind: NonterminalKind.TupleValues,
           loc: { ...loc },
           comments: undefined,
-          items: Object.assign(
-            Object.create(TupleValues.prototype) as TupleValues,
-            {
-              kind: NonterminalKind.TupleValues,
+          items: [
+            TupleValue.createSynthetic({
+              kind: NonterminalKind.TupleValue,
               loc: { ...loc },
               comments: undefined,
-              items: [
-                Object.assign(
-                  Object.create(TupleValue.prototype) as TupleValue,
-                  {
-                    kind: NonterminalKind.TupleValue,
-                    loc: { ...loc },
-                    comments: undefined,
-                    expression: node
-                  }
-                )
-              ]
-            }
-          )
-        }
-      );
+              expression: node
+            })
+          ]
+        })
+      });
     }
 
     return node;
