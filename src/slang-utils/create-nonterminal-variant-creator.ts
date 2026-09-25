@@ -46,7 +46,7 @@ export function createNonterminalVariantSimpleCreator<
           constructor as new (
             ast: typeof variant,
             collected: CollectedMetadata
-          ) => T['variant']
+          ) => InstanceType<typeof constructor>
         )(variant, collected);
       }
     }
@@ -79,7 +79,7 @@ export function createNonterminalVariantCreator<
             constructor as new (
               ast: typeof variant,
               collected: CollectedMetadata
-            ) => StrictPolymorphicNode
+            ) => InstanceType<typeof constructor>
           )(variant, collected)
         );
       }
