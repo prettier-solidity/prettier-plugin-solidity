@@ -1,7 +1,7 @@
 import js from '@eslint/js';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintImport from 'eslint-plugin-import';
+import eslintImportX from 'eslint-plugin-import-x';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -56,7 +56,7 @@ export default defineConfig([
     ],
 
     plugins: {
-      import: eslintImport
+      'import-x': eslintImportX
     },
 
     languageOptions: {
@@ -74,7 +74,7 @@ export default defineConfig([
         'error',
         { ignoreCase: true, ignoreDeclarationSort: true }
       ],
-      'import/order': [
+      'import-x/order': [
         'error',
         {
           groups: [
