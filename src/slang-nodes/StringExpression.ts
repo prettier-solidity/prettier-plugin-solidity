@@ -12,7 +12,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.StringExpression,
-  StringExpression
+  typeof StringExpression
 >([
   [ast.StringLiteral, StringLiteral],
   [ast.StringLiterals, StringLiterals],

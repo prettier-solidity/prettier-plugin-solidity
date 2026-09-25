@@ -40,14 +40,17 @@ type NonterminalVariantFactory<
 
 export function createNonterminalVariantCreator<
   U extends SlangPolymorphicNode,
-  T extends StrictPolymorphicNode
+  T extends NodeConstructor<U, StrictPolymorphicNode>
 >(
-  constructors: ConstructorEntry<SlangVariantClass<U>, T['variant']>[],
+  constructors: ConstructorEntry<
+    SlangVariantClass<U>,
+    InstanceType<T>['variant']
+  >[],
   extractVariantConstructors: ConstructorEntry<
     SlangVariantClass<U>,
-    StrictPolymorphicNode & { variant: T['variant'] }
+    StrictPolymorphicNode & { variant: InstanceType<T>['variant'] }
   >[] = []
-): NonterminalVariantFactory<U, T> {
+): NonterminalVariantFactory<U, InstanceType<T>> {
   return (variant, collected) => {
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass) {

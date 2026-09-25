@@ -24,7 +24,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   slangAst.Statement,
-  Statement
+  typeof Statement
 >([
   [slangAst.ExpressionStatement, ExpressionStatement],
   [slangAst.VariableDeclarationStatement, VariableDeclarationStatement],
