@@ -24,13 +24,13 @@ type SlangVariantClass<U extends SlangPolymorphicNode> = Extract<
 >;
 
 // Pair a SlangAstNodeClass with a constructor of a SlangNode that matches that
-// class.
-// Thus creating a mapping between the Slang AST and the Slang Node classes.
+// class, thus creating a mapping between the Slang AST and the Slang Node
+// classes.
 type ConstructorEntry<
   Class extends SlangAstNodeClass,
-  T
+  Result
 > = Class extends unknown
-  ? [Class, NodeConstructor<InstanceType<Class>, T>]
+  ? [Class, NodeConstructor<InstanceType<Class>, Result>]
   : never;
 
 type VariantOf<T extends NodeConstructor<never, StrictPolymorphicNode>> =
@@ -49,29 +49,16 @@ export function createNonterminalVariantCreator<
   return (variant, collected) => {
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass) {
-        return extractVariant(
-          // Casting is safe because ConstructorEntry guarantees that the
-          // constructor matches the variant.
-          new (
-            constructor as NodeConstructor<
-              typeof variant,
-              InstanceType<typeof constructor>
-            >
-          )(variant, collected)
-        );
+        // ConstructorEntry guarantees `constructor` accepts this `variant`, but
+        // TypeScript can't link the two halves of a pair, so we cast.
+        return extractVariant(new constructor(variant as never, collected));
       }
     }
 
     for (const [slangAstClass, constructor] of constructors) {
       if (variant instanceof slangAstClass) {
-        // Casting is safe because ConstructorEntry guarantees that the
-        // constructor matches the variant.
-        return new (
-          constructor as NodeConstructor<
-            typeof variant,
-            InstanceType<typeof constructor>
-          >
-        )(variant, collected);
+        // Same as above.
+        return new constructor(variant as never, collected);
       }
     }
 
