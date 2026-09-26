@@ -5,8 +5,8 @@ const __dirname = import.meta.dirname;
 export default {
   entry: {
     test: './tests/integration/test-app/test-app.js',
-    'create-parser': './src/slang-utils/create-parser.js',
-    'variant-coverage': './variant-coverage/index.js'
+    'create-parser': './src/slang-utils/create-parser.ts',
+    'variant-coverage': './variant-coverage/index.ts'
   },
   mode: 'production',
   bail: true,
@@ -16,22 +16,7 @@ export default {
 
   externals: { 'node:fs/promises': 'import node:fs/promises' },
 
-  resolve: {
-    extensions: ['.ts', '.js'],
-    extensionAlias: { '.js': ['.js', '.ts'] }
-  },
-
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      }
-    ]
-  },
-
-  experiments: { outputModule: true },
+  experiments: { outputModule: true, typescript: true },
 
   output: {
     filename: '[name].js',
