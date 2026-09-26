@@ -24,56 +24,41 @@ type SlangVariantClass<U extends SlangPolymorphicNode> = Extract<
 >;
 
 // Pair a SlangAstNodeClass with a constructor of a SlangNode that matches that
-// class.
-// Thus creating a mapping between the Slang AST and the Slang Node classes.
+// class, thus creating a mapping between the Slang AST and the Slang Node
+// classes.
 type ConstructorEntry<
   Class extends SlangAstNodeClass,
-  T
+  Result
 > = Class extends unknown
-  ? [Class, NodeConstructor<InstanceType<Class>, T>]
+  ? [Class, NodeConstructor<InstanceType<Class>, Result>]
   : never;
 
-type NonterminalVariantFactory<
-  U extends SlangPolymorphicNode,
-  T extends StrictPolymorphicNode
-> = (variant: U['variant'], collected: CollectedMetadata) => T['variant'];
+type VariantOf<T extends NodeConstructor<never, StrictPolymorphicNode>> =
+  InstanceType<T>['variant'];
 
 export function createNonterminalVariantCreator<
   U extends SlangPolymorphicNode,
-  T extends StrictPolymorphicNode
+  T extends NodeConstructor<U, StrictPolymorphicNode>
 >(
-  constructors: ConstructorEntry<SlangVariantClass<U>, T['variant']>[],
+  constructors: ConstructorEntry<SlangVariantClass<U>, VariantOf<T>>[],
   extractVariantConstructors: ConstructorEntry<
     SlangVariantClass<U>,
-    StrictPolymorphicNode & { variant: T['variant'] }
+    StrictPolymorphicNode & { variant: VariantOf<T> }
   >[] = []
-): NonterminalVariantFactory<U, T> {
+): (variant: U['variant'], collected: CollectedMetadata) => VariantOf<T> {
   return (variant, collected) => {
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass) {
-        return extractVariant(
-          // Casting is safe because ConstructorEntry guarantees that the
-          // constructor matches the variant.
-          new (
-            constructor as NodeConstructor<
-              typeof variant,
-              InstanceType<typeof constructor>
-            >
-          )(variant, collected)
-        );
+        // ConstructorEntry guarantees `constructor` accepts this `variant`, but
+        // TypeScript can't link the two halves of a pair, so we cast.
+        return extractVariant(new constructor(variant as never, collected));
       }
     }
 
     for (const [slangAstClass, constructor] of constructors) {
       if (variant instanceof slangAstClass) {
-        // Casting is safe because ConstructorEntry guarantees that the
-        // constructor matches the variant.
-        return new (
-          constructor as NodeConstructor<
-            typeof variant,
-            InstanceType<typeof constructor>
-          >
-        )(variant, collected);
+        // Same as above.
+        return new constructor(variant as never, collected);
       }
     }
 

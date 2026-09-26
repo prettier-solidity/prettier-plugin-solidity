@@ -12,7 +12,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.TypeName,
-  TypeName
+  typeof TypeName
 >(
   [
     [ast.ArrayTypeName, ArrayTypeName],

@@ -13,7 +13,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.YulLiteral,
-  YulLiteral
+  typeof YulLiteral
 >([
   [ast.HexStringLiteral, HexStringLiteral],
   [ast.StringLiteral, StringLiteral]

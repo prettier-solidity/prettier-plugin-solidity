@@ -20,7 +20,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   slangAst.YulStatement,
-  YulStatement
+  typeof YulStatement
 >(
   [
     [slangAst.YulFunctionDefinition, YulFunctionDefinition],

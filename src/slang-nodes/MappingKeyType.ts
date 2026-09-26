@@ -9,7 +9,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.MappingKeyType,
-  MappingKeyType
+  typeof MappingKeyType
 >(
   [[ast.IdentifierPath, IdentifierPath]],
   [[ast.ElementaryType, ElementaryType]]

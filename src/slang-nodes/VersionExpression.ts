@@ -9,7 +9,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.VersionExpression,
-  VersionExpression
+  typeof VersionExpression
 >([
   [ast.VersionRange, VersionRange],
   [ast.VersionTerm, VersionTerm]

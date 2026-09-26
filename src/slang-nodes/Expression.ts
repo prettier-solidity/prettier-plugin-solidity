@@ -38,7 +38,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.Expression,
-  Expression
+  typeof Expression
 >(
   [
     [ast.AssignmentExpression, AssignmentExpression],
