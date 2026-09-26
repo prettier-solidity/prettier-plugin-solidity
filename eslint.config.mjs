@@ -61,7 +61,7 @@ export default defineConfig([
 
     languageOptions: {
       parserOptions: {
-        project: ['tsconfig.test.json']
+        projectService: true
       }
     },
 
