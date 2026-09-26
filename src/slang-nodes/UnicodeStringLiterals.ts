@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { hardline, join } from '../slang-printers/prettier-builders.js';
-import { SlangNode } from './SlangNode.js';
-import { UnicodeStringLiteral } from './UnicodeStringLiteral.js';
+import { hardline, join } from '../slang-printers/prettier-builders.ts';
+import { SlangNode } from './SlangNode.ts';
+import { UnicodeStringLiteral } from './UnicodeStringLiteral.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';

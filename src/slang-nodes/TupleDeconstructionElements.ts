@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { SlangNode } from './SlangNode.js';
-import { TupleDeconstructionElement } from './TupleDeconstructionElement.js';
+import { printSeparatedList } from '../slang-printers/print-separated-list.ts';
+import { SlangNode } from './SlangNode.ts';
+import { TupleDeconstructionElement } from './TupleDeconstructionElement.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';

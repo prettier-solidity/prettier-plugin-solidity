@@ -1,5 +1,5 @@
-import { join, line } from './prettier-builders.js';
-import { printSeparatedItem } from './print-separated-item.js';
+import { join, line } from './prettier-builders.ts';
+import { printSeparatedItem } from './print-separated-item.ts';
 
 import type { Doc, doc } from 'prettier';
 import type { PrintSeparatedOptions } from './types.d.ts';

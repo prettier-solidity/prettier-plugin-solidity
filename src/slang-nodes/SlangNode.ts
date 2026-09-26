@@ -3,10 +3,10 @@ import {
   TerminalKind,
   TerminalKindExtensions
 } from '@nomicfoundation/slang/cst';
-import { MultiLineComment } from './MultiLineComment.js';
-import { MultiLineNatSpecComment } from './MultiLineNatSpecComment.js';
-import { SingleLineComment } from './SingleLineComment.js';
-import { SingleLineNatSpecComment } from './SingleLineNatSpecComment.js';
+import { MultiLineComment } from './MultiLineComment.ts';
+import { MultiLineNatSpecComment } from './MultiLineNatSpecComment.ts';
+import { SingleLineComment } from './SingleLineComment.ts';
+import { SingleLineNatSpecComment } from './SingleLineNatSpecComment.ts';
 
 import type { NonterminalKind } from '@nomicfoundation/slang/cst';
 import type {

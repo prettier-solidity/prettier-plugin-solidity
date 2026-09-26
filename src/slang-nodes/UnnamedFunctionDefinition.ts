@@ -1,10 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunction } from '../slang-printers/print-function.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { ParametersDeclaration } from './ParametersDeclaration.js';
-import { UnnamedFunctionAttributes } from './UnnamedFunctionAttributes.js';
-import { FunctionBody } from './FunctionBody.js';
+import { printFunction } from '../slang-printers/print-function.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { ParametersDeclaration } from './ParametersDeclaration.ts';
+import { UnnamedFunctionAttributes } from './UnnamedFunctionAttributes.ts';
+import { FunctionBody } from './FunctionBody.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

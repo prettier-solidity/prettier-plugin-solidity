@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { isBlockComment } from '../slang-utils/is-comment.js';
-import { SlangNode } from './SlangNode.js';
-import { PositionalArguments } from './PositionalArguments.js';
+import { isBlockComment } from '../slang-utils/is-comment.ts';
+import { SlangNode } from './SlangNode.ts';
+import { PositionalArguments } from './PositionalArguments.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

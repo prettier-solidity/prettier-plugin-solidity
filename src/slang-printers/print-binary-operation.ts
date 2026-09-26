@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
-import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
-import { group, indent } from './prettier-builders.js';
-import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
+import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.ts';
+import { isBinaryOperation } from '../slang-utils/is-binary-operation.ts';
+import { group, indent } from './prettier-builders.ts';
+import { createBinaryOperationPrinter } from './create-binary-operation-printer.ts';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { BinaryOperation, PrintableNode } from '../slang-nodes/types.d.ts';

@@ -1,20 +1,20 @@
 import * as slangAst from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
-import { YulBlock } from './YulBlock.js';
-import { YulFunctionDefinition } from './YulFunctionDefinition.js';
-import { YulVariableDeclarationStatement } from './YulVariableDeclarationStatement.js';
-import { YulVariableAssignmentStatement } from './YulVariableAssignmentStatement.js';
-import { YulStackAssignmentStatement } from './YulStackAssignmentStatement.js';
-import { YulIfStatement } from './YulIfStatement.js';
-import { YulForStatement } from './YulForStatement.js';
-import { YulSwitchStatement } from './YulSwitchStatement.js';
-import { YulLeaveStatement } from './YulLeaveStatement.js';
-import { YulBreakStatement } from './YulBreakStatement.js';
-import { YulContinueStatement } from './YulContinueStatement.js';
-import { YulLabel } from './YulLabel.js';
-import { YulExpression } from './YulExpression.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
+import { SlangNode } from './SlangNode.ts';
+import { YulBlock } from './YulBlock.ts';
+import { YulFunctionDefinition } from './YulFunctionDefinition.ts';
+import { YulVariableDeclarationStatement } from './YulVariableDeclarationStatement.ts';
+import { YulVariableAssignmentStatement } from './YulVariableAssignmentStatement.ts';
+import { YulStackAssignmentStatement } from './YulStackAssignmentStatement.ts';
+import { YulIfStatement } from './YulIfStatement.ts';
+import { YulForStatement } from './YulForStatement.ts';
+import { YulSwitchStatement } from './YulSwitchStatement.ts';
+import { YulLeaveStatement } from './YulLeaveStatement.ts';
+import { YulBreakStatement } from './YulBreakStatement.ts';
+import { YulContinueStatement } from './YulContinueStatement.ts';
+import { YulLabel } from './YulLabel.ts';
+import { YulExpression } from './YulExpression.ts';
 
 import type { CollectedMetadata } from '../types.d.ts';
 

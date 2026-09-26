@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { CatchClauseError } from './CatchClauseError.js';
-import { Block } from './Block.js';
+import { SlangNode } from './SlangNode.ts';
+import { CatchClauseError } from './CatchClauseError.ts';
+import { Block } from './Block.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

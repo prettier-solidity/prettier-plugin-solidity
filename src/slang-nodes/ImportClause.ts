@@ -1,10 +1,10 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
-import { PathImport } from './PathImport.js';
-import { NamedImport } from './NamedImport.js';
-import { ImportDeconstruction } from './ImportDeconstruction.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
+import { SlangNode } from './SlangNode.ts';
+import { PathImport } from './PathImport.ts';
+import { NamedImport } from './NamedImport.ts';
+import { ImportDeconstruction } from './ImportDeconstruction.ts';
 
 import type { CollectedMetadata } from '../types.d.ts';
 

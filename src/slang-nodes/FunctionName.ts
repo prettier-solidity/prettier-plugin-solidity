@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { TerminalNode } from './TerminalNode.js';
+import { SlangNode } from './SlangNode.ts';
+import { TerminalNode } from './TerminalNode.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';

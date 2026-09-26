@@ -1,4 +1,4 @@
-import handlers from './handlers/index.js';
+import handlers from './handlers/index.ts';
 
 import type { Comment } from '../slang-nodes/types.d.ts';
 

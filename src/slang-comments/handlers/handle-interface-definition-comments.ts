@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/prettier-utils.js';
-import { locEnd } from '../../slang-utils/loc.js';
-import addCollectionFirstComment from './add-collection-first-comment.js';
-import addCollectionLastComment from './add-collection-last-comment.js';
+import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/prettier-utils.ts';
+import { locEnd } from '../../slang-utils/loc.ts';
+import addCollectionFirstComment from './add-collection-first-comment.ts';
+import addCollectionLastComment from './add-collection-last-comment.ts';
 
 import type { HandlerParams } from './types.d.ts';
 

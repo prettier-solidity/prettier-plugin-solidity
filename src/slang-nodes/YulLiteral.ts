@@ -3,11 +3,11 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
-import { HexStringLiteral } from './HexStringLiteral.js';
-import { StringLiteral } from './StringLiteral.js';
-import { TerminalNode } from './TerminalNode.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
+import { SlangNode } from './SlangNode.ts';
+import { HexStringLiteral } from './HexStringLiteral.ts';
+import { StringLiteral } from './StringLiteral.ts';
+import { TerminalNode } from './TerminalNode.ts';
 
 import type { CollectedMetadata } from '../types.d.ts';
 

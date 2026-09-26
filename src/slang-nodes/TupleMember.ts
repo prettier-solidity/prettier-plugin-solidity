@@ -1,9 +1,9 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
-import { TypedTupleMember } from './TypedTupleMember.js';
-import { UntypedTupleMember } from './UntypedTupleMember.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
+import { SlangNode } from './SlangNode.ts';
+import { TypedTupleMember } from './TypedTupleMember.ts';
+import { UntypedTupleMember } from './UntypedTupleMember.ts';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
