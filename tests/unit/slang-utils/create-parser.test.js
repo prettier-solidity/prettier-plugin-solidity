@@ -1,5 +1,5 @@
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
-import { createParser } from '../../../src/slang-utils/create-parser.js';
+import { createParser } from '../../../src/slang-utils/create-parser.ts';
 
 describe('inferLanguage', function () {
   const latestSupportedVersion = LanguageFacts.latestVersion();

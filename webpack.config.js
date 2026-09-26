@@ -14,7 +14,7 @@ export default (webpackEnv) => {
   const isEnvProduction = Boolean(webpackEnv.production);
 
   return {
-    entry: './src/index.js',
+    entry: './src/index.ts',
 
     externals: {
       'node:fs/promises': 'import node:fs/promises'
@@ -34,22 +34,7 @@ root["prettierPlugins"] = root["prettierPlugins"] || {}, root["prettierPlugins"]
     bail: isEnvProduction,
     devtool: 'source-map',
 
-    resolve: {
-      extensions: ['.ts', '.js'],
-      extensionAlias: { '.js': ['.js', '.ts'] }
-    },
-
-    module: {
-      rules: [
-        {
-          test: /\.ts$/,
-          use: 'ts-loader',
-          exclude: /node_modules/
-        }
-      ]
-    },
-
-    experiments: { outputModule: true },
+    experiments: { outputModule: true, typescript: true },
 
     optimization: { minimize: isEnvProduction },
     target: ['browserslist'],
