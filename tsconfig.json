@@ -2,15 +2,14 @@
   "compilerOptions": {
     "allowJs": true,
     "noEmit": true,
-    "noImplicitAny": true,
-    "strictPropertyInitialization": true,
-    "sourceMap": true,
     "target": "es2023",
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "strict": true,
-    "esModuleInterop": true,
-    "rewriteRelativeImportExtensions": true
+    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": ["./src/**/*", "./variant-coverage/**/*"]
 }
