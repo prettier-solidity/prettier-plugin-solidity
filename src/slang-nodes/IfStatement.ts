@@ -1,13 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { hardline } from '../slang-printers/prettier-builders.js';
-import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.js';
-import { isBlockComment } from '../slang-utils/is-comment.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { Expression } from './Expression.js';
-import { Statement } from './Statement.js';
-import { ElseBranch } from './ElseBranch.js';
+import { hardline } from '../slang-printers/prettier-builders.ts';
+import { printSeparatedItem } from '../slang-printers/print-separated-item.ts';
+import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.ts';
+import { isBlockComment } from '../slang-utils/is-comment.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { Expression } from './Expression.ts';
+import { Statement } from './Statement.ts';
+import { ElseBranch } from './ElseBranch.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

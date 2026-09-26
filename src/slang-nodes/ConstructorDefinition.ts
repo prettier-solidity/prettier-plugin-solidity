@@ -1,9 +1,9 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunction } from '../slang-printers/print-function.js';
-import { SlangNode } from './SlangNode.js';
-import { ParametersDeclaration } from './ParametersDeclaration.js';
-import { ConstructorAttributes } from './ConstructorAttributes.js';
-import { Block } from './Block.js';
+import { printFunction } from '../slang-printers/print-function.ts';
+import { SlangNode } from './SlangNode.ts';
+import { ParametersDeclaration } from './ParametersDeclaration.ts';
+import { ConstructorAttributes } from './ConstructorAttributes.ts';
+import { Block } from './Block.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

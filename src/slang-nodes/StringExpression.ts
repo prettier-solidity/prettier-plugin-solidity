@@ -1,12 +1,12 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
-import { StringLiteral } from './StringLiteral.js';
-import { StringLiterals } from './StringLiterals.js';
-import { HexStringLiteral } from './HexStringLiteral.js';
-import { HexStringLiterals } from './HexStringLiterals.js';
-import { UnicodeStringLiterals } from './UnicodeStringLiterals.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
+import { SlangNode } from './SlangNode.ts';
+import { StringLiteral } from './StringLiteral.ts';
+import { StringLiterals } from './StringLiterals.ts';
+import { HexStringLiteral } from './HexStringLiteral.ts';
+import { HexStringLiterals } from './HexStringLiterals.ts';
+import { UnicodeStringLiterals } from './UnicodeStringLiterals.ts';
 
 import type { CollectedMetadata } from '../types.d.ts';
 

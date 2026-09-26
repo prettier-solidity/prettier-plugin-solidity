@@ -1,11 +1,11 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printFunction } from '../slang-printers/print-function.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { ParametersDeclaration } from './ParametersDeclaration.js';
-import { FallbackFunctionAttributes } from './FallbackFunctionAttributes.js';
-import { ReturnsDeclaration } from './ReturnsDeclaration.js';
-import { FunctionBody } from './FunctionBody.js';
+import { printFunction } from '../slang-printers/print-function.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { ParametersDeclaration } from './ParametersDeclaration.ts';
+import { FallbackFunctionAttributes } from './FallbackFunctionAttributes.ts';
+import { ReturnsDeclaration } from './ReturnsDeclaration.ts';
+import { FunctionBody } from './FunctionBody.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

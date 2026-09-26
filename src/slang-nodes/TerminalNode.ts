@@ -1,4 +1,4 @@
-import { SlangNode } from './SlangNode.js';
+import { SlangNode } from './SlangNode.ts';
 
 import type {
   TerminalNode as SlangTerminalNode,

@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { line } from '../slang-printers/prettier-builders.js';
-import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { SlangNode } from './SlangNode.js';
-import { InheritanceType } from './InheritanceType.js';
+import { line } from '../slang-printers/prettier-builders.ts';
+import { printSeparatedList } from '../slang-printers/print-separated-list.ts';
+import { SlangNode } from './SlangNode.ts';
+import { InheritanceType } from './InheritanceType.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';

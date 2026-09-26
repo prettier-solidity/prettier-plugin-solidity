@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createKindCheckFunction } from './create-kind-check-function.js';
+import { createKindCheckFunction } from './create-kind-check-function.ts';
 
 import type { BinaryOperation, PrintableNode } from '../slang-nodes/types.d.ts';
 

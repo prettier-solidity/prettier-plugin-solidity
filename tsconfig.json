@@ -1,19 +1,15 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "rootDir": "./src",
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "strictPropertyInitialization": true,
-    "sourceMap": true,
+    "noEmit": true,
     "target": "es2023",
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "strict": true,
-    "esModuleInterop": true
+    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
-  "ts-node": {
-    "files": true
-  },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "./variant-coverage/**/*"]
 }

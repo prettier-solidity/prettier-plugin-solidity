@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { TupleExpression } from '../slang-nodes/TupleExpression.js';
-import { TupleValues } from '../slang-nodes/TupleValues.js';
-import { TupleValue } from '../slang-nodes/TupleValue.js';
-import { isBinaryOperation } from './is-binary-operation.js';
+import { TupleExpression } from '../slang-nodes/TupleExpression.ts';
+import { TupleValues } from '../slang-nodes/TupleValues.ts';
+import { TupleValue } from '../slang-nodes/TupleValue.ts';
+import { isBinaryOperation } from './is-binary-operation.ts';
 
 import type { Expression } from '../slang-nodes/Expression.ts';
 

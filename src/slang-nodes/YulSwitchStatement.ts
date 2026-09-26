@@ -1,9 +1,9 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { hardline } from '../slang-printers/prettier-builders.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { YulExpression } from './YulExpression.js';
-import { YulSwitchCases } from './YulSwitchCases.js';
+import { hardline } from '../slang-printers/prettier-builders.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { YulExpression } from './YulExpression.ts';
+import { YulSwitchCases } from './YulSwitchCases.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

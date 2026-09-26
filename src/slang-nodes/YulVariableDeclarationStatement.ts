@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.js';
-import { YulVariableNames } from './YulVariableNames.js';
+import { SlangNode } from './SlangNode.ts';
+import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.ts';
+import { YulVariableNames } from './YulVariableNames.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

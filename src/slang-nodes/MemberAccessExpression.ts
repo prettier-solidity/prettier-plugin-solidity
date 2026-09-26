@@ -4,14 +4,14 @@ import {
   indent,
   label,
   softline
-} from '../slang-printers/prettier-builders.js';
-import { isLabel } from '../slang-utils/is-label.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { isChainableExpression } from '../slang-utils/is-chainable-expression.js';
-import { memberAccessChainLabel } from '../slang-printers/print-member-access-chain-item.js';
-import { SlangNode } from './SlangNode.js';
-import { Expression } from './Expression.js';
-import { TerminalNode } from './TerminalNode.js';
+} from '../slang-printers/prettier-builders.ts';
+import { isLabel } from '../slang-utils/is-label.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { isChainableExpression } from '../slang-utils/is-chainable-expression.ts';
+import { memberAccessChainLabel } from '../slang-printers/print-member-access-chain-item.ts';
+import { SlangNode } from './SlangNode.ts';
+import { Expression } from './Expression.ts';
+import { TerminalNode } from './TerminalNode.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';

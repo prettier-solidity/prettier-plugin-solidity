@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { addTrailingComment } from '../../slang-utils/prettier-utils.js';
-import addCollectionLastComment from './add-collection-last-comment.js';
+import { addTrailingComment } from '../../slang-utils/prettier-utils.ts';
+import addCollectionLastComment from './add-collection-last-comment.ts';
 
 import type { HandlerParams } from './types.d.ts';
 

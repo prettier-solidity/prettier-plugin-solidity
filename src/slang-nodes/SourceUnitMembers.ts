@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { SourceUnitMember } from './SourceUnitMember.js';
+import { printPreservingEmptyLines } from '../slang-printers/print-preserving-empty-lines.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { SourceUnitMember } from './SourceUnitMember.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';

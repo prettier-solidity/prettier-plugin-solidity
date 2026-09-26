@@ -1,7 +1,7 @@
 import {
   addDanglingComment,
   addLeadingComment
-} from '../../slang-utils/prettier-utils.js';
+} from '../../slang-utils/prettier-utils.ts';
 
 import type { Comment, StrictCollection } from '../../slang-nodes/types.d.ts';
 

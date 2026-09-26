@@ -1,7 +1,7 @@
-import { printComment } from '../slang-comments/printer.js';
-import { isNextLineEmpty } from '../slang-utils/prettier-utils.js';
-import { locEnd } from '../slang-utils/loc.js';
-import { hardline } from './prettier-builders.js';
+import { printComment } from '../slang-comments/printer.ts';
+import { isNextLineEmpty } from '../slang-utils/prettier-utils.ts';
+import { locEnd } from '../slang-utils/loc.ts';
+import { hardline } from './prettier-builders.ts';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { Comment, PrintableNode } from '../slang-nodes/types.d.ts';

@@ -1,10 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { join } from '../slang-printers/prettier-builders.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { YulPaths } from './YulPaths.js';
-import { YulAssignmentOperator } from './YulAssignmentOperator.js';
-import { YulExpression } from './YulExpression.js';
+import { join } from '../slang-printers/prettier-builders.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { YulPaths } from './YulPaths.ts';
+import { YulAssignmentOperator } from './YulAssignmentOperator.ts';
+import { YulExpression } from './YulExpression.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

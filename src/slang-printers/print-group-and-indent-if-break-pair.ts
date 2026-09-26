@@ -1,4 +1,4 @@
-import { group, indentIfBreak } from './prettier-builders.js';
+import { group, indentIfBreak } from './prettier-builders.ts';
 
 import type { Doc, doc } from 'prettier';
 

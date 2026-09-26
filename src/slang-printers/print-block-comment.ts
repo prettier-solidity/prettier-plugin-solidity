@@ -1,4 +1,4 @@
-import { hardline, join, literalline } from './prettier-builders.js';
+import { hardline, join, literalline } from './prettier-builders.ts';
 
 import type { Doc } from 'prettier';
 import type { BlockComment } from '../slang-nodes/types.d.ts';

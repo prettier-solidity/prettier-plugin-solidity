@@ -1,10 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { printAssignmentRightSide } from '../slang-printers/print-assignment-right-side.js';
-import { SlangNode } from './SlangNode.js';
-import { TypeName } from './TypeName.js';
-import { TerminalNode } from './TerminalNode.js';
-import { Expression } from './Expression.js';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { printAssignmentRightSide } from '../slang-printers/print-assignment-right-side.ts';
+import { SlangNode } from './SlangNode.ts';
+import { TypeName } from './TypeName.ts';
+import { TerminalNode } from './TerminalNode.ts';
+import { Expression } from './Expression.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

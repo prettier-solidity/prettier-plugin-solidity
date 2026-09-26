@@ -1,20 +1,20 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
-import { UsingDirective } from './UsingDirective.js';
-import { FunctionDefinition } from './FunctionDefinition.js';
-import { ConstructorDefinition } from './ConstructorDefinition.js';
-import { ReceiveFunctionDefinition } from './ReceiveFunctionDefinition.js';
-import { FallbackFunctionDefinition } from './FallbackFunctionDefinition.js';
-import { UnnamedFunctionDefinition } from './UnnamedFunctionDefinition.js';
-import { ModifierDefinition } from './ModifierDefinition.js';
-import { StructDefinition } from './StructDefinition.js';
-import { EnumDefinition } from './EnumDefinition.js';
-import { EventDefinition } from './EventDefinition.js';
-import { StateVariableDefinition } from './StateVariableDefinition.js';
-import { ErrorDefinition } from './ErrorDefinition.js';
-import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
+import { SlangNode } from './SlangNode.ts';
+import { UsingDirective } from './UsingDirective.ts';
+import { FunctionDefinition } from './FunctionDefinition.ts';
+import { ConstructorDefinition } from './ConstructorDefinition.ts';
+import { ReceiveFunctionDefinition } from './ReceiveFunctionDefinition.ts';
+import { FallbackFunctionDefinition } from './FallbackFunctionDefinition.ts';
+import { UnnamedFunctionDefinition } from './UnnamedFunctionDefinition.ts';
+import { ModifierDefinition } from './ModifierDefinition.ts';
+import { StructDefinition } from './StructDefinition.ts';
+import { EnumDefinition } from './EnumDefinition.ts';
+import { EventDefinition } from './EventDefinition.ts';
+import { StateVariableDefinition } from './StateVariableDefinition.ts';
+import { ErrorDefinition } from './ErrorDefinition.ts';
+import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition.ts';
 
 import type { CollectedMetadata } from '../types.d.ts';
 

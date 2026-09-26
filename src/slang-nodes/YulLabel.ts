@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { dedent, line } from '../slang-printers/prettier-builders.js';
-import { SlangNode } from './SlangNode.js';
-import { TerminalNode } from './TerminalNode.js';
+import { dedent, line } from '../slang-printers/prettier-builders.ts';
+import { SlangNode } from './SlangNode.ts';
+import { TerminalNode } from './TerminalNode.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

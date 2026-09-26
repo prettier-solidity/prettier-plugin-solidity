@@ -3,12 +3,12 @@ import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
 } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
-import { ExpressionStatement } from './ExpressionStatement.js';
-import { VariableDeclarationStatement } from './VariableDeclarationStatement.js';
-import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.js';
-import { TerminalNode } from './TerminalNode.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
+import { SlangNode } from './SlangNode.ts';
+import { ExpressionStatement } from './ExpressionStatement.ts';
+import { VariableDeclarationStatement } from './VariableDeclarationStatement.ts';
+import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.ts';
+import { TerminalNode } from './TerminalNode.ts';
 
 import type { CollectedMetadata } from '../types.d.ts';
 
