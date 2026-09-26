@@ -5,6 +5,7 @@ export const {
   addLeadingComment,
   addTrailingComment,
   getNextNonSpaceNonCommentCharacter,
+  getPreferredQuote,
   isNextLineEmpty,
   makeString
 } = util;
