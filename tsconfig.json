@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "rootDir": "./src",
-    "outDir": "./dist/",
     "noImplicitAny": true,
     "strictPropertyInitialization": true,
     "sourceMap": true,
@@ -13,8 +11,5 @@
     "esModuleInterop": true,
     "rewriteRelativeImportExtensions": true
   },
-  "ts-node": {
-    "files": true
-  },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "./variant-coverage/**/*"]
 }
