@@ -1,11 +1,11 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
-import { indent } from './prettier-builders.js';
-import { createBinaryOperationPrinter } from './create-binary-operation-printer.js';
+import { isBinaryOperation } from '../slang-utils/is-binary-operation.ts';
+import { indent } from './prettier-builders.ts';
+import { createBinaryOperationPrinter } from './create-binary-operation-printer.ts';
 import {
   binaryGroupRulesBuilder,
   shouldNotIndent
-} from './print-binary-operation.js';
+} from './print-binary-operation.ts';
 
 import type { AstPath, Doc } from 'prettier';
 import type { BinaryOperation, PrintableNode } from '../slang-nodes/types.d.ts';

@@ -4,11 +4,11 @@ import {
   ifBreak,
   line,
   softline
-} from '../slang-printers/prettier-builders.js';
-import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { ContractSpecifier } from './ContractSpecifier.js';
+} from '../slang-printers/prettier-builders.ts';
+import { printSeparatedList } from '../slang-printers/print-separated-list.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { ContractSpecifier } from './ContractSpecifier.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';

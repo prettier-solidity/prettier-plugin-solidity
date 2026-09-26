@@ -1,16 +1,16 @@
 import * as comments from './comments/index.js';
-import { handleComments, printComment } from './slang-comments/index.js';
-import massageAstNode from './clean.js';
+import { handleComments, printComment } from './slang-comments/index.ts';
+import massageAstNode from './clean.ts';
 import loc from './loc.js';
-import options from './options.js';
+import options from './options.ts';
 import antlrParse from './parser.js';
 import antlrPrint from './printer.js';
-import slangParse from './slangSolidityParser.js';
-import slangPrint from './slangPrinter.js';
-import { isBlockComment, isComment } from './slang-utils/is-comment.js';
-import { locEnd, locStart } from './slang-utils/loc.js';
-import { hasPrettierIgnore } from './slang-utils/has-prettier-ignore.js';
-import { getVisitorKeys } from './slang-utils/get-visitor-keys.js';
+import slangParse from './slangSolidityParser.ts';
+import slangPrint from './slangPrinter.ts';
+import { isBlockComment, isComment } from './slang-utils/is-comment.ts';
+import { locEnd, locStart } from './slang-utils/loc.ts';
+import { hasPrettierIgnore } from './slang-utils/has-prettier-ignore.ts';
+import { getVisitorKeys } from './slang-utils/get-visitor-keys.ts';
 
 import type {
   Parser,

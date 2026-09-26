@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { ImportClause } from './ImportClause.js';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { ImportClause } from './ImportClause.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

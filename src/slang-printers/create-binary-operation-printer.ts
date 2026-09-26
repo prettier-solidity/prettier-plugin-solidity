@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
-import { group, line } from './prettier-builders.js';
+import { isBinaryOperation } from '../slang-utils/is-binary-operation.ts';
+import { group, line } from './prettier-builders.ts';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { BinaryOperation, PrintableNode } from '../slang-nodes/types.d.ts';

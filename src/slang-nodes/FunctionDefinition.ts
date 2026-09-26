@@ -1,13 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { satisfies } from 'semver';
-import { printFunction } from '../slang-printers/print-function.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { FunctionName } from './FunctionName.js';
-import { ParametersDeclaration } from './ParametersDeclaration.js';
-import { FunctionAttributes } from './FunctionAttributes.js';
-import { ReturnsDeclaration } from './ReturnsDeclaration.js';
-import { FunctionBody } from './FunctionBody.js';
+import { printFunction } from '../slang-printers/print-function.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { FunctionName } from './FunctionName.ts';
+import { ParametersDeclaration } from './ParametersDeclaration.ts';
+import { FunctionAttributes } from './FunctionAttributes.ts';
+import { ReturnsDeclaration } from './ReturnsDeclaration.ts';
+import { FunctionBody } from './FunctionBody.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

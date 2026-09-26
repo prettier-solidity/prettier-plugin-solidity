@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { join } from '../slang-printers/prettier-builders.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { VersionExpression } from './VersionExpression.js';
+import { join } from '../slang-printers/prettier-builders.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { VersionExpression } from './VersionExpression.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';

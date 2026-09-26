@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printLogicalOperation } from '../slang-printers/print-logical-operation.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { Expression } from './Expression.js';
+import { printLogicalOperation } from '../slang-printers/print-logical-operation.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { Expression } from './Expression.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';

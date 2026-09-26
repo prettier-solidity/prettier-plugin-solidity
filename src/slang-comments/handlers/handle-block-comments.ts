@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import addCollectionFirstComment from './add-collection-first-comment.js';
-import addCollectionLastComment from './add-collection-last-comment.js';
+import addCollectionFirstComment from './add-collection-first-comment.ts';
+import addCollectionLastComment from './add-collection-last-comment.ts';
 
 import type { HandlerParams } from './types.d.ts';
 

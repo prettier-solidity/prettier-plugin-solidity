@@ -1,5 +1,5 @@
-import { isLabel } from '../slang-utils/is-label.js';
-import { printGroupAndIndentIfBreakPair } from './print-group-and-indent-if-break-pair.js';
+import { isLabel } from '../slang-utils/is-label.ts';
+import { printGroupAndIndentIfBreakPair } from './print-group-and-indent-if-break-pair.ts';
 
 import type { Doc } from 'prettier';
 

@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { isBinaryOperation } from '../slang-utils/is-binary-operation.js';
-import { SlangNode } from './SlangNode.js';
-import { TupleValue } from './TupleValue.js';
+import { printSeparatedList } from '../slang-printers/print-separated-list.ts';
+import { isBinaryOperation } from '../slang-utils/is-binary-operation.ts';
+import { SlangNode } from './SlangNode.ts';
+import { TupleValue } from './TupleValue.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';

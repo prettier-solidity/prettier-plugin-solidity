@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { InheritanceTypes } from './InheritanceTypes.js';
+import { SlangNode } from './SlangNode.ts';
+import { InheritanceTypes } from './InheritanceTypes.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

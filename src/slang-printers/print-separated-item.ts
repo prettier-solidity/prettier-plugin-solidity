@@ -1,4 +1,4 @@
-import { group, hardline, indent, softline } from './prettier-builders.js';
+import { group, hardline, indent, softline } from './prettier-builders.ts';
 
 import type { Doc, doc } from 'prettier';
 import type { PrintSeparatedOptions } from './types.d.ts';

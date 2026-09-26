@@ -1,9 +1,9 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { isNextLineEmpty } from '../slang-utils/prettier-utils.js';
-import { locEnd } from '../slang-utils/loc.js';
-import { hardline } from './prettier-builders.js';
-import { printComments } from './print-comments.js';
-import { printSeparatedItem } from './print-separated-item.js';
+import { isNextLineEmpty } from '../slang-utils/prettier-utils.ts';
+import { locEnd } from '../slang-utils/loc.ts';
+import { hardline } from './prettier-builders.ts';
+import { printComments } from './print-comments.ts';
+import { printSeparatedItem } from './print-separated-item.ts';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { LineCollection, PrintableNode } from '../slang-nodes/types.d.ts';
