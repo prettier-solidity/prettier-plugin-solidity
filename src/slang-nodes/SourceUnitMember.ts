@@ -1,20 +1,20 @@
 import * as ast from '@nomicfoundation/slang/ast';
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.js';
-import { SlangNode } from './SlangNode.js';
-import { PragmaDirective } from './PragmaDirective.js';
-import { ImportDirective } from './ImportDirective.js';
-import { ContractDefinition } from './ContractDefinition.js';
-import { InterfaceDefinition } from './InterfaceDefinition.js';
-import { LibraryDefinition } from './LibraryDefinition.js';
-import { StructDefinition } from './StructDefinition.js';
-import { EnumDefinition } from './EnumDefinition.js';
-import { FunctionDefinition } from './FunctionDefinition.js';
-import { ConstantDefinition } from './ConstantDefinition.js';
-import { ErrorDefinition } from './ErrorDefinition.js';
-import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition.js';
-import { UsingDirective } from './UsingDirective.js';
-import { EventDefinition } from './EventDefinition.js';
+import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
+import { SlangNode } from './SlangNode.ts';
+import { PragmaDirective } from './PragmaDirective.ts';
+import { ImportDirective } from './ImportDirective.ts';
+import { ContractDefinition } from './ContractDefinition.ts';
+import { InterfaceDefinition } from './InterfaceDefinition.ts';
+import { LibraryDefinition } from './LibraryDefinition.ts';
+import { StructDefinition } from './StructDefinition.ts';
+import { EnumDefinition } from './EnumDefinition.ts';
+import { FunctionDefinition } from './FunctionDefinition.ts';
+import { ConstantDefinition } from './ConstantDefinition.ts';
+import { ErrorDefinition } from './ErrorDefinition.ts';
+import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition.ts';
+import { UsingDirective } from './UsingDirective.ts';
+import { EventDefinition } from './EventDefinition.ts';
 
 import type { CollectedMetadata } from '../types.d.ts';
 

@@ -1,4 +1,4 @@
-import { group, indent, line } from './prettier-builders.js';
+import { group, indent, line } from './prettier-builders.ts';
 
 import type { Doc, doc } from 'prettier';
 

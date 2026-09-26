@@ -1,9 +1,9 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { TerminalNode } from './TerminalNode.js';
-import { YulParametersDeclaration } from './YulParametersDeclaration.js';
-import { YulReturnsDeclaration } from './YulReturnsDeclaration.js';
-import { YulBlock } from './YulBlock.js';
+import { SlangNode } from './SlangNode.ts';
+import { TerminalNode } from './TerminalNode.ts';
+import { YulParametersDeclaration } from './YulParametersDeclaration.ts';
+import { YulReturnsDeclaration } from './YulReturnsDeclaration.ts';
+import { YulBlock } from './YulBlock.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

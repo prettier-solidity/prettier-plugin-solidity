@@ -1,10 +1,10 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { satisfies } from 'semver';
-import { group, line } from '../slang-printers/prettier-builders.js';
-import { SlangNode } from './SlangNode.js';
-import { TerminalNode } from './TerminalNode.js';
-import { ContractSpecifiers } from './ContractSpecifiers.js';
-import { ContractMembers } from './ContractMembers.js';
+import { group, line } from '../slang-printers/prettier-builders.ts';
+import { SlangNode } from './SlangNode.ts';
+import { TerminalNode } from './TerminalNode.ts';
+import { ContractSpecifiers } from './ContractSpecifiers.ts';
+import { ContractMembers } from './ContractMembers.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

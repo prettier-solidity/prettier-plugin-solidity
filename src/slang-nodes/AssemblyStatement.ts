@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { StringLiteral } from './StringLiteral.js';
-import { AssemblyFlagsDeclaration } from './AssemblyFlagsDeclaration.js';
-import { YulBlock } from './YulBlock.js';
+import { SlangNode } from './SlangNode.ts';
+import { StringLiteral } from './StringLiteral.ts';
+import { AssemblyFlagsDeclaration } from './AssemblyFlagsDeclaration.ts';
+import { YulBlock } from './YulBlock.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

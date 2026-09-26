@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { TerminalNode } from './TerminalNode.js';
-import { ErrorParametersDeclaration } from './ErrorParametersDeclaration.js';
+import { SlangNode } from './SlangNode.ts';
+import { TerminalNode } from './TerminalNode.ts';
+import { ErrorParametersDeclaration } from './ErrorParametersDeclaration.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

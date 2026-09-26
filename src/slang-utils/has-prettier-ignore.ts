@@ -1,4 +1,4 @@
-import { isBlockComment, isComment } from './is-comment.js';
+import { isBlockComment, isComment } from './is-comment.ts';
 
 import type { AstPath } from 'prettier';
 import type { PrintableNode } from '../slang-nodes/types.d.ts';

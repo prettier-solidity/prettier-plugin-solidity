@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { MappingKey } from './MappingKey.js';
-import { MappingValue } from './MappingValue.js';
+import { SlangNode } from './SlangNode.ts';
+import { MappingKey } from './MappingKey.ts';
+import { MappingValue } from './MappingValue.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

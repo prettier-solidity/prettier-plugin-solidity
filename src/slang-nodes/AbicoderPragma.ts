@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { AbicoderVersion } from './AbicoderVersion.js';
+import { SlangNode } from './SlangNode.ts';
+import { AbicoderVersion } from './AbicoderVersion.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

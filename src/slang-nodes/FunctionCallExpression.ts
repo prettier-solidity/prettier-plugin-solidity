@@ -1,9 +1,9 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { printPossibleMemberAccessChainItem } from '../slang-printers/print-member-access-chain-item.js';
-import { SlangNode } from './SlangNode.js';
-import { Expression } from './Expression.js';
-import { ArgumentsDeclaration } from './ArgumentsDeclaration.js';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { printPossibleMemberAccessChainItem } from '../slang-printers/print-member-access-chain-item.ts';
+import { SlangNode } from './SlangNode.ts';
+import { Expression } from './Expression.ts';
+import { ArgumentsDeclaration } from './ArgumentsDeclaration.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

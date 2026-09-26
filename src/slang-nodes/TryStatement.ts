@@ -1,12 +1,12 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { line } from '../slang-printers/prettier-builders.js';
-import { printSeparatedItem } from '../slang-printers/print-separated-item.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { Expression } from './Expression.js';
-import { ReturnsDeclaration } from './ReturnsDeclaration.js';
-import { Block } from './Block.js';
-import { CatchClauses } from './CatchClauses.js';
+import { line } from '../slang-printers/prettier-builders.ts';
+import { printSeparatedItem } from '../slang-printers/print-separated-item.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { Expression } from './Expression.ts';
+import { ReturnsDeclaration } from './ReturnsDeclaration.ts';
+import { Block } from './Block.ts';
+import { CatchClauses } from './CatchClauses.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';

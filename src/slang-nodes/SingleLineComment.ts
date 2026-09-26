@@ -1,5 +1,5 @@
 import { TerminalKind } from '@nomicfoundation/slang/cst';
-import { CommentNode } from './CommentNode.js';
+import { CommentNode } from './CommentNode.ts';
 
 import type { TerminalNode } from '@nomicfoundation/slang/cst';
 import type { Doc } from 'prettier';

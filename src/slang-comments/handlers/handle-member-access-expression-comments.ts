@@ -2,7 +2,7 @@ import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import {
   addLeadingComment,
   addTrailingComment
-} from '../../slang-utils/prettier-utils.js';
+} from '../../slang-utils/prettier-utils.ts';
 
 import type { HandlerParams } from './types.d.ts';
 

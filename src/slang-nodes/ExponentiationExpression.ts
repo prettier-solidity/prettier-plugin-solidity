@@ -1,12 +1,12 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { group } from '../slang-printers/prettier-builders.js';
-import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.js';
-import { binaryIndentRulesBuilder } from '../slang-printers/print-binary-operation.js';
-import { createHugFunction } from '../slang-utils/create-hug-function.js';
-import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { Expression } from './Expression.js';
+import { group } from '../slang-printers/prettier-builders.ts';
+import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.ts';
+import { binaryIndentRulesBuilder } from '../slang-printers/print-binary-operation.ts';
+import { createHugFunction } from '../slang-utils/create-hug-function.ts';
+import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { Expression } from './Expression.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';

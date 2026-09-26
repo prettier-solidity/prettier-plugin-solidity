@@ -3,9 +3,9 @@ import {
   addLeadingComment,
   addTrailingComment,
   getNextNonSpaceNonCommentCharacter
-} from '../../slang-utils/prettier-utils.js';
-import { locEnd } from '../../slang-utils/loc.js';
-import addCollectionLastComment from './add-collection-last-comment.js';
+} from '../../slang-utils/prettier-utils.ts';
+import { locEnd } from '../../slang-utils/loc.ts';
+import addCollectionLastComment from './add-collection-last-comment.ts';
 
 import type { HandlerParams } from './types.d.ts';
 

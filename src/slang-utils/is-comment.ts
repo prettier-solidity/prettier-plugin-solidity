@@ -1,5 +1,5 @@
 import { TerminalKind } from '@nomicfoundation/slang/cst';
-import { createKindCheckFunction } from './create-kind-check-function.js';
+import { createKindCheckFunction } from './create-kind-check-function.ts';
 
 import type { Node } from '@nomicfoundation/slang/cst';
 import type {

@@ -1,6 +1,6 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { SlangNode } from './SlangNode.js';
-import { OverridePathsDeclaration } from './OverridePathsDeclaration.js';
+import { SlangNode } from './SlangNode.ts';
+import { OverridePathsDeclaration } from './OverridePathsDeclaration.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
