@@ -19,13 +19,12 @@ export default {
   experiments: { outputModule: true, typescript: true },
 
   output: {
+    chunkFormat: false,
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     library: { type: 'module' }
   },
 
-  performance: {
-    maxEntrypointSize: 1024 * 1024,
-    maxAssetSize: 1024 * 1024
-  }
+  // These bundles only exist for the tests, so their size doesn't matter.
+  performance: { hints: false }
 };
