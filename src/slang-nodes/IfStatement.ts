@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { hardline } from '../slang-printers/prettier-builders.ts';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.ts';
 import { printIndentedGroupOrSpacedDocument } from '../slang-printers/print-indented-group-or-spaced-document.ts';

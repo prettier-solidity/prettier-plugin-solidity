@@ -1,4 +1,4 @@
-import { TerminalKind } from '@nomicfoundation/slang/cst';
+import { TerminalKind } from '../slang-utils/slang.ts';
 import { CommentNode } from './CommentNode.ts';
 
 import type { TerminalNode } from '@nomicfoundation/slang/cst';

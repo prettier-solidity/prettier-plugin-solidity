@@ -1,22 +1,23 @@
-import * as ast from '@nomicfoundation/slang/ast';
 import {
   NonterminalKind,
+  SlangAst,
   TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
+} from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { ModifierInvocation } from './ModifierInvocation.ts';
 import { OverrideSpecifier } from './OverrideSpecifier.ts';
 import { TerminalNode } from './TerminalNode.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.ReceiveFunctionAttribute,
   ReceiveFunctionAttribute
->([
-  [ast.ModifierInvocation, ModifierInvocation],
-  [ast.OverrideSpecifier, OverrideSpecifier]
+>(() => [
+  [SlangAst.ModifierInvocation, ModifierInvocation],
+  [SlangAst.OverrideSpecifier, OverrideSpecifier]
 ]);
 
 export class ReceiveFunctionAttribute extends SlangNode {

@@ -1,15 +1,13 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { Parser } from '@nomicfoundation/slang/parser';
-import { LanguageFacts } from '@nomicfoundation/slang/utils';
 import { maxSatisfying } from 'semver';
+import { LanguageFacts, NonterminalKind, Parser } from './slang.ts';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
 import type { PrintableNode } from '../slang-nodes/types.d.ts';
 
-const supportedVersions = LanguageFacts.allVersions();
-const supportedLength = supportedVersions.length;
-const latestSupportedVersion = LanguageFacts.latestVersion();
+// Computed on the first parse, once Slang has been loaded.
+let supportedVersions: string[] | undefined;
+let latestSupportedVersion: string | undefined;
 
 function parserAndOutput(
   text: string,
@@ -31,6 +29,7 @@ export function createParser(
   text: string,
   options: ParserOptions<PrintableNode>
 ): { parser: Parser; parseOutput: ParseOutput } {
+  supportedVersions ??= LanguageFacts.allVersions();
   const compiler = maxSatisfying(supportedVersions, options.compiler);
   if (compiler) {
     return parserAndOutput(
@@ -42,8 +41,9 @@ export function createParser(
 
   const inferredRanges = LanguageFacts.inferLanguageVersions(text);
   const inferredLength = inferredRanges.length;
+  latestSupportedVersion ??= LanguageFacts.latestVersion();
 
-  if (inferredLength === 0 || inferredLength === supportedLength) {
+  if (inferredLength === 0 || inferredLength === supportedVersions.length) {
     return parserAndOutput(
       text,
       latestSupportedVersion,

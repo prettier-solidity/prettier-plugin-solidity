@@ -3,9 +3,12 @@ import { TEST_STANDALONE } from "./constants.js";
 function getCreateParserInternal() {
   const entry = TEST_STANDALONE
     ? "../../dist/create-parser.js"
-    : "../../src/slang-utils/create-parser.ts";
+    : "./create-parser-entry.js";
 
-  return import(entry).then((module) => module.createParser);
+  return import(entry).then(async (module) => {
+    await module.loadSlang();
+    return module.createParser;
+  });
 }
 
 let promise;

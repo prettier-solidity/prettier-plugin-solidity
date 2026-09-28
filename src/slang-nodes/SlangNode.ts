@@ -2,7 +2,7 @@ import {
   TerminalNode as SlangTerminalNode,
   TerminalKind,
   TerminalKindExtensions
-} from '@nomicfoundation/slang/cst';
+} from '../slang-utils/slang.ts';
 import { MultiLineComment } from './MultiLineComment.ts';
 import { MultiLineNatSpecComment } from './MultiLineNatSpecComment.ts';
 import { SingleLineComment } from './SingleLineComment.ts';

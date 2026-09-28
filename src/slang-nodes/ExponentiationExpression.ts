@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { group } from '../slang-printers/prettier-builders.ts';
 import { createBinaryOperationPrinter } from '../slang-printers/create-binary-operation-printer.ts';
 import { binaryIndentRulesBuilder } from '../slang-printers/print-binary-operation.ts';
@@ -15,7 +15,7 @@ import type { PrintableNode } from './types.d.ts';
 
 const tryToHug = createHugFunction(['**']);
 
-const shouldIndent = createKindCheckFunction([
+const shouldIndent = createKindCheckFunction(() => [
   NonterminalKind.MultiplicativeExpression,
   NonterminalKind.AdditiveExpression,
   NonterminalKind.ShiftExpression,

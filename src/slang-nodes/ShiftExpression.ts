@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.ts';
 import { createHugFunction } from '../slang-utils/create-hug-function.ts';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.ts';
@@ -23,7 +23,7 @@ const tryToHugLeftOperand = createHugFunction([
 const tryToHugRightOperand = createHugFunction(['+', '-', '*', '/', '**']);
 
 const printShiftExpression = printBinaryOperation(
-  createKindCheckFunction([
+  createKindCheckFunction(() => [
     NonterminalKind.BitwiseAndExpression,
     NonterminalKind.BitwiseOrExpression,
     NonterminalKind.BitwiseXorExpression,

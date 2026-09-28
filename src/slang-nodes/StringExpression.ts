@@ -1,5 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind, SlangAst } from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { StringLiteral } from './StringLiteral.ts';
@@ -8,17 +7,18 @@ import { HexStringLiteral } from './HexStringLiteral.ts';
 import { HexStringLiterals } from './HexStringLiterals.ts';
 import { UnicodeStringLiterals } from './UnicodeStringLiterals.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.StringExpression,
   StringExpression
->([
-  [ast.StringLiteral, StringLiteral],
-  [ast.StringLiterals, StringLiterals],
-  [ast.HexStringLiteral, HexStringLiteral],
-  [ast.HexStringLiterals, HexStringLiterals],
-  [ast.UnicodeStringLiterals, UnicodeStringLiterals]
+>(() => [
+  [SlangAst.StringLiteral, StringLiteral],
+  [SlangAst.StringLiterals, StringLiterals],
+  [SlangAst.HexStringLiteral, HexStringLiteral],
+  [SlangAst.HexStringLiterals, HexStringLiterals],
+  [SlangAst.UnicodeStringLiterals, UnicodeStringLiterals]
 ]);
 
 export class StringExpression extends SlangNode {

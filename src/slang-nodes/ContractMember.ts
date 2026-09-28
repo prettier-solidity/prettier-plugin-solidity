@@ -1,5 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind, SlangAst } from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { UsingDirective } from './UsingDirective.ts';
@@ -16,25 +15,26 @@ import { StateVariableDefinition } from './StateVariableDefinition.ts';
 import { ErrorDefinition } from './ErrorDefinition.ts';
 import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.ContractMember,
   ContractMember
->([
-  [ast.UsingDirective, UsingDirective],
-  [ast.FunctionDefinition, FunctionDefinition],
-  [ast.ConstructorDefinition, ConstructorDefinition],
-  [ast.ReceiveFunctionDefinition, ReceiveFunctionDefinition],
-  [ast.FallbackFunctionDefinition, FallbackFunctionDefinition],
-  [ast.UnnamedFunctionDefinition, UnnamedFunctionDefinition],
-  [ast.ModifierDefinition, ModifierDefinition],
-  [ast.StructDefinition, StructDefinition],
-  [ast.EnumDefinition, EnumDefinition],
-  [ast.EventDefinition, EventDefinition],
-  [ast.StateVariableDefinition, StateVariableDefinition],
-  [ast.ErrorDefinition, ErrorDefinition],
-  [ast.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition]
+>(() => [
+  [SlangAst.UsingDirective, UsingDirective],
+  [SlangAst.FunctionDefinition, FunctionDefinition],
+  [SlangAst.ConstructorDefinition, ConstructorDefinition],
+  [SlangAst.ReceiveFunctionDefinition, ReceiveFunctionDefinition],
+  [SlangAst.FallbackFunctionDefinition, FallbackFunctionDefinition],
+  [SlangAst.UnnamedFunctionDefinition, UnnamedFunctionDefinition],
+  [SlangAst.ModifierDefinition, ModifierDefinition],
+  [SlangAst.StructDefinition, StructDefinition],
+  [SlangAst.EnumDefinition, EnumDefinition],
+  [SlangAst.EventDefinition, EventDefinition],
+  [SlangAst.StateVariableDefinition, StateVariableDefinition],
+  [SlangAst.ErrorDefinition, ErrorDefinition],
+  [SlangAst.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition]
 ]);
 
 export class ContractMember extends SlangNode {

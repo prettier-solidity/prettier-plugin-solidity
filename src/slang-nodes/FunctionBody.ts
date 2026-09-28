@@ -1,7 +1,7 @@
 import {
   NonterminalKind,
   TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
+} from '../slang-utils/slang.ts';
 import { SlangNode } from './SlangNode.ts';
 import { Block } from './Block.ts';
 import { TerminalNode } from './TerminalNode.ts';

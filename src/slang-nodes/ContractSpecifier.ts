@@ -1,18 +1,18 @@
-import * as ast from '@nomicfoundation/slang/ast';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind, SlangAst } from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { InheritanceSpecifier } from './InheritanceSpecifier.ts';
 import { StorageLayoutSpecifier } from './StorageLayoutSpecifier.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.ContractSpecifier,
   ContractSpecifier
->([
-  [ast.InheritanceSpecifier, InheritanceSpecifier],
-  [ast.StorageLayoutSpecifier, StorageLayoutSpecifier]
+>(() => [
+  [SlangAst.InheritanceSpecifier, InheritanceSpecifier],
+  [SlangAst.StorageLayoutSpecifier, StorageLayoutSpecifier]
 ]);
 
 export class ContractSpecifier extends SlangNode {

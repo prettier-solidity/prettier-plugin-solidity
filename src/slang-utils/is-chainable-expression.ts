@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from './slang.ts';
 import { createKindCheckFunction } from './create-kind-check-function.ts';
 
 import type {
@@ -6,7 +6,7 @@ import type {
   PrintableNode
 } from '../slang-nodes/types.d.ts';
 
-export const isChainableExpression = createKindCheckFunction([
+export const isChainableExpression = createKindCheckFunction(() => [
   NonterminalKind.FunctionCallExpression,
   NonterminalKind.IndexAccessExpression,
   NonterminalKind.MemberAccessExpression

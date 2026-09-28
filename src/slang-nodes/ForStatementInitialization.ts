@@ -1,8 +1,8 @@
-import * as ast from '@nomicfoundation/slang/ast';
 import {
   NonterminalKind,
+  SlangAst,
   TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
+} from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { ExpressionStatement } from './ExpressionStatement.ts';
@@ -10,15 +10,16 @@ import { VariableDeclarationStatement } from './VariableDeclarationStatement.ts'
 import { TupleDeconstructionStatement } from './TupleDeconstructionStatement.ts';
 import { TerminalNode } from './TerminalNode.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.ForStatementInitialization,
   ForStatementInitialization
->([
-  [ast.ExpressionStatement, ExpressionStatement],
-  [ast.VariableDeclarationStatement, VariableDeclarationStatement],
-  [ast.TupleDeconstructionStatement, TupleDeconstructionStatement]
+>(() => [
+  [SlangAst.ExpressionStatement, ExpressionStatement],
+  [SlangAst.VariableDeclarationStatement, VariableDeclarationStatement],
+  [SlangAst.TupleDeconstructionStatement, TupleDeconstructionStatement]
 ]);
 
 export class ForStatementInitialization extends SlangNode {

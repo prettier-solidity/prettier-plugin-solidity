@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.ts';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.ts';
 import { group, indent } from './prettier-builders.ts';
@@ -20,7 +20,7 @@ export const binaryGroupRulesBuilder =
     return document;
   };
 
-const isStatementWithoutIndentedOperation = createKindCheckFunction([
+const isStatementWithoutIndentedOperation = createKindCheckFunction(() => [
   NonterminalKind.ReturnStatement,
   NonterminalKind.IfStatement,
   NonterminalKind.WhileStatement

@@ -1,4 +1,4 @@
-import { TerminalKind } from '@nomicfoundation/slang/cst';
+import { TerminalKind } from './slang.ts';
 import { createKindCheckFunction } from './create-kind-check-function.ts';
 
 import type { Node } from '@nomicfoundation/slang/cst';
@@ -8,12 +8,12 @@ import type {
   PrintableNode
 } from '../slang-nodes/types.d.ts';
 
-export const isBlockComment = createKindCheckFunction([
+export const isBlockComment = createKindCheckFunction(() => [
   TerminalKind.MultiLineComment,
   TerminalKind.MultiLineNatSpecComment
 ]) as (node: PrintableNode | Comment | Node) => node is BlockComment;
 
-export const isComment = createKindCheckFunction([
+export const isComment = createKindCheckFunction(() => [
   TerminalKind.MultiLineComment,
   TerminalKind.MultiLineNatSpecComment,
   TerminalKind.SingleLineComment,

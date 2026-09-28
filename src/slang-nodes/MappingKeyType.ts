@@ -1,18 +1,18 @@
-import * as ast from '@nomicfoundation/slang/ast';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind, SlangAst } from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { ElementaryType } from './ElementaryType.ts';
 import { IdentifierPath } from './IdentifierPath.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.MappingKeyType,
   MappingKeyType
 >(
-  [[ast.IdentifierPath, IdentifierPath]],
-  [[ast.ElementaryType, ElementaryType]]
+  () => [[SlangAst.IdentifierPath, IdentifierPath]],
+  () => [[SlangAst.ElementaryType, ElementaryType]]
 );
 
 export class MappingKeyType extends SlangNode {

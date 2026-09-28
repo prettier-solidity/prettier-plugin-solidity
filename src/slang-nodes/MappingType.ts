@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { SlangNode } from './SlangNode.ts';
 import { MappingKey } from './MappingKey.ts';
 import { MappingValue } from './MappingValue.ts';

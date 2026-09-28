@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../../slang-utils/slang.ts';
 import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/prettier-utils.ts';
 import { locEnd } from '../../slang-utils/loc.ts';
 import addCollectionFirstComment from './add-collection-first-comment.ts';

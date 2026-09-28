@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { printSeparatedList } from '../slang-printers/print-separated-list.ts';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.ts';
 import { SlangNode } from './SlangNode.ts';

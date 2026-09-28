@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.ts';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.ts';
 import { extractVariant } from '../slang-utils/extract-variant.ts';
@@ -11,7 +11,7 @@ import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 import type { PrintableNode } from './types.d.ts';
 
 const printComparisonExpression = printBinaryOperation(
-  createKindCheckFunction([
+  createKindCheckFunction(() => [
     NonterminalKind.EqualityExpression,
     NonterminalKind.AndExpression,
     NonterminalKind.OrExpression

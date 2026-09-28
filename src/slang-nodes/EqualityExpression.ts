@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { createHugFunction } from '../slang-utils/create-hug-function.ts';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.ts';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.ts';
@@ -14,7 +14,7 @@ import type { PrintableNode } from './types.d.ts';
 const tryToHug = createHugFunction(['==', '!=']);
 
 const printEqualityExpression = printBinaryOperation(
-  createKindCheckFunction([
+  createKindCheckFunction(() => [
     NonterminalKind.AndExpression,
     NonterminalKind.OrExpression
   ])

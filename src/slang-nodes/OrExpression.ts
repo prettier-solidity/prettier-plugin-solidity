@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { printLogicalOperation } from '../slang-printers/print-logical-operation.ts';
 import { createHugFunction } from '../slang-utils/create-hug-function.ts';
 import { extractVariant } from '../slang-utils/extract-variant.ts';

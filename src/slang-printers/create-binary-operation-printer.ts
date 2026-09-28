@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { isBinaryOperation } from '../slang-utils/is-binary-operation.ts';
 import { group, line } from './prettier-builders.ts';
 

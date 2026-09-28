@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { printFunction } from '../slang-printers/print-function.ts';
 import { SlangNode } from './SlangNode.ts';
 import { ParametersDeclaration } from './ParametersDeclaration.ts';

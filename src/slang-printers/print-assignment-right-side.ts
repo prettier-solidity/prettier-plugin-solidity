@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { isChainableExpression } from '../slang-utils/is-chainable-expression.ts';
 import { printIndentedGroupOrSpacedDocument } from './print-indented-group-or-spaced-document.ts';
 

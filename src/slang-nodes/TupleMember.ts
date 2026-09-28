@@ -1,18 +1,18 @@
-import * as ast from '@nomicfoundation/slang/ast';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind, SlangAst } from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { TypedTupleMember } from './TypedTupleMember.ts';
 import { UntypedTupleMember } from './UntypedTupleMember.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.TupleMember,
   TupleMember
->([
-  [ast.TypedTupleMember, TypedTupleMember],
-  [ast.UntypedTupleMember, UntypedTupleMember]
+>(() => [
+  [SlangAst.TypedTupleMember, TypedTupleMember],
+  [SlangAst.UntypedTupleMember, UntypedTupleMember]
 ]);
 
 export class TupleMember extends SlangNode {

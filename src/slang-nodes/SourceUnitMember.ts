@@ -1,5 +1,4 @@
-import * as ast from '@nomicfoundation/slang/ast';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind, SlangAst } from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { PragmaDirective } from './PragmaDirective.ts';
@@ -16,25 +15,26 @@ import { UserDefinedValueTypeDefinition } from './UserDefinedValueTypeDefinition
 import { UsingDirective } from './UsingDirective.ts';
 import { EventDefinition } from './EventDefinition.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.SourceUnitMember,
   SourceUnitMember
->([
-  [ast.PragmaDirective, PragmaDirective],
-  [ast.ImportDirective, ImportDirective],
-  [ast.ContractDefinition, ContractDefinition],
-  [ast.InterfaceDefinition, InterfaceDefinition],
-  [ast.LibraryDefinition, LibraryDefinition],
-  [ast.StructDefinition, StructDefinition],
-  [ast.EnumDefinition, EnumDefinition],
-  [ast.FunctionDefinition, FunctionDefinition],
-  [ast.ConstantDefinition, ConstantDefinition],
-  [ast.ErrorDefinition, ErrorDefinition],
-  [ast.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition],
-  [ast.UsingDirective, UsingDirective],
-  [ast.EventDefinition, EventDefinition]
+>(() => [
+  [SlangAst.PragmaDirective, PragmaDirective],
+  [SlangAst.ImportDirective, ImportDirective],
+  [SlangAst.ContractDefinition, ContractDefinition],
+  [SlangAst.InterfaceDefinition, InterfaceDefinition],
+  [SlangAst.LibraryDefinition, LibraryDefinition],
+  [SlangAst.StructDefinition, StructDefinition],
+  [SlangAst.EnumDefinition, EnumDefinition],
+  [SlangAst.FunctionDefinition, FunctionDefinition],
+  [SlangAst.ConstantDefinition, ConstantDefinition],
+  [SlangAst.ErrorDefinition, ErrorDefinition],
+  [SlangAst.UserDefinedValueTypeDefinition, UserDefinedValueTypeDefinition],
+  [SlangAst.UsingDirective, UsingDirective],
+  [SlangAst.EventDefinition, EventDefinition]
 ]);
 
 export class SourceUnitMember extends SlangNode {

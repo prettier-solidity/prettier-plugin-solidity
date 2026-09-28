@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { extractVariant } from '../slang-utils/extract-variant.ts';
 import { SlangNode } from './SlangNode.ts';
 import { Pragma } from './Pragma.ts';

@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { SlangNode } from './SlangNode.ts';
 import { YulVariableDeclarationValue } from './YulVariableDeclarationValue.ts';
 import { YulVariableNames } from './YulVariableNames.ts';

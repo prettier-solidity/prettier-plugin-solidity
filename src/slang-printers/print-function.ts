@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { dedent, group, indent, line } from './prettier-builders.ts';
 
 import type { Doc } from 'prettier';

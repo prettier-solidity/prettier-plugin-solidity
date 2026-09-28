@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.ts';
 import { line } from '../slang-printers/prettier-builders.ts';
 import { extractVariant } from '../slang-utils/extract-variant.ts';

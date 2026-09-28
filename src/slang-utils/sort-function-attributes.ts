@@ -1,5 +1,5 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { TerminalNode } from '../slang-nodes/TerminalNode.ts';
+import { NonterminalKind } from './slang.ts';
 
 import type { SortableAttribute } from './types.d.ts';
 

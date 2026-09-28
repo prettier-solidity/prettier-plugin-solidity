@@ -11,6 +11,7 @@ import { isBlockComment, isComment } from './slang-utils/is-comment.ts';
 import { locEnd, locStart } from './slang-utils/loc.ts';
 import { hasPrettierIgnore } from './slang-utils/has-prettier-ignore.ts';
 import { getVisitorKeys } from './slang-utils/get-visitor-keys.ts';
+import { loadSlang } from './slang-utils/slang.ts';
 
 import type {
   Parser,
@@ -19,6 +20,9 @@ import type {
   SupportLanguage
 } from 'prettier';
 import type { PrintableNode } from './slang-nodes/types.d.ts';
+
+// Loading Slang here to avoid async wrappers for every file importing slang.
+await loadSlang();
 
 const slangParserId = 'slang';
 const antlrParserId = 'antlr';

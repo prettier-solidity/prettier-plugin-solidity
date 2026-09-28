@@ -1,5 +1,5 @@
 // https://prettier.io/docs/en/plugins.html#parsers
-import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
+import { SlangAst } from './slang-utils/slang.ts';
 import { createParser } from './slang-utils/create-parser.ts';
 import { locStart } from './slang-utils/loc.ts';
 import { SourceUnit } from './slang-nodes/SourceUnit.ts';
@@ -17,7 +17,7 @@ export default function parse(
   options.compiler = parser.languageVersion;
   const comments: Comment[] = [];
   const parsed = new SourceUnit(
-    new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
+    new SlangAst.SourceUnit(parseOutput.tree.asNonterminalNode()),
     { offsets: new Map<number, number>(), comments, options }
   );
 

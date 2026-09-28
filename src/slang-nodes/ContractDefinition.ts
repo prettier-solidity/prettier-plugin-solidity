@@ -1,5 +1,5 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { satisfies } from 'semver';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { group, line } from '../slang-printers/prettier-builders.ts';
 import { SlangNode } from './SlangNode.ts';
 import { TerminalNode } from './TerminalNode.ts';

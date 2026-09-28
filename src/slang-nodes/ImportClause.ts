@@ -1,20 +1,20 @@
-import * as ast from '@nomicfoundation/slang/ast';
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind, SlangAst } from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { PathImport } from './PathImport.ts';
 import { NamedImport } from './NamedImport.ts';
 import { ImportDeconstruction } from './ImportDeconstruction.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.ImportClause,
   ImportClause
->([
-  [ast.PathImport, PathImport],
-  [ast.NamedImport, NamedImport],
-  [ast.ImportDeconstruction, ImportDeconstruction]
+>(() => [
+  [SlangAst.PathImport, PathImport],
+  [SlangAst.NamedImport, NamedImport],
+  [SlangAst.ImportDeconstruction, ImportDeconstruction]
 ]);
 
 export class ImportClause extends SlangNode {

@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { isBlockComment } from '../slang-utils/is-comment.ts';
 import { SlangNode } from './SlangNode.ts';
 import { PositionalArguments } from './PositionalArguments.ts';

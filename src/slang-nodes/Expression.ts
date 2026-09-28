@@ -1,8 +1,8 @@
-import * as ast from '@nomicfoundation/slang/ast';
 import {
   NonterminalKind,
+  SlangAst,
   TerminalNode as SlangTerminalNode
-} from '@nomicfoundation/slang/cst';
+} from '../slang-utils/slang.ts';
 import { createNonterminalVariantCreator } from '../slang-utils/create-nonterminal-variant-creator.ts';
 import { SlangNode } from './SlangNode.ts';
 import { AssignmentExpression } from './AssignmentExpression.ts';
@@ -34,42 +34,43 @@ import { StringExpression } from './StringExpression.ts';
 import { ElementaryType } from './ElementaryType.ts';
 import { TerminalNode } from './TerminalNode.ts';
 
+import type * as ast from '@nomicfoundation/slang/ast';
 import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.Expression,
   Expression
 >(
-  [
-    [ast.AssignmentExpression, AssignmentExpression],
-    [ast.ConditionalExpression, ConditionalExpression],
-    [ast.OrExpression, OrExpression],
-    [ast.AndExpression, AndExpression],
-    [ast.EqualityExpression, EqualityExpression],
-    [ast.InequalityExpression, InequalityExpression],
-    [ast.BitwiseOrExpression, BitwiseOrExpression],
-    [ast.BitwiseXorExpression, BitwiseXorExpression],
-    [ast.BitwiseAndExpression, BitwiseAndExpression],
-    [ast.ShiftExpression, ShiftExpression],
-    [ast.AdditiveExpression, AdditiveExpression],
-    [ast.MultiplicativeExpression, MultiplicativeExpression],
-    [ast.ExponentiationExpression, ExponentiationExpression],
-    [ast.PostfixExpression, PostfixExpression],
-    [ast.PrefixExpression, PrefixExpression],
-    [ast.FunctionCallExpression, FunctionCallExpression],
-    [ast.CallOptionsExpression, CallOptionsExpression],
-    [ast.MemberAccessExpression, MemberAccessExpression],
-    [ast.IndexAccessExpression, IndexAccessExpression],
-    [ast.NewExpression, NewExpression],
-    [ast.TupleExpression, TupleExpression],
-    [ast.TypeExpression, TypeExpression],
-    [ast.ArrayExpression, ArrayExpression],
-    [ast.HexNumberExpression, HexNumberExpression],
-    [ast.DecimalNumberExpression, DecimalNumberExpression]
+  () => [
+    [SlangAst.AssignmentExpression, AssignmentExpression],
+    [SlangAst.ConditionalExpression, ConditionalExpression],
+    [SlangAst.OrExpression, OrExpression],
+    [SlangAst.AndExpression, AndExpression],
+    [SlangAst.EqualityExpression, EqualityExpression],
+    [SlangAst.InequalityExpression, InequalityExpression],
+    [SlangAst.BitwiseOrExpression, BitwiseOrExpression],
+    [SlangAst.BitwiseXorExpression, BitwiseXorExpression],
+    [SlangAst.BitwiseAndExpression, BitwiseAndExpression],
+    [SlangAst.ShiftExpression, ShiftExpression],
+    [SlangAst.AdditiveExpression, AdditiveExpression],
+    [SlangAst.MultiplicativeExpression, MultiplicativeExpression],
+    [SlangAst.ExponentiationExpression, ExponentiationExpression],
+    [SlangAst.PostfixExpression, PostfixExpression],
+    [SlangAst.PrefixExpression, PrefixExpression],
+    [SlangAst.FunctionCallExpression, FunctionCallExpression],
+    [SlangAst.CallOptionsExpression, CallOptionsExpression],
+    [SlangAst.MemberAccessExpression, MemberAccessExpression],
+    [SlangAst.IndexAccessExpression, IndexAccessExpression],
+    [SlangAst.NewExpression, NewExpression],
+    [SlangAst.TupleExpression, TupleExpression],
+    [SlangAst.TypeExpression, TypeExpression],
+    [SlangAst.ArrayExpression, ArrayExpression],
+    [SlangAst.HexNumberExpression, HexNumberExpression],
+    [SlangAst.DecimalNumberExpression, DecimalNumberExpression]
   ],
-  [
-    [ast.StringExpression, StringExpression],
-    [ast.ElementaryType, ElementaryType]
+  () => [
+    [SlangAst.StringExpression, StringExpression],
+    [SlangAst.ElementaryType, ElementaryType]
   ]
 );
 

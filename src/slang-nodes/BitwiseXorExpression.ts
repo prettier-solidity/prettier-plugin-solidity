@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { printBinaryOperation } from '../slang-printers/print-binary-operation.ts';
 import { createHugFunction } from '../slang-utils/create-hug-function.ts';
 import { createKindCheckFunction } from '../slang-utils/create-kind-check-function.ts';
@@ -14,7 +14,7 @@ import type { PrintableNode } from './types.d.ts';
 const tryToHug = createHugFunction(['+', '-', '*', '/', '**', '<<', '>>', '&']);
 
 const printBitwiseXorExpression = printBinaryOperation(
-  createKindCheckFunction([
+  createKindCheckFunction(() => [
     NonterminalKind.InequalityExpression,
     NonterminalKind.EqualityExpression,
     NonterminalKind.AndExpression,

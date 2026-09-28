@@ -42,13 +42,20 @@ export function createNonterminalVariantCreator<
   U extends SlangPolymorphicNode,
   T extends StrictPolymorphicNode
 >(
-  constructors: ConstructorEntry<SlangVariantClass<U>, T['variant']>[],
-  extractVariantConstructors: ConstructorEntry<
+  // The tables are built on first use: they refer to Slang's AST classes,
+  // which only exist once Slang has been loaded.
+  getConstructors: () => ConstructorEntry<SlangVariantClass<U>, T['variant']>[],
+  getExtractVariantConstructors: () => ConstructorEntry<
     SlangVariantClass<U>,
     StrictPolymorphicNode & { variant: T['variant'] }
-  >[] = []
+  >[] = () => []
 ): NonterminalVariantFactory<U, T> {
+  let constructors: ReturnType<typeof getConstructors> | undefined;
+  let extractVariantConstructors:
+    ReturnType<typeof getExtractVariantConstructors> | undefined;
   return (variant, collected) => {
+    constructors ??= getConstructors();
+    extractVariantConstructors ??= getExtractVariantConstructors();
     for (const [slangAstClass, constructor] of extractVariantConstructors) {
       if (variant instanceof slangAstClass) {
         return extractVariant(

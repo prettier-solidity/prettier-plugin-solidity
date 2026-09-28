@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.ts';
 import { extractVariant } from '../slang-utils/extract-variant.ts';
 import { printPossibleMemberAccessChainItem } from '../slang-printers/print-member-access-chain-item.ts';

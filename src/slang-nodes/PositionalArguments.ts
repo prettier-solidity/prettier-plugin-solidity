@@ -1,4 +1,4 @@
-import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { NonterminalKind } from '../slang-utils/slang.ts';
 import { printComments } from '../slang-printers/print-comments.ts';
 import { printSeparatedItem } from '../slang-printers/print-separated-item.ts';
 import { printSeparatedList } from '../slang-printers/print-separated-list.ts';

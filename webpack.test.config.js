@@ -5,7 +5,7 @@ const __dirname = import.meta.dirname;
 export default {
   entry: {
     test: './tests/integration/test-app/test-app.js',
-    'create-parser': './src/slang-utils/create-parser.ts',
+    'create-parser': './tests/config/create-parser-entry.js',
     'variant-coverage': './variant-coverage/index.ts'
   },
   mode: 'production',
