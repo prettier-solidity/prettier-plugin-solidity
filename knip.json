@@ -1,6 +1,8 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": [
+    "variant-coverage/index.ts",
+    "tests/integration/test-app/test-app.js",
     "tests/**/*.test.js",
     "tests/config/browser-standalone-global-setup.js",
     "tests/config/browser-standalone-global-teardown.js"
