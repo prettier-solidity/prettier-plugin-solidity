@@ -91,6 +91,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^26.6.5",
     "@types/semver": "^7.8.0",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "c8": "^12.0.0",
     "cross-env": "^10.1.0",
     "eslint": "^10.13.0",
@@ -107,7 +108,7 @@
     "playwright": "^1.64.1",
     "prettier": "^3.9.10",
     "solc": "^0.8.38",
-    "typescript": "^6.0.3",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.72.1",
     "webpack": "^5.112.2",
     "webpack-cli": "^7.2.3"
