@@ -1,6 +1,6 @@
 import { rm } from 'node:fs/promises';
 import { build } from 'esbuild';
-import { wasmUrlPlugin } from './esbuild-wasm-url.js';
+import { sharedOptions } from './esbuild.shared.js';
 
 const outdir = 'dist-test';
 
@@ -19,16 +19,9 @@ await rm(outdir, { recursive: true, force: true });
 await Promise.all(
   Object.entries(entryPoints).map(([name, entry]) =>
     build({
+      ...sharedOptions,
       entryPoints: { index: entry },
-      bundle: true,
-      format: 'esm',
-      platform: 'browser',
-      target: 'es2023',
-      external: ['node:fs/promises'],
-      loader: { '.wasm': 'file' },
-      plugins: [wasmUrlPlugin],
-      outdir: `${outdir}/${name}`,
-      logLevel: 'warning'
+      outdir: `${outdir}/${name}`
     })
   )
 );
