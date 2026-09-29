@@ -1,4 +1,6 @@
 import { readFile } from 'node:fs/promises';
+import browserslistToEsbuild from 'browserslist-to-esbuild';
+import packageJson from './package.json' with { type: 'json' };
 
 // Slang loads its .wasm files with `new URL('./….wasm', import.meta.url)`,
 // which esbuild doesn't treat as a dependency. This turns each of those URLs
@@ -17,7 +19,7 @@ const wasmUrl = new RegExp(
   'g'
 );
 
-export const wasmUrlPlugin = {
+const wasmUrlPlugin = {
   name: 'wasm-url',
   setup(build) {
     build.onLoad({ filter: /\.m?js$/ }, async ({ path }) => {
@@ -32,4 +34,19 @@ export const wasmUrlPlugin = {
       return { contents: `${imports.join('\n')}\n${contents}`, loader: 'js' };
     });
   }
+};
+
+export const outdir = 'dist';
+
+export const sharedOptions = {
+  bundle: true,
+  format: 'esm',
+  platform: 'browser',
+  target: ['es2023', ...browserslistToEsbuild(packageJson.browserslist)],
+  // Slang only imports this in Node, where it reads its .wasm files from disk.
+  external: ['node:fs/promises'],
+  loader: { '.wasm': 'file' },
+  plugins: [wasmUrlPlugin],
+  outdir,
+  logLevel: 'warning'
 };

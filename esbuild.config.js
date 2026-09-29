@@ -1,9 +1,7 @@
 import { rm } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import { build } from 'esbuild';
-import { wasmUrlPlugin } from './esbuild-wasm-url.js';
-
-const outdir = 'dist';
+import { outdir, sharedOptions } from './esbuild.shared.js';
 
 // This is the production and development configuration, picked with
 // `--env production` or `--env development`.
@@ -14,17 +12,8 @@ const isProduction = values.env === 'production';
 await rm(outdir, { recursive: true, force: true });
 
 await build({
+  ...sharedOptions,
   entryPoints: { standalone: 'src/browser.ts' },
-  bundle: true,
-  format: 'esm',
-  platform: 'browser',
-  target: 'es2023',
-  // Slang only imports this in Node, where it reads its .wasm files from disk.
-  external: ['node:fs/promises'],
-  loader: { '.wasm': 'file' },
-  plugins: [wasmUrlPlugin],
   minify: isProduction,
-  sourcemap: true,
-  outdir,
-  logLevel: 'warning'
+  sourcemap: true
 });
