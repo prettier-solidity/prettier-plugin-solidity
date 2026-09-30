@@ -1,0 +1,63 @@
+name: Release
+
+# Publishes to npm when a GitHub release is published. The release's tag must
+# be the package.json version prefixed with a `v`, e.g. `v2.4.1`.
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  version:
+    name: Check the tag matches package.json
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Compare versions
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          if [ "$GITHUB_REF_NAME" != "v$version" ]; then
+            echo "::error::The release tag $GITHUB_REF_NAME doesn't match the package.json version v$version."
+            exit 1
+          fi
+
+  # Lint, tests on every Node version and OS, and the standalone bundle on Node
+  # and every browser.
+  ci:
+    name: CI
+    needs: version
+    uses: ./.github/workflows/CI.yml
+
+  publish:
+    name: Publish to npm
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      # Lets npm verify this workflow through trusted publishing, so no npm
+      # token is needed, and adds provenance to the published package.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      # Node 26 ships npm 11, which trusted publishing needs.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+      # This job can publish, so dependencies don't get to run install scripts
+      # here. It doesn't stop our own `prepublishOnly`.
+      - name: Install
+        run: npm ci --ignore-scripts
+      # `prepublishOnly` builds `dist/` and the types.
+      # A release marked as a pre-release is published under the `next` tag.
+      - name: Publish
+        run: npm publish ${{ github.event.release.prerelease && '--tag next' || '' }}
