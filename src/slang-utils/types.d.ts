@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-duplicate-type-constituents */
 import type { ConstructorAttribute } from '../slang-nodes/ConstructorAttribute.ts';
 import type { FallbackFunctionAttribute } from '../slang-nodes/FallbackFunctionAttribute.ts';
 import type { FunctionAttribute } from '../slang-nodes/FunctionAttribute.ts';
@@ -8,12 +7,13 @@ import type { ReceiveFunctionAttribute } from '../slang-nodes/ReceiveFunctionAtt
 import type { StateVariableAttribute } from '../slang-nodes/StateVariableAttribute.ts';
 import type { UnnamedFunctionAttribute } from '../slang-nodes/UnnamedFunctionAttribute.ts';
 
-type SortableAttribute =
-  | ConstructorAttribute['variant']
-  | FallbackFunctionAttribute['variant']
-  | FunctionAttribute['variant']
-  | FunctionTypeAttribute['variant']
-  | ModifierAttribute['variant']
-  | ReceiveFunctionAttribute['variant']
-  | StateVariableAttribute['variant']
-  | UnnamedFunctionAttribute['variant'];
+type SortableAttribute = (
+  | ConstructorAttribute
+  | FallbackFunctionAttribute
+  | FunctionAttribute
+  | FunctionTypeAttribute
+  | ModifierAttribute
+  | ReceiveFunctionAttribute
+  | StateVariableAttribute
+  | UnnamedFunctionAttribute
+)['variant'];
