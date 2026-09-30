@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - '*'
+  # Lets the Release workflow run every check before publishing.
+  workflow_call:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
