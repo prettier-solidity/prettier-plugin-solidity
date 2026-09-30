@@ -1,277 +1,125 @@
 # Style Guide
 
-## Indentation
+This document describes how Prettier Solidity formats code and why. It follows the [Solidity style guide](https://docs.soliditylang.org/en/latest/style-guide.html) in most places. Where it doesn't, it's usually because a formatter has to make a decision the style guide leaves to the author.
 
-- [x] Use 4 spaces per indentation level.
+Every example below is real output from the plugin, using the `slang` parser and the default options.
 
-## Tabs or Spaces
+## Defaults
 
-- [x] Spaces are the preferred indentation method.
-- [x] Mixing tabs and spaces should be avoided.
+| Option                                                                                            | Default | Notes                                                                              |
+| ------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| [`tabWidth`](https://prettier.io/docs/options#tab-width)                                          | `4`     | Prettier's default is `2`.                                                         |
+| [`printWidth`](https://prettier.io/docs/options#print-width)                                      | `80`    |                                                                                    |
+| [`useTabs`](https://prettier.io/docs/options#tabs)                                                | `false` |                                                                                    |
+| [`singleQuote`](https://prettier.io/docs/options#quotes)                                          | `false` |                                                                                    |
+| [`bracketSpacing`](https://prettier.io/docs/options#bracket-spacing)                              | `false` | Prettier's default is `true`.                                                      |
+| [`experimentalOperatorPosition`](https://prettier.io/docs/options#experimental-operator-position) | `end`   | Operators stay at the end of the line when an operation wraps.                     |
+| [`experimentalTernaries`](https://prettier.io/docs/options#experimental-ternaries)                | `false` |                                                                                    |
+| `compiler`                                                                                        | —       | Inferred from the `pragma` statements, see [Compiler](#compiler-aware-formatting). |
 
-## Blank Lines
+## Blank lines
 
-- [ ] Surround top level declarations in solidity source with two blank lines.
+The plugin keeps the author's blank lines instead of enforcing a layout:
 
-```Solidity
-pragma solidity >=0.4.0 <0.7.0;
+- Several blank lines in a row are collapsed into one.
+- Blank lines at the start and end of a block are removed.
+- Blank lines are never added. Two contracts or two functions written next to each other stay next to each other.
 
-    contract A {
-        // ...
-    }
+```solidity
+contract B {
+    uint256 a;
+    uint256 b;
 
-
-    contract B {
-        // ...
-    }
-
-
-    contract C {
-        // ...
-    }
-```
-
-- [ ] Within a contract surround function declarations with a single blank line.
-
-  Blank lines may be omitted between groups of related one-liners (such as stub functions for an abstract contract)
-
-```Solidity
-pragma solidity >=0.4.0 <0.7.0;
-
-contract A {
-    function spam() public pure;
-    function ham() public pure;
-}
-
-
-contract B is A {
-    function spam() public pure {
-        // ...
-    }
-
-    function ham() public pure {
-        // ...
-    }
+    function spam() public pure {}
+    function ham() public pure {}
 }
 ```
 
-## Maximum Line Length
+The style guide asks for two blank lines between top-level declarations and one between functions. The plugin doesn't enforce either of these, so groups of related one-liners can stay together.
 
-Keeping lines under the [PEP 8 recommendation](https://www.python.org/dev/peps/pep-0008/#maximum-line-length) to a maximum of 79 (or 99) characters helps readers easily parse the code.
+## Wrapping
 
-Wrapped lines should conform to the following guidelines.
+When something doesn't fit in `printWidth`, the plugin breaks the outermost group first. Every element then goes on its own line, indented once, and the closing bracket goes on its own line.
 
-1. The first argument should not be attached to the opening parenthesis.
-2. One, and only one, indent should be used.
-3. Each argument should fall on its own line.
-4. The terminating element, :code:`);`, should be placed on the final line by itself.
-
-- [x] Function Calls
-
-```Solidity
-thisFunctionCallIsReallyLong(
-    longArgument1,
-    longArgument2,
-    longArgument3
-);
-```
-
-- [x] Assignment Statements
-
-```Solidity
-thisIsALongNestedMapping[being][set][to_some_value] = someFunction(
-    argument1,
-    argument2,
-    argument3,
-    argument4
-);
-```
-
-- [x] Event Definitions and Event Emitters
-
-```Solidity
-event LongAndLotsOfArgs(
-    address sender,
-    address recipient,
-    uint256 publicKey,
-    uint256 amount,
-    bytes32[] options
+```solidity
+IERC20(token).safeTransferFrom(
+    msg.sender,
+    address(this),
+    amountToTransfer
 );
 
-LongAndLotsOfArgs(
-    sender,
-    recipient,
-    publicKey,
-    amount,
-    options
+emit Withdraw(
+    msg.sender,
+    receiverAddress,
+    ownerAddress,
+    assetsWithdrawn,
+    sharesBurned
 );
+
+(bool success, bytes memory returndata) = target.call{
+    value: value,
+    gas: gasleft()
+}(data);
 ```
 
-## Source File Encoding
+The same applies to inheritance lists, imports, and mappings. If a declaration's type is too long, what follows it moves to the next line:
 
-- [x] UTF-8 or ASCII encoding is preferred.
+```solidity
+import {
+    IERC20,
+    IERC20Metadata,
+    SafeERC20,
+    Address
+} from "./very/long/path/to/the/tokens.sol";
 
-## Whitespace in Expressions
-
-Avoid extraneous whitespace in the following situations:
-
-- [x] Immediately inside parenthesis, brackets or braces, with the exception of single line function declarations.
-
-```Solidity
-spam(ham[1], Coin({name: "ham"}));
-```
-
-- [x] Immediately before a comma, semicolon:
-
-```Solidity
-function spam(uint i, Coin coin) public;
-```
-
-- [x] More than one space around an assignment or other operator to align with another:
-
-```Solidity
-x = 1;
-y = 2;
-long_variable = 3;
-```
-
-- [x] Don't include a whitespace in the fallback function:
-
-```Solidity
-function() external {
-    ...
-}
-```
-
-## Control Structures
-
-- [x] The braces denoting the body of a contract, library, functions and structs should:
-  - open on the same line as the declaration
-  - close on their own line at the same indentation level as the beginning of the declaration.
-  - The opening brace should be proceeded by a single space.
-
-```Solidity
-pragma solidity >=0.4.0 <0.7.0;
-
-contract Coin {
-    struct Bank {
-        address owner;
-        uint balance;
-    }
-}
-```
-
-- [x] The same recommendations apply to the control structures `if`, `else`, `while`, and `for`.
-
-  Additionally there should be a single space between the control structures `if`, `while`, and `for` and the parenthetic block representing the conditional, as well as a single space between the conditional parenthetic block and the opening brace.
-
-```Solidity
-if (...) {
-    ...
-}
-
-for (...) {
-    ...
-}
-```
-
-- [ ] For control structures whose body contains a single statement, omitting the braces is ok _if_ the statement is contained on a single line.
-
-```Solidity
-if (x < 10)
-    x += 1;
-```
-
-- [x] For `if` blocks which have an `else` or `else if` clause, the `else` should be placed on the same line as the `if`'s closing brace. This is an exception compared to the rules of other block-like structures.
-
-```Solidity
-if (x < 3) {
-    x += 1;
-} else if (x > 7) {
-    x -= 1;
-} else {
-    x = 5;
-}
-
-
-if (x < 3)
-    x += 1;
-else
-    x -= 1;
-```
-
-## Function Declaration
-
-- [x] For short function declarations, it is recommended for the opening brace of the function body to be kept on the same line as the function declaration.
-
-  The closing brace should be at the same indentation level as the function declaration.
-
-  The opening brace should be preceded by a single space.
-
-```Solidity
-function increment(uint x) public pure returns (uint) {
-    return x + 1;
-}
-
-function increment(uint x) public pure onlyowner returns (uint) {
-    return x + 1;
-}
-```
-
-- [x] The visibility modifier for a function should come before any custom modifiers.
-
-```Solidity
-function kill() public onlyowner {
-    selfdestruct(owner);
-}
-```
-
-- [x] For long function declarations, it is recommended to drop each argument onto it's own line at the same indentation level as the function body. The closing parenthesis and opening bracket should be placed on their own line as well at the same indentation level as the function declaration.
-
-```Solidity
-function thisFunctionHasLotsOfArguments(
-    address a,
-    address b,
-    address c,
-    address d,
-    address e,
-    address f
-)
-    public
+contract Demo is
+    Ownable,
+    ReentrancyGuard,
+    Pausable,
+    AccessControlEnumerable,
+    ERC165
 {
-    doSomething();
+    mapping(address owner => mapping(address spender => uint256 amount))
+        private _allowances;
 }
 ```
 
-- [x] If a long function declaration has modifiers, then each modifier should be dropped to its own line.
+## Functions
 
-```Solidity
-function thisFunctionNameIsReallyLong(address x, address y, address z)
-    public
-    onlyowner
-    priced
-    returns (address)
-{
-    doSomething();
-}
+### Attribute order
 
-function thisFunctionNameIsReallyLong(
-    address x,
-    address y,
-    address z,
-)
-    public
-    onlyowner
-    priced
-    returns (address)
-{
-    doSomething();
-}
+Function attributes are reordered to match the style guide:
+
+1. visibility
+2. state mutability
+3. `virtual`
+4. `override`
+5. custom modifiers and base constructor calls, in their original order
+
+```solidity
+// Input
+function f() virtual override onlyOwner() whenNotPaused external view {}
+
+// Output
+function f() external view virtual override onlyOwner whenNotPaused {}
 ```
 
-- [x] Multiline output parameters and return statements should follow the same style recommended for wrapping long lines found in the [Maximum Line Length](#maximum_line_length) section.
+### Empty modifier parentheses
 
-```Solidity
+Parentheses on a modifier invocation without arguments are removed, as in `onlyOwner` above. Constructors are the exception. In a constructor, `Bar()` might be a call to a base contract's constructor rather than a modifier, and there's no way to tell them apart from syntax alone, so constructors keep their parentheses. Before Solidity 0.5.0, a function with the same name as its contract is a constructor, so the plugin leaves those alone too.
+
+### Long declarations
+
+Parameters break first. If the attributes still don't fit, they go one per line, and the opening brace moves to its own line:
+
+```solidity
+constructor(
+    uint256 param1,
+    uint256 param2,
+    uint256 param3,
+    uint256 param4
+) payable B(param1) C(param2, param3) D(param4) {}
+
 function thisFunctionNameIsReallyLong(
     address a,
     address b,
@@ -280,102 +128,264 @@ function thisFunctionNameIsReallyLong(
     public
     returns (
         address someAddressName,
-        uint256 LongArgument,
-        uint256 Argument
+        uint256 longArgument,
+        uint256 argument
     )
 {
-    doSomething()
-
-    return (
-        veryLongReturnArg1,
-        veryLongReturnArg2,
-        veryLongReturnArg3
-    );
+    // ...
 }
 ```
 
-- [ ] For constructor functions on inherited contracts whose bases require arguments, it is recommended to drop the base constructors onto new lines in the same manner as modifiers if the function declaration is long or hard to read.
+## Binary operations
 
-```Solidity
-pragma solidity >=0.4.0 <0.7.0;
+This is the most involved part of the printer. It lives in [`print-binary-operation.ts`](src/slang-printers/print-binary-operation.ts) and [`create-binary-operation-printer.ts`](src/slang-printers/create-binary-operation-printer.ts), with a separate printer for `&&` and `||` in [`print-logical-operation.ts`](src/slang-printers/print-logical-operation.ts). Every node type for an operation passes its own rules to these printers, for example [`AdditiveExpression.ts`](src/slang-nodes/AdditiveExpression.ts).
 
-// Base contracts just to make this compile
-contract B {
-    constructor(uint) public {
-    }
+### Breaking
+
+When an operation doesn't fit, every operator in the chain moves to the end of its line and each operand goes on its own line:
+
+```solidity
+return
+    userCollateralBalance +
+    accruedInterest * interestRateMultiplier -
+    outstandingDebt;
+```
+
+Operations are grouped by precedence. In the example above, `accruedInterest * interestRateMultiplier` stays on one line because it binds tighter than the `+` and `-` around it. It only breaks if it doesn't fit on its own line.
+
+With `experimentalOperatorPosition: "start"`, the operator starts the next line instead:
+
+```solidity
+uint256 totalAssets =
+    idleAssetBalance
+        + assetsDeployedInStrategies
+        + pendingWithdrawalAssets;
+```
+
+### Indentation
+
+Whether the operands after the first get an extra indent depends on where the operation is:
+
+- **No extra indent** when the construct around it already provides it. This covers a `return` value, the condition of an `if` or `while`, the condition of a `for`, and the right side of an assignment.
+- **Extra indent** everywhere else, such as in a variable declaration or a function argument. The extra indent separates the continuation lines from whatever comes next.
+
+```solidity
+totalAssets =
+    idleAssetBalance +
+    assetsDeployedInStrategies +
+    pendingWithdrawalAssets;
+
+uint256 totalAssets =
+    idleAssetBalance +
+        assetsDeployedInStrategies +
+        pendingWithdrawalAssets;
+
+if (
+    (msg.sender != owner && !operatorApprovals[owner][msg.sender]) ||
+    block.timestamp > permitDeadline
+) {
+    revert Unauthorized();
 }
 
+require(
+    block.timestamp >= auctionStartTime &&
+        block.timestamp <= auctionEndTime &&
+        !auctionCancelled,
+    "Auction not active"
+);
+```
 
+A small right-hand operand, like the `- 1` in `a.length - 1`, is grouped with the operator. That way it never ends up alone on a line.
+
+## Parentheses for clarity
+
+The style guide suggests showing precedence with spacing, as in `x = 2*y + 3*z`. The plugin always puts a single space around every operator. Where precedence isn't obvious, it adds parentheses instead:
+
+```solidity
+// Input
+uint256 c = a + b * c - d / e % f;
+uint256 d = a * b / c % d;
+uint256 e = a << b + c & d | e ^ f;
+uint256 g = a ** b ** c;
+bool h = a == b == c;
+bool i = a && b || c && d;
+
+// Output
+uint256 c = a + b * c - ((d / e) % f);
+uint256 d = ((a * b) / c) % d;
+uint256 e = ((a << (b + c)) & d) | (e ^ f);
+uint256 g = a ** (b ** c);
+bool h = (a == b) == c;
+bool i = (a && b) || (c && d);
+```
+
+The rules, written in [`create-hug-function.ts`](src/slang-utils/create-hug-function.ts) and applied in each operation's node:
+
+| Operation | Wraps an operand that uses             | Operands checked |
+| --------- | -------------------------------------- | ---------------- |
+| `+` `-`   | `%`                                    | both             |
+| `*`       | `/` `%`                                | left             |
+| `/`       | `*` `%`                                | left             |
+| `%`       | `*` `/` `%`                            | left             |
+| `**`      | `**`                                   | both             |
+| `<<` `>>` | `+` `-` `*` `/` `**` `<<` `>>`         | left             |
+| `<<` `>>` | `+` `-` `*` `/` `**`                   | right            |
+| `&`       | `+` `-` `*` `/` `**` `<<` `>>`         | both             |
+| `^`       | `+` `-` `*` `/` `**` `<<` `>>` `&`     | both             |
+| `\|`      | `+` `-` `*` `/` `**` `<<` `>>` `&` `^` | both             |
+| `==` `!=` | `==` `!=`                              | left             |
+| `\|\|`    | `&&`                                   | both             |
+
+Nested `**` is always wrapped because its associativity changed in Solidity 0.8.0. `a ** b ** c` means `(a ** b) ** c` before 0.8.0 and `a ** (b ** c)` after. Slang parses the code for the version in the `pragma`, and the plugin writes the grouping out explicitly. The result means the same thing to any compiler that reads it:
+
+```solidity
+pragma solidity ^0.7.0;
 contract C {
-    constructor(uint, uint) public {
-    }
-}
-
-
-contract D {
-    constructor(uint) public {
-    }
-}
-
-
-contract A is B, C, D {
-    uint x;
-
-    constructor(uint param1, uint param2, uint param3, uint param4, uint param5)
-        B(param1)
-        C(param2, param3)
-        D(param4)
-        public
-    {
-        // do something with param5
-        x = param5;
-    }
+    uint public c = (1 ** 2) ** 3;
 }
 ```
 
-These guidelines for function declarations are intended to improve readability. Authors should use their best judgement as this guide does not try to cover all possible permutations for function declarations.
+### Operations without parentheses
 
-## Mappings
+When no rule adds parentheses, the order of evaluation is still shown through grouping and indentation. Since `x = a + b * c;` fits on one line, it shows nothing. Once a line breaks, the operations that are evaluated first stay together or get an extra indent:
 
-- [x] In variable declarations, do not separate the keyword `mapping` from its type by a space. Do not separate any nested `mapping` keyword from its type by whitespace.
+```solidity
+newPrice =
+    currentBasePrice +
+    priceIncrementPerTokenSold *
+        cumulativeTokensSold *
+        bondingCurveScalingFactor;
 
-```Solidity
-mapping(uint => uint) map;
-mapping(address => bool) registeredAddresses;
-mapping(uint => mapping(bool => Data[])) public data;
-mapping(uint => mapping(uint => s)) data;
+canWithdraw =
+    userDepositBalance + pendingRewardAmount >=
+        minimumWithdrawalAmount &&
+    !withdrawalsPaused;
 ```
 
-## Variable Declarations
+In the first example, the multiplication is evaluated before the `+`, so its operands are indented under `priceIncrementPerTokenSold`. In the second, the addition fits on one line and stays together, while `>=` indents the operand it compares against. The `&&` joins the two lines at the outer level.
 
-- [x] Declarations of array variables should not have a space between the type and the brackets.
+### How we make sure this is safe
 
-```Solidity
-uint[] x;
+Adding parentheses changes the syntax tree (the AST), so the test suite checks formatting in two ways:
+
+- For every fixture, the formatted code is parsed again and its AST must equal the original's.
+- For the fixtures where the AST changes on purpose, the tests compile both versions with `solc` and require identical bytecode. These fixtures are listed in [`test-bytecode-compare.js`](tests/config/test-bytecode-compare.js).
+
+Any new rule that changes the AST needs a fixture added to that list.
+
+## Member access chains
+
+A chain like `a.b(c).d[e].f` is printed in two parts. This is handled in [`MemberAccessExpression.ts`](src/slang-nodes/MemberAccessExpression.ts):
+
+- The **head**: everything before the first `.`.
+- The **rest**: grouped and indented as a unit.
+
+This lets the head break without breaking the rest, and the other way round. The chain stays on one line as long as it fits, regardless of how many calls it has.
+
+```solidity
+a.b().c().d();
+
+IERC20(token).safeTransferFrom(
+    msg.sender,
+    address(this),
+    amountToTransfer
+);
+
+uint256 shares = IERC20(underlyingAssetToken)
+    .balanceOf(address(this))
+    .mulDiv(sharePrice, PRECISION);
+
+uint256 index = ILendingPool(lendingPoolAddress)
+    .getReserveData(underlyingAsset)
+    .liquidityIndex;
+
+registry
+    .getModule(moduleId)
+    .configuration
+    .parameters
+    .limits[index]
+    .maximumValue = newMaximumValue;
 ```
 
-## Other Recommendations
+When a function call or index access ends the chain, its arguments are indented with the rest of the chain rather than with the head. That's what [`print-member-access-chain-item.ts`](src/slang-printers/print-member-access-chain-item.ts) takes care of.
 
-- [ ] Strings should be quoted with double-quotes instead of single-quotes.
+## Ternaries
 
-```Solidity
-str = "foo";
-str = "Hamlet says, 'To be or not to be...'";
+Nested ternaries are indented like a tree:
+
+```solidity
+uint256 fee =
+    isWhitelistedAccount
+        ? 0
+        : hasPremiumMembership
+            ? discountedProtocolFee
+            : standardProtocolFee;
 ```
 
-- [x] Surround operators with a single space on either side.
+With `experimentalTernaries: true`, they follow Prettier's ["curious ternaries"](https://prettier.io/blog/2023/11/13/curious-ternaries):
 
-```Solidity
-x = 3;
-x = 100 / 10;
-x += 3 + 4;
-x |= y && z;
+```solidity
+uint256 fee =
+    isWhitelistedAccount ? 0
+    : hasPremiumMembership ? discountedProtocolFee
+    : standardProtocolFee;
 ```
 
-- [ ] Operators with a higher priority than others can exclude surrounding whitespace in order to denote precedence. This is meant to allow for improved readability for complex statement. You should always use the same amount of whitespace on either side of an operator:
+## Strings
 
-```Solidity
-x = 2**3 + 5;
-x = 2*y + 3*z;
-x = (a+b) * (a-b);
+Strings use double quotes, unless the string contains more double quotes than single quotes. In that case the plugin picks the quote that needs fewer escapes. Hex strings follow the same rule.
+
+```solidity
+// Input
+bytes8 h = hex'DeadBeef';
+string s = 'He said "hi"';
+import {A} from './A.sol';
+
+// Output
+bytes8 h = hex"DeadBeef";
+string s = 'He said "hi"';
+import {A} from "./A.sol";
+```
+
+## Compiler-aware formatting
+
+Some syntax changed between Solidity versions, so the output depends on the compiler version. The version comes from:
+
+- the `compiler` option, if it's set: the plugin uses the latest Solidity version that matches it;
+- otherwise, the `pragma solidity` statements: the plugin uses the latest version they allow, so `^0.7.0` is treated as `0.7.6`.
+
+What the version affects:
+
+- **Imports**: before 0.7.4, the compiler rejected import lists spread over several lines. Below that version, import lists always stay on one line.
+- **`**` associativity**: the file is parsed with that version's rules, so nested `**` is grouped correctly. See [Parentheses for clarity](#parentheses-for-clarity).
+- **Modifier parentheses**: before 0.5.0, a function with the same name as its contract is a constructor, so its parentheses are kept.
+
+In a project that uses several compiler versions, set `compiler` per folder with Prettier's [overrides](https://prettier.io/docs/en/configuration.html#configuration-overrides).
+
+## Assembly
+
+Yul blocks are formatted like the rest of the code:
+
+```solidity
+assembly {
+    let x := add(mload(0x40), 0x20)
+    if iszero(x) {
+        revert(0, 0)
+    }
+}
+```
+
+In old code, the assignment operators written with a space (`: =` and `= :`) become `:=` and `=:`.
+
+## What the plugin leaves alone
+
+- **Numbers** stay as written: `.1`, `2.3E5` and `1_000_000` aren't normalized.
+- **Braces aren't added** around a single-statement body: `if (x < 10) x += 1;` stays as it is.
+- **Comments** stay where they are, relative to the code around them.
+- **Code after `// prettier-ignore`** is printed exactly as written:
+
+```solidity
+// prettier-ignore
+uint256[] ignored = [1,2,
+                   3,4];
 ```
