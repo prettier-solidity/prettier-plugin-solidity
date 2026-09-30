@@ -360,7 +360,7 @@ What the version affects:
 - **`**` associativity**: the file is parsed with that version's rules, so nested `**` is grouped correctly. See [Parentheses for clarity](#parentheses-for-clarity).
 - **Modifier parentheses**: before 0.5.0, a function with the same name as its contract is a constructor, so its parentheses are kept.
 
-In a project that uses several compiler versions, set `compiler` per folder with Prettier's [overrides](https://prettier.io/docs/en/configuration.html#configuration-overrides).
+In a project that uses several compiler versions, set `compiler` per folder with Prettier's [overrides](https://prettier.io/docs/configuration#configuration-overrides).
 
 ## Assembly
 
