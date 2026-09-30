@@ -2,5 +2,5 @@
 .github/
 tests/
 assets/
-*.md/
+*.md
 !README.md

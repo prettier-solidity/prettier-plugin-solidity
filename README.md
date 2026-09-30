@@ -56,7 +56,7 @@ Prettier's unpkg field points to `https://unpkg.com/prettier/standalone.js`, in 
 
 Once the scripts are loaded you will have access to the globals `prettier` and `prettierPlugins`.
 
-We follow Prettier's strategy for populating their plugins in the object `prettierPlugins`, you can load other plugins like `https://unpkg.com/prettier@2.8.0/parser-markdown.js` and Prettier will have access to multiple parsers.
+We follow Prettier's strategy for populating their plugins in the object `prettierPlugins`, you can load other plugins like `https://unpkg.com/prettier@latest/plugins/markdown.js` and Prettier will have access to multiple parsers.
 
 ```html
 <script type="module">
@@ -74,7 +74,7 @@ We follow Prettier's strategy for populating their plugins in the object `pretti
   }
 
   const originalCode = 'contract Foo    {}';
-  const formattedCode = format(originalCode);
+  const formattedCode = await format(originalCode);
 </script>
 ```
 
@@ -96,13 +96,13 @@ async function format(code) {
 }
 
 const originalCode = "contract Foo {}";
-const formattedCode = format(originalCode);
+const formattedCode = await format(originalCode);
 ```
 
 ## Configuration File
 
 Prettier provides a flexible system to configure the formatting rules of a project. For more information please refer to the [documentation](https://prettier.io/docs/en/configuration.html).
-The following is the default configuration internally used by this plugin.
+The following configuration is equivalent to the defaults used by this plugin.
 
 ```JSON
 {
@@ -116,7 +116,7 @@ The following is the default configuration internally used by this plugin.
         "tabWidth": 4,
         "useTabs": false,
         "singleQuote": false,
-        "bracketSpacing": false,
+        "bracketSpacing": false
       }
     }
   ]
@@ -369,9 +369,9 @@ Modifiers with no arguments are formatted with their parentheses removed, except
 
 ```Solidity
 contract Foo is Bar {
-  constructor() Bar() modifier1 modifier2() modifier3(42) {}
+    constructor() Bar() modifier1 modifier2() modifier3(42) {}
 
-  function f() modifier1 modifier2() modifier3(42) {}
+    function f() modifier1 modifier2() modifier3(42) {}
 }
 ```
 
@@ -379,9 +379,9 @@ will be formatted as
 
 ```Solidity
 contract Foo is Bar {
-  constructor() Bar() modifier1 modifier2() modifier3(42) {}
+    constructor() Bar() modifier1 modifier2() modifier3(42) {}
 
-  function f() modifier1 modifier2 modifier3(42) {}
+    function f() modifier1 modifier2 modifier3(42) {}
 }
 ```
 
