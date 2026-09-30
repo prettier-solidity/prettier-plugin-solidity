@@ -9,7 +9,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.UsingClause,
-  UsingClause
+  typeof UsingClause
 >([
   [ast.IdentifierPath, IdentifierPath],
   [ast.UsingDeconstruction, UsingDeconstruction]

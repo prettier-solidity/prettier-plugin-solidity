@@ -9,7 +9,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.ContractSpecifier,
-  ContractSpecifier
+  typeof ContractSpecifier
 >([
   [ast.InheritanceSpecifier, InheritanceSpecifier],
   [ast.StorageLayoutSpecifier, StorageLayoutSpecifier]

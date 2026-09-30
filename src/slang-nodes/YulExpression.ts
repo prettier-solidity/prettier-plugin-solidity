@@ -10,7 +10,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 
 const createNonterminalVariant = createNonterminalVariantCreator<
   ast.YulExpression,
-  YulExpression
+  typeof YulExpression
 >(
   [
     [ast.YulFunctionCallExpression, YulFunctionCallExpression],
