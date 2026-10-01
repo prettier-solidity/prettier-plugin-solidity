@@ -98,16 +98,24 @@ export abstract class SlangNode {
           // offset, it's hard to separate these responsibilities into different
           // functions without doing the iteration twice.
           case TerminalKind.MultiLineComment:
-            collected.comments.push(new MultiLineComment(node, offset));
+            collected.comments.push(
+              new MultiLineComment(node, offset, offset + textLength)
+            );
             break;
           case TerminalKind.MultiLineNatSpecComment:
-            collected.comments.push(new MultiLineNatSpecComment(node, offset));
+            collected.comments.push(
+              new MultiLineNatSpecComment(node, offset, offset + textLength)
+            );
             break;
           case TerminalKind.SingleLineComment:
-            collected.comments.push(new SingleLineComment(node, offset));
+            collected.comments.push(
+              new SingleLineComment(node, offset, offset + textLength)
+            );
             break;
           case TerminalKind.SingleLineNatSpecComment:
-            collected.comments.push(new SingleLineNatSpecComment(node, offset));
+            collected.comments.push(
+              new SingleLineNatSpecComment(node, offset, offset + textLength)
+            );
             break;
         }
         // We accumulate the trivia length
