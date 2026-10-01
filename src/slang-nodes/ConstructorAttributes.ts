@@ -1,9 +1,9 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.js';
-import { line } from '../slang-printers/prettier-builders.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { ConstructorAttribute } from './ConstructorAttribute.js';
+import { sortFunctionAttributes } from '../slang-utils/sort-function-attributes.ts';
+import { line } from '../slang-printers/prettier-builders.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { ConstructorAttribute } from './ConstructorAttribute.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc } from 'prettier';

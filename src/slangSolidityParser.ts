@@ -1,8 +1,8 @@
 // https://prettier.io/docs/en/plugins.html#parsers
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
-import { createParser } from './slang-utils/create-parser.js';
-import { locStart } from './slang-utils/loc.js';
-import { SourceUnit } from './slang-nodes/SourceUnit.js';
+import { createParser } from './slang-utils/create-parser.ts';
+import { locStart } from './slang-utils/loc.ts';
+import { SourceUnit } from './slang-nodes/SourceUnit.ts';
 
 import type { ParserOptions } from 'prettier';
 import type { Comment, PrintableNode } from './slang-nodes/types.d.ts';

@@ -1,8 +1,8 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { line, softline } from '../slang-printers/prettier-builders.js';
-import { printSeparatedList } from '../slang-printers/print-separated-list.js';
-import { SlangNode } from './SlangNode.js';
-import { NamedArgument } from './NamedArgument.js';
+import { line, softline } from '../slang-printers/prettier-builders.ts';
+import { printSeparatedList } from '../slang-printers/print-separated-list.ts';
+import { SlangNode } from './SlangNode.ts';
+import { NamedArgument } from './NamedArgument.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';

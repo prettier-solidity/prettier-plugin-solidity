@@ -1,4 +1,4 @@
-import { makeString } from '../slang-utils/prettier-utils.js';
+import { makeString } from '../slang-utils/prettier-utils.ts';
 
 import type { ParserOptions, util } from 'prettier';
 import type { PrintableNode } from '../slang-nodes/types.d.ts';

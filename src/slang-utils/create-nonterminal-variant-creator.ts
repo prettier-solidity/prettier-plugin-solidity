@@ -1,4 +1,4 @@
-import { extractVariant } from './extract-variant.js';
+import { extractVariant } from './extract-variant.ts';
 
 import type { StrictPolymorphicNode } from '../slang-nodes/types.d.ts';
 import type {

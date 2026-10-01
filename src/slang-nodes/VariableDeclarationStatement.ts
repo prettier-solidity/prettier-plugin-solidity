@@ -1,12 +1,12 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { indent, line } from '../slang-printers/prettier-builders.js';
-import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.js';
-import { extractVariant } from '../slang-utils/extract-variant.js';
-import { SlangNode } from './SlangNode.js';
-import { VariableDeclarationType } from './VariableDeclarationType.js';
-import { StorageLocation } from './StorageLocation.js';
-import { TerminalNode } from './TerminalNode.js';
-import { VariableDeclarationValue } from './VariableDeclarationValue.js';
+import { indent, line } from '../slang-printers/prettier-builders.ts';
+import { printGroupAndIndentIfBreakPair } from '../slang-printers/print-group-and-indent-if-break-pair.ts';
+import { extractVariant } from '../slang-utils/extract-variant.ts';
+import { SlangNode } from './SlangNode.ts';
+import { VariableDeclarationType } from './VariableDeclarationType.ts';
+import { StorageLocation } from './StorageLocation.ts';
+import { TerminalNode } from './TerminalNode.ts';
+import { VariableDeclarationValue } from './VariableDeclarationValue.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { Doc } from 'prettier';
