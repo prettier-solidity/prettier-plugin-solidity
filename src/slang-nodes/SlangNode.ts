@@ -46,7 +46,7 @@ export abstract class SlangNode {
     enclosePeripheralComments = false
   ) {
     const { id } = ast instanceof SlangTerminalNode ? ast : ast.cst;
-    // `collectLocations` recorded every node of the tree before we started
+    // `collectMetadata` recorded every node of the tree before we started
     // building ours.
     const loc = collected.locations.get(id)!;
 
