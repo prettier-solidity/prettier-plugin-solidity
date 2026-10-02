@@ -1,14 +1,6 @@
-import {
-  TerminalNode as SlangTerminalNode,
-  TerminalKind,
-  TerminalKindExtensions
-} from '@nomicfoundation/slang/cst';
-import { MultiLineComment } from './MultiLineComment.ts';
-import { MultiLineNatSpecComment } from './MultiLineNatSpecComment.ts';
-import { SingleLineComment } from './SingleLineComment.ts';
-import { SingleLineNatSpecComment } from './SingleLineNatSpecComment.ts';
+import { TerminalNode as SlangTerminalNode } from '@nomicfoundation/slang/cst';
 
-import type { NonterminalKind } from '@nomicfoundation/slang/cst';
+import type { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
 import type {
   AstLocation,
   CollectedMetadata,
@@ -53,93 +45,14 @@ export abstract class SlangNode {
     collected: CollectedMetadata,
     enclosePeripheralComments = false
   ) {
-    if (ast instanceof SlangTerminalNode) {
-      const { start, end } = collected.locations.get(ast.id) ?? {
-        start: 0,
-        end: ast.textLength.utf16
-      };
-      this.loc = {
-        outerStart: start,
-        outerEnd: end,
-        start,
-        end
-      };
-      return;
-    }
-    const cst = ast.cst;
+    const { id } = ast instanceof SlangTerminalNode ? ast : ast.cst;
+    // `collectLocations` recorded every node of the tree before we started
+    // building ours.
+    const loc = collected.locations.get(id)!;
 
-    const initialOffset = collected.locations.get(cst.id)?.start ?? 0;
-    let offset = initialOffset;
-    let triviaLength = 0;
-    let leadingOffset;
-    let trailingOffset;
-
-    if (enclosePeripheralComments) {
-      // We initialize the offsets to 0 to avoid them being updated later.
-      leadingOffset = 0;
-      trailingOffset = 0;
-    }
-
-    for (const { node } of cst.children()) {
-      const textLength = node.textLength.utf16;
-
-      if (node.isTerminalNode()) {
-        const kind = node.kind;
-        if (TerminalKindExtensions.isTrivia(kind)) {
-          const end = offset + textLength;
-          switch (kind) {
-            // Since the fetching the comments and calculating offsets are both
-            // done as we iterate over the children and the comment also depends
-            // on the offset, it's hard to separate these responsibilities into
-            // different functions without doing the iteration twice.
-            case TerminalKind.MultiLineComment:
-              collected.comments.push(new MultiLineComment(node, offset, end));
-              break;
-            case TerminalKind.MultiLineNatSpecComment:
-              collected.comments.push(
-                new MultiLineNatSpecComment(node, offset, end)
-              );
-              break;
-            case TerminalKind.SingleLineComment:
-              collected.comments.push(new SingleLineComment(node, offset, end));
-              break;
-            case TerminalKind.SingleLineNatSpecComment:
-              collected.comments.push(
-                new SingleLineNatSpecComment(node, offset, end)
-              );
-              break;
-          }
-          // We accumulate the trivia length
-          triviaLength += textLength;
-          offset = end;
-          continue;
-        }
-      }
-
-      // Also tracking TerminalNodes since some variants that were not
-      // Identifier or YulIdentifier but were upgraded to TerminalNode
-      collected.locations.set(node.id, {
-        start: offset,
-        end: offset + textLength
-      });
-      // We assign the `leadingOffset` only once.
-      leadingOffset ??= triviaLength;
-      // Since this is a non trivia node, we reset the accumulated length
-      triviaLength = 0;
-      offset += textLength;
-    }
-
-    // In case the `leadingOffset` was not initialized
-    leadingOffset ??= 0;
-    // The remaining `triviaLength` is the `trailingOffset`
-    trailingOffset ??= triviaLength;
-
-    this.loc = {
-      outerStart: initialOffset,
-      outerEnd: offset,
-      start: initialOffset + leadingOffset,
-      end: offset - trailingOffset
-    };
+    this.loc = enclosePeripheralComments
+      ? { ...loc, start: loc.outerStart, end: loc.outerEnd }
+      : loc;
   }
 
   updateMetadata(
