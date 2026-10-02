@@ -1,4 +1,4 @@
-import getCreateParser from "./get-create-parser.js";
+import getParseSourceUnit from "./get-parse-source-unit.js";
 import getVariantCoverage from "./get-variant-coverage.js";
 
 /**
@@ -13,9 +13,9 @@ function testVariantCoverage(testCase, name) {
   test(name, async () => {
     const { code, formatOptions } = testCase;
 
-    const createParser = await getCreateParser();
+    const parseSourceUnit = await getParseSourceUnit();
     const variantCoverage = await getVariantCoverage();
-    const { parseOutput } = createParser(code, formatOptions);
+    const { parseOutput } = parseSourceUnit(code, formatOptions);
 
     // Check coverage
     variantCoverage(parseOutput.tree.asNonterminalNode());

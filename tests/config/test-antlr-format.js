@@ -1,6 +1,6 @@
 import * as failedTests from "./failed-format-tests.js";
 import getPrettier from "./get-prettier.js";
-import getCreateParser from "./get-create-parser.js";
+import getParseSourceUnit from "./get-parse-source-unit.js";
 import getPlugins from "./get-plugins.js";
 
 /**
@@ -17,8 +17,8 @@ function testAntlrFormat(testCase, name) {
     const formatResult = await testCase.runFormat();
 
     // Compare with ANTLR's format
-    const createParser = await getCreateParser();
-    const { version } = createParser(code, formatOptions);
+    const parseSourceUnit = await getParseSourceUnit();
+    const { version } = parseSourceUnit(code, formatOptions);
     const prettier = await getPrettier();
     const { formatted: antlrOutput } = await prettier.formatWithCursor(code, {
       ...formatOptions,

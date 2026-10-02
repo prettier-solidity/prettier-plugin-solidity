@@ -1,6 +1,6 @@
 // https://prettier.io/docs/en/plugins.html#parsers
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
-import { createParser } from './slang-utils/create-parser.ts';
+import { parseSourceUnit } from './slang-utils/parse-source-unit.ts';
 import { locStart } from './slang-utils/loc.ts';
 import { SourceUnit } from './slang-nodes/SourceUnit.ts';
 
@@ -11,7 +11,7 @@ export default function parse(
   text: string,
   options: ParserOptions<PrintableNode>
 ): PrintableNode {
-  const { version, parseOutput } = createParser(text, options);
+  const { version, parseOutput } = parseSourceUnit(text, options);
 
   // We update the compiler version with the inferred one.
   options.compiler = version;

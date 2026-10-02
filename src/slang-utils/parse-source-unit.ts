@@ -27,7 +27,7 @@ function versionAndOutput(
   return { version, parseOutput };
 }
 
-export function createParser(
+export function parseSourceUnit(
   text: string,
   options: ParserOptions<PrintableNode>
 ): { version: string; parseOutput: ParseOutput } {
