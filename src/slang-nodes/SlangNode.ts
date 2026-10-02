@@ -80,48 +80,47 @@ export abstract class SlangNode {
 
     for (const { node } of cst.children()) {
       const textLength = node.textLength.utf16;
-      if (
-        node.isNonterminalNode() ||
-        !TerminalKindExtensions.isTrivia(node.kind)
-      ) {
-        // Also tracking TerminalNodes since some variants that were not
-        // Identifier or YulIdentifier but were upgraded to TerminalNode
-        collected.offsets.set(node.id, offset);
-        // We assign the `leadingOffset` only once.
-        leadingOffset ??= triviaLength;
-        // Since this is a non trivia node, we reset the accumulated length
-        triviaLength = 0;
-      } else {
-        switch (node.kind) {
-          // Since the fetching the comments and calculating offsets are both done
-          // as we iterate over the children and the comment also depends on the
-          // offset, it's hard to separate these responsibilities into different
-          // functions without doing the iteration twice.
-          case TerminalKind.MultiLineComment:
-            collected.comments.push(
-              new MultiLineComment(node, offset, offset + textLength)
-            );
-            break;
-          case TerminalKind.MultiLineNatSpecComment:
-            collected.comments.push(
-              new MultiLineNatSpecComment(node, offset, offset + textLength)
-            );
-            break;
-          case TerminalKind.SingleLineComment:
-            collected.comments.push(
-              new SingleLineComment(node, offset, offset + textLength)
-            );
-            break;
-          case TerminalKind.SingleLineNatSpecComment:
-            collected.comments.push(
-              new SingleLineNatSpecComment(node, offset, offset + textLength)
-            );
-            break;
+
+      if (node.isTerminalNode()) {
+        const kind = node.kind;
+        if (TerminalKindExtensions.isTrivia(kind)) {
+          const end = offset + textLength;
+          switch (kind) {
+            // Since the fetching the comments and calculating offsets are both
+            // done as we iterate over the children and the comment also depends
+            // on the offset, it's hard to separate these responsibilities into
+            // different functions without doing the iteration twice.
+            case TerminalKind.MultiLineComment:
+              collected.comments.push(new MultiLineComment(node, offset, end));
+              break;
+            case TerminalKind.MultiLineNatSpecComment:
+              collected.comments.push(
+                new MultiLineNatSpecComment(node, offset, end)
+              );
+              break;
+            case TerminalKind.SingleLineComment:
+              collected.comments.push(new SingleLineComment(node, offset, end));
+              break;
+            case TerminalKind.SingleLineNatSpecComment:
+              collected.comments.push(
+                new SingleLineNatSpecComment(node, offset, end)
+              );
+              break;
+          }
+          // We accumulate the trivia length
+          triviaLength += textLength;
+          offset = end;
+          continue;
         }
-        // We accumulate the trivia length
-        triviaLength += textLength;
       }
 
+      // Also tracking TerminalNodes since some variants that were not
+      // Identifier or YulIdentifier but were upgraded to TerminalNode
+      collected.offsets.set(node.id, offset);
+      // We assign the `leadingOffset` only once.
+      leadingOffset ??= triviaLength;
+      // Since this is a non trivia node, we reset the accumulated length
+      triviaLength = 0;
       offset += textLength;
     }
 
