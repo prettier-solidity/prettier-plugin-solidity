@@ -2,7 +2,6 @@
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
 import { createParser } from './slang-utils/create-parser.ts';
 import { collectMetadata } from './slang-utils/collect-metadata.ts';
-import { locStart } from './slang-utils/loc.ts';
 import { SourceUnit } from './slang-nodes/SourceUnit.ts';
 
 import type { ParserOptions } from 'prettier';
@@ -24,7 +23,6 @@ export default function parse(
     collected
   );
 
-  // Comments are extracted in nested order; sort them by location.
-  parsed.comments = comments.sort((a, b) => locStart(a) - locStart(b));
+  parsed.comments = comments;
   return parsed;
 }
