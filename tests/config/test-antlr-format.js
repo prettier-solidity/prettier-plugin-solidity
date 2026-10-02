@@ -18,13 +18,13 @@ function testAntlrFormat(testCase, name) {
 
     // Compare with ANTLR's format
     const createParser = await getCreateParser();
-    const { parser } = createParser(code, formatOptions);
+    const { version } = createParser(code, formatOptions);
     const prettier = await getPrettier();
     const { formatted: antlrOutput } = await prettier.formatWithCursor(code, {
       ...formatOptions,
       // Since Slang forces us to decide on a compiler version, we need to do the
       // same for ANTLR unless it was already given as an option.
-      compiler: formatOptions.compiler || parser.languageVersion,
+      compiler: formatOptions.compiler || version,
       parser: "antlr",
       plugins: await getPlugins(),
     });
