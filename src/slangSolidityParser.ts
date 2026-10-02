@@ -11,10 +11,10 @@ export default function parse(
   text: string,
   options: ParserOptions<PrintableNode>
 ): PrintableNode {
-  const { parser, parseOutput } = createParser(text, options);
+  const { version, parseOutput } = createParser(text, options);
 
   // We update the compiler version with the inferred one.
-  options.compiler = parser.languageVersion;
+  options.compiler = version;
   const comments: Comment[] = [];
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
