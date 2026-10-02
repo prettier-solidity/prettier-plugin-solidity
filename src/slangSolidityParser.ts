@@ -16,7 +16,8 @@ export default function parse(
   // We update the compiler version with the inferred one.
   options.compiler = parser.languageVersion;
   const { locations, comments } = collectMetadata(
-    parseOutput.createTreeCursor()
+    parseOutput.createTreeCursor(),
+    options.originalText
   );
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
