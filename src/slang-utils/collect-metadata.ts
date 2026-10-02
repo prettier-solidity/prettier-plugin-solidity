@@ -17,7 +17,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 // A single cursor walking the whole tree is much cheaper than calling
 // `children()` on every NonterminalNode, since each call crosses into Slang's
 // WebAssembly and creates a new JavaScript object for every child.
-function locateChildren(
+function visitNonterminal(
   cursor: Cursor,
   id: number,
   collected: CollectedMetadata,
@@ -34,7 +34,7 @@ function locateChildren(
       if (node.isNonterminalNode()) {
         // A nonterminal ends where its last child ends, so we don't need to
         // ask Slang for its length.
-        offset = locateChildren(cursor, node.id, collected, offset);
+        offset = visitNonterminal(cursor, node.id, collected, offset);
         // We assign the `leadingOffset` only once.
         leadingOffset ??= triviaLength;
         // Since this is a non trivia node, we reset the accumulated length
@@ -115,9 +115,9 @@ function locateChildren(
 
 // Records the location of every node in the tree, and collects its comments,
 // in a single walk. The cursor must be at the root of the tree.
-export function collectLocations(
+export function collectMetadata(
   cursor: Cursor,
   collected: CollectedMetadata
 ): void {
-  locateChildren(cursor, cursor.node.id, collected);
+  visitNonterminal(cursor, cursor.node.id, collected);
 }
