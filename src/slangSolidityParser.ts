@@ -17,7 +17,7 @@ export default function parse(
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
     {
-      offsets: new Map<number, number>(),
+      locations: new Map(),
       comments,
       options,
       compiler: version
