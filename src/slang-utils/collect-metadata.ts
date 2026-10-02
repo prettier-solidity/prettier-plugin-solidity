@@ -1,7 +1,4 @@
-import {
-  TerminalKind,
-  TerminalKindExtensions
-} from '@nomicfoundation/slang/cst';
+import { EdgeLabel, TerminalKind } from '@nomicfoundation/slang/cst';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.ts';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.ts';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.ts';
@@ -29,26 +26,53 @@ function visitNonterminal(
 
   if (cursor.goToFirstChild()) {
     do {
-      const node = cursor.node;
+      const label = cursor.label;
 
-      if (node.isNonterminalNode()) {
-        // A nonterminal ends where its last child ends, so we don't need to
-        // ask Slang for its length.
-        offset = visitNonterminal(cursor, node.id, collected, offset);
-        // We assign the `leadingOffset` only once.
-        leadingOffset ??= triviaLength;
-        // Since this is a non trivia node, we reset the accumulated length
-        triviaLength = 0;
+      // Trivia can be identified by it's label, which is much cheaper than
+      // instantiating the node. Since a huge amount of nodes are trivia, it's
+      // worth to just query the Cursor.
+      if (
+        label === EdgeLabel.LeadingTrivia ||
+        label === EdgeLabel.TrailingTrivia
+      ) {
+        const end = cursor.textRange.end.utf16;
+
+        // Whitespace and line breaks never start with `/`, every comment does.
+        if (collected.options.originalText.startsWith('/', offset)) {
+          // Since fetching the comments and calculating offsets are both done
+          // as we iterate over the tree and the comment also depends on the
+          // offset, it's hard to separate these responsibilities into
+          // different functions without doing the iteration twice.
+          const node = cursor.node;
+          switch (node.kind) {
+            case TerminalKind.MultiLineComment:
+              collected.comments.push(new MultiLineComment(node, offset, end));
+              break;
+            case TerminalKind.MultiLineNatSpecComment:
+              collected.comments.push(
+                new MultiLineNatSpecComment(node, offset, end)
+              );
+              break;
+            case TerminalKind.SingleLineComment:
+              collected.comments.push(new SingleLineComment(node, offset, end));
+              break;
+            case TerminalKind.SingleLineNatSpecComment:
+              collected.comments.push(
+                new SingleLineNatSpecComment(node, offset, end)
+              );
+              break;
+          }
+        }
+        // We accumulate the trivia length
+        triviaLength += end - offset;
+        offset = end;
         continue;
       }
 
-      // We only care about textLength for TerminalNodes.
-      // NonterminalNodes' textLength is the sum of its children's textLengths.
-      const textLength = node.textLength.utf16;
-      const end = offset + textLength;
-      const kind = node.kind;
+      const node = cursor.node;
 
-      if (!TerminalKindExtensions.isTrivia(kind)) {
+      if (node.isTerminalNode()) {
+        const end = offset + node.textLength.utf16;
         // Some variants can be TerminalNodes, and since `extractVariant` drops
         // their wrapper, we need to track their location.
         collected.locations.set(node.id, {
@@ -65,31 +89,13 @@ function visitNonterminal(
         continue;
       }
 
-      // Since fetching the comments and calculating offsets are both done as
-      // we iterate over the tree and the comment also depends on the offset,
-      // it's hard to separate these responsibilities into different functions
-      // without doing the iteration twice.
-      switch (kind) {
-        case TerminalKind.MultiLineComment:
-          collected.comments.push(new MultiLineComment(node, offset, end));
-          break;
-        case TerminalKind.MultiLineNatSpecComment:
-          collected.comments.push(
-            new MultiLineNatSpecComment(node, offset, end)
-          );
-          break;
-        case TerminalKind.SingleLineComment:
-          collected.comments.push(new SingleLineComment(node, offset, end));
-          break;
-        case TerminalKind.SingleLineNatSpecComment:
-          collected.comments.push(
-            new SingleLineNatSpecComment(node, offset, end)
-          );
-          break;
-      }
-      // We accumulate the trivia length
-      triviaLength += textLength;
-      offset = end;
+      // We assign the `leadingOffset` only once.
+      leadingOffset ??= triviaLength;
+      // Since this is a non trivia node, we reset the accumulated length
+      triviaLength = 0;
+      // A nonterminal ends where its last child ends, so we don't need to
+      // ask Slang for its length.
+      offset = visitNonterminal(cursor, node.id, collected, offset);
     } while (cursor.goToNextSibling());
 
     // Since we are done with the children, we move the cursor to the parent
