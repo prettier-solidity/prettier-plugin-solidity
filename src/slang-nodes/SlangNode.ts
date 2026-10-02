@@ -54,8 +54,10 @@ export abstract class SlangNode {
     enclosePeripheralComments = false
   ) {
     if (ast instanceof SlangTerminalNode) {
-      const start = collected.offsets.get(ast.id) ?? 0;
-      const end = start + ast.textLength.utf16;
+      const { start, end } = collected.locations.get(ast.id) ?? {
+        start: 0,
+        end: ast.textLength.utf16
+      };
       this.loc = {
         outerStart: start,
         outerEnd: end,
@@ -66,7 +68,7 @@ export abstract class SlangNode {
     }
     const cst = ast.cst;
 
-    const initialOffset = collected.offsets.get(cst.id) ?? 0;
+    const initialOffset = collected.locations.get(cst.id)?.start ?? 0;
     let offset = initialOffset;
     let triviaLength = 0;
     let leadingOffset;
@@ -116,7 +118,10 @@ export abstract class SlangNode {
 
       // Also tracking TerminalNodes since some variants that were not
       // Identifier or YulIdentifier but were upgraded to TerminalNode
-      collected.offsets.set(node.id, offset);
+      collected.locations.set(node.id, {
+        start: offset,
+        end: offset + textLength
+      });
       // We assign the `leadingOffset` only once.
       leadingOffset ??= triviaLength;
       // Since this is a non trivia node, we reset the accumulated length
