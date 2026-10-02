@@ -16,7 +16,7 @@ const authoredTestConfigFiles = [
   'compile-contract.js',
   'constants.js',
   'get-browser-prettier.js',
-  'get-create-parser.js',
+  'get-infer-and-parse.js',
   'get-plugins.js',
   'get-prettier.js',
   'get-runtime-browser.js',

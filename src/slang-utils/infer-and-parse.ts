@@ -51,7 +51,7 @@ function pragmasOf(parseOutput: ParseOutput): string {
   return pragmas;
 }
 
-export function createParser(
+export function inferAndParse(
   text: string,
   { compiler }: ParserOptions<PrintableNode>
 ): { version: string; parseOutput: ParseOutput } {
