@@ -10,7 +10,7 @@ declare module 'prettier' {
 }
 
 interface CollectedMetadata {
-  offsets: Map<number, number>;
+  locations: Map<number, AstLocation>;
   comments: Comment[];
   options: ParserOptions<PrintableNode>;
 }

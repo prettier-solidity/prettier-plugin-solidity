@@ -1,7 +1,7 @@
 // https://prettier.io/docs/en/plugins.html#parsers
 import { SourceUnit as SlangSourceUnit } from '@nomicfoundation/slang/ast';
 import { createParser } from './slang-utils/create-parser.ts';
-import { locStart } from './slang-utils/loc.ts';
+import { collectMetadata } from './slang-utils/collect-metadata.ts';
 import { SourceUnit } from './slang-nodes/SourceUnit.ts';
 
 import type { ParserOptions } from 'prettier';
@@ -16,12 +16,13 @@ export default function parse(
   // We update the compiler version with the inferred one.
   options.compiler = parser.languageVersion;
   const comments: Comment[] = [];
+  const collected = { locations: new Map(), comments, options };
+  collectMetadata(parseOutput.createTreeCursor(), collected);
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
-    { offsets: new Map<number, number>(), comments, options }
+    collected
   );
 
-  // Comments are extracted in nested order; sort them by location.
-  parsed.comments = comments.sort((a, b) => locStart(a) - locStart(b));
+  parsed.comments = comments;
   return parsed;
 }
