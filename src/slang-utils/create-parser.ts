@@ -11,11 +11,11 @@ const supportedVersions = LanguageFacts.allVersions();
 const supportedLength = supportedVersions.length;
 const latestSupportedVersion = LanguageFacts.latestVersion();
 
-function parserAndOutput(
+function versionAndOutput(
   text: string,
   version: string,
   reason: string
-): { parser: Parser; parseOutput: ParseOutput } {
+): { version: string; parseOutput: ParseOutput } {
   const parser = Parser.create(version);
   const parseOutput = parser.parseNonterminal(NonterminalKind.SourceUnit, text);
 
@@ -24,16 +24,16 @@ function parserAndOutput(
       `We encountered the following syntax error:\n\n\t${parseOutput.errors()[0].message}\n\n${reason}`
     );
 
-  return { parser, parseOutput };
+  return { version, parseOutput };
 }
 
 export function createParser(
   text: string,
   options: ParserOptions<PrintableNode>
-): { parser: Parser; parseOutput: ParseOutput } {
+): { version: string; parseOutput: ParseOutput } {
   const compiler = maxSatisfying(supportedVersions, options.compiler);
   if (compiler) {
-    return parserAndOutput(
+    return versionAndOutput(
       text,
       compiler,
       `Based on the compiler option provided, we inferred your code to be using Solidity version ${compiler}. If you would like to change that, specify a different version in your \`.prettierrc\` file.`
@@ -44,7 +44,7 @@ export function createParser(
   const inferredLength = inferredRanges.length;
 
   if (inferredLength === 0 || inferredLength === supportedLength) {
-    return parserAndOutput(
+    return versionAndOutput(
       text,
       latestSupportedVersion,
       `We couldn't infer a Solidity version based on the pragma statements in your code so we defaulted to ${latestSupportedVersion}. You might be attempting to use a syntax not yet supported by Slang or you might want to specify a version in your \`.prettierrc\` file.`
@@ -52,7 +52,7 @@ export function createParser(
   }
 
   const inferredVersion = inferredRanges[inferredLength - 1];
-  return parserAndOutput(
+  return versionAndOutput(
     text,
     inferredVersion,
     `Based on the pragma statements, we inferred your code to be using Solidity version ${inferredVersion}. If you would like to change that, update the pragmas in your source file, or specify a version in your \`.prettierrc\` file.`

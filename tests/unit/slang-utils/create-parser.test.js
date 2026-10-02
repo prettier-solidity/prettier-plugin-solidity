@@ -82,32 +82,35 @@ describe('inferLanguage', function () {
 
   for (const { description, source, version, skip } of fixtures) {
     (skip ? test.skip : test)(description, function () {
-      const { parser } = createParser(source, options);
-      expect(parser.languageVersion).toEqual(version);
+      const { version: inferredVersion } = createParser(source, options);
+      expect(inferredVersion).toEqual(version);
     });
   }
 
   test('should use the latest successful version if the source has no pragmas', function () {
-    let { parser } = createParser(`contract Foo {}`, options);
-    expect(parser.languageVersion).toEqual(latestSupportedVersion);
+    let { version: inferredVersion } = createParser(`contract Foo {}`, options);
+    expect(inferredVersion).toEqual(latestSupportedVersion);
 
-    // ({ parser } = createParser(`contract Foo {byte bar;}`, options));
-    // expect(parser.languageVersion).toEqual('0.7.6');
+    // ({ version } = createParser(`contract Foo {byte bar;}`, options));
+    // expect(version).toEqual('0.7.6');
   });
 
   test('should use compiler option if given', function () {
-    let { parser } = createParser(`pragma solidity ^0.8.0;`, {
+    let { version: inferredVersion } = createParser(`pragma solidity ^0.8.0;`, {
       compiler: '0.8.20'
     });
-    expect(parser.languageVersion).toEqual('0.8.20');
+    expect(inferredVersion).toEqual('0.8.20');
 
-    ({ parser } = createParser(`pragma solidity ^0.8.0;`, {
+    ({ version: inferredVersion } = createParser(`pragma solidity ^0.8.0;`, {
       compiler: '0.8.2'
     }));
-    expect(parser.languageVersion).toEqual('0.8.2');
+    expect(inferredVersion).toEqual('0.8.2');
 
-    ({ parser } = createParser(`pragma solidity ^0.7.0;`, {}));
-    expect(parser.languageVersion).toEqual('0.7.6');
+    ({ version: inferredVersion } = createParser(
+      `pragma solidity ^0.7.0;`,
+      {}
+    ));
+    expect(inferredVersion).toEqual('0.7.6');
   });
 
   test('should throw if compiler option does not match the syntax', function () {
