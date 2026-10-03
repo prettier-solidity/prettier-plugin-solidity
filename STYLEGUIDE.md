@@ -219,22 +219,24 @@ bool h = (a == b) == c;
 bool i = (a && b) || (c && d);
 ```
 
+These parentheses only make the order the compiler already uses visible, so the compiled bytecode stays exactly the same (see [How we make sure this is safe](#how-we-make-sure-this-is-safe)).
+
 The rules, written in [`create-hug-function.ts`](src/slang-utils/create-hug-function.ts) and applied in each operation's node:
 
-| Operation | Wraps an operand that uses             | Operands checked |
-| --------- | -------------------------------------- | ---------------- |
-| `+` `-`   | `%`                                    | both             |
-| `*`       | `/` `%`                                | left             |
-| `/`       | `*` `%`                                | left             |
-| `%`       | `*` `/` `%`                            | left             |
-| `**`      | `**`                                   | both             |
-| `<<` `>>` | `+` `-` `*` `/` `**` `<<` `>>`         | left             |
-| `<<` `>>` | `+` `-` `*` `/` `**`                   | right            |
-| `&`       | `+` `-` `*` `/` `**` `<<` `>>`         | both             |
-| `^`       | `+` `-` `*` `/` `**` `<<` `>>` `&`     | both             |
-| `\|`      | `+` `-` `*` `/` `**` `<<` `>>` `&` `^` | both             |
-| `==` `!=` | `==` `!=`                              | left             |
-| `\|\|`    | `&&`                                   | both             |
+| Operation | Wraps an operand that uses             | Operands checked | Example                                                                                       |
+| --------- | -------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------- |
+| `+` `-`   | `%`                                    | both             | `a % b + c % d` → `(a % b) + (c % d)`                                                         |
+| `*`       | `/` `%`                                | left             | `a / b * c` → `(a / b) * c`                                                                   |
+| `/`       | `*` `%`                                | left             | `a * b / c` → `(a * b) / c`                                                                   |
+| `%`       | `*` `/` `%`                            | left             | `a % b % c` → `(a % b) % c`                                                                   |
+| `**`      | `**`                                   | both             | before 0.8.0: `a ** b ** c` → `(a ** b) ** c`<br/>from 0.8.0: `a ** b ** c` → `a ** (b ** c)` |
+| `<<` `>>` | `+` `-` `*` `/` `**`                   | both             | `a + b << c - d` → `(a + b) << (c - d)`                                                       |
+| `<<` `>>` | `<<` `>>`                              | left             | `a << b >> c` → `(a << b) >> c`                                                               |
+| `&`       | `+` `-` `*` `/` `**` `<<` `>>`         | both             | `a << b & c >> d` → `(a << b) & (c >> d)`                                                     |
+| `^`       | `+` `-` `*` `/` `**` `<<` `>>` `&`     | both             | `a & b ^ c & d` → `(a & b) ^ (c & d)`                                                         |
+| `\|`      | `+` `-` `*` `/` `**` `<<` `>>` `&` `^` | both             | `a ^ b \| c ^ d` → `(a ^ b) \| (c ^ d)`                                                       |
+| `==` `!=` | `==` `!=`                              | left             | `x == y == z` → `(x == y) == z`                                                               |
+| `\|\|`    | `&&`                                   | both             | `x && y \|\| z && w` → `(x && y) \|\| (z && w)`                                               |
 
 Nested `**` is always wrapped because its associativity changed in Solidity 0.8.0. `a ** b ** c` means `(a ** b) ** c` before 0.8.0 and `a ** (b ** c)` after. Slang parses the code for the version in the `pragma`, and the plugin writes the grouping out explicitly. The result means the same thing to any compiler that reads it:
 
