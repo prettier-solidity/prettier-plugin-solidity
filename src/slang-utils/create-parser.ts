@@ -70,9 +70,7 @@ export function createParser(
     text
   );
   const inferredRanges = LanguageFacts.inferLanguageVersions(
-    // If the latest version can't parse the file, error recovery may have
-    // lost some of its pragmas, so we infer from the whole file instead.
-    latestOutput.isValid() ? pragmasOf(latestOutput) : text
+    pragmasOf(latestOutput)
   );
   const inferredLength = inferredRanges.length;
 
