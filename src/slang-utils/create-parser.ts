@@ -8,7 +8,6 @@ import type { ParserOptions } from 'prettier';
 import type { PrintableNode } from '../slang-nodes/types.d.ts';
 
 const supportedVersions = LanguageFacts.allVersions();
-const supportedLength = supportedVersions.length;
 const latestSupportedVersion = LanguageFacts.latestVersion();
 
 // Most files allow the latest version, so we parse with it first and only
@@ -74,7 +73,7 @@ export function createParser(
   );
   const inferredLength = inferredRanges.length;
 
-  if (inferredLength === 0 || inferredLength === supportedLength) {
+  if (inferredLength === 0 || inferredLength === supportedVersions.length) {
     return validated(
       latestSupportedVersion,
       latestOutput,
