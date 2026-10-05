@@ -8,9 +8,13 @@ import { SingleLineComment } from '../slang-nodes/SingleLineComment.ts';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.ts';
 
 import type { Cursor } from '@nomicfoundation/slang/cst';
-import type { CollectedMetadata } from '../types.d.ts';
+import type { Comment } from '../slang-nodes/types.d.ts';
+import type { AstLocation } from '../types.d.ts';
 
-type Metadata = Pick<CollectedMetadata, 'locations' | 'comments'>;
+interface Metadata {
+  locations: Map<number, AstLocation>;
+  comments: Comment[];
+}
 
 // Walks the children of the NonterminalNode under the cursor, recording the
 // location of every node below it and collecting the comments, then records

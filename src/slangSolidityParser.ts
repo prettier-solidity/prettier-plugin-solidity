@@ -18,7 +18,7 @@ export default function parse(
   );
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
-    { locations, comments, options, compiler: version }
+    { locations, options, compiler: version }
   );
 
   parsed.comments = comments;
