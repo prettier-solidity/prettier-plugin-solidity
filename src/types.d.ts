@@ -1,6 +1,6 @@
 import type * as ast from '@nomicfoundation/slang/ast';
 import type { AstPath, Doc, ParserOptions } from 'prettier';
-import type { Comment, PrintableNode } from './slang-nodes/types.d.ts';
+import type { PrintableNode } from './slang-nodes/types.d.ts';
 
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {
@@ -11,7 +11,6 @@ declare module 'prettier' {
 
 interface CollectedMetadata {
   locations: Map<number, AstLocation>;
-  comments: Comment[];
   options: ParserOptions<PrintableNode>;
 }
 
