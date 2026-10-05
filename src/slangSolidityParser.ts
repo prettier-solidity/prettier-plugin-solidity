@@ -5,7 +5,7 @@ import { collectMetadata } from './slang-utils/collect-metadata.ts';
 import { SourceUnit } from './slang-nodes/SourceUnit.ts';
 
 import type { ParserOptions } from 'prettier';
-import type { Comment, PrintableNode } from './slang-nodes/types.d.ts';
+import type { PrintableNode } from './slang-nodes/types.d.ts';
 
 export default function parse(
   text: string,
@@ -13,17 +13,12 @@ export default function parse(
 ): PrintableNode {
   const { version, parseOutput } = inferAndParse(text, options);
 
-  const comments: Comment[] = [];
-  const collected = {
-    locations: new Map(),
-    comments,
-    options,
-    compiler: version
-  };
-  collectMetadata(parseOutput.createTreeCursor(), collected);
+  const { locations, comments } = collectMetadata(
+    parseOutput.createTreeCursor()
+  );
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
-    collected
+    { locations, comments, options, compiler: version }
   );
 
   parsed.comments = comments;
