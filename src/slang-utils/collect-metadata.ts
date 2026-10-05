@@ -10,6 +10,8 @@ import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecCommen
 import type { Cursor } from '@nomicfoundation/slang/cst';
 import type { CollectedMetadata } from '../types.d.ts';
 
+type Metadata = Pick<CollectedMetadata, 'locations' | 'comments'>;
+
 // Walks the children of the NonterminalNode under the cursor, recording the
 // location of every node below it and collecting the comments, then records
 // the NonterminalNode's own location and returns where it ends.
@@ -20,7 +22,7 @@ import type { CollectedMetadata } from '../types.d.ts';
 function visitNonterminal(
   cursor: Cursor,
   id: number,
-  collected: CollectedMetadata,
+  collected: Metadata,
   outerStart = 0
 ): number {
   let offset = outerStart;
@@ -115,9 +117,8 @@ function visitNonterminal(
 
 // Records the location of every node in the tree, and collects its comments,
 // in a single walk. The cursor must be at the root of the tree.
-export function collectMetadata(
-  cursor: Cursor,
-  collected: CollectedMetadata
-): void {
+export function collectMetadata(cursor: Cursor): Metadata {
+  const collected: Metadata = { locations: new Map(), comments: [] };
   visitNonterminal(cursor, cursor.node.id, collected);
+  return collected;
 }
