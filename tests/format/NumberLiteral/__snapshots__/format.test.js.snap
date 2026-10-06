@@ -36,3 +36,40 @@ contract NumberLiteral {
 
 ================================================================================
 `;
+
+exports[`NumberLiteral.sol locations 1`] = `
+SourceUnit 0-182
+  SourceUnitMembers 0-182
+    PragmaDirective 32-55
+      VersionPragma 39-54
+        VersionExpressionSets 47-54
+          VersionExpressionSet 47-54
+            VersionTerm 47-54
+              SimpleVersionLiteral 47-54
+    ContractDefinition 57-181
+      Identifier 66-79
+      ContractSpecifiers 79-79
+      ContractMembers 82-180
+        FunctionDefinition 84-179
+          Identifier 93-100
+          ParametersDeclaration 100-102
+            Parameters 101-101
+          FunctionAttributes 102-108
+            PublicKeyword 102-108
+          Block 109-179
+            Statements 111-176
+              ExpressionStatement 113-121
+                DecimalNumberExpression 113-120
+                  NumberUnit 115-120
+              ExpressionStatement 124-131
+                DecimalNumberExpression 124-130
+                  NumberUnit 126-130
+              ExpressionStatement 134-140
+                DecimalNumberExpression 134-139
+              ExpressionStatement 143-154
+                DecimalNumberExpression 143-153
+              ExpressionStatement 159-162
+                DecimalNumberExpression 159-161
+              ExpressionStatement 165-175
+                DecimalNumberExpression 165-174
+`;

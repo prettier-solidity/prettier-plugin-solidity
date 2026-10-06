@@ -28,3 +28,52 @@ contract Demo {
 
 ================================================================================
 `;
+
+exports[`IndexRangeAccess.sol locations 1`] = `
+SourceUnit 0-166
+  SourceUnitMembers 0-166
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ContractDefinition 25-165
+      Identifier 34-38
+      ContractSpecifiers 38-38
+      ContractMembers 41-164
+        EventDefinition 45-68
+          Identifier 51-54
+          EventParametersDeclaration 54-67
+            EventParameters 55-66
+              EventParameter 55-66
+                BytesKeyword 55-60
+                Identifier 61-66
+        FunctionDefinition 74-163
+          Identifier 83-86
+          ParametersDeclaration 86-108
+            Parameters 87-107
+              Parameter 87-107
+                BytesKeyword 87-92
+                StorageLocation 93-101
+                Identifier 102-107
+          FunctionAttributes 108-117
+            ExternalKeyword 109-117
+          Block 118-163
+            Statements 120-158
+              EmitStatement 128-157
+                IdentifierPath 133-136
+                  Identifier 133-136
+                PositionalArgumentsDeclaration 136-156
+                  PositionalArguments 137-155
+                    FunctionCallExpression 137-155
+                      BytesKeyword 137-142
+                      PositionalArgumentsDeclaration 142-155
+                        PositionalArguments 143-154
+                          IndexAccessExpression 143-154
+                            Identifier 143-148
+                            DecimalNumberExpression 149-150
+                            IndexAccessEnd 150-153
+                              DecimalNumberExpression 151-153
+`;
