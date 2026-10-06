@@ -41,3 +41,75 @@ contract Constructors is Ownable, Changeable {
 
 ================================================================================
 `;
+
+exports[`Constructors.sol locations 1`] = `
+SourceUnit 0-283
+  SourceUnitMembers 0-283
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ContractDefinition 25-282
+      Identifier 34-46
+      ContractSpecifiers 46-69
+        InheritanceSpecifier 47-69
+          InheritanceTypes 49-69
+            InheritanceType 50-57
+              IdentifierPath 50-57
+                Identifier 50-57
+            InheritanceType 59-69
+              IdentifierPath 59-69
+                Identifier 59-69
+      ContractMembers 72-281
+        ConstructorDefinition 74-280
+          ParametersDeclaration 85-162
+            Parameters 86-161
+              Parameter 86-95
+                IdentifierPath 86-95
+                  Identifier 86-95
+              Parameter 97-106
+                IdentifierPath 97-106
+                  Identifier 97-106
+              Parameter 108-117
+                IdentifierPath 108-117
+                  Identifier 108-117
+              Parameter 119-128
+                IdentifierPath 119-128
+                  Identifier 119-128
+              Parameter 130-139
+                IdentifierPath 130-139
+                  Identifier 130-139
+              Parameter 141-150
+                IdentifierPath 141-150
+                  Identifier 141-150
+              Parameter 152-161
+                IdentifierPath 152-161
+                  Identifier 152-161
+          ConstructorAttributes 162-277
+            PublicKeyword 163-169
+            ModifierInvocation 170-257
+              IdentifierPath 170-180
+                Identifier 170-180
+              PositionalArgumentsDeclaration 180-257
+                PositionalArguments 181-256
+                  Identifier 181-190
+                  Identifier 192-201
+                  Identifier 203-212
+                  Identifier 214-223
+                  Identifier 225-234
+                  Identifier 236-245
+                  Identifier 247-256
+            ModifierInvocation 258-267
+              IdentifierPath 258-265
+                Identifier 258-265
+              PositionalArgumentsDeclaration 265-267
+                PositionalArguments 266-266
+            ModifierInvocation 268-277
+              IdentifierPath 268-277
+                Identifier 268-277
+          Block 278-280
+            Statements 279-279
+`;
