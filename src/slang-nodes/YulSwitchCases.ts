@@ -14,11 +14,13 @@ export class YulSwitchCases extends SlangNode {
   items: YulSwitchCase['variant'][];
 
   constructor(ast: ast.YulSwitchCases, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new YulSwitchCase(item, collected))
     );
+
+    this.updateMetadata(...this.items);
   }
 
   print(print: PrintFunction, path: AstPath<YulSwitchCases>): Doc {

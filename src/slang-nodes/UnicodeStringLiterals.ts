@@ -13,11 +13,13 @@ export class UnicodeStringLiterals extends SlangNode {
   items: UnicodeStringLiteral[];
 
   constructor(ast: ast.UnicodeStringLiterals, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map(
       (item) => new UnicodeStringLiteral(item, collected)
     );
+
+    this.updateMetadata(...this.items);
   }
 
   print(print: PrintFunction, path: AstPath<UnicodeStringLiterals>): Doc {
