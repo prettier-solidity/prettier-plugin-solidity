@@ -51,7 +51,7 @@ function visitNonterminal(
       // We only care about textLength for TerminalNodes.
       // NonterminalNodes' textLength is the sum of its children's textLengths.
       const textLength = node.textLength.utf16;
-      const end = offset + textLength;
+      const textEnd = offset + textLength;
       const kind = node.kind;
 
       if (!TerminalKindExtensions.isTrivia(kind)) {
@@ -59,15 +59,15 @@ function visitNonterminal(
         // their wrapper, we need to track their location.
         collected.locations.set(node.id, {
           outerStart: offset,
-          outerEnd: end,
+          outerEnd: textEnd,
           start: offset,
-          end
+          end: textEnd
         });
         // We assign the `leadingOffset` only once.
         leadingOffset ??= triviaLength;
         // Since this is a non trivia node, we reset the accumulated length
         triviaLength = 0;
-        offset = end;
+        offset = textEnd;
         continue;
       }
 
@@ -77,25 +77,25 @@ function visitNonterminal(
       // without doing the iteration twice.
       switch (kind) {
         case TerminalKind.MultiLineComment:
-          collected.comments.push(new MultiLineComment(node, offset, end));
+          collected.comments.push(new MultiLineComment(node, offset, textEnd));
           break;
         case TerminalKind.MultiLineNatSpecComment:
           collected.comments.push(
-            new MultiLineNatSpecComment(node, offset, end)
+            new MultiLineNatSpecComment(node, offset, textEnd)
           );
           break;
         case TerminalKind.SingleLineComment:
-          collected.comments.push(new SingleLineComment(node, offset, end));
+          collected.comments.push(new SingleLineComment(node, offset, textEnd));
           break;
         case TerminalKind.SingleLineNatSpecComment:
           collected.comments.push(
-            new SingleLineNatSpecComment(node, offset, end)
+            new SingleLineNatSpecComment(node, offset, textEnd)
           );
           break;
       }
       // We accumulate the trivia length
       triviaLength += textLength;
-      offset = end;
+      offset = textEnd;
     } while (cursor.goToNextSibling());
 
     // Since we are done with the children, we move the cursor to the parent
