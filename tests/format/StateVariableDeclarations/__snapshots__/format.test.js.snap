@@ -27,3 +27,58 @@ contract Contract {
 
 ================================================================================
 `;
+
+exports[`StateVariableDeclarations.sol locations 1`] = `
+SourceUnit 0-362
+  SourceUnitMembers 0-362
+    ContractDefinition 0-361
+      Identifier 9-17
+      ContractSpecifiers 17-17
+      ContractMembers 20-360
+        StateVariableDefinition 22-142
+          BytesKeyword 22-29
+          StateVariableAttributes 29-46
+            PrivateKeyword 30-37
+            ConstantKeyword 38-46
+          Identifier 47-72
+          StateVariableDefinitionValue 73-141
+            HexNumberExpression 75-141
+        StateVariableDefinition 148-181
+          UintKeyword 148-155
+          StateVariableAttributes 155-172
+            PublicKeyword 156-162
+            TransientKeyword 163-172
+          Identifier 173-180
+        StateVariableDefinition 186-219
+          UintKeyword 186-193
+          StateVariableAttributes 193-210
+            PublicKeyword 204-210
+            TransientKeyword 194-203
+          Identifier 211-218
+        StateVariableDefinition 224-284
+          UintKeyword 224-231
+          StateVariableAttributes 231-247
+            PublicKeyword 241-247
+            ConstantKeyword 232-240
+          Identifier 248-263
+          StateVariableDefinitionValue 264-283
+            MemberAccessExpression 266-283
+              TypeExpression 266-279
+                UintKeyword 271-278
+              Identifier 280-283
+        StateVariableDefinition 289-359
+          BytesKeyword 289-296
+          StateVariableAttributes 296-312
+            PublicKeyword 297-303
+            ConstantKeyword 304-312
+          Identifier 313-329
+          StateVariableDefinitionValue 330-358
+            FunctionCallExpression 332-358
+              BytesKeyword 332-339
+              PositionalArgumentsDeclaration 339-358
+                PositionalArguments 340-357
+                  MemberAccessExpression 340-357
+                    TypeExpression 340-353
+                      UintKeyword 345-352
+                    Identifier 354-357
+`;

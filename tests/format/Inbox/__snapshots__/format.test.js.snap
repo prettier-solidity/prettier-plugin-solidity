@@ -75,3 +75,69 @@ contract Inbox {
 
 ================================================================================
 `;
+
+exports[`Inbox.sol locations 1`] = `
+SourceUnit 0-494
+  SourceUnitMembers 0-494
+    PragmaDirective 74-102
+      VersionPragma 83-101
+        VersionExpressionSets 91-101
+          VersionExpressionSet 91-101
+            VersionTerm 94-101
+              VersionOperator 94-95
+              SimpleVersionLiteral 95-101
+    ContractDefinition 103-493
+      Identifier 112-117
+      ContractSpecifiers 117-117
+      ContractMembers 120-492
+        StateVariableDefinition 122-144
+          StringKeyword 122-128
+          StateVariableAttributes 128-135
+            PublicKeyword 129-135
+          Identifier 136-143
+        ConstructorDefinition 148-225
+          ParametersDeclaration 159-182
+            Parameters 160-181
+              Parameter 160-181
+                StringKeyword 160-166
+                Identifier 167-181
+          ConstructorAttributes 182-189
+            PublicKeyword 183-189
+          Block 190-225
+            Statements 192-222
+              ExpressionStatement 196-221
+                AssignmentExpression 196-220
+                  Identifier 196-203
+                  Identifier 206-220
+        FunctionDefinition 229-306
+          Identifier 238-248
+          ParametersDeclaration 248-267
+            Parameters 249-266
+              Parameter 249-266
+                StringKeyword 249-255
+                Identifier 256-266
+          FunctionAttributes 267-274
+            PublicKeyword 268-274
+          Block 275-306
+            Statements 277-303
+              ExpressionStatement 281-302
+                AssignmentExpression 281-301
+                  Identifier 281-288
+                  Identifier 291-301
+        FunctionDefinition 310-366
+          Identifier 319-330
+          ParametersDeclaration 330-332
+            Parameters 331-331
+          FunctionAttributes 332-339
+            PublicKeyword 333-339
+          Block 340-366
+            Statements 342-342
+        FunctionDefinition 370-491
+          Identifier 379-406
+          ParametersDeclaration 406-408
+            Parameters 407-407
+          FunctionAttributes 408-415
+            PublicKeyword 409-415
+          Block 416-491
+            Statements 418-418
+`;

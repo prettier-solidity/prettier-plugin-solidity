@@ -26,3 +26,73 @@ contract ModifierDefinitions {
 
 ================================================================================
 `;
+
+exports[`ModifierDefinitions.sol locations 1`] = `
+SourceUnit 0-235
+  SourceUnitMembers 0-235
+    ContractDefinition 0-234
+      Identifier 9-28
+      ContractSpecifiers 28-28
+      ContractMembers 31-233
+        ModifierDefinition 33-55
+          Identifier 42-50
+          ParametersDeclaration 50-52
+            Parameters 51-51
+          ModifierAttributes 52-52
+          Block 53-55
+            Statements 54-54
+        ModifierDefinition 58-86
+          Identifier 67-75
+          ParametersDeclaration 75-83
+            Parameters 76-82
+              Parameter 76-82
+                UintKeyword 76-80
+                Identifier 81-82
+          ModifierAttributes 83-83
+          Block 84-86
+            Statements 85-85
+        ModifierDefinition 89-125
+          Identifier 98-107
+          ParametersDeclaration 107-122
+            Parameters 108-121
+              Parameter 108-114
+                UintKeyword 108-112
+                Identifier 113-114
+              Parameter 115-121
+                UintKeyword 115-119
+                Identifier 120-121
+          ModifierAttributes 122-122
+          Block 123-125
+            Statements 124-124
+        ModifierDefinition 128-176
+          Identifier 137-148
+          ParametersDeclaration 148-173
+            Parameters 149-172
+              Parameter 149-155
+                UintKeyword 149-153
+                Identifier 154-155
+              Parameter 156-162
+                UintKeyword 156-160
+                Identifier 161-162
+              Parameter 166-172
+                UintKeyword 166-170
+                Identifier 171-172
+          ModifierAttributes 173-173
+          Block 174-176
+            Statements 175-175
+        ModifierDefinition 179-203
+          Identifier 188-192
+          ParametersDeclaration 192-194
+            Parameters 193-193
+          ModifierAttributes 194-202
+            VirtualKeyword 195-202
+          Semicolon 202-203
+        ModifierDefinition 206-232
+          Identifier 215-219
+          ParametersDeclaration 219-221
+            Parameters 220-220
+          ModifierAttributes 221-229
+            VirtualKeyword 222-229
+          Block 230-232
+            Statements 231-231
+`;

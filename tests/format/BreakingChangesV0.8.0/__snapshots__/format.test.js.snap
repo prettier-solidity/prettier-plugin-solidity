@@ -87,6 +87,102 @@ contract BreakingChangesV080 {
 ================================================================================
 `;
 
+exports[`BreakingChangesV0.8.0.sol - {"compiler":"0.7.0"} locations 1`] = `
+SourceUnit 0-926
+  SourceUnitMembers 0-926
+    PragmaDirective 32-64
+      VersionPragma 39-63
+        VersionExpressionSets 47-63
+          VersionExpressionSet 47-63
+            VersionTerm 48-55
+              VersionOperator 48-50
+              SimpleVersionLiteral 50-55
+            VersionTerm 56-63
+              VersionOperator 56-58
+              SimpleVersionLiteral 58-63
+    ContractDefinition 66-925
+      Identifier 75-94
+      ContractSpecifiers 94-94
+      ContractMembers 97-924
+        StateVariableDefinition 346-363
+          UintKeyword 346-350
+          StateVariableAttributes 350-350
+          Identifier 351-352
+          StateVariableDefinitionValue 353-362
+            ExponentiationExpression 355-362
+              TupleExpression 355-359
+                TupleValues 355-359
+                  TupleValue 355-359
+                    ExponentiationExpression 355-359
+                      DecimalNumberExpression 355-356
+                      DecimalNumberExpression 358-359
+              DecimalNumberExpression 361-362
+        StateVariableDefinition 588-604
+          BytesKeyword 588-594
+          StateVariableAttributes 594-601
+            PublicKeyword 595-601
+          Identifier 602-603
+        StateVariableDefinition 609-623
+          ByteKeyword 609-613
+          StateVariableAttributes 613-620
+            PublicKeyword 614-620
+          Identifier 621-622
+        StructDefinition 629-679
+          Identifier 636-637
+          StructMembers 640-674
+            StructMember 648-657
+              BytesKeyword 648-654
+              Identifier 655-656
+            StructMember 666-673
+              ByteKeyword 666-670
+              Identifier 671-672
+        EventDefinition 685-717
+          Identifier 691-696
+          EventParametersDeclaration 696-716
+            EventParameters 697-715
+              EventParameter 697-706
+                BytesKeyword 697-703
+                Identifier 704-706
+              EventParameter 708-715
+                ByteKeyword 708-712
+                Identifier 713-715
+        FunctionDefinition 723-923
+          Identifier 732-736
+          ParametersDeclaration 736-778
+            Parameters 738-773
+              Parameter 746-755
+                BytesKeyword 746-752
+                Identifier 753-755
+              Parameter 765-772
+                ByteKeyword 765-769
+                Identifier 770-772
+          FunctionAttributes 779-794
+            PublicKeyword 787-793
+          ReturnsDeclaration 802-858
+            ParametersDeclaration 810-858
+              Parameters 812-849
+                Parameter 824-830
+                  BytesKeyword 824-830
+                Parameter 844-848
+                  ByteKeyword 844-848
+          Block 863-923
+            Statements 865-918
+              EmitStatement 873-892
+                IdentifierPath 878-883
+                  Identifier 878-883
+                PositionalArgumentsDeclaration 883-891
+                  PositionalArguments 884-890
+                    Identifier 884-886
+                    Identifier 888-890
+              ReturnStatement 901-917
+                TupleExpression 908-916
+                  TupleValues 909-915
+                    TupleValue 909-911
+                      Identifier 909-911
+                    TupleValue 913-915
+                      Identifier 913-915
+`;
+
 exports[`BreakingChangesV0.8.0.sol - {"compiler":"0.8.0"} format 1`] = `
 ====================================options=====================================
 compiler: "0.8.0"

@@ -32,3 +32,31 @@ contract StringLiteral {
 
 ================================================================================
 `;
+
+exports[`StringLiteral.sol locations 1`] = `
+SourceUnit 0-270
+  SourceUnitMembers 0-270
+    ContractDefinition 0-269
+      Identifier 9-22
+      ContractSpecifiers 22-22
+      ContractMembers 25-268
+        StateVariableDefinition 29-267
+          BytesKeyword 29-36
+          StateVariableAttributes 36-52
+            PublicKeyword 37-43
+            ConstantKeyword 44-52
+          Identifier 53-68
+          StateVariableDefinitionValue 69-266
+            FunctionCallExpression 71-266
+              Identifier 71-80
+              PositionalArgumentsDeclaration 80-266
+                PositionalArguments 82-261
+                  StringLiterals 82-261
+                    StringLiteral 90-99
+                    StringLiteral 112-128
+                    StringLiteral 141-159
+                    StringLiteral 172-188
+                    StringLiteral 201-217
+                    StringLiteral 230-248
+                    StringLiteral 257-260
+`;
