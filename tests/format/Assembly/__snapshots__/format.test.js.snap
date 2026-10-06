@@ -442,9 +442,7 @@ contract BlankLinesAfterYulPaths {
             let slot := stored.slot
 
             mstore(0, x)
-            x := stored.slot
-
-            /* trailing block comment */
+            x := stored.slot /* trailing block comment */
 
             // leading comment for the last statement
             sstore(slot, x)
@@ -490,9 +488,8 @@ contract YulListsAtTheEdge {
             default {
                 mstore(0, 2)
             } // trailing after switch
-            let
-                a,
-                b // trailing after names without a value
+
+            let a, b // trailing after names without a value
 
             let c := 1
             switch c
@@ -501,7 +498,6 @@ contract YulListsAtTheEdge {
             } /* trailing block comment */
             // prettier-ignore
             let   d,   e
-
             b := c
         }
     }
