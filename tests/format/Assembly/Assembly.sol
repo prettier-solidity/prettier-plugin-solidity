@@ -185,3 +185,25 @@ contract BooleanLiteralsInAssembly {
     }
   }
 }
+
+contract BlankLinesAfterYulPaths {
+  uint stored;
+  function f(uint x) {
+    assembly {
+      let e :=    x   // trailing comment after a path
+
+
+      let limbs := /* before a path */ e
+      x   :=   limbs
+      let slot := stored.slot
+
+
+
+      mstore(0,x)
+      x := stored.slot /* trailing block comment */
+
+      // leading comment for the last statement
+      sstore(slot,    x)
+    }
+  }
+}

@@ -1,4 +1,4 @@
-pragma solidity ^0.6.0;
+pragma solidity ^0.8.0;
 
 contract PrettierIgnore {
     fallback() external payable {
@@ -35,5 +35,46 @@ contract Example {
         else
             // Comments of children should be marked as printed
             return;
+    }
+}
+
+contract YulPrettierIgnore {
+    function f(uint256 x) external pure returns (uint256 r, uint256 s) {
+        assembly {
+            function g(a) -> b, c {
+                b := a
+                c := a
+            }
+            // prettier-ignore
+            r   :=   add(x,   1)
+            // prettier-ignore
+            r,   s   :=   g(x)
+            // prettier-ignore
+            mstore(0,   r)
+            // prettier-ignore
+            let   y   :=   1
+            r   :=   y
+            r,/* first */s   :=   g(   y   )
+            /* before */ mstore(   0,r   ) // after
+            // prettier-ignore
+            /* still ignored */ mstore(0,   s)
+        }
+    }
+}
+
+contract PrettierIgnoreStrings {
+    function f() external pure {
+        // prettier-ignore
+        "a"   "b";
+        "c"   "d"  ;
+        // prettier-ignore
+        hex"00"   hex"01";
+        hex"02"   hex"03"  ;
+        // prettier-ignore
+        unicode"é"   unicode"ü";
+        unicode"à"   unicode"ö"  ;
+        // prettier-ignore
+        /* still ignored */ "e"   "f";
+        string memory s = "g"   "h" /* trailing */  ;
     }
 }
