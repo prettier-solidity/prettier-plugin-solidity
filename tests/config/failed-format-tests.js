@@ -33,6 +33,9 @@ const antlrMismatchTests = new Map(
     "BasicIterator/BasicIterator.sol",
     "Comments/Comments.sol",
     "IndexOf/IndexOf.sol",
+    // ANTLR prints two spaces before a trailing comment after `let` without
+    // a value.
+    "Assembly/YulListsAtTheEdge.sol",
     // Syntax for `pragma solidity 0.5.0 - 0.6.0;` not supported by ANTLR
     "Pragma/Pragma.sol",
     // ANTLR doesn't support assembly assignment operators separated by a space
