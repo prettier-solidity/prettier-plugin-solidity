@@ -890,7 +890,9 @@ contract DanglingComments {
 
     // struct PendingToo {   /* fields will be added later */   }
 
-    function reserved(// parameters will be added later) public {}
+    function reserved(
+        // parameters will be added later
+    ) public {}
 
     function reservedToo(
         // first
@@ -900,7 +902,9 @@ contract DanglingComments {
     ) public {}
 
     function caller() public {
-        reserved(// nothing to pass yet);
+        reserved(
+            // nothing to pass yet
+        );
         reserved(/* nothing to pass yet */);
     }
 
