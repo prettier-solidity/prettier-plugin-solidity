@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 
 export const {
+  breakParent,
   dedent,
   group,
   hardline,
