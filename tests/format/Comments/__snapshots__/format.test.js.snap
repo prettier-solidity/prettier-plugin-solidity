@@ -835,3 +835,163 @@ SourceUnit 0-4138
               StringKeyword 3935-3941
               Identifier 3942-3959
 `;
+
+exports[`DanglingComments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity ^0.8.0;
+
+contract DanglingComments {
+    // struct Pending {
+    //     // fields will be added later
+    // }
+
+    // struct PendingToo {   /* fields will be added later */   }
+
+    function reserved(
+        // parameters will be added later
+    ) public {}
+
+    function reservedToo(   // first
+        // second
+
+        // third
+    ) public {}
+
+    function caller() public {
+        reserved(
+            // nothing to pass yet
+        );
+        reserved(  /* nothing to pass yet */  );
+    }
+
+    function lastYulComment() public {
+        assembly {
+            let x := 1 // trailing
+
+
+            // last
+        }
+        assembly {
+            let y := 2
+            /* last */ }
+    }
+}
+
+=====================================output=====================================
+pragma solidity ^0.8.0;
+
+contract DanglingComments {
+    // struct Pending {
+    //     // fields will be added later
+    // }
+
+    // struct PendingToo {   /* fields will be added later */   }
+
+    function reserved(// parameters will be added later) public {}
+
+    function reservedToo(
+        // first
+        // second
+
+        // third
+    ) public {}
+
+    function caller() public {
+        reserved(// nothing to pass yet);
+        reserved(/* nothing to pass yet */);
+    }
+
+    function lastYulComment() public {
+        assembly {
+            let x := 1 // trailing
+        }
+
+        // last
+        assembly {
+            let y := 2
+        }
+        /* last */
+    }
+}
+
+================================================================================
+`;
+
+exports[`DanglingComments.sol locations 1`] = `
+SourceUnit 0-718
+  SourceUnitMembers 0-718
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ContractDefinition 25-717
+      Identifier 34-50
+      ContractSpecifiers 50-50
+      ContractMembers 53-716
+        FunctionDefinition 199-275
+          Identifier 208-216
+          ParametersDeclaration 216-265
+            Parameters 218-218
+          FunctionAttributes 265-272
+            PublicKeyword 266-272
+          Block 273-275
+            Statements 274-274
+        FunctionDefinition 281-365
+          Identifier 290-301
+          ParametersDeclaration 301-355
+            Parameters 314-314
+          FunctionAttributes 355-362
+            PublicKeyword 356-362
+          Block 363-365
+            Statements 364-364
+        FunctionDefinition 371-516
+          Identifier 380-386
+          ParametersDeclaration 386-388
+            Parameters 387-387
+          FunctionAttributes 388-395
+            PublicKeyword 389-395
+          Block 396-516
+            Statements 398-511
+              ExpressionStatement 406-461
+                FunctionCallExpression 406-460
+                  Identifier 406-414
+                  PositionalArgumentsDeclaration 414-460
+                    PositionalArguments 416-416
+              ExpressionStatement 470-510
+                FunctionCallExpression 470-509
+                  Identifier 470-478
+                  PositionalArgumentsDeclaration 478-509
+                    PositionalArguments 479-479
+        FunctionDefinition 522-715
+          Identifier 531-545
+          ParametersDeclaration 545-547
+            Parameters 546-546
+          FunctionAttributes 547-554
+            PublicKeyword 548-554
+          Block 555-715
+            Statements 557-710
+              AssemblyStatement 565-642
+                YulBlock 574-642
+                  YulStatements 576-611
+                    YulVariableDeclarationStatement 588-598
+                      YulVariableNames 591-593
+                        YulIdentifier 592-593
+                      YulVariableDeclarationValue 594-598
+                        ColonEqual 594-596
+                        YulDecimalLiteral 597-598
+              AssemblyStatement 651-709
+                YulBlock 660-709
+                  YulStatements 662-685
+                    YulVariableDeclarationStatement 674-684
+                      YulVariableNames 677-679
+                        YulIdentifier 678-679
+                      YulVariableDeclarationValue 680-684
+                        ColonEqual 680-682
+                        YulDecimalLiteral 683-684
+`;
