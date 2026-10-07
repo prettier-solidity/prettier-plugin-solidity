@@ -13,3 +13,4 @@ pragma   experimental     "ABIEncoderV2";
 pragma   experimental     "SMTChecker";
 pragma       abicoder     v2;
 pragma   experimental     solidity;
+pragma solidity 0 /* odd */ .8.26;
