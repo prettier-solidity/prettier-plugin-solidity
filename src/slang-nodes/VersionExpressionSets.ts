@@ -1,11 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { join } from '../slang-printers/prettier-builders.ts';
+import { line } from '../slang-printers/prettier-builders.ts';
+import { printSeparatedList } from '../slang-printers/print-separated-list.ts';
 import { SlangNode } from './SlangNode.ts';
 import { VersionExpressionSet } from './VersionExpressionSet.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { AstPath, Doc } from 'prettier';
+import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
+import type { PrintableNode } from './types.js';
 
 export class VersionExpressionSets extends SlangNode {
   readonly kind = NonterminalKind.VersionExpressionSets;
@@ -20,7 +22,16 @@ export class VersionExpressionSets extends SlangNode {
     );
   }
 
-  print(print: PrintFunction, path: AstPath<VersionExpressionSets>): Doc {
-    return join(' || ', path.map(print, 'items'));
+  print(
+    print: PrintFunction,
+    path: AstPath<VersionExpressionSets>,
+    options: ParserOptions<PrintableNode>
+  ): Doc {
+    return printSeparatedList(path.map(print, 'items'), {
+      separator:
+        options.experimentalOperatorPosition === 'end'
+          ? [' ||', line]
+          : [line, '|| ']
+    });
   }
 }
