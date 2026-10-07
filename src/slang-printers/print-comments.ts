@@ -1,7 +1,8 @@
 import { printComment } from '../slang-comments/printer.ts';
+import { isBlockComment } from '../slang-utils/is-comment.ts';
 import { isNextLineEmpty } from '../slang-utils/prettier-utils.ts';
 import { locEnd } from '../slang-utils/loc.ts';
-import { hardline } from './prettier-builders.ts';
+import { breakParent, hardline } from './prettier-builders.ts';
 
 import type { AstPath, Doc, ParserOptions } from 'prettier';
 import type { Comment, PrintableNode } from '../slang-nodes/types.d.ts';
@@ -24,16 +25,15 @@ export function printComments(
       return '';
     }
     comment.printed = true;
+    if (index === lastPrintableIndex) {
+      // A line comment runs until the end of the line, so whatever comes after
+      // it must start on a new line.
+      return [printComment(path), isBlockComment(comment) ? '' : breakParent];
+    }
     return [
       printComment(path),
-      index === lastPrintableIndex
-        ? ''
-        : [
-            hardline,
-            isNextLineEmpty(options.originalText, locEnd(comment))
-              ? hardline
-              : ''
-          ]
+      hardline,
+      isNextLineEmpty(options.originalText, locEnd(comment)) ? hardline : ''
     ];
   }, 'comments');
 }
