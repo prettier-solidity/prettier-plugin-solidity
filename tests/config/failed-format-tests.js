@@ -43,6 +43,8 @@ const antlrMismatchTests = new Map(
     "AllSolidityFeaturesV0.4.26/AllSolidityFeatures.sol",
     // TODO Review how ANTLR is formatting chained assignments
     "Assignments/Assignments.sol",
+    // ANTLR doesn't print comments inside an empty struct.
+    "Comments/DanglingComments.sol",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
