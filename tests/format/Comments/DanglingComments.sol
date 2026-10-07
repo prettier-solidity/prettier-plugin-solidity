@@ -1,11 +1,11 @@
 pragma solidity ^0.8.0;
 
 contract DanglingComments {
-    // struct Pending {
-    //     // fields will be added later
-    // }
+    struct Pending {
+        // fields will be added later
+    }
 
-    // struct PendingToo {   /* fields will be added later */   }
+    struct PendingToo {   /* fields will be added later */   }
 
     function reserved(
         // parameters will be added later

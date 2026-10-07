@@ -46,6 +46,8 @@ const antlrMismatchTests = new Map(
     // ANTLR has parses a state variable declaration with with a name `x` and a
     // function type as a unnamed function with an `x` modifier.
     "StateVariableDeclarations/FunctionTypeVisibility.sol",
+    // ANTLR doesn't print comments inside an empty struct.
+    "Comments/DanglingComments.sol",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
