@@ -1,28 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import addCollectionFirstComment from './add-collection-first-comment.ts';
-import addCollectionLastComment from './add-collection-last-comment.ts';
+import addCollectionAdjacentComment from './add-collection-adjacent-comment.ts';
 
 import type { HandlerParams } from './types.d.ts';
 
-export default function handleSourceUnitMembersComments({
-  precedingNode,
-  followingNode,
-  comment
-}: HandlerParams): boolean {
-  if (
-    followingNode &&
-    followingNode.kind === NonterminalKind.SourceUnitMembers
-  ) {
-    addCollectionFirstComment(followingNode, comment);
-    return true;
-  }
-  if (
-    precedingNode &&
-    precedingNode.kind === NonterminalKind.SourceUnitMembers
-  ) {
-    addCollectionLastComment(precedingNode, comment);
-    return true;
-  }
-
-  return false;
+export default function handleSourceUnitMembersComments(
+  params: HandlerParams
+): boolean {
+  return addCollectionAdjacentComment(
+    NonterminalKind.SourceUnitMembers,
+    params
+  );
 }
