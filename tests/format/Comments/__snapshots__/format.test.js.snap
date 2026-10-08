@@ -477,13 +477,13 @@ contract DanglingComments {
     function lastYulComment() public {
         assembly {
             let x := 1 // trailing
-        }
 
-        // last
+            // last
+        }
         assembly {
             let y := 2
+            /* last */
         }
-        /* last */
     }
 }
 
