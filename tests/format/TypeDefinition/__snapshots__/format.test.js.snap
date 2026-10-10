@@ -37,3 +37,69 @@ contract TypeDefinition {
 
 ================================================================================
 `;
+
+exports[`TypeDefinition.sol locations 1`] = `
+SourceUnit 0-270
+  SourceUnitMembers 0-270
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    UserDefinedValueTypeDefinition 29-48
+      Identifier 34-39
+      UintKeyword 43-47
+    ContractDefinition 50-269
+      Identifier 59-73
+      ContractSpecifiers 73-73
+      ContractMembers 76-268
+        UserDefinedValueTypeDefinition 81-105
+          Identifier 86-93
+          UintKeyword 97-104
+        EventDefinition 110-134
+          Identifier 116-120
+          EventParametersDeclaration 120-133
+            EventParameters 121-132
+              EventParameter 121-132
+                IdentifierPath 121-126
+                  Identifier 121-126
+                Identifier 127-132
+        FunctionDefinition 144-267
+          Identifier 153-157
+          ParametersDeclaration 157-170
+            Parameters 158-169
+              Parameter 158-169
+                IdentifierPath 158-163
+                  Identifier 158-163
+                Identifier 164-169
+          FunctionAttributes 170-177
+            PublicKeyword 171-177
+          Block 178-267
+            Statements 180-262
+              ExpressionStatement 188-235
+                AssignmentExpression 188-234
+                  Identifier 188-193
+                  FunctionCallExpression 196-234
+                    MemberAccessExpression 196-206
+                      Identifier 196-201
+                      Identifier 202-206
+                    PositionalArgumentsDeclaration 206-234
+                      PositionalArguments 207-233
+                        AdditiveExpression 207-233
+                          FunctionCallExpression 207-226
+                            MemberAccessExpression 207-219
+                              Identifier 207-212
+                              Identifier 213-219
+                            PositionalArgumentsDeclaration 219-226
+                              PositionalArguments 220-225
+                                Identifier 220-225
+                          DecimalNumberExpression 229-233
+              EmitStatement 244-261
+                IdentifierPath 249-253
+                  Identifier 249-253
+                PositionalArgumentsDeclaration 253-260
+                  PositionalArguments 254-259
+                    Identifier 254-259
+`;

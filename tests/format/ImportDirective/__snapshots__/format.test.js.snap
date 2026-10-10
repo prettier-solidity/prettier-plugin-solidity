@@ -54,6 +54,84 @@ import {
 ================================================================================
 `;
 
+exports[`ImportDirectives.sol - {"bracketSpacing":true} locations 1`] = `
+SourceUnit 0-728
+  SourceUnitMembers 0-728
+    ImportDirective 0-22
+      PathImport 7-21
+        StringLiteral 7-21
+    ImportDirective 23-62
+      PathImport 30-61
+        StringLiteral 30-44
+        ImportAlias 45-61
+          Identifier 48-61
+    ImportDirective 63-109
+      NamedImport 70-108
+        ImportAlias 72-85
+          Identifier 75-85
+        StringLiteral 91-108
+    ImportDirective 110-162
+      ImportDeconstruction 117-161
+        ImportDeconstructionSymbols 118-144
+          ImportDeconstructionSymbol 118-135
+            Identifier 118-125
+            ImportAlias 126-135
+              Identifier 129-135
+          ImportDeconstructionSymbol 137-144
+            Identifier 137-144
+        StringLiteral 151-161
+    ImportDirective 163-254
+      ImportDeconstruction 170-253
+        ImportDeconstructionSymbols 171-235
+          ImportDeconstructionSymbol 171-188
+            Identifier 171-178
+            ImportAlias 179-188
+              Identifier 182-188
+          ImportDeconstructionSymbol 190-207
+            Identifier 190-197
+            ImportAlias 198-207
+              Identifier 201-207
+          ImportDeconstructionSymbol 209-226
+            Identifier 209-216
+            ImportAlias 217-226
+              Identifier 220-226
+          ImportDeconstructionSymbol 228-235
+            Identifier 228-235
+        StringLiteral 242-253
+    ImportDirective 255-388
+      ImportDeconstruction 262-387
+        ImportDeconstructionSymbols 264-301
+          ImportDeconstructionSymbol 268-300
+            Identifier 268-300
+        StringLiteral 308-387
+    ImportDirective 389-476
+      ImportDeconstruction 396-475
+        ImportDeconstructionSymbols 398-417
+          ImportDeconstructionSymbol 402-416
+            Identifier 402-416
+        StringLiteral 424-475
+    ImportDirective 477-728
+      ImportDeconstruction 484-727
+        ImportDeconstructionSymbols 486-683
+          ImportDeconstructionSymbol 490-504
+            Identifier 490-504
+          ImportDeconstructionSymbol 510-527
+            Identifier 510-527
+          ImportDeconstructionSymbol 533-550
+            Identifier 533-550
+          ImportDeconstructionSymbol 556-577
+            Identifier 556-577
+          ImportDeconstructionSymbol 583-603
+            Identifier 583-603
+          ImportDeconstructionSymbol 609-630
+            Identifier 609-630
+          ImportDeconstructionSymbol 636-656
+            Identifier 636-656
+          ImportDeconstructionSymbol 662-682
+            Identifier 662-682
+        StringLiteral 690-727
+`;
+
 exports[`ImportDirectives.sol - {"compiler":"0.7.3"} format 1`] = `
 ====================================options=====================================
 compiler: "0.7.3"
@@ -92,6 +170,84 @@ import {IAccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol"
 import {IERC7579Module, IERC7579Validator, IERC7579Execution, IERC7579AccountConfig, IERC7579ModuleConfig, MODULE_TYPE_VALIDATOR, MODULE_TYPE_EXECUTOR, MODULE_TYPE_FALLBACK} from "../../interfaces/draft-IERC7579.sol";
 
 ================================================================================
+`;
+
+exports[`ImportDirectives.sol - {"compiler":"0.7.3"} locations 1`] = `
+SourceUnit 0-728
+  SourceUnitMembers 0-728
+    ImportDirective 0-22
+      PathImport 7-21
+        StringLiteral 7-21
+    ImportDirective 23-62
+      PathImport 30-61
+        StringLiteral 30-44
+        ImportAlias 45-61
+          Identifier 48-61
+    ImportDirective 63-109
+      NamedImport 70-108
+        ImportAlias 72-85
+          Identifier 75-85
+        StringLiteral 91-108
+    ImportDirective 110-162
+      ImportDeconstruction 117-161
+        ImportDeconstructionSymbols 118-144
+          ImportDeconstructionSymbol 118-135
+            Identifier 118-125
+            ImportAlias 126-135
+              Identifier 129-135
+          ImportDeconstructionSymbol 137-144
+            Identifier 137-144
+        StringLiteral 151-161
+    ImportDirective 163-254
+      ImportDeconstruction 170-253
+        ImportDeconstructionSymbols 171-235
+          ImportDeconstructionSymbol 171-188
+            Identifier 171-178
+            ImportAlias 179-188
+              Identifier 182-188
+          ImportDeconstructionSymbol 190-207
+            Identifier 190-197
+            ImportAlias 198-207
+              Identifier 201-207
+          ImportDeconstructionSymbol 209-226
+            Identifier 209-216
+            ImportAlias 217-226
+              Identifier 220-226
+          ImportDeconstructionSymbol 228-235
+            Identifier 228-235
+        StringLiteral 242-253
+    ImportDirective 255-388
+      ImportDeconstruction 262-387
+        ImportDeconstructionSymbols 264-301
+          ImportDeconstructionSymbol 268-300
+            Identifier 268-300
+        StringLiteral 308-387
+    ImportDirective 389-476
+      ImportDeconstruction 396-475
+        ImportDeconstructionSymbols 398-417
+          ImportDeconstructionSymbol 402-416
+            Identifier 402-416
+        StringLiteral 424-475
+    ImportDirective 477-728
+      ImportDeconstruction 484-727
+        ImportDeconstructionSymbols 486-683
+          ImportDeconstructionSymbol 490-504
+            Identifier 490-504
+          ImportDeconstructionSymbol 510-527
+            Identifier 510-527
+          ImportDeconstructionSymbol 533-550
+            Identifier 533-550
+          ImportDeconstructionSymbol 556-577
+            Identifier 556-577
+          ImportDeconstructionSymbol 583-603
+            Identifier 583-603
+          ImportDeconstructionSymbol 609-630
+            Identifier 609-630
+          ImportDeconstructionSymbol 636-656
+            Identifier 636-656
+          ImportDeconstructionSymbol 662-682
+            Identifier 662-682
+        StringLiteral 690-727
 `;
 
 exports[`ImportDirectives.sol format 1`] = `
@@ -145,4 +301,82 @@ import {
 } from "../../interfaces/draft-IERC7579.sol";
 
 ================================================================================
+`;
+
+exports[`ImportDirectives.sol locations 1`] = `
+SourceUnit 0-728
+  SourceUnitMembers 0-728
+    ImportDirective 0-22
+      PathImport 7-21
+        StringLiteral 7-21
+    ImportDirective 23-62
+      PathImport 30-61
+        StringLiteral 30-44
+        ImportAlias 45-61
+          Identifier 48-61
+    ImportDirective 63-109
+      NamedImport 70-108
+        ImportAlias 72-85
+          Identifier 75-85
+        StringLiteral 91-108
+    ImportDirective 110-162
+      ImportDeconstruction 117-161
+        ImportDeconstructionSymbols 118-144
+          ImportDeconstructionSymbol 118-135
+            Identifier 118-125
+            ImportAlias 126-135
+              Identifier 129-135
+          ImportDeconstructionSymbol 137-144
+            Identifier 137-144
+        StringLiteral 151-161
+    ImportDirective 163-254
+      ImportDeconstruction 170-253
+        ImportDeconstructionSymbols 171-235
+          ImportDeconstructionSymbol 171-188
+            Identifier 171-178
+            ImportAlias 179-188
+              Identifier 182-188
+          ImportDeconstructionSymbol 190-207
+            Identifier 190-197
+            ImportAlias 198-207
+              Identifier 201-207
+          ImportDeconstructionSymbol 209-226
+            Identifier 209-216
+            ImportAlias 217-226
+              Identifier 220-226
+          ImportDeconstructionSymbol 228-235
+            Identifier 228-235
+        StringLiteral 242-253
+    ImportDirective 255-388
+      ImportDeconstruction 262-387
+        ImportDeconstructionSymbols 264-301
+          ImportDeconstructionSymbol 268-300
+            Identifier 268-300
+        StringLiteral 308-387
+    ImportDirective 389-476
+      ImportDeconstruction 396-475
+        ImportDeconstructionSymbols 398-417
+          ImportDeconstructionSymbol 402-416
+            Identifier 402-416
+        StringLiteral 424-475
+    ImportDirective 477-728
+      ImportDeconstruction 484-727
+        ImportDeconstructionSymbols 486-683
+          ImportDeconstructionSymbol 490-504
+            Identifier 490-504
+          ImportDeconstructionSymbol 510-527
+            Identifier 510-527
+          ImportDeconstructionSymbol 533-550
+            Identifier 533-550
+          ImportDeconstructionSymbol 556-577
+            Identifier 556-577
+          ImportDeconstructionSymbol 583-603
+            Identifier 583-603
+          ImportDeconstructionSymbol 609-630
+            Identifier 609-630
+          ImportDeconstructionSymbol 636-656
+            Identifier 636-656
+          ImportDeconstructionSymbol 662-682
+            Identifier 662-682
+        StringLiteral 690-727
 `;

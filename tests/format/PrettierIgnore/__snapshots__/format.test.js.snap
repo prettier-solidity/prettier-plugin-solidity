@@ -84,3 +84,86 @@ contract Example {
 
 ================================================================================
 `;
+
+exports[`PrettierIgnore.sol locations 1`] = `
+SourceUnit 0-853
+  SourceUnitMembers 0-853
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ContractDefinition 25-298
+      Identifier 34-48
+      ContractSpecifiers 48-48
+      ContractMembers 51-297
+        FallbackFunctionDefinition 55-296
+          ParametersDeclaration 63-65
+            Parameters 64-64
+          FallbackFunctionAttributes 65-82
+            ExternalKeyword 66-74
+            PayableKeyword 75-82
+          Block 83-296
+            Statements 85-291
+              ExpressionStatement 93-173
+                FunctionCallExpression 93-172
+                  Identifier 93-99
+                  PositionalArgumentsDeclaration 99-172
+                    PositionalArguments 101-163
+                      DecimalNumberExpression 113-114
+                      DecimalNumberExpression 116-117
+                      DecimalNumberExpression 119-120
+                      DecimalNumberExpression 134-135
+                      DecimalNumberExpression 137-138
+                      DecimalNumberExpression 140-141
+                      DecimalNumberExpression 155-156
+                      DecimalNumberExpression 158-159
+                      DecimalNumberExpression 161-162
+              ExpressionStatement 210-290
+                FunctionCallExpression 210-289
+                  Identifier 210-216
+                  PositionalArgumentsDeclaration 216-289
+                    PositionalArguments 218-280
+                      DecimalNumberExpression 230-231
+                      DecimalNumberExpression 233-234
+                      DecimalNumberExpression 236-237
+                      DecimalNumberExpression 251-252
+                      DecimalNumberExpression 254-255
+                      DecimalNumberExpression 257-258
+                      DecimalNumberExpression 272-273
+                      DecimalNumberExpression 275-276
+                      DecimalNumberExpression 278-279
+    ContractDefinition 319-852
+      Identifier 328-335
+      ContractSpecifiers 335-335
+      ContractMembers 338-851
+        FallbackFunctionDefinition 358-850
+          ParametersDeclaration 366-368
+            Parameters 367-367
+          FallbackFunctionAttributes 368-385
+            ExternalKeyword 369-377
+            PayableKeyword 378-385
+          Block 386-850
+            Statements 396-845
+              ExpressionStatement 493-573
+                FunctionCallExpression 493-572
+                  Identifier 493-499
+                  PositionalArgumentsDeclaration 499-572
+                    PositionalArguments 501-563
+                      DecimalNumberExpression 513-514
+                      DecimalNumberExpression 516-517
+                      DecimalNumberExpression 519-520
+                      DecimalNumberExpression 534-535
+                      DecimalNumberExpression 537-538
+                      DecimalNumberExpression 540-541
+                      DecimalNumberExpression 555-556
+                      DecimalNumberExpression 558-559
+                      DecimalNumberExpression 561-562
+              IfStatement 648-844
+                TrueKeyword 652-656
+                ReturnStatement 740-747
+                ElseBranch 756-844
+                  ReturnStatement 837-844
+`;
