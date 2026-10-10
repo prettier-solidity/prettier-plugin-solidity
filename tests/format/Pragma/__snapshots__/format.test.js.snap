@@ -1,5 +1,67 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`Pragma.sol - {"compiler":"0.8.36","experimentalOperatorPosition":"start"} format 1`] = `
+====================================options=====================================
+compiler: "0.8.36"
+experimentalOperatorPosition: "start"
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity >=0.4.21   <0.6.0;
+pragma solidity >=0.4.21 <=0.6.0    ;
+pragma solidity    >0.4.21 <0.6.0;
+pragma solidity >0.4.21 <=0.6.0;
+pragma solidity >=0.4.21 <0.6.0;
+pragma solidity   ^ 0.4.21  ;
+pragma solidity  ~ 0.4.21  ;
+pragma solidity   ^0.4.0   ||   ^0.5.0   ||   ^0.6.0  ;
+pragma solidity   0.5.0   -   0.6.0     ;
+pragma   experimental     ABIEncoderV2;
+pragma   experimental     SMTChecker;
+pragma   experimental     "ABIEncoderV2";
+pragma   experimental     "SMTChecker";
+pragma       abicoder     v2;
+pragma   experimental     solidity;
+pragma solidity 0 /* odd */ .8.26;
+pragma solidity /* exact */ 0.8.26;
+pragma solidity   ^0.8 /* a */ .0   ||   0.7 // b
+    .6;
+pragma solidity ^ /* caret */ 0.8.0;
+pragma solidity
+    // the range we audited
+    0.8.20 - 0.8.26;
+
+=====================================output=====================================
+pragma solidity >=0.4.21 <0.6.0;
+pragma solidity >=0.4.21 <=0.6.0;
+pragma solidity >0.4.21 <0.6.0;
+pragma solidity >0.4.21 <=0.6.0;
+pragma solidity >=0.4.21 <0.6.0;
+pragma solidity ^0.4.21;
+pragma solidity ~0.4.21;
+pragma solidity ^0.4.0 || ^0.5.0 || ^0.6.0;
+pragma solidity 0.5.0 - 0.6.0;
+pragma experimental ABIEncoderV2;
+pragma experimental SMTChecker;
+pragma experimental "ABIEncoderV2";
+pragma experimental "SMTChecker";
+pragma abicoder v2;
+pragma experimental solidity;
+pragma solidity 0 /* odd */.8.26;
+pragma solidity /* exact */ 0.8.26;
+pragma solidity
+    ^0.8 /* a */.0
+    || 0.7.6 // b
+;
+pragma solidity ^/* caret */ 0.8.0;
+pragma solidity
+    // the range we audited
+    0.8.20 - 0.8.26
+;
+
+================================================================================
+`;
+
 exports[`Pragma.sol - {"compiler":"0.8.36"} format 1`] = `
 ====================================options=====================================
 compiler: "0.8.36"
@@ -21,6 +83,14 @@ pragma   experimental     "ABIEncoderV2";
 pragma   experimental     "SMTChecker";
 pragma       abicoder     v2;
 pragma   experimental     solidity;
+pragma solidity 0 /* odd */ .8.26;
+pragma solidity /* exact */ 0.8.26;
+pragma solidity   ^0.8 /* a */ .0   ||   0.7 // b
+    .6;
+pragma solidity ^ /* caret */ 0.8.0;
+pragma solidity
+    // the range we audited
+    0.8.20 - 0.8.26;
 
 =====================================output=====================================
 pragma solidity >=0.4.21 <0.6.0;
@@ -38,6 +108,17 @@ pragma experimental "ABIEncoderV2";
 pragma experimental "SMTChecker";
 pragma abicoder v2;
 pragma experimental solidity;
+pragma solidity 0 /* odd */.8.26;
+pragma solidity /* exact */ 0.8.26;
+pragma solidity
+    ^0.8 /* a */.0 ||
+    0.7.6 // b
+;
+pragma solidity ^/* caret */ 0.8.0;
+pragma solidity
+    // the range we audited
+    0.8.20 - 0.8.26
+;
 
 ================================================================================
 `;
