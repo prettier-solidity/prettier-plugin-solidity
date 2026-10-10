@@ -9,8 +9,8 @@ export class SingleLineComment extends CommentNode {
 
   value: string;
 
-  constructor(ast: TerminalNode, offset: number) {
-    super(ast, offset);
+  constructor(ast: TerminalNode, start: number, end: number) {
+    super(start, end);
 
     this.value = ast.unparse();
   }
