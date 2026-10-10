@@ -13,7 +13,7 @@ export class YulPath extends SlangNode {
   items: TerminalNode[];
 
   constructor(ast: ast.YulPath, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
