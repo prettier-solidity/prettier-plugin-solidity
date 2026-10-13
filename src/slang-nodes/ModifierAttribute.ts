@@ -23,7 +23,5 @@ export class ModifierAttribute extends SlangNode {
       return;
     }
     this.variant = new OverrideSpecifier(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

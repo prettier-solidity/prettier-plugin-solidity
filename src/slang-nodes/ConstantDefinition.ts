@@ -25,8 +25,6 @@ export class ConstantDefinition extends SlangNode {
     this.typeName = extractVariant(new TypeName(ast.typeName, collected));
     this.name = new TerminalNode(ast.name, collected);
     this.value = extractVariant(new Expression(ast.value, collected));
-
-    this.updateMetadata(this.typeName, this.value);
   }
 
   print(print: PrintFunction): Doc {

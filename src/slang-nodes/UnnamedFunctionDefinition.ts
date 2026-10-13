@@ -29,8 +29,6 @@ export class UnnamedFunctionDefinition extends SlangNode {
     this.attributes = new UnnamedFunctionAttributes(ast.attributes, collected);
     this.body = extractVariant(new FunctionBody(ast.body, collected));
 
-    this.updateMetadata(this.parameters, this.attributes, this.body);
-
     for (const attribute of this.attributes.items) {
       if (attribute.kind === NonterminalKind.ModifierInvocation) {
         attribute.cleanModifierInvocationArguments();

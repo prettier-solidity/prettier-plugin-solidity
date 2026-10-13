@@ -15,8 +15,6 @@ export class ArrayExpression extends SlangNode {
     super(ast, collected);
 
     this.items = new ArrayValues(ast.items, collected);
-
-    this.updateMetadata(this.items);
   }
 
   print(print: PrintFunction): Doc {

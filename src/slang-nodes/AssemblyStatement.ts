@@ -27,8 +27,6 @@ export class AssemblyStatement extends SlangNode {
       this.flags = new AssemblyFlagsDeclaration(ast.flags, collected);
     }
     this.body = new YulBlock(ast.body, collected);
-
-    this.updateMetadata(this.label, this.flags, this.body);
   }
 
   print(print: PrintFunction): Doc {

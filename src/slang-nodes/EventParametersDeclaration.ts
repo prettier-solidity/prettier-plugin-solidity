@@ -18,8 +18,6 @@ export class EventParametersDeclaration extends SlangNode {
     super(ast, collected);
 
     this.parameters = new EventParameters(ast.parameters, collected);
-
-    this.updateMetadata(this.parameters);
   }
 
   print(print: PrintFunction): Doc {

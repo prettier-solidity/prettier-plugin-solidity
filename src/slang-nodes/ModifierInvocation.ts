@@ -24,8 +24,6 @@ export class ModifierInvocation extends SlangNode {
         new ArgumentsDeclaration(ast.arguments, collected)
       );
     }
-
-    this.updateMetadata(this.name, this.arguments);
   }
 
   cleanModifierInvocationArguments(): void {

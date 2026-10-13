@@ -20,8 +20,6 @@ export class HexNumberExpression extends SlangNode {
     if (ast.unit) {
       this.unit = new NumberUnit(ast.unit, collected);
     }
-
-    this.updateMetadata(this.unit);
   }
 
   print(print: PrintFunction): Doc {

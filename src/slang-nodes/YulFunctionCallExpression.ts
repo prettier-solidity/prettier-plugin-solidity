@@ -23,8 +23,6 @@ export class YulFunctionCallExpression extends SlangNode {
 
     this.operand = extractVariant(new YulExpression(ast.operand, collected));
     this.arguments = new YulArguments(ast.arguments, collected);
-
-    this.updateMetadata(this.operand, this.arguments);
   }
 
   print(print: PrintFunction): Doc {

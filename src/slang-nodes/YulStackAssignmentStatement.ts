@@ -27,8 +27,6 @@ export class YulStackAssignmentStatement extends SlangNode {
       new YulStackAssignmentOperator(ast.assignment, collected)
     );
     this.variable = new TerminalNode(ast.variable, collected);
-
-    this.updateMetadata(this.assignment);
   }
 
   print(print: PrintFunction): Doc {

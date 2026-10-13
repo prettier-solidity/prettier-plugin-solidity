@@ -15,8 +15,6 @@ export class UncheckedBlock extends SlangNode {
     super(ast, collected);
 
     this.block = new Block(ast.block, collected);
-
-    this.updateMetadata(this.block);
   }
 
   print(print: PrintFunction): Doc {

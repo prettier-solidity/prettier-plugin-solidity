@@ -23,7 +23,5 @@ export class YulAssignmentOperator extends SlangNode {
       return;
     }
     this.variant = new YulColonAndEqual(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

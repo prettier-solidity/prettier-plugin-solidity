@@ -15,8 +15,6 @@ export class NamedArgumentGroup extends SlangNode {
     super(ast, collected);
 
     this.arguments = new NamedArguments(ast.arguments, collected);
-
-    this.updateMetadata(this.arguments);
   }
 
   print(print: PrintFunction): Doc {

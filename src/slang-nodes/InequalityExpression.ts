@@ -37,8 +37,6 @@ export class InequalityExpression extends SlangNode {
     this.rightOperand = extractVariant(
       new Expression(ast.rightOperand, collected)
     );
-
-    this.updateMetadata(this.leftOperand, this.rightOperand);
   }
 
   print(

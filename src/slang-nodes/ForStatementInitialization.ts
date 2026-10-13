@@ -42,7 +42,5 @@ export class ForStatementInitialization extends SlangNode {
       return;
     }
     this.variant = createNonterminalVariant(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

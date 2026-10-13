@@ -25,8 +25,6 @@ export class UserDefinedValueTypeDefinition extends SlangNode {
     this.valueType = extractVariant(
       new ElementaryType(ast.valueType, collected)
     );
-
-    this.updateMetadata(this.valueType);
   }
 
   print(print: PrintFunction): Doc {

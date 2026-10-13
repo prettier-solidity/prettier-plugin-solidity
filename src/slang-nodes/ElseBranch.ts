@@ -23,8 +23,6 @@ export class ElseBranch extends SlangNode {
     super(ast, collected);
 
     this.body = extractVariant(new Statement(ast.body, collected));
-
-    this.updateMetadata(this.body);
   }
 
   print(print: PrintFunction): Doc {

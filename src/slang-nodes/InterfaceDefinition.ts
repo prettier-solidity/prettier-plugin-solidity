@@ -26,8 +26,6 @@ export class InterfaceDefinition extends SlangNode {
       this.inheritance = new InheritanceSpecifier(ast.inheritance, collected);
     }
     this.members = new InterfaceMembers(ast.members, collected);
-
-    this.updateMetadata(this.inheritance, this.members);
   }
 
   print(print: PrintFunction): Doc {

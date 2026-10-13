@@ -15,8 +15,6 @@ export class OverridePathsDeclaration extends SlangNode {
     super(ast, collected);
 
     this.paths = new OverridePaths(ast.paths, collected);
-
-    this.updateMetadata(this.paths);
   }
 
   print(print: PrintFunction): Doc {
