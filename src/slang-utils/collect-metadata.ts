@@ -42,7 +42,7 @@ function visitNonterminal(
         label === EdgeLabel.LeadingTrivia ||
         label === EdgeLabel.TrailingTrivia
       ) {
-        const end = cursor.textRange.end.utf16;
+        const textEnd = cursor.textRange.end.utf16;
 
         // Whitespace and line breaks never start with `/`, every comment does.
         if (originalText.startsWith('/', offset)) {
@@ -53,26 +53,30 @@ function visitNonterminal(
           const node = cursor.node;
           switch (node.kind) {
             case TerminalKind.MultiLineComment:
-              collected.comments.push(new MultiLineComment(node, offset, end));
+              collected.comments.push(
+                new MultiLineComment(node, offset, textEnd)
+              );
               break;
             case TerminalKind.MultiLineNatSpecComment:
               collected.comments.push(
-                new MultiLineNatSpecComment(node, offset, end)
+                new MultiLineNatSpecComment(node, offset, textEnd)
               );
               break;
             case TerminalKind.SingleLineComment:
-              collected.comments.push(new SingleLineComment(node, offset, end));
+              collected.comments.push(
+                new SingleLineComment(node, offset, textEnd)
+              );
               break;
             case TerminalKind.SingleLineNatSpecComment:
               collected.comments.push(
-                new SingleLineNatSpecComment(node, offset, end)
+                new SingleLineNatSpecComment(node, offset, textEnd)
               );
               break;
           }
         }
         // We accumulate the trivia length
-        triviaLength += end - offset;
-        offset = end;
+        triviaLength += textEnd - offset;
+        offset = textEnd;
         continue;
       }
 
@@ -88,27 +92,23 @@ function visitNonterminal(
           start: offset,
           end: textEnd
         });
-        // We assign the `leadingOffset` only once.
-        leadingOffset ??= triviaLength;
-        // Since this is a non trivia node, we reset the accumulated length
-        triviaLength = 0;
         offset = textEnd;
-        continue;
+      } else {
+        // A nonterminal ends where its last child ends, so we don't need to
+        // ask Slang for its length.
+        offset = visitNonterminal(
+          cursor,
+          node.id,
+          collected,
+          originalText,
+          offset
+        );
       }
 
       // We assign the `leadingOffset` only once.
       leadingOffset ??= triviaLength;
       // Since this is a non trivia node, we reset the accumulated length
       triviaLength = 0;
-      // A nonterminal ends where its last child ends, so we don't need to
-      // ask Slang for its length.
-      offset = visitNonterminal(
-        cursor,
-        node.id,
-        collected,
-        originalText,
-        offset
-      );
     } while (cursor.goToNextSibling());
 
     // Since we are done with the children, we move the cursor to the parent
