@@ -10,18 +10,13 @@ declare module 'prettier' {
 }
 
 interface CollectedMetadata {
-  locations: Map<number, AstLocation>;
+  locations: Map<number, [inner: Location, outer?: Location]>;
   options: ParserOptions<PrintableNode>;
 }
 
 interface Location {
   start: number;
   end: number;
-}
-
-interface AstLocation extends Location {
-  outerStart: number;
-  outerEnd: number;
 }
 
 type PrintFunction = (

@@ -1,11 +1,7 @@
 import { TerminalNode as SlangTerminalNode } from '@nomicfoundation/slang/cst';
 
 import type { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
-import type {
-  AstLocation,
-  CollectedMetadata,
-  SlangAstNode
-} from '../types.d.ts';
+import type { CollectedMetadata, Location, SlangAstNode } from '../types.d.ts';
 import type { Comment } from './types.d.ts';
 
 // Every own data field of a node, excluding its methods (`print` and any
@@ -21,7 +17,7 @@ export abstract class SlangNode {
 
   comments?: Comment[];
 
-  loc: AstLocation;
+  loc: Location;
 
   protected constructor(
     ast: SlangAstNode | SlangTerminalNode,
@@ -31,11 +27,11 @@ export abstract class SlangNode {
     const { id } = ast instanceof SlangTerminalNode ? ast : ast.cst;
     // `collectMetadata` recorded every node of the tree before we started
     // building ours.
-    const loc = collected.locations.get(id)!;
+    const [inner, outer] = collected.locations.get(id)!;
 
-    this.loc = enclosePeripheralComments
-      ? { ...loc, start: loc.outerStart, end: loc.outerEnd }
-      : loc;
+    // Only TerminalNodes will have an undefined `outer` location, since they
+    // don't have children and will never have comments to enclose.
+    this.loc = enclosePeripheralComments ? outer! : inner;
   }
 
   // Builds an instance with the right prototype (so `instanceof` and the
