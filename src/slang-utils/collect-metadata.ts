@@ -15,7 +15,7 @@ interface Metadata {
 
 // Walks the children of the NonterminalNode under the cursor, recording the
 // location of every node below it and collecting the comments, then records
-// the NonterminalNode's own location and returns where it ends.
+// the NonterminalNode's own location and returns it.
 //
 // A single cursor walking the whole tree is much cheaper than calling
 // `children()` on every NonterminalNode, since each call crosses into Slang's
@@ -26,7 +26,7 @@ function visitNonterminal(
   collected: Metadata,
   originalText: string,
   outerStart = 0
-): number {
+): AstLocation {
   let offset = outerStart;
   let triviaLength = 0;
   let leadingOffset;
@@ -83,27 +83,33 @@ function visitNonterminal(
       const node = cursor.node;
 
       if (node.isTerminalNode()) {
-        const textEnd = offset + node.textLength.utf16;
+        const end = offset + node.textLength.utf16;
         // Some variants can be TerminalNodes, and since `extractVariant` drops
         // their wrapper, we need to track their location.
         collected.locations.set(node.id, {
           outerStart: offset,
-          outerEnd: textEnd,
+          outerEnd: end,
           start: offset,
-          end: textEnd
+          end
         });
-        offset = textEnd;
-      } else {
-        // A nonterminal ends where its last child ends, so we don't need to
-        // ask Slang for its length.
-        offset = visitNonterminal(
-          cursor,
-          node.id,
-          collected,
-          originalText,
-          offset
-        );
+        offset = end;
+
+        // We assign the `leadingOffset` only once.
+        leadingOffset ??= triviaLength;
+        // Since this is a non trivia node, we reset the accumulated length
+        triviaLength = 0;
+        continue;
       }
+      // A nonterminal ends where its last child ends, so we don't need to
+      // ask Slang for its length.
+      const child = visitNonterminal(
+        cursor,
+        node.id,
+        collected,
+        originalText,
+        offset
+      );
+      offset = child.outerEnd;
 
       // We assign the `leadingOffset` only once.
       leadingOffset ??= triviaLength;
@@ -120,16 +126,16 @@ function visitNonterminal(
   leadingOffset ??= 0;
 
   // We collect the location of the NonterminalNode itself.
-  collected.locations.set(id, {
+  const location = {
     outerStart,
     outerEnd: offset,
     start: outerStart + leadingOffset,
     // The remaining `triviaLength` is the trailing trivia
     end: offset - triviaLength
-  });
+  };
+  collected.locations.set(id, location);
 
-  // Return the outerStart plus the sum of all of the children's textLengths.
-  return offset;
+  return location;
 }
 
 // Records the location of every node in the tree, and collects its comments,
