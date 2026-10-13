@@ -20,8 +20,6 @@ export class StateVariableDefinitionValue extends SlangNode {
     super(ast, collected);
 
     this.value = extractVariant(new Expression(ast.value, collected));
-
-    this.updateMetadata(this.value);
   }
 
   print(print: PrintFunction): Doc {

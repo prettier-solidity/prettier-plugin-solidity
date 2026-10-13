@@ -14,11 +14,9 @@ export class SourceUnit extends SlangNode {
   members: SourceUnitMembers;
 
   constructor(ast: ast.SourceUnit, collected: CollectedMetadata) {
-    super(ast, collected);
+    super(ast, collected, true);
 
     this.members = new SourceUnitMembers(ast.members, collected);
-
-    this.updateMetadata(this.members);
   }
 
   print(

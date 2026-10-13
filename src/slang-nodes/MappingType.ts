@@ -19,8 +19,6 @@ export class MappingType extends SlangNode {
 
     this.keyType = new MappingKey(ast.keyType, collected);
     this.valueType = new MappingValue(ast.valueType, collected);
-
-    this.updateMetadata(this.keyType, this.valueType);
   }
 
   print(print: PrintFunction): Doc {

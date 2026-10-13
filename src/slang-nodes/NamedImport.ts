@@ -19,8 +19,6 @@ export class NamedImport extends SlangNode {
 
     this.alias = new ImportAlias(ast.alias, collected);
     this.path = new StringLiteral(ast.path, collected);
-
-    this.updateMetadata(this.alias, this.path);
   }
 
   print(print: PrintFunction): Doc {

@@ -22,8 +22,6 @@ export class ArrayTypeName extends SlangNode {
     if (ast.index) {
       this.index = extractVariant(new Expression(ast.index, collected));
     }
-
-    this.updateMetadata(this.operand, this.index);
   }
 
   print(print: PrintFunction): Doc {

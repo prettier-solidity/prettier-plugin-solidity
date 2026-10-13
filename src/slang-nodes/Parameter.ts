@@ -32,8 +32,6 @@ export class Parameter extends SlangNode {
     if (ast.name) {
       this.name = new TerminalNode(ast.name, collected);
     }
-
-    this.updateMetadata(this.typeName, this.storageLocation);
   }
 
   print(print: PrintFunction): Doc {

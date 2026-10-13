@@ -16,8 +16,6 @@ export class HexStringLiterals extends SlangNode {
     super(ast, collected);
 
     this.items = ast.items.map((item) => new HexStringLiteral(item, collected));
-
-    this.updateMetadata(...this.items);
   }
 
   print(print: PrintFunction, path: AstPath<HexStringLiterals>): Doc {

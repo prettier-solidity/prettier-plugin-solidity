@@ -16,8 +16,6 @@ export class YulPaths extends SlangNode {
     super(ast, collected);
 
     this.items = ast.items.map((item) => new YulPath(item, collected));
-
-    this.updateMetadata(...this.items);
   }
 
   print(print: PrintFunction, path: AstPath<YulPaths>): Doc {

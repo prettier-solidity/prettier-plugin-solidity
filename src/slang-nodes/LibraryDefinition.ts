@@ -22,8 +22,6 @@ export class LibraryDefinition extends SlangNode {
     this.name = new TerminalNode(ast.name, collected);
     this.members = new LibraryMembers(ast.members, collected);
 
-    this.updateMetadata(this.members);
-
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
     // So we delegate to the parents the responsibility of cleaning the

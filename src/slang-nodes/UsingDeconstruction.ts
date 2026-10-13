@@ -15,8 +15,6 @@ export class UsingDeconstruction extends SlangNode {
     super(ast, collected);
 
     this.symbols = new UsingDeconstructionSymbols(ast.symbols, collected);
-
-    this.updateMetadata(this.symbols);
   }
 
   print(print: PrintFunction): Doc {

@@ -22,8 +22,6 @@ export class YulIfStatement extends SlangNode {
       new YulExpression(ast.condition, collected)
     );
     this.body = new YulBlock(ast.body, collected);
-
-    this.updateMetadata(this.condition, this.body);
   }
 
   print(print: PrintFunction): Doc {

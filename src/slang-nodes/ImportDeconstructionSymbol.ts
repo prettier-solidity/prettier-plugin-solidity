@@ -24,8 +24,6 @@ export class ImportDeconstructionSymbol extends SlangNode {
     if (ast.alias) {
       this.alias = new ImportAlias(ast.alias, collected);
     }
-
-    this.updateMetadata(this.alias);
   }
 
   print(print: PrintFunction): Doc {
