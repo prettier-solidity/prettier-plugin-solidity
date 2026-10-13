@@ -37,8 +37,6 @@ export class ModifierDefinition extends SlangNode {
     this.attributes = new ModifierAttributes(ast.attributes, collected);
     this.body = extractVariant(new FunctionBody(ast.body, collected));
 
-    this.updateMetadata(this.parameters, this.attributes, this.body);
-
     if (!this.parameters) {
       const parametersOffset = this.attributes.loc.outerStart;
       const parametersLoc: AstLocation = {

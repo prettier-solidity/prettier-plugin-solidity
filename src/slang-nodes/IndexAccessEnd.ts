@@ -18,8 +18,6 @@ export class IndexAccessEnd extends SlangNode {
     if (ast.end) {
       this.end = extractVariant(new Expression(ast.end, collected));
     }
-
-    this.updateMetadata(this.end);
   }
 
   print(print: PrintFunction): Doc {

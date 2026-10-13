@@ -8,8 +8,8 @@ import type {
 } from '../types.d.ts';
 import type { Comment } from './types.d.ts';
 
-// Every own data field of a node, excluding its methods (`print`,
-// `updateMetadata`, and any node-specific ones like `getSingleExpression`).
+// Every own data field of a node, excluding its methods (`print` and any
+// node-specific ones like `getSingleExpression`).
 type DataFields<T> = {
   [
     K in keyof T as T[K] extends (...args: never[]) => unknown ? never : K
@@ -36,11 +36,6 @@ export abstract class SlangNode {
     this.loc = enclosePeripheralComments
       ? { ...loc, start: loc.outerStart, end: loc.outerEnd }
       : loc;
-  }
-
-  updateMetadata(...childNodes: unknown[]): void;
-  updateMetadata(): void {
-    // do nothing
   }
 
   // Builds an instance with the right prototype (so `instanceof` and the

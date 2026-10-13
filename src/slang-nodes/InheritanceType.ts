@@ -24,8 +24,6 @@ export class InheritanceType extends SlangNode {
         new ArgumentsDeclaration(ast.arguments, collected)
       );
     }
-
-    this.updateMetadata(this.typeName, this.arguments);
   }
 
   print(print: PrintFunction): Doc {

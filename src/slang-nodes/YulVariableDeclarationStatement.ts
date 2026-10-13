@@ -24,8 +24,6 @@ export class YulVariableDeclarationStatement extends SlangNode {
     if (ast.value) {
       this.value = new YulVariableDeclarationValue(ast.value, collected);
     }
-
-    this.updateMetadata(this.value);
   }
 
   print(print: PrintFunction): Doc {

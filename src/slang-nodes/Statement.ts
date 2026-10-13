@@ -74,7 +74,5 @@ export class Statement extends SlangNode {
       variant instanceof slangAst.Block
         ? new Block(variant, collected)
         : createNonterminalVariant(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

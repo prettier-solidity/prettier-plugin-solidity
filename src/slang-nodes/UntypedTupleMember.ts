@@ -24,8 +24,6 @@ export class UntypedTupleMember extends SlangNode {
       );
     }
     this.name = new TerminalNode(ast.name, collected);
-
-    this.updateMetadata(this.storageLocation);
   }
 
   print(print: PrintFunction): Doc {
