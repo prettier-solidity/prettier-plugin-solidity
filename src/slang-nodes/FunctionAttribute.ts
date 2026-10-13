@@ -33,7 +33,5 @@ export class FunctionAttribute extends SlangNode {
       return;
     }
     this.variant = createNonterminalVariant(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

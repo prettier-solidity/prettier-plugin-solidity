@@ -23,7 +23,5 @@ export class VersionLiteral extends SlangNode {
       return;
     }
     this.variant = new SimpleVersionLiteral(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

@@ -35,7 +35,5 @@ export class StringExpression extends SlangNode {
     super(ast, collected);
 
     this.variant = createNonterminalVariant(ast.variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

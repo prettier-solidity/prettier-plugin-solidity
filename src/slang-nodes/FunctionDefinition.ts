@@ -37,14 +37,6 @@ export class FunctionDefinition extends SlangNode {
     }
     this.body = extractVariant(new FunctionBody(ast.body, collected));
 
-    this.updateMetadata(
-      this.name,
-      this.parameters,
-      this.attributes,
-      this.returns,
-      this.body
-    );
-
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
     // So we delegate to the parents the responsibility of cleaning the

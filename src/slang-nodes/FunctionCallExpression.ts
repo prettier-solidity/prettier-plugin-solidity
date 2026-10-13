@@ -23,8 +23,6 @@ export class FunctionCallExpression extends SlangNode {
     this.arguments = extractVariant(
       new ArgumentsDeclaration(ast.arguments, collected)
     );
-
-    this.updateMetadata(this.operand, this.arguments);
   }
 
   print(print: PrintFunction): Doc {

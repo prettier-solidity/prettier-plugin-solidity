@@ -15,8 +15,6 @@ export class AssemblyFlagsDeclaration extends SlangNode {
     super(ast, collected);
 
     this.flags = new AssemblyFlags(ast.flags, collected);
-
-    this.updateMetadata(this.flags);
   }
 
   print(print: PrintFunction): Doc {

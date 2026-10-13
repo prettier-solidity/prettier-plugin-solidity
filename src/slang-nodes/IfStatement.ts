@@ -30,8 +30,6 @@ export class IfStatement extends SlangNode {
     if (ast.elseBranch) {
       this.elseBranch = new ElseBranch(ast.elseBranch, collected);
     }
-
-    this.updateMetadata(this.condition, this.body, this.elseBranch);
   }
 
   print(print: PrintFunction): Doc {

@@ -23,7 +23,5 @@ export class FunctionBody extends SlangNode {
       return;
     }
     this.variant = new Block(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

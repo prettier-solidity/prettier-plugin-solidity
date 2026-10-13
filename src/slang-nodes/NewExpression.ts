@@ -16,8 +16,6 @@ export class NewExpression extends SlangNode {
     super(ast, collected);
 
     this.typeName = extractVariant(new TypeName(ast.typeName, collected));
-
-    this.updateMetadata(this.typeName);
   }
 
   print(print: PrintFunction): Doc {

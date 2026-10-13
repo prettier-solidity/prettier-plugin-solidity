@@ -23,7 +23,5 @@ export class ExperimentalFeature extends SlangNode {
       return;
     }
     this.variant = new StringLiteral(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }
