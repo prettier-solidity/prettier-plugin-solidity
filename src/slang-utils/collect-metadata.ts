@@ -6,10 +6,10 @@ import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecCommen
 
 import type { Cursor } from '@nomicfoundation/slang/cst';
 import type { Comment } from '../slang-nodes/types.d.ts';
-import type { AstLocation } from '../types.d.ts';
+import type { CollectedMetadata, Location } from '../types.d.ts';
 
 interface Metadata {
-  locations: Map<number, AstLocation>;
+  locations: CollectedMetadata['locations'];
   comments: Comment[];
 }
 
@@ -26,7 +26,7 @@ function visitNonterminal(
   collected: Metadata,
   originalText: string,
   outerStart = 0
-): AstLocation {
+): [inner: Location, outer: Location] {
   let offset = outerStart;
   // The first and last children that aren't trivia give the node's start and
   // end without any surrounding comments or whitespace, at any depth.
@@ -88,29 +88,24 @@ function visitNonterminal(
         end = offset + node.textLength.utf16;
         // Some variants can be TerminalNodes, and since `extractVariant` drops
         // their wrapper, we need to track their location.
-        collected.locations.set(node.id, {
-          outerStart: offset,
-          outerEnd: end,
-          start: offset,
-          end
-        });
+        collected.locations.set(node.id, [{ start: offset, end }]);
         offset = end;
         continue;
       }
       // A nonterminal ends where its last child ends, so we don't need to
       // ask Slang for its length.
-      const child = visitNonterminal(
+      const [inner, outer] = visitNonterminal(
         cursor,
         node.id,
         collected,
         originalText,
         offset
       );
-      offset = child.outerEnd;
+      offset = outer.end;
       // An empty node has no tokens to give its parent a start or an end.
-      if (child.start === child.end) continue;
-      start ??= child.start;
-      end = child.end;
+      if (inner.start === inner.end) continue;
+      start ??= inner.start;
+      end = inner.end;
     } while (cursor.goToNextSibling());
 
     // Since we are done with the children, we move the cursor to the parent
@@ -120,15 +115,13 @@ function visitNonterminal(
 
   // We collect the location of the NonterminalNode itself. A node without any
   // children other than trivia (an empty list) collapses to its start.
-  const location = {
-    outerStart,
-    outerEnd: offset,
-    start: start ?? outerStart,
-    end: end ?? outerStart
-  };
-  collected.locations.set(id, location);
+  const nodeLocations: [inner: Location, outer: Location] = [
+    { start: start ?? outerStart, end: end ?? outerStart },
+    { start: outerStart, end: offset }
+  ];
+  collected.locations.set(id, nodeLocations);
 
-  return location;
+  return nodeLocations;
 }
 
 // Records the location of every node in the tree, and collects its comments,
