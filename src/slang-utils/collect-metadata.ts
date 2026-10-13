@@ -28,14 +28,16 @@ function visitNonterminal(
   outerStart = 0
 ): AstLocation {
   let offset = outerStart;
-  let triviaLength = 0;
-  let leadingOffset;
+  // The first and last children that aren't trivia give the node's start and
+  // end without any surrounding comments or whitespace, at any depth.
+  let start;
+  let end;
 
   if (cursor.goToFirstChild()) {
     do {
       const label = cursor.label;
 
-      // Trivia can be identified by it's label, which is much cheaper than
+      // Trivia can be identified by its label, which is much cheaper than
       // instantiating the node. Since a huge amount of nodes are trivia, it's
       // worth to just query the Cursor.
       if (
@@ -74,8 +76,7 @@ function visitNonterminal(
               break;
           }
         }
-        // We accumulate the trivia length
-        triviaLength += textEnd - offset;
+
         offset = textEnd;
         continue;
       }
@@ -83,7 +84,8 @@ function visitNonterminal(
       const node = cursor.node;
 
       if (node.isTerminalNode()) {
-        const end = offset + node.textLength.utf16;
+        start ??= offset;
+        end = offset + node.textLength.utf16;
         // Some variants can be TerminalNodes, and since `extractVariant` drops
         // their wrapper, we need to track their location.
         collected.locations.set(node.id, {
@@ -93,11 +95,6 @@ function visitNonterminal(
           end
         });
         offset = end;
-
-        // We assign the `leadingOffset` only once.
-        leadingOffset ??= triviaLength;
-        // Since this is a non trivia node, we reset the accumulated length
-        triviaLength = 0;
         continue;
       }
       // A nonterminal ends where its last child ends, so we don't need to
@@ -110,11 +107,10 @@ function visitNonterminal(
         offset
       );
       offset = child.outerEnd;
-
-      // We assign the `leadingOffset` only once.
-      leadingOffset ??= triviaLength;
-      // Since this is a non trivia node, we reset the accumulated length
-      triviaLength = 0;
+      // An empty node has no tokens to give its parent a start or an end.
+      if (child.start === child.end) continue;
+      start ??= child.start;
+      end = child.end;
     } while (cursor.goToNextSibling());
 
     // Since we are done with the children, we move the cursor to the parent
@@ -122,16 +118,13 @@ function visitNonterminal(
     cursor.goToParent();
   }
 
-  // In case the `leadingOffset` was not initialized
-  leadingOffset ??= 0;
-
-  // We collect the location of the NonterminalNode itself.
+  // We collect the location of the NonterminalNode itself. A node without any
+  // children other than trivia (an empty list) collapses to its start.
   const location = {
     outerStart,
     outerEnd: offset,
-    start: outerStart + leadingOffset,
-    // The remaining `triviaLength` is the trailing trivia
-    end: offset - triviaLength
+    start: start ?? outerStart,
+    end: end ?? outerStart
   };
   collected.locations.set(id, location);
 

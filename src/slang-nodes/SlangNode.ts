@@ -6,24 +6,7 @@ import type {
   CollectedMetadata,
   SlangAstNode
 } from '../types.d.ts';
-import type { Comment, PrintableNode } from './types.d.ts';
-import type { TerminalNode } from './TerminalNode.ts';
-
-function reversedIterator<T>(children: T[]): Iterable<T> {
-  return {
-    [Symbol.iterator](): Iterator<T> {
-      let index = children.length;
-      return {
-        next: function (): IteratorResult<T, undefined> {
-          index--;
-          return index < 0
-            ? { done: true, value: undefined }
-            : { done: false, value: children[index] };
-        }
-      };
-    }
-  };
-}
+import type { Comment } from './types.d.ts';
 
 // Every own data field of a node, excluding its methods (`print`,
 // `updateMetadata`, and any node-specific ones like `getSingleExpression`).
@@ -55,35 +38,9 @@ export abstract class SlangNode {
       : loc;
   }
 
-  updateMetadata(
-    ...childNodes: (PrintableNode | TerminalNode | undefined)[]
-  ): void {
-    const { loc } = this;
-    // calculate correct loc object
-    if (loc.outerStart === loc.start) {
-      for (const childNode of childNodes) {
-        if (childNode === undefined) continue;
-        const { outerStart, start } = childNode.loc;
-
-        if (outerStart === loc.start) {
-          loc.start = start;
-          break;
-        }
-      }
-    }
-
-    if (loc.outerEnd === loc.end) {
-      for (const childNode of reversedIterator(childNodes)) {
-        if (childNode === undefined) continue;
-        const { outerEnd, end } = childNode.loc;
-
-        if (outerEnd === loc.end) {
-          loc.end = end;
-          break;
-        }
-      }
-    }
-    this.loc = loc;
+  updateMetadata(...childNodes: unknown[]): void;
+  updateMetadata(): void {
+    // do nothing
   }
 
   // Builds an instance with the right prototype (so `instanceof` and the
