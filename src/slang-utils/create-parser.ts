@@ -53,13 +53,13 @@ function pragmasOf(parseOutput: ParseOutput): string {
 
 export function createParser(
   text: string,
-  options: ParserOptions<PrintableNode>
+  { compiler }: ParserOptions<PrintableNode>
 ): { version: string; parseOutput: ParseOutput } {
-  const compiler = maxSatisfying(supportedVersions, options.compiler);
-  if (compiler) {
+  const maxCompiler = compiler && maxSatisfying(supportedVersions, compiler);
+  if (maxCompiler) {
     return versionAndOutput(
       text,
-      compiler,
+      maxCompiler,
       `Based on the compiler option provided, we inferred your code to be using Solidity version ${compiler}. If you would like to change that, specify a different version in your \`.prettierrc\` file.`
     );
   }
