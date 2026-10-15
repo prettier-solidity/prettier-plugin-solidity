@@ -13,12 +13,15 @@ export default function parse(
 ): PrintableNode {
   const { version, parseOutput } = createParser(text, options);
 
-  // We update the compiler version with the inferred one.
-  options.compiler = version;
   const comments: Comment[] = [];
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
-    { offsets: new Map<number, number>(), comments, options }
+    {
+      offsets: new Map<number, number>(),
+      comments,
+      options,
+      compiler: version
+    }
   );
 
   // Comments are extracted in nested order; sort them by location.

@@ -13,6 +13,8 @@ import type { PrintableNode } from './types.d.ts';
 export class ImportDeconstructionSymbols extends SlangNode {
   readonly kind = NonterminalKind.ImportDeconstructionSymbols;
 
+  #split: boolean;
+
   items: ImportDeconstructionSymbol[];
 
   constructor(
@@ -24,25 +26,25 @@ export class ImportDeconstructionSymbols extends SlangNode {
     this.items = ast.items.map(
       (item) => new ImportDeconstructionSymbol(item, collected)
     );
+
+    this.#split =
+      this.items.length > 1 && satisfies(collected.compiler, '>=0.7.4');
   }
 
   print(
     print: PrintFunction,
     path: AstPath<ImportDeconstructionSymbols>,
-    { compiler, bracketSpacing }: ParserOptions<PrintableNode>
+    { bracketSpacing }: ParserOptions<PrintableNode>
   ): Doc {
-    const items = path.map(print, 'items');
     return printSeparatedList(
-      items,
-      items.length > 1 && satisfies(compiler, '>=0.7.4')
+      path.map(print, 'items'),
+      this.#split
         ? {
-            // if the compiler exists and is greater than or equal to 0.7.4 we will
-            // split the ImportDirective.
+            // if the code targets ≥0.7.4 we will split the ImportDirective.
             firstSeparator: bracketSpacing ? line : softline
           }
         : {
-            // if the compiler is not given or is lower than 0.7.4 we will not
-            // split the ImportDirective.
+            // below 0.7.4 we will not split the ImportDirective.
             firstSeparator: bracketSpacing ? ' ' : '',
             separator: ', '
           }
