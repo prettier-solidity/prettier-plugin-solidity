@@ -13,6 +13,7 @@ interface CollectedMetadata {
   offsets: Map<number, number>;
   comments: Comment[];
   options: ParserOptions<PrintableNode>;
+  compiler: string;
 }
 
 interface Location {
