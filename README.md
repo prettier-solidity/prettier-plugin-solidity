@@ -210,11 +210,13 @@ You might have a multi-version project, where different files are compiled with 
 
 ### Parser
 
-- [Slang](https://nomicfoundation.github.io/slang), a powerful parser created and maintained by Nomic Foundation.
+- [`slang`](https://nomicfoundation.github.io/slang), a powerful parser created and maintained by Nomic Foundation.
 
-| Default | CLI Override        | API Override         |
-| ------- | ------------------- | -------------------- |
-| `slang` | `--parser <string>` | `parser: "<string>"` |
+Prettier infers the parser only for files ending in `.sol`. Set it explicitly to `slang` when formatting strings through the API without a `filepath`, reading from stdin without `--stdin-filepath`, or formatting files with other extensions.
+
+| Default                                   | CLI Override        | API Override         |
+| ----------------------------------------- | ------------------- | -------------------- |
+| `slang` is inferred for `.sol` files only | `--parser <string>` | `parser: "<string>"` |
 
 ### Experimental Ternaries
 
