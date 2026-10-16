@@ -48,6 +48,8 @@ const antlrMismatchTests = new Map(
     "StateVariableDeclarations/FunctionTypeVisibility.sol",
     // ANTLR doesn't print comments inside an empty struct.
     "Comments/DanglingComments.sol",
+    // Antlr has the previous comment allocations.
+    "Tuples/TupleDeconstructionComments.sol",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
