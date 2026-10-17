@@ -43,8 +43,9 @@ const antlrMismatchTests = new Map(
     "AllSolidityFeaturesV0.4.26/AllSolidityFeatures.sol",
     // TODO Review how ANTLR is formatting chained assignments
     "Assignments/Assignments.sol",
-    // Antlr has the previous comment allocations.
+    // Antlr has the previous tuple formatting.
     "Tuples/TupleDeconstructionComments.sol",
+    "Tuples/TupleDeconstructionEmptyLastSlot.sol",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
