@@ -49,7 +49,7 @@ export class FunctionDefinition extends SlangNode {
     // the same name as the contract.
     // So we delegate to the parents the responsibility of cleaning the
     // arguments of modifier invocations.
-    if (satisfies(collected.options.compiler, '>=0.5.0')) {
+    if (satisfies(collected.compiler, '>=0.5.0')) {
       this.cleanModifierInvocationArguments();
     }
   }
