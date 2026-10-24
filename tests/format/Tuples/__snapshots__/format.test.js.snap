@@ -1,5 +1,191 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`TupleDeconstructionComments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity ^0.8.0;
+
+contract TupleDeconstructionComments {
+    // https://docs.chain.link/data-feeds/getting-started
+    function getChainlinkDataFeedLatestAnswer() public view returns (int) {
+        (
+            /* uint80 roundID */,
+            int answer,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = dataFeed.latestRoundData();
+        return answer;
+    }
+
+    function singleLine() public view returns (uint) {
+        (/* first */, uint second, /* third */) = values();
+        return second;
+    }
+
+    function trailing() public view returns (uint) {
+        (uint first, /* second */) = pair();
+        return first;
+    }
+
+    function filledSlots() public view returns (uint) {
+        (, /* leads second */ uint second, uint third /* trails third */) = values();
+        return second + third;
+    }
+
+    function commentAfterAssignment() public view returns (uint) {
+        (uint first, uint second) = /* not part of the tuple */ pair();
+        return first + second;
+    }
+
+    function lineComments() public view returns (int) {
+        (
+            // uint80 roundID
+            ,
+            int answer,
+            // uint startedAt
+            ,
+            // uint timeStamp
+        ) = dataFeed.latestRoundData();
+        return answer;
+    }
+}
+
+=====================================output=====================================
+pragma solidity ^0.8.0;
+
+contract TupleDeconstructionComments {
+    // https://docs.chain.link/data-feeds/getting-started
+    function getChainlinkDataFeedLatestAnswer() public view returns (int) {
+        (
+            /* uint80 roundID */,
+            int answer,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = dataFeed.latestRoundData();
+        return answer;
+    }
+
+    function singleLine() public view returns (uint) {
+        (/* first */, uint second, /* third */) = values();
+        return second;
+    }
+
+    function trailing() public view returns (uint) {
+        (uint first, /* second */) = pair();
+        return first;
+    }
+
+    function filledSlots() public view returns (uint) {
+        (
+            ,
+            /* leads second */ uint second,
+            uint third /* trails third */
+        ) = values();
+        return second + third;
+    }
+
+    function commentAfterAssignment() public view returns (uint) {
+        (uint first, uint second) = /* not part of the tuple */ pair();
+        return first + second;
+    }
+
+    function lineComments() public view returns (int) {
+        (
+            // uint80 roundID
+            ,
+            int answer,
+            // uint startedAt
+            ,
+            // uint timeStamp
+        ) = dataFeed.latestRoundData();
+        return answer;
+    }
+}
+
+================================================================================
+`;
+
+exports[`TupleDeconstructionEmptyLastSlot.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity ^0.8.0;
+
+contract TupleDeconstructionEmptyLastSlot {
+    function fits() public view returns (uint) {
+        (uint first, ) = pair();
+        return first;
+    }
+
+    function breaks() public view returns (uint) {
+        (uint256 someVeryLongVariableName, uint256 anotherVeryLongVariableName, ) = values();
+        return someVeryLongVariableName + anotherVeryLongVariableName;
+    }
+
+    function breaksWithTwoEmptySlots() public view returns (uint) {
+        (uint256 someVeryLongVariableName, uint256 anotherVeryLongVariableName, , ) = values();
+        return someVeryLongVariableName + anotherVeryLongVariableName;
+    }
+
+    function lineCommentAfterComma() public view returns (uint) {
+        (uint first, // the second value is ignored
+        ) = pair();
+        return first;
+    }
+
+    function onlyEmptySlots() public view {
+        () = nothing();
+        (, ) = pair();
+    }
+}
+
+=====================================output=====================================
+pragma solidity ^0.8.0;
+
+contract TupleDeconstructionEmptyLastSlot {
+    function fits() public view returns (uint) {
+        (uint first, ) = pair();
+        return first;
+    }
+
+    function breaks() public view returns (uint) {
+        (
+            uint256 someVeryLongVariableName,
+            uint256 anotherVeryLongVariableName,
+        ) = values();
+        return someVeryLongVariableName + anotherVeryLongVariableName;
+    }
+
+    function breaksWithTwoEmptySlots() public view returns (uint) {
+        (
+            uint256 someVeryLongVariableName,
+            uint256 anotherVeryLongVariableName,
+            ,
+        ) = values();
+        return someVeryLongVariableName + anotherVeryLongVariableName;
+    }
+
+    function lineCommentAfterComma() public view returns (uint) {
+        (
+            uint first, // the second value is ignored
+        ) = pair();
+        return first;
+    }
+
+    function onlyEmptySlots() public view {
+        () = nothing();
+        (, ) = pair();
+    }
+}
+
+================================================================================
+`;
+
 exports[`Tuples.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
