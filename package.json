@@ -106,7 +106,7 @@
     "knip": "^6.42.1",
     "playwright": "^1.64.1",
     "prettier": "^3.9.10",
-    "solc": "^0.8.37",
+    "solc": "^0.8.38",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.0",
     "webpack": "^5.112.0",
