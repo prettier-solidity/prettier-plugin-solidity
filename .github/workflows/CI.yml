@@ -51,12 +51,18 @@ jobs:
           cache: 'npm'
       - name: Install
         run: npm ci
+      # Browsers downloaded on one runner image can miss libraries on another
+      # one, so the cache is keyed by image.
+      - name: Get runner image
+        if: matrix.browser
+        id: image
+        run: echo "name=$ImageOS-$ImageVersion" >> "$GITHUB_OUTPUT"
       - name: Cache Playwright browser
         if: matrix.browser
         uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('node_modules/playwright/package.json') }}
+          key: ${{ steps.image.outputs.name }}-playwright-${{ hashFiles('node_modules/playwright/package.json') }}
       - name: Install Playwright OS dependencies
         if: matrix.browser
         run: npx playwright install-deps ${{ matrix.browser }}
