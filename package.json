@@ -109,7 +109,7 @@
     "solc": "^0.8.38",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.0",
-    "webpack": "^5.112.0",
+    "webpack": "^5.112.1",
     "webpack-cli": "^7.2.3"
   },
   "dependencies": {
