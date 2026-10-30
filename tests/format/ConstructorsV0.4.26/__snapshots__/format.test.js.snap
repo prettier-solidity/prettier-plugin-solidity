@@ -23,3 +23,52 @@ contract Constructors is Ownable, Changeable {
 
 ================================================================================
 `;
+
+exports[`Constructors.sol locations 1`] = `
+SourceUnit 0-165
+  SourceUnitMembers 0-165
+    PragmaDirective 0-24
+      VersionPragma 7-23
+        VersionExpressionSets 15-23
+          VersionExpressionSet 15-23
+            VersionTerm 16-23
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-23
+    ContractDefinition 26-164
+      Identifier 35-47
+      ContractSpecifiers 47-70
+        InheritanceSpecifier 48-70
+          InheritanceTypes 50-70
+            InheritanceType 51-58
+              IdentifierPath 51-58
+                Identifier 51-58
+            InheritanceType 60-70
+              IdentifierPath 60-70
+                Identifier 60-70
+      ContractMembers 73-163
+        FunctionDefinition 75-162
+          Identifier 84-96
+          ParametersDeclaration 96-107
+            Parameters 97-106
+              Parameter 97-106
+                IdentifierPath 97-106
+                  Identifier 97-106
+          FunctionAttributes 107-156
+            PublicKeyword 108-114
+            ModifierInvocation 115-136
+              IdentifierPath 115-125
+                Identifier 115-125
+              PositionalArgumentsDeclaration 125-136
+                PositionalArguments 126-135
+                  Identifier 126-135
+            ModifierInvocation 137-146
+              IdentifierPath 137-144
+                Identifier 137-144
+              PositionalArgumentsDeclaration 144-146
+                PositionalArguments 145-145
+            ModifierInvocation 147-156
+              IdentifierPath 147-156
+                Identifier 147-156
+          Block 157-162
+            Statements 159-159
+`;
