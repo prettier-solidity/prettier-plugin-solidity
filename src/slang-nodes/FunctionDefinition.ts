@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { satisfies } from 'semver';
+import satisfies from 'semver/functions/satisfies.js';
 import { printFunction } from '../slang-printers/print-function.ts';
 import { extractVariant } from '../slang-utils/extract-variant.ts';
 import { SlangNode } from './SlangNode.ts';

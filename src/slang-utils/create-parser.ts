@@ -1,7 +1,7 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
 import { Parser } from '@nomicfoundation/slang/parser';
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
-import { maxSatisfying } from 'semver';
+import maxSatisfying from 'semver/ranges/max-satisfying.js';
 
 import type { ParseOutput } from '@nomicfoundation/slang/parser';
 import type { ParserOptions } from 'prettier';
