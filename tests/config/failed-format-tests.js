@@ -43,6 +43,9 @@ const antlrMismatchTests = new Map(
     "AllSolidityFeaturesV0.4.26/AllSolidityFeatures.sol",
     // TODO Review how ANTLR is formatting chained assignments
     "Assignments/Assignments.sol",
+    // ANTLR has parses a state variable declaration with with a name `x` and a
+    // function type as a unnamed function with an `x` modifier.
+    "StateVariableDeclarations/FunctionTypeVisibility.sol",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
