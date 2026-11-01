@@ -37,6 +37,79 @@ contract Example {
 ================================================================================
 `;
 
+exports[`Issue205.sol locations 1`] = `
+SourceUnit 0-365
+  SourceUnitMembers 0-365
+    ContractDefinition 0-364
+      Identifier 9-16
+      ContractSpecifiers 16-16
+      ContractMembers 19-363
+        UsingDirective 23-50
+          IdentifierPath 29-37
+            Identifier 29-37
+          UintKeyword 42-49
+        StructDefinition 60-112
+          Identifier 67-79
+          StructMembers 82-107
+            StructMember 90-106
+              UintKeyword 90-97
+              Identifier 98-105
+        StateVariableDefinition 118-193
+          MappingType 118-170
+            MappingKey 126-133
+              AddressType 126-133
+            MappingValue 137-169
+              MappingType 137-169
+                MappingKey 145-152
+                  AddressType 145-152
+                MappingValue 156-168
+                  IdentifierPath 156-168
+                    Identifier 156-168
+          StateVariableAttributes 170-178
+            PrivateKeyword 171-178
+          Identifier 179-192
+        FunctionDefinition 198-362
+          Identifier 207-214
+          ParametersDeclaration 214-242
+            Parameters 215-241
+              Parameter 215-228
+                AddressType 215-222
+                Identifier 223-228
+              Parameter 230-241
+                UintKeyword 230-234
+                Identifier 235-241
+          FunctionAttributes 242-249
+            PublicKeyword 243-249
+          Block 250-362
+            Statements 252-357
+              ExpressionStatement 260-356
+                AssignmentExpression 260-355
+                  MemberAccessExpression 260-300
+                    IndexAccessExpression 260-292
+                      IndexAccessExpression 260-285
+                        Identifier 260-273
+                        MemberAccessExpression 274-284
+                          Identifier 274-277
+                          Identifier 278-284
+                      Identifier 286-291
+                    Identifier 293-300
+                  FunctionCallExpression 303-355
+                    MemberAccessExpression 303-347
+                      MemberAccessExpression 303-343
+                        IndexAccessExpression 303-335
+                          IndexAccessExpression 303-328
+                            Identifier 303-316
+                            MemberAccessExpression 317-327
+                              Identifier 317-320
+                              Identifier 321-327
+                          Identifier 329-334
+                        Identifier 336-343
+                      Identifier 344-347
+                    PositionalArgumentsDeclaration 347-355
+                      PositionalArguments 348-354
+                        Identifier 348-354
+`;
+
 exports[`Issue289.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
@@ -59,6 +132,35 @@ contract Issue289 {
 }
 
 ================================================================================
+`;
+
+exports[`Issue289.sol locations 1`] = `
+SourceUnit 0-144
+  SourceUnitMembers 0-144
+    ContractDefinition 0-143
+      Identifier 9-17
+      ContractSpecifiers 17-17
+      ContractMembers 20-142
+        FunctionDefinition 22-141
+          Identifier 31-32
+          ParametersDeclaration 32-34
+            Parameters 33-33
+          FunctionAttributes 34-34
+          Block 35-141
+            Statements 37-138
+              VariableDeclarationStatement 38-137
+                ArrayTypeName 38-47
+                  AddressType 38-45
+                StorageLocation 48-55
+                Identifier 56-74
+                VariableDeclarationValue 76-136
+                  MemberAccessExpression 78-136
+                    IndexAccessExpression 78-117
+                      IndexAccessExpression 78-104
+                        Identifier 78-90
+                        Identifier 91-103
+                      Identifier 105-116
+                    Identifier 118-136
 `;
 
 exports[`Issue355.sol format 1`] = `
@@ -94,6 +196,38 @@ contract Bug {
 }
 
 ================================================================================
+`;
+
+exports[`Issue355.sol locations 1`] = `
+SourceUnit 0-187
+  SourceUnitMembers 0-187
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 15-22
+              SimpleVersionLiteral 15-22
+    ContractDefinition 25-186
+      Identifier 34-37
+      ContractSpecifiers 37-37
+      ContractMembers 40-185
+        StateVariableDefinition 65-83
+          UintKeyword 65-69
+          StateVariableAttributes 69-76
+            PublicKeyword 70-76
+          Identifier 77-82
+        StateVariableDefinition 108-137
+          UintKeyword 108-112
+          StateVariableAttributes 112-119
+            PublicKeyword 113-119
+          Identifier 120-126
+          StateVariableDefinitionValue 127-136
+            DecimalNumberExpression 129-136
+        StateVariableDefinition 166-184
+          UintKeyword 166-170
+          StateVariableAttributes 170-177
+            PublicKeyword 171-177
+          Identifier 178-183
 `;
 
 exports[`Issue385.sol format 1`] = `
@@ -133,6 +267,79 @@ contract Issue385 {
 ================================================================================
 `;
 
+exports[`Issue385.sol locations 1`] = `
+SourceUnit 0-420
+  SourceUnitMembers 0-420
+    ContractDefinition 0-419
+      Identifier 9-17
+      ContractSpecifiers 17-17
+      ContractMembers 20-418
+        FunctionDefinition 22-417
+          Identifier 31-44
+          ParametersDeclaration 44-46
+            Parameters 45-45
+          FunctionAttributes 46-46
+          Block 47-417
+            Statements 49-414
+              TryStatement 61-413
+                FunctionCallExpression 81-189
+                  CallOptionsExpression 81-138
+                    MemberAccessExpression 81-120
+                      FunctionCallExpression 81-113
+                        MemberAccessExpression 81-111
+                          FunctionCallExpression 81-104
+                            Identifier 81-89
+                            PositionalArgumentsDeclaration 89-104
+                              PositionalArguments 90-103
+                                Identifier 90-103
+                          Identifier 105-111
+                        PositionalArgumentsDeclaration 111-113
+                          PositionalArguments 112-112
+                      Identifier 114-120
+                    CallOptions 121-137
+                      NamedArgument 121-137
+                        Identifier 121-126
+                        MemberAccessExpression 128-137
+                          Identifier 128-131
+                          Identifier 132-137
+                  PositionalArgumentsDeclaration 138-189
+                    PositionalArguments 140-172
+                      Identifier 160-171
+                Block 203-205
+                  Statements 204-204
+                CatchClauses 206-413
+                  CatchClause 206-325
+                    CatchClauseError 212-238
+                      Identifier 212-217
+                      ParametersDeclaration 217-238
+                        Parameters 218-237
+                          Parameter 218-237
+                            StringKeyword 218-224
+                            StorageLocation 225-231
+                            Identifier 232-237
+                    Block 239-325
+                      Statements 241-312
+                        ExpressionStatement 257-311
+                          FunctionCallExpression 257-310
+                            MemberAccessExpression 257-277
+                              Identifier 257-262
+                              Identifier 263-277
+                            PositionalArgumentsDeclaration 277-310
+                              PositionalArguments 278-309
+                                StringLiterals 278-309
+                                  StringLiteral 278-309
+                  CatchClause 326-413
+                    Block 332-413
+                      Statements 334-400
+                        ExpressionStatement 350-399
+                          FunctionCallExpression 350-398
+                            Identifier 350-356
+                            PositionalArgumentsDeclaration 356-398
+                              PositionalArguments 357-397
+                                StringLiterals 357-397
+                                  StringLiteral 357-397
+`;
+
 exports[`Issue564.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
@@ -165,6 +372,49 @@ contract Issue564 {
 ================================================================================
 `;
 
+exports[`Issue564.sol locations 1`] = `
+SourceUnit 0-277
+  SourceUnitMembers 0-277
+    ContractDefinition 0-276
+      Identifier 9-17
+      ContractSpecifiers 17-17
+      ContractMembers 20-275
+        FunctionDefinition 24-274
+          Identifier 33-45
+          ParametersDeclaration 45-102
+            Parameters 47-97
+              Parameter 55-72
+                BytesKeyword 55-62
+                Identifier 63-72
+              Parameter 82-96
+                AddressType 82-89
+                Identifier 90-96
+          FunctionAttributes 102-125
+            ExternalKeyword 103-111
+            ViewKeyword 112-116
+            OverrideSpecifier 117-125
+          ReturnsDeclaration 126-140
+            ParametersDeclaration 134-140
+              Parameters 135-139
+                Parameter 135-139
+                  BoolKeyword 135-139
+          Block 141-274
+            Statements 143-269
+              VariableDeclarationStatement 151-247
+                IdentifierPath 151-166
+                  Identifier 151-166
+                StorageLocation 167-174
+                Identifier 175-190
+                VariableDeclarationValue 191-246
+                  IndexAccessExpression 193-246
+                    IndexAccessExpression 193-238
+                      Identifier 193-227
+                      Identifier 228-237
+                    Identifier 239-245
+              ReturnStatement 256-268
+                TrueKeyword 263-267
+`;
+
 exports[`Issue799.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
@@ -176,6 +426,14 @@ struct EmptyStruct {}
 struct EmptyStruct {}
 
 ================================================================================
+`;
+
+exports[`Issue799.sol locations 1`] = `
+SourceUnit 0-22
+  SourceUnitMembers 0-22
+    StructDefinition 0-21
+      Identifier 7-18
+      StructMembers 20-20
 `;
 
 exports[`Issue843.sol format 1`] = `
@@ -203,4 +461,24 @@ contract ContractWithLeadingComment {}
 contract ContractWithoutComments {}
 
 ================================================================================
+`;
+
+exports[`Issue843.sol locations 1`] = `
+SourceUnit 0-126
+  SourceUnitMembers 0-126
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ContractDefinition 46-86
+      Identifier 55-81
+      ContractSpecifiers 81-81
+      ContractMembers 84-84
+    ContractDefinition 88-125
+      Identifier 97-120
+      ContractSpecifiers 120-120
+      ContractMembers 123-123
 `;
