@@ -193,6 +193,28 @@ contract BooleanLiteralsInAssembly {
   }
 }
 
+contract BlankLinesAfterYulPaths {
+  uint stored;
+  function f(uint x) {
+    assembly {
+      let e :=    x   // trailing comment after a path
+
+
+      let limbs := /* before a path */ e
+      x   :=   limbs
+      let slot := stored.slot
+
+
+
+      mstore(0,x)
+      x := stored.slot /* trailing block comment */
+
+      // leading comment for the last statement
+      sstore(slot,    x)
+    }
+  }
+}
+
 =====================================output=====================================
 contract Assembly {
     function ifAssembly() {
@@ -405,6 +427,78 @@ contract BooleanLiteralsInAssembly {
         assembly {
             a := true
             a := false
+        }
+    }
+}
+
+contract BlankLinesAfterYulPaths {
+    uint stored;
+    function f(uint x) {
+        assembly {
+            let e := x // trailing comment after a path
+
+            let limbs := /* before a path */ e
+            x := limbs
+            let slot := stored.slot
+
+            mstore(0, x)
+            x := stored.slot /* trailing block comment */
+
+            // leading comment for the last statement
+            sstore(slot, x)
+        }
+    }
+}
+
+================================================================================
+`;
+
+exports[`YulListsAtTheEdge.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract YulListsAtTheEdge {
+  function f(uint x) {
+    assembly {
+      switch   x
+      case 0 { mstore(0,   1) }
+      default {   mstore(0, 2) } // trailing after switch
+
+      let a,   b // trailing after names without a value
+
+
+      let c :=   1
+      switch c case 1 { a := 1 } /* trailing block comment */
+      // prettier-ignore
+      let   d,   e
+      b   :=   c
+    }
+  }
+}
+
+=====================================output=====================================
+contract YulListsAtTheEdge {
+    function f(uint x) {
+        assembly {
+            switch x
+            case 0 {
+                mstore(0, 1)
+            }
+            default {
+                mstore(0, 2)
+            } // trailing after switch
+
+            let a, b // trailing after names without a value
+
+            let c := 1
+            switch c
+            case 1 {
+                a := 1
+            } /* trailing block comment */
+            // prettier-ignore
+            let   d,   e
+            b := c
         }
     }
 }
