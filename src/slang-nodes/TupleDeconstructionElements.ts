@@ -1,4 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { line } from '../slang-printers/prettier-builders.ts';
 import { printSeparatedList } from '../slang-printers/print-separated-list.ts';
 import { SlangNode } from './SlangNode.ts';
 import { TupleDeconstructionElement } from './TupleDeconstructionElement.ts';
@@ -24,6 +25,18 @@ export class TupleDeconstructionElements extends SlangNode {
   }
 
   print(print: PrintFunction, path: AstPath<TupleDeconstructionElements>): Doc {
-    return printSeparatedList(path.map(print, 'items'));
+    const items = path.map(print, 'items');
+    const lastItem = this.items[this.items.length - 1];
+    // An empty last slot only needs its comma. Avoiding a double new line.
+    if (
+      items.length > 1 &&
+      lastItem.member === undefined &&
+      !lastItem.comments?.length
+    ) {
+      return printSeparatedList(items.slice(0, -1), {
+        lastSeparator: [',', line]
+      });
+    }
+    return printSeparatedList(items);
   }
 }

@@ -11,6 +11,8 @@ import handleParametersDeclarationComments from './handle-parameters-declaration
 import handlePositionalArgumentsDeclarationComments from './handle-positional-arguments-declaration-comments.ts';
 import handleSourceUnitMembersComments from './handle-source-unit-members-comments.ts';
 import handleStructDefinitionComments from './handle-struct-definition-comments.ts';
+import handleTupleDeconstructionElementsComments from './handle-tuple-deconstruction-elements-comments.ts';
+import handleTupleDeconstructionStatementComments from './handle-tuple-deconstruction-statement-comments.ts';
 import handleWhileStatementComments from './handle-while-statement-comments.ts';
 import handleYulBlockComments from './handle-yul-block-comments.ts';
 
@@ -28,6 +30,8 @@ export default [
   handlePositionalArgumentsDeclarationComments,
   handleSourceUnitMembersComments,
   handleStructDefinitionComments,
+  handleTupleDeconstructionElementsComments,
+  handleTupleDeconstructionStatementComments,
   handleWhileStatementComments,
   handleYulBlockComments
 ];

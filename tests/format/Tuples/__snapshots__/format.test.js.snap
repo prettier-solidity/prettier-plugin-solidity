@@ -1,5 +1,551 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`TupleDeconstructionComments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity ^0.8.0;
+
+contract TupleDeconstructionComments {
+    // https://docs.chain.link/data-feeds/getting-started
+    function getChainlinkDataFeedLatestAnswer() public view returns (int) {
+        (
+            /* uint80 roundID */,
+            int answer,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = dataFeed.latestRoundData();
+        return answer;
+    }
+
+    function singleLine() public view returns (uint) {
+        (/* first */, uint second, /* third */) = values();
+        return second;
+    }
+
+    function trailing() public view returns (uint) {
+        (uint first, /* second */) = pair();
+        return first;
+    }
+
+    function filledSlots() public view returns (uint) {
+        (, /* leads second */ uint second, uint third /* trails third */) = values();
+        return second + third;
+    }
+
+    function commentAfterAssignment() public view returns (uint) {
+        (uint first, uint second) = /* not part of the tuple */ pair();
+        return first + second;
+    }
+
+    function lineComments() public view returns (int) {
+        (
+            // uint80 roundID
+            ,
+            int answer,
+            // uint startedAt
+            ,
+            // uint timeStamp
+        ) = dataFeed.latestRoundData();
+        return answer;
+    }
+}
+
+=====================================output=====================================
+pragma solidity ^0.8.0;
+
+contract TupleDeconstructionComments {
+    // https://docs.chain.link/data-feeds/getting-started
+    function getChainlinkDataFeedLatestAnswer() public view returns (int) {
+        (
+            /* uint80 roundID */,
+            int answer,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = dataFeed.latestRoundData();
+        return answer;
+    }
+
+    function singleLine() public view returns (uint) {
+        (/* first */, uint second, /* third */) = values();
+        return second;
+    }
+
+    function trailing() public view returns (uint) {
+        (uint first, /* second */) = pair();
+        return first;
+    }
+
+    function filledSlots() public view returns (uint) {
+        (
+            ,
+            /* leads second */ uint second,
+            uint third /* trails third */
+        ) = values();
+        return second + third;
+    }
+
+    function commentAfterAssignment() public view returns (uint) {
+        (uint first, uint second) = /* not part of the tuple */ pair();
+        return first + second;
+    }
+
+    function lineComments() public view returns (int) {
+        (
+            // uint80 roundID
+            ,
+            int answer,
+            // uint startedAt
+            ,
+            // uint timeStamp
+        ) = dataFeed.latestRoundData();
+        return answer;
+    }
+}
+
+================================================================================
+`;
+
+exports[`TupleDeconstructionComments.sol locations 1`] = `
+SourceUnit 0-1347
+  SourceUnitMembers 0-1347
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ContractDefinition 25-1346
+      Identifier 34-61
+      ContractSpecifiers 61-61
+      ContractMembers 64-1345
+        FunctionDefinition 126-437
+          Identifier 135-167
+          ParametersDeclaration 167-169
+            Parameters 168-168
+          FunctionAttributes 169-181
+            PublicKeyword 170-176
+            ViewKeyword 177-181
+          ReturnsDeclaration 182-195
+            ParametersDeclaration 190-195
+              Parameters 191-194
+                Parameter 191-194
+                  IntKeyword 191-194
+          Block 196-437
+            Statements 198-432
+              TupleDeconstructionStatement 206-408
+                TupleDeconstructionElements 208-330
+                  TupleDeconstructionElement 208-208
+                  TupleDeconstructionElement 254-264
+                    TypedTupleMember 254-264
+                      IntKeyword 254-257
+                      Identifier 258-264
+                  TupleDeconstructionElement 266-266
+                  TupleDeconstructionElement 298-298
+                  TupleDeconstructionElement 330-330
+                FunctionCallExpression 381-407
+                  MemberAccessExpression 381-405
+                    Identifier 381-389
+                    Identifier 390-405
+                  PositionalArgumentsDeclaration 405-407
+                    PositionalArguments 406-406
+              ReturnStatement 417-431
+                Identifier 424-430
+        FunctionDefinition 443-582
+          Identifier 452-462
+          ParametersDeclaration 462-464
+            Parameters 463-463
+          FunctionAttributes 464-476
+            PublicKeyword 465-471
+            ViewKeyword 472-476
+          ReturnsDeclaration 477-491
+            ParametersDeclaration 485-491
+              Parameters 486-490
+                Parameter 486-490
+                  UintKeyword 486-490
+          Block 492-582
+            Statements 494-577
+              TupleDeconstructionStatement 502-553
+                TupleDeconstructionElements 503-528
+                  TupleDeconstructionElement 503-503
+                  TupleDeconstructionElement 516-527
+                    TypedTupleMember 516-527
+                      UintKeyword 516-520
+                      Identifier 521-527
+                  TupleDeconstructionElement 528-528
+                FunctionCallExpression 544-552
+                  Identifier 544-550
+                  PositionalArgumentsDeclaration 550-552
+                    PositionalArguments 551-551
+              ReturnStatement 562-576
+                Identifier 569-575
+        FunctionDefinition 588-709
+          Identifier 597-605
+          ParametersDeclaration 605-607
+            Parameters 606-606
+          FunctionAttributes 607-619
+            PublicKeyword 608-614
+            ViewKeyword 615-619
+          ReturnsDeclaration 620-634
+            ParametersDeclaration 628-634
+              Parameters 629-633
+                Parameter 629-633
+                  UintKeyword 629-633
+          Block 635-709
+            Statements 637-704
+              TupleDeconstructionStatement 645-681
+                TupleDeconstructionElements 646-657
+                  TupleDeconstructionElement 646-656
+                    TypedTupleMember 646-656
+                      UintKeyword 646-650
+                      Identifier 651-656
+                  TupleDeconstructionElement 657-657
+                FunctionCallExpression 674-680
+                  Identifier 674-678
+                  PositionalArgumentsDeclaration 678-680
+                    PositionalArguments 679-679
+              ReturnStatement 690-703
+                Identifier 697-702
+        FunctionDefinition 715-889
+          Identifier 724-735
+          ParametersDeclaration 735-737
+            Parameters 736-736
+          FunctionAttributes 737-749
+            PublicKeyword 738-744
+            ViewKeyword 745-749
+          ReturnsDeclaration 750-764
+            ParametersDeclaration 758-764
+              Parameters 759-763
+                Parameter 759-763
+                  UintKeyword 759-763
+          Block 765-889
+            Statements 767-884
+              TupleDeconstructionStatement 775-852
+                TupleDeconstructionElements 776-820
+                  TupleDeconstructionElement 776-776
+                  TupleDeconstructionElement 797-808
+                    TypedTupleMember 797-808
+                      UintKeyword 797-801
+                      Identifier 802-808
+                  TupleDeconstructionElement 810-820
+                    TypedTupleMember 810-820
+                      UintKeyword 810-814
+                      Identifier 815-820
+                FunctionCallExpression 843-851
+                  Identifier 843-849
+                  PositionalArgumentsDeclaration 849-851
+                    PositionalArguments 850-850
+              ReturnStatement 861-883
+                AdditiveExpression 868-882
+                  Identifier 868-874
+                  Identifier 877-882
+        FunctionDefinition 895-1066
+          Identifier 904-926
+          ParametersDeclaration 926-928
+            Parameters 927-927
+          FunctionAttributes 928-940
+            PublicKeyword 929-935
+            ViewKeyword 936-940
+          ReturnsDeclaration 941-955
+            ParametersDeclaration 949-955
+              Parameters 950-954
+                Parameter 950-954
+                  UintKeyword 950-954
+          Block 956-1066
+            Statements 958-1061
+              TupleDeconstructionStatement 966-1029
+                TupleDeconstructionElements 967-990
+                  TupleDeconstructionElement 967-977
+                    TypedTupleMember 967-977
+                      UintKeyword 967-971
+                      Identifier 972-977
+                  TupleDeconstructionElement 979-990
+                    TypedTupleMember 979-990
+                      UintKeyword 979-983
+                      Identifier 984-990
+                FunctionCallExpression 1022-1028
+                  Identifier 1022-1026
+                  PositionalArgumentsDeclaration 1026-1028
+                    PositionalArguments 1027-1027
+              ReturnStatement 1038-1060
+                AdditiveExpression 1045-1059
+                  Identifier 1045-1050
+                  Identifier 1053-1059
+        FunctionDefinition 1072-1344
+          Identifier 1081-1093
+          ParametersDeclaration 1093-1095
+            Parameters 1094-1094
+          FunctionAttributes 1095-1107
+            PublicKeyword 1096-1102
+            ViewKeyword 1103-1107
+          ReturnsDeclaration 1108-1121
+            ParametersDeclaration 1116-1121
+              Parameters 1117-1120
+                Parameter 1117-1120
+                  IntKeyword 1117-1120
+          Block 1122-1344
+            Statements 1124-1339
+              TupleDeconstructionStatement 1132-1315
+                TupleDeconstructionElements 1134-1246
+                  TupleDeconstructionElement 1134-1134
+                  TupleDeconstructionElement 1190-1200
+                    TypedTupleMember 1190-1200
+                      IntKeyword 1190-1193
+                      Identifier 1194-1200
+                  TupleDeconstructionElement 1202-1202
+                  TupleDeconstructionElement 1246-1246
+                FunctionCallExpression 1288-1314
+                  MemberAccessExpression 1288-1312
+                    Identifier 1288-1296
+                    Identifier 1297-1312
+                  PositionalArgumentsDeclaration 1312-1314
+                    PositionalArguments 1313-1313
+              ReturnStatement 1324-1338
+                Identifier 1331-1337
+`;
+
+exports[`TupleDeconstructionEmptyLastSlot.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity ^0.8.0;
+
+contract TupleDeconstructionEmptyLastSlot {
+    function fits() public view returns (uint) {
+        (uint first, ) = pair();
+        return first;
+    }
+
+    function breaks() public view returns (uint) {
+        (uint256 someVeryLongVariableName, uint256 anotherVeryLongVariableName, ) = values();
+        return someVeryLongVariableName + anotherVeryLongVariableName;
+    }
+
+    function breaksWithTwoEmptySlots() public view returns (uint) {
+        (uint256 someVeryLongVariableName, uint256 anotherVeryLongVariableName, , ) = values();
+        return someVeryLongVariableName + anotherVeryLongVariableName;
+    }
+
+    function lineCommentAfterComma() public view returns (uint) {
+        (uint first, // the second value is ignored
+        ) = pair();
+        return first;
+    }
+
+    function onlyEmptySlots() public view {
+        () = nothing();
+        (, ) = pair();
+    }
+}
+
+=====================================output=====================================
+pragma solidity ^0.8.0;
+
+contract TupleDeconstructionEmptyLastSlot {
+    function fits() public view returns (uint) {
+        (uint first, ) = pair();
+        return first;
+    }
+
+    function breaks() public view returns (uint) {
+        (
+            uint256 someVeryLongVariableName,
+            uint256 anotherVeryLongVariableName,
+        ) = values();
+        return someVeryLongVariableName + anotherVeryLongVariableName;
+    }
+
+    function breaksWithTwoEmptySlots() public view returns (uint) {
+        (
+            uint256 someVeryLongVariableName,
+            uint256 anotherVeryLongVariableName,
+            ,
+        ) = values();
+        return someVeryLongVariableName + anotherVeryLongVariableName;
+    }
+
+    function lineCommentAfterComma() public view returns (uint) {
+        (
+            uint first, // the second value is ignored
+        ) = pair();
+        return first;
+    }
+
+    function onlyEmptySlots() public view {
+        () = nothing();
+        (, ) = pair();
+    }
+}
+
+================================================================================
+`;
+
+exports[`TupleDeconstructionEmptyLastSlot.sol locations 1`] = `
+SourceUnit 0-911
+  SourceUnitMembers 0-911
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ContractDefinition 25-910
+      Identifier 34-66
+      ContractSpecifiers 66-66
+      ContractMembers 69-909
+        FunctionDefinition 73-178
+          Identifier 82-86
+          ParametersDeclaration 86-88
+            Parameters 87-87
+          FunctionAttributes 88-100
+            PublicKeyword 89-95
+            ViewKeyword 96-100
+          ReturnsDeclaration 101-115
+            ParametersDeclaration 109-115
+              Parameters 110-114
+                Parameter 110-114
+                  UintKeyword 110-114
+          Block 116-178
+            Statements 118-173
+              TupleDeconstructionStatement 126-150
+                TupleDeconstructionElements 127-138
+                  TupleDeconstructionElement 127-137
+                    TypedTupleMember 127-137
+                      UintKeyword 127-131
+                      Identifier 132-137
+                  TupleDeconstructionElement 138-138
+                FunctionCallExpression 143-149
+                  Identifier 143-147
+                  PositionalArgumentsDeclaration 147-149
+                    PositionalArguments 148-148
+              ReturnStatement 159-172
+                Identifier 166-171
+        FunctionDefinition 184-401
+          Identifier 193-199
+          ParametersDeclaration 199-201
+            Parameters 200-200
+          FunctionAttributes 201-213
+            PublicKeyword 202-208
+            ViewKeyword 209-213
+          ReturnsDeclaration 214-228
+            ParametersDeclaration 222-228
+              Parameters 223-227
+                Parameter 223-227
+                  UintKeyword 223-227
+          Block 229-401
+            Statements 231-396
+              TupleDeconstructionStatement 239-324
+                TupleDeconstructionElements 240-310
+                  TupleDeconstructionElement 240-272
+                    TypedTupleMember 240-272
+                      UintKeyword 240-247
+                      Identifier 248-272
+                  TupleDeconstructionElement 274-309
+                    TypedTupleMember 274-309
+                      UintKeyword 274-281
+                      Identifier 282-309
+                  TupleDeconstructionElement 310-310
+                FunctionCallExpression 315-323
+                  Identifier 315-321
+                  PositionalArgumentsDeclaration 321-323
+                    PositionalArguments 322-322
+              ReturnStatement 333-395
+                AdditiveExpression 340-394
+                  Identifier 340-364
+                  Identifier 367-394
+        FunctionDefinition 407-643
+          Identifier 416-439
+          ParametersDeclaration 439-441
+            Parameters 440-440
+          FunctionAttributes 441-453
+            PublicKeyword 442-448
+            ViewKeyword 449-453
+          ReturnsDeclaration 454-468
+            ParametersDeclaration 462-468
+              Parameters 463-467
+                Parameter 463-467
+                  UintKeyword 463-467
+          Block 469-643
+            Statements 471-638
+              TupleDeconstructionStatement 479-566
+                TupleDeconstructionElements 480-552
+                  TupleDeconstructionElement 480-512
+                    TypedTupleMember 480-512
+                      UintKeyword 480-487
+                      Identifier 488-512
+                  TupleDeconstructionElement 514-549
+                    TypedTupleMember 514-549
+                      UintKeyword 514-521
+                      Identifier 522-549
+                  TupleDeconstructionElement 550-550
+                  TupleDeconstructionElement 552-552
+                FunctionCallExpression 557-565
+                  Identifier 557-563
+                  PositionalArgumentsDeclaration 563-565
+                    PositionalArguments 564-564
+              ReturnStatement 575-637
+                AdditiveExpression 582-636
+                  Identifier 582-606
+                  Identifier 609-636
+        FunctionDefinition 649-810
+          Identifier 658-679
+          ParametersDeclaration 679-681
+            Parameters 680-680
+          FunctionAttributes 681-693
+            PublicKeyword 682-688
+            ViewKeyword 689-693
+          ReturnsDeclaration 694-708
+            ParametersDeclaration 702-708
+              Parameters 703-707
+                Parameter 703-707
+                  UintKeyword 703-707
+          Block 709-810
+            Statements 711-805
+              TupleDeconstructionStatement 719-782
+                TupleDeconstructionElements 720-763
+                  TupleDeconstructionElement 720-730
+                    TypedTupleMember 720-730
+                      UintKeyword 720-724
+                      Identifier 725-730
+                  TupleDeconstructionElement 763-763
+                FunctionCallExpression 775-781
+                  Identifier 775-779
+                  PositionalArgumentsDeclaration 779-781
+                    PositionalArguments 780-780
+              ReturnStatement 791-804
+                Identifier 798-803
+        FunctionDefinition 816-908
+          Identifier 825-839
+          ParametersDeclaration 839-841
+            Parameters 840-840
+          FunctionAttributes 841-853
+            PublicKeyword 842-848
+            ViewKeyword 849-853
+          Block 854-908
+            Statements 856-903
+              TupleDeconstructionStatement 864-879
+                TupleDeconstructionElements 865-865
+                  TupleDeconstructionElement 865-865
+                FunctionCallExpression 869-878
+                  Identifier 869-876
+                  PositionalArgumentsDeclaration 876-878
+                    PositionalArguments 877-877
+              TupleDeconstructionStatement 888-902
+                TupleDeconstructionElements 889-890
+                  TupleDeconstructionElement 889-889
+                  TupleDeconstructionElement 890-890
+                FunctionCallExpression 895-901
+                  Identifier 895-899
+                  PositionalArgumentsDeclaration 899-901
+                    PositionalArguments 900-900
+`;
+
 exports[`Tuples.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
