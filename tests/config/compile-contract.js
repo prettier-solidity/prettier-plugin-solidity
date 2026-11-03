@@ -13,34 +13,28 @@ async function compileContract(filename, content) {
   const solc = await importSolc();
   const input = {
     language: "Solidity",
-    sources: {
-      [filename]: {
-        content,
-      },
-    },
+    sources: { [filename]: { content } },
     settings: {
       metadata: { bytecodeHash: "none" },
       outputSelection: {
         "*": {
-          "*": ["*"],
+          "*": ["evm.bytecode.object"],
         },
       },
     },
   };
   const output = JSON.parse(solc.compile(JSON.stringify(input)));
 
-  // We throw if the contract doesn't compile.
-  if (output.errors?.length > 0) {
-    throw output.errors[0].formattedMessage;
+  // We throw if the contract doesn't compile, warnings are fine.
+  const errors = output.errors?.filter(({ severity }) => severity === "error");
+  if (errors?.length > 0) {
+    throw new Error(errors.map((error) => error.formattedMessage).join("\n"));
   }
 
-  const compiledContracts = output.contracts[filename];
-  return Object.keys(compiledContracts).reduce(
-    (byteCodes, contractName) => ({
-      ...byteCodes,
-      [contractName]: compiledContracts[contractName].evm.bytecode.object,
-    }),
-    {},
+  return Object.fromEntries(
+    Object.entries(output.contracts[filename]).map(
+      ([contractName, { evm }]) => [contractName, evm.bytecode.object],
+    ),
   );
 }
 
