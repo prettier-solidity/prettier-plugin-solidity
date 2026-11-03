@@ -119,6 +119,9 @@ SourceUnit 0-1347
             VersionTerm 16-22
               VersionOperator 16-17
               SimpleVersionLiteral 17-22
+                VersionSpecifier 17-18
+                VersionSpecifier 19-20
+                VersionSpecifier 21-22
     ContractDefinition 25-1346
       Identifier 34-61
       ContractSpecifiers 61-61
@@ -395,6 +398,9 @@ SourceUnit 0-911
             VersionTerm 16-22
               VersionOperator 16-17
               SimpleVersionLiteral 17-22
+                VersionSpecifier 17-18
+                VersionSpecifier 19-20
+                VersionSpecifier 21-22
     ContractDefinition 25-910
       Identifier 34-66
       ContractSpecifiers 66-66
