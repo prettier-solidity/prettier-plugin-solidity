@@ -1,5 +1,5 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { satisfies } from 'semver';
+import satisfies from 'semver/functions/satisfies.js';
 import { line, softline } from '../slang-printers/prettier-builders.ts';
 import { printSeparatedList } from '../slang-printers/print-separated-list.ts';
 import { SlangNode } from './SlangNode.ts';
