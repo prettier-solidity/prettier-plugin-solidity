@@ -47,14 +47,14 @@ SourceUnit 0-143
           StateVariableAttributes 87-87
           Identifier 88-92
           StateVariableDefinitionValue 93-108
-            HexStringLiterals 94-108
+            HexStringLiterals 95-108
               HexStringLiteral 95-108
         StateVariableDefinition 112-140
           BytesKeyword 112-118
           StateVariableAttributes 118-118
           Identifier 119-123
           StateVariableDefinitionValue 124-139
-            HexStringLiterals 125-139
+            HexStringLiterals 126-139
               HexStringLiteral 126-139
 `;
 
@@ -105,13 +105,13 @@ SourceUnit 0-143
           StateVariableAttributes 87-87
           Identifier 88-92
           StateVariableDefinitionValue 93-108
-            HexStringLiterals 94-108
+            HexStringLiterals 95-108
               HexStringLiteral 95-108
         StateVariableDefinition 112-140
           BytesKeyword 112-118
           StateVariableAttributes 118-118
           Identifier 119-123
           StateVariableDefinitionValue 124-139
-            HexStringLiterals 125-139
+            HexStringLiterals 126-139
               HexStringLiteral 126-139
 `;
