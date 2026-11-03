@@ -835,3 +835,173 @@ SourceUnit 0-4138
               StringKeyword 3935-3941
               Identifier 3942-3959
 `;
+
+exports[`DanglingComments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity ^0.8.0;
+
+contract DanglingComments {
+    struct Pending {
+        // fields will be added later
+    }
+
+    struct PendingToo {   /* fields will be added later */   }
+
+    function reserved(
+        // parameters will be added later
+    ) public {}
+
+    function reservedToo(   // first
+        // second
+
+        // third
+    ) public {}
+
+    function caller() public {
+        reserved(
+            // nothing to pass yet
+        );
+        reserved(  /* nothing to pass yet */  );
+    }
+
+    function lastYulComment() public {
+        assembly {
+            let x := 1 // trailing
+
+
+            // last
+        }
+        assembly {
+            let y := 2
+            /* last */ }
+    }
+}
+
+=====================================output=====================================
+pragma solidity ^0.8.0;
+
+contract DanglingComments {
+    struct Pending {
+        // fields will be added later
+    }
+
+    struct PendingToo {/* fields will be added later */}
+
+    function reserved(
+        // parameters will be added later
+    ) public {}
+
+    function reservedToo(
+        // first
+        // second
+
+        // third
+    ) public {}
+
+    function caller() public {
+        reserved(
+            // nothing to pass yet
+        );
+        reserved(/* nothing to pass yet */);
+    }
+
+    function lastYulComment() public {
+        assembly {
+            let x := 1 // trailing
+
+            // last
+        }
+        assembly {
+            let y := 2
+            /* last */
+        }
+    }
+}
+
+================================================================================
+`;
+
+exports[`DanglingComments.sol locations 1`] = `
+SourceUnit 0-706
+  SourceUnitMembers 0-706
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ContractDefinition 25-705
+      Identifier 34-50
+      ContractSpecifiers 50-50
+      ContractMembers 53-704
+        StructDefinition 57-117
+          Identifier 64-71
+          StructMembers 74-74
+        StructDefinition 123-181
+          Identifier 130-140
+          StructMembers 142-142
+        FunctionDefinition 187-263
+          Identifier 196-204
+          ParametersDeclaration 204-253
+            Parameters 206-206
+          FunctionAttributes 253-260
+            PublicKeyword 254-260
+          Block 261-263
+            Statements 262-262
+        FunctionDefinition 269-353
+          Identifier 278-289
+          ParametersDeclaration 289-343
+            Parameters 302-302
+          FunctionAttributes 343-350
+            PublicKeyword 344-350
+          Block 351-353
+            Statements 352-352
+        FunctionDefinition 359-504
+          Identifier 368-374
+          ParametersDeclaration 374-376
+            Parameters 375-375
+          FunctionAttributes 376-383
+            PublicKeyword 377-383
+          Block 384-504
+            Statements 386-499
+              ExpressionStatement 394-449
+                FunctionCallExpression 394-448
+                  Identifier 394-402
+                  PositionalArgumentsDeclaration 402-448
+                    PositionalArguments 404-404
+              ExpressionStatement 458-498
+                FunctionCallExpression 458-497
+                  Identifier 458-466
+                  PositionalArgumentsDeclaration 466-497
+                    PositionalArguments 467-467
+        FunctionDefinition 510-703
+          Identifier 519-533
+          ParametersDeclaration 533-535
+            Parameters 534-534
+          FunctionAttributes 535-542
+            PublicKeyword 536-542
+          Block 543-703
+            Statements 545-698
+              AssemblyStatement 553-630
+                YulBlock 562-630
+                  YulStatements 564-599
+                    YulVariableDeclarationStatement 576-586
+                      YulVariableNames 579-581
+                        YulIdentifier 580-581
+                      YulVariableDeclarationValue 582-586
+                        ColonEqual 582-584
+                        YulDecimalLiteral 585-586
+              AssemblyStatement 639-697
+                YulBlock 648-697
+                  YulStatements 650-673
+                    YulVariableDeclarationStatement 662-672
+                      YulVariableNames 665-667
+                        YulIdentifier 666-667
+                      YulVariableDeclarationValue 668-672
+                        ColonEqual 668-670
+                        YulDecimalLiteral 671-672
+`;
