@@ -925,8 +925,8 @@ contract DanglingComments {
 `;
 
 exports[`DanglingComments.sol locations 1`] = `
-SourceUnit 0-718
-  SourceUnitMembers 0-718
+SourceUnit 0-706
+  SourceUnitMembers 0-706
     PragmaDirective 0-23
       VersionPragma 7-22
         VersionExpressionSets 15-22
@@ -934,68 +934,74 @@ SourceUnit 0-718
             VersionTerm 16-22
               VersionOperator 16-17
               SimpleVersionLiteral 17-22
-    ContractDefinition 25-717
+    ContractDefinition 25-705
       Identifier 34-50
       ContractSpecifiers 50-50
-      ContractMembers 53-716
-        FunctionDefinition 199-275
-          Identifier 208-216
-          ParametersDeclaration 216-265
-            Parameters 218-218
-          FunctionAttributes 265-272
-            PublicKeyword 266-272
-          Block 273-275
-            Statements 274-274
-        FunctionDefinition 281-365
-          Identifier 290-301
-          ParametersDeclaration 301-355
-            Parameters 314-314
-          FunctionAttributes 355-362
-            PublicKeyword 356-362
-          Block 363-365
-            Statements 364-364
-        FunctionDefinition 371-516
-          Identifier 380-386
-          ParametersDeclaration 386-388
-            Parameters 387-387
-          FunctionAttributes 388-395
-            PublicKeyword 389-395
-          Block 396-516
-            Statements 398-511
-              ExpressionStatement 406-461
-                FunctionCallExpression 406-460
-                  Identifier 406-414
-                  PositionalArgumentsDeclaration 414-460
-                    PositionalArguments 416-416
-              ExpressionStatement 470-510
-                FunctionCallExpression 470-509
-                  Identifier 470-478
-                  PositionalArgumentsDeclaration 478-509
-                    PositionalArguments 479-479
-        FunctionDefinition 522-715
-          Identifier 531-545
-          ParametersDeclaration 545-547
-            Parameters 546-546
-          FunctionAttributes 547-554
-            PublicKeyword 548-554
-          Block 555-715
-            Statements 557-710
-              AssemblyStatement 565-642
-                YulBlock 574-642
-                  YulStatements 576-611
-                    YulVariableDeclarationStatement 588-598
-                      YulVariableNames 591-593
-                        YulIdentifier 592-593
-                      YulVariableDeclarationValue 594-598
-                        ColonEqual 594-596
-                        YulDecimalLiteral 597-598
-              AssemblyStatement 651-709
-                YulBlock 660-709
-                  YulStatements 662-685
-                    YulVariableDeclarationStatement 674-684
-                      YulVariableNames 677-679
-                        YulIdentifier 678-679
-                      YulVariableDeclarationValue 680-684
-                        ColonEqual 680-682
-                        YulDecimalLiteral 683-684
+      ContractMembers 53-704
+        StructDefinition 57-117
+          Identifier 64-71
+          StructMembers 74-74
+        StructDefinition 123-181
+          Identifier 130-140
+          StructMembers 142-142
+        FunctionDefinition 187-263
+          Identifier 196-204
+          ParametersDeclaration 204-253
+            Parameters 206-206
+          FunctionAttributes 253-260
+            PublicKeyword 254-260
+          Block 261-263
+            Statements 262-262
+        FunctionDefinition 269-353
+          Identifier 278-289
+          ParametersDeclaration 289-343
+            Parameters 302-302
+          FunctionAttributes 343-350
+            PublicKeyword 344-350
+          Block 351-353
+            Statements 352-352
+        FunctionDefinition 359-504
+          Identifier 368-374
+          ParametersDeclaration 374-376
+            Parameters 375-375
+          FunctionAttributes 376-383
+            PublicKeyword 377-383
+          Block 384-504
+            Statements 386-499
+              ExpressionStatement 394-449
+                FunctionCallExpression 394-448
+                  Identifier 394-402
+                  PositionalArgumentsDeclaration 402-448
+                    PositionalArguments 404-404
+              ExpressionStatement 458-498
+                FunctionCallExpression 458-497
+                  Identifier 458-466
+                  PositionalArgumentsDeclaration 466-497
+                    PositionalArguments 467-467
+        FunctionDefinition 510-703
+          Identifier 519-533
+          ParametersDeclaration 533-535
+            Parameters 534-534
+          FunctionAttributes 535-542
+            PublicKeyword 536-542
+          Block 543-703
+            Statements 545-698
+              AssemblyStatement 553-630
+                YulBlock 562-630
+                  YulStatements 564-599
+                    YulVariableDeclarationStatement 576-586
+                      YulVariableNames 579-581
+                        YulIdentifier 580-581
+                      YulVariableDeclarationValue 582-586
+                        ColonEqual 582-584
+                        YulDecimalLiteral 585-586
+              AssemblyStatement 639-697
+                YulBlock 648-697
+                  YulStatements 650-673
+                    YulVariableDeclarationStatement 662-672
+                      YulVariableNames 665-667
+                        YulIdentifier 666-667
+                      YulVariableDeclarationValue 668-672
+                        ColonEqual 668-670
+                        YulDecimalLiteral 671-672
 `;
