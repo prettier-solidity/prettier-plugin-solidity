@@ -31,6 +31,36 @@ import { symbol1 as alias1, symbol2 as alias2, symbol3 as alias3, symbol4 } from
 ================================================================================
 `;
 
+exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.3","bracketSpacing":true} locations 1`] = `
+SourceUnit 0-421
+  SourceUnitMembers 0-421
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ImportDirective 329-420
+      ImportDeconstruction 336-419
+        ImportDeconstructionSymbols 337-401
+          ImportDeconstructionSymbol 337-354
+            Identifier 337-344
+            ImportAlias 345-354
+              Identifier 348-354
+          ImportDeconstructionSymbol 356-373
+            Identifier 356-363
+            ImportAlias 364-373
+              Identifier 367-373
+          ImportDeconstructionSymbol 375-392
+            Identifier 375-382
+            ImportAlias 383-392
+              Identifier 386-392
+          ImportDeconstructionSymbol 394-401
+            Identifier 394-401
+        StringLiteral 408-419
+`;
+
 exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.3"} format 1`] = `
 ====================================options=====================================
 compiler: "0.7.3"
@@ -59,6 +89,36 @@ pragma solidity ^0.7.0;
 import {symbol1 as alias1, symbol2 as alias2, symbol3 as alias3, symbol4} from "File2.sol";
 
 ================================================================================
+`;
+
+exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.3"} locations 1`] = `
+SourceUnit 0-421
+  SourceUnitMembers 0-421
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ImportDirective 329-420
+      ImportDeconstruction 336-419
+        ImportDeconstructionSymbols 337-401
+          ImportDeconstructionSymbol 337-354
+            Identifier 337-344
+            ImportAlias 345-354
+              Identifier 348-354
+          ImportDeconstructionSymbol 356-373
+            Identifier 356-363
+            ImportAlias 364-373
+              Identifier 367-373
+          ImportDeconstructionSymbol 375-392
+            Identifier 375-382
+            ImportAlias 383-392
+              Identifier 386-392
+          ImportDeconstructionSymbol 394-401
+            Identifier 394-401
+        StringLiteral 408-419
 `;
 
 exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.4","bracketSpacing":true} format 1`] = `
@@ -97,6 +157,36 @@ import {
 ================================================================================
 `;
 
+exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.4","bracketSpacing":true} locations 1`] = `
+SourceUnit 0-421
+  SourceUnitMembers 0-421
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ImportDirective 329-420
+      ImportDeconstruction 336-419
+        ImportDeconstructionSymbols 337-401
+          ImportDeconstructionSymbol 337-354
+            Identifier 337-344
+            ImportAlias 345-354
+              Identifier 348-354
+          ImportDeconstructionSymbol 356-373
+            Identifier 356-363
+            ImportAlias 364-373
+              Identifier 367-373
+          ImportDeconstructionSymbol 375-392
+            Identifier 375-382
+            ImportAlias 383-392
+              Identifier 386-392
+          ImportDeconstructionSymbol 394-401
+            Identifier 394-401
+        StringLiteral 408-419
+`;
+
 exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.4"} format 1`] = `
 ====================================options=====================================
 compiler: "0.7.4"
@@ -130,4 +220,34 @@ import {
 } from "File2.sol";
 
 ================================================================================
+`;
+
+exports[`BreakingChangesV0.7.4.sol - {"compiler":"0.7.4"} locations 1`] = `
+SourceUnit 0-421
+  SourceUnitMembers 0-421
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ImportDirective 329-420
+      ImportDeconstruction 336-419
+        ImportDeconstructionSymbols 337-401
+          ImportDeconstructionSymbol 337-354
+            Identifier 337-344
+            ImportAlias 345-354
+              Identifier 348-354
+          ImportDeconstructionSymbol 356-373
+            Identifier 356-363
+            ImportAlias 364-373
+              Identifier 367-373
+          ImportDeconstructionSymbol 375-392
+            Identifier 375-382
+            ImportAlias 383-392
+              Identifier 386-392
+          ImportDeconstructionSymbol 394-401
+            Identifier 394-401
+        StringLiteral 408-419
 `;

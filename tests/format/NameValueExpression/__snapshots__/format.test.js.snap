@@ -32,6 +32,83 @@ contract NameValueExpression {
 ================================================================================
 `;
 
+exports[`NameValueExpression.sol - {"bracketSpacing":true} locations 1`] = `
+SourceUnit 0-236
+  SourceUnitMembers 0-236
+    PragmaDirective 0-31
+      VersionPragma 7-30
+        VersionExpressionSets 15-30
+          VersionExpressionSet 15-30
+            VersionTerm 16-23
+              VersionOperator 16-18
+              SimpleVersionLiteral 18-23
+            VersionTerm 24-30
+              VersionOperator 24-25
+              SimpleVersionLiteral 25-30
+    ContractDefinition 33-236
+      Identifier 42-61
+      ContractSpecifiers 61-61
+      ContractMembers 64-235
+        FunctionDefinition 68-194
+          Identifier 77-85
+          ParametersDeclaration 85-87
+            Parameters 86-86
+          FunctionAttributes 87-94
+            PublicKeyword 88-94
+          Block 95-194
+            Statements 96-192
+              ExpressionStatement 97-192
+                FunctionCallExpression 97-191
+                  CallOptionsExpression 97-189
+                    MemberAccessExpression 97-106
+                      Identifier 97-101
+                      Identifier 102-106
+                    CallOptions 107-188
+                      NamedArgument 107-116
+                        Identifier 107-112
+                        DecimalNumberExpression 114-116
+                      NamedArgument 118-126
+                        Identifier 118-121
+                        DecimalNumberExpression 123-126
+                      NamedArgument 128-138
+                        Identifier 128-132
+                        TrueKeyword 134-138
+                      NamedArgument 140-157
+                        Identifier 140-144
+                        FunctionCallExpression 146-157
+                          Identifier 146-155
+                          PositionalArgumentsDeclaration 155-157
+                            PositionalArguments 156-156
+                      NamedArgument 159-171
+                        Identifier 159-161
+                        IndexAccessExpression 163-171
+                          Identifier 163-168
+                          DecimalNumberExpression 169-170
+                      NamedArgument 173-188
+                        Identifier 173-182
+                        TrueKeyword 184-188
+                  PositionalArgumentsDeclaration 189-191
+                    PositionalArguments 190-190
+        StateVariableDefinition 199-234
+          IdentifierPath 199-200
+            Identifier 199-200
+          StateVariableAttributes 200-200
+          Identifier 201-205
+          StateVariableDefinitionValue 206-233
+            FunctionCallExpression 208-233
+              CallOptionsExpression 208-228
+                NewExpression 208-213
+                  IdentifierPath 212-213
+                    Identifier 212-213
+                CallOptions 214-227
+                  NamedArgument 214-227
+                    Identifier 214-219
+                    Identifier 221-227
+              PositionalArgumentsDeclaration 228-233
+                PositionalArguments 229-232
+                  Identifier 229-232
+`;
+
 exports[`NameValueExpression.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
@@ -61,4 +138,81 @@ contract NameValueExpression {
 }
 
 ================================================================================
+`;
+
+exports[`NameValueExpression.sol locations 1`] = `
+SourceUnit 0-236
+  SourceUnitMembers 0-236
+    PragmaDirective 0-31
+      VersionPragma 7-30
+        VersionExpressionSets 15-30
+          VersionExpressionSet 15-30
+            VersionTerm 16-23
+              VersionOperator 16-18
+              SimpleVersionLiteral 18-23
+            VersionTerm 24-30
+              VersionOperator 24-25
+              SimpleVersionLiteral 25-30
+    ContractDefinition 33-236
+      Identifier 42-61
+      ContractSpecifiers 61-61
+      ContractMembers 64-235
+        FunctionDefinition 68-194
+          Identifier 77-85
+          ParametersDeclaration 85-87
+            Parameters 86-86
+          FunctionAttributes 87-94
+            PublicKeyword 88-94
+          Block 95-194
+            Statements 96-192
+              ExpressionStatement 97-192
+                FunctionCallExpression 97-191
+                  CallOptionsExpression 97-189
+                    MemberAccessExpression 97-106
+                      Identifier 97-101
+                      Identifier 102-106
+                    CallOptions 107-188
+                      NamedArgument 107-116
+                        Identifier 107-112
+                        DecimalNumberExpression 114-116
+                      NamedArgument 118-126
+                        Identifier 118-121
+                        DecimalNumberExpression 123-126
+                      NamedArgument 128-138
+                        Identifier 128-132
+                        TrueKeyword 134-138
+                      NamedArgument 140-157
+                        Identifier 140-144
+                        FunctionCallExpression 146-157
+                          Identifier 146-155
+                          PositionalArgumentsDeclaration 155-157
+                            PositionalArguments 156-156
+                      NamedArgument 159-171
+                        Identifier 159-161
+                        IndexAccessExpression 163-171
+                          Identifier 163-168
+                          DecimalNumberExpression 169-170
+                      NamedArgument 173-188
+                        Identifier 173-182
+                        TrueKeyword 184-188
+                  PositionalArgumentsDeclaration 189-191
+                    PositionalArguments 190-190
+        StateVariableDefinition 199-234
+          IdentifierPath 199-200
+            Identifier 199-200
+          StateVariableAttributes 200-200
+          Identifier 201-205
+          StateVariableDefinitionValue 206-233
+            FunctionCallExpression 208-233
+              CallOptionsExpression 208-228
+                NewExpression 208-213
+                  IdentifierPath 212-213
+                    Identifier 212-213
+                CallOptions 214-227
+                  NamedArgument 214-227
+                    Identifier 214-219
+                    Identifier 221-227
+              PositionalArgumentsDeclaration 228-233
+                PositionalArguments 229-232
+                  Identifier 229-232
 `;

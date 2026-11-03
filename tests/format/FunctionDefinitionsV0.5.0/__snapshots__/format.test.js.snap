@@ -23,3 +23,52 @@ contract FunctionDefinitions {
 
 ================================================================================
 `;
+
+exports[`FunctionDefinitions.sol - {"compiler":"0.5.17"} locations 1`] = `
+SourceUnit 0-182
+  SourceUnitMembers 0-182
+    ContractDefinition 0-181
+      Identifier 9-28
+      ContractSpecifiers 28-28
+      ContractMembers 31-180
+        UnnamedFunctionDefinition 33-56
+          ParametersDeclaration 42-44
+            Parameters 43-43
+          UnnamedFunctionAttributes 44-53
+            ExternalKeyword 45-53
+          Block 54-56
+            Statements 55-55
+        UnnamedFunctionDefinition 59-90
+          ParametersDeclaration 68-70
+            Parameters 69-69
+          UnnamedFunctionAttributes 70-87
+            ExternalKeyword 71-79
+            PayableKeyword 80-87
+          Block 88-90
+            Statements 89-89
+        UnnamedFunctionDefinition 93-136
+          ParametersDeclaration 102-104
+            Parameters 103-103
+          UnnamedFunctionAttributes 104-133
+            ExternalKeyword 105-113
+            PayableKeyword 126-133
+            ModifierInvocation 114-125
+              IdentifierPath 114-120
+                Identifier 114-120
+              PositionalArgumentsDeclaration 120-125
+                PositionalArguments 121-124
+                  DecimalNumberExpression 121-124
+          Block 134-136
+            Statements 135-135
+        UnnamedFunctionDefinition 139-179
+          ParametersDeclaration 148-150
+            Parameters 149-149
+          UnnamedFunctionAttributes 150-176
+            ExternalKeyword 151-159
+            PayableKeyword 169-176
+            ModifierInvocation 160-168
+              IdentifierPath 160-166
+                Identifier 160-166
+          Block 177-179
+            Statements 178-178
+`;

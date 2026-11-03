@@ -47,3 +47,78 @@ contract CustomErrors {
 
 ================================================================================
 `;
+
+exports[`CustomErrors.sol locations 1`] = `
+SourceUnit 0-512
+  SourceUnitMembers 0-512
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ErrorDefinition 25-55
+      Identifier 33-52
+      ErrorParametersDeclaration 52-54
+        ErrorParameters 53-53
+    ErrorDefinition 58-104
+      Identifier 64-90
+      ErrorParametersDeclaration 90-101
+        ErrorParameters 91-100
+          ErrorParameter 91-100
+            UintKeyword 91-95
+            Identifier 99-100
+    ErrorDefinition 105-155
+      Identifier 111-144
+      ErrorParametersDeclaration 146-154
+        ErrorParameters 147-153
+          ErrorParameter 147-153
+            StringKeyword 147-153
+    ContractDefinition 157-511
+      Identifier 166-178
+      ContractSpecifiers 178-178
+      ContractMembers 181-510
+        ErrorDefinition 183-215
+          Identifier 193-212
+          ErrorParametersDeclaration 212-214
+            ErrorParameters 213-213
+        ErrorDefinition 220-266
+          Identifier 226-252
+          ErrorParametersDeclaration 252-263
+            ErrorParameters 253-262
+              ErrorParameter 253-262
+                UintKeyword 253-257
+                Identifier 261-262
+        ErrorDefinition 269-319
+          Identifier 275-308
+          ErrorParametersDeclaration 310-318
+            ErrorParameters 311-317
+              ErrorParameter 311-317
+                StringKeyword 311-317
+        FunctionDefinition 323-509
+          Identifier 332-348
+          ParametersDeclaration 348-350
+            Parameters 349-349
+          FunctionAttributes 350-350
+          Block 351-509
+            Statements 353-506
+              RevertStatement 357-392
+                IdentifierPath 370-389
+                  Identifier 370-389
+                PositionalArgumentsDeclaration 389-391
+                  PositionalArguments 390-390
+              RevertStatement 397-440
+                IdentifierPath 404-430
+                  Identifier 404-430
+                PositionalArgumentsDeclaration 430-437
+                  PositionalArguments 431-434
+                    DecimalNumberExpression 433-434
+              RevertStatement 445-505
+                IdentifierPath 455-488
+                  Identifier 455-488
+                PositionalArgumentsDeclaration 490-504
+                  PositionalArguments 491-503
+                    StringLiterals 491-503
+                      StringLiteral 493-503
+`;

@@ -46,3 +46,38 @@ contract EnumDefinitions {
 
 ================================================================================
 `;
+
+exports[`EnumDefinitions.sol locations 1`] = `
+SourceUnit 0-344
+  SourceUnitMembers 0-344
+    ContractDefinition 0-343
+      Identifier 9-24
+      ContractSpecifiers 24-24
+      ContractMembers 27-341
+        EnumDefinition 31-91
+          Identifier 36-49
+          EnumMembers 51-89
+            Identifier 52-58
+            Identifier 60-67
+            Identifier 69-79
+            Identifier 81-89
+        EnumDefinition 96-182
+          Identifier 101-107
+          EnumMembers 109-180
+            Identifier 110-116
+            Identifier 118-124
+            Identifier 126-132
+            Identifier 134-140
+            Identifier 142-148
+            Identifier 150-156
+            Identifier 158-164
+            Identifier 166-172
+            Identifier 174-180
+        EnumDefinition 187-340
+          Identifier 192-200
+          EnumMembers 203-335
+            Identifier 207-212
+            Identifier 246-250
+            Identifier 284-289
+            Identifier 310-316
+`;

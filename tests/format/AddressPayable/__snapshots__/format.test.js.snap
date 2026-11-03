@@ -33,3 +33,60 @@ contract AddressPayable {
 
 ================================================================================
 `;
+
+exports[`AddressPayable.sol locations 1`] = `
+SourceUnit 0-278
+  SourceUnitMembers 0-278
+    PragmaDirective 0-23
+      VersionPragma 7-22
+        VersionExpressionSets 15-22
+          VersionExpressionSet 15-22
+            VersionTerm 16-22
+              VersionOperator 16-17
+              SimpleVersionLiteral 17-22
+    ContractDefinition 25-277
+      Identifier 34-48
+      ContractSpecifiers 48-48
+      ContractMembers 51-276
+        UsingDirective 53-87
+          IdentifierPath 59-66
+            Identifier 59-66
+          AddressType 71-86
+        StateVariableDefinition 90-114
+          ArrayTypeName 90-107
+            AddressType 90-105
+          StateVariableAttributes 107-107
+          Identifier 108-113
+        FunctionDefinition 117-275
+          Identifier 126-137
+          ParametersDeclaration 137-189
+            Parameters 138-188
+              Parameter 138-156
+                AddressType 138-153
+                Identifier 154-156
+              Parameter 158-188
+                ArrayTypeName 158-175
+                  AddressType 158-173
+                StorageLocation 176-182
+                Identifier 183-188
+          FunctionAttributes 189-204
+            PublicKeyword 190-196
+            PayableKeyword 197-204
+          Block 205-275
+            Statements 207-272
+              VariableDeclarationStatement 211-239
+                AddressType 211-226
+                Identifier 227-233
+                VariableDeclarationValue 234-238
+                  Identifier 236-238
+              ExpressionStatement 244-271
+                FunctionCallExpression 244-270
+                  MemberAccessExpression 244-259
+                    Identifier 244-250
+                    Identifier 251-259
+                  PositionalArgumentsDeclaration 259-270
+                    PositionalArguments 260-269
+                      MemberAccessExpression 260-269
+                        Identifier 260-263
+                        Identifier 264-269
+`;

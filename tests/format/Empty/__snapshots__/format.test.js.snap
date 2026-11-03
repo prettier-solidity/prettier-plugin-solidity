@@ -11,6 +11,11 @@ parsers: ["slang"]
 ================================================================================
 `;
 
+exports[`EmptyFile.sol locations 1`] = `
+SourceUnit 0-0
+  SourceUnitMembers 0-0
+`;
+
 exports[`EmptyFileWithComments.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
@@ -29,4 +34,9 @@ parsers: ["slang"]
  */
 
 ================================================================================
+`;
+
+exports[`EmptyFileWithComments.sol locations 1`] = `
+SourceUnit 0-0
+  SourceUnitMembers 0-0
 `;

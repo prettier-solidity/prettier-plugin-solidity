@@ -26,6 +26,35 @@ contract HexLiteral {
 ================================================================================
 `;
 
+exports[`HexLiteral.sol - {"singleQuote":false} locations 1`] = `
+SourceUnit 0-143
+  SourceUnitMembers 0-143
+    PragmaDirective 32-55
+      VersionPragma 39-54
+        VersionExpressionSets 47-54
+          VersionExpressionSet 47-54
+            VersionTerm 47-54
+              SimpleVersionLiteral 47-54
+    ContractDefinition 57-142
+      Identifier 66-76
+      ContractSpecifiers 76-76
+      ContractMembers 79-141
+        StateVariableDefinition 81-109
+          BytesKeyword 81-87
+          StateVariableAttributes 87-87
+          Identifier 88-92
+          StateVariableDefinitionValue 93-108
+            HexStringLiterals 94-108
+              HexStringLiteral 95-108
+        StateVariableDefinition 112-140
+          BytesKeyword 112-118
+          StateVariableAttributes 118-118
+          Identifier 119-123
+          StateVariableDefinitionValue 124-139
+            HexStringLiterals 125-139
+              HexStringLiteral 126-139
+`;
+
 exports[`HexLiteral.sol - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
@@ -50,4 +79,33 @@ contract HexLiteral {
 }
 
 ================================================================================
+`;
+
+exports[`HexLiteral.sol - {"singleQuote":true} locations 1`] = `
+SourceUnit 0-143
+  SourceUnitMembers 0-143
+    PragmaDirective 32-55
+      VersionPragma 39-54
+        VersionExpressionSets 47-54
+          VersionExpressionSet 47-54
+            VersionTerm 47-54
+              SimpleVersionLiteral 47-54
+    ContractDefinition 57-142
+      Identifier 66-76
+      ContractSpecifiers 76-76
+      ContractMembers 79-141
+        StateVariableDefinition 81-109
+          BytesKeyword 81-87
+          StateVariableAttributes 87-87
+          Identifier 88-92
+          StateVariableDefinitionValue 93-108
+            HexStringLiterals 94-108
+              HexStringLiteral 95-108
+        StateVariableDefinition 112-140
+          BytesKeyword 112-118
+          StateVariableAttributes 118-118
+          Identifier 119-123
+          StateVariableDefinitionValue 124-139
+            HexStringLiterals 125-139
+              HexStringLiteral 126-139
 `;
