@@ -5,7 +5,7 @@ import type { Comment, PrintableNode } from './slang-nodes/types.d.ts';
 // Adding our own options to prettier's `ParserOptions` interface.
 declare module 'prettier' {
   interface ParserOptions {
-    compiler: string;
+    compiler?: string;
   }
 }
 
@@ -13,6 +13,7 @@ interface CollectedMetadata {
   offsets: Map<number, number>;
   comments: Comment[];
   options: ParserOptions<PrintableNode>;
+  compiler: string;
 }
 
 interface Location {
