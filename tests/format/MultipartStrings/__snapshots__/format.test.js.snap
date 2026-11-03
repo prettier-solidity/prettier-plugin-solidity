@@ -121,21 +121,21 @@ SourceUnit 0-1263
           StateVariableAttributes 35-35
           Identifier 36-38
           StateVariableDefinitionValue 39-50
-            HexStringLiterals 40-50
+            HexStringLiterals 41-50
               HexStringLiteral 41-50
         StateVariableDefinition 54-75
           BytesKeyword 54-59
           StateVariableAttributes 59-59
           Identifier 60-62
           StateVariableDefinitionValue 63-74
-            HexStringLiterals 64-74
+            HexStringLiterals 65-74
               HexStringLiteral 65-74
         StateVariableDefinition 78-111
           BytesKeyword 78-83
           StateVariableAttributes 83-83
           Identifier 84-86
           StateVariableDefinitionValue 87-110
-            HexStringLiterals 88-110
+            HexStringLiterals 89-110
               HexStringLiteral 89-98
               HexStringLiteral 99-110
         StateVariableDefinition 114-193
@@ -143,7 +143,7 @@ SourceUnit 0-1263
           StateVariableAttributes 119-119
           Identifier 120-122
           StateVariableDefinitionValue 123-192
-            HexStringLiterals 124-192
+            HexStringLiterals 125-192
               HexStringLiteral 125-154
               HexStringLiteral 155-192
         StateVariableDefinition 197-215
@@ -151,14 +151,14 @@ SourceUnit 0-1263
           StateVariableAttributes 203-203
           Identifier 204-206
           StateVariableDefinitionValue 207-214
-            StringLiterals 208-214
+            StringLiterals 209-214
               StringLiteral 209-214
         StateVariableDefinition 218-242
           StringKeyword 218-224
           StateVariableAttributes 224-224
           Identifier 225-227
           StateVariableDefinitionValue 228-241
-            StringLiterals 229-241
+            StringLiterals 230-241
               StringLiteral 230-235
               StringLiteral 236-241
         StateVariableDefinition 245-322
@@ -166,7 +166,7 @@ SourceUnit 0-1263
           StateVariableAttributes 251-251
           Identifier 252-254
           StateVariableDefinitionValue 255-321
-            StringLiterals 256-321
+            StringLiterals 257-321
               StringLiteral 257-290
               StringLiteral 291-321
         StateVariableDefinition 326-356
@@ -174,14 +174,14 @@ SourceUnit 0-1263
           StateVariableAttributes 332-332
           Identifier 333-335
           StateVariableDefinitionValue 336-355
-            UnicodeStringLiterals 337-355
+            UnicodeStringLiterals 338-355
               UnicodeStringLiteral 338-355
         StateVariableDefinition 359-408
           StringKeyword 359-365
           StateVariableAttributes 365-365
           Identifier 366-368
           StateVariableDefinitionValue 369-407
-            UnicodeStringLiterals 370-407
+            UnicodeStringLiterals 371-407
               UnicodeStringLiteral 371-388
               UnicodeStringLiteral 389-407
         StateVariableDefinition 411-510
@@ -189,7 +189,7 @@ SourceUnit 0-1263
           StateVariableAttributes 417-417
           Identifier 418-420
           StateVariableDefinitionValue 421-509
-            UnicodeStringLiterals 422-509
+            UnicodeStringLiterals 423-509
               UnicodeStringLiteral 423-465
               UnicodeStringLiteral 466-509
         FunctionDefinition 514-1260
@@ -205,7 +205,7 @@ SourceUnit 0-1263
                 BytesKeyword 559-564
                 Identifier 565-569
                 VariableDeclarationValue 570-667
-                  HexStringLiterals 571-667
+                  HexStringLiterals 572-667
                     HexStringLiteral 572-587
                     HexStringLiteral 588-603
                     HexStringLiteral 604-619
@@ -215,7 +215,7 @@ SourceUnit 0-1263
               ExpressionStatement 673-776
                 AssignmentExpression 673-775
                   Identifier 673-677
-                  HexStringLiterals 679-775
+                  HexStringLiterals 680-775
                     HexStringLiteral 680-695
                     HexStringLiteral 696-711
                     HexStringLiteral 712-727
@@ -226,7 +226,7 @@ SourceUnit 0-1263
                 StringKeyword 782-788
                 Identifier 789-792
                 VariableDeclarationValue 793-872
-                  StringLiterals 794-872
+                  StringLiterals 795-872
                     StringLiteral 795-807
                     StringLiteral 808-820
                     StringLiteral 821-833
@@ -236,7 +236,7 @@ SourceUnit 0-1263
               ExpressionStatement 878-962
                 AssignmentExpression 878-961
                   Identifier 878-881
-                  StringLiterals 883-961
+                  StringLiterals 884-961
                     StringLiteral 884-896
                     StringLiteral 897-909
                     StringLiteral 910-922
@@ -247,7 +247,7 @@ SourceUnit 0-1263
                 StringKeyword 968-974
                 Identifier 975-978
                 VariableDeclarationValue 979-1112
-                  UnicodeStringLiterals 980-1112
+                  UnicodeStringLiterals 981-1112
                     UnicodeStringLiteral 981-1002
                     UnicodeStringLiteral 1003-1024
                     UnicodeStringLiteral 1025-1046
@@ -257,7 +257,7 @@ SourceUnit 0-1263
               ExpressionStatement 1118-1256
                 AssignmentExpression 1118-1255
                   Identifier 1118-1121
-                  UnicodeStringLiterals 1123-1255
+                  UnicodeStringLiterals 1124-1255
                     UnicodeStringLiteral 1124-1145
                     UnicodeStringLiteral 1146-1167
                     UnicodeStringLiteral 1168-1189

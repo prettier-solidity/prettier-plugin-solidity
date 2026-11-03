@@ -1224,7 +1224,7 @@ SourceUnit 0-7771
             ConstantKeyword 2548-2556
           Identifier 2557-2569
           StateVariableDefinitionValue 2570-2575
-            StringLiterals 2571-2575
+            StringLiterals 2572-2575
               StringLiteral 2572-2575
     LibraryDefinition 2617-2770
       Identifier 2625-2644
@@ -1307,7 +1307,7 @@ SourceUnit 0-7771
                 StorageLocation 3008-3015
                 Identifier 3016-3017
                 VariableDeclarationValue 3018-3033
-                  HexStringLiterals 3019-3033
+                  HexStringLiterals 3020-3033
                     HexStringLiteral 3020-3033
               ExpressionStatement 3039-3046
                 IndexAccessExpression 3039-3045
@@ -1360,39 +1360,39 @@ SourceUnit 0-7771
                 YulBlock 3240-3853
                   YulStatements 3242-3844
                     YulVariableDeclarationStatement 3320-3350
-                      YulVariableNames 3323-3328
+                      YulVariableNames 3324-3328
                         YulIdentifier 3324-3328
                       YulVariableDeclarationValue 3329-3350
                         ColonEqual 3329-3331
-                        YulFunctionCallExpression 3331-3350
-                          YulPath 3331-3343
+                        YulFunctionCallExpression 3332-3350
+                          YulPath 3332-3343
                             YulIdentifier 3332-3343
                           YulArguments 3344-3349
                             YulPath 3344-3349
                               YulIdentifier 3344-3349
-                    YulVariableAssignmentStatement 3351-3518
-                      YulPaths 3351-3503
-                        YulPath 3351-3503
+                    YulVariableAssignmentStatement 3497-3518
+                      YulPaths 3497-3503
+                        YulPath 3497-3503
                           YulIdentifier 3497-3503
                       ColonEqual 3504-3506
-                      YulFunctionCallExpression 3506-3518
-                        YulPath 3506-3512
+                      YulFunctionCallExpression 3507-3518
+                        YulPath 3507-3512
                           YulIdentifier 3507-3512
                         YulArguments 3513-3517
                           YulHexLiteral 3513-3517
-                    YulFunctionCallExpression 3519-3650
-                      YulPath 3519-3587
+                    YulFunctionCallExpression 3581-3650
+                      YulPath 3581-3587
                         YulIdentifier 3581-3587
                       YulArguments 3588-3649
                         YulHexLiteral 3588-3592
-                        YulFunctionCallExpression 3593-3649
-                          YulPath 3593-3597
+                        YulFunctionCallExpression 3594-3649
+                          YulPath 3594-3597
                             YulIdentifier 3594-3597
                           YulArguments 3598-3648
                             YulPath 3598-3604
                               YulIdentifier 3598-3604
-                            YulFunctionCallExpression 3605-3648
-                              YulPath 3605-3609
+                            YulFunctionCallExpression 3606-3648
+                              YulPath 3606-3609
                                 YulIdentifier 3606-3609
                               YulArguments 3610-3647
                                 YulFunctionCallExpression 3610-3636
@@ -1407,34 +1407,34 @@ SourceUnit 0-7771
                                           YulIdentifier 3618-3622
                                         YulHexLiteral 3624-3628
                                     YulHexLiteral 3631-3635
-                                YulFunctionCallExpression 3637-3647
-                                  YulPath 3637-3641
+                                YulFunctionCallExpression 3638-3647
+                                  YulPath 3638-3641
                                     YulIdentifier 3638-3641
                                   YulArguments 3642-3646
                                     YulHexLiteral 3642-3646
-                    YulFunctionCallExpression 3651-3721
-                      YulPath 3651-3707
+                    YulFunctionCallExpression 3701-3721
+                      YulPath 3701-3707
                         YulIdentifier 3701-3707
                       YulArguments 3708-3720
                         YulPath 3708-3714
                           YulIdentifier 3708-3714
-                        YulPath 3715-3720
+                        YulPath 3716-3720
                           YulIdentifier 3716-3720
-                    YulFunctionCallExpression 3722-3843
-                      YulPath 3722-3808
+                    YulFunctionCallExpression 3797-3843
+                      YulPath 3797-3808
                         YulIdentifier 3797-3808
                       YulArguments 3809-3842
                         YulPath 3809-3814
                           YulIdentifier 3809-3814
-                        YulFunctionCallExpression 3815-3833
-                          YulPath 3815-3819
+                        YulFunctionCallExpression 3816-3833
+                          YulPath 3816-3819
                             YulIdentifier 3816-3819
                           YulArguments 3820-3832
                             YulPath 3820-3826
                               YulIdentifier 3820-3826
                             YulHexLiteral 3828-3832
                         YulDecimalLiteral 3835-3836
-                        YulPath 3837-3842
+                        YulPath 3838-3842
                           YulIdentifier 3838-3842
     ContractDefinition 3863-4054
       Identifier 3872-3892
@@ -1451,32 +1451,32 @@ SourceUnit 0-7771
                 YulBlock 3927-4048
                   YulStatements 3929-4043
                     YulVariableDeclarationStatement 3935-3945
-                      YulVariableNames 3938-3940
+                      YulVariableNames 3939-3940
                         YulIdentifier 3939-3940
                       YulVariableDeclarationValue 3941-3945
                         ColonEqual 3941-3943
                         YulDecimalLiteral 3944-3945
                     YulVariableDeclarationStatement 3952-3965
-                      YulVariableNames 3955-3957
+                      YulVariableNames 3956-3957
                         YulIdentifier 3956-3957
                       YulVariableDeclarationValue 3958-3965
                         ColonEqual 3958-3960
                         YulHexLiteral 3961-3965
-                    YulVariableDeclarationStatement 3972-3983
-                      YulVariableNames 3975-3977
+                    YulVariableDeclarationStatement 3972-3982
+                      YulVariableNames 3976-3977
                         YulIdentifier 3976-3977
-                      YulVariableDeclarationValue 3978-3983
+                      YulVariableDeclarationValue 3978-3982
                         ColonEqual 3978-3980
-                        YulPath 3980-3983
+                        YulPath 3981-3982
                           YulIdentifier 3981-3982
                     YulVariableDeclarationStatement 3989-4005
-                      YulVariableNames 3992-3994
+                      YulVariableNames 3993-3994
                         YulIdentifier 3993-3994
                       YulVariableDeclarationValue 3995-4005
                         ColonEqual 3995-3997
                         StringLiteral 3998-4005
                     YulVariableDeclarationStatement 4012-4042
-                      YulVariableNames 4015-4017
+                      YulVariableNames 4016-4017
                         YulIdentifier 4016-4017
                       YulVariableDeclarationValue 4018-4042
                         ColonEqual 4018-4020
@@ -1870,7 +1870,7 @@ SourceUnit 0-7771
                           Identifier 5722-5727
                           PositionalArgumentsDeclaration 5727-5729
                             PositionalArguments 5728-5728
-                      StringLiterals 5730-5765
+                      StringLiterals 5731-5765
                         StringLiteral 5731-5765
               ExpressionStatement 5772-5774
                 Identifier 5772-5773
@@ -1899,7 +1899,7 @@ SourceUnit 0-7771
                           Identifier 5840-5845
                           PositionalArgumentsDeclaration 5845-5847
                             PositionalArguments 5846-5846
-                      StringLiterals 5848-5883
+                      StringLiterals 5849-5883
                         StringLiteral 5849-5883
               ExpressionStatement 5890-5892
                 Identifier 5890-5891
@@ -1930,7 +1930,7 @@ SourceUnit 0-7771
                           Identifier 5964-5969
                           PositionalArgumentsDeclaration 5969-5971
                             PositionalArguments 5970-5970
-                      StringLiterals 5972-6007
+                      StringLiterals 5973-6007
                         StringLiteral 5973-6007
               ExpressionStatement 6014-6016
                 Identifier 6014-6015
@@ -1971,7 +1971,7 @@ SourceUnit 0-7771
                           Identifier 6156-6161
                           PositionalArgumentsDeclaration 6161-6163
                             PositionalArguments 6162-6162
-                      StringLiterals 6164-6199
+                      StringLiterals 6165-6199
                         StringLiteral 6165-6199
               ExpressionStatement 6206-6208
                 Identifier 6206-6207
