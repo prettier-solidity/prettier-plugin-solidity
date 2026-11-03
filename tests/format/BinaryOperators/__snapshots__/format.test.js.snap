@@ -4065,6 +4065,9 @@ SourceUnit 0-2522
           VersionExpressionSet 15-21
             VersionTerm 15-21
               SimpleVersionLiteral 15-21
+                VersionSpecifier 16-17
+                VersionSpecifier 18-19
+                VersionSpecifier 20-21
     ContractDefinition 25-2521
       Identifier 34-45
       ContractSpecifiers 45-45
@@ -5368,6 +5371,9 @@ SourceUnit 0-2522
           VersionExpressionSet 15-21
             VersionTerm 15-21
               SimpleVersionLiteral 15-21
+                VersionSpecifier 16-17
+                VersionSpecifier 18-19
+                VersionSpecifier 20-21
     ContractDefinition 25-2521
       Identifier 34-45
       ContractSpecifiers 45-45

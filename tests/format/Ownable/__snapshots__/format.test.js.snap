@@ -171,6 +171,9 @@ SourceUnit 0-1960
             VersionTerm 16-23
               VersionOperator 16-17
               SimpleVersionLiteral 17-23
+                VersionSpecifier 17-18
+                VersionSpecifier 19-20
+                VersionSpecifier 21-23
     ContractDefinition 216-1959
       Identifier 225-232
       ContractSpecifiers 232-232

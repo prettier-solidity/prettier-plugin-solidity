@@ -42,9 +42,15 @@ SourceUnit 0-236
             VersionTerm 16-23
               VersionOperator 16-18
               SimpleVersionLiteral 18-23
+                VersionSpecifier 18-19
+                VersionSpecifier 20-21
+                VersionSpecifier 22-23
             VersionTerm 24-30
               VersionOperator 24-25
               SimpleVersionLiteral 25-30
+                VersionSpecifier 25-26
+                VersionSpecifier 27-28
+                VersionSpecifier 29-30
     ContractDefinition 33-236
       Identifier 42-61
       ContractSpecifiers 61-61
@@ -150,9 +156,15 @@ SourceUnit 0-236
             VersionTerm 16-23
               VersionOperator 16-18
               SimpleVersionLiteral 18-23
+                VersionSpecifier 18-19
+                VersionSpecifier 20-21
+                VersionSpecifier 22-23
             VersionTerm 24-30
               VersionOperator 24-25
               SimpleVersionLiteral 25-30
+                VersionSpecifier 25-26
+                VersionSpecifier 27-28
+                VersionSpecifier 29-30
     ContractDefinition 33-236
       Identifier 42-61
       ContractSpecifiers 61-61

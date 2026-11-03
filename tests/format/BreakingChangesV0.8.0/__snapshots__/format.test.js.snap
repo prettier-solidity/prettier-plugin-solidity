@@ -97,9 +97,15 @@ SourceUnit 0-926
             VersionTerm 48-55
               VersionOperator 48-50
               SimpleVersionLiteral 50-55
+                VersionSpecifier 50-51
+                VersionSpecifier 52-53
+                VersionSpecifier 54-55
             VersionTerm 56-63
               VersionOperator 56-58
               SimpleVersionLiteral 58-63
+                VersionSpecifier 58-59
+                VersionSpecifier 60-61
+                VersionSpecifier 62-63
     ContractDefinition 66-925
       Identifier 75-94
       ContractSpecifiers 94-94

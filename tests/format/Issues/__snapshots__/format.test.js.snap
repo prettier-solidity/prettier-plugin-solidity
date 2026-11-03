@@ -207,6 +207,9 @@ SourceUnit 0-187
           VersionExpressionSet 15-22
             VersionTerm 15-22
               SimpleVersionLiteral 15-22
+                VersionSpecifier 16-17
+                VersionSpecifier 18-19
+                VersionSpecifier 20-22
     ContractDefinition 25-186
       Identifier 34-37
       ContractSpecifiers 37-37
@@ -473,6 +476,9 @@ SourceUnit 0-126
             VersionTerm 16-22
               VersionOperator 16-17
               SimpleVersionLiteral 17-22
+                VersionSpecifier 17-18
+                VersionSpecifier 19-20
+                VersionSpecifier 21-22
     ContractDefinition 46-86
       Identifier 55-81
       ContractSpecifiers 81-81

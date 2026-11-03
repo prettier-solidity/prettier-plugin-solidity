@@ -48,6 +48,9 @@ SourceUnit 0-270
             VersionTerm 16-22
               VersionOperator 16-17
               SimpleVersionLiteral 17-22
+                VersionSpecifier 17-18
+                VersionSpecifier 19-20
+                VersionSpecifier 21-22
     UserDefinedValueTypeDefinition 29-48
       Identifier 34-39
       UintKeyword 43-47
