@@ -31,6 +31,7 @@ export default defineConfig([
     'coverage/**/*.js',
     'dist/**/*.cjs',
     'dist/**/*.js',
+    'dist-test/**/*.js',
     'tests/**/*.snap',
     'tests/format/**/*.sol',
     'tests/format/Markdown/Markdown.md',
