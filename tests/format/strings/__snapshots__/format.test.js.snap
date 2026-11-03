@@ -1574,6 +1574,9 @@ SourceUnit 0-25499
             VersionTerm 1993-2000
               VersionOperator 1993-1994
               SimpleVersionLiteral 1994-2000
+                VersionSpecifier 1994-1995
+                VersionSpecifier 1996-1997
+                VersionSpecifier 1998-2000
     LibraryDefinition 2003-25498
       Identifier 2011-2018
       LibraryMembers 2021-25497

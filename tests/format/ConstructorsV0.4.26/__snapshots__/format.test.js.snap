@@ -34,6 +34,9 @@ SourceUnit 0-165
             VersionTerm 16-23
               VersionOperator 16-17
               SimpleVersionLiteral 17-23
+                VersionSpecifier 17-18
+                VersionSpecifier 19-20
+                VersionSpecifier 21-23
     ContractDefinition 26-164
       Identifier 35-47
       ContractSpecifiers 47-70

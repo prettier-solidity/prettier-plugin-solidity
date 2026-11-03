@@ -259,6 +259,9 @@ SourceUnit 0-4298
             VersionTerm 16-22
               VersionOperator 16-17
               SimpleVersionLiteral 17-22
+                VersionSpecifier 17-18
+                VersionSpecifier 19-20
+                VersionSpecifier 21-22
     InterfaceDefinition 25-118
       Identifier 35-43
       InheritanceSpecifier 44-51

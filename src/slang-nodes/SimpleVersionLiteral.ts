@@ -1,22 +1,24 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
+import { join } from '../slang-printers/prettier-builders.ts';
 import { SlangNode } from './SlangNode.ts';
+import { TerminalNode } from './TerminalNode.ts';
 
 import type * as ast from '@nomicfoundation/slang/ast';
-import type { Doc } from 'prettier';
-import type { CollectedMetadata } from '../types.d.ts';
+import type { AstPath, Doc } from 'prettier';
+import type { CollectedMetadata, PrintFunction } from '../types.d.ts';
 
 export class SimpleVersionLiteral extends SlangNode {
   readonly kind = NonterminalKind.SimpleVersionLiteral;
 
-  items: string[];
+  items: TerminalNode[];
 
   constructor(ast: ast.SimpleVersionLiteral, collected: CollectedMetadata) {
     super(ast, collected, true);
 
-    this.items = ast.items.map((item) => item.unparse());
+    this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }
 
-  print(): Doc {
-    return this.items.join('.');
+  print(print: PrintFunction, path: AstPath<SimpleVersionLiteral>): Doc {
+    return join('.', path.map(print, 'items'));
   }
 }

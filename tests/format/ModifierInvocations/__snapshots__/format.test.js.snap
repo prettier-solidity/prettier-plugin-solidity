@@ -98,6 +98,9 @@ SourceUnit 0-1014
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-216
       Identifier 66-85
       ContractSpecifiers 85-85

@@ -86,6 +86,9 @@ SourceUnit 0-494
             VersionTerm 94-101
               VersionOperator 94-95
               SimpleVersionLiteral 95-101
+                VersionSpecifier 95-96
+                VersionSpecifier 97-98
+                VersionSpecifier 99-101
     ContractDefinition 103-493
       Identifier 112-117
       ContractSpecifiers 117-117

@@ -35,6 +35,9 @@ SourceUnit 0-143
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-142
       Identifier 66-76
       ContractSpecifiers 76-76
@@ -90,6 +93,9 @@ SourceUnit 0-143
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-142
       Identifier 66-76
       ContractSpecifiers 76-76

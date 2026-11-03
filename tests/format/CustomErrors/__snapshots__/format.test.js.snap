@@ -58,6 +58,9 @@ SourceUnit 0-512
             VersionTerm 16-22
               VersionOperator 16-17
               SimpleVersionLiteral 17-22
+                VersionSpecifier 17-18
+                VersionSpecifier 19-20
+                VersionSpecifier 21-22
     ErrorDefinition 25-55
       Identifier 33-52
       ErrorParametersDeclaration 52-54

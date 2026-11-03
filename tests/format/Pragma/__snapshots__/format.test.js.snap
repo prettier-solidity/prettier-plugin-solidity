@@ -1,5 +1,284 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`Pragma.sol - {"compiler":"0.8.36","experimentalOperatorPosition":"start"} format 1`] = `
+====================================options=====================================
+compiler: "0.8.36"
+experimentalOperatorPosition: "start"
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity >=0.4.21   <0.6.0;
+pragma solidity >=0.4.21 <=0.6.0    ;
+pragma solidity    >0.4.21 <0.6.0;
+pragma solidity >0.4.21 <=0.6.0;
+pragma solidity >=0.4.21 <0.6.0;
+pragma solidity   ^ 0.4.21  ;
+pragma solidity  ~ 0.4.21  ;
+pragma solidity   ^0.4.0   ||   ^0.5.0   ||   ^0.6.0  ;
+pragma solidity   0.5.0   -   0.6.0     ;
+pragma   experimental     ABIEncoderV2;
+pragma   experimental     SMTChecker;
+pragma   experimental     "ABIEncoderV2";
+pragma   experimental     "SMTChecker";
+pragma       abicoder     v2;
+pragma   experimental     solidity;
+pragma solidity 0 /* odd */ .8.26;
+pragma solidity /* exact */ 0.8.26;
+pragma solidity   ^0.8 /* a */ .0   ||   0.7 // b
+    .6;
+pragma solidity ^ /* caret */ 0.8.0;
+pragma solidity
+    // the range we audited
+    0.8.20 - 0.8.26;
+
+=====================================output=====================================
+pragma solidity >=0.4.21 <0.6.0;
+pragma solidity >=0.4.21 <=0.6.0;
+pragma solidity >0.4.21 <0.6.0;
+pragma solidity >0.4.21 <=0.6.0;
+pragma solidity >=0.4.21 <0.6.0;
+pragma solidity ^0.4.21;
+pragma solidity ~0.4.21;
+pragma solidity ^0.4.0 || ^0.5.0 || ^0.6.0;
+pragma solidity 0.5.0 - 0.6.0;
+pragma experimental ABIEncoderV2;
+pragma experimental SMTChecker;
+pragma experimental "ABIEncoderV2";
+pragma experimental "SMTChecker";
+pragma abicoder v2;
+pragma experimental solidity;
+pragma solidity 0 /* odd */.8.26;
+pragma solidity /* exact */ 0.8.26;
+pragma solidity
+    ^0.8 /* a */.0
+    || 0.7.6 // b
+;
+pragma solidity ^/* caret */ 0.8.0;
+pragma solidity
+    // the range we audited
+    0.8.20 - 0.8.26
+;
+
+================================================================================
+`;
+
+exports[`Pragma.sol - {"compiler":"0.8.36","experimentalOperatorPosition":"start"} locations 1`] = `
+SourceUnit 0-788
+  SourceUnitMembers 0-788
+    PragmaDirective 0-34
+      VersionPragma 7-33
+        VersionExpressionSets 15-33
+          VersionExpressionSet 15-33
+            VersionTerm 16-24
+              VersionOperator 16-18
+              SimpleVersionLiteral 18-24
+                VersionSpecifier 18-19
+                VersionSpecifier 20-21
+                VersionSpecifier 22-24
+            VersionTerm 27-33
+              VersionOperator 27-28
+              SimpleVersionLiteral 28-33
+                VersionSpecifier 28-29
+                VersionSpecifier 30-31
+                VersionSpecifier 32-33
+    PragmaDirective 35-72
+      VersionPragma 42-67
+        VersionExpressionSets 50-67
+          VersionExpressionSet 50-67
+            VersionTerm 51-59
+              VersionOperator 51-53
+              SimpleVersionLiteral 53-59
+                VersionSpecifier 53-54
+                VersionSpecifier 55-56
+                VersionSpecifier 57-59
+            VersionTerm 60-67
+              VersionOperator 60-62
+              SimpleVersionLiteral 62-67
+                VersionSpecifier 62-63
+                VersionSpecifier 64-65
+                VersionSpecifier 66-67
+    PragmaDirective 73-107
+      VersionPragma 80-106
+        VersionExpressionSets 88-106
+          VersionExpressionSet 88-106
+            VersionTerm 92-99
+              VersionOperator 92-93
+              SimpleVersionLiteral 93-99
+                VersionSpecifier 93-94
+                VersionSpecifier 95-96
+                VersionSpecifier 97-99
+            VersionTerm 100-106
+              VersionOperator 100-101
+              SimpleVersionLiteral 101-106
+                VersionSpecifier 101-102
+                VersionSpecifier 103-104
+                VersionSpecifier 105-106
+    PragmaDirective 108-140
+      VersionPragma 115-139
+        VersionExpressionSets 123-139
+          VersionExpressionSet 123-139
+            VersionTerm 124-131
+              VersionOperator 124-125
+              SimpleVersionLiteral 125-131
+                VersionSpecifier 125-126
+                VersionSpecifier 127-128
+                VersionSpecifier 129-131
+            VersionTerm 132-139
+              VersionOperator 132-134
+              SimpleVersionLiteral 134-139
+                VersionSpecifier 134-135
+                VersionSpecifier 136-137
+                VersionSpecifier 138-139
+    PragmaDirective 141-173
+      VersionPragma 148-172
+        VersionExpressionSets 156-172
+          VersionExpressionSet 156-172
+            VersionTerm 157-165
+              VersionOperator 157-159
+              SimpleVersionLiteral 159-165
+                VersionSpecifier 159-160
+                VersionSpecifier 161-162
+                VersionSpecifier 163-165
+            VersionTerm 166-172
+              VersionOperator 166-167
+              SimpleVersionLiteral 167-172
+                VersionSpecifier 167-168
+                VersionSpecifier 169-170
+                VersionSpecifier 171-172
+    PragmaDirective 174-203
+      VersionPragma 181-200
+        VersionExpressionSets 189-200
+          VersionExpressionSet 189-200
+            VersionTerm 192-200
+              VersionOperator 192-193
+              SimpleVersionLiteral 193-200
+                VersionSpecifier 194-195
+                VersionSpecifier 196-197
+                VersionSpecifier 198-200
+    PragmaDirective 204-232
+      VersionPragma 211-229
+        VersionExpressionSets 219-229
+          VersionExpressionSet 219-229
+            VersionTerm 221-229
+              VersionOperator 221-222
+              SimpleVersionLiteral 222-229
+                VersionSpecifier 223-224
+                VersionSpecifier 225-226
+                VersionSpecifier 227-229
+    PragmaDirective 233-288
+      VersionPragma 240-285
+        VersionExpressionSets 248-285
+          VersionExpressionSet 248-257
+            VersionTerm 251-257
+              VersionOperator 251-252
+              SimpleVersionLiteral 252-257
+                VersionSpecifier 252-253
+                VersionSpecifier 254-255
+                VersionSpecifier 256-257
+          VersionExpressionSet 262-271
+            VersionTerm 265-271
+              VersionOperator 265-266
+              SimpleVersionLiteral 266-271
+                VersionSpecifier 266-267
+                VersionSpecifier 268-269
+                VersionSpecifier 270-271
+          VersionExpressionSet 276-285
+            VersionTerm 279-285
+              VersionOperator 279-280
+              SimpleVersionLiteral 280-285
+                VersionSpecifier 280-281
+                VersionSpecifier 282-283
+                VersionSpecifier 284-285
+    PragmaDirective 289-330
+      VersionPragma 296-324
+        VersionExpressionSets 304-324
+          VersionExpressionSet 304-324
+            VersionRange 304-324
+              SimpleVersionLiteral 304-312
+                VersionSpecifier 307-308
+                VersionSpecifier 309-310
+                VersionSpecifier 311-312
+              SimpleVersionLiteral 316-324
+                VersionSpecifier 319-320
+                VersionSpecifier 321-322
+                VersionSpecifier 323-324
+    PragmaDirective 331-370
+      ExperimentalPragma 340-369
+        ABIEncoderV2Keyword 357-369
+    PragmaDirective 371-408
+      ExperimentalPragma 380-407
+        SMTCheckerKeyword 397-407
+    PragmaDirective 409-450
+      ExperimentalPragma 418-449
+        StringLiteral 435-449
+    PragmaDirective 451-490
+      ExperimentalPragma 460-489
+        StringLiteral 477-489
+    PragmaDirective 491-520
+      AbicoderPragma 504-519
+        AbicoderVersion 517-519
+    PragmaDirective 521-556
+      ExperimentalPragma 530-555
+        SolidityKeyword 547-555
+    PragmaDirective 557-591
+      VersionPragma 564-590
+        VersionExpressionSets 572-590
+          VersionExpressionSet 572-590
+            VersionTerm 572-590
+              SimpleVersionLiteral 572-590
+                VersionSpecifier 573-574
+                VersionSpecifier 586-587
+                VersionSpecifier 588-590
+    PragmaDirective 592-627
+      VersionPragma 599-626
+        VersionExpressionSets 607-626
+          VersionExpressionSet 607-626
+            VersionTerm 607-626
+              SimpleVersionLiteral 607-626
+                VersionSpecifier 620-621
+                VersionSpecifier 622-623
+                VersionSpecifier 624-626
+    PragmaDirective 628-685
+      VersionPragma 635-684
+        VersionExpressionSets 643-684
+          VersionExpressionSet 643-661
+            VersionTerm 646-661
+              VersionOperator 646-647
+              SimpleVersionLiteral 647-661
+                VersionSpecifier 647-648
+                VersionSpecifier 649-650
+                VersionSpecifier 660-661
+          VersionExpressionSet 666-684
+            VersionTerm 666-684
+              SimpleVersionLiteral 666-684
+                VersionSpecifier 669-670
+                VersionSpecifier 671-672
+                VersionSpecifier 683-684
+    PragmaDirective 686-722
+      VersionPragma 693-721
+        VersionExpressionSets 701-721
+          VersionExpressionSet 701-721
+            VersionTerm 702-721
+              VersionOperator 702-703
+              SimpleVersionLiteral 703-721
+                VersionSpecifier 716-717
+                VersionSpecifier 718-719
+                VersionSpecifier 720-721
+    PragmaDirective 723-787
+      VersionPragma 730-786
+        VersionExpressionSets 739-786
+          VersionExpressionSet 739-786
+            VersionRange 739-786
+              SimpleVersionLiteral 739-777
+                VersionSpecifier 771-772
+                VersionSpecifier 773-774
+                VersionSpecifier 775-777
+              SimpleVersionLiteral 779-786
+                VersionSpecifier 780-781
+                VersionSpecifier 782-783
+                VersionSpecifier 784-786
+`;
+
 exports[`Pragma.sol - {"compiler":"0.8.36"} format 1`] = `
 ====================================options=====================================
 compiler: "0.8.36"
@@ -21,6 +300,14 @@ pragma   experimental     "ABIEncoderV2";
 pragma   experimental     "SMTChecker";
 pragma       abicoder     v2;
 pragma   experimental     solidity;
+pragma solidity 0 /* odd */ .8.26;
+pragma solidity /* exact */ 0.8.26;
+pragma solidity   ^0.8 /* a */ .0   ||   0.7 // b
+    .6;
+pragma solidity ^ /* caret */ 0.8.0;
+pragma solidity
+    // the range we audited
+    0.8.20 - 0.8.26;
 
 =====================================output=====================================
 pragma solidity >=0.4.21 <0.6.0;
@@ -38,13 +325,24 @@ pragma experimental "ABIEncoderV2";
 pragma experimental "SMTChecker";
 pragma abicoder v2;
 pragma experimental solidity;
+pragma solidity 0 /* odd */.8.26;
+pragma solidity /* exact */ 0.8.26;
+pragma solidity
+    ^0.8 /* a */.0 ||
+    0.7.6 // b
+;
+pragma solidity ^/* caret */ 0.8.0;
+pragma solidity
+    // the range we audited
+    0.8.20 - 0.8.26
+;
 
 ================================================================================
 `;
 
 exports[`Pragma.sol - {"compiler":"0.8.36"} locations 1`] = `
-SourceUnit 0-557
-  SourceUnitMembers 0-557
+SourceUnit 0-788
+  SourceUnitMembers 0-788
     PragmaDirective 0-34
       VersionPragma 7-33
         VersionExpressionSets 15-33
@@ -52,9 +350,15 @@ SourceUnit 0-557
             VersionTerm 16-24
               VersionOperator 16-18
               SimpleVersionLiteral 18-24
+                VersionSpecifier 18-19
+                VersionSpecifier 20-21
+                VersionSpecifier 22-24
             VersionTerm 27-33
               VersionOperator 27-28
               SimpleVersionLiteral 28-33
+                VersionSpecifier 28-29
+                VersionSpecifier 30-31
+                VersionSpecifier 32-33
     PragmaDirective 35-72
       VersionPragma 42-67
         VersionExpressionSets 50-67
@@ -62,9 +366,15 @@ SourceUnit 0-557
             VersionTerm 51-59
               VersionOperator 51-53
               SimpleVersionLiteral 53-59
+                VersionSpecifier 53-54
+                VersionSpecifier 55-56
+                VersionSpecifier 57-59
             VersionTerm 60-67
               VersionOperator 60-62
               SimpleVersionLiteral 62-67
+                VersionSpecifier 62-63
+                VersionSpecifier 64-65
+                VersionSpecifier 66-67
     PragmaDirective 73-107
       VersionPragma 80-106
         VersionExpressionSets 88-106
@@ -72,9 +382,15 @@ SourceUnit 0-557
             VersionTerm 92-99
               VersionOperator 92-93
               SimpleVersionLiteral 93-99
+                VersionSpecifier 93-94
+                VersionSpecifier 95-96
+                VersionSpecifier 97-99
             VersionTerm 100-106
               VersionOperator 100-101
               SimpleVersionLiteral 101-106
+                VersionSpecifier 101-102
+                VersionSpecifier 103-104
+                VersionSpecifier 105-106
     PragmaDirective 108-140
       VersionPragma 115-139
         VersionExpressionSets 123-139
@@ -82,9 +398,15 @@ SourceUnit 0-557
             VersionTerm 124-131
               VersionOperator 124-125
               SimpleVersionLiteral 125-131
+                VersionSpecifier 125-126
+                VersionSpecifier 127-128
+                VersionSpecifier 129-131
             VersionTerm 132-139
               VersionOperator 132-134
               SimpleVersionLiteral 134-139
+                VersionSpecifier 134-135
+                VersionSpecifier 136-137
+                VersionSpecifier 138-139
     PragmaDirective 141-173
       VersionPragma 148-172
         VersionExpressionSets 156-172
@@ -92,9 +414,15 @@ SourceUnit 0-557
             VersionTerm 157-165
               VersionOperator 157-159
               SimpleVersionLiteral 159-165
+                VersionSpecifier 159-160
+                VersionSpecifier 161-162
+                VersionSpecifier 163-165
             VersionTerm 166-172
               VersionOperator 166-167
               SimpleVersionLiteral 167-172
+                VersionSpecifier 167-168
+                VersionSpecifier 169-170
+                VersionSpecifier 171-172
     PragmaDirective 174-203
       VersionPragma 181-200
         VersionExpressionSets 189-200
@@ -102,6 +430,9 @@ SourceUnit 0-557
             VersionTerm 192-200
               VersionOperator 192-193
               SimpleVersionLiteral 193-200
+                VersionSpecifier 194-195
+                VersionSpecifier 196-197
+                VersionSpecifier 198-200
     PragmaDirective 204-232
       VersionPragma 211-229
         VersionExpressionSets 219-229
@@ -109,6 +440,9 @@ SourceUnit 0-557
             VersionTerm 221-229
               VersionOperator 221-222
               SimpleVersionLiteral 222-229
+                VersionSpecifier 223-224
+                VersionSpecifier 225-226
+                VersionSpecifier 227-229
     PragmaDirective 233-288
       VersionPragma 240-285
         VersionExpressionSets 248-285
@@ -116,21 +450,36 @@ SourceUnit 0-557
             VersionTerm 251-257
               VersionOperator 251-252
               SimpleVersionLiteral 252-257
+                VersionSpecifier 252-253
+                VersionSpecifier 254-255
+                VersionSpecifier 256-257
           VersionExpressionSet 262-271
             VersionTerm 265-271
               VersionOperator 265-266
               SimpleVersionLiteral 266-271
+                VersionSpecifier 266-267
+                VersionSpecifier 268-269
+                VersionSpecifier 270-271
           VersionExpressionSet 276-285
             VersionTerm 279-285
               VersionOperator 279-280
               SimpleVersionLiteral 280-285
+                VersionSpecifier 280-281
+                VersionSpecifier 282-283
+                VersionSpecifier 284-285
     PragmaDirective 289-330
       VersionPragma 296-324
         VersionExpressionSets 304-324
           VersionExpressionSet 304-324
             VersionRange 304-324
               SimpleVersionLiteral 304-312
+                VersionSpecifier 307-308
+                VersionSpecifier 309-310
+                VersionSpecifier 311-312
               SimpleVersionLiteral 316-324
+                VersionSpecifier 319-320
+                VersionSpecifier 321-322
+                VersionSpecifier 323-324
     PragmaDirective 331-370
       ExperimentalPragma 340-369
         ABIEncoderV2Keyword 357-369
@@ -149,4 +498,61 @@ SourceUnit 0-557
     PragmaDirective 521-556
       ExperimentalPragma 530-555
         SolidityKeyword 547-555
+    PragmaDirective 557-591
+      VersionPragma 564-590
+        VersionExpressionSets 572-590
+          VersionExpressionSet 572-590
+            VersionTerm 572-590
+              SimpleVersionLiteral 572-590
+                VersionSpecifier 573-574
+                VersionSpecifier 586-587
+                VersionSpecifier 588-590
+    PragmaDirective 592-627
+      VersionPragma 599-626
+        VersionExpressionSets 607-626
+          VersionExpressionSet 607-626
+            VersionTerm 607-626
+              SimpleVersionLiteral 607-626
+                VersionSpecifier 620-621
+                VersionSpecifier 622-623
+                VersionSpecifier 624-626
+    PragmaDirective 628-685
+      VersionPragma 635-684
+        VersionExpressionSets 643-684
+          VersionExpressionSet 643-661
+            VersionTerm 646-661
+              VersionOperator 646-647
+              SimpleVersionLiteral 647-661
+                VersionSpecifier 647-648
+                VersionSpecifier 649-650
+                VersionSpecifier 660-661
+          VersionExpressionSet 666-684
+            VersionTerm 666-684
+              SimpleVersionLiteral 666-684
+                VersionSpecifier 669-670
+                VersionSpecifier 671-672
+                VersionSpecifier 683-684
+    PragmaDirective 686-722
+      VersionPragma 693-721
+        VersionExpressionSets 701-721
+          VersionExpressionSet 701-721
+            VersionTerm 702-721
+              VersionOperator 702-703
+              SimpleVersionLiteral 703-721
+                VersionSpecifier 716-717
+                VersionSpecifier 718-719
+                VersionSpecifier 720-721
+    PragmaDirective 723-787
+      VersionPragma 730-786
+        VersionExpressionSets 739-786
+          VersionExpressionSet 739-786
+            VersionRange 739-786
+              SimpleVersionLiteral 739-777
+                VersionSpecifier 771-772
+                VersionSpecifier 773-774
+                VersionSpecifier 775-777
+              SimpleVersionLiteral 779-786
+                VersionSpecifier 780-781
+                VersionSpecifier 782-783
+                VersionSpecifier 784-786
 `;

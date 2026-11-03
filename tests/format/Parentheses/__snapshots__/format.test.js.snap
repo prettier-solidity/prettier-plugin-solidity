@@ -204,6 +204,9 @@ SourceUnit 0-1709
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1708
       Identifier 66-82
       ContractSpecifiers 82-82
@@ -751,6 +754,9 @@ SourceUnit 0-1745
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1744
       Identifier 66-85
       ContractSpecifiers 85-85
@@ -1307,6 +1313,9 @@ SourceUnit 0-1733
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1732
       Identifier 66-84
       ContractSpecifiers 84-84
@@ -1863,6 +1872,9 @@ SourceUnit 0-1745
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1744
       Identifier 66-85
       ContractSpecifiers 85-85
@@ -2419,6 +2431,9 @@ SourceUnit 0-1709
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1708
       Identifier 66-82
       ContractSpecifiers 82-82
@@ -2996,6 +3011,9 @@ SourceUnit 0-2030
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-2030
       Identifier 66-82
       ContractSpecifiers 82-82
@@ -3589,6 +3607,9 @@ SourceUnit 0-1720
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1719
       Identifier 66-82
       ContractSpecifiers 82-82
@@ -4028,6 +4049,9 @@ SourceUnit 0-976
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-975
       Identifier 66-84
       ContractSpecifiers 84-84
@@ -4488,6 +4512,9 @@ SourceUnit 0-1709
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1708
       Identifier 66-82
       ContractSpecifiers 82-82
@@ -5032,6 +5059,9 @@ SourceUnit 0-1709
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1708
       Identifier 66-82
       ContractSpecifiers 82-82
@@ -5609,6 +5639,9 @@ SourceUnit 0-2033
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-2033
       Identifier 66-85
       ContractSpecifiers 85-85
@@ -6202,6 +6235,9 @@ SourceUnit 0-1756
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1755
       Identifier 66-85
       ContractSpecifiers 85-85
@@ -6761,6 +6797,9 @@ SourceUnit 0-1756
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1755
       Identifier 66-85
       ContractSpecifiers 85-85
@@ -7320,6 +7359,9 @@ SourceUnit 0-1709
           VersionExpressionSet 47-54
             VersionTerm 47-54
               SimpleVersionLiteral 47-54
+                VersionSpecifier 48-49
+                VersionSpecifier 50-51
+                VersionSpecifier 52-54
     ContractDefinition 57-1708
       Identifier 66-82
       ContractSpecifiers 82-82

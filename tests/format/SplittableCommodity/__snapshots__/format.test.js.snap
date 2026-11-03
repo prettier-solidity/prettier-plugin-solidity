@@ -143,6 +143,9 @@ SourceUnit 0-1859
             VersionTerm 16-23
               VersionOperator 16-17
               SimpleVersionLiteral 17-23
+                VersionSpecifier 17-18
+                VersionSpecifier 19-20
+                VersionSpecifier 21-23
     ImportDirective 26-59
       PathImport 33-58
         StringLiteral 33-58
