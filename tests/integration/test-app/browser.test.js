@@ -32,11 +32,11 @@ const tests = [
     </script>`
   },
   {
-    testName: 'loading the pre-bundled dist/test.js',
+    testName: 'loading the pre-bundled dist-test/test.js',
     url: '/bundle.html',
     content: `<!doctype html>
     <script type="module">
-      const { default: format } = await import('/dist/test.js');
+      const { default: format } = await import('/dist-test/test.js');
       window.__format = format;
       window.__done = true;
     </script>`
