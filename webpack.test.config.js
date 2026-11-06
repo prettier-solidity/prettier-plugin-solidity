@@ -21,7 +21,7 @@ export default {
   output: {
     chunkFormat: false,
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist-test'),
     library: { type: 'module' }
   },
 

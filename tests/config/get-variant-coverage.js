@@ -2,7 +2,7 @@ import { TEST_STANDALONE } from "./constants.js";
 
 function getVariantCoverageInternal() {
   const entry = TEST_STANDALONE
-    ? "../../dist/variant-coverage.js"
+    ? "../../dist-test/variant-coverage.js"
     : "../../variant-coverage/index.ts";
 
   return import(entry).then((module) => module.variantCoverage);
