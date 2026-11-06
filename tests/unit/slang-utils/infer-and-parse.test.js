@@ -1,5 +1,5 @@
 import { LanguageFacts } from '@nomicfoundation/slang/utils';
-import { createParser } from '../../../src/slang-utils/create-parser.ts';
+import { inferAndParse } from '../../../src/slang-utils/infer-and-parse.ts';
 
 describe('inferLanguage', function () {
   const latestSupportedVersion = LanguageFacts.latestVersion();
@@ -82,31 +82,35 @@ describe('inferLanguage', function () {
 
   for (const { description, source, version, skip } of fixtures) {
     (skip ? test.skip : test)(description, function () {
-      const { version: inferredVersion } = createParser(source, options);
+      const { version: inferredVersion } = inferAndParse(source, options);
       expect(inferredVersion).toEqual(version);
     });
   }
 
   test('should use the latest successful version if the source has no pragmas', function () {
-    let { version: inferredVersion } = createParser(`contract Foo {}`, options);
+    let { version: inferredVersion } = inferAndParse(
+      `contract Foo {}`,
+      options
+    );
     expect(inferredVersion).toEqual(latestSupportedVersion);
 
-    // ({ version } = createParser(`contract Foo {byte bar;}`, options));
+    // ({ version } = inferAndParse(`contract Foo {byte bar;}`, options));
     // expect(version).toEqual('0.7.6');
   });
 
   test('should use compiler option if given', function () {
-    let { version: inferredVersion } = createParser(`pragma solidity ^0.8.0;`, {
-      compiler: '0.8.20'
-    });
+    let { version: inferredVersion } = inferAndParse(
+      `pragma solidity ^0.8.0;`,
+      { compiler: '0.8.20' }
+    );
     expect(inferredVersion).toEqual('0.8.20');
 
-    ({ version: inferredVersion } = createParser(`pragma solidity ^0.8.0;`, {
+    ({ version: inferredVersion } = inferAndParse(`pragma solidity ^0.8.0;`, {
       compiler: '0.8.2'
     }));
     expect(inferredVersion).toEqual('0.8.2');
 
-    ({ version: inferredVersion } = createParser(
+    ({ version: inferredVersion } = inferAndParse(
       `pragma solidity ^0.7.0;`,
       {}
     ));
@@ -115,7 +119,7 @@ describe('inferLanguage', function () {
 
   test('should throw if compiler option does not match the syntax', function () {
     expect(() =>
-      createParser(`contract Foo {byte bar;}`, { compiler: '0.8.0' })
+      inferAndParse(`contract Foo {byte bar;}`, { compiler: '0.8.0' })
     ).toThrow(
       'Based on the compiler option provided, we inferred your code to be using Solidity version'
     );
@@ -123,21 +127,21 @@ describe('inferLanguage', function () {
 
   test('should throw if pragma is outside the supported version and the syntax does not match with the latest supported version', function () {
     expect(() =>
-      createParser(`pragma solidity 10.0.0;contract Foo {byte bar;}`, options)
+      inferAndParse(`pragma solidity 10.0.0;contract Foo {byte bar;}`, options)
     ).toThrow(
       "We couldn't infer a Solidity version based on the pragma statements"
     );
   });
 
   test('should throw if there is no pragma and the syntax does not match with the latest supported version', function () {
-    expect(() => createParser(`contract Foo {byte bar;}`, options)).toThrow(
+    expect(() => inferAndParse(`contract Foo {byte bar;}`, options)).toThrow(
       "We couldn't infer a Solidity version based on the pragma statements"
     );
   });
 
   test('should throw an error if there are incompatible ranges and the syntax does not match with the latest supported version', function () {
     expect(() =>
-      createParser(
+      inferAndParse(
         `pragma solidity ^0.8.0; pragma solidity 0.7.6;contract Foo {byte bar;}`,
         options
       )
@@ -148,7 +152,7 @@ describe('inferLanguage', function () {
 
   test('should throw an error if the pragma statement is and the syntax do not match', function () {
     expect(() =>
-      createParser(`pragma solidity ^0.8.0;contract Foo {byte bar;}`, options)
+      inferAndParse(`pragma solidity ^0.8.0;contract Foo {byte bar;}`, options)
     ).toThrow(
       'Based on the pragma statements, we inferred your code to be using Solidity version'
     );
