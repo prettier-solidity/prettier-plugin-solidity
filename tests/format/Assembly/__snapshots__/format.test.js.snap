@@ -193,6 +193,28 @@ contract BooleanLiteralsInAssembly {
   }
 }
 
+contract BlankLinesAfterYulPaths {
+  uint stored;
+  function f(uint x) {
+    assembly {
+      let e :=    x   // trailing comment after a path
+
+
+      let limbs := /* before a path */ e
+      x   :=   limbs
+      let slot := stored.slot
+
+
+
+      mstore(0,x)
+      x := stored.slot /* trailing block comment */
+
+      // leading comment for the last statement
+      sstore(slot,    x)
+    }
+  }
+}
+
 =====================================output=====================================
 contract Assembly {
     function ifAssembly() {
@@ -409,12 +431,31 @@ contract BooleanLiteralsInAssembly {
     }
 }
 
+contract BlankLinesAfterYulPaths {
+    uint stored;
+    function f(uint x) {
+        assembly {
+            let e := x // trailing comment after a path
+
+            let limbs := /* before a path */ e
+            x := limbs
+            let slot := stored.slot
+
+            mstore(0, x)
+            x := stored.slot /* trailing block comment */
+
+            // leading comment for the last statement
+            sstore(slot, x)
+        }
+    }
+}
+
 ================================================================================
 `;
 
 exports[`Assembly.sol locations 1`] = `
-SourceUnit 0-3853
-  SourceUnitMembers 0-3853
+SourceUnit 0-4250
+  SourceUnitMembers 0-4250
     ContractDefinition 0-3725
       Identifier 9-17
       ContractSpecifiers 17-17
@@ -431,20 +472,20 @@ SourceUnit 0-3853
                   YulStatements 61-168
                     YulBlock 67-99
                       YulStatements 69-92
-                        YulVariableAssignmentStatement 69-91
-                          YulPaths 69-86
-                            YulPath 69-86
+                        YulVariableAssignmentStatement 79-91
+                          YulPaths 79-86
+                            YulPath 79-86
                               YulIdentifier 79-86
                           ColonEqual 87-89
                           YulDecimalLiteral 90-91
                     YulIfStatement 106-167
-                      YulPath 109-131
+                      YulPath 117-131
                         YulIdentifier 117-131
                       YulBlock 135-167
                         YulStatements 137-160
-                          YulVariableAssignmentStatement 137-159
-                            YulPaths 137-154
-                              YulPath 137-154
+                          YulVariableAssignmentStatement 147-159
+                            YulPaths 147-154
+                              YulPath 147-154
                                 YulIdentifier 147-154
                             ColonEqual 155-157
                             YulDecimalLiteral 158-159
@@ -458,16 +499,16 @@ SourceUnit 0-3853
               AssemblyStatement 211-510
                 YulBlock 220-510
                   YulStatements 222-501
-                    YulSwitchStatement 232-501
-                      YulPath 238-245
+                    YulSwitchStatement 232-500
+                      YulPath 239-244
                         YulIdentifier 239-244
-                      YulSwitchCases 245-501
+                      YulSwitchCases 257-500
                         YulValueCase 257-371
                           YulDecimalLiteral 262-263
                           YulBlock 264-371
                             YulStatements 266-358
-                              YulFunctionCallExpression 266-357
-                                YulPath 266-286
+                              YulFunctionCallExpression 280-357
+                                YulPath 280-286
                                   YulIdentifier 280-286
                                 YulArguments 287-356
                                   YulDecimalLiteral 287-288
@@ -476,8 +517,8 @@ SourceUnit 0-3853
                           YulDecimalLiteral 389-390
                           YulBlock 391-500
                             YulStatements 393-487
-                              YulFunctionCallExpression 393-486
-                                YulPath 393-415
+                              YulFunctionCallExpression 409-486
+                                YulPath 409-415
                                   YulIdentifier 409-415
                                 YulArguments 416-485
                                   YulDecimalLiteral 416-417
@@ -496,28 +537,28 @@ SourceUnit 0-3853
                       YulBlock 562-576
                         YulStatements 563-574
                           YulVariableDeclarationStatement 564-574
-                            YulVariableNames 567-569
+                            YulVariableNames 568-569
                               YulIdentifier 568-569
                             YulVariableDeclarationValue 570-574
                               ColonEqual 570-572
                               YulDecimalLiteral 573-574
-                      YulFunctionCallExpression 576-585
-                        YulPath 576-579
+                      YulFunctionCallExpression 577-585
+                        YulPath 577-579
                           YulIdentifier 577-579
                         YulArguments 580-584
                           YulPath 580-581
                             YulIdentifier 580-581
-                          YulPath 582-584
+                          YulPath 583-584
                             YulIdentifier 583-584
                       YulBlock 586-604
                         YulStatements 587-602
-                          YulVariableAssignmentStatement 587-602
-                            YulPaths 587-589
-                              YulPath 587-589
+                          YulVariableAssignmentStatement 588-602
+                            YulPaths 588-589
+                              YulPath 588-589
                                 YulIdentifier 588-589
                             ColonEqual 590-592
-                            YulFunctionCallExpression 592-602
-                              YulPath 592-596
+                            YulFunctionCallExpression 593-602
+                              YulPath 593-596
                                 YulIdentifier 593-596
                               YulArguments 597-601
                                 YulPath 597-598
@@ -525,17 +566,17 @@ SourceUnit 0-3853
                                 YulDecimalLiteral 600-601
                       YulBlock 605-623
                         YulStatements 606-621
-                          YulVariableAssignmentStatement 606-621
-                            YulPaths 606-608
-                              YulPath 606-608
+                          YulVariableAssignmentStatement 607-621
+                            YulPaths 607-608
+                              YulPath 607-608
                                 YulIdentifier 607-608
                             ColonEqual 609-611
-                            YulFunctionCallExpression 611-621
-                              YulPath 611-615
+                            YulFunctionCallExpression 612-621
+                              YulPath 612-615
                                 YulIdentifier 612-615
                               YulArguments 616-620
                                 YulDecimalLiteral 616-617
-                                YulPath 618-620
+                                YulPath 619-620
                                   YulIdentifier 619-620
         FunctionDefinition 641-767
           Identifier 650-666
@@ -547,8 +588,8 @@ SourceUnit 0-3853
               AssemblyStatement 675-763
                 YulBlock 684-763
                   YulStatements 686-758
-                    YulFunctionCallExpression 686-757
-                      YulPath 686-693
+                    YulFunctionCallExpression 692-757
+                      YulPath 692-693
                         YulIdentifier 692-693
                       YulArguments 695-750
                         YulDecimalLiteral 703-704
@@ -569,13 +610,13 @@ SourceUnit 0-3853
                       YulParametersDeclaration 849-851
                         YulParameters 850-850
                       YulReturnsDeclaration 858-867
-                        YulVariableNames 860-867
+                        YulVariableNames 861-867
                           YulIdentifier 861-867
                       YulBlock 868-899
                         YulStatements 870-895
-                          YulVariableAssignmentStatement 870-894
-                            YulPaths 870-886
-                              YulPath 870-886
+                          YulVariableAssignmentStatement 880-894
+                            YulPaths 880-886
+                              YulPath 880-886
                                 YulIdentifier 880-886
                             ColonEqual 886-888
                             YulDecimalLiteral 892-894
@@ -595,17 +636,17 @@ SourceUnit 0-3853
                         YulParameters 986-987
                           YulIdentifier 986-987
                       YulReturnsDeclaration 995-1004
-                        YulVariableNames 997-1004
+                        YulVariableNames 998-1004
                           YulIdentifier 998-1004
                       YulBlock 1005-1095
                         YulStatements 1007-1091
-                          YulVariableAssignmentStatement 1007-1060
-                            YulPaths 1007-1023
-                              YulPath 1007-1023
+                          YulVariableAssignmentStatement 1017-1060
+                            YulPaths 1017-1023
+                              YulPath 1017-1023
                                 YulIdentifier 1017-1023
                             ColonEqual 1024-1026
-                            YulFunctionCallExpression 1026-1060
-                              YulPath 1026-1030
+                            YulFunctionCallExpression 1027-1060
+                              YulPath 1027-1030
                                 YulIdentifier 1027-1030
                               YulArguments 1031-1059
                                 YulPath 1031-1032
@@ -630,28 +671,28 @@ SourceUnit 0-3853
                           YulIdentifier 1188-1189
                           YulIdentifier 1191-1192
                       YulReturnsDeclaration 1200-1209
-                        YulVariableNames 1202-1209
+                        YulVariableNames 1203-1209
                           YulIdentifier 1203-1209
                       YulBlock 1210-1308
                         YulStatements 1212-1304
-                          YulVariableAssignmentStatement 1212-1273
-                            YulPaths 1212-1228
-                              YulPath 1212-1228
+                          YulVariableAssignmentStatement 1222-1273
+                            YulPaths 1222-1228
+                              YulPath 1222-1228
                                 YulIdentifier 1222-1228
                             ColonEqual 1229-1231
-                            YulFunctionCallExpression 1231-1273
-                              YulPath 1231-1235
+                            YulFunctionCallExpression 1232-1273
+                              YulPath 1232-1235
                                 YulIdentifier 1232-1235
                               YulArguments 1236-1272
                                 YulPath 1236-1237
                                   YulIdentifier 1236-1237
-                                YulFunctionCallExpression 1239-1272
-                                  YulPath 1239-1266
+                                YulFunctionCallExpression 1263-1272
+                                  YulPath 1263-1266
                                     YulIdentifier 1263-1266
                                   YulArguments 1267-1271
                                     YulPath 1267-1268
                                       YulIdentifier 1267-1268
-                                    YulPath 1269-1271
+                                    YulPath 1270-1271
                                       YulIdentifier 1270-1271
                           YulLeaveStatement 1298-1303
         FunctionDefinition 1322-1594
@@ -674,13 +715,13 @@ SourceUnit 0-3853
                           YulIdentifier 1448-1476
                           YulIdentifier 1478-1510
                       YulReturnsDeclaration 1518-1527
-                        YulVariableNames 1520-1527
+                        YulVariableNames 1521-1527
                           YulIdentifier 1521-1527
                       YulBlock 1528-1584
                         YulStatements 1530-1580
-                          YulVariableAssignmentStatement 1530-1549
-                            YulPaths 1530-1544
-                              YulPath 1530-1544
+                          YulVariableAssignmentStatement 1538-1549
+                            YulPaths 1538-1544
+                              YulPath 1538-1544
                                 YulIdentifier 1538-1544
                             ColonEqual 1545-1547
                             YulDecimalLiteral 1548-1549
@@ -705,7 +746,7 @@ SourceUnit 0-3853
                           YulIdentifier 1688-1689
                           YulIdentifier 1691-1692
                       YulReturnsDeclaration 1700-1816
-                        YulVariableNames 1702-1816
+                        YulVariableNames 1703-1816
                           YulIdentifier 1703-1709
                           YulIdentifier 1711-1728
                           YulIdentifier 1730-1752
@@ -713,33 +754,33 @@ SourceUnit 0-3853
                           YulIdentifier 1784-1816
                       YulBlock 1817-2028
                         YulStatements 1819-2024
-                          YulVariableAssignmentStatement 1819-1838
-                            YulPaths 1819-1833
-                              YulPath 1819-1833
+                          YulVariableAssignmentStatement 1827-1838
+                            YulPaths 1827-1833
+                              YulPath 1827-1833
                                 YulIdentifier 1827-1833
                             ColonEqual 1834-1836
                             YulDecimalLiteral 1837-1838
-                          YulVariableAssignmentStatement 1839-1869
-                            YulPaths 1839-1864
-                              YulPath 1839-1864
+                          YulVariableAssignmentStatement 1847-1869
+                            YulPaths 1847-1864
+                              YulPath 1847-1864
                                 YulIdentifier 1847-1864
                             ColonEqual 1865-1867
                             YulDecimalLiteral 1868-1869
-                          YulVariableAssignmentStatement 1870-1905
-                            YulPaths 1870-1900
-                              YulPath 1870-1900
+                          YulVariableAssignmentStatement 1878-1905
+                            YulPaths 1878-1900
+                              YulPath 1878-1900
                                 YulIdentifier 1878-1900
                             ColonEqual 1901-1903
                             YulDecimalLiteral 1904-1905
-                          YulVariableAssignmentStatement 1906-1947
-                            YulPaths 1906-1942
-                              YulPath 1906-1942
+                          YulVariableAssignmentStatement 1914-1947
+                            YulPaths 1914-1942
+                              YulPath 1914-1942
                                 YulIdentifier 1914-1942
                             ColonEqual 1943-1945
                             YulDecimalLiteral 1946-1947
-                          YulVariableAssignmentStatement 1948-1993
-                            YulPaths 1948-1988
-                              YulPath 1948-1988
+                          YulVariableAssignmentStatement 1956-1993
+                            YulPaths 1956-1988
+                              YulPath 1956-1988
                                 YulIdentifier 1956-1988
                             ColonEqual 1989-1991
                             YulDecimalLiteral 1992-1993
@@ -765,7 +806,7 @@ SourceUnit 0-3853
                           YulIdentifier 2175-2185
                           YulIdentifier 2186-2198
                       YulReturnsDeclaration 2208-2324
-                        YulVariableNames 2210-2324
+                        YulVariableNames 2211-2324
                           YulIdentifier 2211-2217
                           YulIdentifier 2219-2236
                           YulIdentifier 2238-2260
@@ -773,33 +814,33 @@ SourceUnit 0-3853
                           YulIdentifier 2292-2324
                       YulBlock 2325-2518
                         YulStatements 2327-2512
-                          YulVariableAssignmentStatement 2327-2348
-                            YulPaths 2327-2343
-                              YulPath 2327-2343
+                          YulVariableAssignmentStatement 2337-2348
+                            YulPaths 2337-2343
+                              YulPath 2337-2343
                                 YulIdentifier 2337-2343
                             ColonEqual 2344-2346
                             YulDecimalLiteral 2347-2348
-                          YulVariableAssignmentStatement 2349-2381
-                            YulPaths 2349-2376
-                              YulPath 2349-2376
+                          YulVariableAssignmentStatement 2359-2381
+                            YulPaths 2359-2376
+                              YulPath 2359-2376
                                 YulIdentifier 2359-2376
                             ColonEqual 2377-2379
                             YulDecimalLiteral 2380-2381
-                          YulVariableAssignmentStatement 2382-2419
-                            YulPaths 2382-2414
-                              YulPath 2382-2414
+                          YulVariableAssignmentStatement 2392-2419
+                            YulPaths 2392-2414
+                              YulPath 2392-2414
                                 YulIdentifier 2392-2414
                             ColonEqual 2415-2417
                             YulDecimalLiteral 2418-2419
-                          YulVariableAssignmentStatement 2420-2463
-                            YulPaths 2420-2458
-                              YulPath 2420-2458
+                          YulVariableAssignmentStatement 2430-2463
+                            YulPaths 2430-2458
+                              YulPath 2430-2458
                                 YulIdentifier 2430-2458
                             ColonEqual 2459-2461
                             YulDecimalLiteral 2462-2463
-                          YulVariableAssignmentStatement 2464-2511
-                            YulPaths 2464-2506
-                              YulPath 2464-2506
+                          YulVariableAssignmentStatement 2474-2511
+                            YulPaths 2474-2506
+                              YulPath 2474-2506
                                 YulIdentifier 2474-2506
                             ColonEqual 2507-2509
                             YulDecimalLiteral 2510-2511
@@ -813,21 +854,21 @@ SourceUnit 0-3853
               AssemblyStatement 2584-2671
                 YulBlock 2593-2671
                   YulStatements 2595-2662
-                    YulFunctionCallExpression 2595-2661
-                      YulPath 2595-2611
+                    YulFunctionCallExpression 2607-2661
+                      YulPath 2607-2611
                         YulIdentifier 2607-2611
                       YulArguments 2612-2660
                         YulFunctionCallExpression 2612-2617
                           YulPath 2612-2615
                             YulIdentifier 2612-2615
                           YulArguments 2616-2616
-                        YulPath 2618-2621
+                        YulPath 2619-2621
                           YulIdentifier 2619-2621
-                        YulPath 2622-2628
+                        YulPath 2623-2628
                           YulIdentifier 2623-2628
-                        YulPath 2629-2639
+                        YulPath 2630-2639
                           YulIdentifier 2630-2639
-                        YulPath 2640-2654
+                        YulPath 2641-2654
                           YulIdentifier 2641-2654
                         YulDecimalLiteral 2656-2657
                         YulDecimalLiteral 2659-2660
@@ -859,7 +900,7 @@ SourceUnit 0-3853
                 YulBlock 2832-2850
                   YulStatements 2833-2846
                     YulVariableDeclarationStatement 2836-2846
-                      YulVariableNames 2839-2846
+                      YulVariableNames 2840-2846
                         YulIdentifier 2840-2846
         FunctionDefinition 2860-2990
           Identifier 2871-2883
@@ -871,20 +912,20 @@ SourceUnit 0-3853
               AssemblyStatement 2898-2986
                 YulBlock 2907-2986
                   YulStatements 2911-2978
-                    YulVariableAssignmentStatement 2911-2945
-                      YulPaths 2911-2928
-                        YulPath 2911-2928
+                    YulVariableAssignmentStatement 2921-2944
+                      YulPaths 2921-2928
+                        YulPath 2921-2928
                           YulIdentifier 2921-2923
                           YulIdentifier 2924-2928
                       ColonEqual 2931-2933
-                      YulPath 2933-2945
+                      YulPath 2936-2944
                         YulIdentifier 2936-2944
-                    YulVariableAssignmentStatement 2945-2978
-                      YulPaths 2945-2961
-                        YulPath 2945-2961
+                    YulVariableAssignmentStatement 2955-2977
+                      YulPaths 2955-2961
+                        YulPath 2955-2961
                           YulIdentifier 2955-2961
                       ColonEqual 2964-2966
-                      YulPath 2966-2978
+                      YulPath 2969-2977
                         YulIdentifier 2969-2970
                         YulIdentifier 2971-2977
         FunctionDefinition 2994-3133
@@ -964,28 +1005,28 @@ SourceUnit 0-3853
                       YulBlock 3456-3470
                         YulStatements 3457-3468
                           YulVariableDeclarationStatement 3458-3468
-                            YulVariableNames 3461-3463
+                            YulVariableNames 3462-3463
                               YulIdentifier 3462-3463
                             YulVariableDeclarationValue 3464-3468
                               ColonEqual 3464-3466
                               YulDecimalLiteral 3467-3468
-                      YulFunctionCallExpression 3470-3479
-                        YulPath 3470-3473
+                      YulFunctionCallExpression 3471-3479
+                        YulPath 3471-3473
                           YulIdentifier 3471-3473
                         YulArguments 3474-3478
                           YulPath 3474-3475
                             YulIdentifier 3474-3475
-                          YulPath 3476-3478
+                          YulPath 3477-3478
                             YulIdentifier 3477-3478
                       YulBlock 3480-3498
                         YulStatements 3481-3496
-                          YulVariableAssignmentStatement 3481-3496
-                            YulPaths 3481-3483
-                              YulPath 3481-3483
+                          YulVariableAssignmentStatement 3482-3496
+                            YulPaths 3482-3483
+                              YulPath 3482-3483
                                 YulIdentifier 3482-3483
                             ColonEqual 3484-3486
-                            YulFunctionCallExpression 3486-3496
-                              YulPath 3486-3490
+                            YulFunctionCallExpression 3487-3496
+                              YulPath 3487-3490
                                 YulIdentifier 3487-3490
                               YulArguments 3491-3495
                                 YulPath 3491-3492
@@ -994,8 +1035,8 @@ SourceUnit 0-3853
                       YulBlock 3499-3719
                         YulStatements 3501-3710
                           YulIfStatement 3513-3610
-                            YulFunctionCallExpression 3515-3525
-                              YulPath 3515-3518
+                            YulFunctionCallExpression 3516-3525
+                              YulPath 3516-3518
                                 YulIdentifier 3516-3518
                               YulArguments 3519-3524
                                 YulPath 3519-3520
@@ -1003,23 +1044,23 @@ SourceUnit 0-3853
                                 YulDecimalLiteral 3522-3524
                             YulBlock 3526-3610
                               YulStatements 3529-3593
-                                YulVariableAssignmentStatement 3529-3563
-                                  YulPaths 3529-3550
-                                    YulPath 3529-3550
+                                YulVariableAssignmentStatement 3549-3563
+                                  YulPaths 3549-3550
+                                    YulPath 3549-3550
                                       YulIdentifier 3549-3550
                                   ColonEqual 3551-3553
-                                  YulFunctionCallExpression 3553-3563
-                                    YulPath 3553-3557
+                                  YulFunctionCallExpression 3554-3563
+                                    YulPath 3554-3557
                                       YulIdentifier 3554-3557
                                     YulArguments 3558-3562
                                       YulPath 3558-3559
                                         YulIdentifier 3558-3559
-                                      YulPath 3560-3562
+                                      YulPath 3561-3562
                                         YulIdentifier 3561-3562
                                 YulContinueStatement 3584-3592
                           YulIfStatement 3627-3685
-                            YulFunctionCallExpression 3629-3639
-                              YulPath 3629-3632
+                            YulFunctionCallExpression 3630-3639
+                              YulPath 3630-3632
                                 YulIdentifier 3630-3632
                               YulArguments 3633-3638
                                 YulPath 3633-3634
@@ -1028,12 +1069,12 @@ SourceUnit 0-3853
                             YulBlock 3640-3685
                               YulStatements 3642-3668
                                 YulBreakStatement 3662-3667
-                          YulVariableAssignmentStatement 3686-3710
-                            YulPaths 3686-3704
-                              YulPath 3686-3704
+                          YulVariableAssignmentStatement 3703-3709
+                            YulPaths 3703-3704
+                              YulPath 3703-3704
                                 YulIdentifier 3703-3704
                             ColonEqual 3705-3707
-                            YulPath 3707-3710
+                            YulPath 3708-3709
                               YulIdentifier 3708-3709
     ContractDefinition 3727-3852
       Identifier 3736-3761
@@ -1052,16 +1093,222 @@ SourceUnit 0-3853
               AssemblyStatement 3797-3846
                 YulBlock 3806-3846
                   YulStatements 3808-3841
-                    YulVariableAssignmentStatement 3808-3823
-                      YulPaths 3808-3815
-                        YulPath 3808-3815
+                    YulVariableAssignmentStatement 3814-3823
+                      YulPaths 3814-3815
+                        YulPath 3814-3815
                           YulIdentifier 3814-3815
                       ColonEqual 3816-3818
                       YulTrueKeyword 3819-3823
-                    YulVariableAssignmentStatement 3824-3840
-                      YulPaths 3824-3831
-                        YulPath 3824-3831
+                    YulVariableAssignmentStatement 3830-3840
+                      YulPaths 3830-3831
+                        YulPath 3830-3831
                           YulIdentifier 3830-3831
                       ColonEqual 3832-3834
                       YulFalseKeyword 3835-3840
+    ContractDefinition 3854-4249
+      Identifier 3863-3886
+      ContractSpecifiers 3886-3886
+      ContractMembers 3889-4248
+        StateVariableDefinition 3891-3903
+          UintKeyword 3891-3895
+          StateVariableAttributes 3895-3895
+          Identifier 3896-3902
+        FunctionDefinition 3906-4247
+          Identifier 3915-3916
+          ParametersDeclaration 3916-3924
+            Parameters 3917-3923
+              Parameter 3917-3923
+                UintKeyword 3917-3921
+                Identifier 3922-3923
+          FunctionAttributes 3924-3924
+          Block 3925-4247
+            Statements 3927-4244
+              AssemblyStatement 3931-4243
+                YulBlock 3940-4243
+                  YulStatements 3942-4238
+                    YulVariableDeclarationStatement 3948-3961
+                      YulVariableNames 3952-3953
+                        YulIdentifier 3952-3953
+                      YulVariableDeclarationValue 3954-3961
+                        ColonEqual 3954-3956
+                        YulPath 3960-3961
+                          YulIdentifier 3960-3961
+                    YulVariableDeclarationStatement 4005-4039
+                      YulVariableNames 4009-4014
+                        YulIdentifier 4009-4014
+                      YulVariableDeclarationValue 4015-4039
+                        ColonEqual 4015-4017
+                        YulPath 4038-4039
+                          YulIdentifier 4038-4039
+                    YulVariableAssignmentStatement 4046-4060
+                      YulPaths 4046-4047
+                        YulPath 4046-4047
+                          YulIdentifier 4046-4047
+                      ColonEqual 4050-4052
+                      YulPath 4055-4060
+                        YulIdentifier 4055-4060
+                    YulVariableDeclarationStatement 4067-4090
+                      YulVariableNames 4071-4075
+                        YulIdentifier 4071-4075
+                      YulVariableDeclarationValue 4076-4090
+                        ColonEqual 4076-4078
+                        YulPath 4079-4090
+                          YulIdentifier 4079-4085
+                          YulIdentifier 4086-4090
+                    YulFunctionCallExpression 4100-4111
+                      YulPath 4100-4106
+                        YulIdentifier 4100-4106
+                      YulArguments 4107-4110
+                        YulDecimalLiteral 4107-4108
+                        YulPath 4109-4110
+                          YulIdentifier 4109-4110
+                    YulVariableAssignmentStatement 4118-4134
+                      YulPaths 4118-4119
+                        YulPath 4118-4119
+                          YulIdentifier 4118-4119
+                      ColonEqual 4120-4122
+                      YulPath 4123-4134
+                        YulIdentifier 4123-4129
+                        YulIdentifier 4130-4134
+                    YulFunctionCallExpression 4219-4237
+                      YulPath 4219-4225
+                        YulIdentifier 4219-4225
+                      YulArguments 4226-4236
+                        YulPath 4226-4230
+                          YulIdentifier 4226-4230
+                        YulPath 4235-4236
+                          YulIdentifier 4235-4236
+`;
+
+exports[`YulListsAtTheEdge.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract YulListsAtTheEdge {
+  function f(uint x) {
+    assembly {
+      switch   x
+      case 0 { mstore(0,   1) }
+      default {   mstore(0, 2) } // trailing after switch
+
+      let a,   b // trailing after names without a value
+
+
+      let c :=   1
+      switch c case 1 { a := 1 } /* trailing block comment */
+      // prettier-ignore
+      let   d,   e
+      b   :=   c
+    }
+  }
+}
+
+=====================================output=====================================
+contract YulListsAtTheEdge {
+    function f(uint x) {
+        assembly {
+            switch x
+            case 0 {
+                mstore(0, 1)
+            }
+            default {
+                mstore(0, 2)
+            } // trailing after switch
+
+            let a, b // trailing after names without a value
+
+            let c := 1
+            switch c
+            case 1 {
+                a := 1
+            } /* trailing block comment */
+            // prettier-ignore
+            let   d,   e
+            b := c
+        }
+    }
+}
+
+================================================================================
+`;
+
+exports[`YulListsAtTheEdge.sol locations 1`] = `
+SourceUnit 0-388
+  SourceUnitMembers 0-388
+    ContractDefinition 0-387
+      Identifier 9-26
+      ContractSpecifiers 26-26
+      ContractMembers 29-386
+        FunctionDefinition 31-385
+          Identifier 40-41
+          ParametersDeclaration 41-49
+            Parameters 42-48
+              Parameter 42-48
+                UintKeyword 42-46
+                Identifier 47-48
+          FunctionAttributes 49-49
+          Block 50-385
+            Statements 52-382
+              AssemblyStatement 56-381
+                YulBlock 65-381
+                  YulStatements 67-376
+                    YulSwitchStatement 73-148
+                      YulPath 82-83
+                        YulIdentifier 82-83
+                      YulSwitchCases 90-148
+                        YulValueCase 90-115
+                          YulDecimalLiteral 95-96
+                          YulBlock 97-115
+                            YulStatements 98-113
+                              YulFunctionCallExpression 99-113
+                                YulPath 99-105
+                                  YulIdentifier 99-105
+                                YulArguments 106-112
+                                  YulDecimalLiteral 106-107
+                                  YulDecimalLiteral 111-112
+                        YulDefaultCase 122-148
+                          YulBlock 130-148
+                            YulStatements 131-146
+                              YulFunctionCallExpression 134-146
+                                YulPath 134-140
+                                  YulIdentifier 134-140
+                                YulArguments 141-145
+                                  YulDecimalLiteral 141-142
+                                  YulDecimalLiteral 144-145
+                    YulVariableDeclarationStatement 181-191
+                      YulVariableNames 185-191
+                        YulIdentifier 185-186
+                        YulIdentifier 190-191
+                    YulVariableDeclarationStatement 240-252
+                      YulVariableNames 244-245
+                        YulIdentifier 244-245
+                      YulVariableDeclarationValue 246-252
+                        ColonEqual 246-248
+                        YulDecimalLiteral 251-252
+                    YulSwitchStatement 259-285
+                      YulPath 266-267
+                        YulIdentifier 266-267
+                      YulSwitchCases 268-285
+                        YulValueCase 268-285
+                          YulDecimalLiteral 273-274
+                          YulBlock 275-285
+                            YulStatements 276-283
+                              YulVariableAssignmentStatement 277-283
+                                YulPaths 277-278
+                                  YulPath 277-278
+                                    YulIdentifier 277-278
+                                ColonEqual 279-281
+                                YulDecimalLiteral 282-283
+                    YulVariableDeclarationStatement 346-358
+                      YulVariableNames 352-358
+                        YulIdentifier 352-353
+                        YulIdentifier 357-358
+                    YulVariableAssignmentStatement 365-375
+                      YulPaths 365-366
+                        YulPath 365-366
+                          YulIdentifier 365-366
+                      ColonEqual 369-371
+                      YulPath 374-375
+                        YulIdentifier 374-375
 `;

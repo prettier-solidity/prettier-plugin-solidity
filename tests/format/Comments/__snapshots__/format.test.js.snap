@@ -737,14 +737,14 @@ SourceUnit 0-4138
           StateVariableAttributes 2960-2960
           Identifier 2961-2962
           StateVariableDefinitionValue 2963-2969
-            StringLiterals 2964-2969
+            StringLiterals 2965-2969
               StringLiteral 2965-2969
         StateVariableDefinition 2973-2989
           StringKeyword 2973-2979
           StateVariableAttributes 2979-2979
           Identifier 2980-2981
           StateVariableDefinitionValue 2982-2988
-            StringLiterals 2983-2988
+            StringLiterals 2984-2988
               StringLiteral 2984-2988
         FunctionDefinition 2993-3052
           Identifier 3002-3003
@@ -993,7 +993,7 @@ SourceUnit 0-706
                 YulBlock 562-630
                   YulStatements 564-599
                     YulVariableDeclarationStatement 576-586
-                      YulVariableNames 579-581
+                      YulVariableNames 580-581
                         YulIdentifier 580-581
                       YulVariableDeclarationValue 582-586
                         ColonEqual 582-584
@@ -1002,7 +1002,7 @@ SourceUnit 0-706
                 YulBlock 648-697
                   YulStatements 650-673
                     YulVariableDeclarationStatement 662-672
-                      YulVariableNames 665-667
+                      YulVariableNames 666-667
                         YulIdentifier 666-667
                       YulVariableDeclarationValue 668-672
                         ColonEqual 668-670

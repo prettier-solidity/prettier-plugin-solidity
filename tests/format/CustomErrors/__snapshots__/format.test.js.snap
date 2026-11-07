@@ -122,6 +122,6 @@ SourceUnit 0-512
                   Identifier 455-488
                 PositionalArgumentsDeclaration 490-504
                   PositionalArguments 491-503
-                    StringLiterals 491-503
+                    StringLiterals 493-503
                       StringLiteral 493-503
 `;
