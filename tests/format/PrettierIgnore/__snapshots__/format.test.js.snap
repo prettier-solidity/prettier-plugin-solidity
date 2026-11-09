@@ -5,7 +5,7 @@ exports[`PrettierIgnore.sol format 1`] = `
 parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
-pragma solidity ^0.6.0;
+pragma solidity ^0.8.0;
 
 contract PrettierIgnore {
     fallback() external payable {
@@ -45,8 +45,49 @@ contract Example {
     }
 }
 
+contract YulPrettierIgnore {
+    function f(uint256 x) external pure returns (uint256 r, uint256 s) {
+        assembly {
+            function g(a) -> b, c {
+                b := a
+                c := a
+            }
+            // prettier-ignore
+            r   :=   add(x,   1)
+            // prettier-ignore
+            r,   s   :=   g(x)
+            // prettier-ignore
+            mstore(0,   r)
+            // prettier-ignore
+            let   y   :=   1
+            r   :=   y
+            r,/* first */s   :=   g(   y   )
+            /* before */ mstore(   0,r   ) // after
+            // prettier-ignore
+            /* still ignored */ mstore(0,   s)
+        }
+    }
+}
+
+contract PrettierIgnoreStrings {
+    function f() external pure {
+        // prettier-ignore
+        "a"   "b";
+        "c"   "d"  ;
+        // prettier-ignore
+        hex"00"   hex"01";
+        hex"02"   hex"03"  ;
+        // prettier-ignore
+        unicode"é"   unicode"ü";
+        unicode"à"   unicode"ö"  ;
+        // prettier-ignore
+        /* still ignored */ "e"   "f";
+        string memory s = "g"   "h" /* trailing */  ;
+    }
+}
+
 =====================================output=====================================
-pragma solidity ^0.6.0;
+pragma solidity ^0.8.0;
 
 contract PrettierIgnore {
     fallback() external payable {
@@ -82,12 +123,58 @@ contract Example {
     }
 }
 
+contract YulPrettierIgnore {
+    function f(uint256 x) external pure returns (uint256 r, uint256 s) {
+        assembly {
+            function g(a) -> b, c {
+                b := a
+                c := a
+            }
+            // prettier-ignore
+            r   :=   add(x,   1)
+            // prettier-ignore
+            r,   s   :=   g(x)
+            // prettier-ignore
+            mstore(0,   r)
+            // prettier-ignore
+            let   y   :=   1
+            r := y
+            r, /* first */ s := g(y)
+            /* before */ mstore(0, r) // after
+            // prettier-ignore
+            /* still ignored */ mstore(0,   s)
+        }
+    }
+}
+
+contract PrettierIgnoreStrings {
+    function f() external pure {
+        // prettier-ignore
+        "a"   "b";
+        "c"
+        "d";
+        // prettier-ignore
+        hex"00"   hex"01";
+        hex"02"
+        hex"03";
+        // prettier-ignore
+        unicode"é"   unicode"ü";
+        unicode"à"
+        unicode"ö";
+        // prettier-ignore
+        /* still ignored */ "e"   "f";
+        string memory s =
+            "g"
+            "h" /* trailing */;
+    }
+}
+
 ================================================================================
 `;
 
 exports[`PrettierIgnore.sol locations 1`] = `
-SourceUnit 0-853
-  SourceUnitMembers 0-853
+SourceUnit 0-1971
+  SourceUnitMembers 0-1971
     PragmaDirective 0-23
       VersionPragma 7-22
         VersionExpressionSets 15-22
@@ -169,4 +256,178 @@ SourceUnit 0-853
                 ReturnStatement 740-747
                 ElseBranch 756-844
                   ReturnStatement 837-844
+    ContractDefinition 854-1530
+      Identifier 863-880
+      ContractSpecifiers 880-880
+      ContractMembers 883-1529
+        FunctionDefinition 887-1528
+          Identifier 896-897
+          ParametersDeclaration 897-908
+            Parameters 898-907
+              Parameter 898-907
+                UintKeyword 898-905
+                Identifier 906-907
+          FunctionAttributes 908-922
+            ExternalKeyword 909-917
+            PureKeyword 918-922
+          ReturnsDeclaration 923-953
+            ParametersDeclaration 931-953
+              Parameters 932-952
+                Parameter 932-941
+                  UintKeyword 932-939
+                  Identifier 940-941
+                Parameter 943-952
+                  UintKeyword 943-950
+                  Identifier 951-952
+          Block 954-1528
+            Statements 956-1523
+              AssemblyStatement 964-1522
+                YulBlock 973-1522
+                  YulStatements 975-1513
+                    YulFunctionDefinition 987-1070
+                      YulIdentifier 996-997
+                      YulParametersDeclaration 997-1000
+                        YulParameters 998-999
+                          YulIdentifier 998-999
+                      YulReturnsDeclaration 1001-1008
+                        YulVariableNames 1004-1008
+                          YulIdentifier 1004-1005
+                          YulIdentifier 1007-1008
+                      YulBlock 1009-1070
+                        YulStatements 1011-1057
+                          YulVariableAssignmentStatement 1027-1033
+                            YulPaths 1027-1028
+                              YulPath 1027-1028
+                                YulIdentifier 1027-1028
+                            ColonEqual 1029-1031
+                            YulPath 1032-1033
+                              YulIdentifier 1032-1033
+                          YulVariableAssignmentStatement 1050-1056
+                            YulPaths 1050-1051
+                              YulPath 1050-1051
+                                YulIdentifier 1050-1051
+                            ColonEqual 1052-1054
+                            YulPath 1055-1056
+                              YulIdentifier 1055-1056
+                    YulVariableAssignmentStatement 1114-1134
+                      YulPaths 1114-1115
+                        YulPath 1114-1115
+                          YulIdentifier 1114-1115
+                      ColonEqual 1118-1120
+                      YulFunctionCallExpression 1123-1134
+                        YulPath 1123-1126
+                          YulIdentifier 1123-1126
+                        YulArguments 1127-1133
+                          YulPath 1127-1128
+                            YulIdentifier 1127-1128
+                          YulDecimalLiteral 1132-1133
+                    YulVariableAssignmentStatement 1178-1196
+                      YulPaths 1178-1184
+                        YulPath 1178-1179
+                          YulIdentifier 1178-1179
+                        YulPath 1183-1184
+                          YulIdentifier 1183-1184
+                      ColonEqual 1187-1189
+                      YulFunctionCallExpression 1192-1196
+                        YulPath 1192-1193
+                          YulIdentifier 1192-1193
+                        YulArguments 1194-1195
+                          YulPath 1194-1195
+                            YulIdentifier 1194-1195
+                    YulFunctionCallExpression 1240-1254
+                      YulPath 1240-1246
+                        YulIdentifier 1240-1246
+                      YulArguments 1247-1253
+                        YulDecimalLiteral 1247-1248
+                        YulPath 1252-1253
+                          YulIdentifier 1252-1253
+                    YulVariableDeclarationStatement 1298-1314
+                      YulVariableNames 1304-1305
+                        YulIdentifier 1304-1305
+                      YulVariableDeclarationValue 1308-1314
+                        ColonEqual 1308-1310
+                        YulDecimalLiteral 1313-1314
+                    YulVariableAssignmentStatement 1327-1337
+                      YulPaths 1327-1328
+                        YulPath 1327-1328
+                          YulIdentifier 1327-1328
+                      ColonEqual 1331-1333
+                      YulPath 1336-1337
+                        YulIdentifier 1336-1337
+                    YulVariableAssignmentStatement 1350-1382
+                      YulPaths 1350-1364
+                        YulPath 1350-1351
+                          YulIdentifier 1350-1351
+                        YulPath 1363-1364
+                          YulIdentifier 1363-1364
+                      ColonEqual 1367-1369
+                      YulFunctionCallExpression 1372-1382
+                        YulPath 1372-1373
+                          YulIdentifier 1372-1373
+                        YulArguments 1374-1378
+                          YulPath 1377-1378
+                            YulIdentifier 1377-1378
+                    YulFunctionCallExpression 1408-1425
+                      YulPath 1408-1414
+                        YulIdentifier 1408-1414
+                      YulArguments 1415-1421
+                        YulDecimalLiteral 1418-1419
+                        YulPath 1420-1421
+                          YulIdentifier 1420-1421
+                    YulFunctionCallExpression 1498-1512
+                      YulPath 1498-1504
+                        YulIdentifier 1498-1504
+                      YulArguments 1505-1511
+                        YulDecimalLiteral 1505-1506
+                        YulPath 1510-1511
+                          YulIdentifier 1510-1511
+    ContractDefinition 1532-1970
+      Identifier 1541-1562
+      ContractSpecifiers 1562-1562
+      ContractMembers 1565-1969
+        FunctionDefinition 1569-1968
+          Identifier 1578-1579
+          ParametersDeclaration 1579-1581
+            Parameters 1580-1580
+          FunctionAttributes 1581-1595
+            ExternalKeyword 1582-1590
+            PureKeyword 1591-1595
+          Block 1596-1968
+            Statements 1598-1963
+              ExpressionStatement 1633-1643
+                StringLiterals 1633-1642
+                  StringLiteral 1633-1636
+                  StringLiteral 1639-1642
+              ExpressionStatement 1652-1664
+                StringLiterals 1652-1661
+                  StringLiteral 1652-1655
+                  StringLiteral 1658-1661
+              ExpressionStatement 1700-1718
+                HexStringLiterals 1700-1717
+                  HexStringLiteral 1700-1707
+                  HexStringLiteral 1710-1717
+              ExpressionStatement 1727-1747
+                HexStringLiterals 1727-1744
+                  HexStringLiteral 1727-1734
+                  HexStringLiteral 1737-1744
+              ExpressionStatement 1783-1807
+                UnicodeStringLiterals 1783-1806
+                  UnicodeStringLiteral 1783-1793
+                  UnicodeStringLiteral 1796-1806
+              ExpressionStatement 1816-1842
+                UnicodeStringLiterals 1816-1839
+                  UnicodeStringLiteral 1816-1826
+                  UnicodeStringLiteral 1829-1839
+              ExpressionStatement 1898-1908
+                StringLiterals 1898-1907
+                  StringLiteral 1898-1901
+                  StringLiteral 1904-1907
+              VariableDeclarationStatement 1917-1962
+                StringKeyword 1917-1923
+                StorageLocation 1924-1930
+                Identifier 1931-1932
+                VariableDeclarationValue 1933-1944
+                  StringLiterals 1935-1944
+                    StringLiteral 1935-1938
+                    StringLiteral 1941-1944
 `;

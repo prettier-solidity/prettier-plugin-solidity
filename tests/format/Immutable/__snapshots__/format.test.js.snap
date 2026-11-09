@@ -91,7 +91,7 @@ SourceUnit 0-609
             ConstantKeyword 98-106
           Identifier 107-111
           StateVariableDefinitionValue 112-119
-            StringLiterals 113-119
+            StringLiterals 114-119
               StringLiteral 114-119
         StateVariableDefinition 125-169
           BytesKeyword 125-132

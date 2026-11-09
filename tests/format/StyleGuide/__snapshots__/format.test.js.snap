@@ -1652,7 +1652,7 @@ SourceUnit 0-620
               ExpressionStatement 92-104
                 AssignmentExpression 92-103
                   Identifier 92-95
-                  StringLiterals 97-103
+                  StringLiterals 98-103
                     StringLiteral 98-103
               ExpressionStatement 271-275
                 AssignmentExpression 271-274
@@ -1828,7 +1828,7 @@ SourceUnit 0-275
                             NamedArguments 118-130
                               NamedArgument 119-130
                                 Identifier 119-123
-                                StringLiterals 124-130
+                                StringLiterals 125-130
                                   StringLiteral 125-130
               ExpressionStatement 146-164
                 AssignmentExpression 146-163

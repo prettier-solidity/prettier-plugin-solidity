@@ -25,7 +25,7 @@ export class YulVariableDeclarationStatement extends SlangNode {
       this.value = new YulVariableDeclarationValue(ast.value, collected);
     }
 
-    this.updateMetadata(this.value);
+    this.updateMetadata(this.variables, this.value);
   }
 
   print(print: PrintFunction): Doc {
