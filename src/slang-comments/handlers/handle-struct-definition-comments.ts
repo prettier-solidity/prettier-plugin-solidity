@@ -1,39 +1,13 @@
 import { NonterminalKind } from '@nomicfoundation/slang/cst';
-import { getNextNonSpaceNonCommentCharacter } from '../../slang-utils/prettier-utils.ts';
-import { locEnd } from '../../slang-utils/loc.ts';
-import addCollectionFirstComment from './add-collection-first-comment.ts';
-import addCollectionLastComment from './add-collection-last-comment.ts';
+import addCollectionAdjacentComment from './add-collection-adjacent-comment.ts';
 
 import type { HandlerParams } from './types.d.ts';
 
-export default function handleStructDefinitionComments({
-  text,
-  precedingNode,
-  enclosingNode,
-  followingNode,
-  comment
-}: HandlerParams): boolean {
-  if (enclosingNode?.kind !== NonterminalKind.StructDefinition) {
+export default function handleStructDefinitionComments(
+  params: HandlerParams
+): boolean {
+  if (params.enclosingNode?.kind !== NonterminalKind.StructDefinition) {
     return false;
   }
-
-  const nextCharacter = getNextNonSpaceNonCommentCharacter(
-    text,
-    locEnd(comment)
-  );
-
-  if (
-    nextCharacter === '}' &&
-    precedingNode?.kind === NonterminalKind.StructMembers
-  ) {
-    addCollectionLastComment(precedingNode, comment);
-    return true;
-  }
-
-  if (followingNode?.kind === NonterminalKind.StructMembers) {
-    addCollectionFirstComment(followingNode, comment);
-    return true;
-  }
-
-  return false;
+  return addCollectionAdjacentComment(NonterminalKind.StructMembers, params);
 }
