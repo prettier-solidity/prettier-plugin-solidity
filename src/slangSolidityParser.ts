@@ -14,7 +14,8 @@ export default function parse(
   const { version, parseOutput } = inferAndParse(text, options);
 
   const { locations, comments } = collectMetadata(
-    parseOutput.createTreeCursor()
+    parseOutput.createTreeCursor(),
+    options.originalText
   );
   const parsed = new SourceUnit(
     new SlangSourceUnit(parseOutput.tree.asNonterminalNode()),
