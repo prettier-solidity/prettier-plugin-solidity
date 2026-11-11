@@ -4063,8 +4063,8 @@ SourceUnit 0-2522
       VersionPragma 7-21
         VersionExpressionSets 15-21
           VersionExpressionSet 15-21
-            VersionTerm 15-21
-              SimpleVersionLiteral 15-21
+            VersionTerm 16-21
+              SimpleVersionLiteral 16-21
                 VersionSpecifier 16-17
                 VersionSpecifier 18-19
                 VersionSpecifier 20-21
@@ -5369,8 +5369,8 @@ SourceUnit 0-2522
       VersionPragma 7-21
         VersionExpressionSets 15-21
           VersionExpressionSet 15-21
-            VersionTerm 15-21
-              SimpleVersionLiteral 15-21
+            VersionTerm 16-21
+              SimpleVersionLiteral 16-21
                 VersionSpecifier 16-17
                 VersionSpecifier 18-19
                 VersionSpecifier 20-21

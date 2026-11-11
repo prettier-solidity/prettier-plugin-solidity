@@ -511,7 +511,7 @@ contract Conditional {
 `;
 
 exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true,"tabWidth":1} locations 1`] = `
-SourceUnit 0-8255
+SourceUnit 0-8257
   SourceUnitMembers 0-8255
     PragmaDirective 0-24
       VersionPragma 7-23
@@ -1937,7 +1937,7 @@ contract Conditional {
 `;
 
 exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true,"useTabs":true} locations 1`] = `
-SourceUnit 0-8255
+SourceUnit 0-8257
   SourceUnitMembers 0-8255
     PragmaDirective 0-24
       VersionPragma 7-23
@@ -3362,7 +3362,7 @@ contract Conditional {
 `;
 
 exports[`ExperimentalTernaries.sol - {"experimentalTernaries":true} locations 1`] = `
-SourceUnit 0-8255
+SourceUnit 0-8257
   SourceUnitMembers 0-8255
     PragmaDirective 0-24
       VersionPragma 7-23
@@ -4814,7 +4814,7 @@ contract Conditional {
 `;
 
 exports[`ExperimentalTernaries.sol locations 1`] = `
-SourceUnit 0-8255
+SourceUnit 0-8257
   SourceUnitMembers 0-8255
     PragmaDirective 0-24
       VersionPragma 7-23

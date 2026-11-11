@@ -101,8 +101,8 @@ SourceUnit 0-1031
       VersionPragma 39-54
         VersionExpressionSets 47-54
           VersionExpressionSet 47-54
-            VersionTerm 47-54
-              SimpleVersionLiteral 47-54
+            VersionTerm 48-54
+              SimpleVersionLiteral 48-54
                 VersionSpecifier 48-49
                 VersionSpecifier 50-51
                 VersionSpecifier 52-54
