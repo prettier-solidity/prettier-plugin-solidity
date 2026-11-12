@@ -37,6 +37,6 @@ parsers: ["slang"]
 `;
 
 exports[`EmptyFileWithComments.sol locations 1`] = `
-SourceUnit 0-0
+SourceUnit 0-65
   SourceUnitMembers 0-0
 `;

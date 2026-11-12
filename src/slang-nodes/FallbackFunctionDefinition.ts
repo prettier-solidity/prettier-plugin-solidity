@@ -35,13 +35,6 @@ export class FallbackFunctionDefinition extends SlangNode {
     }
     this.body = extractVariant(new FunctionBody(ast.body, collected));
 
-    this.updateMetadata(
-      this.parameters,
-      this.attributes,
-      this.returns,
-      this.body
-    );
-
     for (const attribute of this.attributes.items) {
       if (attribute.kind === NonterminalKind.ModifierInvocation) {
         attribute.cleanModifierInvocationArguments();

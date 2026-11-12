@@ -77,7 +77,7 @@ contract Inbox {
 `;
 
 exports[`Inbox.sol locations 1`] = `
-SourceUnit 0-494
+SourceUnit 0-495
   SourceUnitMembers 0-494
     PragmaDirective 74-102
       VersionPragma 83-101

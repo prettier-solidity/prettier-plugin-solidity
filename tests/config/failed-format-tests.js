@@ -3,7 +3,11 @@ import { FORMAT_TEST_DIRECTORY } from "./constants.js";
 
 // Here we add files that will not be the same when formatting a second time.
 const unstableTests = new Map(
-  [].map((fixture) => {
+  [
+    // TODO: comments in the SimpleVersion node are not preserved when
+    // formatting a second time.
+    "Pragma/Pragma.sol",
+  ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];

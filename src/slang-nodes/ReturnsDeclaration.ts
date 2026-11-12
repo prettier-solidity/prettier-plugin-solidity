@@ -16,8 +16,6 @@ export class ReturnsDeclaration extends SlangNode {
     super(ast, collected);
 
     this.variables = new ParametersDeclaration(ast.variables, collected);
-
-    this.updateMetadata(this.variables);
   }
 
   print(print: PrintFunction): Doc {

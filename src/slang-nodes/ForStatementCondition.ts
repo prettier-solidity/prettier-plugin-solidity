@@ -23,7 +23,5 @@ export class ForStatementCondition extends SlangNode {
       return;
     }
     this.variant = new ExpressionStatement(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

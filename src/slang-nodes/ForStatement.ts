@@ -37,13 +37,6 @@ export class ForStatement extends SlangNode {
       this.iterator = extractVariant(new Expression(ast.iterator, collected));
     }
     this.body = extractVariant(new Statement(ast.body, collected));
-
-    this.updateMetadata(
-      this.initialization,
-      this.condition,
-      this.iterator,
-      this.body
-    );
   }
 
   print(print: PrintFunction): Doc {

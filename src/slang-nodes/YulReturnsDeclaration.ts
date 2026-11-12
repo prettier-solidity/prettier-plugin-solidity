@@ -17,8 +17,6 @@ export class YulReturnsDeclaration extends SlangNode {
     super(ast, collected);
 
     this.variables = new YulVariableNames(ast.variables, collected);
-
-    this.updateMetadata(this.variables);
   }
 
   print(print: PrintFunction): Doc {

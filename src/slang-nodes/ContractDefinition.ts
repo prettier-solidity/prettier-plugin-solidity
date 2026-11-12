@@ -29,8 +29,6 @@ export class ContractDefinition extends SlangNode {
     this.specifiers = new ContractSpecifiers(ast.specifiers, collected);
     this.members = new ContractMembers(ast.members, collected);
 
-    this.updateMetadata(this.specifiers, this.members);
-
     // Older versions of Solidity defined a constructor as a function having
     // the same name as the contract.
     // So we delegate to the parents the responsibility of cleaning the

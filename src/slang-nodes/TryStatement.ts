@@ -32,13 +32,6 @@ export class TryStatement extends SlangNode {
     }
     this.body = new Block(ast.body, collected);
     this.catchClauses = new CatchClauses(ast.catchClauses, collected);
-
-    this.updateMetadata(
-      this.expression,
-      this.returns,
-      this.body,
-      this.catchClauses
-    );
   }
 
   print(print: PrintFunction): Doc {

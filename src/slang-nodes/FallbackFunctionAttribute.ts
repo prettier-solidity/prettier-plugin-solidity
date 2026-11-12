@@ -36,7 +36,5 @@ export class FallbackFunctionAttribute extends SlangNode {
       return;
     }
     this.variant = createNonterminalVariant(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

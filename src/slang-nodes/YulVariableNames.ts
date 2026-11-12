@@ -17,8 +17,6 @@ export class YulVariableNames extends SlangNode {
     super(ast, collected);
 
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
-
-    this.updateMetadata(...this.items);
   }
 
   print(print: PrintFunction, path: AstPath<YulVariableNames>): Doc {

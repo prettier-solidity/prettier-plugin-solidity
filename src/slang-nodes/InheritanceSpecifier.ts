@@ -15,8 +15,6 @@ export class InheritanceSpecifier extends SlangNode {
     super(ast, collected);
 
     this.types = new InheritanceTypes(ast.types, collected);
-
-    this.updateMetadata(this.types);
   }
 
   print(print: PrintFunction): Doc {

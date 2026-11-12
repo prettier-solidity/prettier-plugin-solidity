@@ -6,7 +6,6 @@ const ignoredKeys = new Set([
   'comments',
   'print',
   'isEmpty',
-  'updateMetadata',
   'cleanModifierInvocationArguments',
   'getSingleExpression'
 ]);

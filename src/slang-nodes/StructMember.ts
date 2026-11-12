@@ -20,8 +20,6 @@ export class StructMember extends SlangNode {
 
     this.typeName = extractVariant(new TypeName(ast.typeName, collected));
     this.name = new TerminalNode(ast.name, collected);
-
-    this.updateMetadata(this.typeName);
   }
 
   print(print: PrintFunction): Doc {

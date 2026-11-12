@@ -15,8 +15,6 @@ export class YulParametersDeclaration extends SlangNode {
     super(ast, collected);
 
     this.parameters = new YulParameters(ast.parameters, collected);
-
-    this.updateMetadata(this.parameters);
   }
 
   print(print: PrintFunction): Doc {

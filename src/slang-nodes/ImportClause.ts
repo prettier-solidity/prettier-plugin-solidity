@@ -26,7 +26,5 @@ export class ImportClause extends SlangNode {
     super(ast, collected);
 
     this.variant = createNonterminalVariant(ast.variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

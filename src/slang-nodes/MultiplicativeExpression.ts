@@ -51,8 +51,6 @@ export class MultiplicativeExpression extends SlangNode {
       new Expression(ast.rightOperand, collected)
     );
 
-    this.updateMetadata(this.leftOperand, this.rightOperand);
-
     const tryToHug = hugFunctions[this.operator as keyof typeof hugFunctions];
 
     if (tryToHug === undefined) {

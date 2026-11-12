@@ -52,8 +52,6 @@ export class BitwiseOrExpression extends SlangNode {
       new Expression(ast.rightOperand, collected)
     );
 
-    this.updateMetadata(this.leftOperand, this.rightOperand);
-
     this.leftOperand = tryToHug(this.leftOperand);
     this.rightOperand = tryToHug(this.rightOperand);
   }

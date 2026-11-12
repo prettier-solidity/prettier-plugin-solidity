@@ -15,8 +15,6 @@ export class YulBlock extends SlangNode {
     super(ast, collected);
 
     this.statements = new YulStatements(ast.statements, collected);
-
-    this.updateMetadata(this.statements);
   }
 
   print(print: PrintFunction): Doc {
