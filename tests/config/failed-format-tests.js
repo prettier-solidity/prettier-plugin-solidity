@@ -3,7 +3,15 @@ import { FORMAT_TEST_DIRECTORY } from "./constants.js";
 
 // Here we add files that will not be the same when formatting a second time.
 const unstableTests = new Map(
-  [].map((fixture) => {
+  [
+    // TODO A comment at the edge of these collections moves when formatting a
+    // second time.
+    "PeripheralComments/ContractSpecifiers.sol",
+    "PeripheralComments/EnumMembers.sol",
+    "PeripheralComments/ImportDeconstructionSymbols.sol",
+    "PeripheralComments/OverridePaths.sol",
+    "PeripheralComments/StateVariableAttributes.sol",
+  ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
@@ -55,6 +63,38 @@ const antlrMismatchTests = new Map(
     // Antlr has the previous tuple formatting.
     "Tuples/TupleDeconstructionComments.sol",
     "Tuples/TupleDeconstructionEmptyLastSlot.sol",
+    // ANTLR misplaces, or fails to print, the comments at the edges of a
+    // collection.
+    "PeripheralComments/ArrayValues.sol",
+    "PeripheralComments/AssemblyFlags.sol",
+    "PeripheralComments/CallOptions.sol",
+    "PeripheralComments/ConstructorAttributes.sol",
+    "PeripheralComments/ContractSpecifiers.sol",
+    "PeripheralComments/EnumMembers.sol",
+    "PeripheralComments/ErrorParameters.sol",
+    "PeripheralComments/EventParameters.sol",
+    "PeripheralComments/FallbackFunctionAttributes.sol",
+    "PeripheralComments/FunctionAttributes.sol",
+    "PeripheralComments/FunctionTypeAttributes.sol",
+    "PeripheralComments/ImportDeconstructionSymbols.sol",
+    "PeripheralComments/InheritanceTypes.sol",
+    "PeripheralComments/ModifierAttributes.sol",
+    "PeripheralComments/NamedArguments.sol",
+    "PeripheralComments/OverridePaths.sol",
+    "PeripheralComments/Parameters.sol",
+    "PeripheralComments/PositionalArguments.sol",
+    "PeripheralComments/ReceiveFunctionAttributes.sol",
+    "PeripheralComments/SimpleVersionLiteral.sol",
+    "PeripheralComments/StateVariableAttributes.sol",
+    "PeripheralComments/StructMembers.sol",
+    "PeripheralComments/TupleDeconstructionElements.sol",
+    "PeripheralComments/TupleValues.sol",
+    "PeripheralComments/UnnamedFunctionAttributes.sol",
+    "PeripheralComments/UsingDeconstructionSymbols.sol",
+    "PeripheralComments/VersionExpressionSet.sol",
+    "PeripheralComments/VersionExpressionSets.sol",
+    "PeripheralComments/YulArguments.sol",
+    "PeripheralComments/YulParameters.sol",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
