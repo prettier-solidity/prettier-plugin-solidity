@@ -36,8 +36,7 @@ export default defineConfig([
     'tests/format/Markdown/Markdown.md',
     'tests/format/RespectDefaultOptions/respect-default-options.js',
     'tests/config/**/*.*js',
-    ...authoredTestConfigFiles.map((file) => `!tests/config/${file}`),
-    'src/prettier-comments/**/*.js'
+    ...authoredTestConfigFiles.map((file) => `!tests/config/${file}`)
   ]),
   {
     rules: {
