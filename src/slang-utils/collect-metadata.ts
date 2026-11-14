@@ -11,6 +11,8 @@ import type { AstLocation } from '../types.d.ts';
 interface Metadata {
   locations: Map<number, AstLocation>;
   comments: Comment[];
+  // How far into the text the walk is.
+  offset: number;
 }
 
 // Walks the children of the NonterminalNode under the cursor, recording the
@@ -24,10 +26,10 @@ function visitNonterminal(
   cursor: Cursor,
   id: number,
   collected: Metadata,
-  originalText: string,
-  outerStart = 0
+  originalText: string
 ): AstLocation {
-  let offset = outerStart;
+  // Where the node starts, including the comments before its first token.
+  const outerStart = collected.offset;
   let triviaLength = 0;
   let leadingOffset;
 
@@ -42,6 +44,7 @@ function visitNonterminal(
         label === EdgeLabel.LeadingTrivia ||
         label === EdgeLabel.TrailingTrivia
       ) {
+        const offset = collected.offset;
         const textEnd = cursor.textRange.end.utf16;
 
         // Whitespace and line breaks never start with `/`, every comment does.
@@ -76,13 +79,14 @@ function visitNonterminal(
         }
         // We accumulate the trivia length
         triviaLength += textEnd - offset;
-        offset = textEnd;
+        collected.offset = textEnd;
         continue;
       }
 
       const node = cursor.node;
 
       if (node.isTerminalNode()) {
+        const offset = collected.offset;
         const end = offset + node.textLength.utf16;
         // Some variants can be TerminalNodes, and since `extractVariant` drops
         // their wrapper, we need to track their location.
@@ -92,20 +96,10 @@ function visitNonterminal(
           start: offset,
           end
         });
-        offset = end;
+        collected.offset = end;
       } else {
-        // A nonterminal ends where its last child ends, so we don't need to
-        // ask Slang for its length.
-        const child = visitNonterminal(
-          cursor,
-          node.id,
-          collected,
-          originalText,
-          offset
-        );
-        offset = child.outerEnd;
+        visitNonterminal(cursor, node.id, collected, originalText);
       }
-
       // We assign the `leadingOffset` only once.
       leadingOffset ??= triviaLength;
       // Since this is a non trivia node, we reset the accumulated length
@@ -123,10 +117,10 @@ function visitNonterminal(
   // We collect the location of the NonterminalNode itself.
   const location = {
     outerStart,
-    outerEnd: offset,
+    outerEnd: collected.offset,
     start: outerStart + leadingOffset,
     // The remaining `triviaLength` is the trailing trivia
-    end: offset - triviaLength
+    end: collected.offset - triviaLength
   };
   collected.locations.set(id, location);
 
@@ -139,7 +133,7 @@ export function collectMetadata(
   cursor: Cursor,
   originalText: string
 ): Metadata {
-  const collected: Metadata = { locations: new Map(), comments: [] };
+  const collected: Metadata = { locations: new Map(), comments: [], offset: 0 };
   visitNonterminal(cursor, cursor.node.id, collected, originalText);
   return collected;
 }
