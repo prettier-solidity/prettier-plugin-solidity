@@ -44,56 +44,52 @@ function visitNonterminal(
         label === EdgeLabel.LeadingTrivia ||
         label === EdgeLabel.TrailingTrivia
       ) {
-        const offset = collected.offset;
-        const textEnd = cursor.textRange.end.utf16;
+        const start = collected.offset;
+        const end = cursor.textRange.end.utf16;
 
         // Whitespace and line breaks never start with `/`, every comment does.
-        if (originalText.startsWith('/', offset)) {
-          // Since fetching the comments and calculating offsets are both done
-          // as we iterate over the tree and the comment also depends on the
-          // offset, it's hard to separate these responsibilities into
-          // different functions without doing the iteration twice.
+        if (originalText.startsWith('/', start)) {
+          // Since fetching the comments and locating the nodes are both done
+          // as we iterate over the tree and a comment's location also depends
+          // on where the walk is, it's hard to separate these responsibilities
+          // into different functions without doing the iteration twice.
           const node = cursor.node;
           switch (node.kind) {
             case TerminalKind.MultiLineComment:
-              collected.comments.push(
-                new MultiLineComment(node, offset, textEnd)
-              );
+              collected.comments.push(new MultiLineComment(node, start, end));
               break;
             case TerminalKind.MultiLineNatSpecComment:
               collected.comments.push(
-                new MultiLineNatSpecComment(node, offset, textEnd)
+                new MultiLineNatSpecComment(node, start, end)
               );
               break;
             case TerminalKind.SingleLineComment:
-              collected.comments.push(
-                new SingleLineComment(node, offset, textEnd)
-              );
+              collected.comments.push(new SingleLineComment(node, start, end));
               break;
             case TerminalKind.SingleLineNatSpecComment:
               collected.comments.push(
-                new SingleLineNatSpecComment(node, offset, textEnd)
+                new SingleLineNatSpecComment(node, start, end)
               );
               break;
           }
         }
         // We accumulate the trivia length
-        triviaLength += textEnd - offset;
-        collected.offset = textEnd;
+        triviaLength += end - start;
+        collected.offset = end;
         continue;
       }
 
       const node = cursor.node;
 
       if (node.isTerminalNode()) {
-        const offset = collected.offset;
-        const end = offset + node.textLength.utf16;
+        const start = collected.offset;
+        const end = start + node.textLength.utf16;
         // Some variants can be TerminalNodes, and since `extractVariant` drops
         // their wrapper, we need to track their location.
         collected.locations.set(node.id, {
-          outerStart: offset,
+          outerStart: start,
           outerEnd: end,
-          start: offset,
+          start,
           end
         });
         collected.offset = end;
