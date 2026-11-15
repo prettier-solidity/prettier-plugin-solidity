@@ -18,7 +18,7 @@ export class FallbackFunctionAttributes extends SlangNode {
     ast: ast.FallbackFunctionAttributes,
     collected: CollectedMetadata
   ) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new FallbackFunctionAttribute(item, collected))

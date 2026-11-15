@@ -13,7 +13,7 @@ export class ErrorParameters extends SlangNode {
   items: ErrorParameter[];
 
   constructor(ast: ast.ErrorParameters, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new ErrorParameter(item, collected));
   }

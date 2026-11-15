@@ -14,7 +14,7 @@ export class EnumMembers extends SlangNode {
   items: TerminalNode[];
 
   constructor(ast: ast.EnumMembers, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }

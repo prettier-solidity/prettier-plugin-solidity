@@ -15,7 +15,7 @@ export class Statements extends SlangNode {
   items: Statement['variant'][];
 
   constructor(ast: ast.Statements, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new Statement(item, collected))

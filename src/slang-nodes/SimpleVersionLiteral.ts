@@ -13,7 +13,7 @@ export class SimpleVersionLiteral extends SlangNode {
   items: TerminalNode[];
 
   constructor(ast: ast.SimpleVersionLiteral, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }

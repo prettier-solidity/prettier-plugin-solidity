@@ -15,7 +15,7 @@ export class StateVariableAttributes extends SlangNode {
   items: StateVariableAttribute['variant'][];
 
   constructor(ast: ast.StateVariableAttributes, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new StateVariableAttribute(item, collected))

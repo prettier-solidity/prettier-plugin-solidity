@@ -15,7 +15,7 @@ export class FunctionTypeAttributes extends SlangNode {
   items: FunctionTypeAttribute['variant'][];
 
   constructor(ast: ast.FunctionTypeAttributes, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new FunctionTypeAttribute(item, collected))

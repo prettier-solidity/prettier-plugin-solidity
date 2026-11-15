@@ -15,7 +15,7 @@ export class CallOptions extends SlangNode {
   items: NamedArgument[];
 
   constructor(ast: ast.CallOptions, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new NamedArgument(item, collected));
   }
