@@ -20,8 +20,6 @@ export class CallOptionsExpression extends SlangNode {
 
     this.operand = extractVariant(new Expression(ast.operand, collected));
     this.options = new CallOptions(ast.options, collected);
-
-    this.updateMetadata(this.operand, this.options);
   }
 
   print(print: PrintFunction): Doc {

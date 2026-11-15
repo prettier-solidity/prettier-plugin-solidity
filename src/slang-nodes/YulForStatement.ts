@@ -29,13 +29,6 @@ export class YulForStatement extends SlangNode {
     );
     this.iterator = new YulBlock(ast.iterator, collected);
     this.body = new YulBlock(ast.body, collected);
-
-    this.updateMetadata(
-      this.initialization,
-      this.condition,
-      this.iterator,
-      this.body
-    );
   }
 
   print(print: PrintFunction): Doc {

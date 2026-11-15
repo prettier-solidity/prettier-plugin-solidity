@@ -29,8 +29,6 @@ export class YulFunctionDefinition extends SlangNode {
       this.returns = new YulReturnsDeclaration(ast.returns, collected);
     }
     this.body = new YulBlock(ast.body, collected);
-
-    this.updateMetadata(this.parameters, this.returns, this.body);
   }
 
   print(print: PrintFunction): Doc {

@@ -19,8 +19,6 @@ export class EnumDefinition extends SlangNode {
 
     this.name = new TerminalNode(ast.name, collected);
     this.members = new EnumMembers(ast.members, collected);
-
-    this.updateMetadata(this.members);
   }
 
   print(print: PrintFunction): Doc {

@@ -23,7 +23,5 @@ export class ElementaryType extends SlangNode {
       return;
     }
     this.variant = new AddressType(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

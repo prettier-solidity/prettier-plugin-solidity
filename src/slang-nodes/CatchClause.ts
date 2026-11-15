@@ -21,8 +21,6 @@ export class CatchClause extends SlangNode {
       this.error = new CatchClauseError(ast.error, collected);
     }
     this.body = new Block(ast.body, collected);
-
-    this.updateMetadata(this.error, this.body);
   }
 
   print(print: PrintFunction): Doc {

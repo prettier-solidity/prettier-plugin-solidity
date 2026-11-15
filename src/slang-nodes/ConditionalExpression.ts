@@ -133,12 +133,6 @@ export class ConditionalExpression extends SlangNode {
       new Expression(ast.falseExpression, collected)
     );
 
-    this.updateMetadata(
-      this.operand,
-      this.trueExpression,
-      this.falseExpression
-    );
-
     if (collected.options.experimentalTernaries) {
       // We can remove parentheses only because we are sure that the
       // `condition` must be a single `bool` value.

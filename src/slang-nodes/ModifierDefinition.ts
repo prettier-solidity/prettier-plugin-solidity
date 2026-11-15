@@ -33,8 +33,6 @@ export class ModifierDefinition extends SlangNode {
     this.attributes = new ModifierAttributes(ast.attributes, collected);
     this.body = extractVariant(new FunctionBody(ast.body, collected));
 
-    this.updateMetadata(this.parameters, this.attributes, this.body);
-
     if (!this.parameters) {
       // `attributes` embraces the comments before it, so this is right after
       // the name.

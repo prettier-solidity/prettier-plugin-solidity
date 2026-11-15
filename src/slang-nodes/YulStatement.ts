@@ -64,7 +64,5 @@ export class YulStatement extends SlangNode {
       variant instanceof slangAst.YulBlock
         ? new YulBlock(variant, collected)
         : createNonterminalVariant(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

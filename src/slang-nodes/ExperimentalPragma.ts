@@ -18,8 +18,6 @@ export class ExperimentalPragma extends SlangNode {
     this.feature = extractVariant(
       new ExperimentalFeature(ast.feature, collected)
     );
-
-    this.updateMetadata(this.feature);
   }
 
   print(print: PrintFunction): Doc {

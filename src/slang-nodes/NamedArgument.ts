@@ -20,8 +20,6 @@ export class NamedArgument extends SlangNode {
 
     this.name = new TerminalNode(ast.name, collected);
     this.value = extractVariant(new Expression(ast.value, collected));
-
-    this.updateMetadata(this.value);
   }
 
   print(print: PrintFunction): Doc {

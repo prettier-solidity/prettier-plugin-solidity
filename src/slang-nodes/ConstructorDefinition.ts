@@ -24,8 +24,6 @@ export class ConstructorDefinition extends SlangNode {
     this.parameters = new ParametersDeclaration(ast.parameters, collected);
     this.attributes = new ConstructorAttributes(ast.attributes, collected);
     this.body = new Block(ast.body, collected);
-
-    this.updateMetadata(this.parameters, this.attributes, this.body);
   }
 
   print(print: PrintFunction): Doc {
