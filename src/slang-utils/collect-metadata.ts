@@ -30,8 +30,9 @@ function visitNonterminal(
 ): AstLocation {
   // Where the node starts, including the comments before its first token.
   const outerStart = collected.offset;
-  let triviaLength = 0;
-  let leadingOffset;
+  // The locations of the first and the last children that are not trivia.
+  let first: AstLocation | undefined;
+  let last: AstLocation | undefined;
 
   if (cursor.goToFirstChild()) {
     do {
@@ -73,8 +74,6 @@ function visitNonterminal(
               break;
           }
         }
-        // We accumulate the trivia length
-        triviaLength += end - start;
         collected.offset = end;
         continue;
       }
@@ -84,22 +83,23 @@ function visitNonterminal(
       if (node.isTerminalNode()) {
         const start = collected.offset;
         const end = start + node.textLength.utf16;
-        // Some variants can be TerminalNodes, and since `extractVariant` drops
-        // their wrapper, we need to track their location.
-        collected.locations.set(node.id, {
+        last = {
           outerStart: start,
           outerEnd: end,
           start,
           end
-        });
+        };
+        // Some variants can be TerminalNodes, and since `extractVariant` drops
+        // their wrapper, we need to track their location.
+        collected.locations.set(node.id, last);
         collected.offset = end;
       } else {
-        visitNonterminal(cursor, node.id, collected, originalText);
+        // The walk moves the offset to where the nonterminal ends, so we don't
+        // need to ask Slang for its length.
+        last = visitNonterminal(cursor, node.id, collected, originalText);
       }
-      // We assign the `leadingOffset` only once.
-      leadingOffset ??= triviaLength;
-      // Since this is a non trivia node, we reset the accumulated length
-      triviaLength = 0;
+
+      first ??= last;
     } while (cursor.goToNextSibling());
 
     // Since we are done with the children, we move the cursor to the parent
@@ -107,16 +107,12 @@ function visitNonterminal(
     cursor.goToParent();
   }
 
-  // In case the `leadingOffset` was not initialized
-  leadingOffset ??= 0;
-
   // We collect the location of the NonterminalNode itself.
   const location = {
     outerStart,
     outerEnd: collected.offset,
-    start: outerStart + leadingOffset,
-    // The remaining `triviaLength` is the trailing trivia
-    end: collected.offset - triviaLength
+    start: first?.start ?? outerStart,
+    end: last?.end ?? outerStart
   };
   collected.locations.set(id, location);
 
