@@ -1,19 +1,40 @@
-import { EdgeLabel, TerminalKind } from '@nomicfoundation/slang/cst';
+import {
+  EdgeLabel,
+  NonterminalKind,
+  TerminalKind
+} from '@nomicfoundation/slang/cst';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.ts';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.ts';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.ts';
 import { SingleLineNatSpecComment } from '../slang-nodes/SingleLineNatSpecComment.ts';
+import { createKindCheckFunction } from './create-kind-check-function.ts';
 
-import type { Cursor } from '@nomicfoundation/slang/cst';
+import type { Cursor, NonterminalNode } from '@nomicfoundation/slang/cst';
 import type { Comment } from '../slang-nodes/types.d.ts';
-import type { AstLocation } from '../types.d.ts';
+import type { Location } from '../types.d.ts';
 
 interface Metadata {
-  locations: Map<number, AstLocation>;
+  locations: Map<number, Location>;
   comments: Comment[];
   // How far into the text the walk is.
   offset: number;
 }
+
+// A collection's location embraces the comments around its items, so they are
+// attached within the collection (and stay inside its delimiters) instead of
+// to whichever node surrounds it. These are the collections that don't, and
+// are located by their first and last item like any other node.
+const isTightCollection = createKindCheckFunction([
+  NonterminalKind.CatchClauses,
+  NonterminalKind.HexStringLiterals,
+  NonterminalKind.IdentifierPath,
+  NonterminalKind.StringLiterals,
+  NonterminalKind.UnicodeStringLiterals,
+  NonterminalKind.YulPath,
+  NonterminalKind.YulPaths,
+  NonterminalKind.YulSwitchCases,
+  NonterminalKind.YulVariableNames
+]);
 
 // Walks the children of the NonterminalNode under the cursor, recording the
 // location of every node below it and collecting the comments, then records
@@ -24,15 +45,16 @@ interface Metadata {
 // WebAssembly and creates a new JavaScript object for every child.
 function visitNonterminal(
   cursor: Cursor,
-  id: number,
+  node: NonterminalNode,
   collected: Metadata,
   originalText: string
-): AstLocation {
+): Location {
   // Where the node starts, including the comments before its first token.
   const outerStart = collected.offset;
+  let isCollection = false;
   // The locations of the first and the last children that are not trivia.
-  let first: AstLocation | undefined;
-  let last: AstLocation | undefined;
+  let first: Location | undefined;
+  let last: Location | undefined;
 
   if (cursor.goToFirstChild()) {
     do {
@@ -78,17 +100,16 @@ function visitNonterminal(
         continue;
       }
 
+      // Only the children of a collection are labeled as items, which spares
+      // us from asking Slang for the kind of every other NonterminalNode.
+      if (label === EdgeLabel.Item) isCollection = true;
+
       const node = cursor.node;
 
       if (node.isTerminalNode()) {
         const start = collected.offset;
         const end = start + node.textLength.utf16;
-        last = {
-          outerStart: start,
-          outerEnd: end,
-          start,
-          end
-        };
+        last = { start, end };
         // Some variants can be TerminalNodes, and since `extractVariant` drops
         // their wrapper, we need to track their location.
         collected.locations.set(node.id, last);
@@ -96,7 +117,7 @@ function visitNonterminal(
       } else {
         // The walk moves the offset to where the nonterminal ends, so we don't
         // need to ask Slang for its length.
-        last = visitNonterminal(cursor, node.id, collected, originalText);
+        last = visitNonterminal(cursor, node, collected, originalText);
       }
 
       first ??= last;
@@ -107,14 +128,14 @@ function visitNonterminal(
     cursor.goToParent();
   }
 
+  const embracesComments = isCollection && !isTightCollection(node);
+
   // We collect the location of the NonterminalNode itself.
   const location = {
-    outerStart,
-    outerEnd: collected.offset,
-    start: first?.start ?? outerStart,
-    end: last?.end ?? outerStart
+    start: embracesComments ? outerStart : (first?.start ?? outerStart),
+    end: embracesComments ? collected.offset : (last?.end ?? outerStart)
   };
-  collected.locations.set(id, location);
+  collected.locations.set(node.id, location);
 
   return location;
 }
@@ -126,6 +147,11 @@ export function collectMetadata(
   originalText: string
 ): Metadata {
   const collected: Metadata = { locations: new Map(), comments: [], offset: 0 };
-  visitNonterminal(cursor, cursor.node.id, collected, originalText);
+  visitNonterminal(
+    cursor,
+    cursor.node as NonterminalNode,
+    collected,
+    originalText
+  );
   return collected;
 }

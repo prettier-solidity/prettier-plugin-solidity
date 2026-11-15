@@ -1,11 +1,7 @@
 import { TerminalNode as SlangTerminalNode } from '@nomicfoundation/slang/cst';
 
 import type { NonterminalKind, TerminalKind } from '@nomicfoundation/slang/cst';
-import type {
-  AstLocation,
-  CollectedMetadata,
-  SlangAstNode
-} from '../types.d.ts';
+import type { CollectedMetadata, Location, SlangAstNode } from '../types.d.ts';
 import type { Comment } from './types.d.ts';
 
 // Every own data field of a node, excluding its methods (`print`,
@@ -21,21 +17,16 @@ export abstract class SlangNode {
 
   comments?: Comment[];
 
-  loc: AstLocation;
+  loc: Location;
 
   protected constructor(
     ast: SlangAstNode | SlangTerminalNode,
-    collected: CollectedMetadata,
-    enclosePeripheralComments = false
+    collected: CollectedMetadata
   ) {
     const { id } = ast instanceof SlangTerminalNode ? ast : ast.cst;
     // `collectMetadata` recorded every node of the tree before we started
     // building ours.
-    const loc = collected.locations.get(id)!;
-
-    this.loc = enclosePeripheralComments
-      ? { ...loc, start: loc.outerStart, end: loc.outerEnd }
-      : loc;
+    this.loc = collected.locations.get(id)!;
   }
 
   updateMetadata(...childNodes: unknown[]): void;

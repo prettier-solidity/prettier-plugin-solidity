@@ -18,7 +18,7 @@ export class ReceiveFunctionAttributes extends SlangNode {
     ast: ast.ReceiveFunctionAttributes,
     collected: CollectedMetadata
   ) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new ReceiveFunctionAttribute(item, collected))

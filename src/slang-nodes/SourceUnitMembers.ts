@@ -15,7 +15,7 @@ export class SourceUnitMembers extends SlangNode {
   items: SourceUnitMember['variant'][];
 
   constructor(ast: ast.SourceUnitMembers, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new SourceUnitMember(item, collected))
