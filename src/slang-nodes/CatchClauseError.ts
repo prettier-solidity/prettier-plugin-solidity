@@ -22,8 +22,6 @@ export class CatchClauseError extends SlangNode {
       this.name = new TerminalNode(ast.name, collected);
     }
     this.parameters = new ParametersDeclaration(ast.parameters, collected);
-
-    this.updateMetadata(this.parameters);
   }
 
   print(print: PrintFunction): Doc {

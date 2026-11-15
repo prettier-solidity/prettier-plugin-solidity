@@ -23,8 +23,6 @@ export class UsingDirective extends SlangNode {
     this.clause = extractVariant(new UsingClause(ast.clause, collected));
     this.target = extractVariant(new UsingTarget(ast.target, collected));
     this.globalKeyword = ast.globalKeyword?.unparse();
-
-    this.updateMetadata(this.clause, this.target);
   }
 
   print(print: PrintFunction): Doc {

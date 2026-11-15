@@ -42,8 +42,6 @@ export class VariableDeclarationStatement extends SlangNode {
     if (ast.value) {
       this.value = new VariableDeclarationValue(ast.value, collected);
     }
-
-    this.updateMetadata(this.variableType, this.storageLocation, this.value);
   }
 
   print(print: PrintFunction): Doc {

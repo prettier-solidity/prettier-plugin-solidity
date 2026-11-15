@@ -15,8 +15,6 @@ export class AbicoderPragma extends SlangNode {
     super(ast, collected);
 
     this.version = new AbicoderVersion(ast.version, collected);
-
-    this.updateMetadata(this.version);
   }
 
   print(print: PrintFunction): Doc {

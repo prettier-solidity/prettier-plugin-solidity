@@ -15,8 +15,6 @@ export class UsingAlias extends SlangNode {
     super(ast, collected);
 
     this.operator = new UsingOperator(ast.operator, collected);
-
-    this.updateMetadata(this.operator);
   }
 
   print(print: PrintFunction): Doc {

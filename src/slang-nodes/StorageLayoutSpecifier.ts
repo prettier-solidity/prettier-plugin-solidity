@@ -18,8 +18,6 @@ export class StorageLayoutSpecifier extends SlangNode {
     super(ast, collected);
 
     this.expression = extractVariant(new Expression(ast.expression, collected));
-
-    this.updateMetadata(this.expression);
   }
 
   print(print: PrintFunction, path: AstPath<StorageLayoutSpecifier>): Doc {

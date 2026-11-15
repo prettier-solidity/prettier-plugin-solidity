@@ -24,7 +24,5 @@ export class VariableDeclarationType extends SlangNode {
       return;
     }
     this.variant = extractVariant(new TypeName(variant, collected));
-
-    this.updateMetadata(this.variant);
   }
 }

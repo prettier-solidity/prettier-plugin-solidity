@@ -27,8 +27,6 @@ export class AssignmentExpression extends SlangNode {
     this.rightOperand = extractVariant(
       new Expression(ast.rightOperand, collected)
     );
-
-    this.updateMetadata(this.leftOperand, this.rightOperand);
   }
 
   print(print: PrintFunction): Doc {

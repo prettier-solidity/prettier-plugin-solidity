@@ -15,8 +15,6 @@ export class VersionPragma extends SlangNode {
     super(ast, collected);
 
     this.sets = new VersionExpressionSets(ast.sets, collected);
-
-    this.updateMetadata(this.sets);
   }
 
   print(print: PrintFunction): Doc {

@@ -16,8 +16,6 @@ export class ImportDirective extends SlangNode {
     super(ast, collected);
 
     this.clause = extractVariant(new ImportClause(ast.clause, collected));
-
-    this.updateMetadata(this.clause);
   }
 
   print(print: PrintFunction): Doc {

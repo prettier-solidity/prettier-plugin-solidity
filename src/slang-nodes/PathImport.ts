@@ -21,8 +21,6 @@ export class PathImport extends SlangNode {
     if (ast.alias) {
       this.alias = new ImportAlias(ast.alias, collected);
     }
-
-    this.updateMetadata(this.path, this.alias);
   }
 
   print(print: PrintFunction): Doc {

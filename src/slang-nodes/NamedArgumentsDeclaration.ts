@@ -20,8 +20,6 @@ export class NamedArgumentsDeclaration extends SlangNode {
     if (ast.arguments) {
       this.arguments = new NamedArgumentGroup(ast.arguments, collected);
     }
-
-    this.updateMetadata(this.arguments);
   }
 
   print(print: PrintFunction): Doc {

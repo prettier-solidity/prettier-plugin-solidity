@@ -19,8 +19,6 @@ export class ImportDeconstruction extends SlangNode {
 
     this.symbols = new ImportDeconstructionSymbols(ast.symbols, collected);
     this.path = new StringLiteral(ast.path, collected);
-
-    this.updateMetadata(this.symbols, this.path);
   }
 
   print(print: PrintFunction): Doc {
