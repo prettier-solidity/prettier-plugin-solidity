@@ -106,7 +106,7 @@
     "jest-watch-typeahead": "^3.0.1",
     "knip": "^6.45.1",
     "playwright": "^1.65.0",
-    "prettier": "^3.10.0",
+    "prettier": "^3.10.1",
     "solc": "^0.8.38",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.72.2",
