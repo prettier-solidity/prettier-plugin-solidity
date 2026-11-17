@@ -42,8 +42,8 @@ export function collectMetadata(
   let offset = 0;
 
   // Walks the children of the NonterminalNode under the cursor, recording the
-  // location of every node below it and collecting the comments, then records
-  // and returns the NonterminalNode's own location.
+  // location of every node below it and collecting the comments, then returns
+  // the NonterminalNode's own location.
   //
   // A single cursor walking the whole tree is much cheaper than calling
   // `children()` on every NonterminalNode, since each call crosses into
@@ -103,9 +103,6 @@ export function collectMetadata(
 
         if (child.isTerminalNode()) {
           last = { start: offset, end: offset + child.textLength.utf16 };
-          // Some variants can be TerminalNodes, and since `extractVariant`
-          // drops their wrapper, we need to track their location.
-          locations.set(child.id, last);
           offset = last.end;
         } else {
           // The walk moves the offset to where the nonterminal ends, so we
@@ -113,6 +110,9 @@ export function collectMetadata(
           last = visitNonterminal(child);
         }
 
+        // We record every child, TerminalNodes included since some variants
+        // can be TerminalNodes and `extractVariant` drops their wrapper.
+        locations.set(child.id, last);
         first ??= last;
       } while (cursor.goToNextSibling());
 
@@ -129,15 +129,13 @@ export function collectMetadata(
     // the node is located by its first and last children.
     // A node without children will default to a `start` and `end` equal to the
     // initial offset.
-    const location = {
+    return {
       start: embracesComments ? outerStart : (first?.start ?? outerStart),
       end: embracesComments ? offset : (last?.end ?? outerStart)
     };
-    locations.set(node.id, location);
-
-    return location;
   }
 
-  visitNonterminal(root);
+  locations.set(root.id, visitNonterminal(root));
+
   return { locations, comments };
 }
