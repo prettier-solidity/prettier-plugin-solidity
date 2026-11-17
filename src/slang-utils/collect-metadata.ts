@@ -12,8 +12,6 @@ import type { Location } from '../types.d.ts';
 interface Metadata {
   locations: Map<number, Location>;
   comments: Comment[];
-  // How far into the text the walk is.
-  offset: number;
 }
 
 // A collection's location embraces the comments around its items, so they are
@@ -32,104 +30,6 @@ const isTightCollection = createKindCheckFunction([
   NonterminalKind.YulVariableNames
 ]);
 
-// Walks the children of the NonterminalNode under the cursor, recording the
-// location of every node below it and collecting the comments, then returns
-// the NonterminalNode's own location.
-//
-// A single cursor walking the whole tree is much cheaper than calling
-// `children()` on every NonterminalNode, since each call crosses into Slang's
-// WebAssembly and creates a new JavaScript object for every child.
-function visitNonterminal(
-  cursor: Cursor,
-  node: NonterminalNode,
-  collected: Metadata,
-  originalText: string
-): Location {
-  // Where the node starts, including the comments before its first token.
-  const outerStart = collected.offset;
-  let isCollection = false;
-  // The locations of the first and the last children that are not trivia.
-  let first: Location | undefined;
-  let last: Location | undefined;
-
-  if (cursor.goToFirstChild()) {
-    do {
-      const label = cursor.label;
-
-      // Trivia can be identified by its label, which is much cheaper than
-      // instantiating the node. Since a huge amount of nodes are trivia, it's
-      // worth just querying the Cursor.
-      if (
-        label === EdgeLabel.LeadingTrivia ||
-        label === EdgeLabel.TrailingTrivia
-      ) {
-        const start = collected.offset;
-        const end = cursor.textRange.end.utf16;
-
-        // Whitespace and line breaks never start with `/`, every comment does.
-        if (originalText.startsWith('/', start)) {
-          // Since fetching the comments and locating the nodes are both done
-          // as we iterate over the tree and a comment's location also depends
-          // on where the walk is, it's hard to separate these responsibilities
-          // into different functions without doing the iteration twice.
-          collected.comments.push(
-            originalText.startsWith('//', start)
-              ? originalText.startsWith('///', start)
-                ? new SingleLineNatSpecComment(originalText, start, end)
-                : new SingleLineComment(originalText, start, end)
-              : originalText.startsWith('/**', start) &&
-                  // `/**/` is an empty MultiLineComment.
-                  !originalText.startsWith('/**/', start)
-                ? new MultiLineNatSpecComment(originalText, start, end)
-                : new MultiLineComment(originalText, start, end)
-          );
-        }
-        collected.offset = end;
-        continue;
-      }
-
-      // Only the children of a collection are labeled as items, which spares
-      // us from asking Slang for the kind of every other NonterminalNode.
-      if (label === EdgeLabel.Item) isCollection = true;
-
-      const child = cursor.node;
-
-      if (child.isTerminalNode()) {
-        const start = collected.offset;
-        const end = start + child.textLength.utf16;
-        last = { start, end };
-        collected.offset = end;
-      } else {
-        // The walk moves the offset to where the nonterminal ends, so we don't
-        // need to ask Slang for its length.
-        last = visitNonterminal(cursor, child, collected, originalText);
-      }
-
-      // We record every child, TerminalNodes included since some variants can
-      // be TerminalNodes and `extractVariant` drops their wrapper.
-      collected.locations.set(child.id, last);
-      first ??= last;
-    } while (cursor.goToNextSibling());
-
-    // Since we are done with the children, we move the cursor to the parent
-    // node so the calling function can continue walking.
-    cursor.goToParent();
-  }
-
-  // An embracing collection covers everything the walk went through,
-  // peripheral comments included.
-  const embracesComments = isCollection && !isTightCollection(node);
-
-  // Comments before a node's first token can be several levels below it, so
-  // the node is located by its first and last children.
-  // A node without children will default to a `start` and `end` equal to the
-  // initial offset.
-  return {
-    start: embracesComments ? outerStart : (first?.start ?? outerStart),
-    end: embracesComments ? collected.offset : (last?.end ?? outerStart)
-  };
-}
-
 // Records the location of every node in the tree, and collects its comments,
 // in a single walk. The cursor must be at the root of the tree.
 export function collectMetadata(
@@ -137,10 +37,107 @@ export function collectMetadata(
   originalText: string
 ): Metadata {
   const root = cursor.node as NonterminalNode;
-  const collected: Metadata = { locations: new Map(), comments: [], offset: 0 };
-  collected.locations.set(
-    root.id,
-    visitNonterminal(cursor, root, collected, originalText)
-  );
-  return collected;
+  const locations = new Map<number, Location>();
+  const comments: Comment[] = [];
+  let offset = 0;
+
+  // Walks the children of the NonterminalNode under the cursor, recording the
+  // location of every node below it and collecting the comments, then records
+  // and returns the NonterminalNode's own location.
+  //
+  // A single cursor walking the whole tree is much cheaper than calling
+  // `children()` on every NonterminalNode, since each call crosses into
+  // Slang's WebAssembly and creates a new JavaScript object for every child.
+  function visitNonterminal(node: NonterminalNode): Location {
+    // Where the node starts, including the comments before its first token.
+    const outerStart = offset;
+    let isCollection = false;
+    // The locations of the first and the last children that are not trivia.
+    let first: Location | undefined;
+    let last: Location | undefined;
+
+    if (cursor.goToFirstChild()) {
+      do {
+        const label = cursor.label;
+
+        // Trivia can be identified by its label, which is much cheaper than
+        // instantiating the node. Since a huge amount of nodes are trivia,
+        // it's worth just querying the Cursor.
+        if (
+          label === EdgeLabel.LeadingTrivia ||
+          label === EdgeLabel.TrailingTrivia
+        ) {
+          const start = offset;
+          const end = cursor.textRange.end.utf16;
+
+          // Whitespace and line breaks never start with `/`, every comment
+          // does.
+          if (originalText.startsWith('/', start)) {
+            // Since fetching the comments and locating the nodes are both done
+            // as we iterate over the tree and a comment's location also
+            // depends on where the walk is, it's hard to separate these
+            // responsibilities into different functions without doing the
+            // iteration twice.
+            const commentStartsWith = (prefix: string): boolean =>
+              originalText.startsWith(prefix, start);
+            const CommentClass = commentStartsWith('//')
+              ? commentStartsWith('///')
+                ? SingleLineNatSpecComment
+                : SingleLineComment
+              : commentStartsWith('/**') &&
+                  // `/**/` is an empty MultiLineComment.
+                  !commentStartsWith('/**/')
+                ? MultiLineNatSpecComment
+                : MultiLineComment;
+            comments.push(new CommentClass(originalText, start, end));
+          }
+          offset = end;
+          continue;
+        }
+
+        // Only the children of a collection are labeled as items, which spares
+        // us from asking Slang for the kind of every other NonterminalNode.
+        if (label === EdgeLabel.Item) isCollection = true;
+
+        const child = cursor.node;
+
+        if (child.isTerminalNode()) {
+          last = { start: offset, end: offset + child.textLength.utf16 };
+          // Some variants can be TerminalNodes, and since `extractVariant`
+          // drops their wrapper, we need to track their location.
+          locations.set(child.id, last);
+          offset = last.end;
+        } else {
+          // The walk moves the offset to where the nonterminal ends, so we
+          // don't need to ask Slang for its length.
+          last = visitNonterminal(child);
+        }
+
+        first ??= last;
+      } while (cursor.goToNextSibling());
+
+      // Since we are done with the children, we move the cursor to the parent
+      // node so the calling function can continue walking.
+      cursor.goToParent();
+    }
+
+    // An embracing collection covers everything the walk went through,
+    // peripheral comments included.
+    const embracesComments = isCollection && !isTightCollection(node);
+
+    // Comments before a node's first token can be several levels below it, so
+    // the node is located by its first and last children.
+    // A node without children will default to a `start` and `end` equal to the
+    // initial offset.
+    const location = {
+      start: embracesComments ? outerStart : (first?.start ?? outerStart),
+      end: embracesComments ? offset : (last?.end ?? outerStart)
+    };
+    locations.set(node.id, location);
+
+    return location;
+  }
+
+  visitNonterminal(root);
+  return { locations, comments };
 }
