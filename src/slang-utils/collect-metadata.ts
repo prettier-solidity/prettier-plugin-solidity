@@ -60,9 +60,9 @@ function visitNonterminal(
     do {
       const label = cursor.label;
 
-      // Trivia can be identified by it's label, which is much cheaper than
+      // Trivia can be identified by its label, which is much cheaper than
       // instantiating the node. Since a huge amount of nodes are trivia, it's
-      // worth to just query the Cursor.
+      // worth just querying the Cursor.
       if (
         label === EdgeLabel.LeadingTrivia ||
         label === EdgeLabel.TrailingTrivia
@@ -104,20 +104,20 @@ function visitNonterminal(
       // us from asking Slang for the kind of every other NonterminalNode.
       if (label === EdgeLabel.Item) isCollection = true;
 
-      const node = cursor.node;
+      const child = cursor.node;
 
-      if (node.isTerminalNode()) {
+      if (child.isTerminalNode()) {
         const start = collected.offset;
-        const end = start + node.textLength.utf16;
+        const end = start + child.textLength.utf16;
         last = { start, end };
         // Some variants can be TerminalNodes, and since `extractVariant` drops
         // their wrapper, we need to track their location.
-        collected.locations.set(node.id, last);
+        collected.locations.set(child.id, last);
         collected.offset = end;
       } else {
         // The walk moves the offset to where the nonterminal ends, so we don't
         // need to ask Slang for its length.
-        last = visitNonterminal(cursor, node, collected, originalText);
+        last = visitNonterminal(cursor, child, collected, originalText);
       }
 
       first ??= last;
@@ -128,9 +128,14 @@ function visitNonterminal(
     cursor.goToParent();
   }
 
+  // An embracing collection covers everything the walk went through,
+  // peripheral comments included.
   const embracesComments = isCollection && !isTightCollection(node);
 
-  // We collect the location of the NonterminalNode itself.
+  // Comments before a node's first token can be several levels below it, so
+  // the node is located by its first and last children.
+  // A node without children will default to a `start` and `end` equal to the
+  // initial offset.
   const location = {
     start: embracesComments ? outerStart : (first?.start ?? outerStart),
     end: embracesComments ? collected.offset : (last?.end ?? outerStart)
