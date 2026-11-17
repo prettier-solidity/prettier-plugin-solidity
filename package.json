@@ -94,7 +94,7 @@
     "@typescript/native": "npm:typescript@^7.0.2",
     "c8": "^12.0.0",
     "cross-env": "^10.1.0",
-    "eslint": "^10.14.0",
+    "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import-x": "^4.18.1",
     "globals": "^17.14.0",
