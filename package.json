@@ -91,7 +91,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^26.6.6",
     "@types/semver": "^7.8.0",
-    "@typescript/native": "npm:typescript@^7.0.2",
+    "@typescript/native": "npm:typescript@7.1.0-dev.20261119.1",
     "c8": "^12.0.0",
     "cross-env": "^10.1.0",
     "eslint": "^10.15.0",
@@ -109,7 +109,7 @@
     "prettier": "^3.10.1",
     "solc": "^0.8.38",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.72.2",
+    "typescript-eslint": "^8.73.0",
     "webpack": "^5.112.2",
     "webpack-cli": "^7.3.1"
   },
