@@ -29,8 +29,6 @@ export class IndexAccessExpression extends SlangNode {
     if (ast.end) {
       this.end = new IndexAccessEnd(ast.end, collected);
     }
-
-    this.updateMetadata(this.operand, this.start, this.end);
   }
 
   print(print: PrintFunction): Doc {

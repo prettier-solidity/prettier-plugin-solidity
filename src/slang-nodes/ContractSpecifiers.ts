@@ -39,7 +39,7 @@ export class ContractSpecifiers extends SlangNode {
   items: ContractSpecifier['variant'][];
 
   constructor(ast: ast.ContractSpecifiers, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new ContractSpecifier(item, collected))

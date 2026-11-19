@@ -22,8 +22,6 @@ export class ReturnStatement extends SlangNode {
         new Expression(ast.expression, collected)
       );
     }
-
-    this.updateMetadata(this.expression);
   }
 
   print(

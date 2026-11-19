@@ -17,7 +17,7 @@ export class StructMembers extends SlangNode {
   items: StructMember[];
 
   constructor(ast: ast.StructMembers, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new StructMember(item, collected));
   }

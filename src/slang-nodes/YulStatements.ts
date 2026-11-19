@@ -15,7 +15,7 @@ export class YulStatements extends SlangNode {
   items: YulStatement['variant'][];
 
   constructor(ast: ast.YulStatements, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new YulStatement(item, collected))

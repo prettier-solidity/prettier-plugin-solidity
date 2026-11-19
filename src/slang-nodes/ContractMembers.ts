@@ -15,7 +15,7 @@ export class ContractMembers extends SlangNode {
   items: ContractMember['variant'][];
 
   constructor(ast: ast.ContractMembers, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new ContractMember(item, collected))

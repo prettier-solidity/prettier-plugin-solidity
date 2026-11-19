@@ -17,8 +17,6 @@ export class SourceUnit extends SlangNode {
     super(ast, collected);
 
     this.members = new SourceUnitMembers(ast.members, collected);
-
-    this.updateMetadata(this.members);
   }
 
   print(

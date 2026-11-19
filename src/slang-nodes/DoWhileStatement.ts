@@ -22,8 +22,6 @@ export class DoWhileStatement extends SlangNode {
 
     this.body = extractVariant(new Statement(ast.body, collected));
     this.condition = extractVariant(new Expression(ast.condition, collected));
-
-    this.updateMetadata(this.body, this.condition);
   }
 
   print(print: PrintFunction): Doc {

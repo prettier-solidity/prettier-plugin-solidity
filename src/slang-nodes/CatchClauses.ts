@@ -13,11 +13,9 @@ export class CatchClauses extends SlangNode {
   items: CatchClause[];
 
   constructor(ast: ast.CatchClauses, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new CatchClause(item, collected));
-
-    this.updateMetadata(...this.items);
   }
 
   print(print: PrintFunction, path: AstPath<CatchClauses>): Doc {

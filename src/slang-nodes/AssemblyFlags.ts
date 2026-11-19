@@ -13,7 +13,7 @@ export class AssemblyFlags extends SlangNode {
   items: StringLiteral[];
 
   constructor(ast: ast.AssemblyFlags, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new StringLiteral(item, collected));
   }

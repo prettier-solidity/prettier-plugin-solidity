@@ -20,8 +20,6 @@ export class YulValueCase extends SlangNode {
 
     this.value = extractVariant(new YulLiteral(ast.value, collected));
     this.body = new YulBlock(ast.body, collected);
-
-    this.updateMetadata(this.value, this.body);
   }
 
   print(print: PrintFunction): Doc {

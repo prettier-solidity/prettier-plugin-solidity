@@ -16,8 +16,6 @@ export class StringLiterals extends SlangNode {
     super(ast, collected);
 
     this.items = ast.items.map((item) => new StringLiteral(item, collected));
-
-    this.updateMetadata(...this.items);
   }
 
   print(print: PrintFunction, path: AstPath<StringLiterals>): Doc {

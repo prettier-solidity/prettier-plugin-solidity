@@ -16,7 +16,7 @@ export class Parameters extends SlangNode {
   items: Parameter[];
 
   constructor(ast: ast.Parameters, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new Parameter(item, collected));
   }
