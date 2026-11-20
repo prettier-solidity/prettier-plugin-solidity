@@ -28,5 +28,6 @@ export const PRETTIER_PLUGIN_NAMES = ["babel", "estree", "markdown"];
 
 export const BROWSER_TEST_ROOTS = [
   ["/dist/", path.resolve(__dirname, "../../dist")],
+  ["/dist-test/", path.resolve(__dirname, "../../dist-test")],
   ["/prettier/", path.resolve(__dirname, "../../node_modules/prettier")],
 ];
