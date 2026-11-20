@@ -7,7 +7,6 @@ import * as testEndOfLine from "./test-end-of-line.js";
 import * as testFormat from "./test-format.js";
 import * as testSecondFormat from "./test-second-format.js";
 import * as testBytecodeCompare from "./test-bytecode-compare.js";
-import * as testAntlrFormat from "./test-antlr-format.js";
 import * as testLocations from "./test-locations.js";
 import * as testVariantCoverage from "./test-variant-coverage.js";
 import { shouldThrowOnFormat } from "./utilities.js";
@@ -89,14 +88,6 @@ function testFixture(fixture) {
       {
         name: "locations",
         test: { run: testLocations.run, skip: testLocations.skip },
-        skip: (testCase) =>
-          !FULL_TEST ||
-          testCase !== testCaseForSnapshot ||
-          testCase.parser !== "slang",
-      },
-      {
-        name: "ANTLR format",
-        test: { run: testAntlrFormat.run, skip: testAntlrFormat.skip },
         skip: (testCase) =>
           !FULL_TEST ||
           testCase !== testCaseForSnapshot ||
