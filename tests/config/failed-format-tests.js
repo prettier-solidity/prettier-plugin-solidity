@@ -32,6 +32,7 @@ const antlrMismatchTests = new Map(
     // Better placement of comments in Slang.
     "BasicIterator/BasicIterator.sol",
     "Comments/Comments.sol",
+    "IfStatements/ElseBranchComments.sol",
     "IndexOf/IndexOf.sol",
     // ANTLR prints two spaces before a trailing comment after `let` without
     // a value.
