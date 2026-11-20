@@ -42,6 +42,7 @@ const antlrMismatchTests = new Map(
     "Comments/Comments.sol",
     "IfStatements/ElseBranchComments.sol",
     "IndexOf/IndexOf.sol",
+    "WhileStatements/WhileStatementComments.sol",
     // ANTLR prints two spaces before a trailing comment after `let` without
     // a value.
     "Assembly/YulListsAtTheEdge.sol",
