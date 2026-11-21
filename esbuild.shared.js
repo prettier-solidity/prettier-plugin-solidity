@@ -1,26 +1,14 @@
 import { createHash } from 'node:crypto';
-import { copyFile, mkdir, readFile } from 'node:fs/promises';
+import { copyFile, mkdir, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import packageJson from './package.json' with { type: 'json' };
 
 // Slang loads its .wasm files with `new URL('./….wasm', import.meta.url)`,
-// which esbuild doesn't treat as a dependency. This keeps each of those URLs,
-// renames the file to its content hash and copies it to the outdir, so the
-// bundle can be bundled again (the test app bundles `dist/standalone.js`).
-const wasmUrl = new RegExp(
-  [
-    /new URL\(\s*/, // `new URL(` and any whitespace after it
-    /(['"`])/, // 1: the opening quote, whichever kind it is
-    /(\.{1,2}\/[^'"`]+\.wasm)/, // 2: a `./` or `../` path ending in `.wasm`
-    /\1/, // the same quote closes the path
-    /\s*,\s*import\.meta\.url\s*\)/ // `, import.meta.url)`, with any whitespace
-  ]
-    .map((part) => part.source)
-    .join(''),
-  'g'
-);
-
+// which esbuild doesn't treat as a dependency. For every .wasm file next to a
+// module that mentions it, this renames the path to the file's content hash and
+// copies the file to the outdir. Since the URL stays a plain `./….wasm` path,
+// a bundle can be bundled again (the test app bundles `dist/standalone.js`).
 const wasmUrlPlugin = {
   name: 'wasm-url',
   setup(build) {
@@ -28,25 +16,29 @@ const wasmUrlPlugin = {
     const files = new Map();
 
     build.onLoad({ filter: /\.m?js$/ }, async ({ path: file }) => {
-      const code = await readFile(file, 'utf8');
-      const matches = [...code.matchAll(wasmUrl)];
-      if (matches.length === 0) return undefined;
+      const dir = path.dirname(file);
+      const wasmFiles = (await readdir(dir)).filter((name) =>
+        name.endsWith('.wasm')
+      );
+      if (wasmFiles.length === 0) return undefined;
 
-      let contents = code;
-      for (const [match, , specifier] of matches) {
-        const source = path.resolve(path.dirname(file), specifier);
+      let contents = await readFile(file, 'utf8');
+      let changed = false;
+      for (const wasmFile of wasmFiles) {
+        const specifier = `./${wasmFile}`;
+        if (!contents.includes(specifier)) continue;
+
+        const source = path.join(dir, wasmFile);
         const hash = createHash('sha256')
           .update(await readFile(source))
           .digest('hex')
           .slice(0, 20);
         const name = `${hash}.wasm`;
         files.set(name, source);
-        contents = contents.replace(
-          match,
-          `new URL(${JSON.stringify(`./${name}`)}, import.meta.url)`
-        );
+        contents = contents.replaceAll(specifier, `./${name}`);
+        changed = true;
       }
-      return { contents, loader: 'js' };
+      return changed ? { contents, loader: 'js' } : undefined;
     });
 
     build.onEnd(async (result) => {
