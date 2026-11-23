@@ -6,7 +6,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract AddNoParentheses {
     function addAdd(uint256 a, uint256 b, uint256 c)
@@ -100,7 +100,7 @@ contract AddNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract AddNoParentheses {
     function addAdd(
@@ -556,7 +556,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract BitAndNoParentheses {
     function bitAndAdd(uint256 a, uint256 b, uint256 c)
@@ -650,7 +650,7 @@ contract BitAndNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract BitAndNoParentheses {
     function bitAndAdd(
@@ -1115,7 +1115,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract BitOrNoParentheses {
     function bitOrAdd(uint256 a, uint256 b, uint256 c)
@@ -1209,7 +1209,7 @@ contract BitOrNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract BitOrNoParentheses {
     function bitOrAdd(
@@ -1674,7 +1674,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract BitXorNoParentheses {
     function bitXorAdd(uint256 a, uint256 b, uint256 c)
@@ -1768,7 +1768,7 @@ contract BitXorNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract BitXorNoParentheses {
     function bitXorAdd(
@@ -2233,7 +2233,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract DivNoParentheses {
     function divAdd(uint256 a, uint256 b, uint256 c)
@@ -2327,7 +2327,7 @@ contract DivNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract DivNoParentheses {
     function divAdd(
@@ -3409,7 +3409,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract ExpNoParentheses {
     function expAdd(uint256 a, uint256 b, uint256 c)
@@ -3503,7 +3503,7 @@ contract ExpNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract ExpNoParentheses {
     function expAdd(
@@ -3959,7 +3959,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract LogicNoParentheses {
     function orOr(bool a, bool b, bool c) public pure returns (bool) {
@@ -3997,7 +3997,7 @@ contract LogicNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract LogicNoParentheses {
     function orOr(bool a, bool b, bool c) public pure returns (bool) {
@@ -4314,7 +4314,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract ModNoParentheses {
     function modAdd(uint256 a, uint256 b, uint256 c)
@@ -4408,7 +4408,7 @@ contract ModNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract ModNoParentheses {
     function modAdd(
@@ -4861,7 +4861,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract MulNoParentheses {
     function mulAdd(uint256 a, uint256 b, uint256 c)
@@ -4955,7 +4955,7 @@ contract MulNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract MulNoParentheses {
     function mulAdd(
@@ -6037,7 +6037,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract ShiftLNoParentheses {
     function shiftLAdd(uint256 a, uint256 b, uint256 c)
@@ -6131,7 +6131,7 @@ contract ShiftLNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract ShiftLNoParentheses {
     function shiftLAdd(
@@ -6599,7 +6599,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract ShiftRNoParentheses {
     function shiftRAdd(uint256 a, uint256 b, uint256 c)
@@ -6693,7 +6693,7 @@ contract ShiftRNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract ShiftRNoParentheses {
     function shiftRAdd(
@@ -7161,7 +7161,7 @@ parsers: ["slang"]
                                                       printWidth: 80 (default) |
 =====================================input======================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract SubNoParentheses {
     function subAdd(uint256 a, uint256 b, uint256 c)
@@ -7255,7 +7255,7 @@ contract SubNoParentheses {
 
 =====================================output=====================================
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract SubNoParentheses {
     function subAdd(
