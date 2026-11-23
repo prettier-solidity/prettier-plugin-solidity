@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.38;
+pragma solidity 0.8.39;
 
 contract NumberLiteral {
   function numbers()public {
