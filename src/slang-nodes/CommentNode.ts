@@ -4,6 +4,8 @@ import type { PrintableNode } from './types.d.ts';
 export abstract class CommentNode {
   loc: Location;
 
+  value: string;
+
   leading?: boolean;
 
   trailing?: boolean;
@@ -18,7 +20,9 @@ export abstract class CommentNode {
 
   followingNode?: PrintableNode;
 
-  protected constructor(start: number, end: number) {
+  protected constructor(originalText: string, start: number, end: number) {
     this.loc = { start, end };
+
+    this.value = originalText.slice(start, end);
   }
 }

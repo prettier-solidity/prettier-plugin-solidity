@@ -1,8 +1,4 @@
-import {
-  EdgeLabel,
-  NonterminalKind,
-  TerminalKind
-} from '@nomicfoundation/slang/cst';
+import { EdgeLabel, NonterminalKind } from '@nomicfoundation/slang/cst';
 import { MultiLineComment } from '../slang-nodes/MultiLineComment.ts';
 import { MultiLineNatSpecComment } from '../slang-nodes/MultiLineNatSpecComment.ts';
 import { SingleLineComment } from '../slang-nodes/SingleLineComment.ts';
@@ -76,25 +72,17 @@ function visitNonterminal(
           // as we iterate over the tree and a comment's location also depends
           // on where the walk is, it's hard to separate these responsibilities
           // into different functions without doing the iteration twice.
-          const node = cursor.node;
-          switch (node.kind) {
-            case TerminalKind.MultiLineComment:
-              collected.comments.push(new MultiLineComment(node, start, end));
-              break;
-            case TerminalKind.MultiLineNatSpecComment:
-              collected.comments.push(
-                new MultiLineNatSpecComment(node, start, end)
-              );
-              break;
-            case TerminalKind.SingleLineComment:
-              collected.comments.push(new SingleLineComment(node, start, end));
-              break;
-            case TerminalKind.SingleLineNatSpecComment:
-              collected.comments.push(
-                new SingleLineNatSpecComment(node, start, end)
-              );
-              break;
-          }
+          collected.comments.push(
+            originalText.startsWith('//', start)
+              ? originalText.startsWith('///', start)
+                ? new SingleLineNatSpecComment(originalText, start, end)
+                : new SingleLineComment(originalText, start, end)
+              : originalText.startsWith('/**', start) &&
+                  // `/**/` is an empty MultiLineComment.
+                  !originalText.startsWith('/**/', start)
+                ? new MultiLineNatSpecComment(originalText, start, end)
+                : new MultiLineComment(originalText, start, end)
+          );
         }
         collected.offset = end;
         continue;
