@@ -1,5 +1,172 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`ElseBranchComments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract ElseBranchComments {
+    function blockBody() public {
+        if (a) {} else /* block comment */ if (b) { x; }
+
+        if (a) {} else // end of line comment
+        if (b) { x; }
+
+        if (a) {} else
+        // own line comment
+        if (b) { x; }
+
+        if (a) {} else /* empty body */ if (b) {}
+    }
+
+    function statementBody() public {
+        if (a) {} else /* block comment */ if (b) x;
+
+        if (a) {} else // end of line comment
+        if (b) x;
+
+        if (a) {} else
+        // own line comment
+        if (b) x; else y;
+    }
+}
+
+=====================================output=====================================
+contract ElseBranchComments {
+    function blockBody() public {
+        if (a) {} else if (b) {
+            /* block comment */ x;
+        }
+
+        if (a) {} else if (b) {
+            // end of line comment
+            x;
+        }
+
+        if (a) {} else if (b) {
+            // own line comment
+            x;
+        }
+
+        if (a) {} else if (b) {
+            /* empty body */
+        }
+    }
+
+    function statementBody() public {
+        if (a) {} else if (b) /* block comment */ x;
+
+        if (a) {} else if (b)
+            // end of line comment
+            x;
+
+        if (a) {} else if (b)
+            // own line comment
+            x;
+        else y;
+    }
+}
+
+================================================================================
+`;
+
+exports[`ElseBranchComments.sol locations 1`] = `
+SourceUnit 0-564
+  SourceUnitMembers 0-564
+    ContractDefinition 0-563
+      Identifier 9-27
+      ContractSpecifiers 27-27
+      ContractMembers 30-562
+        FunctionDefinition 34-320
+          Identifier 43-52
+          ParametersDeclaration 52-54
+            Parameters 53-53
+          FunctionAttributes 54-61
+            PublicKeyword 55-61
+          Block 62-320
+            Statements 64-315
+              IfStatement 72-120
+                Identifier 76-77
+                Block 79-81
+                  Statements 80-80
+                ElseBranch 82-120
+                  IfStatement 107-120
+                    Identifier 111-112
+                    Block 114-120
+                      Statements 115-118
+                        ExpressionStatement 116-118
+                          Identifier 116-117
+              IfStatement 130-189
+                Identifier 134-135
+                Block 137-139
+                  Statements 138-138
+                ElseBranch 140-189
+                  IfStatement 176-189
+                    Identifier 180-181
+                    Block 183-189
+                      Statements 184-187
+                        ExpressionStatement 185-187
+                          Identifier 185-186
+              IfStatement 199-263
+                Identifier 203-204
+                Block 206-208
+                  Statements 207-207
+                ElseBranch 209-263
+                  IfStatement 250-263
+                    Identifier 254-255
+                    Block 257-263
+                      Statements 258-261
+                        ExpressionStatement 259-261
+                          Identifier 259-260
+              IfStatement 273-314
+                Identifier 277-278
+                Block 280-282
+                  Statements 281-281
+                ElseBranch 283-314
+                  IfStatement 305-314
+                    Identifier 309-310
+                    Block 312-314
+                      Statements 313-313
+        FunctionDefinition 326-561
+          Identifier 335-348
+          ParametersDeclaration 348-350
+            Parameters 349-349
+          FunctionAttributes 350-357
+            PublicKeyword 351-357
+          Block 358-561
+            Statements 360-556
+              IfStatement 368-412
+                Identifier 372-373
+                Block 375-377
+                  Statements 376-376
+                ElseBranch 378-412
+                  IfStatement 403-412
+                    Identifier 407-408
+                    ExpressionStatement 410-412
+                      Identifier 410-411
+              IfStatement 422-477
+                Identifier 426-427
+                Block 429-431
+                  Statements 430-430
+                ElseBranch 432-477
+                  IfStatement 468-477
+                    Identifier 472-473
+                    ExpressionStatement 475-477
+                      Identifier 475-476
+              IfStatement 487-555
+                Identifier 491-492
+                Block 494-496
+                  Statements 495-495
+                ElseBranch 497-555
+                  IfStatement 538-555
+                    Identifier 542-543
+                    ExpressionStatement 545-547
+                      Identifier 545-546
+                    ElseBranch 548-555
+                      ExpressionStatement 553-555
+                        Identifier 553-554
+`;
+
 exports[`IfStatements.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]
