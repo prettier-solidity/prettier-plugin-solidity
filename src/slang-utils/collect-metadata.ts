@@ -33,8 +33,8 @@ const isTightCollection = createKindCheckFunction([
 ]);
 
 // Walks the children of the NonterminalNode under the cursor, recording the
-// location of every node below it and collecting the comments, then records
-// and returns the NonterminalNode's own location.
+// location of every node below it and collecting the comments, then returns
+// the NonterminalNode's own location.
 //
 // A single cursor walking the whole tree is much cheaper than calling
 // `children()` on every NonterminalNode, since each call crosses into Slang's
@@ -98,9 +98,6 @@ function visitNonterminal(
         const start = collected.offset;
         const end = start + child.textLength.utf16;
         last = { start, end };
-        // Some variants can be TerminalNodes, and since `extractVariant` drops
-        // their wrapper, we need to track their location.
-        collected.locations.set(child.id, last);
         collected.offset = end;
       } else {
         // The walk moves the offset to where the nonterminal ends, so we don't
@@ -108,6 +105,9 @@ function visitNonterminal(
         last = visitNonterminal(cursor, child, collected, originalText);
       }
 
+      // We record every child, TerminalNodes included since some variants can
+      // be TerminalNodes and `extractVariant` drops their wrapper.
+      collected.locations.set(child.id, last);
       first ??= last;
     } while (cursor.goToNextSibling());
 
@@ -124,13 +124,10 @@ function visitNonterminal(
   // the node is located by its first and last children.
   // A node without children will default to a `start` and `end` equal to the
   // initial offset.
-  const location = {
+  return {
     start: embracesComments ? outerStart : (first?.start ?? outerStart),
     end: embracesComments ? collected.offset : (last?.end ?? outerStart)
   };
-  collected.locations.set(node.id, location);
-
-  return location;
 }
 
 // Records the location of every node in the tree, and collects its comments,
@@ -139,12 +136,11 @@ export function collectMetadata(
   cursor: Cursor,
   originalText: string
 ): Metadata {
+  const root = cursor.node as NonterminalNode;
   const collected: Metadata = { locations: new Map(), comments: [], offset: 0 };
-  visitNonterminal(
-    cursor,
-    cursor.node as NonterminalNode,
-    collected,
-    originalText
+  collected.locations.set(
+    root.id,
+    visitNonterminal(cursor, root, collected, originalText)
   );
   return collected;
 }
