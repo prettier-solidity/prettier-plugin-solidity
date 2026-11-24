@@ -25,8 +25,6 @@ export class EventParameter extends SlangNode {
     if (ast.name) {
       this.name = new TerminalNode(ast.name, collected);
     }
-
-    this.updateMetadata(this.typeName);
   }
 
   print(print: PrintFunction): Doc {

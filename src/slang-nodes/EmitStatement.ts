@@ -22,8 +22,6 @@ export class EmitStatement extends SlangNode {
     this.arguments = extractVariant(
       new ArgumentsDeclaration(ast.arguments, collected)
     );
-
-    this.updateMetadata(this.event, this.arguments);
   }
 
   print(print: PrintFunction): Doc {

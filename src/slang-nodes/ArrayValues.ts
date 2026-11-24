@@ -14,7 +14,7 @@ export class ArrayValues extends SlangNode {
   items: Expression['variant'][];
 
   constructor(ast: ast.ArrayValues, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new Expression(item, collected))

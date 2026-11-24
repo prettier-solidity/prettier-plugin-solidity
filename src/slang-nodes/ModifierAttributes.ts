@@ -15,7 +15,7 @@ export class ModifierAttributes extends SlangNode {
   items: ModifierAttribute['variant'][];
 
   constructor(ast: ast.ModifierAttributes, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new ModifierAttribute(item, collected))

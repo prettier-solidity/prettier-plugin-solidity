@@ -14,7 +14,7 @@ export class VersionExpressionSet extends SlangNode {
   items: VersionExpression['variant'][];
 
   constructor(ast: ast.VersionExpressionSet, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new VersionExpression(item, collected))

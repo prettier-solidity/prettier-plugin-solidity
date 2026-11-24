@@ -18,7 +18,7 @@ export class UsingDeconstructionSymbols extends SlangNode {
     ast: ast.UsingDeconstructionSymbols,
     collected: CollectedMetadata
   ) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map(
       (item) => new UsingDeconstructionSymbol(item, collected)

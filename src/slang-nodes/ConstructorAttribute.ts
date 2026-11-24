@@ -23,7 +23,5 @@ export class ConstructorAttribute extends SlangNode {
       return;
     }
     this.variant = new ModifierInvocation(variant, collected);
-
-    this.updateMetadata(this.variant);
   }
 }

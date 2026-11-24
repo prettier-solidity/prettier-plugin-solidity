@@ -14,7 +14,7 @@ export class InheritanceTypes extends SlangNode {
   items: InheritanceType[];
 
   constructor(ast: ast.InheritanceTypes, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new InheritanceType(item, collected));
   }

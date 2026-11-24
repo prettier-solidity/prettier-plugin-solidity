@@ -18,7 +18,7 @@ export class UnnamedFunctionAttributes extends SlangNode {
     ast: ast.UnnamedFunctionAttributes,
     collected: CollectedMetadata
   ) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) =>
       extractVariant(new UnnamedFunctionAttribute(item, collected))

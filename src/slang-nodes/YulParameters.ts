@@ -13,7 +13,7 @@ export class YulParameters extends SlangNode {
   items: TerminalNode[];
 
   constructor(ast: ast.YulParameters, collected: CollectedMetadata) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map((item) => new TerminalNode(item, collected));
   }

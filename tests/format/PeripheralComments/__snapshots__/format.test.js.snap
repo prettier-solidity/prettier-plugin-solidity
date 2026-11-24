@@ -1,0 +1,3441 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ArrayValues.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f() public pure {
+        uint8[2] memory a = [/* first */ 1, 2 /* last */];
+        uint8[2] memory b = [
+            // leading
+            1,
+            2
+            // trailing
+        ];
+        uint8[2] memory c = [
+            1, // after first
+            2 // after last
+        ];
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f() public pure {
+        uint8[2] memory a = [/* first */ 1, 2 /* last */];
+        uint8[2] memory b = [
+            // leading
+            1,
+            2
+        ];
+        // trailing
+        uint8[2] memory c = [
+            1, // after first
+            2 // after last
+        ];
+    }
+}
+
+================================================================================
+`;
+
+exports[`ArrayValues.sol locations 1`] = `
+SourceUnit 0-327
+  SourceUnitMembers 0-327
+    ContractDefinition 0-326
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-325
+        FunctionDefinition 17-324
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          FunctionAttributes 29-41
+            PublicKeyword 30-36
+            PureKeyword 37-41
+          Block 42-324
+            Statements 44-319
+              VariableDeclarationStatement 52-102
+                ArrayTypeName 52-60
+                  UintKeyword 52-57
+                  DecimalNumberExpression 58-59
+                StorageLocation 61-67
+                Identifier 68-69
+                VariableDeclarationValue 70-101
+                  ArrayExpression 72-101
+                    ArrayValues 73-89
+                      DecimalNumberExpression 85-86
+                      DecimalNumberExpression 88-89
+              VariableDeclarationStatement 111-219
+                ArrayTypeName 111-119
+                  UintKeyword 111-116
+                  DecimalNumberExpression 117-118
+                StorageLocation 120-126
+                Identifier 127-128
+                VariableDeclarationValue 129-218
+                  ArrayExpression 131-218
+                    ArrayValues 133-185
+                      DecimalNumberExpression 168-169
+                      DecimalNumberExpression 183-184
+              VariableDeclarationStatement 228-318
+                ArrayTypeName 228-236
+                  UintKeyword 228-233
+                  DecimalNumberExpression 234-235
+                StorageLocation 237-243
+                Identifier 244-245
+                VariableDeclarationValue 246-317
+                  ArrayExpression 248-317
+                    ArrayValues 250-308
+                      DecimalNumberExpression 262-263
+                      DecimalNumberExpression 292-293
+`;
+
+exports[`AssemblyFlags.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f() public pure {
+        assembly (/* first */ "memory-safe" /* last */) {}
+        assembly (
+            // leading
+            "memory-safe"
+            // trailing
+        ) {}
+        assembly ("memory-safe" // after last
+        ) {}
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f() public pure {
+        assembly (/* first */ "memory-safe" /* last */) {}
+        assembly (
+            // leading
+            "memory-safe"
+        ) {}
+        // trailing
+        assembly (
+            "memory-safe" // after last
+        ) {}
+    }
+}
+
+================================================================================
+`;
+
+exports[`AssemblyFlags.sol locations 1`] = `
+SourceUnit 0-275
+  SourceUnitMembers 0-275
+    ContractDefinition 0-274
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-273
+        FunctionDefinition 17-272
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          FunctionAttributes 29-41
+            PublicKeyword 30-36
+            PureKeyword 37-41
+          Block 42-272
+            Statements 44-267
+              AssemblyStatement 52-102
+                AssemblyFlagsDeclaration 61-99
+                  AssemblyFlags 62-87
+                    StringLiteral 74-87
+                YulBlock 100-102
+                  YulStatements 101-101
+              AssemblyStatement 111-207
+                AssemblyFlagsDeclaration 120-204
+                  AssemblyFlags 122-171
+                    StringLiteral 157-170
+                YulBlock 205-207
+                  YulStatements 206-206
+              AssemblyStatement 216-266
+                AssemblyFlagsDeclaration 225-263
+                  AssemblyFlags 226-254
+                    StringLiteral 226-239
+                YulBlock 264-266
+                  YulStatements 265-265
+`;
+
+exports[`CallOptions.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f(address payable a) public {
+        a.call{/* first */ value: 1, gas: 2 /* last */}("");
+        a.call{
+            // leading
+            value: 1,
+            gas: 2
+            // trailing
+        }("");
+        a.call{
+            value: 1, // after first
+            gas: 2 // after last
+        }("");
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f(address payable a) public {
+        a.call{/* first */ value: 1, gas: 2 /* last */}("");
+        a.call{
+            // leading
+            value: 1,
+            gas: 2
+        }("");
+        // trailing
+        a.call{
+            value: 1, // after first
+            gas: 2 // after last
+        }("");
+    }
+}
+
+================================================================================
+`;
+
+exports[`CallOptions.sol locations 1`] = `
+SourceUnit 0-345
+  SourceUnitMembers 0-345
+    ContractDefinition 0-344
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-343
+        FunctionDefinition 17-342
+          Identifier 26-27
+          ParametersDeclaration 27-46
+            Parameters 28-45
+              Parameter 28-45
+                AddressType 28-43
+                Identifier 44-45
+          FunctionAttributes 46-53
+            PublicKeyword 47-53
+          Block 54-342
+            Statements 56-337
+              ExpressionStatement 64-116
+                FunctionCallExpression 64-115
+                  CallOptionsExpression 64-111
+                    MemberAccessExpression 64-70
+                      Identifier 64-65
+                      Identifier 66-70
+                    CallOptions 71-99
+                      NamedArgument 83-91
+                        Identifier 83-88
+                        DecimalNumberExpression 90-91
+                      NamedArgument 93-99
+                        Identifier 93-96
+                        DecimalNumberExpression 98-99
+                  PositionalArgumentsDeclaration 111-115
+                    PositionalArguments 112-114
+                      StringLiterals 112-114
+                        StringLiteral 112-114
+              ExpressionStatement 125-235
+                FunctionCallExpression 125-234
+                  CallOptionsExpression 125-230
+                    MemberAccessExpression 125-131
+                      Identifier 125-126
+                      Identifier 127-131
+                    CallOptions 133-197
+                      NamedArgument 168-176
+                        Identifier 168-173
+                        DecimalNumberExpression 175-176
+                      NamedArgument 190-196
+                        Identifier 190-193
+                        DecimalNumberExpression 195-196
+                  PositionalArgumentsDeclaration 230-234
+                    PositionalArguments 231-233
+                      StringLiterals 231-233
+                        StringLiteral 231-233
+              ExpressionStatement 244-336
+                FunctionCallExpression 244-335
+                  CallOptionsExpression 244-331
+                    MemberAccessExpression 244-250
+                      Identifier 244-245
+                      Identifier 246-250
+                    CallOptions 252-322
+                      NamedArgument 264-272
+                        Identifier 264-269
+                        DecimalNumberExpression 271-272
+                      NamedArgument 301-307
+                        Identifier 301-304
+                        DecimalNumberExpression 306-307
+                  PositionalArgumentsDeclaration 331-335
+                    PositionalArguments 332-334
+                      StringLiterals 332-334
+                        StringLiteral 332-334
+`;
+
+exports[`ConstructorAttributes.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract A {
+    constructor() /* first */ payable /* last */ {}
+}
+
+contract B {
+    constructor()
+        // leading
+        payable
+    // trailing
+    {}
+}
+
+contract C {
+    constructor() payable // after last
+    {}
+}
+
+=====================================output=====================================
+contract A {
+    constructor() /* first */ payable /* last */ {}
+}
+
+contract B {
+    constructor()
+        // leading
+        payable
+    // trailing
+    {}
+}
+
+contract C {
+    constructor()
+        payable // after last
+    {}
+}
+
+================================================================================
+`;
+
+exports[`ConstructorAttributes.sol locations 1`] = `
+SourceUnit 0-222
+  SourceUnitMembers 0-222
+    ContractDefinition 0-66
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-65
+        ConstructorDefinition 17-64
+          ParametersDeclaration 28-30
+            Parameters 29-29
+          ConstructorAttributes 30-50
+            PayableKeyword 43-50
+          Block 62-64
+            Statements 63-63
+    ContractDefinition 68-158
+      Identifier 77-78
+      ContractSpecifiers 78-78
+      ContractMembers 81-157
+        ConstructorDefinition 85-156
+          ParametersDeclaration 96-98
+            Parameters 97-97
+          ConstructorAttributes 99-134
+            PayableKeyword 126-133
+          Block 154-156
+            Statements 155-155
+    ContractDefinition 160-221
+      Identifier 169-170
+      ContractSpecifiers 170-170
+      ContractMembers 173-220
+        ConstructorDefinition 177-219
+          ParametersDeclaration 188-190
+            Parameters 189-189
+          ConstructorAttributes 190-213
+            PayableKeyword 191-198
+          Block 217-219
+            Statements 218-218
+`;
+
+exports[`ContractMembers.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract A {/* first */ uint a; uint b; /* last */}
+
+contract B {
+    // leading
+    uint a;
+    uint b;
+    // trailing
+}
+
+contract C { /** doc on first */
+    uint a;
+    uint b; // after last
+}
+
+contract D {
+    // only a comment
+}
+
+=====================================output=====================================
+contract A {
+    /* first */ uint a;
+    uint b; /* last */
+}
+
+contract B {
+    // leading
+    uint a;
+    uint b;
+    // trailing
+}
+
+contract C {
+    /** doc on first */
+    uint a;
+    uint b; // after last
+}
+
+contract D {
+    // only a comment
+}
+
+================================================================================
+`;
+
+exports[`ContractMembers.sol locations 1`] = `
+SourceUnit 0-235
+  SourceUnitMembers 0-235
+    ContractDefinition 0-51
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 12-39
+        StateVariableDefinition 24-31
+          UintKeyword 24-28
+          StateVariableAttributes 28-28
+          Identifier 29-30
+        StateVariableDefinition 32-39
+          UintKeyword 32-36
+          StateVariableAttributes 36-36
+          Identifier 37-38
+    ContractDefinition 53-122
+      Identifier 62-63
+      ContractSpecifiers 63-63
+      ContractMembers 66-105
+        StateVariableDefinition 85-92
+          UintKeyword 85-89
+          StateVariableAttributes 89-89
+          Identifier 90-91
+        StateVariableDefinition 97-104
+          UintKeyword 97-101
+          StateVariableAttributes 101-101
+          Identifier 102-103
+    ContractDefinition 124-196
+      Identifier 133-134
+      ContractSpecifiers 134-134
+      ContractMembers 136-195
+        StateVariableDefinition 161-168
+          UintKeyword 161-165
+          StateVariableAttributes 165-165
+          Identifier 166-167
+        StateVariableDefinition 173-180
+          UintKeyword 173-177
+          StateVariableAttributes 177-177
+          Identifier 178-179
+    ContractDefinition 198-234
+      Identifier 207-208
+      ContractSpecifiers 208-208
+      ContractMembers 211-211
+`;
+
+exports[`ContractSpecifiers.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract A {}
+
+contract B /* first */ is A /* last */ {}
+
+contract C
+    // leading
+    is A
+// trailing
+{}
+
+contract D is A // after last
+{}
+
+=====================================output=====================================
+contract A {}
+
+contract B /* first */ is A /* last */ {}
+
+contract C // leading
+is
+    A
+    // trailing
+{}
+
+contract D is
+    A // after last
+{}
+
+================================================================================
+`;
+
+exports[`ContractSpecifiers.sol locations 1`] = `
+SourceUnit 0-142
+  SourceUnitMembers 0-142
+    ContractDefinition 0-13
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 12-12
+    ContractDefinition 15-56
+      Identifier 24-25
+      ContractSpecifiers 25-42
+        InheritanceSpecifier 38-42
+          InheritanceTypes 40-42
+            InheritanceType 41-42
+              IdentifierPath 41-42
+                Identifier 41-42
+      ContractMembers 55-55
+    ContractDefinition 58-107
+      Identifier 67-68
+      ContractSpecifiers 69-93
+        InheritanceSpecifier 88-93
+          InheritanceTypes 90-93
+            InheritanceType 91-92
+              IdentifierPath 91-92
+                Identifier 91-92
+      ContractMembers 106-106
+    ContractDefinition 109-141
+      Identifier 118-119
+      ContractSpecifiers 119-139
+        InheritanceSpecifier 120-139
+          InheritanceTypes 122-139
+            InheritanceType 123-124
+              IdentifierPath 123-124
+                Identifier 123-124
+      ContractMembers 140-140
+`;
+
+exports[`EnumMembers.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+enum A {/* first */ X, Y /* last */}
+
+enum B {
+    // leading
+    X,
+    Y
+    // trailing
+}
+
+enum C {
+    X, // after first
+    Y // after last
+}
+
+enum D {
+    /// doc on first
+    X,
+    Y
+}
+
+=====================================output=====================================
+enum A {
+    /* first */ X,
+    Y
+ /* last */}
+
+enum B {
+    // leading
+    X,
+    Y
+}
+// trailing
+
+enum C {
+    X, // after first
+    Y // after last
+}
+
+enum D {
+    /// doc on first
+    X,
+    Y
+}
+
+================================================================================
+`;
+
+exports[`EnumMembers.sol locations 1`] = `
+SourceUnit 0-193
+  SourceUnitMembers 0-193
+    EnumDefinition 0-36
+      Identifier 5-6
+      EnumMembers 8-24
+        Identifier 20-21
+        Identifier 23-24
+    EnumDefinition 38-92
+      Identifier 43-44
+      EnumMembers 47-75
+        Identifier 66-67
+        Identifier 73-74
+    EnumDefinition 94-146
+      Identifier 99-100
+      EnumMembers 103-145
+        Identifier 107-108
+        Identifier 129-130
+    EnumDefinition 148-192
+      Identifier 153-154
+      EnumMembers 157-191
+        Identifier 182-183
+        Identifier 189-190
+`;
+
+exports[`ErrorParameters.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+error A(/* first */ uint a, uint b /* last */);
+
+error B(
+    // leading
+    uint a,
+    uint b
+    // trailing
+);
+
+error C(
+    uint a, // after first
+    uint b // after last
+);
+
+=====================================output=====================================
+error A(/* first */ uint a, uint b /* last */);
+
+error B(
+    // leading
+    uint a,
+    uint b
+);
+// trailing
+
+error C(
+    uint a, // after first
+    uint b // after last
+);
+
+================================================================================
+`;
+
+exports[`ErrorParameters.sol locations 1`] = `
+SourceUnit 0-180
+  SourceUnitMembers 0-180
+    ErrorDefinition 0-47
+      Identifier 6-7
+      ErrorParametersDeclaration 7-46
+        ErrorParameters 8-34
+          ErrorParameter 20-26
+            UintKeyword 20-24
+            Identifier 25-26
+          ErrorParameter 28-34
+            UintKeyword 28-32
+            Identifier 33-34
+    ErrorDefinition 49-114
+      Identifier 55-56
+      ErrorParametersDeclaration 56-113
+        ErrorParameters 58-96
+          ErrorParameter 77-83
+            UintKeyword 77-81
+            Identifier 82-83
+          ErrorParameter 89-95
+            UintKeyword 89-93
+            Identifier 94-95
+    ErrorDefinition 116-179
+      Identifier 122-123
+      ErrorParametersDeclaration 123-178
+        ErrorParameters 125-177
+          ErrorParameter 129-135
+            UintKeyword 129-133
+            Identifier 134-135
+          ErrorParameter 156-162
+            UintKeyword 156-160
+            Identifier 161-162
+`;
+
+exports[`EventParameters.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    event A(/* first */ uint a, uint b /* last */);
+
+    event B(
+        // leading
+        uint a,
+        uint b
+        // trailing
+    );
+
+    event D(
+        uint a, // after first
+        uint b // after last
+    );
+}
+
+=====================================output=====================================
+contract C {
+    event A(/* first */ uint a, uint b /* last */);
+
+    event B(
+        // leading
+        uint a,
+        uint b
+    );
+    // trailing
+
+    event D(
+        uint a, // after first
+        uint b // after last
+    );
+}
+
+================================================================================
+`;
+
+exports[`EventParameters.sol locations 1`] = `
+SourceUnit 0-239
+  SourceUnitMembers 0-239
+    ContractDefinition 0-238
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-237
+        EventDefinition 17-64
+          Identifier 23-24
+          EventParametersDeclaration 24-63
+            EventParameters 25-51
+              EventParameter 37-43
+                UintKeyword 37-41
+                Identifier 42-43
+              EventParameter 45-51
+                UintKeyword 45-49
+                Identifier 50-51
+        EventDefinition 70-155
+          Identifier 76-77
+          EventParametersDeclaration 77-154
+            EventParameters 79-129
+              EventParameter 106-112
+                UintKeyword 106-110
+                Identifier 111-112
+              EventParameter 122-128
+                UintKeyword 122-126
+                Identifier 127-128
+        EventDefinition 161-236
+          Identifier 167-168
+          EventParametersDeclaration 168-235
+            EventParameters 170-230
+              EventParameter 178-184
+                UintKeyword 178-182
+                Identifier 183-184
+              EventParameter 209-215
+                UintKeyword 209-213
+                Identifier 214-215
+`;
+
+exports[`FallbackFunctionAttributes.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract A {
+    fallback() /* first */ external payable /* last */ {}
+}
+
+contract B {
+    fallback()
+        // leading
+        external
+        payable
+    // trailing
+    {}
+}
+
+contract C {
+    fallback() external // after first
+    payable // after last
+    {}
+}
+
+=====================================output=====================================
+contract A {
+    fallback() /* first */ external payable /* last */ {}
+}
+
+contract B {
+    fallback()
+        // leading
+        external
+        payable
+    // trailing
+    {}
+}
+
+contract C {
+    fallback()
+        external // after first
+        payable // after last
+    {}
+}
+
+================================================================================
+`;
+
+exports[`FallbackFunctionAttributes.sol locations 1`] = `
+SourceUnit 0-267
+  SourceUnitMembers 0-267
+    ContractDefinition 0-72
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-71
+        FallbackFunctionDefinition 17-70
+          ParametersDeclaration 25-27
+            Parameters 26-26
+          FallbackFunctionAttributes 27-56
+            ExternalKeyword 40-48
+            PayableKeyword 49-56
+          Block 68-70
+            Statements 69-69
+    ContractDefinition 74-178
+      Identifier 83-84
+      ContractSpecifiers 84-84
+      ContractMembers 87-177
+        FallbackFunctionDefinition 91-176
+          ParametersDeclaration 99-101
+            Parameters 100-100
+          FallbackFunctionAttributes 102-154
+            ExternalKeyword 129-137
+            PayableKeyword 146-153
+          Block 174-176
+            Statements 175-175
+    ContractDefinition 180-266
+      Identifier 189-190
+      ContractSpecifiers 190-190
+      ContractMembers 193-265
+        FallbackFunctionDefinition 197-264
+          ParametersDeclaration 205-207
+            Parameters 206-206
+          FallbackFunctionAttributes 207-258
+            ExternalKeyword 208-216
+            PayableKeyword 236-243
+          Block 262-264
+            Statements 263-263
+`;
+
+exports[`FunctionAttributes.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function a() /* first */ public pure /* last */ {}
+
+    function b()
+        // leading
+        public
+        pure
+    // trailing
+    {}
+
+    function c() public // after first
+    pure // after last
+    {}
+}
+
+=====================================output=====================================
+contract C {
+    function a() /* first */ public pure /* last */ {}
+
+    function b()
+        // leading
+        public
+        pure
+    // trailing
+    {}
+
+    function c()
+        public // after first
+        pure // after last
+    {}
+}
+
+================================================================================
+`;
+
+exports[`FunctionAttributes.sol locations 1`] = `
+SourceUnit 0-228
+  SourceUnitMembers 0-228
+    ContractDefinition 0-227
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-226
+        FunctionDefinition 17-67
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          FunctionAttributes 29-53
+            PublicKeyword 42-48
+            PureKeyword 49-53
+          Block 65-67
+            Statements 66-66
+        FunctionDefinition 73-155
+          Identifier 82-83
+          ParametersDeclaration 83-85
+            Parameters 84-84
+          FunctionAttributes 86-133
+            PublicKeyword 113-119
+            PureKeyword 128-132
+          Block 153-155
+            Statements 154-154
+        FunctionDefinition 161-225
+          Identifier 170-171
+          ParametersDeclaration 171-173
+            Parameters 172-172
+          FunctionAttributes 173-219
+            PublicKeyword 174-180
+            PureKeyword 200-204
+          Block 223-225
+            Statements 224-224
+`;
+
+exports[`FunctionTypeAttributes.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function(uint) /* first */ external pure /* last */ returns (uint) a;
+
+    function(uint)
+        // leading
+        external
+        pure
+        // trailing
+        returns (uint) b;
+
+    function(uint) external // after first
+    pure // after last
+    returns (uint) c;
+}
+
+=====================================output=====================================
+contract C {
+    function(uint) /* first */ external pure /* last */ returns (uint) a;
+
+    function(
+        uint
+    )
+        // leading
+        external
+        pure
+        // trailing
+        returns (uint) b;
+
+    function(
+        uint
+    )
+        external // after first
+        pure // after last
+        returns (uint) c;
+}
+
+================================================================================
+`;
+
+exports[`FunctionTypeAttributes.sol locations 1`] = `
+SourceUnit 0-293
+  SourceUnitMembers 0-293
+    ContractDefinition 0-292
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-291
+        StateVariableDefinition 17-86
+          FunctionType 17-83
+            ParametersDeclaration 25-31
+              Parameters 26-30
+                Parameter 26-30
+                  UintKeyword 26-30
+            FunctionTypeAttributes 31-57
+              ExternalKeyword 44-52
+              PureKeyword 53-57
+            ReturnsDeclaration 69-83
+              ParametersDeclaration 77-83
+                Parameters 78-82
+                  Parameter 78-82
+                    UintKeyword 78-82
+          StateVariableAttributes 83-83
+          Identifier 84-85
+        StateVariableDefinition 92-201
+          FunctionType 92-198
+            ParametersDeclaration 100-106
+              Parameters 101-105
+                Parameter 101-105
+                  UintKeyword 101-105
+            FunctionTypeAttributes 107-156
+              ExternalKeyword 134-142
+              PureKeyword 151-155
+            ReturnsDeclaration 184-198
+              ParametersDeclaration 192-198
+                Parameters 193-197
+                  Parameter 193-197
+                    UintKeyword 193-197
+          StateVariableAttributes 198-198
+          Identifier 199-200
+        StateVariableDefinition 207-290
+          FunctionType 207-287
+            ParametersDeclaration 215-221
+              Parameters 216-220
+                Parameter 216-220
+                  UintKeyword 216-220
+            FunctionTypeAttributes 221-269
+              ExternalKeyword 222-230
+              PureKeyword 250-254
+            ReturnsDeclaration 273-287
+              ParametersDeclaration 281-287
+                Parameters 282-286
+                  Parameter 282-286
+                    UintKeyword 282-286
+          StateVariableAttributes 287-287
+          Identifier 288-289
+`;
+
+exports[`ImportDeconstructionSymbols.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+import {/* first */ A, B /* last */} from "./a.sol";
+import {
+    // leading
+    A,
+    B
+    // trailing
+} from "./a.sol";
+import {
+    A, // after first
+    B // after last
+} from "./a.sol";
+
+=====================================output=====================================
+import {/* first */ A, B /* last */} from "./a.sol";
+import {
+    // leading
+    A,
+    B
+} from // trailing
+"./a.sol";
+import {
+    A, // after first
+    B // after last
+} from "./a.sol";
+
+================================================================================
+`;
+
+exports[`ImportDeconstructionSymbols.sol locations 1`] = `
+SourceUnit 0-193
+  SourceUnitMembers 0-193
+    ImportDirective 0-52
+      ImportDeconstruction 7-51
+        ImportDeconstructionSymbols 8-24
+          ImportDeconstructionSymbol 20-21
+            Identifier 20-21
+          ImportDeconstructionSymbol 23-24
+            Identifier 23-24
+        StringLiteral 42-51
+    ImportDirective 53-123
+      ImportDeconstruction 60-122
+        ImportDeconstructionSymbols 62-90
+          ImportDeconstructionSymbol 81-82
+            Identifier 81-82
+          ImportDeconstructionSymbol 88-89
+            Identifier 88-89
+        StringLiteral 113-122
+    ImportDirective 124-192
+      ImportDeconstruction 131-191
+        ImportDeconstructionSymbols 133-175
+          ImportDeconstructionSymbol 137-138
+            Identifier 137-138
+          ImportDeconstructionSymbol 159-160
+            Identifier 159-160
+        StringLiteral 182-191
+`;
+
+exports[`InheritanceTypes.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract A {}
+contract B {}
+
+contract C is /* first */ A, B /* last */ {}
+
+contract D is
+    // leading
+    A,
+    B
+// trailing
+{}
+
+contract E is
+    A, // after first
+    B // after last
+{}
+
+=====================================output=====================================
+contract A {}
+contract B {}
+
+contract C is /* first */ A, B /* last */ {}
+
+contract D is
+    // leading
+    A,
+    B
+    // trailing
+{}
+
+contract E is
+    A, // after first
+    B // after last
+{}
+
+================================================================================
+`;
+
+exports[`InheritanceTypes.sol locations 1`] = `
+SourceUnit 0-192
+  SourceUnitMembers 0-192
+    ContractDefinition 0-13
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 12-12
+    ContractDefinition 14-27
+      Identifier 23-24
+      ContractSpecifiers 24-24
+      ContractMembers 26-26
+    ContractDefinition 29-73
+      Identifier 38-39
+      ContractSpecifiers 39-59
+        InheritanceSpecifier 40-59
+          InheritanceTypes 42-59
+            InheritanceType 55-56
+              IdentifierPath 55-56
+                Identifier 55-56
+            InheritanceType 58-59
+              IdentifierPath 58-59
+                Identifier 58-59
+      ContractMembers 72-72
+    ContractDefinition 75-131
+      Identifier 84-85
+      ContractSpecifiers 85-117
+        InheritanceSpecifier 86-117
+          InheritanceTypes 89-117
+            InheritanceType 108-109
+              IdentifierPath 108-109
+                Identifier 108-109
+            InheritanceType 115-116
+              IdentifierPath 115-116
+                Identifier 115-116
+      ContractMembers 130-130
+    ContractDefinition 133-191
+      Identifier 142-143
+      ContractSpecifiers 143-189
+        InheritanceSpecifier 144-189
+          InheritanceTypes 147-189
+            InheritanceType 151-152
+              IdentifierPath 151-152
+                Identifier 151-152
+            InheritanceType 173-174
+              IdentifierPath 173-174
+                Identifier 173-174
+      ContractMembers 190-190
+`;
+
+exports[`InterfaceMembers.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface A {/* first */ function a() external; function b() external; /* last */}
+
+interface B {
+    // leading
+    function a() external;
+    function b() external;
+    // trailing
+}
+
+interface C {
+    /**
+     * @dev doc on first
+     */
+    function a() external;
+    function b() external; // after last
+}
+
+interface D {
+    // only a comment
+}
+
+=====================================output=====================================
+interface A {
+    /* first */ function a() external;
+    function b() external; /* last */
+}
+
+interface B {
+    // leading
+    function a() external;
+    function b() external;
+    // trailing
+}
+
+interface C {
+    /**
+     * @dev doc on first
+     */
+    function a() external;
+    function b() external; // after last
+}
+
+interface D {
+    // only a comment
+}
+
+================================================================================
+`;
+
+exports[`InterfaceMembers.sol locations 1`] = `
+SourceUnit 0-350
+  SourceUnitMembers 0-350
+    InterfaceDefinition 0-82
+      Identifier 10-11
+      InterfaceMembers 13-70
+        FunctionDefinition 25-47
+          Identifier 34-35
+          ParametersDeclaration 35-37
+            Parameters 36-36
+          FunctionAttributes 37-46
+            ExternalKeyword 38-46
+          Semicolon 46-47
+        FunctionDefinition 48-70
+          Identifier 57-58
+          ParametersDeclaration 58-60
+            Parameters 59-59
+          FunctionAttributes 60-69
+            ExternalKeyword 61-69
+          Semicolon 69-70
+    InterfaceDefinition 84-184
+      Identifier 94-95
+      InterfaceMembers 98-167
+        FunctionDefinition 117-139
+          Identifier 126-127
+          ParametersDeclaration 127-129
+            Parameters 128-128
+          FunctionAttributes 129-138
+            ExternalKeyword 130-138
+          Semicolon 138-139
+        FunctionDefinition 144-166
+          Identifier 153-154
+          ParametersDeclaration 154-156
+            Parameters 155-155
+          FunctionAttributes 156-165
+            ExternalKeyword 157-165
+          Semicolon 165-166
+    InterfaceDefinition 186-310
+      Identifier 196-197
+      InterfaceMembers 200-309
+        FunctionDefinition 245-267
+          Identifier 254-255
+          ParametersDeclaration 255-257
+            Parameters 256-256
+          FunctionAttributes 257-266
+            ExternalKeyword 258-266
+          Semicolon 266-267
+        FunctionDefinition 272-294
+          Identifier 281-282
+          ParametersDeclaration 282-284
+            Parameters 283-283
+          FunctionAttributes 284-293
+            ExternalKeyword 285-293
+          Semicolon 293-294
+    InterfaceDefinition 312-349
+      Identifier 322-323
+      InterfaceMembers 326-326
+`;
+
+exports[`LibraryMembers.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+library A {/* first */ function a() internal {} function b() internal {} /* last */}
+
+library B {
+    // leading
+    function a() internal {}
+    function b() internal {}
+    // trailing
+}
+
+library C {
+    /**
+     * @dev doc on first
+     */
+    function a() internal {}
+    function b() internal {} // after last
+}
+
+library D {
+    // only a comment
+}
+
+=====================================output=====================================
+library A {
+    /* first */ function a() internal {}
+    function b() internal {} /* last */
+}
+
+library B {
+    // leading
+    function a() internal {}
+    function b() internal {}
+    // trailing
+}
+
+library C {
+    /**
+     * @dev doc on first
+     */
+    function a() internal {}
+    function b() internal {} // after last
+}
+
+library D {
+    // only a comment
+}
+
+================================================================================
+`;
+
+exports[`LibraryMembers.sol locations 1`] = `
+SourceUnit 0-354
+  SourceUnitMembers 0-354
+    LibraryDefinition 0-84
+      Identifier 8-9
+      LibraryMembers 11-72
+        FunctionDefinition 23-47
+          Identifier 32-33
+          ParametersDeclaration 33-35
+            Parameters 34-34
+          FunctionAttributes 35-44
+            InternalKeyword 36-44
+          Block 45-47
+            Statements 46-46
+        FunctionDefinition 48-72
+          Identifier 57-58
+          ParametersDeclaration 58-60
+            Parameters 59-59
+          FunctionAttributes 60-69
+            InternalKeyword 61-69
+          Block 70-72
+            Statements 71-71
+    LibraryDefinition 86-188
+      Identifier 94-95
+      LibraryMembers 98-171
+        FunctionDefinition 117-141
+          Identifier 126-127
+          ParametersDeclaration 127-129
+            Parameters 128-128
+          FunctionAttributes 129-138
+            InternalKeyword 130-138
+          Block 139-141
+            Statements 140-140
+        FunctionDefinition 146-170
+          Identifier 155-156
+          ParametersDeclaration 156-158
+            Parameters 157-157
+          FunctionAttributes 158-167
+            InternalKeyword 159-167
+          Block 168-170
+            Statements 169-169
+    LibraryDefinition 190-316
+      Identifier 198-199
+      LibraryMembers 202-315
+        FunctionDefinition 247-271
+          Identifier 256-257
+          ParametersDeclaration 257-259
+            Parameters 258-258
+          FunctionAttributes 259-268
+            InternalKeyword 260-268
+          Block 269-271
+            Statements 270-270
+        FunctionDefinition 276-300
+          Identifier 285-286
+          ParametersDeclaration 286-288
+            Parameters 287-287
+          FunctionAttributes 288-297
+            InternalKeyword 289-297
+          Block 298-300
+            Statements 299-299
+    LibraryDefinition 318-353
+      Identifier 326-327
+      LibraryMembers 330-330
+`;
+
+exports[`ModifierAttributes.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    modifier a() /* first */ virtual /* last */ { _; }
+
+    modifier b()
+        // leading
+        virtual
+    // trailing
+    { _; }
+
+    modifier c() virtual // after last
+    { _; }
+}
+
+=====================================output=====================================
+contract C {
+    modifier a() /* first */ virtual /* last */ {
+        _;
+    }
+
+    modifier b()
+        // leading
+        virtual
+    // trailing
+    {
+        _;
+    }
+
+    modifier c()
+        virtual // after last
+    {
+        _;
+    }
+}
+
+================================================================================
+`;
+
+exports[`ModifierAttributes.sol locations 1`] = `
+SourceUnit 0-201
+  SourceUnitMembers 0-201
+    ContractDefinition 0-200
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-199
+        ModifierDefinition 17-67
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          ModifierAttributes 29-49
+            VirtualKeyword 42-49
+          Block 61-67
+            Statements 62-65
+              ExpressionStatement 63-65
+                Identifier 63-64
+        ModifierDefinition 73-147
+          Identifier 82-83
+          ParametersDeclaration 83-85
+            Parameters 84-84
+          ModifierAttributes 86-121
+            VirtualKeyword 113-120
+          Block 141-147
+            Statements 142-145
+              ExpressionStatement 143-145
+                Identifier 143-144
+        ModifierDefinition 153-198
+          Identifier 162-163
+          ParametersDeclaration 163-165
+            Parameters 164-164
+          ModifierAttributes 165-188
+            VirtualKeyword 166-173
+          Block 192-198
+            Statements 193-196
+              ExpressionStatement 194-196
+                Identifier 194-195
+`;
+
+exports[`NamedArguments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f(uint a, uint b) public {}
+
+    function g() public {
+        f({/* first */ a: 1, b: 2 /* last */});
+        f({
+            // leading
+            a: 1,
+            b: 2
+            // trailing
+        });
+        f({
+            a: 1, // after first
+            b: 2 // after last
+        });
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f(uint a, uint b) public {}
+
+    function g() public {
+        f({/* first */ a: 1, b: 2 /* last */});
+        f({
+            // leading
+            a: 1,
+            b: 2
+        });
+        // trailing
+        f({
+            a: 1, // after first
+            b: 2 // after last
+        });
+    }
+}
+
+================================================================================
+`;
+
+exports[`NamedArguments.sol locations 1`] = `
+SourceUnit 0-331
+  SourceUnitMembers 0-331
+    ContractDefinition 0-330
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-329
+        FunctionDefinition 17-53
+          Identifier 26-27
+          ParametersDeclaration 27-43
+            Parameters 28-42
+              Parameter 28-34
+                UintKeyword 28-32
+                Identifier 33-34
+              Parameter 36-42
+                UintKeyword 36-40
+                Identifier 41-42
+          FunctionAttributes 43-50
+            PublicKeyword 44-50
+          Block 51-53
+            Statements 52-52
+        FunctionDefinition 59-328
+          Identifier 68-69
+          ParametersDeclaration 69-71
+            Parameters 70-70
+          FunctionAttributes 71-78
+            PublicKeyword 72-78
+          Block 79-328
+            Statements 81-323
+              ExpressionStatement 89-128
+                FunctionCallExpression 89-127
+                  Identifier 89-90
+                  NamedArgumentsDeclaration 90-127
+                    NamedArgumentGroup 91-126
+                      NamedArguments 92-114
+                        NamedArgument 104-108
+                          Identifier 104-105
+                          DecimalNumberExpression 107-108
+                        NamedArgument 110-114
+                          Identifier 110-111
+                          DecimalNumberExpression 113-114
+              ExpressionStatement 137-234
+                FunctionCallExpression 137-233
+                  Identifier 137-138
+                  NamedArgumentsDeclaration 138-233
+                    NamedArgumentGroup 139-232
+                      NamedArguments 141-199
+                        NamedArgument 176-180
+                          Identifier 176-177
+                          DecimalNumberExpression 179-180
+                        NamedArgument 194-198
+                          Identifier 194-195
+                          DecimalNumberExpression 197-198
+              ExpressionStatement 243-322
+                FunctionCallExpression 243-321
+                  Identifier 243-244
+                  NamedArgumentsDeclaration 244-321
+                    NamedArgumentGroup 245-320
+                      NamedArguments 247-311
+                        NamedArgument 259-263
+                          Identifier 259-260
+                          DecimalNumberExpression 262-263
+                        NamedArgument 292-296
+                          Identifier 292-293
+                          DecimalNumberExpression 295-296
+`;
+
+exports[`OverridePaths.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+interface A { function f() external; }
+interface B { function f() external; }
+
+contract C is A, B {
+    function f() external override(/* first */ A, B /* last */) {}
+}
+
+contract D is A, B {
+    function f()
+        external
+        override(
+            // leading
+            A,
+            B
+            // trailing
+        )
+    {}
+}
+
+contract E is A, B {
+    function f()
+        external
+        override(
+            A, // after first
+            B // after last
+        )
+    {}
+}
+
+=====================================output=====================================
+interface A {
+    function f() external;
+}
+interface B {
+    function f() external;
+}
+
+contract C is A, B {
+    function f() external override(/* first */ A, B /* last */) {}
+}
+
+contract D is A, B {
+    function f()
+        external
+        override(
+            // leading
+            A,
+            B
+        )
+        // trailing
+    {}
+}
+
+contract E is A, B {
+    function f()
+        external
+        override(
+            A, // after first
+            B // after last
+        )
+    {}
+}
+
+================================================================================
+`;
+
+exports[`OverridePaths.sol locations 1`] = `
+SourceUnit 0-489
+  SourceUnitMembers 0-489
+    InterfaceDefinition 0-38
+      Identifier 10-11
+      InterfaceMembers 13-36
+        FunctionDefinition 14-36
+          Identifier 23-24
+          ParametersDeclaration 24-26
+            Parameters 25-25
+          FunctionAttributes 26-35
+            ExternalKeyword 27-35
+          Semicolon 35-36
+    InterfaceDefinition 39-77
+      Identifier 49-50
+      InterfaceMembers 52-75
+        FunctionDefinition 53-75
+          Identifier 62-63
+          ParametersDeclaration 63-65
+            Parameters 64-64
+          FunctionAttributes 65-74
+            ExternalKeyword 66-74
+          Semicolon 74-75
+    ContractDefinition 79-168
+      Identifier 88-89
+      ContractSpecifiers 89-97
+        InheritanceSpecifier 90-97
+          InheritanceTypes 92-97
+            InheritanceType 93-94
+              IdentifierPath 93-94
+                Identifier 93-94
+            InheritanceType 96-97
+              IdentifierPath 96-97
+                Identifier 96-97
+      ContractMembers 100-167
+        FunctionDefinition 104-166
+          Identifier 113-114
+          ParametersDeclaration 114-116
+            Parameters 115-115
+          FunctionAttributes 116-163
+            ExternalKeyword 117-125
+            OverrideSpecifier 126-163
+              OverridePathsDeclaration 134-163
+                OverridePaths 135-151
+                  IdentifierPath 147-148
+                    Identifier 147-148
+                  IdentifierPath 150-151
+                    Identifier 150-151
+          Block 164-166
+            Statements 165-165
+    ContractDefinition 170-337
+      Identifier 179-180
+      ContractSpecifiers 180-188
+        InheritanceSpecifier 181-188
+          InheritanceTypes 183-188
+            InheritanceType 184-185
+              IdentifierPath 184-185
+                Identifier 184-185
+            InheritanceType 187-188
+              IdentifierPath 187-188
+                Identifier 187-188
+      ContractMembers 191-336
+        FunctionDefinition 195-335
+          Identifier 204-205
+          ParametersDeclaration 205-207
+            Parameters 206-206
+          FunctionAttributes 208-329
+            ExternalKeyword 216-224
+            OverrideSpecifier 233-328
+              OverridePathsDeclaration 241-328
+                OverridePaths 243-295
+                  IdentifierPath 278-279
+                    Identifier 278-279
+                  IdentifierPath 293-294
+                    Identifier 293-294
+          Block 333-335
+            Statements 334-334
+    ContractDefinition 339-488
+      Identifier 348-349
+      ContractSpecifiers 349-357
+        InheritanceSpecifier 350-357
+          InheritanceTypes 352-357
+            InheritanceType 353-354
+              IdentifierPath 353-354
+                Identifier 353-354
+            InheritanceType 356-357
+              IdentifierPath 356-357
+                Identifier 356-357
+      ContractMembers 360-487
+        FunctionDefinition 364-486
+          Identifier 373-374
+          ParametersDeclaration 374-376
+            Parameters 375-375
+          FunctionAttributes 377-480
+            ExternalKeyword 385-393
+            OverrideSpecifier 402-479
+              OverridePathsDeclaration 410-479
+                OverridePaths 412-470
+                  IdentifierPath 424-425
+                    Identifier 424-425
+                  IdentifierPath 454-455
+                    Identifier 454-455
+          Block 484-486
+            Statements 485-485
+`;
+
+exports[`Parameters.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function a(/* first */ uint x, uint y /* last */) public {}
+
+    function b(
+        // leading
+        uint x,
+        uint y
+        // trailing
+    ) public {}
+
+    function c(
+        uint x, // after first
+        uint y // after last
+    ) public {}
+
+    function d(/* only a comment */) public {}
+}
+
+=====================================output=====================================
+contract C {
+    function a(/* first */ uint x, uint y /* last */) public {}
+
+    function b(
+        // leading
+        uint x,
+        uint y
+        // trailing
+    ) public {}
+
+    function c(
+        uint x, // after first
+        uint y // after last
+    ) public {}
+
+    function d(/* only a comment */) public {}
+}
+
+================================================================================
+`;
+
+exports[`Parameters.sol locations 1`] = `
+SourceUnit 0-323
+  SourceUnitMembers 0-323
+    ContractDefinition 0-322
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-321
+        FunctionDefinition 17-76
+          Identifier 26-27
+          ParametersDeclaration 27-66
+            Parameters 28-54
+              Parameter 40-46
+                UintKeyword 40-44
+                Identifier 45-46
+              Parameter 48-54
+                UintKeyword 48-52
+                Identifier 53-54
+          FunctionAttributes 66-73
+            PublicKeyword 67-73
+          Block 74-76
+            Statements 75-75
+        FunctionDefinition 82-179
+          Identifier 91-92
+          ParametersDeclaration 92-169
+            Parameters 94-144
+              Parameter 121-127
+                UintKeyword 121-125
+                Identifier 126-127
+              Parameter 137-143
+                UintKeyword 137-141
+                Identifier 142-143
+          FunctionAttributes 169-176
+            PublicKeyword 170-176
+          Block 177-179
+            Statements 178-178
+        FunctionDefinition 185-272
+          Identifier 194-195
+          ParametersDeclaration 195-262
+            Parameters 197-257
+              Parameter 205-211
+                UintKeyword 205-209
+                Identifier 210-211
+              Parameter 236-242
+                UintKeyword 236-240
+                Identifier 241-242
+          FunctionAttributes 262-269
+            PublicKeyword 263-269
+          Block 270-272
+            Statements 271-271
+        FunctionDefinition 278-320
+          Identifier 287-288
+          ParametersDeclaration 288-310
+            Parameters 289-289
+          FunctionAttributes 310-317
+            PublicKeyword 311-317
+          Block 318-320
+            Statements 319-319
+`;
+
+exports[`PositionalArguments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f(uint a, uint b) public {}
+
+    function g() public {
+        f(/* first */ 1, 2 /* last */);
+        f(
+            // leading
+            1,
+            2
+            // trailing
+        );
+        f(
+            1, // after first
+            2 // after last
+        );
+        f(/* only a comment */);
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f(uint a, uint b) public {}
+
+    function g() public {
+        f(/* first */ 1, 2 /* last */);
+        f(
+            // leading
+            1,
+            2
+            // trailing
+        );
+        f(
+            1, // after first
+            2 // after last
+        );
+        f(/* only a comment */);
+    }
+}
+
+================================================================================
+`;
+
+exports[`PositionalArguments.sol locations 1`] = `
+SourceUnit 0-340
+  SourceUnitMembers 0-340
+    ContractDefinition 0-339
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-338
+        FunctionDefinition 17-53
+          Identifier 26-27
+          ParametersDeclaration 27-43
+            Parameters 28-42
+              Parameter 28-34
+                UintKeyword 28-32
+                Identifier 33-34
+              Parameter 36-42
+                UintKeyword 36-40
+                Identifier 41-42
+          FunctionAttributes 43-50
+            PublicKeyword 44-50
+          Block 51-53
+            Statements 52-52
+        FunctionDefinition 59-337
+          Identifier 68-69
+          ParametersDeclaration 69-71
+            Parameters 70-70
+          FunctionAttributes 71-78
+            PublicKeyword 72-78
+          Block 79-337
+            Statements 81-332
+              ExpressionStatement 89-120
+                FunctionCallExpression 89-119
+                  Identifier 89-90
+                  PositionalArgumentsDeclaration 90-119
+                    PositionalArguments 91-107
+                      DecimalNumberExpression 103-104
+                      DecimalNumberExpression 106-107
+              ExpressionStatement 129-218
+                FunctionCallExpression 129-217
+                  Identifier 129-130
+                  PositionalArgumentsDeclaration 130-217
+                    PositionalArguments 132-184
+                      DecimalNumberExpression 167-168
+                      DecimalNumberExpression 182-183
+              ExpressionStatement 227-298
+                FunctionCallExpression 227-297
+                  Identifier 227-228
+                  PositionalArgumentsDeclaration 228-297
+                    PositionalArguments 230-288
+                      DecimalNumberExpression 242-243
+                      DecimalNumberExpression 272-273
+              ExpressionStatement 307-331
+                FunctionCallExpression 307-330
+                  Identifier 307-308
+                  PositionalArgumentsDeclaration 308-330
+                    PositionalArguments 309-309
+`;
+
+exports[`ReceiveFunctionAttributes.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract A {
+    receive() /* first */ external payable /* last */ {}
+}
+
+contract B {
+    receive()
+        // leading
+        external
+        payable
+    // trailing
+    {}
+}
+
+contract C {
+    receive() external // after first
+    payable // after last
+    {}
+}
+
+=====================================output=====================================
+contract A {
+    receive() /* first */ external payable /* last */ {}
+}
+
+contract B {
+    receive()
+        // leading
+        external
+        payable
+    // trailing
+    {}
+}
+
+contract C {
+    receive()
+        external // after first
+        payable // after last
+    {}
+}
+
+================================================================================
+`;
+
+exports[`ReceiveFunctionAttributes.sol locations 1`] = `
+SourceUnit 0-264
+  SourceUnitMembers 0-264
+    ContractDefinition 0-71
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-70
+        ReceiveFunctionDefinition 17-69
+          ParametersDeclaration 24-26
+            Parameters 25-25
+          ReceiveFunctionAttributes 26-55
+            ExternalKeyword 39-47
+            PayableKeyword 48-55
+          Block 67-69
+            Statements 68-68
+    ContractDefinition 73-176
+      Identifier 82-83
+      ContractSpecifiers 83-83
+      ContractMembers 86-175
+        ReceiveFunctionDefinition 90-174
+          ParametersDeclaration 97-99
+            Parameters 98-98
+          ReceiveFunctionAttributes 100-152
+            ExternalKeyword 127-135
+            PayableKeyword 144-151
+          Block 172-174
+            Statements 173-173
+    ContractDefinition 178-263
+      Identifier 187-188
+      ContractSpecifiers 188-188
+      ContractMembers 191-262
+        ReceiveFunctionDefinition 195-261
+          ParametersDeclaration 202-204
+            Parameters 203-203
+          ReceiveFunctionAttributes 204-255
+            ExternalKeyword 205-213
+            PayableKeyword 233-240
+          Block 259-261
+            Statements 260-260
+`;
+
+exports[`SimpleVersionLiteral.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity /* first */ 0.8.26 /* last */;
+pragma solidity 0 /* inside */ .8.26;
+pragma solidity 0.8 // inside
+    .26;
+pragma solidity 0.8.26 // after last
+;
+pragma solidity
+    // leading
+    0.8.26
+    // trailing
+;
+
+=====================================output=====================================
+pragma solidity /* first */ 0.8.26 /* last */;
+pragma solidity 0 /* inside */.8.26;
+pragma solidity
+    0.8.26 // inside
+;
+pragma solidity
+    0.8.26 // after last
+;
+pragma solidity
+    // leading
+    0.8.26
+;
+// trailing
+
+================================================================================
+`;
+
+exports[`SimpleVersionLiteral.sol locations 1`] = `
+SourceUnit 0-223
+  SourceUnitMembers 0-223
+    PragmaDirective 0-46
+      VersionPragma 7-34
+        VersionExpressionSets 15-34
+          VersionExpressionSet 15-34
+            VersionTerm 15-34
+              SimpleVersionLiteral 15-34
+                VersionSpecifier 28-29
+                VersionSpecifier 30-31
+                VersionSpecifier 32-34
+    PragmaDirective 47-84
+      VersionPragma 54-83
+        VersionExpressionSets 62-83
+          VersionExpressionSet 62-83
+            VersionTerm 62-83
+              SimpleVersionLiteral 62-83
+                VersionSpecifier 63-64
+                VersionSpecifier 79-80
+                VersionSpecifier 81-83
+    PragmaDirective 85-123
+      VersionPragma 92-122
+        VersionExpressionSets 100-122
+          VersionExpressionSet 100-122
+            VersionTerm 100-122
+              SimpleVersionLiteral 100-122
+                VersionSpecifier 101-102
+                VersionSpecifier 103-104
+                VersionSpecifier 120-122
+    PragmaDirective 124-162
+      VersionPragma 131-161
+        VersionExpressionSets 139-161
+          VersionExpressionSet 139-161
+            VersionTerm 139-161
+              SimpleVersionLiteral 139-161
+                VersionSpecifier 140-141
+                VersionSpecifier 142-143
+                VersionSpecifier 144-146
+    PragmaDirective 163-222
+      VersionPragma 170-205
+        VersionExpressionSets 179-205
+          VersionExpressionSet 179-205
+            VersionTerm 179-205
+              SimpleVersionLiteral 179-205
+                VersionSpecifier 198-199
+                VersionSpecifier 200-201
+                VersionSpecifier 202-204
+`;
+
+exports[`SourceUnit.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// first comment of the file
+contract A {}
+// last comment of the file
+
+=====================================output=====================================
+// first comment of the file
+contract A {}
+// last comment of the file
+
+================================================================================
+`;
+
+exports[`SourceUnit.sol locations 1`] = `
+SourceUnit 0-43
+  SourceUnitMembers 0-43
+    ContractDefinition 29-42
+      Identifier 38-39
+      ContractSpecifiers 39-39
+      ContractMembers 41-41
+`;
+
+exports[`SourceUnitMembers.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+/* first */ contract A {} contract B {} /* last */
+
+// leading
+contract C {}
+contract D {}
+// trailing
+
+=====================================output=====================================
+/* first */ contract A {}
+contract B {} /* last */
+
+// leading
+contract C {}
+contract D {}
+// trailing
+
+================================================================================
+`;
+
+exports[`SourceUnitMembers.sol locations 1`] = `
+SourceUnit 0-91
+  SourceUnitMembers 0-91
+    ContractDefinition 12-25
+      Identifier 21-22
+      ContractSpecifiers 22-22
+      ContractMembers 24-24
+    ContractDefinition 26-39
+      Identifier 35-36
+      ContractSpecifiers 36-36
+      ContractMembers 38-38
+    ContractDefinition 63-76
+      Identifier 72-73
+      ContractSpecifiers 73-73
+      ContractMembers 75-75
+    ContractDefinition 77-90
+      Identifier 86-87
+      ContractSpecifiers 87-87
+      ContractMembers 89-89
+`;
+
+exports[`SourceUnitOnlyComments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+// a file with only comments
+/* and a block */
+
+=====================================output=====================================
+// a file with only comments
+/* and a block */
+
+================================================================================
+`;
+
+exports[`SourceUnitOnlyComments.sol locations 1`] = `
+SourceUnit 0-0
+  SourceUnitMembers 0-0
+`;
+
+exports[`StateVariableAttributes.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    uint /* first */ public constant /* last */ a = 1;
+    uint
+        // leading
+        public
+        constant
+        // trailing
+        b = 1;
+    uint public // after first
+        constant // after last
+        c = 1;
+}
+
+=====================================output=====================================
+contract C {
+    uint /* first */ public constant /* last */ a = 1;
+    uint
+        // leading
+        public
+        constant // trailing
+    b = 1;
+    uint
+        public // after first
+        constant c = 1; // after last
+}
+
+================================================================================
+`;
+
+exports[`StateVariableAttributes.sol locations 1`] = `
+SourceUnit 0-242
+  SourceUnitMembers 0-242
+    ContractDefinition 0-241
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-240
+        StateVariableDefinition 17-67
+          UintKeyword 17-21
+          StateVariableAttributes 21-49
+            PublicKeyword 34-40
+            ConstantKeyword 41-49
+          Identifier 61-62
+          StateVariableDefinitionValue 63-66
+            DecimalNumberExpression 65-66
+        StateVariableDefinition 72-162
+          UintKeyword 72-76
+          StateVariableAttributes 77-128
+            PublicKeyword 104-110
+            ConstantKeyword 119-127
+          Identifier 156-157
+          StateVariableDefinitionValue 158-161
+            DecimalNumberExpression 160-161
+        StateVariableDefinition 167-239
+          UintKeyword 167-171
+          StateVariableAttributes 171-225
+            PublicKeyword 172-178
+            ConstantKeyword 202-210
+          Identifier 233-234
+          StateVariableDefinitionValue 235-238
+            DecimalNumberExpression 237-238
+`;
+
+exports[`Statements.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function a() public {/* first */ uint x; uint y; /* last */}
+
+    function b() public {
+        // leading
+        uint x;
+        uint y;
+        // trailing
+    }
+
+    function c() public {
+        uint x; // after first
+        uint y; // after last
+    }
+
+    function d() public {
+        // only a comment
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function a() public {
+        /* first */ uint x;
+        uint y; /* last */
+    }
+
+    function b() public {
+        // leading
+        uint x;
+        uint y;
+        // trailing
+    }
+
+    function c() public {
+        uint x; // after first
+        uint y; // after last
+    }
+
+    function d() public {
+        // only a comment
+    }
+}
+
+================================================================================
+`;
+
+exports[`Statements.sol locations 1`] = `
+SourceUnit 0-337
+  SourceUnitMembers 0-337
+    ContractDefinition 0-336
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-335
+        FunctionDefinition 17-77
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          FunctionAttributes 29-36
+            PublicKeyword 30-36
+          Block 37-77
+            Statements 38-65
+              VariableDeclarationStatement 50-57
+                UintKeyword 50-54
+                Identifier 55-56
+              VariableDeclarationStatement 58-65
+                UintKeyword 58-62
+                Identifier 63-64
+        FunctionDefinition 83-181
+          Identifier 92-93
+          ParametersDeclaration 93-95
+            Parameters 94-94
+          FunctionAttributes 95-102
+            PublicKeyword 96-102
+          Block 103-181
+            Statements 105-156
+              VariableDeclarationStatement 132-139
+                UintKeyword 132-136
+                Identifier 137-138
+              VariableDeclarationStatement 148-155
+                UintKeyword 148-152
+                Identifier 153-154
+        FunctionDefinition 187-275
+          Identifier 196-197
+          ParametersDeclaration 197-199
+            Parameters 198-198
+          FunctionAttributes 199-206
+            PublicKeyword 200-206
+          Block 207-275
+            Statements 209-270
+              VariableDeclarationStatement 217-224
+                UintKeyword 217-221
+                Identifier 222-223
+              VariableDeclarationStatement 248-255
+                UintKeyword 248-252
+                Identifier 253-254
+        FunctionDefinition 281-334
+          Identifier 290-291
+          ParametersDeclaration 291-293
+            Parameters 292-292
+          FunctionAttributes 293-300
+            PublicKeyword 294-300
+          Block 301-334
+            Statements 303-303
+`;
+
+exports[`StructMembers.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+struct A {/* first */ uint a; uint b; /* last */}
+
+struct B {
+    // leading
+    uint a;
+    uint b;
+    // trailing
+}
+
+struct C {
+    uint a; // after first
+    uint b; // after last
+}
+
+=====================================output=====================================
+struct A {
+    /* first */ uint a;
+    uint b; /* last */
+}
+
+struct B {
+    // leading
+    uint a;
+    uint b;
+    // trailing
+}
+
+struct C {
+    uint a; // after first
+    uint b; // after last
+}
+
+================================================================================
+`;
+
+exports[`StructMembers.sol locations 1`] = `
+SourceUnit 0-186
+  SourceUnitMembers 0-186
+    StructDefinition 0-49
+      Identifier 7-8
+      StructMembers 10-37
+        StructMember 22-29
+          UintKeyword 22-26
+          Identifier 27-28
+        StructMember 30-37
+          UintKeyword 30-34
+          Identifier 35-36
+    StructDefinition 51-118
+      Identifier 58-59
+      StructMembers 62-101
+        StructMember 81-88
+          UintKeyword 81-85
+          Identifier 86-87
+        StructMember 93-100
+          UintKeyword 93-97
+          Identifier 98-99
+    StructDefinition 120-185
+      Identifier 127-128
+      StructMembers 131-184
+        StructMember 135-142
+          UintKeyword 135-139
+          Identifier 140-141
+        StructMember 162-169
+          UintKeyword 162-166
+          Identifier 167-168
+`;
+
+exports[`TupleDeconstructionElements.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f() public pure returns (uint, uint) { return (1, 2); }
+
+    function g() public pure {
+        (/* first */ uint a, uint b /* last */) = f();
+        (
+            // leading
+            uint c,
+            uint d
+            // trailing
+        ) = f();
+        (
+            uint e, // after first
+            uint g // after last
+        ) = f();
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f() public pure returns (uint, uint) {
+        return (1, 2);
+    }
+
+    function g() public pure {
+        (/* first */ uint a, uint b /* last */) = f();
+        (
+            // leading
+            uint c,
+            uint d
+            // trailing
+        ) = f();
+        (
+            uint e, // after first
+            uint g // after last
+        ) = f();
+    }
+}
+
+================================================================================
+`;
+
+exports[`TupleDeconstructionElements.sol locations 1`] = `
+SourceUnit 0-385
+  SourceUnitMembers 0-385
+    ContractDefinition 0-384
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-383
+        FunctionDefinition 17-81
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          FunctionAttributes 29-41
+            PublicKeyword 30-36
+            PureKeyword 37-41
+          ReturnsDeclaration 42-62
+            ParametersDeclaration 50-62
+              Parameters 51-61
+                Parameter 51-55
+                  UintKeyword 51-55
+                Parameter 57-61
+                  UintKeyword 57-61
+          Block 63-81
+            Statements 64-79
+              ReturnStatement 65-79
+                TupleExpression 72-78
+                  TupleValues 73-77
+                    TupleValue 73-74
+                      DecimalNumberExpression 73-74
+                    TupleValue 76-77
+                      DecimalNumberExpression 76-77
+        FunctionDefinition 87-382
+          Identifier 96-97
+          ParametersDeclaration 97-99
+            Parameters 98-98
+          FunctionAttributes 99-111
+            PublicKeyword 100-106
+            PureKeyword 107-111
+          Block 112-382
+            Statements 114-377
+              TupleDeconstructionStatement 122-168
+                TupleDeconstructionElements 123-149
+                  TupleDeconstructionElement 135-141
+                    TypedTupleMember 135-141
+                      UintKeyword 135-139
+                      Identifier 140-141
+                  TupleDeconstructionElement 143-149
+                    TypedTupleMember 143-149
+                      UintKeyword 143-147
+                      Identifier 148-149
+                FunctionCallExpression 164-167
+                  Identifier 164-165
+                  PositionalArgumentsDeclaration 165-167
+                    PositionalArguments 166-166
+              TupleDeconstructionStatement 177-281
+                TupleDeconstructionElements 179-241
+                  TupleDeconstructionElement 214-220
+                    TypedTupleMember 214-220
+                      UintKeyword 214-218
+                      Identifier 219-220
+                  TupleDeconstructionElement 234-240
+                    TypedTupleMember 234-240
+                      UintKeyword 234-238
+                      Identifier 239-240
+                FunctionCallExpression 277-280
+                  Identifier 277-278
+                  PositionalArgumentsDeclaration 278-280
+                    PositionalArguments 279-279
+              TupleDeconstructionStatement 290-376
+                TupleDeconstructionElements 292-360
+                  TupleDeconstructionElement 304-310
+                    TypedTupleMember 304-310
+                      UintKeyword 304-308
+                      Identifier 309-310
+                  TupleDeconstructionElement 339-345
+                    TypedTupleMember 339-345
+                      UintKeyword 339-343
+                      Identifier 344-345
+                FunctionCallExpression 372-375
+                  Identifier 372-373
+                  PositionalArgumentsDeclaration 373-375
+                    PositionalArguments 374-374
+`;
+
+exports[`TupleValues.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f() public pure {
+        uint a;
+        uint b;
+        (a, b) = (/* first */ 1, 2 /* last */);
+        (a, b) = (
+            // leading
+            1,
+            2
+            // trailing
+        );
+        (a, b) = (
+            1, // after first
+            2 // after last
+        );
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f() public pure {
+        uint a;
+        uint b;
+        (a, b) = (/* first */ 1, 2 /* last */);
+        (a, b) = (
+            // leading
+            1,
+            2
+        );
+        // trailing
+        (a, b) = (
+            1, // after first
+            2 // after last
+        );
+    }
+}
+
+================================================================================
+`;
+
+exports[`TupleValues.sol locations 1`] = `
+SourceUnit 0-326
+  SourceUnitMembers 0-326
+    ContractDefinition 0-325
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-324
+        FunctionDefinition 17-323
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          FunctionAttributes 29-41
+            PublicKeyword 30-36
+            PureKeyword 37-41
+          Block 42-323
+            Statements 44-318
+              VariableDeclarationStatement 52-59
+                UintKeyword 52-56
+                Identifier 57-58
+              VariableDeclarationStatement 68-75
+                UintKeyword 68-72
+                Identifier 73-74
+              TupleDeconstructionStatement 84-123
+                TupleDeconstructionElements 85-89
+                  TupleDeconstructionElement 85-86
+                    UntypedTupleMember 85-86
+                      Identifier 85-86
+                  TupleDeconstructionElement 88-89
+                    UntypedTupleMember 88-89
+                      Identifier 88-89
+                TupleExpression 93-122
+                  TupleValues 94-110
+                    TupleValue 106-107
+                      DecimalNumberExpression 106-107
+                    TupleValue 109-110
+                      DecimalNumberExpression 109-110
+              TupleDeconstructionStatement 132-229
+                TupleDeconstructionElements 133-137
+                  TupleDeconstructionElement 133-134
+                    UntypedTupleMember 133-134
+                      Identifier 133-134
+                  TupleDeconstructionElement 136-137
+                    UntypedTupleMember 136-137
+                      Identifier 136-137
+                TupleExpression 141-228
+                  TupleValues 143-195
+                    TupleValue 178-179
+                      DecimalNumberExpression 178-179
+                    TupleValue 193-194
+                      DecimalNumberExpression 193-194
+              TupleDeconstructionStatement 238-317
+                TupleDeconstructionElements 239-243
+                  TupleDeconstructionElement 239-240
+                    UntypedTupleMember 239-240
+                      Identifier 239-240
+                  TupleDeconstructionElement 242-243
+                    UntypedTupleMember 242-243
+                      Identifier 242-243
+                TupleExpression 247-316
+                  TupleValues 249-307
+                    TupleValue 261-262
+                      DecimalNumberExpression 261-262
+                    TupleValue 291-292
+                      DecimalNumberExpression 291-292
+`;
+
+exports[`UnnamedFunctionAttributes.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity 0.5.0;
+
+contract A {
+    function() /* first */ external payable /* last */ {}
+}
+
+contract B {
+    function()
+        // leading
+        external
+        payable
+    // trailing
+    {}
+}
+
+contract C {
+    function() external // after first
+    payable // after last
+    {}
+}
+
+=====================================output=====================================
+pragma solidity 0.5.0;
+
+contract A {
+    function() /* first */ external payable /* last */ {}
+}
+
+contract B {
+    function()
+        // leading
+        external
+        payable
+    // trailing
+    {}
+}
+
+contract C {
+    function()
+        external // after first
+        payable // after last
+    {}
+}
+
+================================================================================
+`;
+
+exports[`UnnamedFunctionAttributes.sol locations 1`] = `
+SourceUnit 0-291
+  SourceUnitMembers 0-291
+    PragmaDirective 0-22
+      VersionPragma 7-21
+        VersionExpressionSets 15-21
+          VersionExpressionSet 15-21
+            VersionTerm 15-21
+              SimpleVersionLiteral 15-21
+                VersionSpecifier 16-17
+                VersionSpecifier 18-19
+                VersionSpecifier 20-21
+    ContractDefinition 24-96
+      Identifier 33-34
+      ContractSpecifiers 34-34
+      ContractMembers 37-95
+        UnnamedFunctionDefinition 41-94
+          ParametersDeclaration 49-51
+            Parameters 50-50
+          UnnamedFunctionAttributes 51-80
+            ExternalKeyword 64-72
+            PayableKeyword 73-80
+          Block 92-94
+            Statements 93-93
+    ContractDefinition 98-202
+      Identifier 107-108
+      ContractSpecifiers 108-108
+      ContractMembers 111-201
+        UnnamedFunctionDefinition 115-200
+          ParametersDeclaration 123-125
+            Parameters 124-124
+          UnnamedFunctionAttributes 126-178
+            ExternalKeyword 153-161
+            PayableKeyword 170-177
+          Block 198-200
+            Statements 199-199
+    ContractDefinition 204-290
+      Identifier 213-214
+      ContractSpecifiers 214-214
+      ContractMembers 217-289
+        UnnamedFunctionDefinition 221-288
+          ParametersDeclaration 229-231
+            Parameters 230-230
+          UnnamedFunctionAttributes 231-282
+            ExternalKeyword 232-240
+            PayableKeyword 260-267
+          Block 286-288
+            Statements 287-287
+`;
+
+exports[`UsingDeconstructionSymbols.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+function a(uint x) pure returns (uint) { return x; }
+function b(uint x) pure returns (uint) { return x; }
+
+using {/* first */ a, b /* last */} for uint;
+using {
+    // leading
+    a,
+    b
+    // trailing
+} for uint;
+using {
+    a, // after first
+    b // after last
+} for uint;
+
+=====================================output=====================================
+function a(uint x) pure returns (uint) {
+    return x;
+}
+function b(uint x) pure returns (uint) {
+    return x;
+}
+
+using {/* first */ a, b /* last */} for uint;
+using {
+    // leading
+    a,
+    b
+} for uint;
+// trailing
+using {
+    a, // after first
+    b // after last
+} for uint;
+
+================================================================================
+`;
+
+exports[`UsingDeconstructionSymbols.sol locations 1`] = `
+SourceUnit 0-279
+  SourceUnitMembers 0-279
+    FunctionDefinition 0-52
+      Identifier 9-10
+      ParametersDeclaration 10-18
+        Parameters 11-17
+          Parameter 11-17
+            UintKeyword 11-15
+            Identifier 16-17
+      FunctionAttributes 18-23
+        PureKeyword 19-23
+      ReturnsDeclaration 24-38
+        ParametersDeclaration 32-38
+          Parameters 33-37
+            Parameter 33-37
+              UintKeyword 33-37
+      Block 39-52
+        Statements 40-50
+          ReturnStatement 41-50
+            Identifier 48-49
+    FunctionDefinition 53-105
+      Identifier 62-63
+      ParametersDeclaration 63-71
+        Parameters 64-70
+          Parameter 64-70
+            UintKeyword 64-68
+            Identifier 69-70
+      FunctionAttributes 71-76
+        PureKeyword 72-76
+      ReturnsDeclaration 77-91
+        ParametersDeclaration 85-91
+          Parameters 86-90
+            Parameter 86-90
+              UintKeyword 86-90
+      Block 92-105
+        Statements 93-103
+          ReturnStatement 94-103
+            Identifier 101-102
+    UsingDirective 107-152
+      UsingDeconstruction 113-142
+        UsingDeconstructionSymbols 114-130
+          UsingDeconstructionSymbol 126-127
+            IdentifierPath 126-127
+              Identifier 126-127
+          UsingDeconstructionSymbol 129-130
+            IdentifierPath 129-130
+              Identifier 129-130
+      UintKeyword 147-151
+    UsingDirective 153-216
+      UsingDeconstruction 159-206
+        UsingDeconstructionSymbols 161-189
+          UsingDeconstructionSymbol 180-181
+            IdentifierPath 180-181
+              Identifier 180-181
+          UsingDeconstructionSymbol 187-188
+            IdentifierPath 187-188
+              Identifier 187-188
+      UintKeyword 211-215
+    UsingDirective 217-278
+      UsingDeconstruction 223-268
+        UsingDeconstructionSymbols 225-267
+          UsingDeconstructionSymbol 229-230
+            IdentifierPath 229-230
+              Identifier 229-230
+          UsingDeconstructionSymbol 251-252
+            IdentifierPath 251-252
+              Identifier 251-252
+      UintKeyword 273-277
+`;
+
+exports[`VersionExpressionSet.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity /* first */ >=0.7.0 <0.9.0 /* last */;
+pragma solidity
+    // leading
+    >=0.7.0
+    <0.9.0
+    // trailing
+;
+pragma solidity >=0.7.0 // after first
+    <0.9.0 // after last
+;
+
+=====================================output=====================================
+pragma solidity /* first */ >=0.7.0 <0.9.0 /* last */;
+pragma solidity
+    // leading
+    >=0.7.0 <0.9.0
+;
+// trailing
+pragma solidity
+    >=0.7.0 <0.9.0 // after first // after last
+;
+
+================================================================================
+`;
+
+exports[`VersionExpressionSet.sol locations 1`] = `
+SourceUnit 0-193
+  SourceUnitMembers 0-193
+    PragmaDirective 0-54
+      VersionPragma 7-42
+        VersionExpressionSets 15-42
+          VersionExpressionSet 15-42
+            VersionTerm 28-35
+              VersionOperator 28-30
+              SimpleVersionLiteral 30-35
+                VersionSpecifier 30-31
+                VersionSpecifier 32-33
+                VersionSpecifier 34-35
+            VersionTerm 36-42
+              VersionOperator 36-37
+              SimpleVersionLiteral 37-42
+                VersionSpecifier 37-38
+                VersionSpecifier 39-40
+                VersionSpecifier 41-42
+    PragmaDirective 55-126
+      VersionPragma 62-109
+        VersionExpressionSets 71-109
+          VersionExpressionSet 71-109
+            VersionTerm 90-98
+              VersionOperator 90-92
+              SimpleVersionLiteral 92-98
+                VersionSpecifier 92-93
+                VersionSpecifier 94-95
+                VersionSpecifier 96-97
+            VersionTerm 102-109
+              VersionOperator 102-103
+              SimpleVersionLiteral 103-109
+                VersionSpecifier 103-104
+                VersionSpecifier 105-106
+                VersionSpecifier 107-108
+    PragmaDirective 127-192
+      VersionPragma 134-191
+        VersionExpressionSets 142-191
+          VersionExpressionSet 142-191
+            VersionTerm 143-166
+              VersionOperator 143-145
+              SimpleVersionLiteral 145-166
+                VersionSpecifier 145-146
+                VersionSpecifier 147-148
+                VersionSpecifier 149-150
+            VersionTerm 170-191
+              VersionOperator 170-171
+              SimpleVersionLiteral 171-191
+                VersionSpecifier 171-172
+                VersionSpecifier 173-174
+                VersionSpecifier 175-176
+`;
+
+exports[`VersionExpressionSets.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+pragma solidity /* first */ ^0.8.0 || ^0.7.0 /* last */;
+pragma solidity
+    // leading
+    ^0.8.0 ||
+    ^0.7.0
+    // trailing
+;
+pragma solidity ^0.8.0 || // after first
+    ^0.7.0 // after last
+;
+
+=====================================output=====================================
+pragma solidity /* first */ ^0.8.0 || ^0.7.0 /* last */;
+pragma solidity
+    // leading
+    ^0.8.0 ||
+    ^0.7.0
+;
+// trailing
+pragma solidity
+    ^0.8.0 || // after first
+    ^0.7.0 // after last
+;
+
+================================================================================
+`;
+
+exports[`VersionExpressionSets.sol locations 1`] = `
+SourceUnit 0-199
+  SourceUnitMembers 0-199
+    PragmaDirective 0-56
+      VersionPragma 7-44
+        VersionExpressionSets 15-44
+          VersionExpressionSet 15-34
+            VersionTerm 28-34
+              VersionOperator 28-29
+              SimpleVersionLiteral 29-34
+                VersionSpecifier 29-30
+                VersionSpecifier 31-32
+                VersionSpecifier 33-34
+          VersionExpressionSet 37-44
+            VersionTerm 38-44
+              VersionOperator 38-39
+              SimpleVersionLiteral 39-44
+                VersionSpecifier 39-40
+                VersionSpecifier 41-42
+                VersionSpecifier 43-44
+    PragmaDirective 57-130
+      VersionPragma 64-113
+        VersionExpressionSets 73-113
+          VersionExpressionSet 73-98
+            VersionTerm 92-98
+              VersionOperator 92-93
+              SimpleVersionLiteral 93-98
+                VersionSpecifier 93-94
+                VersionSpecifier 95-96
+                VersionSpecifier 97-98
+          VersionExpressionSet 102-113
+            VersionTerm 106-113
+              VersionOperator 106-107
+              SimpleVersionLiteral 107-113
+                VersionSpecifier 107-108
+                VersionSpecifier 109-110
+                VersionSpecifier 111-112
+    PragmaDirective 131-198
+      VersionPragma 138-197
+        VersionExpressionSets 146-197
+          VersionExpressionSet 146-153
+            VersionTerm 147-153
+              VersionOperator 147-148
+              SimpleVersionLiteral 148-153
+                VersionSpecifier 148-149
+                VersionSpecifier 150-151
+                VersionSpecifier 152-153
+          VersionExpressionSet 172-197
+            VersionTerm 176-197
+              VersionOperator 176-177
+              SimpleVersionLiteral 177-197
+                VersionSpecifier 177-178
+                VersionSpecifier 179-180
+                VersionSpecifier 181-182
+`;
+
+exports[`YulArguments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f() public pure {
+        assembly {
+            let a := add(/* first */ 1, 2 /* last */)
+            let b := add(
+                // leading
+                1,
+                2
+                // trailing
+            )
+            let c := add(
+                1, // after first
+                2 // after last
+            )
+        }
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f() public pure {
+        assembly {
+            let a := add(/* first */ 1, 2 /* last */)
+            let b := add(
+                // leading
+                1,
+                2
+            )
+            // trailing
+            let c := add(
+                1, // after first
+                2 // after last
+            )
+        }
+    }
+}
+
+================================================================================
+`;
+
+exports[`YulArguments.sol locations 1`] = `
+SourceUnit 0-373
+  SourceUnitMembers 0-373
+    ContractDefinition 0-372
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-371
+        FunctionDefinition 17-370
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          FunctionAttributes 29-41
+            PublicKeyword 30-36
+            PureKeyword 37-41
+          Block 42-370
+            Statements 44-365
+              AssemblyStatement 52-364
+                YulBlock 61-364
+                  YulStatements 63-355
+                    YulVariableDeclarationStatement 75-116
+                      YulVariableNames 79-80
+                        YulIdentifier 79-80
+                      YulVariableDeclarationValue 81-116
+                        ColonEqual 81-83
+                        YulFunctionCallExpression 84-116
+                          YulPath 84-87
+                            YulIdentifier 84-87
+                          YulArguments 88-104
+                            YulDecimalLiteral 100-101
+                            YulDecimalLiteral 103-104
+                    YulVariableDeclarationStatement 129-248
+                      YulVariableNames 133-134
+                        YulIdentifier 133-134
+                      YulVariableDeclarationValue 135-248
+                        ColonEqual 135-137
+                        YulFunctionCallExpression 138-248
+                          YulPath 138-141
+                            YulIdentifier 138-141
+                          YulArguments 143-207
+                            YulDecimalLiteral 186-187
+                            YulDecimalLiteral 205-206
+                    YulVariableDeclarationStatement 261-354
+                      YulVariableNames 265-266
+                        YulIdentifier 265-266
+                      YulVariableDeclarationValue 267-354
+                        ColonEqual 267-269
+                        YulFunctionCallExpression 270-354
+                          YulPath 270-273
+                            YulIdentifier 270-273
+                          YulArguments 275-341
+                            YulDecimalLiteral 291-292
+                            YulDecimalLiteral 325-326
+`;
+
+exports[`YulParameters.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f() public pure {
+        assembly {
+            function a(/* first */ x, y /* last */) -> z {}
+            function b(
+                // leading
+                x,
+                y
+                // trailing
+            ) -> z {}
+            function c(
+                x, // after first
+                y // after last
+            ) -> z {}
+        }
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f() public pure {
+        assembly {
+            function a(/* first */ x, y /* last */) -> z {}
+            function b(
+                // leading
+                x,
+                y
+            ) -> z {}
+            // trailing
+            function c(
+                x, // after first
+                y // after last
+            ) -> z {}
+        }
+    }
+}
+
+================================================================================
+`;
+
+exports[`YulParameters.sol locations 1`] = `
+SourceUnit 0-391
+  SourceUnitMembers 0-391
+    ContractDefinition 0-390
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-389
+        FunctionDefinition 17-388
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          FunctionAttributes 29-41
+            PublicKeyword 30-36
+            PureKeyword 37-41
+          Block 42-388
+            Statements 44-383
+              AssemblyStatement 52-382
+                YulBlock 61-382
+                  YulStatements 63-373
+                    YulFunctionDefinition 75-122
+                      YulIdentifier 84-85
+                      YulParametersDeclaration 85-114
+                        YulParameters 86-102
+                          YulIdentifier 98-99
+                          YulIdentifier 101-102
+                      YulReturnsDeclaration 115-119
+                        YulVariableNames 118-119
+                          YulIdentifier 118-119
+                      YulBlock 120-122
+                        YulStatements 121-121
+                    YulFunctionDefinition 135-260
+                      YulIdentifier 144-145
+                      YulParametersDeclaration 145-252
+                        YulParameters 147-211
+                          YulIdentifier 190-191
+                          YulIdentifier 209-210
+                      YulReturnsDeclaration 253-257
+                        YulVariableNames 256-257
+                          YulIdentifier 256-257
+                      YulBlock 258-260
+                        YulStatements 259-259
+                    YulFunctionDefinition 273-372
+                      YulIdentifier 282-283
+                      YulParametersDeclaration 283-364
+                        YulParameters 285-351
+                          YulIdentifier 301-302
+                          YulIdentifier 335-336
+                      YulReturnsDeclaration 365-369
+                        YulVariableNames 368-369
+                          YulIdentifier 368-369
+                      YulBlock 370-372
+                        YulStatements 371-371
+`;
+
+exports[`YulStatements.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract C {
+    function f() public pure {
+        assembly {/* first */ let a := 1 let b := 2 /* last */}
+        assembly {
+            // leading
+            let a := 1
+            let b := 2
+            // trailing
+        }
+        assembly {
+            let a := 1 // after first
+            let b := 2 // after last
+        }
+        assembly {
+            // only a comment
+        }
+    }
+}
+
+=====================================output=====================================
+contract C {
+    function f() public pure {
+        assembly {
+            /* first */ let a := 1
+            let b := 2 /* last */
+        }
+        assembly {
+            // leading
+            let a := 1
+            let b := 2
+            // trailing
+        }
+        assembly {
+            let a := 1 // after first
+            let b := 2 // after last
+        }
+        assembly {
+            // only a comment
+        }
+    }
+}
+
+================================================================================
+`;
+
+exports[`YulStatements.sol locations 1`] = `
+SourceUnit 0-401
+  SourceUnitMembers 0-401
+    ContractDefinition 0-400
+      Identifier 9-10
+      ContractSpecifiers 10-10
+      ContractMembers 13-399
+        FunctionDefinition 17-398
+          Identifier 26-27
+          ParametersDeclaration 27-29
+            Parameters 28-28
+          FunctionAttributes 29-41
+            PublicKeyword 30-36
+            PureKeyword 37-41
+          Block 42-398
+            Statements 44-393
+              AssemblyStatement 52-107
+                YulBlock 61-107
+                  YulStatements 62-95
+                    YulVariableDeclarationStatement 74-84
+                      YulVariableNames 78-79
+                        YulIdentifier 78-79
+                      YulVariableDeclarationValue 80-84
+                        ColonEqual 80-82
+                        YulDecimalLiteral 83-84
+                    YulVariableDeclarationStatement 85-95
+                      YulVariableNames 89-90
+                        YulIdentifier 89-90
+                      YulVariableDeclarationValue 91-95
+                        ColonEqual 91-93
+                        YulDecimalLiteral 94-95
+              AssemblyStatement 116-229
+                YulBlock 125-229
+                  YulStatements 127-196
+                    YulVariableDeclarationStatement 162-172
+                      YulVariableNames 166-167
+                        YulIdentifier 166-167
+                      YulVariableDeclarationValue 168-172
+                        ColonEqual 168-170
+                        YulDecimalLiteral 171-172
+                    YulVariableDeclarationStatement 185-195
+                      YulVariableNames 189-190
+                        YulIdentifier 189-190
+                      YulVariableDeclarationValue 191-195
+                        ColonEqual 191-193
+                        YulDecimalLiteral 194-195
+              AssemblyStatement 238-333
+                YulBlock 247-333
+                  YulStatements 249-324
+                    YulVariableDeclarationStatement 261-271
+                      YulVariableNames 265-266
+                        YulIdentifier 265-266
+                      YulVariableDeclarationValue 267-271
+                        ColonEqual 267-269
+                        YulDecimalLiteral 270-271
+                    YulVariableDeclarationStatement 299-309
+                      YulVariableNames 303-304
+                        YulIdentifier 303-304
+                      YulVariableDeclarationValue 305-309
+                        ColonEqual 305-307
+                        YulDecimalLiteral 308-309
+              AssemblyStatement 342-392
+                YulBlock 351-392
+                  YulStatements 353-353
+`;

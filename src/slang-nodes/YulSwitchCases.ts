@@ -19,8 +19,6 @@ export class YulSwitchCases extends SlangNode {
     this.items = ast.items.map((item) =>
       extractVariant(new YulSwitchCase(item, collected))
     );
-
-    this.updateMetadata(...this.items);
   }
 
   print(print: PrintFunction, path: AstPath<YulSwitchCases>): Doc {

@@ -17,7 +17,7 @@ export class TupleDeconstructionElements extends SlangNode {
     ast: ast.TupleDeconstructionElements,
     collected: CollectedMetadata
   ) {
-    super(ast, collected, true);
+    super(ast, collected);
 
     this.items = ast.items.map(
       (item) => new TupleDeconstructionElement(item, collected)

@@ -18,8 +18,6 @@ export class ErrorParametersDeclaration extends SlangNode {
     super(ast, collected);
 
     this.parameters = new ErrorParameters(ast.parameters, collected);
-
-    this.updateMetadata(this.parameters);
   }
 
   print(print: PrintFunction): Doc {

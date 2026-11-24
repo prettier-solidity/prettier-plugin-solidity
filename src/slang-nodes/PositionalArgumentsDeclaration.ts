@@ -22,8 +22,6 @@ export class PositionalArgumentsDeclaration extends SlangNode {
 
     this.arguments = new PositionalArguments(ast.arguments, collected);
 
-    this.updateMetadata(this.arguments);
-
     // We need to check the comments at this point because they will be removed
     // from this node into the root node.
     // Since we are collecting comments in a different array, we have to query

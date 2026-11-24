@@ -22,8 +22,6 @@ export class VersionTerm extends SlangNode {
       this.operator = new VersionOperator(ast.operator, collected);
     }
     this.literal = extractVariant(new VersionLiteral(ast.literal, collected));
-
-    this.updateMetadata(this.operator, this.literal);
   }
 
   print(print: PrintFunction): Doc {

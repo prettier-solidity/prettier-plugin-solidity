@@ -16,8 +16,6 @@ export class PragmaDirective extends SlangNode {
     super(ast, collected);
 
     this.pragma = extractVariant(new Pragma(ast.pragma, collected));
-
-    this.updateMetadata(this.pragma);
   }
 
   print(print: PrintFunction): Doc {
