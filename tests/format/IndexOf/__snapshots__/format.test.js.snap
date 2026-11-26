@@ -109,8 +109,9 @@ contract IndexOf {
                     while (
                         subindex < b.length &&
                         (i + subindex) < a.length &&
-                        a[i + subindex] == b[subindex] // search until the chars don't match or until we reach the end of a or b
+                        a[i + subindex] == b[subindex]
                     ) {
+                        // search until the chars don't match or until we reach the end of a or b
                         subindex++;
                     }
                     if (subindex == b.length) {

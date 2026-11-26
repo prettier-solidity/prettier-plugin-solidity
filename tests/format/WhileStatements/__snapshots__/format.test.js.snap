@@ -1,5 +1,184 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`WhileStatementComments.sol format 1`] = `
+====================================options=====================================
+parsers: ["slang"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+contract WhileStatementComments {
+    function condition() public {
+        while (/* before condition */ a) { x; }
+
+        while (a /* after condition */) { x; }
+
+        while (a // end of line comment
+        ) { x; }
+    }
+
+    function blockBody() public {
+        while (a) /* block comment */ { x; }
+
+        while (a) // end of line comment
+        { x; }
+
+        while (a)
+        // own line comment
+        { x; }
+
+        while (a) /* empty body */ {}
+    }
+
+    function statementBody() public {
+        while (a) /* block comment */ x;
+
+        while (a) // end of line comment
+        x;
+
+        while (a)
+        // own line comment
+        x;
+    }
+}
+
+=====================================output=====================================
+contract WhileStatementComments {
+    function condition() public {
+        while (/* before condition */ a) {
+            x;
+        }
+
+        while (a /* after condition */) {
+            x;
+        }
+
+        while (
+            a // end of line comment
+        ) {
+            x;
+        }
+    }
+
+    function blockBody() public {
+        while (a) {
+            /* block comment */ x;
+        }
+
+        while (a) {
+            // end of line comment
+            x;
+        }
+
+        while (a) {
+            // own line comment
+            x;
+        }
+
+        while (a) {
+            /* empty body */
+        }
+    }
+
+    function statementBody() public {
+        while (a) /* block comment */ x;
+
+        while (a)
+            // end of line comment
+            x;
+
+        while (a)
+            // own line comment
+            x;
+    }
+}
+
+================================================================================
+`;
+
+exports[`WhileStatementComments.sol locations 1`] = `
+SourceUnit 0-671
+  SourceUnitMembers 0-671
+    ContractDefinition 0-670
+      Identifier 9-31
+      ContractSpecifiers 31-31
+      ContractMembers 34-669
+        FunctionDefinition 38-227
+          Identifier 47-56
+          ParametersDeclaration 56-58
+            Parameters 57-57
+          FunctionAttributes 58-65
+            PublicKeyword 59-65
+          Block 66-227
+            Statements 68-222
+              WhileStatement 76-115
+                Identifier 106-107
+                Block 109-115
+                  Statements 110-113
+                    ExpressionStatement 111-113
+                      Identifier 111-112
+              WhileStatement 125-163
+                Identifier 132-133
+                Block 157-163
+                  Statements 158-161
+                    ExpressionStatement 159-161
+                      Identifier 159-160
+              WhileStatement 173-221
+                Identifier 180-181
+                Block 215-221
+                  Statements 216-219
+                    ExpressionStatement 217-219
+                      Identifier 217-218
+        FunctionDefinition 233-471
+          Identifier 242-251
+          ParametersDeclaration 251-253
+            Parameters 252-252
+          FunctionAttributes 253-260
+            PublicKeyword 254-260
+          Block 261-471
+            Statements 263-466
+              WhileStatement 271-307
+                Identifier 278-279
+                Block 301-307
+                  Statements 302-305
+                    ExpressionStatement 303-305
+                      Identifier 303-304
+              WhileStatement 317-364
+                Identifier 324-325
+                Block 358-364
+                  Statements 359-362
+                    ExpressionStatement 360-362
+                      Identifier 360-361
+              WhileStatement 374-426
+                Identifier 381-382
+                Block 420-426
+                  Statements 421-424
+                    ExpressionStatement 422-424
+                      Identifier 422-423
+              WhileStatement 436-465
+                Identifier 443-444
+                Block 463-465
+                  Statements 464-464
+        FunctionDefinition 477-668
+          Identifier 486-499
+          ParametersDeclaration 499-501
+            Parameters 500-500
+          FunctionAttributes 501-508
+            PublicKeyword 502-508
+          Block 509-668
+            Statements 511-663
+              WhileStatement 519-551
+                Identifier 526-527
+                ExpressionStatement 549-551
+                  Identifier 549-550
+              WhileStatement 561-604
+                Identifier 568-569
+                ExpressionStatement 602-604
+                  Identifier 602-603
+              WhileStatement 614-662
+                Identifier 621-622
+                ExpressionStatement 660-662
+                  Identifier 660-661
+`;
+
 exports[`WhileStatements.sol format 1`] = `
 ====================================options=====================================
 parsers: ["slang"]

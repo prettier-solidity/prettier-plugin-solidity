@@ -29,7 +29,7 @@ export default function handleWhileStatementComments({
     text,
     locEnd(comment)
   );
-  if (nextCharacter === ')' || enclosingNode.condition === precedingNode) {
+  if (nextCharacter === ')' && enclosingNode.condition === precedingNode) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
